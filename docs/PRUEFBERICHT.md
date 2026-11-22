@@ -41,6 +41,15 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 349 · 1903, 1904, damit 1782; Nebenfund 1893 ueberblick_test (lesend, Auftrag Ford; Kopie `claude/spike-1871-umschalten` `58816e80d`; 22.11., 10:00–10:05)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1903 greift: Verneinung im Satzteil („passt nicht“, „noch nicht freigegeben“, „Gut, passt nicht“), einzelnes 👍/👎, „- 3 ✓“ ohne Build → Arbeitsplaner; „- 3 ✗ …“ mit Build → Disponent.
+- 1904 greift: „steckt fest“ von Hand geschrieben, Schreiben gescheitert → nächster Lauf holt die Zeile an Sokrates nach, Liste im selben Commit, dritter Lauf keine zweite (rueckmeldung_test). Auf `main` steht heute keine Zeile „steckt fest“, kein Schwall beim Umschalten.
+- 1782 greift nicht: **D341.1** → 1908 (Spike): Freigabe mit Einschränkung oder als Frage geht an den Disponenten, nachgestellt: „Passt, aber Schatten zu dunkel. Build 312“, „Gut gemeint, aber zu laut, Build 312“, „Passt, aber noch nicht freigeben, Build 312“, „Passt das? Build 312“ → Disponent. 1782 wartet auf 1908.
+- 58816e80d (Nebenfund 1893) wirkt: neben `../bornim-main` alt rot („FEHL Zeile heute, gestern, Woche, Monat“), neu grün. Ohne Befund: `ueberblick.py` läuft im Betrieb nur als eigener Prozess (`zug-index.py`), dort sind Werkzeug- und Notizrepo gleich; nur bei Import nach `lauf.py` läse der Stand die Liste des Zweigs (Probe: 07:53 statt 09:58 auf `main`).
+- Nicht geprüft: echte Läufe (nichts scharf).
+
 ## Lauf 348 · 1895, 1896, 1897, 1899, damit 1893 und 1798 (lesend, Weiter von Ford; Kopie `c6ad5904f`; 22.11., 09:33–09:40)
 
 - Alle 45 `tools/*_test.py` an der Kopie grün, Arbeitskopie danach sauber.

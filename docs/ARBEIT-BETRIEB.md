@@ -7,7 +7,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 **Guthaben zurückgesetzt Sa 21.11., 19:59; Uhren wieder an.** **Chef 21.11., 20:06 (über Sokrates, Archiv):** „Tom und Jerry machen nur mal fertig, was sie jetzt noch offen haben … Ansonsten machen sie nichts. … Uns fehlen die restlichen Werkzeuge. Die müssen wir jetzt machen.“ → Spike nur 1727-Werkzeuge (1760, 1739, 1742, 1749 und neue von Sokrates); Tom nur 1535 zu Ende; Jerry nur 1765 (Chef 20:20); Diogenes nur lesend (1718, Gegenlesen 1727); Perikles 1767; Homer: kein Start bis zum Umschalten, auch kein Nachfolger, keine Kür (1905; Chef 22.11., 09:41 über Sokrates: „Homer kriegt keinen Neustart mehr, da hat ja nichts mehr zu tun, bis wir umgestellt haben.“; ersetzt 09:28); entsteht ein Muss an Homer, an Sokrates melden, nicht starten; in jedem Lauf `--ohne "Homer:1905"`; Tom, Jerry, Tuffy ebenso bis zum Umschalten, auch keine Nachfolger, einzige Ausnahme 1765 (Jerry) erst nach Chefwort zu 1727h (1906; Chef 22.11., 09:45 über Sokrates: „Ja, Tom und Jerry auch bis zum Umschalten anhalten.“), Muss an Tom/Jerry an Sokrates melden; `--ohne "Tom:1906" --ohne "Jerry:1906" --ohne "Tuffy:1906"`; keine anderen Team-Vorgänge, keine Kür; Stundenlauf bis zur Umstellung nur `lauf.py --besetzung` ohne `--sperre` (sonst neue Startsperren für Rollen, die nicht starten; `--ohne` greift je Nummer, lauf.py nimmt dann die nächste); Starts von Hand nach Chefwort. Umgeschaltet wird nach Falltest (14:37). **Herzschlag (1764, seit 21.11.):** nach jedem `lauf.py --besetzung` `ARBEIT-BESETZUNG.md` committen und pushen, sonst Fehlalarm nach 2 h. 21.11. tagsüber lief Mehrnutzung („isUsingOverage“), Chef gemeldet 15:09. Aufträge (Probe 1625) als neue Sitzung mit dem Auftrag aus `entwurf/` wörtlich, ohne Startlektüre; Ford trägt ein, sortiert ein, gleicht ab („gibt es schon?“); Aufträge schreiben Perikles und Sokrates. Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1908** (zuletzt 1907 Spike 22.11. 09:56:38 23d9) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1909** (zuletzt 1908 Spike 22.11. 10:04:37 4fbb) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -48,8 +48,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
-- 09:42 22.11.: Startsperre 09:42 Start Homer (Neustart, 5048ab51a, 1628)
-- 09:41 22.11.: Startsperre 09:41 Start Spike (Neustart, 920b4cb61, 1903, 1904 zuerst)
+- 10:05 22.11.: Startsperre 10:05 Start Perikles (Tagesbericht 22.11., 448)
 - 22.11., 07:55 Ford: Spike `…787KJ4un4X2q9HM7Fe` archiviert (4,10 $ auf 1804, 1807), Nachfolger `…79tQTiER1tcELHt1vz` (1871 zuerst); Diogenes `…75RZKDwbGpBQvdoTJd` archiviert (4,29 $ auf 1801, 1807, 1760, 1799), Nachfolger Wochenzählung erst 23.11.; Warnung „Start Diogenes nicht angekommen“ (07:16) irrig, lief und ist archiviert.
 - 22.11., 07:45 Ford: übernommen (`…75isNEtDyWupWmoFTR`); alter Ford archiviert (208,46 $ auf 1574), Sokrates `…75SrwmjpvNxeNEdckU` archiviert (27,76 $ auf 1727), Nachfolger `…766KCj14w54LxrDwYN`; Spike `…778HYhvtMFZAaJ8bQm` archiviert (5,70 $ auf 1739), Nachfolger `…787KJ4un4X2q9HM7Fe` (1871 zuerst); Diogenes 1760, 1799. Uhr neu `trig_01GL9hSYfk6n7WN8ABr4WeVf`, alte aus. Offen: Kosten Diogenes 22:07 (Lauf 330) ungebucht.
 
@@ -126,6 +125,9 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:21 16.11.: Planabweichung: lauf.py plante Tuffy 1408, Start stattdessen auf 1411.1 (Sokrates 20:20, Chef 20:19 „kann das ein freier Entwickler machen“; 1411.1 laut Vorgangsliste „startbar, Tuffy“)
 - 19:43 16.11.: Sokrates Neustart (session_01Hmoj7A8bEWynsHcFDiq9Qy), alte …78yKr84GyQjcDaM636 archiviert, 5,39 $ auf 1411, 1478 gebucht
 - 19:37 16.11.: Lauf 19:35: Start Diogenes 1385 (session_01Hmoj76ZXZhJrxTbHvQ4FiN), Start Perikles M? 1478 (session_01Hmoj7A9JQitciHyQxAs6gq, erste Nachricht mit Kaufrepo-Satz); alte Perikles archiviert, 4,55 $ auf 1474; Neustart Sokrates (cb4a0255a) offen: alte …78yKr84GyQjcDaM636 arbeitet noch, Start nach ihrem Ende; Tom bleibt (Weckrufe 1417/1420)
+- 09:59 22.11.: Startsperre 09:59 Start Diogenes (1903, 1904, 1782 lesend, Spike 58816e80d)
+- 09:42 22.11.: Startsperre 09:42 Start Homer (Neustart, 5048ab51a, 1628; 09:43 wieder beendet, 1905)
+- 09:41 22.11.: Startsperre 09:41 Start Spike (Neustart, 920b4cb61, 1903, 1904 zuerst)
 - 09:21 22.11.: Startsperre 09:21 Start Spike (Neustart, 1a917d744, 1895–1899 zuerst)
 - 09:20 22.11.: Startsperre 09:20 Start Diogenes (1782 lesend, Spike b0de2ea39)
 - 09:11 22.11.: Startsperre 09:11 Start Sokrates (Neustart 400 Tsd., f51b732a1, 1727)
@@ -149,3 +151,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:28 22.11.: Startsperre 09:28 Start Homer (lauf.py, 1900)
 - 09:28 22.11.: Marke Nachhalten 22.11. (lauf.py)
 - 09:28 22.11.: Marke Abgleich ganz 22.11. (lauf.py)
+- 10:04 22.11.: Marke Tagesbericht 22.11. (lauf.py)
