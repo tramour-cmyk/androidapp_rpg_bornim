@@ -37,6 +37,7 @@ def lauf(*a, zeit="21.11., 20:30"):
 vg = lauf
 os.environ.update(ENV)
 sys.path.insert(0, os.path.join(A, "tools"))
+rm_lauf = lauf  # 1797: lauf wird weiter unten zum Modul lauf.py
 import rueckmeldung as rm
 
 # 1 Erstes Wort
@@ -47,7 +48,10 @@ for t, w in [("nein, Auftrag: Prüffrage am Ziel vorbei", {"nein, Auftrag"}), ("
              ("**Jerry** [21.11., 20:41]\nnein", {"nein"}), ("**Tom**: Frage zum Licht", {"Frage"}), ("Tom 2 [21.11., 20:41] fertig", {"fertig"}),
              ("Nein [Hof] steckt fest", {"nein", "steckt fest"}),
              ("**nein, Auftrag**: falsch", {"nein, Auftrag"}), ("**steckt fest**: Licht", {"steckt fest"}), ("**Frage:** welcher Text?", {"Frage"}),
-             ("**Nein.** steckt fest", {"nein", "steckt fest"}), ("**Frage** zum Licht", {"Frage"}), ("**Spike** [21.11.2026, 20:41] nein", {"nein"})]:
+             ("**Nein.** steckt fest", {"nein", "steckt fest"}), ("**Frage** zum Licht", {"Frage"}), ("**Spike** [21.11.2026, 20:41] nein", {"nein"}),
+             ("abgebrochen: Filmlauf ohne Ausgabe", {"abgebrochen"}), ("**Spike** [22.11., 08:00] abgebrochen", {"abgebrochen"}),
+             ("Auftrag steht: 1694-4", {"Auftrag steht"}), ("kein Auftrag nötig: schon gebaut", {"kein Auftrag nötig"}),
+             ("fertig 1a2b3c4. Hinweis: Prüffrage fehlt", {"fertig", "Hinweis im Text"}), ("Notiz. Hinweis: Geländer", {"Hinweis"})]:
     soll("Wort %r" % t[:25], rm.worte(t) == w, rm.worte(t))
 
 # 2 B: erstes „steckt fest“ an Sokrates, zweites an den Chef (ruht)
@@ -89,7 +93,7 @@ soll("drittes nein → ruht", "Obergrenze A: 3. abgelehnter Auftrag → ruht, be
 rc, out = lauf("rueckmeldung", "9003", "nein: Hall immer noch", zeit="21.11., 20:35")
 soll("gleiche Rückmeldung zur gleichen Minute: einmal", "schon eingetragen" in out and datei("9003").count("Hall immer noch") == 1, out)
 rc, out = lauf("rueckmeldung", "9006", "nein: Stufe zu hoch", zeit="21.11., 20:36")
-soll("nein ohne fertig: Disponent, Macher unbekannt", "OFFEN 9006-Ü1 an Disponent" in out and "Macher unbekannt" in datei("9006"), out)
+soll("nein ohne fertig: Disponent, Fachkraft unbekannt", "OFFEN 9006-Ü1 an Disponent" in out and "Fachkraft unbekannt" in datei("9006"), out)
 rc, out = lauf("rueckmeldung", "9006", "Hinweis: Geländer fehlt auch", zeit="21.11., 20:37")
 soll("Hinweis → Disponent wie Eingang", "OFFEN 9006-Ü2 an Disponent" in out and "wie einen Eingang" in datei("9006"), out)
 rc, out = lauf("rueckmeldung", "9006", "Notiz ohne Signalwort", zeit="21.11., 20:38")
@@ -153,7 +157,7 @@ soll("Zeile an Tom angelegt", rc == 0 and "9005-Ü1" in datei("9005"), out)
 g("pull", "-q", "origin", "main", cwd=A)
 gerufen = []
 aus = []; lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: gerufen.append((r, nr)) or True)
-soll("Tom ohne Sitzung: start gerufen, keine NACHRICHT Ford für Tom", ("Tom", "9003") in gerufen and not any("keine Sitzung Tom" in z for z in aus), (gerufen, aus))
+soll("Tom ohne Sitzung: start gerufen, keine NACHRICHT Ford für Tom", any(r == "Tom" for r, _ in gerufen) and not any("keine Sitzung Tom" in z for z in aus), (gerufen, aus))
 aus = []; lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: False)
 soll("start kann nicht: NACHRICHT Ford „keine Sitzung Tom“", any(z.startswith("NACHRICHT Ford | - | keine Sitzung Tom") for z in aus), aus)
 tom = {"id": "session_TOM", "_info": (0, False, 30), "updated_at": "2026-11-21T19:00:00Z", "created_at": "2026-11-21T18:00:00Z", "title": "Tom – 9005"}
@@ -178,6 +182,19 @@ soll("leere Vorlage: Auftrag ungültig", (lauf.auftrag_fehlt("9001", ad) or "").
 open(os.path.join(ad, "vorgang", "9001.md"), "a").write("\n## Auftrag (21.11., 20:30)\n\nAuftrag 9001\n\n" + "\n".join("%d. **%s:** etwas Inhalt hier" % (i, f) for i, f in enumerate(_af.FELDER, 1)) + "\n\n## Übergaben\n\nx\n")
 soll("jüngster Auftrag gültig: Start erlaubt", lauf.auftrag_fehlt("9001", ad) is None)
 soll("Archivschutz: 1 Min. bis zur Umschaltung, scharf 15 Min. (1739, 7.1)", lauf.schutz_min(False) == 1 and lauf.schutz_min(True) == 15)
+
+# 1797 abgebrochen (ein Neustart, zweites an Sokrates), Auftrag steht, kein Auftrag nötig, Hinweis hinter fertig
+rc, out = rm_lauf("rueckmeldung", "9027", "abgebrochen: Filmlauf ohne Ausgabe", zeit="21.11., 20:40")
+soll("1797 abgebrochen → Disponent, ein Neustart", "OFFEN 9027-Ü1 an Disponent" in out and "einmal neu starten" in datei("9027"), out)
+rc, out = rm_lauf("rueckmeldung", "9027", "abgebrochen: wieder ohne Ausgabe", zeit="21.11., 20:41")
+soll("1797 zweites abgebrochen → Sokrates steckt fest", "OFFEN 9027-Ü2 an Sokrates" in out and "2. „abgebrochen“" in datei("9027"), out)
+rc, out = rm_lauf("rueckmeldung", "9008", "Auftrag steht: 9008-1", zeit="21.11., 20:42")
+soll("1797 Auftrag steht → Disponent startet Fachkraft", "OFFEN 9008-Ü1 an Disponent" in out and "Fachkraft nach Profil" in datei("9008"), out)
+rc, out = rm_lauf("rueckmeldung", "9008", "kein Auftrag nötig: schon gebaut in abc1234", zeit="21.11., 20:43")
+soll("1797 kein Auftrag nötig → Disponent", "OFFEN 9008-Ü2 an Disponent" in out and "schliessen" in datei("9008"), out)
+rc, out = rm_lauf("rueckmeldung", "9009", "fertig 1a2b3c4d. Hinweis: Prüffrage 3 fehlt", zeit="21.11., 20:44")
+soll("1797 fertig mit Hinweis: Prüfer und zweite Zeile an Disponent", "OFFEN 9009-Ü1 an Prüfer" in out
+     and "| 9009-Ü2 | Disponent | Hinweis (Rückmeldung 21.11., 20:44" in datei("9009") and "Prüffrage 3 fehlt" in datei("9009"), datei("9009"))
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
