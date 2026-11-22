@@ -1,6 +1,6 @@
 extends SceneTree
 # 1566 Beleg (t298.5 Chef 18.11., 14:31 „fail“): Blutzahnhöhle cave:5:10:DOWN, 19:13, Spielkamera in Handygröße, mit Fenster
-# (xvfb-run, --resolution 540x1170). Zwei Bilder im selben Lauf: neu (Stand der Arbeitskopie, kit_selbst wie gebiet.gd) und alt
+# (xvfb-run, --resolution 540x1170, Aufruf mit „-- --bild=1566“, sonst Hauptmenü). Zwei Bilder im selben Lauf: neu (Stand der Arbeitskopie, kit_selbst wie gebiet.gd) und alt
 # (kit_selbst 0,6 wie vor 34de75f8f; das war dessen einzige Spieländerung). PNG nach BILD1566_AUS: 1566_neu.png, 1566_alt.png;
 # die Zeile TEICHRECHT1566 nennt den Bildausschnitt des Teichs (Kacheln „~“ 2–3/13–14 auf den Schirm projiziert).
 func _initialize() -> void: _lauf.call_deferred()
@@ -29,7 +29,10 @@ func _lauf() -> void:
 	for i in 10: await process_frame
 	print("TEICHBILD1566 Lage")
 	await spiel.lage_herstellen({"ort": "cave:5:10:DOWN", "uhr": "19:13"})
-	spiel.licht_nach_uhr(true)
+	# mit Argument hinter „--“ folgt das Licht nicht der Uhr (spiel.gd licht_nach_uhr), darum wie ausgang_bild_1091 selbst stellen
+	var k_nacht: float = 1.0 - spiel.tageslicht(19 * 60 + 13)
+	spiel.licht.ziel = k_nacht; spiel.licht.stelle(k_nacht); spiel._nacht(k_nacht)
+	print("TEICHBILD1566 Nacht %.2f" % k_nacht)
 	await create_timer(2.5).timeout   # Blende nach dem Betreten (Sekunden, wie ausgang_bild_1091)
 	var k = spiel.ui.get("mess")
 	if k: k.visible = false
