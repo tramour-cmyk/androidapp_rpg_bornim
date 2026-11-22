@@ -81,15 +81,14 @@ def ausnahmen(text, jahr):
             t = datetime.datetime(jahr, int(k.group(2)), int(k.group(1)), int(k.group(3)), int(k.group(4)), tzinfo=BERLIN)
         except ValueError:
             continue
-        beginn = nachtbeginn(t)
-        if beginn is None: continue  # Entscheid am Tag nennt keine Nacht
+        beginn = nachtbeginn(t) or t.replace(hour=21, minute=0)  # 1806: Entscheid am Tag meint die Nacht ab 21 Uhr desselben Tages
         ende = beginn + datetime.timedelta(hours=10)
         if m.group(5):
             b = beginn.replace(hour=int(m.group(5)), minute=int(m.group(6)))
             if b < beginn: b += datetime.timedelta(days=1)
             ende = min(ende, b)
         q = re.match(r"- \*\*([^,*]+)", l)
-        aus.append(dict(rolle=m.group(3), nr=m.group(4), deckel=deckel, ab=t if m.group(2) else beginn, bis=ende,
+        aus.append(dict(rolle=m.group(3), nr=m.group(4), deckel=deckel, ab=max(t, beginn) if m.group(2) else beginn, bis=ende,
                         quelle=q.group(1) if q else "?"))
     return aus
 
