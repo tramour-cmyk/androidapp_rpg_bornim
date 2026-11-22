@@ -41,6 +41,38 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 383 · 1732 nach 1942 (lesend, Auftrag Ford beim Neustart; `main` `b34316e88`; 22.11., 13:24–13:25)
+
+- Greift (erledigt). D382.1 aufgelöst: `ROLLE-BERATUNG-START.md`:25 sagt jetzt „Gilt nur bis zum Umschalten 1727“ (Chef 22.11., 10:39); Haken und Regel stimmen bis dahin überein, das Schweigen ab `tools/1727-SCHARF` baut Spike in 1943. `zug_haken_test` grün, Stop-Haken in `.claude/settings.json`:81. 1943 prüfe ich nach Bau.
+
+## Lauf 382 · 1732 Stop-Haken Votum ohne „Gegengeprüft:“ (lesend, Weiter-Haken; `main` `a5353fdad`; 22.11., 13:18–13:20)
+
+- Gebaut wie der Auftrag: `zug_haken_test` grün (9 Fälle, auch Zitat/Code, andere Rolle, zweites Beenden ohne Schleife); in `.claude/settings.json` läuft `zug-haken.py` schon als Stop-Haken.
+- Befund **D382.1** → 1942 (Sokrates, M), 1732 wartet darauf: VA 22.11., 10:39 (Chef: „in der neuen Struktur … nicht alles erst gegenchecken … das wäre bekloppt“ → Gegenprüfen gilt nur für den Umbau 1727) gegen `ROLLE-BERATUNG-START.md`:25 (jedes festlegende Votum) und den Haken, der jede Sokrates-Antwort mit „Votum“ anhält (Ausweg „Gegengeprüft: entfällt, …“ besteht). Erst Regel angleichen, dann Haken eingrenzen oder mit 1727 enden lassen.
+
+## Lauf 381 · 1938 laufbremse-haken fängt Unaufloesbar (lesend, Weiter Ford 13:14; Kopie `5bffd19cd`; 22.11., 13:17–13:20)
+
+- Fang greift: `laufbremse-haken.py` hält bei unauflösbarem `cd $VAR` mit Exit 2 und Text 725, wie `probelauf.py`. `laufbremse_test` grün; Gegenprobe mit dem Haken von `f1e247f2f`: neue Prüfung rot (Exit 1).
+- Befund **D381.1** → 1941 (Spike, M), 1938 wartet darauf: die neue Prüfung ruft den Haken echt auf, `anhalten` → `hakenzahl.vermerk` pusht je Testlauf eine Haltzeile nach `origin/haken` (13:13:01, 13:13:10 Spike, 13:17:13 meine Gegenprobe); verfälscht die Haltzahl 1129.1 P3. Abhilfe `BORNIM_HAKEN_TROCKEN=1` in der env des Testaufrufs.
+- Für die Wochenzählung 23.11.: in `haken.tsv` sind am 22.11. sieben Haltzeilen aus Prüfungen, nicht echt: 13:12:19, 13:12:32, 13:12:33 (meine Haken-Proben aus Lauf 379, ohne `BORNIM_HAKEN_TROCKEN`), 13:12:55 `cd $UNBEK`, 13:13:01, 13:13:10, 13:17:13.
+- 1890: Ford nennt dazu `e68cceefe` (Lehrenbuch, `auftrag` zeigt Lehren des Bereichs), auf `main`; `lehren_test` grün, schon in Lauf 380 abgedeckt.
+
+## Lauf 380 · 1890 Bereiche E Kataloge, G Regeln (lesend, Weiter-Haken; `main` `57f9014a2`, gebaut `ad70aedcc`; 22.11., 13:15–13:17)
+
+- Greift (erledigt). `bereiche.py` wie VA 20.11., 08:21 und 09:27: „E Kataloge“ und „G Regeln“ gültig, „Regeln“ führt nach G Regeln, „E Regeln“ nach E Kampf, Erklärung E Kampf „Einbau der Regeln“, G Balance bleibt. Lehrensuche: `lehren.rangfolge` filtert schon nach Teilbereich; mit Probetext findet sie G Regeln und E Kataloge getrennt (`LISTE-LEHREN.md` gibt es auf `main` noch nicht). `lehren_test`, `umstellung1727_test` (Block 4 und 10), `auftrag_test`, `chefwort_test` grün.
+
+## Lauf 379 · 1871 Umschalt-Kopie bis `f1e247f2f` (lesend, Auftrag Ford beim Neustart; neu `d99e91caa`, `f1e247f2f`; 22.11., 13:10–13:15)
+
+- Ohne Befund. Alle 41 `tools/*_test.py` an der Kopie grün, dazu `--test` von vorpush, sperre-haken, buildzweig-haken, gepusht-haken; `probelauf_messfrage_test.py` gestrichen, kein Verweis mehr in `.github/`, `tools/`.
+- `d99e91caa` wie Sokrates 12:41/12:48 (`docs/vorgang/1937.md`): 621 A, 654.2 (`messlauf_frei`, `HAND`, `bild_nein`) ausgetragen, Laufbremse ohne Schalterbedingung; die Freigabe durch den Prüfer (`pruefer_frei`) hängt weiter an `tools/1727-SCHARF`, die Kopie hat die Datei. Am Haken nachgestellt (`laufbremse-haken.py`, trocken): `PROBEBILD=` Exit 2 mit Weg `PROBE=`/`MESS=`, `MESS=` ohne Bild frei, Bildlauf ohne Nummer Exit 2.
+- `f1e247f2f`: „abgebrochen“ des Halters einer angenommenen Übergabezeile → keine Zeile an den Disponenten, die Zeile wird über `ue.abgebrochen` wieder offen (ein Neustart); zweites → genau eine Zeile an Sokrates (Doppelprüfung `x["k"] == k`). Fall „Zeile nach Fristablauf schon einmal wieder offen, dann erstes abgebrochen“ gelesen: eine Zeile an Sokrates, kein Disponent.
+- Nicht als Befund: Hilfetext `probelauf.py --probebild` (Z. 836) und Kopf Z. 33 nennen noch Probebild/Einzelbild.
+
+## Lauf 378 · 1937 Zählung 275 eigenständig (lesend, Weiter Ford 13:01; `main` `c52385e64`; 22.11., 13:02–13:04)
+
+- Ohne Befund. Alle 45 `tools/*_test.py` grün, dazu `--test` von vorpush, sperre-haken, buildzweig-haken, gepusht-haken.
+- `zaehlzeile.zaehlen` gleicht dem gestrichenen `probelauf.zaehlen` (Zeitformat mit Sekunden wie `jetzt()`, Kennung, `REPO`, Zweig `probelaeufe`, drei Versuche, lokal zuerst, `BORNIM_PROBELAUF_TROCKEN`); neu nur Zeitgrenzen 8 s für fetch, commit-tree, push. `commit-pruefung.py` importiert `probelauf` nicht mehr; `probelauf.zaehlen` leitet weiter.
+
 ## Lauf 377 · 1937 Prüfung 511, 1859 settings.json (lesend, Weiter Ford 12:57; `main` `a22975809`, Kopie `e47128837`, Stand `5a32507f7`; 22.11., 12:57–13:00)
 
 - 511 ohne Befund: `alte_einstellungen` und ihr Aufruf in `main()` gestrichen, kein Verweis mehr in `tools/`, `.github/`; Wort Sokrates 12:41 in `docs/vorgang/1937.md`.

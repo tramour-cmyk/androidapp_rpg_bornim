@@ -119,6 +119,26 @@ def texte_im_zug(pfad):
     return len(texte), sum(1 for t in texte if not KOPF_NAME.match(t))
 
 
+# 1732 (Chef 19.11., 21:25 „wieso muss ich dir jedes Mal sagen, hey, bitte lass das mal gegenprüfen?“): Antwort von Sokrates mit
+# „Votum“ ohne Zeile „Gegengeprüft:“ hält einmal an. Muster wie Ausgabe-Prüfungen anderer (Stop-Haken mit decision block, z. B.
+# Antwort-Linter; Guardrails „output rails“: Antwort prüfen, bei Mangel nachfordern); beim zweiten Beenden durch (keine Schleife).
+SOKRATES_KOPF = re.compile(r"^\W*\*\*Sokrates\*\*\s*\[")
+VOTUM = re.compile(r"\bVotum\b")
+GEGENGEPRUEFT = re.compile(r"(?m)^[\W_]*Gegengepr(?:ü|ue)ft\b[^\n]*:")
+
+
+def votum_ohne_gegenpruefung(t):
+    """Grund zum Anhalten oder None (1732)."""
+    if not t or not SOKRATES_KOPF.match(t.lstrip()):
+        return None
+    ohne = re.sub(r"```.*?```|`[^`\n]*`|„[^“\n]*“", " ", t, flags=re.S)  # Code und Zitate („Votum“ als Wort im Zitat) zählen nicht
+    if not VOTUM.search(ohne) or GEGENGEPRUEFT.search(t):
+        return None
+    return ("1732 (Chef 19.11., 21:25): Votum ohne Zeile „Gegengeprüft: <Datei>“. Vorschlag erst an einen frischen Prüfer "
+            "(gegen Repo und ganzen Entwurf), dann im Chat „Gegengeprüft: <Datei>“ und dein Wort je Befund nachsenden "
+            "(ROLLE-BERATUNG-START.md). Kein Vorschlag, der etwas festlegt: einmal „Gegengeprüft: entfällt, <Grund>“.")
+
+
 def stempel_pruefen(t, frage, jetzt):
     """(gefunden, Minuten daneben) für den Stempel am Anfang der Antwort; daneben 0 = in Ordnung."""
     m = STEMPEL.match(t.lstrip())
@@ -213,6 +233,8 @@ def main():
         chef = None  # 822 (Chef 10.11., 07:10 „822 Haken abschalten“): Chefsache-Erkennung im Antworttext hält nicht mehr an; Zähler bleibt
         if chef:
             gruende.append(chef)
+        if (vg := votum_ohne_gegenpruefung(t)):  # 1732
+            gruende.append(vg)
         st = stand_lesen()  # 383: Stand für die Nachprüfung beim zweiten Beenden; ohne Anhalten alten Stand löschen
         if chef:
             st[str(e.get("session_id", "?"))] = {"nummern": erkennen(t)[1], "zeit": datetime.datetime.now().timestamp()}

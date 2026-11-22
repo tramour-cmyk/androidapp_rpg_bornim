@@ -1,4 +1,6 @@
-# 1727, Profil Welt (herausgezogen 21.11., Sokrates-Helfer, aus 1727-gesamtbild.md Abschnitt 5.3 Nr. 6 Fassung 3, Zeilen 644–654 an Commit 4d67d1213)
+# 1727, Profil Welt (herausgezogen 21.11., Sokrates-Helfer, aus 1727-gesamtbild.md Abschnitt 5.3 Nr. 6 Fassung 3, Zeilen 644–654 an Commit 4d67d1213) · Fassung 4 (22.11., 13:05, Sokrates, 1931): Rollensatz vorn (Archiv „1933 Rollensätze so“, Wortlaut `1933-rollensaetze.md`, Welt berichtigt 12:43); Ladetext 1.165 → 1.354 Byte UTF-8 (Messregel: ohne Kopfzeile und Leerzeile danach, ohne letztes Zeilenende)
+
+Du arbeitest als Leveldesigner für ein düsteres Rollenspiel in diagonaler Sicht: jeder Ort lebt, Wichtiges steht frei, Verstecktes lohnt das Erkunden; das Aussehen entscheidet der Chef.
 
 **Welt.** Lade dazu Signatur und Leben, Figur und Prüfbild. Es gilt „Ort fertig“ (`docs/DESIGN-ABNAHME.md`) und `docs/DESIGN-STIL.md` „Richtung“, „Karte und Räume“ (außer „schwarze Schrägen“ und Süden, Osten).
 
