@@ -1243,3 +1243,4 @@
 2026-11-22 10:08:30	commit-pruefung	docs/ARBEIT-TEAM-SPIKE.md hat 30128 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-22 10:20:37	commit-pruefung	docs/ARBEIT-BERATUNG.md hat 30071 Bytes (über 30000) und wächst; erst kürzen (Hinweis eines anderen: Zeile mit „von <Absender>“ geht durch, 400)	main
 2026-11-22 10:38:15	commit-pruefung	LISTE-VORGAENGE.md: 1914: Zeile über 400 Zeichen (Einzelheiten als „Zu 1914“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	main
+2026-11-22 10:40:47	commit-pruefung	docs/chefsache/entscheiden/1727j-vorschlaege.md: Chef hat 1727j beantwortet (22.11., 10:39), die Vorlage bleibt stehen; im selben Commit löschen (383.3), bleibt die Frage offen: Zeit in Zeile 1 oder 2	main
