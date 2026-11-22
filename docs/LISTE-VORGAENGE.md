@@ -12,7 +12,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer, 23.11. | – | – | *gebaut, Geprüft an: c315ec551* | *–* | *0* | *6,50 $* |
-| 1727 | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts, Pflichtlast je Sitzung ultrakompakt | 7 | B Abläufe | Eilt | – | 1625, 1725 | – | *erledigt* | *–* | *0* | *578,51 $* |
+| 1727 | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts, Pflichtlast je Sitzung ultrakompakt | 7 | B Abläufe | Eilt | – | 1625, 1725 | – | *erledigt* | *–* | *0* | *598,15 $* |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | 7 | B Werkzeuge | Eilt | 23.11. | – | – | *ruht, 887a zurückgestellt (Chef 16:53)* | *–* | *0* | *–* |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust … | 7 | B Abläufe | Eilt | 1387 | 1110, 1128 | – | *wartet, 1129.4 ausgewertet, Punkt 6 gerissen* | *–* | *0* | *26,46 $* |
 | 1967 | Reihenfolge Klasse vor Themenblock (Eilt, Fund, Muss, Kür je in Blockfolge, Kür im Block nach Liegezeit); lauf.auftrag_offen und uebergabe.buero_rang (Chef 22.11., 17:43, 17:46) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *0,85 $* |
