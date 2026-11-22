@@ -9,7 +9,7 @@ Geprüft an: <Commit vor dem Anlegen>
 
 **Votum:** „1727h A“: Falltest mit Lauf 3 abgeschlossen; Umschalten (Umschalt-Commit 1871 mit `tools/1727-SCHARF`), sobald die Werkzeuge mit „vor Umstellung: ja“ grün sind und dein Wort zu den Texten V1–V6 eingearbeitet ist; Rückweg `git revert` des Umschalt-Commits.
 
-**Berührt:** alle Rollen (fallen weg, Rufnamen); Spike (1871, 1739 Rufnamen, 1865, 1890 und die Lücken 1872–1889); Ford (wird Disponent); Vorräte (Umzug in Vorgangsdateien).
+**Berührt:** alle Rollen (fallen weg, Rufnamen); Spike (1871, 1739 Rufnamen, 1865, 1890 und die Lauf-3-Lücken 1797, 1864, 1872, 1873, 1875–1879, 1887, 1888, 1892); Ford (wird Disponent); Vorräte (Umzug in Vorgangsdateien).
 
 **Begründung:** Dein Wort 07:25 und 21.11., 22:16 („eher 5 Minuten“): der Nutzen der neuen Arbeitsweise kommt erst mit dem Umschalten. Ein vierter Lauf prüft vor allem Werkzeuglücken, die als Vorgang schon bekannt sind.
 
@@ -17,7 +17,7 @@ Geprüft an: <Commit vor dem Anlegen>
 - Archiv 21.11., 14:37 D: „umgeschaltet erst nach Falltest und grünen Werkzeugen“.
 - Lauf 3: 6 bestanden, 9 teilweise, 1 nicht (P6, Ursache ein inzwischen zurückgenommener Text), 1 Fall schief; ungespielt: Profil Prüfer F8–F10, V4 Feld 7, Profil Disponent F15.
 - Werkzeuge mit „vor Umstellung: ja“ und noch nicht gebaut (`werkzeuge.md`): <Liste aus Spikes Stand 09:30: Rufnamen 1739, Umzug 1865, Umstellung Vorgangsliste 1871, `bereiche.py` 1890, `check-env.sh` 1855, `settings.json` 1859 (Schreiben braucht dich), …>.
-- Nachprüfungen dieses Entwurfs: 2: 13, 3a: 12, 3b: 12, 3c: <n> Befunde.
+- Nachprüfungen dieses Entwurfs: 1: 18, 2: 13, 3a: 12, 3b: 12, 3c: 6 neue Befunde.
 
 **Auswertung:**
 - **A (Empfehlung):** kein Lauf 4; umschalten nach grünen Werkzeugen und deinem Wort zu V1–V6. Kosten: nur die Werkzeuge.
