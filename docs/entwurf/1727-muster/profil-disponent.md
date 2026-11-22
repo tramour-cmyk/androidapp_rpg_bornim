@@ -34,7 +34,7 @@ Quellen: `buero-gegenueberstellung.md` Spalte Disponent (BG), Gesamtbild 3.1, 3.
 
 **Vorschlag Sokrates (F9), aus Kern Büro Fassung 1 (`kern-buero.md` „Verlauf: Fassung 1“, alte :9, :10, :13, :14; Kern Büro seit c4d3ee4ed schmal):** :16 Vorgangsdatei mit dem ersten Chefwort oder Auftrag (alte :9; BG:12); :20 „Fertig“ zuerst an den Prüfer (alte :10; BG:17; `rueckmeldung.py` `weitergabe`: „fertig“ mit Commit an den Prüfer); :14 sofort, Anhalt 5 Minuten, Stundenuhr nur Nachlese (alte :13; Chef 19.11., 22:16/22:18; 3.3 Nr. 8); :18 „nein, Auftrag“ und Fund an den Arbeitsplaner (alte :14; geleitet von `rueckmeldung.py` `eintragen` an `PLANER` und `chefwort.py` `AN = "Arbeitsplaner"`); „startest sofort“ meint diesen Arbeitsplaner als „neue Sitzung“ (3.3 Nr. 6, Auslegung BG:18). Profiltext 2.644 → 3.068 Byte.
 
-Größe Text: 3.775 Byte (Fassung 14: 3.761; Fassung 13: 3.642; Fassung 9: 3.068; Messregel). Ladesumme: Sockel 1.109 (mit V2 1.129) + Kern Büro 680 + Profil 3.775 = 5.564 Byte (mit V2 5.584) (Größe nennen, Chef 20.11., 16:49).
+Größe Text: 4.206 Byte (Stand 22.11., 15:28, Fassung 17a; Ladesumme jetzt Sockel 1.178 + Kern Büro 759 + Profil 4.206 = 6.143). Verlauf: 3.775 Byte (Fassung 14: 3.761; Fassung 13: 3.642; Fassung 9: 3.068; Messregel). Ladesumme: Sockel 1.109 (mit V2 1.129) + Kern Büro 680 + Profil 3.775 = 5.564 Byte (mit V2 5.584) (Größe nennen, Chef 20.11., 16:49).
 
 ## Raster
 
