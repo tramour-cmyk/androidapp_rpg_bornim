@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 360 · 1918, 1892 erneut (lesend, Weiter Ford 10:58; Kopie `1e6b2d697`; 22.11., 10:58–11:00)
+
+- Alle 46 `tools/*_test.py` an der Kopie grün.
+- 1918 greift (D348.1), dieselben Wegwerf-Repos wie Lauf 358, vier Fälle: geändert, nicht committet → kein Push, WARNUNG, lokal unverändert (lauf.py schreibt dann lokal, „NICHT GEPUSHT“); eigener Commit an der Datei voraus → ebenso, Fords Zeile bleibt; sauber → gepusht und lokal nachgezogen; eigener Commit nur an anderer Datei voraus → gepusht, Datei lokal auf `origin`-Stand (gleich HEAD + Sperre), nichts verloren. `_nachziehen` überschreibt keine Datei mehr, deren HEAD vom Ausgangsstand abweicht. Damit greift 1892.
+
 ## Lauf 359 · 1879 + 1917, 1915, 1914, 1912, 1913, 1916; danach 1795, 1887, 1873 (lesend, Weiter Ford 10:52; Kopie `636821b07`; 22.11., 10:51–10:54)
 
 - Alle 46 `tools/*_test.py` an der Kopie grün.
