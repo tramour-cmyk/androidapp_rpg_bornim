@@ -113,19 +113,19 @@ Verfahren wie Lauf 1, aber: Ladetexte nach Einarbeitung und Vorschläge; gelesen
 | L7, L8 (K2.1, K2.8) | bestanden | Funde wörtlich, keine Freigabe für `main` | – |
 | L9 (K3.3) | bestanden | Richtung mit Deckel, kein dritter Versuch | – |
 | L10 (K3.6) | teilweise | Chefsache richtig, aber ohne Nachprüfung (Text deckt Chefsache nicht) | V1 Fassung 2: „oder in die Chefsache geht“ |
-| D1–D5 | bestanden | D2 nur weitergeleitet (richtig nach 1727c); D3 erst mit Stundenuhr bemerkt | D3: `lauf.py` LIEGT (1799) |
+| D1–D5 | D1, D3, D4, D5 teilweise; D2 Soll überholt (berichtigt nach Nachprüfung 2) | D2 nur weitergeleitet (1727c); D1 neuer Vorgang statt 1792; D3 erst mit Stundenuhr bemerkt; D4 ohne Übergabe der laufenden Sitzungen; D5 Liegezeit nicht gemeldet | D3: `lauf.py` LIEGT (1799); D4: Profil F13–F15; D5: 1760 |
 | D6, D7 | bestanden | Werkzeugfehler in D7 belegt statt blind verteilt | – |
-| D8, D9 | bestanden | D9: drei verschiedene Folgen in Werkzeugen | 1796 |
+| D8, D9 | D8 bestanden; D9 nicht, gegen Werkzeug (berichtigt) | D9: Fund vor Eilt, weil `vorgang.py offen` so ordnet | 1796; Profil Disponent F14 |
 | D10, D11 (K3.2, K3.5) | bestanden gegen Werkzeug | `lauf.py` gibt nach „steckt fest“ weiter START der Fachkraft; Disponent hält mit `--ohne` an | Werkzeug 1800; Profil Disponent F12 |
-| A1–A4 | bestanden | Aufträge mit Bisher, Systemfrage, Prüffragen; A4 „Frage“ | – |
+| A1–A4 | A1, A3 teilweise, A2, A4 bestanden (berichtigt) | A1 ohne Verknüpfung, ohne Prüffrage Umschließen; A3 Handypunkte nicht gezählt; A4 „Frage“ | – |
 | A5 | teilweise | „Frage“ ohne Lesart [235] | nach Gespräch nicht nötig (NICHT getroffen) |
 | A6–A16 | bestanden | 11 Aufträge geprüft gültig, davon A12, A16 als Entwurf; A12 (Aussehen ohne Chefwort), A16 (760 ruht) richtig als Entwurf mit „Frage“ | Werkzeug 1798 (Auftrag oben, archivierte Nummer, Größe in der Vorlage) |
 | W1–W7 | bestanden | nur eigene Dateien, erst beheben, Logursache, Modell vor dem Lauf belegt, `add_repo` selbst, Chefwort in der Vorgangsdatei | W4: Weg Kaufmodell → Bauserver nur im Profil Technik |
 | W8 (K3.1, K3.4) | nicht | „Frage“ statt „steckt fest“, weil Feld 7 das Wort nicht anbietet: Obergrenze B greift nie | V3 ins Gespräch |
-| P1, P2, P5, P6 | bestanden | Urteil am Bild, Schweben trotz Längenfrage, „Beleg fehlt“ trotz Vermerk, „steckt fest“ nach Chef-Nein | – |
+| P1, P2, P5, P6 | bestanden (P1 nach Soll K2.5, berichtigt 22.11., 07:22) | Urteil am Bild, Schweben trotz Längenfrage, „Beleg fehlt“ trotz Vermerk, „steckt fest“ nach Chef-Nein (Archiv 21.11., 14:37) | – |
 | P3 | bestanden | je Punkt mit Codestelle; 299.4 „nein“, weil `vorraete` keinen Umhang gibt (wie Tom 18.11.) | – |
 | P4 | teilweise | Herkunft geprüft, aber „nein“ statt „Beleg fehlt“ (Profil Schritt 1) | Profil Prüfer F6 |
-| P7 | teilweise | Schritt 1 „nichts weiter prüfen“ verdeckte Angriff 3 „nicht beurteilbar“ | Profil Prüfer F6 |
+| P7 | nicht (berichtigt) | Schritt 1 „nichts weiter prüfen“ verdeckte Angriff 3 „nicht beurteilbar“ | Profil Prüfer F6 |
 | P8, P9 | gültig, Fall schief | P9 „Beleg fehlt“, weil der Nachstellauftrag A7 Prüfausgabe verlangt | – |
 | T1, T2 | bestanden | Testhilfen aus; Bildrate als gezählter Fehler mit Messwert | Werkzeug 1795 („Befunde:“) |
 | R1 | bestanden | Wiederholer gewählt, drei Vorschläge | Routine braucht Titelmarke (1789) für `fertig` ohne Commit |
@@ -133,7 +133,7 @@ Verfahren wie Lauf 1, aber: Ladetexte nach Einarbeitung und Vorschläge; gelesen
 
 **Zählung Lauf 2:** 59 Wertungen (L 10, D 11, A 16, W 8, P 9, T 2, R 3): bestanden 52, teilweise 4 (L10, A5, P4, P7), nicht 1 (W8), Fall schief 2 (P8, P9), dazu D10/D11 bestanden nur gegen das Werkzeug. Überholt durch die Berichtigung unten.
 
-**Berichtigung nach Nachprüfung 2 (23:58, `falltest-lauf2/nachpruefung-2.md`), mein Wort: stimmt.** Meine Bewertung war zu milde. Neu gezählt: bestanden 43, teilweise 10 (D3, D4, D5, A1, A3, A7, L10 u. a.), nicht 3 (W8, P7, D9 gegen Werkzeug), Soll überholt 1 (D2), Fall schief 2; „ungültig 0“ zu günstig (W8 ohne Auftragsdatei, D6/D7 ohne vorab festes Soll). Die Ladetexte unter `scratchpad/lt/` wurden um 23:39 während des Laufs überschrieben: Fachkraft und Prüfer lasen V2 Fassung 2 bzw. Prüfer F5, nicht die oben genannten Stände. Kernbefund: „nein, steckt fest“ beim ersten Prüfer-Nein, sobald unter „Bisher“ ein altes Chef-Nein steht (P1, P2, P4, P7), widerspricht K2.5; Soll P6 gegen K2.5 widersprüchlich. Abarbeitung der 13 Befunde: Nachfolger (Übergabe Vorrat Sokrates).
+**Berichtigung nach Nachprüfung 2 (23:58, `falltest-lauf2/nachpruefung-2.md`), mein Wort: stimmt.** Meine Bewertung war zu milde. Neu gezählt: bestanden 43, teilweise 10 (L10, D1, D3, D4, D5, A1, A3, A5, A7, P4), nicht 3 (W8, P7, D9 gegen Werkzeug), Soll überholt 1 (D2), Fall schief 2; „ungültig 0“ zu günstig (W8 ohne Auftragsdatei, D6/D7 ohne vorab festes Soll). Die Ladetexte unter `scratchpad/lt/` wurden um 23:39 während des Laufs überschrieben: Fachkraft und Prüfer lasen V2 Fassung 2 bzw. Prüfer F5, nicht die oben genannten Stände. Kernbefund: „nein, steckt fest“ beim ersten Prüfer-Nein, sobald unter „Bisher“ ein altes Chef-Nein steht (P1, P2, P4, P7), widerspricht K2.5; Soll P6 gegen K2.5 widersprüchlich. Abarbeitung der 13 Befunde: Nachfolger (Übergabe Vorrat Sokrates).
 
 **Urteil am Kettenende (Nachprüfung 2 Nr. 3):** K1 (1694) endet in P8 mit „Beleg fehlt“, nicht beim Chef: teilweise. K2 (1535) bricht an A7 (Nachstellauftrag ohne Bau) und K2.5 (Prüfer-Nein wird „steckt fest“): nicht. K3 (Wiederholer) bricht an W8 („Frage“ statt „steckt fest“): nicht. Dazu L10: Soll K3.6 verlangt „Kosten bisher“, kein Text trägt sie (Kern Leitung nennt keine Kosten); Träger offen, ins Gespräch. P8: darf der Prüfer einen fehlenden Beleg durch eigene Prüfung im Repo ersetzen, und doppelt sich das mit der Vollzugsprüfung des Empfehlers? Ins Gespräch. D1: legt neuen Werkzeugvorgang an, obwohl 1792 denselben Haken trägt (eigene Regel „Gibt es ihn schon?“ verletzt).
 
@@ -143,7 +143,7 @@ Verfahren wie Lauf 1, aber: Ladetexte nach Einarbeitung und Vorschläge; gelesen
 |---|---|---|
 | 1 | stimmt | Satz Lauf 2 je Gruppe berichtigt; Lauf 3 mit festem Ordner je Lauf, während des Laufs unverändert |
 | 2 | stimmt | D3, D4, D5 teilweise, D9 nicht gegen Werkzeug, D2 Soll überholt; Profil Disponent F14: Folge Eilt, Fund, Themenblock, Eingangszeit gilt auch gegen das Werkzeug |
-| 3 | stimmt | A1, A3, A7 teilweise, P7 nicht; Kern: Prüfer zählt für „steckt fest“ nur ein Nein zu diesem Auftrag nach seinem Datum (Profil Prüfer F7), damit geht das erste Prüfer-Nein auf einen Rückläufer an die Fachkraft (K2.5) und P6 ist berichtigt (Soll P6 neu: „nein“ ohne „steckt fest“); A7: V4 Kern Arbeitsplaner Feld 3 ins Gespräch |
+| 3 | stimmt | A1, A3, A7 teilweise, P7 nicht; Kern P1/P2/P4/P7 gegen K2.5: um 07:05 im Profil Prüfer F7 geändert, um 07:22 zurück (Nachprüfung 3a Nr. 2: änderte die Lesart von Archiv 21.11., 14:37; Wiederholer stoppten nie); berichtigt ist das Soll K2.5, P6 bleibt; zur Kenntnis 10:00 (V5); A7: V4 Kern Arbeitsplaner Feld 3 ins Gespräch |
 | 4 | stimmt | Zählung A6–A16 berichtigt; „ungültig 9 → 0“ gestrichen |
 | 5 | stimmt | Profil Disponent :20 Wortlaut Nachprüfung 2 („Prüfer danach“, sonst Zeile an die Fachkraft) |
 | 6 | stimmt | :24 „nur Wache, Sokrates und Rückläufer des Chefs; laufende Fachkräfte übergeben“; Werkzeug 1804 (Spike) |

@@ -18,23 +18,23 @@ Stand der Datei: 20.11., 12:39 (Überblick nachgezogen; Namen der Gruppen nach A
 | – | **Leitbild** | – | entfällt nach Umzug der Reste ([1a](#1a-leitbild-verteilen-entwurf-2011-1215-gegenprüfung-offen); Chef 20.11., 12:37) | – |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
-### 0.1 Größen (Stand 20.11., 21:36; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
+### 0.1 Größen (Stand 22.11., 07:23, Messregel ohne Kopfzeile, Leerzeile, letztes Zeilenende; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
 
-Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder Änderung Zeile und Stand nachziehen.
+Gemessen: letzte Fassung je Abschnitt in diesem Dokument bzw. in `1727-muster/` (herausgezogen), Byte UTF-8. Bei jeder Änderung Zeile und Stand nachziehen. Ladesummen: `1727-muster/herausgezogen.md`.
 
 | Teil | Byte | Grenze | Stand |
 |---|---|---|---|
-| Sockel | 1.110 | 1,2 KB | abgenommen 12:06 |
+| Sockel | 1.109 | 1,2 KB | abgenommen 20.11., 12:06; mit V2 (Vorlage 10:00) 1.129 |
 | Querprofil Signatur und Leben | 880 | – | abgenommen 12:37 |
-| Kern Leitung (vorher „Kern Sokrates“) | 2.838 | 3 KB | entschieden 21:10 mit Gedächtnis (20:17: 2.728; vorher 2.987; 19.11.: 2.601) |
+| Kern Leitung (vorher „Kern Sokrates“) | 2.837 | 3 KB | entschieden 20.11., 21:10 mit Gedächtnis; mit V1 (Vorlage 10:00) 2.962 |
 | Gedächtnis Sokrates (`docs/leitung/gedaechtnis.md`) | – | 3 KB | entschieden 21:10, entsteht mit der Umstellung |
-| Kern Büro | 2.352 | – | Entwurf; 19:33 ohne Firmenname, 21:36 Arbeitsplaner (vorher 2.405) |
-| Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 2.375 | 3 KB | Entwurf, Fassung 2 17:05 gegengeprüft, Name 21:36 (vorher 3.110; 19.11.: 2.450) |
-| Kern Prüfer | 2.530 | – | Entwurf; 19:33 ohne Firmenname (vorher 2.571) |
-| Kern Abnahme | 1.336 | – | Entwurf; 19:33 ohne Firmenname (vorher 1.377) |
-| Profil Prüfer | 2.730 | – | Entwurf, Fassung 7 22.11., 07:05 (`1727-muster/profil-pruefer.md`; Ladesummen `1727-muster/herausgezogen.md`) |
+| Kern Büro | 680 | – | schmal, entschieden 21.11., 11:46 (`1727-muster/kern-buero.md`) |
+| Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 2.649 | 3 KB | entschieden 1727f (`1727-muster/kern-arbeitsplaner.md` Fassung 4); mit V3 und V4 (Vorlage 10:00) 2.787 |
+| Kern Prüfer | 2.530 | – | Verlauf, ersetzt durch Kern Abnahme und Profil Prüfer |
+| Kern Abnahme | 1.567 | – | Entwurf, Fassung 3 (`1727-muster/kern-abnahme.md`) |
+| Profil Prüfer | 2.817 | – | Entwurf, Fassung 9 22.11., 07:22 (`1727-muster/profil-pruefer.md`) |
 | Profil Tester | 2.626 | – | Entwurf, Fassung 6 22.11., 07:05 (`1727-muster/profil-tester.md`) |
-| Profil Disponent | 3.761 | – | Entwurf, Fassung 14 22.11., 07:05 (`1727-muster/profil-disponent.md`) |
+| Profil Disponent | 3.775 | – | Entwurf, Fassung 15 22.11., 07:22 (`1727-muster/profil-disponent.md`) |
 | Auftrag | – | 1,5 KB (Werkzeug: etwa 2 KB) | je Auftrag |
 | Profil Regeln | 1.740 | – | gegengeprüft |
 | Profil Kampf | 1.480 | – | gegengeprüft |
