@@ -41,6 +41,18 @@ def lauf(*a):
     return p.returncode, p.stdout + p.stderr
 
 # 1 Wer spricht
+def protokoll(*zeilen):
+    p = os.path.join(d, "s%d.jsonl" % protokoll.n); protokoll.n += 1
+    open(p, "w").write("".join(json.dumps(z, ensure_ascii=False) + "\n" for z in zeilen)); return p
+protokoll.n = 0
+def warteschlange(text): return {"type": "queue-operation", "operation": "enqueue", "content": text}
+def nutzer(text, art=None, quelle=None):
+    z = {"type": "user", "message": {"role": "user", "content": text}}
+    if art: z["origin"] = {"kind": art}
+    if quelle: z["promptSource"] = quelle
+    return z
+def chef(text):  # 1962: Haken-Eingabe einer echten Chefnachricht (Startnachricht davor, Zeile „user“ ohne origin)
+    return {"prompt": text, "transcript_path": protokoll(nutzer("Start", "task-notification", "system"), warteschlange(text), nutzer(text))}
 soll("Chef", cw.vom_chef("9001 passt, freigegeben"))
 soll("andere Sitzung (Name und Zeit)", not cw.vom_chef("**Ford** [21.11., 20:10] 9001 bitte"))
 soll("Startauftrag", not cw.vom_chef("Du bist **Spike**, Technik …"))
@@ -50,7 +62,13 @@ pr = os.path.join(d, "p.jsonl")
 open(pr, "w").write(json.dumps({"type": "user", "origin": {"kind": "task-notification"}, "message": {"content": "Mach 9001 fertig"}}) + "\n")
 soll("im Protokoll als Sitzungsnachricht markiert", not cw.vom_chef("Mach 9001 fertig", pr))
 open(pr, "w").write(json.dumps({"type": "user", "message": {"content": "Mach 9001 fertig"}}) + "\n")
-soll("im Protokoll ohne Herkunft = Chef", cw.vom_chef("Mach 9001 fertig", pr))
+soll("1962: erste Nachricht der Sitzung nie Chef, auch ohne Herkunft", not cw.vom_chef("Mach 9001 fertig", pr))
+soll("1962: nach der Startnachricht ohne Herkunft = Chef", cw.vom_chef("Mach 9001 fertig", chef("Mach 9001 fertig")["transcript_path"]))
+soll("1962: origin human = Chef", cw.herkunft("Mach 9001", protokoll(nutzer("Start", "task-notification", "system"), nutzer("Mach 9001", "human"))) == "chef")
+soll("1962: Nachricht einer Sitzung (peer) nicht", cw.herkunft("Mach 9001", protokoll(nutzer("Start"), nutzer("Mach 9001", "peer"))) == "sitzung")
+soll("1962: unbekannte Art unbelegt", cw.herkunft("Mach 9001", protokoll(nutzer("Start"), nutzer("Mach 9001", "remote"))).startswith("unbelegt"))
+soll("1962: Zeile noch nicht im Protokoll = offen", cw.herkunft("Mach 9001", protokoll(nutzer("Start"), warteschlange("Mach 9001"))) == "offen")
+soll("1962: Haken ohne Protokoll trägt nichts ein", cw.haken({"prompt": "9001 passt"}, "Sokrates") == [])
 
 # 2 Welche Vorgänge
 v = cw.vorgaenge("9001 gut. Um 20:06 am 21.11. für 30 € und 9002 nicht; 9003.2a beantwortet")
@@ -69,9 +87,9 @@ soll("ohne tools/1727-SCHARF nichts", nrs == [] and datei("9001") == "")
 open(cw.SCHARF, "w").write("1727\n")
 
 # 4 Eigener Vorgang (Besitzer): nichts; fremder: im Hintergrund eingetragen
-soll("eigener Vorgang (Besitzer Spike) bleibt in der Sitzung", cw.haken({"prompt": "9002 so lassen"}, "Spike") == [])
+soll("eigener Vorgang (Besitzer Spike) bleibt in der Sitzung", cw.haken(chef("9002 so lassen"), "Spike") == [])
 soll("Sitzungsnachricht nicht", cw.haken({"prompt": "**Tom** [21.11., 20:29] 9001 fertig"}, "Sokrates") == [])
-nrs = cw.haken({"prompt": "9001 freigegeben, Build 312:\nBart passt jetzt"}, "Sokrates")
+nrs = cw.haken(chef("9001 freigegeben, Build 312:\nBart passt jetzt"), "Sokrates")
 soll("fremder Vorgang erkannt", nrs == ["9001"], nrs)
 t = ""
 for _ in range(60):
@@ -97,7 +115,7 @@ soll("Arbeitsplaner sieht nur den Fund (Freigabe ging an den Disponenten; Einsch
 # 7 Halter einer angenommenen Zeile gilt als eigen (nach der Umschaltung ohne Besitzer)
 rc, out = lauf("annehmen", "9001-Ü1")
 soll("Sokrates nimmt 9001-Ü1 an", rc == 0 and out.startswith("ANGENOMMEN"), out)
-soll("dann eigen, kein neuer Eintrag", cw.haken({"prompt": "9001 noch heller"}, "Sokrates") == [])
+soll("dann eigen, kein neuer Eintrag", cw.haken(chef("9001 noch heller"), "Sokrates") == [])
 
 # 8 Fehler beim Eintragen geht nicht verloren: nächste Nachricht meldet ihn
 open(cw.FEHLER, "w").write("9001 (21.11., 20:40): origin/main nicht erreichbar\n")
@@ -165,16 +183,6 @@ soll("ruht schon: Zeile wieder an den Arbeitsplaner, keine zweite Obergrenze", d
 # Beleg 22.11., 18:15 (Protokoll dieser Sitzung): beim Haken steht dort zuerst nur „queue-operation“ (enqueue, Inhalt ohne origin);
 # die Zeile „user“ mit origin task-notification folgt erst danach. Wortlaut der vier Fälle aus docs/vorgang/{1520,1959,1871,1961}.md.
 START = json.load(open(os.path.join(HIER, "chefwort_test_start.json"), encoding="utf-8"))
-def protokoll(*zeilen):
-    p = os.path.join(d, "s%d.jsonl" % protokoll.n); protokoll.n += 1
-    open(p, "w").write("".join(json.dumps(z, ensure_ascii=False) + "\n" for z in zeilen)); return p
-protokoll.n = 0
-def warteschlange(text): return {"type": "queue-operation", "operation": "enqueue", "content": text}
-def nutzer(text, art=None, quelle=None):
-    z = {"type": "user", "message": {"role": "user", "content": text}}
-    if art: z["origin"] = {"kind": art}
-    if quelle: z["promptSource"] = quelle
-    return z
 for fall, text in START.items():
     nr = fall.split()[0]
     for wie, p in (("leeres Protokoll", protokoll()), ("frisches Protokoll (nur Warteschlange)", protokoll(warteschlange(text))),
@@ -193,6 +201,16 @@ for _ in range(60):
     if "1520-Ü1" in t: break
     time.sleep(0.5)
 soll("1962 echtes Chefwort nach der Startnachricht wird eingetragen", nrs == ["1520"] and "> " + wort in t, (nrs, t))
+os.environ["BORNIM_CHEFWORT_WARTEN"] = "1"
+wort = "1871 bitte morgen frueher"
+nrs = cw.haken({"prompt": wort, "transcript_path": protokoll(nutzer("Start", "task-notification", "system"), warteschlange(wort))}, "Sokrates")
+for _ in range(40):
+    if os.path.exists(cw.FEHLER): break
+    time.sleep(0.25)
+time.sleep(0.5)
+meldung = open(cw.FEHLER).read() if os.path.exists(cw.FEHLER) else ""
+soll("1962 Zeile kommt nicht ins Protokoll: nichts eingetragen, Meldung für die nächste Nachricht",
+     nrs == ["1871"] and datei("1871") == "" and "Herkunft Chef nicht belegt (offen)" in meldung, (nrs, meldung))
 
 print("chefwort_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

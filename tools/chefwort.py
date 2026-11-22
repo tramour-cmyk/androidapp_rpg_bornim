@@ -15,7 +15,8 @@ Build-Macher startet (3.3 Nr. 7, L-U15, 1782).
 Welche Vorgänge: Nummern mit drei oder vier Ziffern (auch 1270.6, Rückfrage 1727a → 1727), die in der Vorgangsliste stehen und
 nicht dieser Sitzung gehören (Besitzer = ihre Rolle, oder sie hält eine angenommene Übergabezeile des Vorgangs); „Build N“, „tN“, „tN.k“ = alle Vorgänge mit Build N. Uhrzeiten, Daten, Beträge zählen nicht.
 Nur Worte des Chefs: Nachrichten anderer Sitzungen beginnen mit „**Name** [“ (CLAUDE.md 7), Startaufträge mit „Du bist **“,
-Systemmeldungen mit „<“ oder „[SYSTEM“; im Protokoll markierte Nachrichten (origin, nicht vom Menschen) ebenso.
+Systemmeldungen mit „<“ oder „[SYSTEM“. 1962: dazu Erlaubnisliste: nur mit belegter Herkunft Mensch im Protokoll (Zeile „user“
+mit origin human oder ohne, ohne promptSource); die erste Nachricht einer Sitzung nie; unbelegte Herkunft meldet die nächste Nachricht.
 
 Scharf erst mit der Umschaltung 1727 (Datei tools/1727-SCHARF, legt der Umschalt-Commit an; Sokrates 20:14: Liste erst dort
 umstellen); vorher tut haken() nichts, `vorgang.py chefwort` geht immer.
@@ -24,7 +25,7 @@ Muster (erst nachsehen, wie andere es lösen): Ereignisprotokoll statt Zuruf (Ev
 das Wort wird am Ort des Vorgangs angehängt, nicht in der Sitzung gemerkt; Zustellung über die Warteschlange 1760 mit Quittung;
 gleicher Wortlaut zur gleichen Minute wird nicht doppelt geschrieben (Wiederholung harmlos, wie die Kennung im Wecker).
 """
-import json, os, re, subprocess, sys
+import json, os, re, subprocess, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import uebergabe as ue
 
@@ -148,8 +149,52 @@ except Exception:
 FEHLER = os.environ.get("BORNIM_CHEFWORT_FEHLER", "/tmp/bornim-chefwort-fehler.txt")
 
 
+# 1962: Erlaubnisliste statt Sperrliste. Chefwort nur mit belegter Herkunft Mensch im Protokoll: die Zeile „user“ mit diesem
+# Wortlaut trägt origin human (oder keins) und kein promptSource. Beleg 22.11., 18:15: beim Haken steht dort zuerst nur
+# „queue-operation“ (enqueue, ohne origin); die Zeile „user“ (Startnachricht: origin task-notification, promptSource system)
+# folgt erst. Die erste Nachricht einer Sitzung ist nie Chefwort. Arten aus dem Claude-Code-Programm (origin.kind).
+MENSCH = (None, "human", "person", "user")
+MASCHINE = ("task-notification", "peer", "coordinator", "plugin", "auto-continuation", "channel", "observer-activity",
+            "suggestion", "composer")
+WARTEN = float(os.environ.get("BORNIM_CHEFWORT_WARTEN", "8"))  # Sekunden, bis die Zeile „user“ im Protokoll steht
+
+
+def _inhalt(d):
+    if d.get("type") != "user" or d.get("isMeta") or d.get("isSidechain"):
+        return None
+    c = (d.get("message") or {}).get("content")
+    if isinstance(c, list):
+        if any(isinstance(x, dict) and x.get("type") == "tool_result" for x in c): return None
+        c = " ".join(x.get("text", "") for x in c if isinstance(x, dict))
+    return c.lstrip() if isinstance(c, str) and c.strip() else None
+
+
+def herkunft(text, pfad):
+    """1962: „chef“, „sitzung“, „erste“ (erste Nachricht der Sitzung), „offen“ (Zeile noch nicht im Protokoll) oder
+    „unbelegt …“ (unbekannte Art: nicht eintragen, melden)."""
+    kopf = (text or "").lstrip()[:200]
+    try:
+        with open(pfad, encoding="utf-8", errors="replace") as f:
+            zeilen = [json.loads(z) for z in f if z.strip()]
+    except (OSError, ValueError, TypeError):
+        return "unbelegt (Protokoll nicht lesbar)"
+    nutzer = [d for d in zeilen if _inhalt(d) is not None]
+    treffer = [i for i, d in enumerate(nutzer) if _inhalt(d)[:200] == kopf]
+    if not [d for d in nutzer[:treffer[-1] if treffer else None] if _inhalt(d)[:200] != kopf]:
+        return "erste"
+    if not treffer:
+        return "offen"
+    d = nutzer[treffer[-1]]
+    art, quelle = (d.get("origin") or {}).get("kind"), d.get("promptSource")
+    if art in MENSCH and quelle is None:
+        return "chef"
+    if art in MASCHINE or quelle == "system":
+        return "sitzung"
+    return "unbelegt (origin %s, promptSource %s)" % (art, quelle)
+
+
 def vom_chef(text, pfad=None):
-    """False für Nachrichten anderer Sitzungen, Startaufträge und Systemmeldungen."""
+    """False für Nachrichten anderer Sitzungen, Startaufträge und Systemmeldungen; mit Protokoll nur bei belegter Herkunft Mensch (1962)."""
     t = (text or "").lstrip()
     if not t:
         return False
@@ -157,22 +202,7 @@ def vom_chef(text, pfad=None):
         return False
     if re.match(r"(Weiter( in)?|Auftrag|sieh in)\b", t):
         return False
-    if pfad and os.path.exists(pfad):  # Protokoll: dieselbe Nachricht mit origin (task-notification, Sitzung) → nicht vom Chef
-        try:
-            kopf = t[:200]
-            with open(pfad, encoding="utf-8", errors="replace") as f:
-                zeilen = f.readlines()[-40:]
-            for z in reversed(zeilen):
-                d = json.loads(z)
-                inhalt = d.get("content") if d.get("type") == "queue-operation" else (d.get("message") or {}).get("content") if d.get("type") == "user" else None
-                if isinstance(inhalt, list):
-                    inhalt = " ".join(x.get("text", "") for x in inhalt if isinstance(x, dict))
-                if isinstance(inhalt, str) and inhalt.lstrip()[:200] == kopf:
-                    art = (d.get("origin") or {}).get("kind")
-                    return art in (None, "human", "user")
-        except Exception:
-            pass
-    return True
+    return herkunft(t, pfad) == "chef" if pfad else True
 
 
 def vorgaenge(text):
@@ -273,7 +303,8 @@ def haken(eingabe, wer):
     if not os.path.exists(SCHARF):
         return []
     text = str(eingabe.get("prompt") or "")
-    if not vom_chef(text, eingabe.get("transcript_path")):
+    protokoll = eingabe.get("transcript_path") or ""
+    if not protokoll or not vom_chef(text) or herkunft(text, protokoll) in ("erste", "sitzung"):  # 1962: ohne Protokoll kein Beleg
         return []
     sid = ""
     try:
@@ -287,16 +318,23 @@ def haken(eingabe, wer):
     zeit = ue.fmt(ue.jetzt())
     pfad = os.path.join("/tmp", "bornim-chefwort-%d.txt" % os.getpid())
     open(pfad, "w", encoding="utf-8").write(text)
-    subprocess.Popen([sys.executable, os.path.abspath(__file__), "hintergrund", pfad, zeit, wer or "unbekannt", sid] + nrs,
+    subprocess.Popen([sys.executable, os.path.abspath(__file__), "hintergrund", pfad, zeit, wer or "unbekannt", sid, protokoll] + nrs,
                      stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True, cwd=ue.WURZEL)
-    print("Haken D (1762): Chefwort zu %s gehört nicht dieser Sitzung (%s); wird wörtlich in docs/vorgang/<Nr>.md eingetragen, "
-          "offene Zeile an %s (`vorgang.py offen %s`). Nicht selbst bauen; eigener Anteil wie sonst." % (", ".join(nrs), wer or "Rolle unbekannt", an, an))
+    print("Haken D (1762): Chefwort zu %s gehört nicht dieser Sitzung (%s); wird wörtlich in docs/vorgang/<Nr>.md eingetragen, sobald das Protokoll "
+          "die Herkunft Chef belegt (1962), offene Zeile an %s (`vorgang.py offen %s`). Nicht selbst bauen; eigener Anteil wie sonst." % (", ".join(nrs), wer or "Rolle unbekannt", an, an))
     return nrs
 
 
-def hintergrund(pfad, zeit, wer, sid, nrs):
+def hintergrund(pfad, zeit, wer, sid, protokoll, nrs):
     text = open(pfad, encoding="utf-8").read()
     fehl = []
+    h, ende = herkunft(text, protokoll), time.time() + WARTEN
+    while h == "offen" and time.time() < ende:  # 1962: die Zeile „user“ kommt nach dem Haken ins Protokoll
+        time.sleep(0.2); h = herkunft(text, protokoll)
+    if h != "chef":
+        if h != "sitzung" and h != "erste":  # unbelegt oder nach WARTEN noch offen: nicht eintragen, aber melden
+            fehl.append("%s (%s): nicht eingetragen, Herkunft Chef nicht belegt (%s); war es ein Chefwort: von Hand" % (" ".join(nrs), zeit, h))
+        nrs = []
     for nr in nrs:
         try:
             eintragen(nr, text, zeit, wer, sid)
@@ -311,7 +349,7 @@ def hintergrund(pfad, zeit, wer, sid, nrs):
 
 def haupt(a):
     if a[:1] == ["hintergrund"]:
-        return hintergrund(a[1], a[2], a[3], a[4], a[5:])
+        return hintergrund(a[1], a[2], a[3], a[4], a[5], a[6:])
     a = list(a[1:]) if a[:1] == ["chefwort"] else list(a)
     zeit, wer, an = None, None, None
     for opt in ("--zeit", "--sitzung", "--an"):
