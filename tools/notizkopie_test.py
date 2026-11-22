@@ -2,7 +2,7 @@
 """Test 1963: Notizkopie mit veraltetem vorgemerktem Stand räumt sich über notiz.sh selbst auf; Meldungen nennen nie den Chef.
 Nachgestellt wie im Vorfall (Doris 22.11., 16:55): `git checkout -q -B main origin/main` in der Arbeitskopie, während die
 Notizkopie main hält (git 2.43 lässt -B durch). Aufruf: python3 tools/notizkopie_test.py (Exit 1 bei Fehlern)."""
-import importlib.util, os, re, shutil, subprocess, sys, tempfile, time
+import importlib.util, json, os, re, shutil, subprocess, sys, tempfile, time
 
 HIER = os.path.dirname(os.path.abspath(__file__))
 f = 0
@@ -91,6 +91,33 @@ def kopie_test():
     r = subprocess.run([sys.executable, os.path.join(HIER, "gepusht-haken.py")], input="{}", capture_output=True, text=True,
                        env=dict(os.environ, CLAUDE_PROJECT_DIR=a), timeout=60)
     ok(r.returncode == 0 and g(wt, "status", "--porcelain", "--untracked-files=no") == "", "Stop-Haken räumt auf: %d %s" % (r.returncode, r.stderr))
+    # Fall 5 (Pit 19:14, 1963-Ü3): junge eigene Löschung (git rm / rm) bleibt, auch neben veraltetem Stand
+    d = tempfile.mkdtemp(); home = os.path.join(d, "h"); os.makedirs(home)
+    o, q, a = aufbau(d); wt = os.path.join(d, "bornim-main"); notiz(a, home)
+    g(wt, "rm", "-q", "docs/b.md")
+    aus = zeile(notiz(a, home))
+    ok(g(wt, "status", "--porcelain", "--untracked-files=no").strip() == "D  docs/b.md", "junge Löschung (git rm) bleibt: " + aus)
+    g(wt, "reset", "-q", "--hard"); os.remove(os.path.join(wt, "docs/b.md"))
+    aus = zeile(notiz(a, home))
+    ok(g(wt, "status", "--porcelain", "--untracked-files=no").strip() == "D docs/b.md", "junge Löschung (rm) bleibt: " + aus)
+    if os.path.exists(os.path.join(wt, "docs/b.md")): os.remove(os.path.join(wt, "docs/b.md"))
+    weiter(q, a)
+    aus = zeile(notiz(a, home))
+    ok(g(wt, "status", "--porcelain", "--untracked-files=no").strip() == "D docs/b.md" and os.path.exists(os.path.join(wt, "docs/neu.md")),
+       "Altstand weg, junge Löschung bleibt: %s | %s" % (g(wt, "status", "--short"), aus))
+    # Fall 6 (Pit 19:14, 1963-Ü5): Umbenennung: beide Namen richtig, beide bleiben
+    d = tempfile.mkdtemp(); home = os.path.join(d, "h"); os.makedirs(home)
+    o, q, a = aufbau(d); wt = os.path.join(d, "bornim-main"); notiz(a, home)
+    g(wt, "mv", "docs/b.md", "docs/c.md")
+    aus = zeile(notiz(a, home))
+    ok("docs/c.md" in aus and "docs/b.md" in aus and "s/b.md" not in aus.replace("docs/b.md", ""), "Umbenennung in der Meldung: " + aus)
+    ok(os.path.exists(os.path.join(wt, "docs/c.md")) and not os.path.exists(os.path.join(wt, "docs/b.md")), "Umbenennung bleibt")
+    # Fall 7: junge Änderung nur im Index (Datei wieder wie HEAD) bleibt; _blob() las den Index als „::pfad“, also nie
+    d = tempfile.mkdtemp(); home = os.path.join(d, "h"); os.makedirs(home)
+    o, q, a = aufbau(d); wt = os.path.join(d, "bornim-main"); notiz(a, home)
+    schreib(os.path.join(wt, "docs/b.md"), "meins\n"); g(wt, "add", "docs/b.md"); schreib(os.path.join(wt, "docs/b.md"), "b\n")
+    aus = zeile(notiz(a, home))
+    ok(g(wt, "show", ":docs/b.md") == "meins\n", "junge Änderung im Index bleibt: " + aus)
 
 
 def lade(n):
@@ -116,6 +143,14 @@ def meldungen_test():
         if "echo" in z and re.search(r"reset|stash|rueckmeldung|Chef", z) and not z.lstrip().startswith("#"):
             ok("Chef" not in z, "notiz.sh nennt den Chef: " + z.strip()[:80])
             ok(re.search(r"reset|stash", z) is None or "rueckmeldung" in z or "1701" in z, "notiz.sh rät zu Reset/Stash ohne Rückmeldung: " + z.strip()[:80])
+    # zug-haken.py 343–345 (Pit 19:14, Prüffrage 5): Chefsache-Meldung ist seit 822 abgeschaltet (chef = None in main(),
+    # zweites Beenden kehrt vor zweitstopp() zurück); belegt: Bitte an den Chef löst nie eine Meldung aus
+    with tempfile.TemporaryDirectory() as d:
+        env = dict(os.environ, BORNIM_REGELTREUE=os.path.join(d, "z.tsv"), BORNIM_HAKEN63=os.path.join(d, "s.json"))
+        for aktiv in (False, True, True):
+            e = {"session_id": "t", "stop_hook_active": aktiv, "last_assistant_message": "**Greta** [22.11., 19:50] Soll ich die Kopie zurücksetzen? Bitte bestätigen, Chef."}
+            r = subprocess.run([sys.executable, os.path.join(HIER, "zug-haken.py")], input=json.dumps(e), capture_output=True, text=True, env=env, timeout=30)
+            ok("Chef" not in r.stdout and "block" not in r.stdout, "zug-haken meldet (stop_hook_active=%s): %s" % (aktiv, r.stdout[:120]))
 
 
 kopie_test()
