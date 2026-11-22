@@ -48,6 +48,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 13:28 22.11.: Sokrates alt `…75rguN` archiviert (33,55 $ auf 1931; letzte Chefnachricht vor 13:11); Diogenes: 1732 greift
 - 13:24 22.11.: Start Diogenes `…77Q9Hwa5wXei6hUroa` (1732); Diogenes `…78yG8B` archiviert (4,22 $ auf 1871); Guthaben: Sitzungsdaten zeigen `seven_day allowed_warning` (Reset Sa 28.11., 20:00), ab jetzt `--nur-muss` (D20.2), Chef laut gemeldet
 - 13:22 22.11.: Startsperre 13:22 Start Diogenes (Neustart, ddcae57d8, 1732)
 - 13:13 22.11.: Start Spike `…75Tbbx4depg8834LDn` (1938, 1890), Diogenes `…78yG8B8Bh1ac4ukUgC` (1871 Kopie), Sokrates `…791kx5aardWqqRc5ry` (1931); Spike `…77zGdK` archiviert (4,18 $ auf 1871); Sokrates alt bleibt bis 15 min nach Chef
