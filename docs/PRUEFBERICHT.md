@@ -41,6 +41,15 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 375 · 1871 Tagesbericht als Routine (lesend, Weiter Ford 12:32; Kopie `42b8fb85e`; 22.11., 12:34–12:37)
+
+- Alle `tools/*_test.py` an der Kopie grün, `rundblick_test` +6.
+- Ohne Befund: ohne `tools/1727-SCHARF` sind beide Zeilen (TAGESBERICHT und fehlt um 10 Uhr) zeichengleich wie vorher. Scharf: START Tagesbericht mit 448, Startsperre, `per_belegt` auf der Rolle Tagesbericht (`kosten.rolle` erkennt den Titel), Marke `**Stand TT.MM., ` in `ARBEIT-TAGESBERICHT.md` wie in `routine-tagesbericht.md` Schritt 1. Guthaben und Laufsperre halten ihn nicht an, wie vorher Perikles nicht (Bremse nur bei Planstarts). 1871 bleibt in Arbeit.
+
+## Lauf 374 · 1936 Probeknopf Herzschlag (lesend, Weiter Ford 12:32; `main` `a97b36351`; 22.11., 12:32–12:34)
+
+- 1936 greift: Lauf 45017686324 (workflow_dispatch, test) mit Job `probe` grün, Schritt Testmeldung ok (Telegram `"ok":true`), `pruefen` übersprungen; ohne Haken läuft `pruefen` wie vorher. Chat-Kennung wie im Alarm von `pruefen` und in `meldung.sh`. YAML gültig.
+
 ## Lauf 373 · 1934, 1930 (lesend, Weiter Ford 12:23; Kopie `85a8a0acc`; 22.11., 12:23–12:26)
 
 - Alle 41 `tools/*_test.py` an der Kopie grün.
