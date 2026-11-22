@@ -3,7 +3,7 @@ Sokrates · 22.11., 09:05 · B Abläufe · aus deinem Auftrag 22.11., 07:25 (lau
 Kurz: 15 geladene Texte ohne dein Wort, 6 nach deinem Wort geändert, 3 Unsicherheiten bei Abgenommenem; Abnahme in Gruppen.
 Beim Chef, weil: Rollen und Accounts (die Ladetexte ersetzen die Rollendateien)
 
-Geprüft an: <Commit vor dem Anlegen>
+Geprüft an: `db6ebb2a4` (Nachprüfungen 1 bis 10)
 
 **Frage:** In der neuen Arbeitsweise liest jede Sitzung beim Start nur kurze Ladetexte: den Sockel (für alle), einen Kern (Leitung, Büro, Arbeitsplaner, Abnahme), ein Profil für ihr Fach, für feste Routinen einen eigenen Text. Es sind 29 Texte. 8 hast du abgenommen und sie sind seitdem unverändert. 15 haben kein Wort von dir, 6 wurden nach deinem Wort geändert. Liste mit Fassung und Byte je Text: `docs/entwurf/1727-muster/texte-stand-10-00.md`. Nimmst du sie gruppenweise ab, wie unten, oder willst du einzelne vorher im Wortlaut sehen?
 

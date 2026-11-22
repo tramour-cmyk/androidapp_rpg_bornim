@@ -41,6 +41,16 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 347 · 1782 Wiederwecken, Chefwort an Disponenten (lesend, Auftrag Ford; Kopie `claude/spike-1871-umschalten` `b0de2ea39`; 22.11., 09:21–09:32)
+
+- Gegen 3.3 Fassung 2 Nr. 3 und 7 (`uebergabekette.md`), Profil Technik 13 (Entwurf), Checkliste 11–13. An der Kopie alle 45 `tools/*_test.py` grün.
+- Greift: erstes Mal „offen (wieder 1)“, zweites Mal „steckt fest“; Halter `failed` auch vor der Frist; Rückmeldung „abgebrochen“; Zähler übersteht annehmen, freigeben zählt nicht; lauf.py startet „offen (wieder n)“ wie „offen“ (`ist_offen`, Leser gegrept).
+- **D340.1 = 1903 (Spike, M):** `chefwort.empfaenger` nachgestellt: „Das passt nicht, Schatten falsch“ und „ist noch nicht freigegeben“ (Vorgang mit Build), „👍“ allein, „👎 Tür flackert“, „3 ✓“ (ohne Build) → Disponent „Build-Macher starten“. Profil Technik 13: „ein 👍 gilt nur für einen Punkt“; Fund geht nach Nr. 7 an den Arbeitsplaner.
+- **D340.2 = 1904 (Spike, M):** `uebergabe.offen` schreibt „steckt fest (…)“ dauerhaft, gleich wer aufruft (uebergabe_test 3b über `vorgang.py offen --sitzungen`); Zeile an Sokrates und `liste_fest` nur in `lauf.fristen_runde` am flüchtigen „steckt fest (zweites Mal“. Danach liest jeder Lauf „steckt fest (Frist …)“ und schreibt nie; ebenso nach Fehler in `uebergabe(… Sokrates …)` (nur WARNUNG).
+- 1782 greift erst mit 1903, 1904; Feld „wartet auf“ nicht gesetzt (Zeile über 400 Zeichen).
+- Nebenfund Spike zu 1893 (`ueberblick_test` „Zeile heute, gestern, Woche, Monat“ an der Kopie rot): nicht nachgestellt, kein Befund. Grün in Arbeitskopie (mit und ohne `tools/1727-SCHARF`, mit umgestellter Liste), in flachen Klonen Tiefe 3, 10, 50, dreimal einzeln, nach allen 45 Tests. Fehlt: Spikes Aufruf und Ausgabe.
+- Nicht geprüft: echter Fall `failed` in `list_sessions` (Schlüssel nur angenommen), Laufzeit an der echten Liste.
+
 ## Lauf 331 · 1780, 1787, 1788 (lesend, Chef 21.11., 20:20, Auftrag Ford; main `abc0a538c`; 21.11., 22:18–22:21)
 
 - 1780 greift: herzschlag.yml schaltet 22–06 Uhr Berliner Zeit lautlos (`disable_notification=true`), gleiche Stunden wie `meldung.sh` (Muster für 00, 06, 07, 21, 22, 23 nachgeprüft); tags laut bleibt (Alarm, Chef dran).
