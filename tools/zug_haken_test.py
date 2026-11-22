@@ -7,10 +7,13 @@ def soll(name, ok, zeige=""):
     global fehl; fehl += not ok; print(("ok  " if ok else "FEHL"), name, ("" if ok else zeige))
 
 tmp = tempfile.mkdtemp()
+import shutil
+HAKEN = os.path.join(tmp, "zug-haken.py")   # Kopie ohne tools/1727-SCHARF daneben (1943), damit der Test auch an der Umschalt-Kopie gilt
+shutil.copy(os.path.join(HIER, "zug-haken.py"), HAKEN)
 ENV = dict(os.environ, BORNIM_REGELTREUE=os.path.join(tmp, "z.tsv"), HOME=tmp)
 def haken(text, aktiv=False):
     e = {"session_id": "session_T1732", "last_assistant_message": text, "stop_hook_active": aktiv}
-    p = subprocess.run([sys.executable, os.path.join(HIER, "zug-haken.py")], input=json.dumps(e), capture_output=True, text=True, env=ENV)
+    p = subprocess.run([sys.executable, HAKEN], input=json.dumps(e), capture_output=True, text=True, env=ENV)
     return p.stdout.strip()
 
 S = "**Sokrates** [22.11., 13:20] "
