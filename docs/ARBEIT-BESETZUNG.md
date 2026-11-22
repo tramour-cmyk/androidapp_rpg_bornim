@@ -2,15 +2,12 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 22.11., 17:22 (lauf.py)
+**Stand:** 22.11., 17:27 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Ford | [Ford – Betriebsleiter (22.11., 11:11)](https://claude.ai/code/session_01Hmoj794iJPGuxtZCKhpEce) | Betrieb | – | 22.11., 11:10 |
 | Figur | [Dana – 1570: Umhang einmal grundsätzlich lösen (22.11., 16:27)](https://claude.ai/code/session_01Hmoj77eawfwxZTjnt3cZap) | 1570 | – | 22.11., 16:28 |
 | Sokrates | [Sokrates – 1727: Leitung nach dem Umschalten: Guthaben, erste Läufe (22.11., 16:33)](https://claude.ai/code/session_01Hmoj78cQFrwz9xMJtEJtun) | 1727 | – | 22.11., 16:30 |
 | Welt | [Emil – 1566 (22.11., 16:56)](https://claude.ai/code/session_01Hmoj76t2ZJHkQA6XfyRfjJ) | 1566 | claude/jerry-1566-hoehlenwasser | 22.11., 16:58 |
 | Disponent | [Disponent – Betrieb (22.11., 17:10)](https://claude.ai/code/session_01Hmoj78swtcWnfPZeEocJxd) | Betrieb | – | 22.11., 17:10 |
-| Prüfer | [Marta – 1566: offene Übergabe (22.11., 17:13)](https://claude.ai/code/session_01Hmoj79TvK79BhE8thDVp26) | 1566 | claude/jerry-1566-hoehlenwasser | 22.11., 17:14 |
-| Arbeitsplaner | [Nora – Auftrag 1959: Start der Tagesbericht-Routine (22.11., 17:16)](https://claude.ai/code/session_01Hmoj77J6uJAaNn8KhozyjY) | 1959 | – | 22.11., 17:17 |
-| Arbeitsplaner | [Olga – Auftrag 1961: Ford heißt Disponent (22.11., 17:16)](https://claude.ai/code/session_01Hmoj79ZgpMW1THsZbYBzJZ) | 1961 | – | 22.11., 17:17 |
+| Werkzeug | [Paula – 1959: Start der Tagesbericht-Routine wird abgelehnt (22.11., 17:24)](https://claude.ai/code/session_01Hmoj77LVWvnt4N4nXLUZT8) | 1959 | – | 22.11., 17:25 |
