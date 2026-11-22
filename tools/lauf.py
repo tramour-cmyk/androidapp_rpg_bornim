@@ -132,14 +132,69 @@ def kern(rolle):
     return ""
 
 
-def mit_kern(l):
+# 1923 (1727j Startblock, Chef 22.11., 11:09 „Startblock ja, V7 genauso.“): an der neuen Liste setzt lauf.py jede Startnachricht
+# aus Kern, Fachprofil, Querprofilen (wörtlich, je docs/profile/<Name>.md nach Messregel) und Auftrag zusammen; CLAUDE.md ist dann
+# nur der Sockel und steht nie in der Nachricht (nichts doppelt). Fehlt eine Profildatei, fehlt nur dieser Teil (Zeile WARNUNG).
+KERN_VON = {"Disponent": ["Kern Büro"], "Arbeitsplaner": ["Kern Büro"], "Prüfer": ["Kern Abnahme"], "Tester": ["Kern Abnahme"]}
+# Querprofile, die der Auftrag zulädt (Kern Arbeitsplaner Feld 4 „Beachte“; Kern Abnahme „beide lädt der Auftrag zu“)
+QUER_AUS_AUFTRAG = [("Signatur und Leben", re.compile(r"Querprofil\s+(?:„)?Signatur und Leben")),
+                    ("Fremde Inhalte", re.compile(r"Querprofil\s+(?:„)?Fremde Inhalte")),
+                    ("Werkzeug", re.compile(r"\bProfil\s+(?:„)?Werkzeug\b"))]
+KAUFREPO_PROFIL = "Zugang Kaufrepo"  # V7: eigenes Profil, fest für die Liste BRAUCHT_KAUFREPO
+# Liste „braucht Kaufrepo“ (V7): Build-Macher (Technik), Tester, alle, die das Spiel starten (Fachprofile der Spielblöcke außer Regeln,
+# Story, Werkzeug); der Prüfer nur bei Bildaufträgen (Auftrag lädt Signatur und Leben zu)
+BRAUCHT_KAUFREPO = {"Technik", "Tester", "Kampf", "Figur", "Kataloge", "Welt", "Klang", "Oberfläche"}
+STARTBLOCK_FEHLT = []  # 1923: (Rolle, Teil) ohne Profildatei in diesem Lauf, main() gibt WARNUNG aus
+
+def ladetext(name, docs=None):
+    """1923: Ladetext von docs/profile/<name>.md nach Messregel (ohne Kopfzeile „# …“ und Leerzeile, bis vor „## “); None ohne Datei."""
+    p = os.path.join(docs or DOCS, "profile", "%s.md" % name)
+    if not os.path.isfile(p): return None
+    zeilen = lesen(p).split("\n")
+    if zeilen and zeilen[0].startswith("# "): zeilen = zeilen[1:]
+    j = next((k for k, z in enumerate(zeilen) if z.startswith("## ")), len(zeilen))
+    return "\n".join(zeilen[:j]).strip()
+
+def startblock(rolle, nr, docs=None):
+    """1923: (Teile [(Name, Text)], Auftrag oder None) für den Start von rolle zu Vorgang nr: Kern (KERN_VON), Fachprofil (rolle),
+    Querprofile aus dem jüngsten Auftrag der Vorgangsdatei (QUER_AUS_AUFTRAG, nie das eigene Fachprofil doppelt), Zugang Kaufrepo
+    nach BRAUCHT_KAUFREPO (Prüfer: nur mit Signatur und Leben). Teile ohne Datei fallen weg und stehen in STARTBLOCK_FEHLT."""
+    auftrag = None
+    if nr:
+        p = os.path.join(docs or DOCS, "vorgang", "%s.md" % nr)
+        text = lesen(p) if os.path.isfile(p) else ""
+        ab = juengster_auftrag(text)
+        if ab: auftrag = text[ab[0]:ab[1]].strip() or None
+    namen = list(KERN_VON.get(rolle, [])) + [rolle]
+    quer = [n for n, rx in QUER_AUS_AUFTRAG if auftrag and rx.search(auftrag) and n not in namen]
+    namen += quer
+    if rolle in BRAUCHT_KAUFREPO or (rolle == "Prüfer" and "Signatur und Leben" in quer): namen.append(KAUFREPO_PROFIL)
+    teile = []
+    for n in namen:
+        t = ladetext(n, docs)
+        if t: teile.append((n, t))
+        elif (rolle, n) not in STARTBLOCK_FEHLT: STARTBLOCK_FEHLT.append((rolle, n))
+    return teile, auftrag
+
+def nr_aus_titel(kopf):
+    m = re.search(r"–\s*(\d{3,4}(?:\.\d+)?)\b", kopf.rpartition(" | ")[2])
+    return m.group(1) if m else None
+
+def mit_kern(l, docs=None):
     """1683: jede START-Zeile beginnt in der ersten Nachricht (letztes Feld) mit dem Kern der Rolle, darunter „Auftrag:“ und die bisherige Nachricht.
-    1893: an der neuen Liste Ladetext des Profils statt Kern; „Start nach deiner Rollendatei“ heißt dort „den Ladetext oben“ (Profile ohne Rollendatei)."""
+    1893: an der neuen Liste Ladetext des Profils statt Kern; „Start nach deiner Rollendatei“ heißt dort „den Ladetext oben“ (Profile ohne Rollendatei).
+    1923: an der neuen Liste Startblock (startblock): Teile je mit Kopfzeile „**<Name>**“, dann „Auftrag:“ mit dem jüngsten Auftrag der
+    Vorgangsdatei wörtlich und der bisherigen Nachricht."""
     if not l.startswith("START "): return l
     rolle = l[6:].split(" |", 1)[0].strip()
     if rolle in ROUTINE_ROLLEN: return l  # 1789: Routine ohne Kern (Archiv 20.11., 07:37 „nicht deinen Kern“)
-    k = kern(rolle)
     kopf, _, msg = l.rpartition(" | ")
+    auftrag = None
+    if NEU_LISTE and rolle != "Sokrates":
+        teile, auftrag = startblock(rolle, nr_aus_titel(kopf), docs)
+        k = "\n\n".join("**%s**\n%s" % (n, t) for n, t in teile)
+    else:
+        k = kern(rolle)
     if NEU_LISTE and rolle != "Sokrates":
         msg = msg.replace("zuerst Start nach deiner Rollendatei, dann", "zuerst den Ladetext oben, dann" if k else "zuerst").replace(
             "Zuerst Start nach deiner Rollendatei.", "Zuerst den Ladetext oben." if k else "")
@@ -148,7 +203,9 @@ def mit_kern(l):
         if not m:  # 1912 (D344.1): Zahl nach „Build“ oder „t“ (t312) ist der Build, nicht der Vorgang
             m = next((x for x in re.finditer(r"(?<![\d.:,])(\d{3,4}(?:\.\d+)?)\b", msg) if not re.search(r"(?i)(?:\bBuilds?\s*|\bt)$", msg[:x.start()])), None)
         msg += "\\n\\nMeldung: `vorgang.py rueckmeldung %s \"Befunde: n …\" --sitzung Tester` (1795)." % (m.group(1) if m else "<Nr>")
-    if not k: return "%s | %s" % (kopf, msg)
+    if auftrag: msg = "%s\n\n%s" % (auftrag, msg.replace("\\n", "\n"))  # 1923: Auftrag wörtlich vor der bisherigen Nachricht
+    msg = msg.replace("\n", "\\n")
+    if not k: return "%s | %s" % (kopf, ("Auftrag: " + msg) if auftrag else msg)
     return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
 
 
@@ -1623,6 +1680,7 @@ def main():
     # 1472: Chefwort zum Kaufrepo an jede Startnachricht (START: letztes Feld), bei WEITER vor dem Hinweis auf send_message
     ausgabe = [mit_kaufrepo(l) for l in ausgabe]
     ausgabe = [mit_kern(l) for l in ausgabe]
+    ausgabe += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
     if ist_scharf(): ausgabe = mit_rufnamen(ausgabe, alle.values())
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
