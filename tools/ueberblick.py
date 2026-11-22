@@ -214,8 +214,8 @@ def besetzt_rolle(rolle):
 
 
 def je_rolle():
-    """1364 (Chef 16.11., 06:52 „jeder braucht doch einen Job“): je Rolle die nächste Zeile, wie Ford sie startet (lauf.stand, mit
-    Übernahme), oder „leer, weil …“ mit den häufigsten Gründen; eine Pause, die startbares Muss liegen lässt, sagt es."""
+    """1364 (Chef 16.11., 06:52 „jeder braucht doch einen Job“): je Rolle die nächste Zeile, wie Ford sie startet (lauf.stand),
+    oder „leer, weil …“ mit den häufigsten Gründen; eine Pause, die startbares Muss liegen lässt, sagt es."""
     import collections, lauf
     rr = reihe()  # 1893: vor lauf.stand(), das sich nach der zuletzt gelesenen Liste richtet
     st = lauf.stand()
@@ -225,9 +225,7 @@ def je_rolle():
         muss, kuer, p, _ = st[r]
         def zeile(x, art):
             t = x[2]
-            vor = "Übernahme von %s: " % re.match(r"Übernahme von (\w+)", t).group(1) if t.startswith("Übernahme von") else ""
-            t = re.sub(r"^Übernahme von [^:]*\):\s*", "", t)
-            return "%s %s%s (%s)" % (x[0], vor, worum(t, 60), art)
+            return "%s %s (%s)" % (x[0], worum(t, 60), art)
         if p:
             was = "Pause bis %s" % p + ("; lässt liegen: %s" % ", ".join(x[0] for x in muss[:5]) if muss else "")
         elif muss: was = zeile(muss[0], "Muss") + ("; dann %d weitere" % (len(muss) - 1) if len(muss) > 1 else "")
@@ -359,7 +357,7 @@ def md():
     if mo: aus += ["", mo[1]]
     je = je_rolle()
     aus += (["", "**Je Profil das Nächste** (wie der Disponent startet, 1893)", "", "| Profil | als Nächstes |", "|---|---|"] if s.NEU else
-            ["", "**Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)", "", "| Rolle | als Nächstes |", "|---|---|"]) + je
+            ["", "**Je Rolle das Nächste** (wie Ford startet, 1364)", "", "| Rolle | als Nächstes |", "|---|---|"]) + je
     aus += ["", "**Die nächsten %d**" % ANZAHL, "", "| # | Nr. | Wer | Worum | Kl. | Block | Stand |", "|---|---|---|---|---|---|---|"]
     for i, (key, d, grund) in enumerate(kommt[:ANZAHL], 1):
         aus.append("| %d | %s | %s | %s | %s | %s | %s |" % (i, d["nr"], d["besitzer"], worum(d["titel"]).replace("|", "/"),

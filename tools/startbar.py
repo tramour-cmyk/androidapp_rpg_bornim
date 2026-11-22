@@ -1278,51 +1278,11 @@ def startbares_muss():
         aus |= {(rolle, z[0]) for z in m}
     return aus
 
-UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}
-BAUTEAMS = ("Tom", "Jerry", "Spike")  # 1328.2: Sperre 620.1 B und gemeinsamer Build für alle drei; Übernahme bleibt Tom ↔ Jerry
+UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}  # Spielteams für Sammelbuild und „OHNE BUILD“ (317, 1129 A 2); Übernahme 1364 fällt (1871)
+BAUTEAMS = ("Tom", "Jerry", "Spike")  # 1328.2: Sperre 620.1 B und gemeinsamer Build für alle drei
 GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
 
-# 1364 (Chef 16.11., 06:52 „jeder braucht doch einen Job“): jede Entwicklerrolle ohne startbares eigenes Muss nimmt alle freien Muss
-# der anderen, die zu ihrem Fach passen (Bereich) oder die der Besitzer ihr abgibt; nie eine Zeile mit Zweig (in Arbeit beim Besitzer)
-# und keine, die der Besitzer mit „nein“ behält. Zeile oben im Vorrat des Besitzers: „**Abgabe:** 1340 Spike, 1323 Tom; nein: 1305“.
-FACH = {"Tom": ("E Figuren", "E Welt", "E Oberfläche", "G Story", "G Stil"),
-        "Jerry": ("E Kampf", "G Balance", "E Klang"),
-        "Spike": ("E Technik", "B Werkzeuge", "Q QS")}
-ABGABE = re.compile(r"^\s*\**Abgabe:\**\s*(.*)$", re.M)
-
-def abgabe(geber):
-    """({Nr: Rolle} ausdrücklich abgegeben, {Nr} behalten) aus „**Abgabe:** …“ oben im Vorrat des Gebers (1364)."""
-    m = ABGABE.search("\n".join(lesen(VORRAT.get(geber, "")).splitlines()[:30]))
-    if not m: return {}, set()
-    teil = m.group(1).replace("*", "")
-    ja, nein = (re.split(r"(?i)\bnein:", teil, 1) + [""])[:2]
-    gib = {nr: wer for nr, wer in re.findall(r"(\d[\w.]*)\s+(Tom|Jerry|Spike)\b", ja)}
-    return gib, set(NUMMER.findall(nein))
-
-def uebernahmen(rolle):
-    """[(Nr, Titel, Geber, ausdrücklich)] für eine Entwicklerrolle ohne eigenes startbares Muss (1364; vorher nur die oberste
-    Zeile Tom ↔ Jerry, 118, 783 W3), vor der eigenen Kür; ohne Gerätetest zuerst."""
-    if rolle not in BAUTEAMS or any(z[1] == "M" and not z[4] and "fuer" not in z[3] for z in plan(rolle)): return []
-    aus = []
-    for a in BAUTEAMS:
-        if a == rolle: continue
-        gib, nein = abgabe(a)
-        for z in plan(a):
-            d = z[3]
-            if z[4] or z[1] != "M" or "fuer" in d or z[0] in nein: continue
-            if (d.get("zweig") or "–") not in ("–", "-", ""): continue
-            wer = gib.get(z[0])
-            if wer == rolle or wer is None and d.get("bereich") in FACH.get(rolle, ()):
-                aus.append((z[0], re.sub(r"\*\*|`", "", z[2]), a, wer == rolle))
-    aus.sort(key=lambda u: (not u[3], bool(GERAET.search(u[1]))))
-    return aus
-
-def uebernahme(rolle, info=None):
-    """Textzeile für --stand (118, 1364): alle Übernahmen der Rolle."""
-    u = uebernahmen(rolle)
-    if not u: return None
-    return "; ".join("%s %s (von %s%s)" % (nr, t[:50], a, ", abgegeben" if ja else "") for nr, t, a, ja in u[:8]) + (" …" if len(u) > 8 else "") + \
-        " (Übernahme 1364: zuerst vorgang.py setze NR besitzer=%s)" % rolle
+# 1364 Übernahme Tom ↔ Jerry fällt (1871 Stilllegung C; Disponent teilt jeden Auftrag zu, G:130, G:498).
 
 def loesen(schreiben=False):
     """Automatik A über die ganze Liste: [(Nr, Besitzer, erfüllte Teile, neuer Stand)]; mit schreiben die Liste ändern."""
@@ -1542,7 +1502,7 @@ def main():
         if rolle in BAUTEAMS:
             # wie bisher alle eigenen Zeilen, die auf einen Test warten, auch die schon einem Build zugeordneten (D80.6)
             gebaut = sum(1 for z in zs if "fuer" not in z[3] and (z[4] or "").startswith("wartet auf Test"))
-            info[rolle] = ([z for z in zs if not z[4]], gebaut, erstes["M"])  # 783 W3: nur eigenes Muss hält die Übernahme
+            info[rolle] = ([z for z in zs if not z[4]], gebaut, erstes["M"])
         def kurz(e):
             if not e: return "–"
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
@@ -1558,9 +1518,6 @@ def main():
         if mf: print("  M? für Perikles (190.8; lauf.py startet es als Muss „M? entscheiden“, 921): " + ", ".join(mf))
         ko = kosten_offen()
         if ko: print("  Kosten für Perikles (1538; lauf.py startet es als Muss „Kosten entscheiden“): " + ", ".join("%s (%s, %s, Schwelle %d $)" % x for x in ko))
-        for r in BAUTEAMS:  # 1364: auch Spike
-            u = uebernahme(r)
-            if u: print("  Übernahme für %s: %s" % (r, u))
         teams = [r for r in BAUTEAMS if r in info]
         if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in teams) >= 4:  # 317: ab 4 fertigen Punkten aller Teams bittet der Erste
             print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, dann alle fertigen Zweige ohne Obergrenze; 317, Chef 07.11., 20:5x)%s" % (", ".join("%s %d" % (r, info[r][1]) for r in teams),

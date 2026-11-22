@@ -458,13 +458,6 @@ def stand():
         GESPERRT[rolle] = {x[0]: x[4] for x in zs if x[4]}
         offen_m = [x[0] for x in zs if x[1] == "M?" and not x[4]]
         if offen_m: m_fragen.extend("%s (%s)" % (n, rolle) for n in offen_m)
-    # 1364 (Chef 16.11., 06:52): Entwicklerrolle ohne eigenes startbares Muss bekommt die Übernahmen als Muss; der Geber verliert sie
-    # aus seiner Startliste, damit nie zwei Sitzungen dieselbe Zeile anfangen
-    for r in startbar.BAUTEAMS:
-        if r not in aus or aus[r][0]: continue
-        for nr, titel, geber, _ in startbar.uebernahmen(r):
-            aus[r][0].append((nr, "M", "Übernahme von %s (1364, zuerst vorgang.py setze %s besitzer=%s): %s" % (geber, nr, r, titel), {}))
-            if geber in aus: aus[geber][0][:] = [x for x in aus[geber][0] if x[0] != nr]
     if m_fragen and PLANER in aus:  # 190.8: offene „M?“ als eine Muss-Zeile für Perikles, alle in einem Zug
         m_zeile = ("M?", "M", "M? entscheiden: " + ", ".join(m_fragen) + " (190.8: je Vorgang M oder K mit einem Satz Grund, vorgang.py klasse)", {})
         aus[PLANER][0].insert(0, m_zeile)
@@ -528,7 +521,7 @@ def haken_naechste(rolle):
     return None
 
 def fremd_besitzer(rolle, nr, muss):
-    """1662: Besitzer der Zeile nr, wenn sie offen einem anderen gehört und nicht als Übernahme (1364) in muss steht; sonst None."""
+    """1662: Besitzer der Zeile nr, wenn sie offen einem anderen gehört und nicht in muss steht (etwa als Zeile, die auf die Rolle wartet); sonst None."""
     d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
     if not d or "erledigt" in d.get("stand", ""): return None
     b = d.get("besitzer", "")
@@ -1459,7 +1452,6 @@ def main():
             s = max(alte, key=lambda x: z(x["updated_at"]))
             ausgabe.append("WEITER %s | %s | %s | Weiter: %s (%s) aus der Vorgangsliste (vorgang.py --rolle %s); wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", r))
             if nr in ("M?", "Stillstand", "Kosten"): ausgabe[-1] = "WEITER %s | %s | %s | Weiter: %s; wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, thema)  # 921, 1246
-            if thema.startswith("Übernahme von"): ausgabe[-1] = ausgabe[-1].replace("; wird send_message", "; %s; wird send_message" % thema[:120], 1)  # 1364
             sperren.append(r); continue
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
         fuer = wahl[3].get("fuer") if isinstance(wahl[3], dict) else None
@@ -1473,7 +1465,6 @@ def main():
             fn = wahl[3].get("auftrag_fuer")
             titel = "%s – Auftrag %s (%s)" % (r, fn, berlin(JETZT))
             msg = "%s\n\n%s; zuerst Start nach deinem Ladetext, dann %s, den Auftrag schreiben, pushen und enden." % (r, thema, vorrat_hinweis(r, fn))
-        if thema.startswith("Übernahme von"): msg += " " + thema[:160] + "."  # 1364: die Zeile gehört noch dem Geber
         msg += satz
         ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r); sperr_nr[r] = zaehl_nr
