@@ -118,6 +118,18 @@ func _lauf() -> void:
 	spiel.nebel.mat.set_shader_parameter("ohne", 1.0)
 	await miss("ohne_nebel", aus)
 	spiel.nebel.mat.set_shader_parameter("ohne", ohne_vorher)
+	# Lauf 22.11., 19:58 (mit Kit): keine Abwandlung des Wassers nimmt das Funkeln, ohne Nebel gleich wie mit (Mittel 1,60 zu 1,49):
+	# der Nebel deckt das Kit-Wasser nicht. Prüfen: Nebel rot (färbt er den Teich?) und Wasser vor dem Nebel sortiert (Priorität -128)
+	var farbe_vorher = spiel.nebel.mat.get_shader_parameter("farbe")
+	spiel.nebel.mat.set_shader_parameter("farbe", Color(1, 0, 0))
+	await miss("nebel_rot", aus)
+	spiel.nebel.mat.set_shader_parameter("farbe", farbe_vorher)
+	var prio := []
+	for m in ms:
+		prio.append(m.render_priority); m.render_priority = -128
+	await miss("wasser_prio_min", aus)
+	for i in ms.size(): ms[i].render_priority = prio[i]
+	print("URSACHE1566 Wasser %s, Nebel Priorität %d, Wasser Priorität %s" % [ms[0].shader.code.substr(ms[0].shader.code.find("render_mode"), 90).replace("\n", " "), spiel.nebel.mat.render_priority, prio])
 	for mi in (spiel.gebiet as Node).find_children("*Wasser*", "MeshInstance3D", true, false): mi.visible = false
 	await miss("ohne_wasser", aus)
 	print("URSACHE1566 fertig")
