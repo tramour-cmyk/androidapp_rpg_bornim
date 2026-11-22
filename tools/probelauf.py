@@ -42,8 +42,6 @@ import os
 import re
 import subprocess
 import sys
-import tempfile
-import uuid
 import zoneinfo
 
 GRENZE = 1  # 621 A (Chef 07.11., 16:4x), vorher 2 (389)
@@ -349,30 +347,8 @@ def stand(nr):
 
 
 def zaehlen(nr, wer, art, datei=DATEI, lokal=LOKAL, extra=()):
-    zeile = "\t".join([jetzt(), nr, wer, art, uuid.uuid4().hex[:8], *extra])  # Kennung: Zweig und Datei doppeln Zeilen
-    with open(lokal, "a", encoding="utf-8") as f:
-        f.write(zeile + "\n")
-    if os.environ.get("BORNIM_PROBELAUF_TROCKEN"):
-        return
-    for versuch in range(3):
-        kopf, alt = zweig_lesen(datei)
-        neu = "\n".join(alt.splitlines()[-2000:] + [zeile]) + "\n"
-        blob = subprocess.run(["git", "-C", REPO, "hash-object", "-w", "--stdin"], input=neu, capture_output=True,
-                              text=True, timeout=20).stdout.strip()
-        idx = tempfile.mktemp()
-        env = dict(os.environ, GIT_INDEX_FILE=idx)
-        baum = ""
-        if kopf:
-            subprocess.run(["git", "-C", REPO, "read-tree", kopf], env=env, capture_output=True, timeout=20)
-        subprocess.run(["git", "-C", REPO, "update-index", "--add", "--cacheinfo", f"100644,{blob},{datei}"], env=env,
-                       capture_output=True, timeout=20)
-        baum = subprocess.run(["git", "-C", REPO, "write-tree"], env=env, capture_output=True, text=True, timeout=20).stdout.strip()
-        if os.path.exists(idx):
-            os.remove(idx)
-        commit = git("commit-tree", baum, *(["-p", kopf] if kopf else []), "-m", f"Probelauf {nr} ({wer})").stdout.strip()
-        if commit and git("push", "-q", "origin", f"{commit}:refs/heads/{ZWEIG}").returncode == 0:
-            return
-    # Push fehlgeschlagen: die lokale Zeile zählt weiter
+    import zaehlzeile  # 1937: Zählzeile eigenständig, damit commit-pruefung.py nicht an probelauf.py hängt
+    zaehlzeile.zaehlen(nr, wer, art, datei, lokal, extra, ZWEIG)
 
 
 def push_lauf(befehl, cwd):

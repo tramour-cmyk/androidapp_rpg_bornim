@@ -41,6 +41,12 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 377 · 1937 Prüfung 511, 1859 settings.json (lesend, Weiter Ford 12:57; `main` `a22975809`, Kopie `e47128837`, Stand `5a32507f7`; 22.11., 12:57–13:00)
+
+- 511 ohne Befund: `alte_einstellungen` und ihr Aufruf in `main()` gestrichen, kein Verweis mehr in `tools/`, `.github/`; Wort Sokrates 12:41 in `docs/vorgang/1937.md`.
+- Kopie enthält `main` bis `5a32507f7`. 1859: Sätze in `autoMode.environment` nach 1727k (Disponent statt Ford, Satz Wache, Build-Macher, Godot-Satz nach Profilen); drei Probelauf-Einträge zu einem mit vereintem Matcher, Zeitgrenze jetzt überall 90 s. JSON gültig.
+- Befund **D377.1** → 1938 (Spike, M): `laufbremse-haken.py` ruft `probelauf.main()` ohne den Fang `except Unaufloesbar` aus `probelauf.py` (`if __name__`-Block). Nachgestellt mit `cd $UNBEKANNT_XYZ && git push origin claude/tom-1-x`: `probelauf.py` Exit 2 (725 hält an), `laufbremse-haken.py` Traceback, Exit 1; der Settings-Befehl hält nur bei 2 an, also geht es durch. Vor dem Merge von 1859 beheben (Chef 12:55 „settings frei“).
+
 ## Lauf 376 · 1937 Teil Push-Prüfungen (lesend, Weiter Ford 12:44; `main` `c6bea7050`, Werkzeuglauf 45018686353; 22.11., 12:44–12:47)
 
 - Ohne Befund. `vorpush.py --test`, `sperre-haken.py --test`, `probelauf_*_test`, `laufbremse_test` grün. Echter `git push` mit dem Haken wie aus `notiz.sh` nachgestellt: Teamzweig mit Spielcode ohne „Alt:“ angehalten (Exit 1), nach `--amend` mit „Alt:“ durch.
