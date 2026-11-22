@@ -147,6 +147,17 @@ gesperrt = []; aus = ["START Sokrates | opus | env | repo | main | Sokrates – 
 lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), sperre=gesperrt.append)
 soll("1807: Stellungnahme-START mit Nummer im Titel", "| Sokrates – 9001: offene Zeilen und Stellungnahme (1763 C, 22.11., 07:50) | " in aus[0] and lauf.nummer_aus_titel(aus[0].split(" | ")[5]) == "9001", aus)
 soll("1807: Startsperre mit Nummer auch beim Anhängen", gesperrt == ["9001"], gesperrt)
+# 1891 (D336.1): Stellungnahme ohne offene Zeilen trägt die Nummer der ersten Chefsache-Datei (Startsperre, Nachtdeckel)
+z, n = lauf.stellungnahme_start(["1727j-vorschlaege.md", "1727k-settings.md"], "Sokrates\n\nStellungnahme")
+soll("1891: Stellungnahme-START mit Nummer 1727j", n == "1727j" and " | Sokrates – 1727j: Stellungnahme (" in z and lauf.nummer_aus_titel(z.split(" | ")[5]) == "1727j", (z, n))
+z2, n2 = lauf.stellungnahme_start(["ohne-nummer.md"], "Sokrates\n\nx")
+soll("1891: Datei ohne Nummer: Titel wie bisher, Nummer None", n2 is None and " | Sokrates – Stellungnahme (" in z2, z2)
+gesperrt = []; aus = [z]
+lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), sperre=gesperrt.append)
+soll("1891: offene Zeilen an START mit Dateinummer: Nummer der Zeile gilt", "| Sokrates – 9001: offene Zeilen und Stellungnahme (1763 C, " in aus[0] and "1727j" not in aus[0].split(" | ")[5] and gesperrt == ["9001"], aus)
+import inspect as _insp
+_src = _insp.getsource(lauf.haupt) if hasattr(lauf, "haupt") else open(os.path.join(HIER, "lauf.py"), encoding="utf-8").read()
+soll("1891: Stellungnahme-START setzt Startsperre Sokrates", 'zeile, so_nr = stellungnahme_start(ohne, msg)' in _src and 'sperr_nr["Sokrates"] = so_nr' in _src)
 gesperrt = []; aus = ["WEITER session_SOK | Sokrates | Stellungnahme | Stellungnahme …"]
 lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), sperre=gesperrt.append)
 soll("1807: WEITER bleibt ohne neue Sperre", gesperrt == [] and "1763 C" in aus[0], (gesperrt, aus))

@@ -637,6 +637,15 @@ def sokrates_ziel(s, ss):
     neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
     return ",".join(kosten_auf(min(z(x["created_at"]) for x in neuere) if neuere else z(s["updated_at"])))
 
+def stellungnahme_start(ohne, msg):
+    """1891 (D336.1): START-Zeile der Stellungnahme (194.2) mit der Nummer der ersten Chefsache-Datei im Titel („1727j-vorschlaege.md“
+    → 1727j), damit Startsperre und Nachtdeckel (1643) einen Vorgang tragen; (Zeile, Nummer oder None)."""
+    m = re.match(r"(\d[\w.]*?)(?:-|\.md$)", ohne[0]) if ohne else None
+    nr = m.group(1) if m else None
+    titel = "Sokrates – %sStellungnahme (%s)" % ((nr + ": ") if nr else "", berlin(JETZT))
+    return ("START Sokrates | opus%s | %s | %s | %s | %s | %s" % (aufwand(), umgebung("Sokrates"), REPO, REVISION, titel, msg.replace("\n", "\\n"))), nr
+
+
 def sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger=lambda r: None, docs=None, sperre=lambda nr: None):
     """1763 C (Chef 21.11., 14:37): offene Übergabezeilen an Sokrates („steckt fest“, „Frage“, „wirkt nein“, Obergrenze A/B → an den Chef)
     → Sokrates wecken (WEITER) oder starten; steht schon eine Sokrates-Zeile dieses Laufs, kommt der Auftrag dazu (nie zwei Sokrates)."""
@@ -653,7 +662,7 @@ def sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger=lambda r: None, do
                 ausgabe[i] = ausgabe[i].replace(" | Stellungnahme | ", " | Stellungnahme | %s " % teil, 1)
             else:  # 1807 (D334.1): START der Stellungnahme trägt jetzt die Nummer der ersten Zeile im Titel und bekommt die Startsperre
                 nr = so_z[0][0].split("-Ü")[0]
-                ausgabe[i] = ausgabe[i].replace("| Sokrates – Stellungnahme (", "| Sokrates – %s: offene Zeilen und Stellungnahme (1763 C, " % nr, 1) + "\\n\\n" + teil
+                ausgabe[i] = re.sub(r"\| Sokrates – (?:[\w.]+: )?Stellungnahme \(", lambda _m: "| Sokrates – %s: offene Zeilen und Stellungnahme (1763 C, " % nr, ausgabe[i], 1) + "\\n\\n" + teil
                 vorgaenger("Sokrates"); sperre(nr)
         else:
             tok_so = lambda s: s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens") or 10**9
@@ -1518,8 +1527,12 @@ def main():
             elif so_laeuft:
                 ausgabe.append("NICHTS Sokrates: Stellungnahme zu %s wartet, Sokrates läuft (Token über %d Tsd. oder unbekannt)" % (", ".join(ohne[:3]), WEITER_TOKEN // 1000)); msg = None
             else:
-                ausgabe.append("START Sokrates | opus%s | %s | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (aufwand(), umgebung("Sokrates"), REPO, REVISION, berlin(JETZT), msg.replace("\n", "\\n")))
+                zeile, so_nr = stellungnahme_start(ohne, msg)
+                ausgabe.append(zeile)
                 vorgaenger("Sokrates")  # 261.5 (2): die ruhende alte Sitzung gleich danach archivieren, nicht zwei Sokrates nebeneinander
+                # 1891 (D336.1): Startsperre auch ohne offene Zeilen (vorher nur vorgaenger, der Startsperre-Haken hielt den Start an)
+                if "Sokrates" not in sperren: sperren.append("Sokrates")
+                sperr_nr["Sokrates"] = so_nr
             if msg: wochen.append("Stellungnahme Sokrates %s" % heute)
     def _so_sperre(nr):  # 1801
         if "Sokrates" not in sperren: sperren.append("Sokrates")
