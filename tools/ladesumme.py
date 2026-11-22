@@ -38,7 +38,7 @@ TEILE = {
     "Querprofil Fremde Inhalte A": (M + "profil-fremde-inhalte.md|## Teil A", "Fremde Inhalte", None),
     "Querprofil Signatur und Leben": (M + "querprofil-signatur-und-leben.md", "Signatur und Leben", None),
     "Profil Welt": (M + "profil-welt.md", "Welt", None),
-    "Profil Figur und Prüfbild": (M + "profil-figur-und-pruefbild.md", "Figur und Prüfbild", None),
+    "Profil Figur und Prüfbild": (M + "profil-figur-und-pruefbild.md", "Figur", None),  # 1928: Profilname wie Fachprofil in chefsache/themenbloecke.md (lauf.ladetext)
     "Profil Story": (M + "profil-story.md", "Story", None),
     "Routine Wache": (M + "routine-wache.md|## Text", "Wache", None),
 }

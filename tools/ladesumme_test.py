@@ -58,5 +58,11 @@ os.makedirs(os.path.join(g, "docs", "profile")); open(os.path.join(g, "docs", "p
 soll("nach der Umstellung zählt docs/profile/<Profil>.md", L.teil_byte("Routine Wache") == (2, "docs/profile/Wache.md"))
 soll("main ohne Pfad: Tabelle der Sitzungsarten", L.main([]) == 0)
 soll("Rolle in --alt", "| Spike |" in L.tabelle_alt())
+# 1928 (D366.1 b): jeder Profilname in TEILE ist ein Name, den lauf.py als docs/profile/<Name>.md lädt (Fachprofile, Büro, Kerne,
+# Querprofile, Zugang Kaufrepo); Wache startet als Routine mit eigenem Text
+import startbar as _sb, lauf as _lf
+_ladbar = set(_sb.profile()) | {k for v in _lf.KERN_VON.values() for k in v} | {n for n, _ in _lf.QUER_AUS_AUFTRAG} | {_lf.KAUFREPO_PROFIL, "Wache"}
+_fremd = sorted(p for _, p, _ in L.TEILE.values() if p and p not in _ladbar)
+soll("Profilnamen wie lauf.py (%s)" % ", ".join(_fremd), not _fremd)
 print("ladesumme_test:", "grün" if not fehler else "ROT: " + "; ".join(fehler))
 sys.exit(1 if fehler else 0)
