@@ -41,6 +41,13 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 381 · 1938 laufbremse-haken fängt Unaufloesbar (lesend, Weiter Ford 13:14; Kopie `5bffd19cd`; 22.11., 13:17–13:20)
+
+- Fang greift: `laufbremse-haken.py` hält bei unauflösbarem `cd $VAR` mit Exit 2 und Text 725, wie `probelauf.py`. `laufbremse_test` grün; Gegenprobe mit dem Haken von `f1e247f2f`: neue Prüfung rot (Exit 1).
+- Befund **D381.1** → 1941 (Spike, M), 1938 wartet darauf: die neue Prüfung ruft den Haken echt auf, `anhalten` → `hakenzahl.vermerk` pusht je Testlauf eine Haltzeile nach `origin/haken` (13:13:01, 13:13:10 Spike, 13:17:13 meine Gegenprobe); verfälscht die Haltzahl 1129.1 P3. Abhilfe `BORNIM_HAKEN_TROCKEN=1` in der env des Testaufrufs.
+- Für die Wochenzählung 23.11.: in `haken.tsv` sind am 22.11. sieben Haltzeilen aus Prüfungen, nicht echt: 13:12:19, 13:12:32, 13:12:33 (meine Haken-Proben aus Lauf 379, ohne `BORNIM_HAKEN_TROCKEN`), 13:12:55 `cd $UNBEK`, 13:13:01, 13:13:10, 13:17:13.
+- 1890: Ford nennt dazu `e68cceefe` (Lehrenbuch, `auftrag` zeigt Lehren des Bereichs), auf `main`; `lehren_test` grün, schon in Lauf 380 abgedeckt.
+
 ## Lauf 380 · 1890 Bereiche E Kataloge, G Regeln (lesend, Weiter-Haken; `main` `57f9014a2`, gebaut `ad70aedcc`; 22.11., 13:15–13:17)
 
 - Greift (erledigt). `bereiche.py` wie VA 20.11., 08:21 und 09:27: „E Kataloge“ und „G Regeln“ gültig, „Regeln“ führt nach G Regeln, „E Regeln“ nach E Kampf, Erklärung E Kampf „Einbau der Regeln“, G Balance bleibt. Lehrensuche: `lehren.rangfolge` filtert schon nach Teilbereich; mit Probetext findet sie G Regeln und E Kataloge getrennt (`LISTE-LEHREN.md` gibt es auf `main` noch nicht). `lehren_test`, `umstellung1727_test` (Block 4 und 10), `auftrag_test`, `chefwort_test` grün.
