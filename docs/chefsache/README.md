@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 21.11., 23:40, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 00:18, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -33,7 +33,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 21.11., 
 | ↳ **12** Bedienung und Oberfläche | 5 (5) | 0 | 0 | 0 | 4 | 954a.12 (Tom) Erschaffung: nicht wählbare Fertigkeiten in einer… |
 | ↳ **13** Geschichte und Texte | 11 (11) | 0 | 0 | 0 | 3 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 7 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
-| **7** Firma: Werkzeuge und Abläufe | 88 (88) | 61 | 1 | 1 | 14 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
+| **7** Firma: Werkzeuge und Abläufe | 88 (88) | 61 | 0 | 1 | 14 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -57,14 +57,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Spike | 1792 Nachtstopp-Haken 1643 kennt keine vom Chef entschiedene Aus… (Muss); dann 19 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Diogenes | 1768 buildzweig-haken.py lässt git push nach Shell-Schlüsselwort… (Muss); dann 5 weitere |
-| Sokrates | läuft: 1727 (Besetzung); 1727 Neustrukturierung frei gedacht: Grobablauf als Flussdiagram… (Muss); dann 4 weitere |
+| Sokrates | 1727 Neustrukturierung frei gedacht: Grobablauf als Flussdiagram… (Muss); dann 4 weitere |
 | Perikles | 1728 Teilprojekte im Projektplan durch Verweis auf chefsache/the… (Muss); dann 2 weitere |
 
 **Die nächsten 20**
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1727 | Sokrates | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts,… | M | 7 Firma | in Arbeit |
+| 1 | 1727 | Sokrates | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts,… | M | 7 Firma | startbar |
 | 2 | 870 | Sokrates | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 10 Regeln | startbar |
 | 3 | 1068 | Jerry | Ring bei jedem großen Schlag der Gegner, diese Schläge härter, Ring beim eigene… | M | 2 Kampf | startbar |
 | 4 | 1589.3 | Tom | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf | startbar |
@@ -108,7 +108,7 @@ Was nur du tun kannst (Satz in einer Sitzung, Freigabe, Kauf; 275). Erledigt: Da
 
 ## Offen je Rolle
 
-Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
+Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „startbar“ heißt: nichts hält die Zeile auf, eine laufende Sitzung kennt das Werkzeug nicht.
 
 **Homer** – offen 15, Muss 0, startbar 14
 
@@ -130,7 +130,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.11.; „star
 | 1757 | K | Von Sokrates (1727, Prüfung Profil Oberfläche 14:48): DESIGN-STIL „Fenster und Schirme“ Sa | startbar |
 | 1758 | K | Von Sokrates (20.11., 16:38, Chef: Kapitel ohne feste Zahl, „weil ich mich daran nicht bin | startbar |
 
-**Tom** – offen 53, Muss 17, startbar 6
+**Tom** – offen 53, Muss 17, startbar 7
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -149,7 +149,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.11.; „star
 | 1675 | M | Von Chef (18.11., 15:57, t299): Wachsoldatin im Hauptmenü, Schild schwebt neben ihr; zurüc | startbar |
 | 1676 | M | Von Chef (18.11., 15:56, t299): angelegter Umhang des Helden deckt den rechten Unterarm te | startbar |
 | 1570 | M | Von Chef (18.11., 17:07, „ich bin auch für die Systemlösung“, Votum Sokrates): Umhang einm | startbar |
-| 1709 | M | Von Chef (18.11., 22:07): Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Mod | Termin 22.11. |
+| 1709 | M | Von Chef (18.11., 22:07): Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Mod | startbar |
 | 1785 | M | Von Sokrates (1535, Chef 21.11., 21:43 „Das sollte man mal nachhalten“): Weg aus 4fd7055c8 | startbar |
 | 568 | K | Ernten als Handlung statt Einsaugen; Angeln mit Pose und Ring (Chef 04.11., 19:42: ja, A) | ruht bis 23.11. |
 | 515 | K | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 0 | wartet auf 870 (startbar) |
@@ -334,8 +334,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 21.11.; „star
 | 1795 | M | Von Sokrates (1727 Profil Tester, 22:44/23:00): rueckmeldung.py erkennt „Befunde: n“ des T | startbar |
 | 1796 | M | Von Sokrates (1727, Nachprüfung 23:03): Büro-Folge gegen Archiv 21.11., 20:51 „Eilt zuerst | startbar |
 | 1797 | M | Von Sokrates (1727, Nachprüfungen 23:00/23:03): rueckmeldung.py worte() erkennt „abgebroch | startbar |
-| 1798 | M | Von Sokrates (1727 Falltest Lauf 1, A alle): auftrag.py nimmt Feld 6 nur als „Prüfart und | startbar |
-| 1799 | M | Von Sokrates (1727 Falltest Lauf 1, R2/R3, D3): Zählung für Wache 7 „Liegt“: Vorgang abgen | startbar |
+| 1798 | M | Von Sokrates (1727 Falltest Lauf 1/2, Arbeitsplaner): auftrag.py an Kern Arbeitsplaner ang | startbar |
+| 1799 | M | Von Sokrates (1727 Falltest, Nachprüfung 1 Befunde 3–5): lauf.py gibt Zeile LIEGT für jede | startbar |
 | 1800 | M | Von Sokrates (1727 Falltest Lauf 2, D10/D11): „steckt fest“ hält keinen Start an: rueckmel | startbar |
 | 1801 | M | Von Sokrates (1727 Falltest Lauf 2, D5): Nachtstopp-Haken nacht() liest die Nummer aus dem | startbar |
 
