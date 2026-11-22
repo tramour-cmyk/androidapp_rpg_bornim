@@ -102,6 +102,16 @@ f3 = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", "Der Zwerg steht
 soll("1917: „Quelle fehlt“ im Ziel hält weiter an", any("Feld 1" in x and "Quelle fehlt" in x for x in au.pruefen(f3)), au.pruefen(f3))
 f4 = GUT.replace("Stellfläche aus dem Netz lesen.", "Commit und Zweig unklar.")
 soll("1917: „Commit und Zweig unklar“ hält an", any("Feld 5" in x for x in au.pruefen(f4)), au.pruefen(f4))
+# 1920 (D349.1): Satzaussagen über den Auftrag in jeder Schreibweise halten an; Spielfunde mit Ziel, Quelle, Zweig gelten
+for ziel in ("Das Ziel ist unklar.", "Es fehlt das Ziel", "Unklar, was gebaut werden soll", "Ziel: noch offen.", "ziel fehlt",
+             "Was gebaut werden soll, ist unklar.", "Ziel ist nicht klar."):
+    x = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", ziel)
+    soll("1920: „%s“ im Ziel hält an" % ziel, any("Feld 1" in y and "fehlt" in y for y in au.pruefen(x)), au.pruefen(x))
+for ziel in ("Das Ziel fehlt auf der Gebietskarte.", "Die Quelle fehlt im Dorf.", "Der Zweig fehlt am Baum.", "Die Tür bleibt offen, wenn der Held geht."):
+    x = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", ziel)
+    soll("1920: Spielfund „%s“ gilt" % ziel, au.pruefen(x) == [], au.pruefen(x))
+x = GUT.replace("Ist nichts im Tisch?", "Ist der Weg offen?")
+soll("1920: „Ist der Weg offen?“ in der Prüfart gilt", au.pruefen(x) == [], au.pruefen(x))
 sechs = GUT.replace("   - Kerntests\n", "   - a\n   - b\n   - c\n   - d\n   - e\n")
 soll("Beachte mit sechs Punkten hält an", any("Beachte" in x for x in au.pruefen(sechs)), au.pruefen(sechs))
 num = GUT.replace("   - nur Tom-Bereich\n   - Kerntests\n", "   1. nur Tom\n   2. Kerntests\n")

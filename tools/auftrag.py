@@ -69,13 +69,47 @@ def _feld(text, i, name):
 
 # 1879: Platzhalter wie <Nr>, <Commit>, <was der Spieler sieht>; nicht in Pfaden (docs/vorgang/<Nr>.md) und nicht <-> o. Ä.
 PLATZHALTER = re.compile(r"(?<![/\w])<[^<>\n/]*[A-Za-zÄÖÜäöüß][^<>\n/]*>(?![/.\w])")
-# 1879, 1917 (D347.1): Wörter, die sagen, dass der AUFTRAG noch fehlt (A3 Feld 1: „Ziel und Herkunft fehlen, „Frage“ an Sokrates; … erst mit
-# der Antwort“). „fehlt“ zählt nur als Aussage über einen Teil des Auftrags (Ziel, Herkunft, Quelle …), nie über das Spiel („Im Hof fehlt
-# die Fackel“, „Fehlt der Schatten noch?“).
-_META = r"(?:Ziel|Herkunft|Quelle|Angaben?|Auftrag|Prüffragen?|Prüfart|Commit|Zweig|Empfänger|(?:Vorgangs)?[Nn]ummer|Beleg|Systemfrage)"
-FEHLWORT = re.compile(r"\b%s(?:\s*(?:,|und|oder)\s*%s)*\s+(?:fehl(?:t|en)|unklar|ungeklärt|offen)\b" % (_META, _META)
-                      + r"|\bTODO\b|\btbd\b|\?\?|\bspäter ergänzen\b|\bnoch zu klären\b|\berst (?:mit|nach) der Antwort\b"
-                      + r"|„Frage“ an (?:Sokrates|den Chef|Chef|Ford|Perikles|Homer|den Disponenten|den Arbeitsplaner)\b")
+# 1879, 1917 (D347.1), 1920 (D349.1): Wörter, die sagen, dass der AUFTRAG noch fehlt (A3 Feld 1: „Ziel und Herkunft fehlen, „Frage“
+# an Sokrates; … erst mit der Antwort“). Geprüft wird je Satz und Satzteil: er sagt nur „fehlt/unklar/offen“ über einen Teil des
+# Auftrags (Ziel, Herkunft, Quelle …) und sonst nichts als Füllwörter („Das Ziel ist unklar.“, „Es fehlt das Ziel“, „Ziel: noch offen.“,
+# „ziel fehlt“), oder er ist nur „unklar“ vor einem Fragesatz („Unklar, was gebaut werden soll“). Ein Satz mit Ort oder Ding
+# („Das Ziel fehlt auf der Gebietskarte“, „Im Hof fehlt die Fackel“, „Fehlt der Schatten noch?“) ist ein Spielfund.
+_META = {"ziel", "ziele", "herkunft", "quelle", "quellen", "angabe", "angaben", "auftrag", "auftrags", "prüffrage", "prüffragen",
+         "prüfart", "commit", "commits", "zweig", "empfänger", "nummer", "vorgangsnummer", "beleg", "belege", "systemfrage"}
+_LEER = {"fehlt", "fehlen", "fehlend", "fehlende", "unklar", "ungeklärt", "offen", "unbekannt", "unbestimmt", "ausstehend", "aus"}
+_FUELL = {"der", "die", "das", "den", "dem", "des", "es", "ist", "sind", "bleibt", "bleiben", "war", "noch", "und", "oder", "auch",
+          "ganz", "völlig", "gänzlich", "komplett", "bisher", "leider", "derzeit", "aktuell", "hier", "ebenfalls", "weiterhin", "immer",
+          "jedoch", "aber", "gar", "steht", "stehen", "sowie", "beide", "beides", "alle", "noch", "so", "vorerst", "erst", "mal"}
+_FRAGEWORT = re.compile(r"^\s*(?:was|wer|wen|wem|wie|wo|wohin|woher|woran|worauf|wann|warum|wozu|ob|welche[rsnm]?)\b", re.I)
+FEHLWORT_FEST = re.compile(r"\bTODO\b|\btbd\b|\?\?|\bspäter ergänzen\b|\bnoch zu klären\b|\berst (?:mit|nach) der Antwort\b"
+                           r"|„Frage“ an (?:Sokrates|den Chef|Chef|Ford|Perikles|Homer|den Disponenten|den Arbeitsplaner)\b", re.I)
+
+def _woerter(teil):
+    t = re.sub(r"\bnicht\s+(?:klar|bekannt|festgelegt|geklärt|bestimmt|angegeben|genannt)\b", "unklar", teil.lower())
+    return re.findall(r"[\wäöüß]+", t)
+
+def _nur_leer(w):
+    """Satzteil sagt nur „fehlt/unklar/offen“ (ohne Teil des Auftrags), z. B. „Es ist unklar“."""
+    return bool(w) and any(x in _LEER for x in w) and all(x in _LEER or x in _FUELL for x in w)
+
+def fehlwoerter(t):
+    """1920: Stellen in t, die sagen, dass der Auftrag selbst fehlt (leer = keine)."""
+    treffer = [m.group(0).strip() for m in FEHLWORT_FEST.finditer(t)]
+    for satz in re.split(r"[.;!?\n]+", _ohne_zitate(t)):
+        teile = [x for x in re.split(r",", satz)]
+        for kand in [satz] + teile:
+            w = _woerter(kand)
+            if (w and any(x in _META for x in w) and any(x in _LEER for x in w)
+                    and all(x in _META or x in _LEER or x in _FUELL for x in w)):
+                treffer.append(kand.strip(" :–-")); break
+        else:
+            for i, teil in enumerate(teile):
+                nachbarn = teile[i + 1:i + 2] + teile[max(i - 1, 0):i]
+                if _nur_leer(_woerter(teil)) and any(_FRAGEWORT.match(x) for x in nachbarn):
+                    treffer.append(satz.strip(" :–-")); break
+    if _nur_leer(_woerter(_ohne_zitate(t))): treffer.append(t.strip())   # ganzes Feld nur „offen.“, „unklar“, „fehlt noch“
+    return sorted(set(x for x in treffer if x))
+
 FEHLWORT_FELDER = (1, 5, 6, 7)   # Ziel, Umsetzen, Prüfart, Zurück; in Bisher und Systemfrage ist „Ursache unbekannt“, „Quelle fehlt“ Auftrag
 FRAGEN_MIN, FRAGEN_MAX = 3, 5
 
@@ -95,7 +129,7 @@ def inhalt_fehler(text):
         p = sorted(set(m.group(0) for m in PLATZHALTER.finditer(_ohne_zitate(re.sub(r"`[^`]*/[^`]*`", "", t)))))
         if p: f.append("Feld %d „%s“ hat Platzhalter %s" % (i, name, ", ".join(p)))
         if i in FEHLWORT_FELDER:
-            w = sorted(set(m.group(0).strip() for m in FEHLWORT.finditer(t)))
+            w = fehlwoerter(t)
             if w: f.append("Feld %d „%s“ sagt, dass etwas fehlt (%s): erst klären („Frage“), dann den Auftrag schreiben" % (i, name, ", ".join(w)))
         if i in (1, 7) and "?" in _ohne_zitate(t): f.append("Feld %d „%s“ ist eine Frage, keine Angabe" % (i, name))
     if _feld(text, 6, FELDER[5]):
