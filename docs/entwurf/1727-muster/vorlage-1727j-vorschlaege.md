@@ -1,28 +1,49 @@
-# 1727j · Nimmst du die sechs Textänderungen V1–V6 und die Antworten auf die offenen Fragen an?
-Sokrates · 22.11., 07:54 (Entwurf, wird vor 10:00 gegengeprüft) · B Abläufe · aus dem Falltest Lauf 1–3 und deinem Wort 20.11., 16:49 (Abgenommenes nur nach Gespräch, Größe je Änderung)
-Kurz: sechs kleine Änderungen an abgenommenen Texten, je mit Byte, und elf Fragen mit Votum.
+# 1727j · Nimmst du die fünf Textänderungen V1 bis V4 und V6 an, und wie entscheidest du die vierzehn offenen Fragen aus dem Falltest?
+Sokrates · 22.11., 08:29 · B Abläufe · aus dem Falltest Lauf 1 bis 3 und deinem Wort 20.11., 16:49 (Abgenommenes nur nach Gespräch ergänzen, je Änderung Größe)
+Kurz: fünf kleine Änderungen an abgenommenen Ladetexten mit Byte, dazu vierzehn Fragen je mit Votum.
 Beim Chef, weil: Rollen und Accounts (Änderung an abgenommenen Ladetexten)
 
 Geprüft an: <Commit vor dem Anlegen>
 
-**Frage:** Der Falltest hat an abgenommenen Texten sechs Stellen gezeigt, an denen eine Sitzung falsch oder gar nicht weiterkam. Nimmst du die Änderungen V1–V6 an, und wie entscheidest du die Fragen darunter? Alles mit Wortlaut, Byte, Fall und stärkstem Gegenargument: `docs/entwurf/1727-muster/vorschlaege-10-00.md`.
+**Frage:** Der Falltest hat an abgenommenen Ladetexten (1727i) fünf Stellen gezeigt, an denen eine Sitzung falsch oder gar nicht weiterkam, und vierzehn Fragen offengelassen, die kein Text beantwortet. Nimmst du die fünf Änderungen an, und wie entscheidest du die Fragen? Wortlaut alt und neu, Fall und Gegenargument je Änderung: `docs/entwurf/1727-muster/vorschlaege-10-00.md`.
 
-**Votum:** „1727j A“: V1–V6 ja; Fragen wie mein Votum dort.
+**Votum:** „1727j A“: V1, V2, V3, V4, V6 ja; die Fragen wie mein Votum je Zeile unten.
 
-**Berührt:** Kern Leitung (V1), Sockel (V2), Kern Arbeitsplaner (V3, V4, Deckel), Kern Büro (V6), Profil Prüfer (Fragen), Profil Disponent (Rückläufer bei weniger Laufen); Werkzeuge bei Spike (1872, 1873, „drittes Beleg fehlt“).
+**Berührt:** Sockel (V2), Kern Leitung (V1), Kern Arbeitsplaner (V3, V4, Frage 11), Kern Büro (V6), Profil Prüfer (Fragen 3 und 4), Profil Disponent (Frage 8); Spike (Werkzeuge zu Fragen 2, 3, 5, 6 und 7); Themenblöcke (Frage 14).
 
-**Begründung:** jede Änderung hat einen Fall aus dem Falltest, in dem die Sitzung ohne sie falsch handelte (V1 L1/L10, V2 W1, V3 K3, V4 A7, V6 A5); V5 ist eine Lesart deines Entscheids vom 21.11., 14:37, die ich bestätigt haben will.
+**Begründung:** Jede Änderung hat einen Fall, in dem die Sitzung mit dem alten Text falsch handelte; ohne Antwort auf die Fragen entscheidet nach dem Umschalten jede Sitzung selbst.
 
 **Sachverhalt:**
-- V1 Kern Leitung 2.837 → 2.962 (mit „bei Ladetexten“ 2.977); V2 Sockel 1.109 → 1.129; V3 und V4 Kern Arbeitsplaner 2.649 → 2.834 (mit Deckel-Halbsatz 2.866); V6 Kern Büro 680 → 759; V5 kein Textwechsel.
-- Gespielt: V1 (Lauf 3 L10 bestanden), V2, V3 (W7, W8 bestanden), V4 Feld 3 erste Fassung (A7). Nicht gespielt: V4 Feld 7, V6, Deckel.
-- Fragen: Deckel zu V1, V5, drittes „Beleg fehlt“, Formmangel und Testausgabe, Beleg durch eigene Prüfung, Kosten bisher, Liegezeit, Rückläufer bei weniger Laufen, Handypunkte, Ladesumme nur bei Ladetexten, Deckel und Freigabe im Auftrag, Bauskript als fremde Datei, Auftrag ohne Prüffragen.
+- **V1, Kern Leitung** (2.837 → 2.962 Byte, mit Frage 10: 2.977): was etwas festlegt oder in `chefsache/entscheiden/` geht, prüft ein frischer Helfer, nach jedem Einarbeiten neu, bis nichts Neues kommt; im Chat Byte und Ladesumme vorher und nachher. Fall: die Leitung legte eine Chefsache ohne Prüfung vor; dein Wort 21.11., 21:37 „Jedes Mal, wenn du was überarbeitest, lass es gegenprüfen.“ (steht im Vorrat Sokrates, nicht im Archiv). In Lauf 3 gespielt, bestanden.
+- **V2, Sockel** (1.109 → 1.129): „Vor Sitzungsende alles pushen.“ → „Vor Sitzungsende nur Eigenes committen und pushen.“ Fall: Vorfall 21.11., 20:59 (fremde Dateien mitgepusht). Gespielt.
+- **V3, Kern Arbeitsplaner** (2.649 → 2.698): im Auftrag als Rückmeldewort „steckt fest“ statt „abgebrochen“. Fall: die Fachkraft meldete zweimal „Frage“ statt „steckt fest“, so griff deine Obergrenze (21.11., 14:37 B) nie. In Lauf 3 gespielt, wirkt.
+- **V4, Kern Arbeitsplaner** (2.698 → 2.834): ist die Ursache unbekannt, erst den Fehler im Test rot zeigen und die Ursache mit Commit belegen, dann beheben, in einem Auftrag; Rückmeldung mit dem roten und dem behobenen Commit. Fall: der Nachstellauftrag ohne Bau ließ einen Rückläufer nie beim Chef ankommen. Gespielt nur in einer ersten Fassung; beide Halbsätze danach geändert, ungespielt.
+- **V6, Kern Büro** (680 → 759): Chefworte bleiben wörtlich, daneben in eckigen Klammern eine Lesart, wenn die Vorlage sie eindeutig macht (Beispiel: Spracherkennung „535“, gemeint 235). Ungespielt.
+- **V5** ist keine Textänderung, sondern Frage 1.
+- Zusammen wachsen vier Texte um 409 Byte (mit Fragen 10 und 11: 456); der Kern Arbeitsplaner um 185, mit Frage 11 um 217. Die Grenzen halten (Sockel 1,2 KB, Kern 3 KB). Ladesumme mit allen Änderungen: Arbeitsplaner 4.438 → 4.754, Leitung 3.946 → 4.106, Disponent 5.564 → 5.663.
+
+**Fragen, je mit Votum** (Herkunft und Gegenargument je Frage in `vorschlaege-10-00.md`):
+1. Zählt ein Nein von dir unter „Bisher“ im Vorgang als erster Fehlversuch für „steckt fest“ (deine Obergrenze 21.11., 14:37)? **Votum ja:** nach deinem Fund ein Versuch der Fachkraft, beim nächsten Nein Sokrates, beim zweiten „steckt fest“ du (dein Wort 19.11., 22:17 „Rückläufer müssen aber auch weiter bearbeitet werden und dürfen nicht durchrutschen“).
+2. Ist das dritte „Beleg fehlt“ des Prüfers ein „nein“? **Ja,** sonst schleift ein schlechter Beleg ohne Grenze; Profil Prüfer etwa +60 Byte, Werkzeug bei Spike (neu anzulegen).
+3. Fehlt in der Rückmeldung nur eine Angabe (Zahl der Fälle, Quelle, Testausgabe), ist das „Beleg fehlt“, nicht „nein“? **Ja;** Profil Prüfer etwa +45 Byte.
+4. Darf der Prüfer einen fehlenden Beleg durch eigene Prüfung im Repo ersetzen? **Nein,** der Beleg ist für dich und das Archiv; kein Textwechsel.
+5. Woher kommen die „Kosten bisher“ in einer Chefsache nach zweitem „steckt fest“? **Werkzeug** schreibt sie in den Kopf der Vorgangsdatei (neu bei Spike), kein Text.
+6. Liegezeit je Übergabe in die Wochenzählung? **Ja,** als Werkzeug 1868, nicht vor dem Umschalten nötig.
+7. Auftrag ohne Prüffragen: was tut der Prüfer? **Lesart, kein Text:** ohne sichtbaren Mangel „nein, Auftrag“, mit Mangel „nein“ und Hinweis „Prüffrage fehlt“; verhindern soll es das Werkzeug 1879 (drei bis fünf Prüffragen je Auftrag).
+8. Starten Rückläufer von dir auch, wenn du „weniger laufen“ gesagt hast? **Ja,** ein Fund von dir soll nicht über Nacht liegen; nennst du einen Umfang, setzt Sokrates ihn.
+9. Wer zählt beim Build die Handypunkte („Testbitte erst ab 4“)? **Der Build-Macher** nach Checkliste 3 (`LISTE-CHECK-BUILD-TEST.md`); kein Textwechsel.
+10. Gilt „Byte und Ladesumme“ aus V1 nur bei Ladetexten? **Ja** (+15 Byte); für Chefsache-Dateien prüft die Größe schon `vorlage_pruefen.py`.
+11. Gehören Deckel (etwa „ein Versuch“) und Lauffreigabe mit Quelle in jeden Auftrag? **Ja,** Kern Arbeitsplaner +32 Byte; sonst baut die Fachkraft darüber hinaus oder fragt zurück. Ungespielt.
+12. Ist ein Bauskript am Kaufmodell eine „fremde Datei“, sodass das Querprofil Fremde Inhalte zugeladen wird? **Ja,** nur wenn der Auftrag Kaufmodell oder Bauskript ändert (`CLAUDE.md`: Lizenz auch bei Bearbeitung des Originals).
+13. Deckel für V1: höchstens drei Prüfrunden, dann mit Restbefunden vorlegen? **Nein,** dein Wort 21.11., 21:37 und „Qualität vor Eile“; offen, ob „eine Runde ohne neuen Befund am Ladetext“ als Ende reicht: das entscheidest du.
+14. Themenblöcke 8 (Marktstart) und 9 (Übriges) haben kein Fachprofil; Spike gibt sie an der Kopie vorläufig dem Arbeitsplaner (`docs/vorgang/1893.md`). Bekommt Block 8 das Profil Markt und Recherche? **Ja für 8,** es ist das Fachprofil dafür; 9 bleibt beim Arbeitsplaner. Den Zuschnitt änderst nur du (`chefsache/themenbloecke.md`).
+- Ohne Votum, nur zur Kenntnis: im Falltest verknüpfte der Arbeitsplaner verwandte Vorgänge nicht; das verlangt kein Text, die Liste führt der Disponent. Wenn du es willst, ist es eine neue Zeile im Kern Arbeitsplaner.
 
 **Auswertung:**
-- **A (Empfehlung):** alles wie Votum; ich baue die Texte ein, je Commit mit Byte, dann frische Nachprüfung.
-- **B:** nur die gespielten (V1, V2, V3, V4 Feld 3); V4 Feld 7, V6 und die Textfragen nach dem Umschalten am ersten echten Fall.
-- **Stärkstes Gegenargument gegen A:** drei Änderungen sind nicht gespielt; jede Änderung an abgenommenen Kernen ist das „Aufblähen“, vor dem du am 20.11., 16:49 gewarnt hast (zusammen etwa +460 Byte über fünf Texte). Entkräftet: jede liegt unter 150 Byte je Text und hat einen Fall, in dem der alte Text falsch führte; die Grenzen (Sockel 1,2 KB, Kern 3 KB) halten.
+- **A (Empfehlung):** alles wie Votum; ich baue die Texte ein, je Commit mit Byte, danach frische Nachprüfung, bis nichts Neues kommt.
+- **B:** nur die gespielten Änderungen (V1, V2, V3); V4, V6 und die Textfragen 2, 3, 10, 11 erst nach dem Umschalten am ersten echten Fall.
+- **Stärkstes Gegenargument gegen A:** V4, V6 und Frage 11 sind nicht gespielt, und jede Änderung an abgenommenen Kernen ist das „Aufblähen“, vor dem du am 20.11., 16:49 gewarnt hast (zusammen 456 Byte, mit den Fragen 2 und 3 zum Profil Prüfer etwa 560). Entkräftet: jede Änderung hat einen Fall, in dem der alte Text falsch führte, und die Grenzen halten; wer das Ungespielte nicht will, nimmt B.
 
-**Folgerungen:** bei A Einbau durch Sokrates, Archivzeile je V, Nachprüfung, dann Umschalten nach 1727h. Bei B nur die vier.
+**Folgerungen:** bei A Einbau durch Sokrates, Archivzeile je Änderung und Frage, Werkzeugaufträge an Spike (Fragen 2, 5 neu; 6 ist 1868, 7 ist 1879), Themenblock 8 in `chefsache/themenbloecke.md`; dann Umschalten nach 1727h. Bei B nur V1 bis V3.
 
 Antwort: …
