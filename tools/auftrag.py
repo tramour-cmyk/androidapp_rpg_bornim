@@ -46,13 +46,17 @@ def routine_text(titel, wurzel):
     return m.group(1).strip() if m else None
 
 def vorlage(nr, titel=""):
-    kopf = "Auftrag %s%s\n\n" % (nr, (": " + titel) if titel else "")
+    kopf = "Auftrag %s%s (höchstens %d Byte, etwa 2 KB; oben in docs/vorgang/%s.md)\n\n" % (nr, (": " + titel) if titel else "", GRENZE, nr)
     return kopf + "\n".join("%d. **%s:** <%s>" % (i, f, h) for i, (f, h) in enumerate(zip(FELDER, HINWEIS), 1)) + "\n"
+
+def _name_re(name):
+    """1798 (Kern Arbeitsplaner, Feld 6 „Prüfart“): Feld 6 heißt auch nur „Prüfart“."""
+    return r"Prüfart(?: und Prüfe vor dem Senden)?" if name == FELDER[5] else re.escape(name)
 
 def _feld(text, i, name):
     """Inhalt von Feld i bis zum nächsten nummerierten Feld; None, wenn es fehlt."""
-    weiter = "|".join(re.escape(x) for x in FELDER)
-    m = re.search(r"(?m)^[ \t]*%d\.[ \t]*\**%s\**[ \t]*:?\**[ \t]*:?(.*?)(?=^[ \t]*\d\.[ \t]*\**(?:%s)\b|\Z)" % (i, re.escape(name), weiter), text, re.S)
+    weiter = "|".join(_name_re(x) for x in FELDER)
+    m = re.search(r"(?m)^[ \t]*%d\.[ \t]*\**%s\**[ \t]*:?\**[ \t]*:?(.*?)(?=^[ \t]*\d\.[ \t]*\**(?:%s)\b|\Z)" % (i, _name_re(name), weiter), text, re.S)
     return None if not m else m.group(1).strip()
 
 def pruefen(text):
@@ -75,11 +79,17 @@ def pruefen(text):
 def eintragen(nr, text, treffer=None):
     """treffer: Zeile „Lehren-Treffer (Zeit): …“ (1739 Lehrenbuch), steht im selben Commit unter dem Auftrag."""
     zeit = ue.fmt(ue.jetzt())
+    abschnitt = "## Auftrag (%s)\n\n%s\n%s\n" % (zeit, text.strip(), ("\n" + treffer + "\n") if treffer else "")
     def aendern(alt):
-        kopf = "" if alt else "# Vorgang %s\n\n" % nr
-        return alt + kopf + ("\n" if alt and not alt.endswith("\n\n") else "") + "## Auftrag (%s)\n\n%s\n%s" % (
-            zeit, text.strip(), ("\n" + treffer + "\n") if treffer else ""), zeit
+        return oben(alt, nr, abschnitt), zeit
     return ue.atomar(nr, aendern, "%s: Auftrag (%s, vorgang.py auftrag)" % (nr, zeit))
+
+def oben(alt, nr, abschnitt):
+    """1798 (Kern Arbeitsplaner: „oben in die Vorgangsdatei“): Abschnitt nach Kopfzeile und Vorspann, vor dem ersten „## “."""
+    if not alt: return "# Vorgang %s\n\n%s" % (nr, abschnitt)
+    m = re.search(r"(?m)^## ", alt)
+    if not m: return alt + ("\n" if not alt.endswith("\n\n") else "") + abschnitt
+    return alt[:m.start()] + abschnitt + "\n" + alt[m.start():]
 
 def schliessen(nr, grund):
     zeit = ue.fmt(ue.jetzt())
@@ -93,7 +103,7 @@ def _titel(nr):
     z = [d for d in startbar.zeilen_liste() if d["nr"] == nr]
     return z[0]["titel"] if z else None
 
-def haupt(a, fertig=None):
+def haupt(a, fertig=None, wieder=None):
     b, rest = a[0], list(a[1:])
     if b == "auftrag":
         nur = "--pruefen" in rest
@@ -106,7 +116,15 @@ def haupt(a, fertig=None):
         if len(rest) != 1: sys.exit(__doc__)
         nr = rest[0]
         titel = _titel(nr)
-        if titel is None: sys.exit("vorgang.py auftrag: %s steht nicht in der Vorgangsliste" % nr)
+        text = None
+        if datei is not None:
+            text = sys.stdin.read() if datei == "-" else open(datei, encoding="utf-8").read()
+            f = pruefen(text)
+            if f:
+                print("vorgang.py auftrag %s hält an:\n- " % nr + "\n- ".join(f)); sys.exit(1)
+            if nur: print("vorgang.py auftrag %s: gültig (%d Byte)" % (nr, len(text.encode("utf-8")))); return
+            if titel is None and wieder: titel = wieder(nr)  # 1798: Rückläufer zu archivierter Nummer, Vorgang wird wieder offen
+        if titel is None: sys.exit("vorgang.py auftrag: %s steht nicht in der Vorgangsliste und nicht im Archiv" % nr)
         import lehren
         liste, treffer = lehren.treffer_zeile(nr, titel)
         if datei is None:
@@ -114,11 +132,6 @@ def haupt(a, fertig=None):
             print("\nLehren des Bereichs (Lehrenbuch, 1739; passende in „Beachte“ und „Umsetzen“, höchstens fünf, weitere als Nummer):")
             print("\n".join("- " + lehren.zeigen(x) for x in liste) if liste else "- keine")
             return
-        text = sys.stdin.read() if datei == "-" else open(datei, encoding="utf-8").read()
-        f = pruefen(text)
-        if f:
-            print("vorgang.py auftrag %s hält an:\n- " % nr + "\n- ".join(f)); sys.exit(1)
-        if nur: print("vorgang.py auftrag %s: gültig (%d Byte)" % (nr, len(text.encode("utf-8")))); return
         try: zeit = eintragen(nr, text, treffer)
         except ue.Fehler as e: sys.exit("vorgang.py auftrag: %s; nichts geschrieben" % e)
         print("vorgang.py: Auftrag %s eingetragen (%s, %s, gepusht)" % (nr, ue._pfad(nr), zeit)); return

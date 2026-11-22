@@ -475,6 +475,34 @@ def leer_text(nr, besitzer, leer):
     return ("vorgang.py: WARNUNG 1604: %s geht an %s, aber %s. Nach Last verteilen, nicht nach Fach (Fehler 341): "
             "kann es ein anderer bauen, %s oder Abgabe-Zeile im Vorrat (1364); sonst begründet so lassen." % (nr, besitzer, wer, ziel))
 
+ARCHIV = "LISTE-VORGAENGE-ARCHIV.md"
+
+def wieder_offen(nr):
+    """1798 (Kern Arbeitsplaner, Rückläufer zu archivierter Nummer): Zeile aus dem Archiv zurück in die Liste, Stand „startbar“
+    (Kl. wie archiviert, „–“ → K); alte Liste: Besitzer aus Spalte Vorrat (keine Rolle → Perikles), neue: Fachprofil des Blocks.
+    Titel oder None, wenn die Nummer nicht im Archiv steht. Liste und Archiv committet der Aufrufer."""
+    A = startbar.lesen(ARCHIV).split("\n")
+    for i, z in enumerate(A):
+        f = [x.strip() for x in z.split("|")]
+        if not (z.startswith("| ") and len(f) > 8 and f[1] == nr): continue
+        titel, bereich, kl, kosten, vorrat = f[2], f[3], f[4], f[5], f[6]
+        besitzer = {"Team Tom": "Tom", "Team Jerry": "Jerry", "Tuffy": "Jerry"}.get(vorrat, vorrat)
+        if besitzer not in ROLLEN: besitzer = "Perikles"
+        d = dict(nr=nr, titel=titel, besitzer=besitzer, kl=kl if kl in ("M", "K", "M?") else "K", stand="startbar", warte=[], zweig="–",
+                 build="–", bereich=bereich, kosten=(kosten.split(";")[0].strip() or "–"), wort="startbar", zusatz="")
+        if startbar.NEU:
+            d["block"] = startbar.block_von(nr, bereich); d["besitzer"] = startbar.themenbloecke()[0].get(d["block"], "Arbeitsplaner")
+            d["runde"] = "0"; d["sitzung"] = "–"
+        L = text_liste().split("\n")
+        _, ende = gruppe(L, d["besitzer"])
+        L.insert(ende, startbar.zeile_text(d))
+        schreiben(startbar.LISTE, "\n".join(L))
+        del A[i]; schreiben(ARCHIV, "\n".join(A))
+        startbar.neu_laden()
+        print("vorgang.py: %s aus dem Archiv wieder offen (startbar, %s); Liste und Archiv committen und pushen" % (nr, d["besitzer"]))
+        return titel
+    return None
+
 def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     """275 Stufe 2, 275.2: neue Zeile (Stand startbar, Kosten –); ohne --nr die nächste freie Nummer aus ARBEIT-BETRIEB.md, die hochzählt."""
     if kl not in ("M", "K", "M?"): sys.exit("vorgang.py: Klasse M, K oder M?")
@@ -825,7 +853,7 @@ def haupt(a):
     if b in ("--hilfe", "-h", "--help", "hilfe"):  # 1739 (Bauliste 7.1): fand „nichts“
         print(__doc__); return
     if b in ("auftrag", "schliessen"):  # 1739
-        import auftrag; return auftrag.haupt(a, fertig=lambda nr: fertig(nr, rolle))
+        import auftrag; return auftrag.haupt(a, fertig=lambda nr: fertig(nr, rolle), wieder=wieder_offen)
     if b in uebergabe.BEFEHLE:  # 1760
         r = uebergabe.haupt(a); sys.exit(3 if r == "BELEGT" else 0)
     if b == "chefwort":  # 1762

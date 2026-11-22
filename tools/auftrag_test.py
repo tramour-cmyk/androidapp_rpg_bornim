@@ -13,6 +13,9 @@ open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "# Vorgangsliste\n\n| Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |\n|---|---|---|---|---|---|---|---|---|---|\n"
     "| 9001 | Zwerg auf dem Tisch | Tom | M | startbar | – | – | – | E Welt | – |\n"
     "| 9002 | Schatten im Wald | Spike | M | gebaut, Geprüft an: abc1234 | – | – | – | B Werkzeuge | – |\n")
+open(os.path.join(A, "docs", "LISTE-VORGAENGE-ARCHIV.md"), "w").write(
+    "# Archiv\n\n| Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |\n|---|---|---|---|---|---|---|\n"
+    "| 8001 | Alte Laterne | E Welt | M | 1,20 $ | Tom | erledigt |\n")
 g("add", "-A", cwd=A); g("commit", "-q", "-m", "start", cwd=A); g("push", "-q", "origin", "main", cwd=A)
 ENV = dict(os.environ, BORNIM_WURZEL=A, BORNIM_JETZT="21.11., 20:40", GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@t",
            GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t@t", BORNIM_SITZUNG="session_T")
@@ -75,6 +78,29 @@ soll("--pruefen schreibt nichts", c == 0 and "gültig" in t and datei("9001") ==
 c, t = lauf("auftrag", "9001", "--datei", "-", eingabe=GUT)
 x = datei("9001")
 soll("gültig: Abschnitt „## Auftrag (21.11., 20:40)“ gepusht", c == 0 and "## Auftrag (21.11., 20:40)" in x and "Stellfläche aus dem Netz" in x, (t, x))
+
+# 4a 1798: Kern Arbeitsplaner (Feld 6 „Prüfart“, Auftrag oben, Größe in der Vorlage, Rückläufer zu archivierter Nummer)
+soll("Feld 6 auch als „Prüfart“", au.pruefen(GUT.replace("Prüfart und Prüfe vor dem Senden:", "Prüfart:")) == [], au.pruefen(GUT.replace("Prüfart und Prüfe vor dem Senden:", "Prüfart:")))
+soll("Vorlage nennt die Größe", "2048 Byte" in au.vorlage("9001") and "etwa 2 KB" in au.vorlage("9001"))
+os.environ["BORNIM_JETZT"] = ENV["BORNIM_JETZT"] = "21.11., 21:10"
+c, t = lauf("auftrag", "9001", "--datei", "-", eingabe=GUT.replace("Stellfläche aus dem Netz lesen.", "Zweiter Auftrag."))
+x = datei("9001")
+soll("zweiter Auftrag oben, vor dem ersten", c == 0 and 0 < x.find("## Auftrag (21.11., 21:10)") < x.find("## Auftrag (21.11., 20:40)"), (t, x))
+sys.path.insert(0, HIER)
+import lauf as _lauf, datetime as _dt
+ab = _lauf.juengster_auftrag(x, _dt.datetime(2026, 11, 22))
+soll("lauf: jüngster Auftrag nach Zeit, nicht nach Ort", ab and "Zweiter Auftrag." in x[ab[0]:ab[1]] and "## Auftrag (21.11., 20:40)" not in x[ab[0]:ab[1]], ab)
+alt_unten = "# 1\n\n## Auftrag (20.11., 10:00)\n\nalt\n\n## Rückmeldung\n\nx\n\n## Auftrag (21.11., 10:00)\n\nneu\n"
+ab = _lauf.juengster_auftrag(alt_unten, _dt.datetime(2026, 11, 22))
+soll("lauf: alte Datei mit Auftrag unten", ab and alt_unten[ab[0]:ab[1]].strip() == "neu", ab)
+c, t = lauf("auftrag", "8001", "--datei", "-", eingabe=GUT)
+liste = open(os.path.join(A, "docs", "LISTE-VORGAENGE.md")).read(); arch = open(os.path.join(A, "docs", "LISTE-VORGAENGE-ARCHIV.md")).read()
+soll("archivierte Nummer: wieder offen, Auftrag eingetragen", c == 0 and "| 8001 | Alte Laterne | Tom | M | startbar |" in liste and "| 8001 |" not in arch
+     and "## Auftrag (21.11., 21:10)" in datei("8001"), (t, liste[-300:]))
+c, t = lauf("auftrag", "8002", "--datei", "-", eingabe=GUT)
+soll("Nummer weder in Liste noch Archiv hält an", c != 0 and "nicht im Archiv" in t, t)
+g("checkout", "-q", "--", "docs/LISTE-VORGAENGE.md", "docs/LISTE-VORGAENGE-ARCHIV.md", cwd=A)
+os.environ["BORNIM_JETZT"] = ENV["BORNIM_JETZT"] = "21.11., 20:40"
 
 # 5 Schließen
 c, t = lauf("schliessen", "9002", "erledigt")

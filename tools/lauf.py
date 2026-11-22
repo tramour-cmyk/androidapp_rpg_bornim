@@ -724,9 +724,9 @@ def auftrag_fehlt(nr, docs=None, titel=None):
     except Exception: pass
     p = os.path.join(docs or DOCS, "vorgang", "%s.md" % nr)
     text = lesen(p) if os.path.isfile(p) else ""
-    ms = list(AUFTRAG_KOPF.finditer(text))
-    if not ms: return "kein Auftrag"
-    teil = text[ms[-1].end():]
+    ab = juengster_auftrag(text)
+    if not ab: return "kein Auftrag"
+    teil = text[ab[0]:]
     n = re.search(r"(?m)^## ", teil)
     try:
         import auftrag as _a
@@ -744,6 +744,19 @@ def schutz_min(scharf=None):
 
 AUFTRAG_KOPF = re.compile(r"(?m)^## Auftrag \((\d\d)\.(\d\d)\.,? (\d\d):(\d\d)\)")
 
+def juengster_auftrag(text, jetzt=None):
+    """1798 (Kern Arbeitsplaner: Auftrag oben in die Vorgangsdatei): (Anfang nach der Kopfzeile, Ende vor dem nächsten „## “) des
+    jüngsten Abschnitts „## Auftrag (TT.MM., HH:MM)“ nach Zeit, gleich wo er steht (alte Dateien: unten); sonst None."""
+    j = jetzt or JETZT; beste = None
+    for m in AUFTRAG_KOPF.finditer(text or ""):
+        t, mo, h, mi = (int(x) for x in m.groups())
+        try: d = datetime.datetime(j.year if (mo, t) <= (j.month, j.day) else j.year - 1, mo, t, h, mi)
+        except ValueError: continue
+        if beste is None or d >= beste[0]: beste = (d, m.end())
+    if not beste: return None
+    n = re.search(r"(?m)^## ", text[beste[1]:])
+    return beste[1], (beste[1] + n.start()) if n else len(text)
+
 def auftrag_seit(text, jetzt=None):
     """Zeit des jüngsten Abschnitts „## Auftrag (TT.MM., HH:MM)“ der Vorgangsdatei (auftrag.py), sonst None."""
     j = jetzt or JETZT; beste = None
@@ -756,8 +769,8 @@ def auftrag_seit(text, jetzt=None):
 def leistungsstufe(s, text):
     """„Hoch“ bei Umgebung HOCH oder „Leistungsstufe: Hoch“ im jüngsten Auftrag (Feld 8 nach 1742), sonst „Mittel“."""
     if s.get("environment_id") == HOCH: return "Hoch"
-    ms = list(AUFTRAG_KOPF.finditer(text or ""))
-    teil = (text or "")[ms[-1].start():] if ms else ""
+    ab = juengster_auftrag(text or "")
+    teil = (text or "")[ab[0]:ab[1]] if ab else ""
     return "Hoch" if re.search(r"(?i)Leistungsstufe\W{0,4}hoch\b", teil) else "Mittel"
 
 def hoechstdauer_zeilen(ausgabe, je_rolle, archiviert, docs=None, jetzt=None, grenzen=None, scharf=None):
