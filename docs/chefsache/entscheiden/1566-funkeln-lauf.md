@@ -1,4 +1,4 @@
-# 1566 · Noch ein Messlauf zum türkisen Funkeln hinter der Höhlenwand?
+# 1566 (Höhlenwasser hinter Wänden) · Noch ein Messlauf zum türkisen Funkeln hinter der Höhlenwand?
 Sokrates · 22.11., 18:36 · Welt · Obergrenze B (zweites „steckt fest“, deine Regel 21.11., 14:37 B und 22.11., 15:31)
 Kurz: Wasserfläche hinter der Wand ist weg, ein schwaches Funkeln bleibt; Ursache noch nicht gemessen
 Beim Chef, weil: dritte Laufanforderung im selben Vorgang zählt als zweites „steckt fest“ → du
