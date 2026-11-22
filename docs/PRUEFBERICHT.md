@@ -41,6 +41,12 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 363 · 1779, 1866 erneut (lesend, Weiter-Haken; Kopie `6ac934e9a`; 22.11., 11:12–11:15)
+
+- Alle 46 `tools/*_test.py` an der Kopie grün.
+- 1779 greift: (a) `HOECHSTDAUER_MIN` Mittel 360, Hoch 300, Test und Kommentar nachgezogen; (b) Sitzung, die nur der Weckruf hält, trägt `_nur_wecker` und wird nicht geprüft, working mit Weckruf weiter; (c) Uhr ab der eigenen Rückmeldung „Höchstdauer“ neu, danach „steckt fest“, nach eigenem „steckt fest“ nichts; (d) Prüfer, Büro, Arbeitsplaner, Tester in `kosten.ROLLEN`, „Ford 2“ ausgenommen. „1779 noch nicht“ in Spikes Übergabe meint die Meldung an Ford, kein Rest; die Restsperre (1143) liest Übergaben ohne „Kein Folgevorgang“ (Commit daf5772a1 hebt nur Commits auf), daher mit `VORGANG_REST_OK=1779` geschlossen.
+- 1866 weiter nicht: 6ac934e9a stellt `ladesumme.py` auf b45137faa zurück (Werkzeuglauf wieder grün), dort aber keine Summe je Sitzung (kein `laden.json` im Repo) und nicht nach Messregel (Routine Wache 950 statt 949). 1922 entsprechend geschärft.
+
 ## Lauf 362 · 1855, 1866 (lesend, Auftrag Ford; Kopie `b90ec6c4f`; 22.11., 11:07–11:10)
 
 - 1855 greift: `check-env.sh` an der Kopie: „OK CLAUDE.md, docs/LISTE-VORGAENGE.md, docs/DESIGN-STIL.md“, 9 in Ordnung, 0 fehlen. Übrige Verweise auf `ARBEIT-TEAM-TOM.md` (lauf.py, startbar.py, startwarnung.py, regelcheck.py, neustart-haken.py, vorratspruefung.py) nicht Gegenstand von 1855; die Vorräte bestehen an der Kopie weiter.
