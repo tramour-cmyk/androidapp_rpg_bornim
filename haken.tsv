@@ -1304,3 +1304,4 @@
 2026-11-22 17:40:07	commit-pruefung	docs/chefsache/entscheiden/1959-tagesbericht-satz.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-22 17:47:02	commit-pruefung	docs/chefsache/entscheiden/1959-tagesbericht-satz.md gelöscht ohne Eintrag im Vorgangsarchiv (zurückgezogen: BORNIM_ZURUECK=1)	main
 2026-11-22 18:11:54	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/emil-1566-hoehlenwasser
+2026-11-22 18:12:39	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/emil-1566-hoehlenwasser
