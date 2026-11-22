@@ -26,6 +26,9 @@ const ECHT_EP := ["{0} EP", "{0} XP"]
 const ECHT_GOLD := ["{0} Gold", "{0} gold"]
 ## 915 (Homer [915.lohn.vertrieben], 705a B): jedes Mal, wenn das Feuer das Rudel verjagt hat und danach kein Gegner mehr stand
 const VERTRIEBEN := ["Vor dem Feuer geflohen: keine Beute, keine Erfahrung.", "Fled from the fire: no loot, no experience."]
+## 1589.2 Lohn A (DESIGN-GEGNER.md 6, Chef 17.11., 22:33): floh ein Gegner von selbst, volle Erfahrung und halbe Beute: Gold halb,
+## jedes Ding mit halber Chance; neben VERTRIEBEN, nie statt ihm ([1601.lohn.geflohen])
+const GEFLOHEN := ["Von selbst geflohen: halbe Beute, volle Erfahrung.", "Fled on their own: half the loot, full experience."]
 const RESTORED := ["Leben und Mana von {0} sind wieder voll.", "{0}'s life and mana are full again."]     # [870.14.lohn.voll]
 
 
@@ -80,17 +83,19 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := [], prob
 	var foes: Array = mars.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in and not f.get("verjagt") and not f.get("vor_feuer"))     # 915
 	var gold := 0
 	var items: Array = []
+	var geflohen: bool = mars.all.any(func(f): return f.side == "FOES" and f.get("von_selbst"))     # 1589.2 Lohn A
 	if not foes.is_empty() and not kein_lohn:
 		var leader = foes[0]
 		for f in foes:
 			if Brs.erfahrung(vorher, String(f.monster.get("id", ""))) > Brs.erfahrung(vorher, String(leader.monster.get("id", ""))):
 				leader = f
 		var m: Dictionary = leader.monster
-		gold = int(dice.roll_expr(m.gold)) if m.has("gold") else 0
+		var halb := 0.5 if geflohen else 1.0
+		gold = int(int(dice.roll_expr(m.gold)) * halb) if m.has("gold") else 0
 		for e in m.get("loot", []):
 			if String(e.item) == "spider_silk" and foes.any(func(f): return f.seide_weg):     # 870.6 Gegenwirkung: verbrannt
 				continue
-			if dice.chance(float(e.chance)) and mars.items.has(e.item) and not (probe and _schluessel(String(e.item))):
+			if dice.chance(float(e.chance) * halb) and mars.items.has(e.item) and not (probe and _schluessel(String(e.item))):
 				items.append(e.item)
 	var earned := roundi(float(r.gegeben))
 	var lines: Array = []
@@ -115,6 +120,8 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := [], prob
 			"levels": nachher - vorher, "stand": h, "lines": lines, "grau": grau, "selten": selten}
 	if kein_lohn and mars.all.any(func(f): return f.get("vor_feuer")):
 		lines.append(VERTRIEBEN[lang])
+	if geflohen:
+		lines.append(GEFLOHEN[lang])
 	if earned > 0:
 		lines.append(_f(GAIN_XP, lang, [name, earned]))
 	if roh > 0.0 and vorher >= Brs.hoechste_stufe():
