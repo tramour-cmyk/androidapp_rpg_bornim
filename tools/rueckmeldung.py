@@ -141,7 +141,8 @@ def eintragen(nr, text, wer, sid=""):
         elif schon:
             an = was = None
         elif w & {"steckt fest", "Frage", "wirkt nein"}:
-            an, was = SOKRATES, "%s: Rückmeldung %s von %s lesen (1763 C)" % (" und ".join(sorted(w & {"steckt fest", "Frage", "wirkt nein"})), zeit, wer or "unbekannt")
+            an, was = SOKRATES, "%s: Rückmeldung %s von %s lesen (1763 C)%s" % (" und ".join(sorted(w & {"steckt fest", "Frage", "wirkt nein"})), zeit, wer or "unbekannt",
+                                                                            "; gelöst: `vorgang.py warte %s –`" % nr if "steckt fest" in w else "")
         elif "nein" in w and z["nein"] == LAUFBREMSE_NEIN:
             an, was = SOKRATES, "steckt fest (Laufbremse, %d. Nein; Chef 19.11., 13:02): Rückmeldung %s von %s lesen (1766)" % (z["nein"], zeit, wer or "unbekannt")
         elif "nein, Auftrag" in w:
@@ -155,16 +156,37 @@ def eintragen(nr, text, wer, sid=""):
     return ue.atomar(nr, f, "Rückmeldung %s von %s (1763)" % (nr, wer or "unbekannt"))
 
 
+def liste_atomar(nr, stand, warte_dazu=(), nachricht=""):
+    """1800 (Falltest Lauf 2, D10/D11): Stand und „wartet auf“ der Zeile nr in einem eigenen Commit auf origin/main setzen, wie
+    uebergabe.atomar (vorher nur lokal, ungepusht: lauf.py startete die Fachkraft weiter). stand: Text oder Funktion(alter Stand, Wort).
+    Rückgabe: Text der Meldung."""
+    import startbar
+    def f(alt):
+        if not alt.strip(): return alt, "Liste nicht gelesen"
+        d = next((x for x in startbar.vorgangsliste(alt) if x["nr"] == nr), None)
+        if not d: return alt, "%s nicht in der Liste" % nr
+        n = dict(d, stand=stand(d["stand"], d["wort"]) if callable(stand) else stand,
+                 warte=list(d["warte"]) + [w for w in warte_dazu if w not in d["warte"]])
+        L = alt.split("\n"); L[d["i"]] = startbar.zeile_text(n)
+        return "\n".join(L), "Stand „%s“%s" % (n["stand"], (", wartet auf " + ", ".join(n["warte"])) if n["warte"] else "")
+    return ue.atomar(nr, f, nachricht or "%s: Stand nach Rückmeldung (1800)" % nr, pfad="docs/" + startbar.LISTE)
+
+
+def fest_stand(alt, wort):
+    """Erstes „steckt fest“: Wort bleibt, Zusatz „steckt fest“ (liegt.stand_von zählt es als Stand; 14.2.12)."""
+    return alt if "steckt fest" in (alt or "") else "%s, steckt fest" % (wort or "startbar")
+
+
 def liste_ruht(nr, grund):
-    """Solange die Vorgangsliste Stände trägt: Stand „ruht, beim Chef“ (Datei geändert, der Aufrufer committet sie)."""
-    try:
-        import vorgang
-        vorgang.stand_setzen(nr, "%s (%s)" % (RUHT, grund.split(":")[0]))
-        print("LISTE docs/LISTE-VORGAENGE.md geändert: committen und pushen")
-    except SystemExit as e:
-        print("LISTE nicht geändert (%s)" % e)
-    except Exception as e:
-        print("LISTE nicht geändert (%s)" % e)
+    """Solange die Vorgangsliste Stände trägt: Stand „ruht, beim Chef“, gepusht (1800)."""
+    try: print("LISTE %s: %s (gepusht)" % (nr, liste_atomar(nr, "%s (%s)" % (RUHT, grund.split(":")[0]), (), "%s: ruht, beim Chef (%s, 1763 B)" % (nr, grund))))
+    except ue.Fehler as e: print("LISTE nicht geändert (%s); von Hand: vorgang.py stand %s \"%s\"" % (e, nr, RUHT))
+
+
+def liste_fest(nr):
+    """1800: erstes „steckt fest“ → Zusatz „steckt fest“ und „wartet auf Sokrates“, gepusht; lauf.py startet die Fachkraft nicht mehr."""
+    try: print("LISTE %s: %s (gepusht)" % (nr, liste_atomar(nr, fest_stand, (SOKRATES,), "%s: steckt fest, wartet auf Sokrates (1763 C, 1800)" % nr)))
+    except ue.Fehler as e: print("LISTE nicht geändert (%s); von Hand: vorgang.py warte %s Sokrates" % (e, nr))
 
 
 def nein_waechter(nr, text):
@@ -209,6 +231,7 @@ def haupt(a):
     an = zeile[0]["an"] if zeile else "?"
     print("EINGETRAGEN %s, OFFEN %s an %s%s" % (a[0], k, an, (" (%s → %s)" % (grund, RUHT)) if grund else ""))
     if grund: liste_ruht(a[0], grund)
+    elif an == SOKRATES and "steckt fest" in worte(a[1]): liste_fest(a[0])  # 1800
     nein_waechter(a[0], a[1])
     alt = {"Prüfer": "Diogenes", "Disponent": "Ford", PLANER: "Ford"}.get(an, "")  # 1739: bis zur Umschaltung (lauf.ALT_EMPFAENGER)
     if an == SOKRATES and not ue.besetzung(an):
