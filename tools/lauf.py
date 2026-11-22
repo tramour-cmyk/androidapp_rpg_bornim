@@ -213,10 +213,11 @@ def mit_kern(l, docs=None):
     return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
 
 
-def mit_rufnamen(ausgabe, sitzungen, jetzt=None):
+def mit_rufnamen(ausgabe, sitzungen, jetzt=None, namen=None):
     """1739 Rufnamen (erst mit tools/1727-SCHARF): jede START-Zeile außer Sokrates bekommt den nächsten freien Rufnamen des
     Tages (rufname.py) als erstes Wort des Titels statt der Rolle, und die erste Nachricht nennt ihn. Die Rolle bleibt im
-    ersten Feld (Startsperre, Kern, Profil); Kosten und Archivregel finden den Bereich über den Vorgang im Titel."""
+    ersten Feld (Startsperre, Kern, Profil). 1957: namen (Rolle → Rufnamen in START-Folge) geht in die Startsperre; daraus finden
+    Kosten, Archivregel, Startprüfung und Belegung die Startrolle (rufname.rolle), nicht den Besitzer des Vorgangs im Titel."""
     import rufname
     belegt = rufname.heute_vergeben([(s.get("title", ""), s.get("created_at", "")) for s in sitzungen], jetzt or JETZT)
     aus = []
@@ -228,6 +229,7 @@ def mit_rufnamen(ausgabe, sitzungen, jetzt=None):
         if not n:
             aus.append(l); aus.append("WARNUNG Rufname: alle Namen heute vergeben, Titel mit Rolle (1739)"); continue
         belegt.append(n)
+        if namen is not None: namen.setdefault(teile[0][6:].strip(), []).append(n)
         t = teile[5]
         teile[5] = n + t[t.index(" – "):] if " – " in t else "%s – %s" % (n, t)
         teile[6] = "Dein Rufname: %s (Rolle %s; Titel, Besetzung, Meldung).\\n\\n%s" % (n, teile[0][6:].strip(), teile[6])  # „Rolle“ liest startsperre-haken.py
@@ -413,7 +415,7 @@ def start_angekommen(rolle, d, alle):
     """837: nach der Startsperre um d gibt es eine Sitzung der Rolle, neu angelegt (START) oder,
     nicht archiviert, danach tätig (WEITER schreibt dieselbe Sperre)."""
     for s in alle.values():
-        if kosten.rolle(s.get("title", "")) != rolle: continue
+        if kosten.rolle(s.get("title", ""), s.get("created_at")) != rolle: continue
         if z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN): return True  # Ford schrieb die Sperre auch schon nach dem Start (Jerry 10.11., 10:29/10:32)
         if s.get("session_status") != "SESSION_STATUS_ARCHIVED" and s.get("updated_at") and z(s["updated_at"]) >= d: return True
     return False
@@ -541,6 +543,24 @@ def auftrag_aus_titel(titel):
     m = re.search(r"\bAuftrag (\d[0-9a-zA-Z.]*[0-9a-zA-Z]|\d)\b", titel or "")
     return m.group(1) if m else None
 
+def planer_in_arbeit(leb):
+    """1932: Nummern der Aufträge, die eine Planer-Sitzung gerade schreibt (tätig oder kürzlich); 1957: Rufnamen-Planer über die Startsperre."""
+    aus = set()
+    for s_ in leb:
+        if kosten.rolle(s_.get("title", ""), s_.get("created_at")) != PLANER or not (n_ := auftrag_aus_titel(s_.get("title", ""))): continue
+        ruhig_ = (JETZT - z(s_["updated_at"])).total_seconds() / 60
+        if ("WORKING" in s_.get("status_bucket", "") or "BLOCKED" in s_.get("status_bucket", "")) and ruhig_ < 60 or ruhig_ < SPERRE_MIN:
+            aus.add(n_)
+    return aus
+
+def sperr_dazu(sperren, sperr_nr, rolle, nr):
+    """1957 (Startsperre 16:18 „Arbeitsplaner 1727, Arbeitsplaner 1727“): weiterer START derselben Rolle mit eigener Nummer;
+    sperr_nr[rolle] wird dann eine Liste je Vorkommen in sperren (startsperre_zeile liest beides)."""
+    c = sperren.count(rolle); alt = sperr_nr.get(rolle)
+    liste = list(alt) if isinstance(alt, list) else [alt] * min(c, 1)
+    liste += [None] * (c - len(liste)); liste.append(nr)
+    sperren.append(rolle); sperr_nr[rolle] = liste if len(liste) > 1 else nr
+
 def zweiter_planer(ausgabe, st, je_rolle, archiviert, ausschluss, bremse, sperren, sperr_nr, morgen):
     """1932 (Archiv 1727j Frage 16, Chef 22.11., 12:06 „bis zu 2 Planern“): arbeitet schon ein Planer (laufende Sitzung oder START in
     diesem Lauf) und sind mehr als ZWEITER_PLANER_AB Eilt-, Fund- oder Muss-Zeilen ohne Auftrag, startet eine zweite Planer-Sitzung
@@ -566,7 +586,7 @@ def zweiter_planer(ausgabe, st, je_rolle, archiviert, ausschluss, bremse, sperre
     msg = "%s\n\n%s; zweiter Planer (1932, über %d Eilt, Funde, Muss ohne Auftrag); zuerst Start nach deinem Ladetext, dann %s, den Auftrag schreiben, pushen und enden.%s" % (
         PLANER, re.sub(r"\*\*|`", "", wahl[2]), ZWEITER_PLANER_AB, vorrat_hinweis(PLANER, fn), satz)
     ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (PLANER, mo, aufwand(hoch), umgebung(PLANER, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
-    sperren.append(PLANER); sperr_nr.setdefault(PLANER, fn)
+    sperr_dazu(sperren, sperr_nr, PLANER, fn)  # 1957: eigene Nummer statt setdefault
 
 def sperr_nummer(nr, d):
     """1896 (D338.2): Nummer für Startsperre und Nachtdeckel (1643): bei der Zeile „Auftrag“ die Nummer aus auftrag_fuer, sonst nr."""
@@ -714,10 +734,20 @@ def nachfolger(rolle):
         return roh, zeit, roh
     return None, None, "keine Übergabe mit Nachfolger"
 
-def startsperre_zeile(sperren, sperr_nr, jetzt=None):
-    """Protokollzeile „- HH:MM TT.MM.: Startsperre HH:MM Start <Rollen> (lauf.py, <Nr>)“ (750 A, 1643: mit Vorgang je Rolle)."""
-    j = jetzt or JETZT
-    mit = [("%s %s" % (x, sperr_nr[x]) if len(sperren) > 1 else sperr_nr[x]) for x in sperren if sperr_nr.get(x) and re.match(r"\d", str(sperr_nr[x]))]
+def startsperre_zeile(sperren, sperr_nr, jetzt=None, rufnamen=None):
+    """Protokollzeile „- HH:MM TT.MM.: Startsperre HH:MM Start <Rollen> (lauf.py, <Nr>)“ (750 A, 1643: mit Vorgang je Rolle).
+    1957: je START mit Rufname „<Rolle> <Nr> <Rufname>“ (rufnamen: Rolle → Namen in START-Folge, aus mit_rufnamen), daraus liest
+    rufname.rolle die Startrolle; sperr_nr[Rolle] darf eine Liste je Vorkommen sein (sperr_dazu)."""
+    j = jetzt or JETZT; rufnamen = rufnamen or {}
+    mit = []; k_je = {}
+    for x in sperren:
+        k = k_je.get(x, 0); k_je[x] = k + 1
+        nr = sperr_nr.get(x)
+        if isinstance(nr, list): nr = nr[k] if k < len(nr) else None
+        nr = str(nr) if nr and re.match(r"\d", str(nr)) else None
+        ns = rufnamen.get(x) or []
+        if k < len(ns): mit.append(" ".join([x] + ([nr] if nr else []) + [ns[k]]))
+        elif nr: mit.append("%s %s" % (x, nr) if len(sperren) > 1 else nr)
     return "- %s %s: Startsperre %s Start %s (lauf.py%s)" % (j.strftime("%H:%M"), j.strftime("%d.%m."), j.strftime("%H:%M"), ", ".join(sperren), "".join(", " + x for x in mit))
 
 
@@ -1127,6 +1157,12 @@ def aufraeumen():
                     if name not in juengste or alter_h(l) < alter_h(juengste[name]): juengste[name] = l
         technik = [l for l in technik if alter_h(l) <= 6 or l in juengste.values()
                    or not re.search(r"Startsperre \d|Marke Start-fehlt", l)]
+        # 1957: Startsperren mit Rufname von heute und gestern bleiben (rufname.rolle ordnet laufende Rufnamen-Sitzungen darüber zu)
+        import rufname as _rn
+        gestern = (JETZT - datetime.timedelta(days=1)).strftime("%d.%m.")
+        ruf = [l for l in zeilen if l not in technik and ZEILE.match(l).group(3) + "." + ZEILE.match(l).group(4) + "." in (JETZT.strftime("%d.%m."), gestern)
+               and _rn.sperr_eintraege(l, JETZT.year)]
+        technik += ruf
         # 1147: „Marke Archiv <id>“ ist nur ein Merker je Sitzung (D40.2); die 20 jüngsten reichen, ältere Sitzungen sind längst archiviert
         archiv = [l for l in technik if re.search(r"Marke Archiv \S", l)]
         if len(archiv) > ARCHIVMARKEN_MAX:
@@ -1176,6 +1212,7 @@ def notizen_frisch():
 
 def main():
     a = sys.argv[1:]
+    import rufname as _rn; _rn.BETRIEB = os.path.join(DOCS, "ARBEIT-BETRIEB.md")  # 1957: Startsperren dort, wo lauf.py sie schreibt
     if any(x in ("--help", "-h", "--hilfe", "hilfe") for x in a):  # 1945: Hilfe vor jeder Prüfung (Notizkopie, Stellung)
         return print(__doc__)
     if a[:1] == ["--haken"] and len(a) > 1:  # 1895: für weiter-haken.py, nur die Nummer (leer = nichts)
@@ -1260,15 +1297,11 @@ def main():
             ausgabe.append("WARNUNG Zusammenführen nicht angelegt: %s (1424, Perikles)" % e)
     neue_liste()  # 1893
     AUFTRAG_IN_ARBEIT.clear()  # 1932: Aufträge, die eine Planer-Sitzung gerade schreibt, bekommt kein zweiter Planer
-    for s_ in leb:
-        if kosten.rolle(s_.get("title", "")) != PLANER or not (n_ := auftrag_aus_titel(s_.get("title", ""))): continue
-        ruhig_ = (JETZT - z(s_["updated_at"])).total_seconds() / 60
-        if ("WORKING" in s_.get("status_bucket", "") or "BLOCKED" in s_.get("status_bucket", "")) and ruhig_ < 60 or ruhig_ < SPERRE_MIN:
-            AUFTRAG_IN_ARBEIT.add(n_)
+    AUFTRAG_IN_ARBEIT.update(planer_in_arbeit(leb))
     st = stand(); chefd = chefdateien_je_rolle(); marken = startmarken()
     je_rolle = {}
     for s in leb:
-        r = kosten.rolle(s.get("title", ""))
+        r = kosten.rolle(s.get("title", ""), s.get("created_at"))
         upd = z(s["updated_at"])
         ruhig = (JETZT - upd).total_seconds() / 60
         bucket = s.get("status_bucket", "")
@@ -1303,7 +1336,7 @@ def main():
         info = s.get("_info")
         if info and info[1]: continue  # laufende Sitzung: erst wenn sie ruht
         if not info and (JETZT - z(s["updated_at"])).total_seconds() < 3600 and s.get("session_status") == "SESSION_STATUS_RUNNING": continue
-        r = kosten.rolle(s.get("title", ""))
+        r = kosten.rolle(s.get("title", ""), s.get("created_at"))
         ziel = "Betrieb" if r == "Ford" else (nummer_aus_titel(s.get("title", "")) or "Betrieb")
         if sperre:  # echter Lauf: lauf.py bucht selbst (19.10.: Ford führte BUCHE nicht aus, 261.2); Ford pusht die Notizen
             kosten_addieren(ziel, k, s["id"]); ausgabe.append("GEBUCHT %s | %s | %.2f | %s (Notizen pushen)" % (s["id"], r, k, ziel))
@@ -1393,7 +1426,7 @@ def main():
         alter = (JETZT - d).total_seconds() / 60
         if alter < START_PRUEF_MIN or alter > START_PRUEF_STD * 60 or start_angekommen(name, d, alle) or name in ohne_rollen: continue  # 1148
         nf, nf_zeit, _ = nachfolger(name) if name in VORRAT else (None, None, None)
-        nf_offen = bool(nf) and nf_zeit is not None and not any(z(s["created_at"]) > nf_zeit for s in alle.values() if kosten.rolle(s.get("title", "")) == name)
+        nf_offen = bool(nf) and nf_zeit is not None and not any(z(s["created_at"]) > nf_zeit for s in alle.values() if kosten.rolle(s.get("title", ""), s.get("created_at")) == name)
         if name in VORRAT and not start_noetig(name, st, ausschluss, nur_muss, nf_offen): continue  # 1586 (Ford ohne Vorrat: Warnung wie bisher)
         nicht_da.add(name)
         schl = "Start-fehlt %s %s" % (name, d.strftime("%d.%m.-%H:%M"))
@@ -1436,7 +1469,7 @@ def main():
         # Hindernis hält nur die Sitzung der Zeile, nicht die Rolle (190.4)
         belegt = [s for s in je_rolle.get(r, []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN and not liegt)]
         nf, nf_zeit, nf_grund = nachfolger(r)
-        gestartet = nf_zeit is not None and any(z(s["created_at"]) > nf_zeit for s in alle.values() if kosten.rolle(s.get("title", "")) == r)
+        gestartet = nf_zeit is not None and any(z(s["created_at"]) > nf_zeit for s in alle.values() if kosten.rolle(s.get("title", ""), s.get("created_at")) == r)
         if nf and nf_zeit is None:
             ausgabe.append("WARNUNG Nachfolger %s: Übergabe ohne lesbare Zeit, „%s“ nicht gestartet" % (r, nf)); nf = None
         offen_nf = nf if nf and not gestartet else None
@@ -1701,7 +1734,8 @@ def main():
     ausgabe = [mit_kaufrepo(l) for l in ausgabe]
     ausgabe = [mit_kern(l) for l in ausgabe]
     ausgabe += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
-    if ist_scharf(): ausgabe = mit_rufnamen(ausgabe, alle.values())
+    rufnamen = {}  # 1957: Rolle → Rufnamen der STARTs, für die Startsperre
+    if ist_scharf(): ausgabe = mit_rufnamen(ausgabe, alle.values(), namen=rufnamen)
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
     scharf_push = ist_scharf() and bool(sperren)  # 1892 (Lauf 3 Disponent L1): scharf setzt lauf.py die Startsperre bei START selbst und pusht
@@ -1709,7 +1743,7 @@ def main():
         def anhaengen(t):
             t = t.rstrip("\n")
             if sperren:  # 1643: mit Vorgang, damit nachtstarts.py die Neustarts je Vorgang zählt
-                t += "\n" + startsperre_zeile(sperren, sperr_nr) + "\n"
+                t += "\n" + startsperre_zeile(sperren, sperr_nr, rufnamen=rufnamen) + "\n"
             if sperre:  # Marken und Warnungen weiter nur mit --sperre
                 for m in morgen:
                     if m not in t: t += "\n- %s %s: %s (lauf.py)\n" % (JETZT.strftime("%H:%M"), JETZT.strftime("%d.%m."), m)

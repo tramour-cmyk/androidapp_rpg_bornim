@@ -123,6 +123,52 @@ def bereich(titel_, zeilen=None):
     return None
 
 
+BETRIEB = None  # Pfad zu ARBEIT-BETRIEB.md; lauf.py setzt ihn auf seine DOCS, sonst docs/ neben tools/
+_SPERREN = {}  # (Pfad, mtime, Größe) → Einträge
+
+
+def sperr_eintraege(text, jahr):
+    """1957: (Zeitpunkt naiv, Rolle, Rufname) aus Startsperren „… Start <Rollen> (lauf.py, <Rolle> <Nr> <Rufname>, …)“.
+    Ein Eintrag nur, wo im selben Abschnitt der Klammer (bis Komma/Semikolon) eine Rolle der Zeile und ein Rufname stehen."""
+    aus = []
+    for l in text.splitlines():
+        m = re.search(r"Startsperre (\d\d):(\d\d) Start (\w+(?:, \w+)*)(.*)", l)
+        k = re.match(r"- \d\d:\d\d (\d\d)\.(\d\d)\.:", l)
+        if not m or not k: continue
+        try: d = datetime.datetime(jahr, int(k.group(2)), int(k.group(1)), int(m.group(1)), int(m.group(2)))
+        except ValueError: continue
+        rollen = m.group(3).split(", ")
+        for teil in re.split(r"[,;]", m.group(4)):
+            w = re.findall(r"[\wÄÖÜäöüß]+", teil)
+            r = next((x for x in w if x in rollen), None); n = next((x for x in w if x in ALLE), None)
+            if r and n: aus.append((d, r, n))
+    return aus
+
+
+def rolle(titel_, created_at=None, betrieb=None):
+    """1957: Startrolle einer Rufnamen-Sitzung aus der Startsperre, die lauf.py beim START schreibt (Rufname je Tag eindeutig):
+    Sperre am Berliner Tag von created_at mit diesem Rufnamen, die jüngste bis 5 Minuten nach created_at. None ohne Rufname
+    oder ohne passende Sperre (dann wie bisher bereich()). Ohne created_at die jüngste Sperre mit diesem Rufnamen."""
+    n = aus_titel(titel_)
+    if not n: return None
+    p = betrieb or BETRIEB or os.path.join(DOCS, "ARBEIT-BETRIEB.md")
+    c = None
+    if created_at:
+        try: c = datetime.datetime.fromisoformat(str(created_at).strip().replace("Z", "+00:00"))
+        except ValueError: return None
+        if c.tzinfo is None: c = c.replace(tzinfo=datetime.timezone.utc)
+        c = c.astimezone(BERLIN).replace(tzinfo=None)
+    jahr = c.year if c else datetime.datetime.now(BERLIN).year
+    try:
+        st = os.stat(p); schl = (p, st.st_mtime_ns, st.st_size, jahr)
+        if schl not in _SPERREN: _SPERREN.clear(); _SPERREN[schl] = sperr_eintraege(open(p, encoding="utf-8").read(), jahr)
+        e = _SPERREN[schl]
+    except OSError:
+        return None
+    e = [x for x in e if x[2] == n and (c is None or (x[0].date() == c.date() and x[0] <= c + datetime.timedelta(minutes=5)))]
+    return max(e)[1] if e else None
+
+
 def lies_sitzungen(text):
     """(Titel, created_at) aus Zeilen im Format der lauf.py-Eingabe: Kennung | Stand | updated_at | Titel | Kosten | created_at | …"""
     aus = []

@@ -57,7 +57,8 @@ def kurzzeilen(t):
     return aus
 
 _PROFILE = {}
-def rolle(titel):
+def rolle(titel, created_at=None):
+    """Rolle eines Sitzungstitels; created_at (1957) ordnet Rufnamen-Sitzungen über die Startsperre ihrer Startrolle zu."""
     for r in ROLLEN:
         if titel == r or titel.startswith((r + " ", r + ",", r + ":")): return r  # 360: „Homer, 279 …“ blieb als Klon stehen
     try:  # 1893: Titel mit Profil statt Rufname („Technik – 1893 …“, Start vor tools/1727-SCHARF an der neuen Liste)
@@ -69,12 +70,14 @@ def rolle(titel):
             if titel == r or titel.startswith((r + " ", r + ",", r + ":")): return r
     except Exception:
         pass
-    # 1739 Rufnamen: „Anna – 1739: …“ zählt beim Besitzer des Vorgangs im Titel (Bereich), alte Titel wie bisher
+    # 1957: Rufname → Startrolle aus der Startsperre (Arbeitsplaner, Prüfer, Tester schreiben Vorgänge anderer);
+    # 1739 sonst: „Anna – 1739: …“ zählt beim Besitzer des Vorgangs im Titel (Bereich), alte Titel wie bisher
     try:
         import os
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         import rufname
-        b = rufname.bereich(titel)
+        b = rufname.rolle(titel, created_at) if created_at else None
+        b = b or rufname.bereich(titel)
         if b: return b
     except Exception:
         pass
@@ -102,7 +105,7 @@ def main():
         if ab and (tg[3:5], tg[:2]) < (ab[3:5], ab[:2]): continue
         k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
         if k is None: ohne.append(s.get("title", s["id"])); continue
-        r = rolle(s.get("title", ""))
+        r = rolle(s.get("title", ""), s.get("created_at"))
         r = TEAM.get(r, r)
         je_rolle[r][0] += 1; je_rolle[r][1] += k
         je_tag[tg][0] += k
