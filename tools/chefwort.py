@@ -7,7 +7,8 @@ eine offene Übergabezeile an den Arbeitsplaner an (1760, `uebergabe.py`); keine
 des Builds („gut“, „passt“, „freigegeben“) oder Ergebnis nach Checkliste 11, 12 geht die Zeile an den Disponenten, der den
 Build-Macher startet (3.3 Nr. 7, L-U15, 1782).
 
-  vorgang.py chefwort NR "Wortlaut" [--zeit "TT.MM., HH:MM"] [--sitzung ROLLE]   von Hand (verpasstes Chefwort, Rückfrage im Chat)
+  vorgang.py chefwort NR "Wortlaut" [--zeit "TT.MM., HH:MM"] [--sitzung ROLLE] [--an ROLLE]   von Hand (verpasstes Chefwort,
+                                               Rückfrage im Chat); --an setzt den Empfänger (1876)
   neustart-haken.py prompt                     ruft haken() bei jeder Nachricht (UserPromptSubmit); schreibt im Hintergrund,
                                                damit der Haken unter 10 s bleibt; Fehler meldet die nächste Nachricht
 
@@ -39,6 +40,10 @@ EINSCHRAENKUNG = re.compile(r"(?i)\b(aber|doch|jedoch|sondern|allerdings|außer|
 # Checkliste 11: „- n.k ✓“, „- n.k ✗ <Fund>“, „- Rest ✓“. Ein 👍/👎 gilt nur für einen Punkt (Profil Technik 13): Fund, Arbeitsplaner;
 # die 👍/👎 der Bild- und Filmpunkte trägt das Werkzeug ins Ergebnis, erst das Ergebnis geht an den Disponenten (1903)
 ERGEBNIS = re.compile(r"(?m)^\W*(\d+(\.\d+)?|Rest)\s*[✓✗]")
+# 1876 (Lauf 3 Disponent L5): Chefwort zum Betrieb („weniger laufen“, Starts, Laufsperre, Guthaben) geht an Sokrates (Abläufe per
+# Vorentscheid; er setzt die Laufsperre in der Form aus 1804), ebenso jedes Chefwort zu einem Vorgang im Bereich „B Abläufe“
+BETRIEB = re.compile(r"(?i)\b(weniger|mehr|nicht mehr|keine)\s+(laufen|starten|starts|sitzungen)\b|\blaufsperre\b|\bguthaben\b|\bnur\s+(noch\s+)?(muss|rückläufer)\b")
+SOKRATES = "Sokrates"
 BUILD_IM_TEXT = re.compile(r"(?i)\bBuild\s+\d|(?<![\w.])t\d{2,4}\b")
 
 
@@ -69,12 +74,23 @@ def _build_am_vorgang(nr, d):
     return bool(d and str(d.get("build") or "").strip() not in ("", "-", "–"))
 
 
+def _bereich(nr, d):
+    if d is None and nr:
+        try:
+            import startbar
+            d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
+        except Exception: d = None
+    return str((d or {}).get("bereich") or "")
+
+
 def empfaenger(wort, nr=None, d=None):
     """1782, 1903: Disponent bei Freigabe eines Builds („gut“, „passt“, „freigegeben“, unverneint) oder bei einem Ergebnis nach
     Checkliste 11, 12 („- n.k ✓/✗“, „- Rest ✓“), beides nur, wenn der Text einen Build nennt oder der Vorgang einen Build trägt;
-    sonst der Arbeitsplaner (AN): Verneinung, einzelnes 👍/👎, Fund."""
+    sonst der Arbeitsplaner (AN): Verneinung, einzelnes 👍/👎, Fund; 1876: Chefwort zum Betrieb oder zu „B Abläufe“ an Sokrates."""
     w = wort or ""
-    if not (ERGEBNIS.search(w) or freigabe(w)): return AN
+    if not (ERGEBNIS.search(w) or freigabe(w)):
+        if BETRIEB.search(w) or _bereich(nr, d).startswith("B Abläufe"): return SOKRATES  # 1876
+        return AN
     if BUILD_IM_TEXT.search(w) or _build_am_vorgang(nr, d): return DISPONENT
     return AN
 
@@ -260,11 +276,12 @@ def haupt(a):
     if a[:1] == ["hintergrund"]:
         return hintergrund(a[1], a[2], a[3], a[4], a[5:])
     a = list(a[1:]) if a[:1] == ["chefwort"] else list(a)
-    zeit, wer = None, None
-    for opt in ("--zeit", "--sitzung"):
+    zeit, wer, an = None, None, None
+    for opt in ("--zeit", "--sitzung", "--an"):
         if opt in a:
             i = a.index(opt); v = a[i + 1]; del a[i:i + 2]
             if opt == "--zeit": zeit = v
+            elif opt == "--an": an = v
             else: wer = v
     if len(a) != 2:
         sys.exit(__doc__)
@@ -276,7 +293,7 @@ def haupt(a):
     if wer is None:
         wer = _rolle_aus_besetzung(sid)
     try:
-        an = empfaenger(a[1], a[0])
+        an = an or empfaenger(a[1], a[0])
         melden(a[0], eintragen(a[0], a[1], zeit or ue.fmt(ue.jetzt()), wer or "unbekannt", sid, an), an)
     except ue.Fehler as e:
         sys.exit("vorgang.py chefwort: %s; nichts geschrieben" % e)

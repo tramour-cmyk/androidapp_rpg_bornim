@@ -132,6 +132,11 @@ for _t in ("Passt, aber Schatten zu dunkel. Build 312", "Gut gemeint, aber zu la
 soll("1908 „Passt. Build 312“ → Disponent", cw.empfaenger("Passt. Build 312", "9002", ohne) == "Disponent")
 soll("1908 Ergebnis mit Frage im Fund bleibt Ergebnis → Disponent", cw.empfaenger("t312\n- 1 ✗ warum flackert die Tür?\n- Rest ✓", "9002", ohne) == "Disponent")
 soll("1908 chef_nein: „Passt, aber …“ ist kein Nein", not cw.chef_nein("Passt, aber Schatten zu dunkel. Build 312"))
+soll("1876: „weniger laufen“ → Sokrates", cw.empfaenger("9001 heute weniger laufen, nur Rückläufer", "9001", mit) == "Sokrates")
+soll("1876: Laufsperre → Sokrates", cw.empfaenger("Laufsperre: höchstens 3 Starts, spätestens 18:00", "9002", ohne) == "Sokrates")
+soll("1876: Vorgang im Bereich B Abläufe → Sokrates", cw.empfaenger("so nicht", "9009", {"nr": "9009", "bereich": "B Abläufe", "build": "–"}) == "Sokrates")
+soll("1876: Freigabe im Bereich B Abläufe bleibt Disponent", cw.empfaenger("passt", "9009", {"nr": "9009", "bereich": "B Abläufe", "build": "t301"}) == "Disponent")
+soll("1876: Fund ohne Betrieb bleibt Arbeitsplaner", cw.empfaenger("Tür läuft zu langsam", "9001", mit) == "Arbeitsplaner")
 soll("Wort „Gutachten“ zählt nicht", cw.empfaenger("Gutachten zu 9001", "9001", mit) == "Arbeitsplaner")
 
 # 11 1872: Chef-Nein zählt für Obergrenze A („Prüfer ja, Chef nein“ stoppt beim dritten)
