@@ -311,7 +311,6 @@ def _st(x, a, b):
 UMHANG_RAND = 0.01    # m innerhalb der Körperkante
 UMHANG_LUFT = 0.02    # m hinter dem Rücken, wo die Kante zurückgeht
 UMHANG_BLATT = 0.02   # m mehr Luft über den Schulterblättern (sie gehen mit dem Schlüsselbein nach hinten)
-UMHANG_ABSTAND = 0.035   # m über der Haut, hinten über der Hüfte
 UMHANG_SCHULTER = 0.05   # m innerhalb des Schultergelenks endet der Umhang oben (Schulterstücke daneben)
 _KNARM = [k for k, nm in enumerate(Q_KN) if nm.startswith(('upperarm', 'lowerarm', 'hand', 'thumb', 'index', 'middle', 'ring', 'pinky'))]
 if 'cloak' in TEILNAMEN and 'upperarm_l' in QP_MAT:
@@ -322,27 +321,21 @@ if 'cloak' in TEILNAMEN and 'upperarm_l' in QP_MAT:
     for b in set(_band.tolist()):
         q = _kv[_band == b]; _halb[b] = float(np.abs(q[:, 0]).max()); _mitte[b] = float(q[:, 1].mean())
     _za = QP_MAT['upperarm_l'].translation.z; _xa = abs(QP_MAT['upperarm_l'].translation.x)
-    _dv = {}; _zb = QP_MAT['pelvis'].translation.z; _n_ab = 0
+    _dv = {}
     for i in _cl:
         p = VK2[i]; b = int(np.floor(p[2] / UMHANG_BAND))
-        if b not in _halb: continue
-        q = p.copy(); hinten = p[1] > _mitte[b]
-        if hinten or p[2] < _za - 0.05:   # vorn über der Achsel nicht: Spange, Kragen
-            if hinten: q[1] += UMHANG_BLATT * _st(p[2], _za - 0.40, _za - 0.20) * (1.0 - _st(p[2], _za + 0.06, _za + 0.14))
-            lim = _halb[b] - UMHANG_RAND
-            if p[2] > _za: lim = min(lim, _xa - UMHANG_SCHULTER)
-            if abs(p[0]) > lim:
-                q[0] = np.sign(p[0]) * lim
-                hier = _kv[(np.abs(_kv[:, 2] - p[2]) < UMHANG_BAND) & (np.abs(_kv[:, 0] - q[0]) < 0.03)]
-                if len(hier): q[1] = max(q[1], float(hier[:, 1].max()) + UMHANG_LUFT)   # hinten ist +Y
-        # Abstand zur Haut: hinten über der Hüfte mindestens UMHANG_ABSTAND entlang der Hautnormale (die Kleidung darunter liegt dort
-        # auf der Haut, unter_CLOAK in held_klassen.py; Kutte, Hemd, Leder der Trachten stachen in Bewegung durch, Jana 22.11.)
-        if hinten and p[2] > _zb:
-            c, n, _, _ = qbvh.find_nearest(Vector(q))
-            if c is not None:
-                n = np.array(n.normalized()); c = np.array(c); h = float(np.dot(q - c, n))
-                if h < UMHANG_ABSTAND: q = q + n * (UMHANG_ABSTAND - h); _n_ab += 1
-        if np.any(q != p): _dv[int(i)] = q - p
+        if b not in _halb or not (p[1] > _mitte[b] or p[2] < _za - 0.05): continue   # vorn über der Achsel: Spange, Kragen
+        q = p.copy()
+        if p[1] > _mitte[b]: q[1] += UMHANG_BLATT * _st(p[2], _za - 0.40, _za - 0.20) * (1.0 - _st(p[2], _za + 0.06, _za + 0.14))
+        lim = _halb[b] - UMHANG_RAND
+        if p[2] > _za: lim = min(lim, _xa - UMHANG_SCHULTER)
+        if abs(p[0]) > lim: q[0] = np.sign(p[0]) * lim
+        else:
+            if q[1] != p[1]: _dv[int(i)] = q - p
+            continue
+        hier = _kv[(np.abs(_kv[:, 2] - p[2]) < UMHANG_BAND) & (np.abs(_kv[:, 0] - q[0]) < 0.03)]
+        if len(hier): q[1] = max(q[1], float(hier[:, 1].max()) + UMHANG_LUFT)   # hinten ist +Y
+        _dv[int(i)] = q - p
     # beide Lagen gleich (wie SCHALE HINAUS): je Ecke die größte Verschiebung binnen SCHALE_R
     _kd = KDTree(len(_cl))
     for i in _cl: _kd.insert(Vector(VK2[i]), int(i))
@@ -359,7 +352,7 @@ if 'cloak' in TEILNAMEN and 'upperarm_l' in QP_MAT:
             if not len(e_): continue
             j = _ks[np.argmin(np.linalg.norm(VK2[_ks] - VK2[e_].mean(0), axis=1))]
             VK2[e_] = VK2[e_] + _neu[int(j)]
-    print('UMHANG AM RUECKEN Form', len(_dv), 'Ecken an die Koerperkante,', _n_ab, 'auf Abstand zur Haut,', len(_neu), 'mit der anderen Lage, hoechstens %.1f cm' % (100 * max([np.linalg.norm(d) for d in _dv.values()] or [0])))
+    print('UMHANG AM RUECKEN Form', len(_dv), 'Ecken an die Koerperkante,', len(_neu), 'mit der anderen Lage, hoechstens %.1f cm' % (100 * max([np.linalg.norm(d) for d in _dv.values()] or [0])))
 # 475 Lauf 2 (Chef 04.11., 20:49: „mit irgendwelchen Verhüllungen im Gesicht … genau der gleiche Scheiß wie das letzte Mal“), am Rechner
 # nachgestellt (Kopfbilder Garrick, Liska, Jorin, Morwen aus Lauf 1 nachgebaut): unsere Kopfteile aus held3 (Kapuze, Gugel, Helm,
 # Ringpanzer am Helm, Kopftuch) sind fuer unseren Kopf gebaut und lagen am Kaufkopf binnen VERDECKT vor dem Gesicht; Schritt 7 nahm die
