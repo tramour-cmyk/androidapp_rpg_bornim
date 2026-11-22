@@ -2,6 +2,7 @@
 # (probelauf.py: den nächsten Lauf gibt der Prüfer frei). Ohne Netz. Aufruf: python3 tools/laufbremse_test.py
 import datetime, os, sys, tempfile
 HIER = os.path.dirname(os.path.abspath(__file__))
+os.environ["BORNIM_HAKEN_TROCKEN"] = "1"   # 1941 (D381.1): Halte im Test zählen nicht (keine Zeile nach origin/haken, 1129.1 P3)
 sys.path.insert(0, HIER); sys.argv = [sys.argv[0]]
 import lauf, probelauf
 fehl = 0
@@ -107,7 +108,7 @@ soll("1907 scharf: Ideenlauf fällt nie als „nach“ aus", startbar.nach_ausge
 import json, subprocess
 _ein = json.dumps({"tool_name": "Bash", "tool_input": {"command": "cd $UNBEKANNT_1938 && git push -u origin claude/x"}, "cwd": HIER})
 _r = subprocess.run([sys.executable, os.path.join(HIER, "laufbremse-haken.py")], input=_ein, capture_output=True, text=True,
-                    env={k: v for k, v in os.environ.items() if k != "UNBEKANNT_1938"})
+                    env=dict({k: v for k, v in os.environ.items() if k != "UNBEKANNT_1938"}, BORNIM_HAKEN_TROCKEN="1"))  # 1941: keine Haltzeile nach origin/haken
 soll("1938: cd $VAR unauflösbar → Exit 2 mit 725", _r.returncode == 2 and "725" in _r.stderr, (_r.returncode, _r.stderr[-200:]))
 
 print("laufbremse_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))

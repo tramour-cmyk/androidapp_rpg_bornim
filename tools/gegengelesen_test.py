@@ -2,6 +2,7 @@
 # nie das eigene Team (881, 1410). Aufruf: python3 tools/gegengelesen_test.py
 import importlib.util, io, contextlib, os, shutil, subprocess, sys, tempfile
 HIER = os.path.dirname(os.path.abspath(__file__))
+os.environ["BORNIM_HAKEN_TROCKEN"] = "1"   # 1941: Halte im Test zählen nicht (keine Zeile nach origin/haken, 1129.1 P3)
 PR = os.path.join(HIER, "commit-pruefung.py")
 fehler = 0
 def soll(name, ok, info=""):
