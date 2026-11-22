@@ -41,6 +41,10 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 385 · 1923 Startblock nach 1928 (lesend, Weiter Ford 14:00; Kopie `1d0b66272`; 22.11., 14:00)
+
+- Greift (erledigt). `lauf_kern_test` grün. Nachgestellt mit den 20 Profilen aus `ladesumme.py --anlegen` (Lauf 384), `NEU_LISTE`, `mit_kaufrepo` (scharf) dann `mit_kern`: Prüfer mit Auftrag „Querprofil „Signatur und Leben““ → Kern Abnahme, Prüfer, Signatur und Leben, Zugang Kaufrepo; Prüfer mit „Profil Werkzeug“ → ohne Kaufrepo; Kampf → Kampf, Werkzeug, Zugang Kaufrepo; Tester → mit Kern Abnahme. Je Nachricht `add_repo` genau einmal (Satz am Ende, Sockel-Fassung), kein Sockeltext, keine „## Herkunft“, Auftrag wörtlich, „Rollendatei“ ersetzt; `STARTBLOCK_FEHLT` leer.
+
 ## Lauf 384 · 1941, 1938, 1928, 1943 (lesend, Weiter Ford 13:56; Kopie `d8e970103`, `1d0b66272`, `main` `2e9612acd`; 22.11., 13:56–13:59)
 
 - 1941 greift, damit 1938: `laufbremse_test` und `gegengelesen_test` setzen `BORNIM_HAKEN_TROCKEN` (auch in der env des echten Hakenaufrufs). Alle `tools/*_test.py` an `1d0b66272` grün (13:57:04–13:57:39), `origin/haken` danach ohne Zeile aus meinem Lauf (einzige neue Zeile 13:57:10 auf Zweig `main`, echt; mein Lauf stand losgelöst).
