@@ -42,7 +42,10 @@ EINSCHRAENKUNG = re.compile(r"(?i)\b(aber|doch|jedoch|sondern|allerdings|außer|
 ERGEBNIS = re.compile(r"(?m)^\W*(\d+(\.\d+)?|Rest)\s*[✓✗]")
 # 1876 (Lauf 3 Disponent L5): Chefwort zum Betrieb („weniger laufen“, Starts, Laufsperre, Guthaben) geht an Sokrates (Abläufe per
 # Vorentscheid; er setzt die Laufsperre in der Form aus 1804), ebenso jedes Chefwort zu einem Vorgang im Bereich „B Abläufe“
-BETRIEB = re.compile(r"(?i)\b(weniger|mehr|nicht mehr|keine)\s+(laufen|starten|starts|sitzungen)\b|\blaufsperre\b|\bguthaben\b|\bnur\s+(noch\s+)?(muss|rückläufer)\b")
+# 1876; 1915 (D345.2): „weniger laufen“ trifft auch Spielfunde („Die Wachen sollen nicht mehr laufen“): diese schwachen Betriebswörter
+# zählen nur ohne Vorgang oder bei einem Vorgang im Bereich B; die starken (Starts, Sitzungen, Laufsperre, Guthaben, nur Muss/Rückläufer) immer.
+BETRIEB = re.compile(r"(?i)\b(weniger|mehr|nicht mehr|keine)\s+(starts|sitzungen)\b|\blaufsperre\b|\bguthaben\b|\bnur\s+(noch\s+)?(muss|rückläufer)\b")
+BETRIEB_SCHWACH = re.compile(r"(?i)\b(weniger|mehr|nicht mehr|keine)\s+(laufen|starten)\b")
 SOKRATES = "Sokrates"
 BUILD_IM_TEXT = re.compile(r"(?i)\bBuild\s+\d|(?<![\w.])t\d{2,4}\b")
 
@@ -89,7 +92,9 @@ def empfaenger(wort, nr=None, d=None):
     sonst der Arbeitsplaner (AN): Verneinung, einzelnes 👍/👎, Fund; 1876: Chefwort zum Betrieb oder zu „B Abläufe“ an Sokrates."""
     w = wort or ""
     if not (ERGEBNIS.search(w) or freigabe(w)):
-        if BETRIEB.search(w) or _bereich(nr, d).startswith("B Abläufe"): return SOKRATES  # 1876
+        b = _bereich(nr, d)
+        if BETRIEB.search(w) or b.startswith("B Abläufe"): return SOKRATES  # 1876
+        if BETRIEB_SCHWACH.search(w) and (not nr or b.startswith("B ")): return SOKRATES  # 1915
         return AN
     if BUILD_IM_TEXT.search(w) or _build_am_vorgang(nr, d): return DISPONENT
     return AN

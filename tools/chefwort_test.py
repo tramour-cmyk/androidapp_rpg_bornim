@@ -136,6 +136,12 @@ soll("1876: „weniger laufen“ → Sokrates", cw.empfaenger("9001 heute wenige
 soll("1876: Laufsperre → Sokrates", cw.empfaenger("Laufsperre: höchstens 3 Starts, spätestens 18:00", "9002", ohne) == "Sokrates")
 soll("1876: Vorgang im Bereich B Abläufe → Sokrates", cw.empfaenger("so nicht", "9009", {"nr": "9009", "bereich": "B Abläufe", "build": "–"}) == "Sokrates")
 soll("1876: Freigabe im Bereich B Abläufe bleibt Disponent", cw.empfaenger("passt", "9009", {"nr": "9009", "bereich": "B Abläufe", "build": "t301"}) == "Disponent")
+welt = {"nr": "9001", "bereich": "E Welt", "build": "–"}
+soll("1915: „Die Wachen sollen nicht mehr laufen“ zu Spielvorgang → Arbeitsplaner", cw.empfaenger("Die Wachen sollen nicht mehr laufen", "9001", welt) == "Arbeitsplaner")
+soll("1915: „Gegner sollen weniger laufen“ zu Spielvorgang → Arbeitsplaner", cw.empfaenger("Gegner sollen weniger laufen", "9001", welt) == "Arbeitsplaner")
+soll("1915: „weniger laufen“ ohne Vorgang → Sokrates", cw.empfaenger("heute weniger laufen", None, None) == "Sokrates")
+soll("1915: „weniger laufen“ zu Vorgang im Bereich B Steuerung → Sokrates", cw.empfaenger("weniger laufen", "9008", {"nr": "9008", "bereich": "B Steuerung", "build": "–"}) == "Sokrates")
+soll("1915: „nur Rückläufer“ zu Spielvorgang bleibt Sokrates", cw.empfaenger("weniger laufen, nur Rückläufer", "9001", welt) == "Sokrates")
 soll("1876: Fund ohne Betrieb bleibt Arbeitsplaner", cw.empfaenger("Tür läuft zu langsam", "9001", mit) == "Arbeitsplaner")
 soll("Wort „Gutachten“ zählt nicht", cw.empfaenger("Gutachten zu 9001", "9001", mit) == "Arbeitsplaner")
 
