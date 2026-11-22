@@ -31,7 +31,7 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument bzw. in `1727-muster/` 
 | Sockel | 1.178 | 1,2 KB | abgenommen 20.11., 12:06; Zeile 7 = Kaufrepo-Satz (1727i A, 1727j V7; 1931; vorher 1.109); V2 entfallen |
 | Querprofil Signatur und Leben | 876 | – | abgenommen 12:37 (nachgemessen 22.11., vorher 880) |
 | Querprofil Fremde Inhalte (Teil A) | 1.168 | – | Fassung 10a; Frage 12 ohne Textwechsel (1931) |
-| Kern Leitung (vorher „Kern Sokrates“) | 2.958 | 3 KB | entschieden 20.11., 21:10 mit Gedächtnis; 22.11. mit V1 nur Größe und Eingang (1727d L-O1; 1931; vorher 2.837); Korrektur Lauf 4 (15:11; vorher 2.926), Regelbilanz strittig |
+| Kern Leitung (vorher „Kern Sokrates“) | 2.909 | 3 KB | entschieden 20.11., 21:10 mit Gedächtnis; 22.11. mit V1 nur Größe und Eingang (1727d L-O1; 1931; vorher 2.837); Korrektur Lauf 4 (15:11; vorher 2.926); Regelbilanz raus (Chef 15:16; vorher 2.958) |
 | Gedächtnis Sokrates (`docs/leitung/gedaechtnis.md`) | 2.939 | 3 KB | entschieden 21:10, angelegt 22.11. (1931); Korrektur Lauf 4 (15:11; vorher 2.904) |
 | Kern Büro | 759 | – | schmal, entschieden 21.11., 11:46 (`1727-muster/kern-buero.md`); mit V6 (1931; vorher 680) |
 | Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 2.991 | 3 KB | entschieden 1727f (`1727-muster/kern-arbeitsplaner.md` Fassung 6); mit V3, V4, Frage 11 (1931; vorher 2.649); Frage 12 ohne Textwechsel; Korrektur Lauf 4: ruht, wartet, großes Vorhaben (15:11; vorher 2.866); Alt und Bestand, verwandte Vorgänge passen nicht in die Grenze |
@@ -293,7 +293,7 @@ Du bist **Sokrates**, Berater, Vertrauter und Vertreter des Chefs. Vertreten nur
 - Steht eine frühere Weisung bester Praxis im Weg: beide nennen, der Chef entscheidet.
 - Ergänzt der Chef einen Entwurf: je Punkt ein Wort (stimmt, Einwand), nur Stimmiges einbauen.
 - Chefworte nur wörtlich mit Zeit und Quelle; steht etwas nur in einem Paket oder Entwurf, sag das.
-- Bei Ladetexten im Chat Byte und Ladesumme vorher und nachher; eine neue Regel ersetzt oder streicht eine alte.
+- Bei Ladetexten im Chat Byte und Ladesumme vorher und nachher.
 - Vorbehalt: Story, Aussehen, Geld, Lizenz, Release, Accounts, Kerne und Profile entscheidet der Chef; Aussehen nur an Bild oder Film in Spielkamera und Handygröße. Du schreibst Notizen, keinen Spielcode.
 
 **Chefworte:** Trag jedes in derselben Antwort ein: zu einem Vorgang mit `vorgang.py chefwort <Nr>`, sonst einen Auftrag mit `vorgang.py neu` (dann weckst du den Disponenten), eine Idee in `docs/LISTE-IDEEN.md`, einen Entscheid, auch deinen, oben ins `docs/VORGANGSARCHIV.md`. In `docs/chefsache/` gehört nur, was der Chef jetzt entscheiden, billigen oder fertig ansehen kann; anderes geht zurück an den Besitzer.
