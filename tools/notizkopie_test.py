@@ -22,6 +22,11 @@ def schreib(p, t):
     open(p, "w").write(t)
 
 
+def zeile(aus):
+    """Zeile von notizkopie.py in der Ausgabe von notiz.sh (Uhr und Kernregeln danach sind fester Text, 347)."""
+    return next((z for z in aus.splitlines() if z.startswith("Bornim (1963)")), "")
+
+
 def notiz(arbeit, home):
     env = {k: v for k, v in os.environ.items() if not k.startswith("GIT_") and k != "CLAUDE_CODE_ACCOUNT_UUID"}
     env.update(HOME=home, GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@t", GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t@t")
@@ -59,7 +64,7 @@ def kopie_test():
     ok(os.path.isdir(wt) and g(wt, "status", "--porcelain") == "", "Notizkopie angelegt und sauber")
     weiter(q, a)
     ok(g(wt, "status", "--porcelain").strip() != "", "Vorfall nachgestellt: vorgemerkter Altstand")
-    aus = notiz(a, home)
+    aus = zeile(notiz(a, home))
     ok(g(wt, "status", "--porcelain", "--untracked-files=no") == "", "nach notiz.sh sauber: " + g(wt, "status", "--short"))
     b = [x.strip() for x in g(wt, "branch", "--list", "backup-notiz-*").split()]
     ok(len(b) == 1, "Sicherungszweig vorhanden")
@@ -71,7 +76,7 @@ def kopie_test():
     o, q, a = aufbau(d); wt = os.path.join(d, "bornim-main")
     notiz(a, home); weiter(q, a)
     schreib(os.path.join(wt, "docs/b.md"), "meins\n")
-    aus = notiz(a, home)
+    aus = zeile(notiz(a, home))
     ok(g(wt, "status", "--porcelain", "--untracked-files=no").strip() == "M docs/b.md", "nur die junge Änderung bleibt: " + g(wt, "status", "--short"))
     ok(open(os.path.join(wt, "docs/b.md")).read() == "meins\n", "junge Änderung erhalten")
     ok("rueckmeldung" in aus and "Chef" not in aus, "Ausgabe zur jungen Änderung: Frage per Rückmeldung: " + aus)
@@ -81,6 +86,11 @@ def kopie_test():
     p = os.path.join(wt, "docs/b.md"); schreib(p, "liegengeblieben\n"); t = time.time() - 3 * 3600; os.utime(p, (t, t))
     notiz(a, home)
     ok(g(wt, "status", "--porcelain", "--untracked-files=no") == "", "Datei älter als 2 h zurückgesetzt")
+    # Fall 4: Altstand entsteht mitten in der Sitzung → Stop-Haken räumt auf und hält nicht an
+    weiter(q, a)
+    r = subprocess.run([sys.executable, os.path.join(HIER, "gepusht-haken.py")], input="{}", capture_output=True, text=True,
+                       env=dict(os.environ, CLAUDE_PROJECT_DIR=a), timeout=60)
+    ok(r.returncode == 0 and g(wt, "status", "--porcelain", "--untracked-files=no") == "", "Stop-Haken räumt auf: %d %s" % (r.returncode, r.stderr))
 
 
 def lade(n):
