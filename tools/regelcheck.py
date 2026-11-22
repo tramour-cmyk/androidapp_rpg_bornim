@@ -4,7 +4,7 @@
 Aufruf: python3 tools/regelcheck.py [--kurz] [--anlass SHA] | --rueckmeldung [--um "TT.MM. HH:MM"]   (--rueckmeldung: nur Prüfung 559, ruft lauf.py stündlich; --um: Stand aus Git zu dieser Zeit; --kurz: nur Pflegefehler der Vorräte, Teil 1 und 2; ruft notiz.sh beim Start)    (Ford ruft es im Morgenlauf, Ausgabe in die Zeile „Morgen“ im Protokoll, 783 W7)
 Prüft: startbar.py (unlesbare oder ungültige Zeilen der Vorgangsliste, 275.2), Größen (Vorräte 30 KB, 1129 A 7; CLAUDE.md 15 KB),
 Zeilen über 1 500 Zeichen in Vorräten, Testbuilds am Tag (höchstens 6, 317), tote Verweise auf `Datei.md` / `tools/x` / `docs/…`, alte Dateinamen (notiz.sh), Lizenzhinweis SRD (446: Meldezeile, solange alte Namen im Spiel; Fund, wenn der Hinweis dann fehlt).
---namen [ROOT]: nur der Namenswächter (870): Godot-Spiel und Quellen der Kopien nach godot/ (Arbeitsabläufe), Exit 1 bei alten Namen.
+--namen [ROOT]: nur der Namenswächter (870): Godot-Spiel, Quellen der Kopien nach godot/ und Erzeuger dort erzeugter Textdateien samt Eingaben (Arbeitsabläufe); listet jeden Schritt nach godot/; Exit 1 bei alten Namen.
 --anlass SHA: nennt die Regeldateien (CLAUDE.md, ROLLE-*, LISTE-BETRIEB.md, VORGANGSARCHIV.md), die seit SHA geändert wurden;
 nur dann gehört die Zeile „Widersprüche prüfen“ in ARBEIT-PRUEFUNG.md (Anlass-Lauf Diogenes, einmal im Monat voller Lauf).
 Inhaltliche Widersprüche sieht das Skript nicht. Exit 1, wenn etwas gefunden wurde.
@@ -98,6 +98,12 @@ def ohne_kommentar_gd(text):
         aus.append(z)
     return "\n".join(aus)
 
+def ohne_kommentar_py(text):
+    """Python ohne Kommentare (Zeichenketten bleiben); unlesbar: unverändert (870-Ü3)."""
+    import io, tokenize
+    try: return "\n".join(t.string for t in tokenize.generate_tokens(io.StringIO(text).readline) if t.type == tokenize.STRING)
+    except (tokenize.TokenError, SyntaxError, IndentationError): return text
+
 def ohne_info_json(text):
     """JSON ohne Felder, deren Schlüssel mit „_“ beginnt (870.13); unlesbar: unverändert."""
     try: d = json.loads(text)
@@ -105,22 +111,66 @@ def ohne_info_json(text):
     weg = lambda x: {k: weg(v) for k, v in x.items() if not str(k).startswith("_")} if isinstance(x, dict) else [weg(v) for v in x] if isinstance(x, list) else x
     return json.dumps(weg(d), ensure_ascii=False)
 
-# 870 (Fund Fenja 22.11.): der Bau kopiert Dateien aus tools/ nach godot/ (godot.yml, godot-kampf.yml: werte.json, gegenstaende.json,
-# leute.json); im Checkout fehlen die Kopien (godot/.gitignore), der Wächter sah sie nicht. Er liest darum auch jede Quelle eines
-# Schritts „cp <Datei ausserhalb godot/> godot/…“ aus den Arbeitsabläufen. Erzeugte Dateien (pruefliste.py, Kaufmodelle) sieht er nicht.
+# 870 (Fund Fenja 22.11.; Nachbesserung 870-Ü3, Prüferin Petra 22.11., 19:21): der Bau schreibt Dateien nach godot/, die im Checkout
+# fehlen (godot/.gitignore). Der Wächter listet darum jeden Schritt der Arbeitsabläufe, der nach godot/ schreibt (cp, -Pout=, Umleitung,
+# pruefliste.py), mit Herkunft: „lesbar“ (Datei im Repo, er liest sie), „erzeugt“ (Textdatei aus einem Erzeuger im Repo: er liest den
+# Erzeuger ohne Kommentare und dessen Eingaben, ERZEUGER), „binär“ (Modell, Bild, Schrift: kein lesbarer Text) oder „fremd“ (Kaufrepo,
+# Bauserver, core: nicht lesbar). Kopien innerhalb godot/ liest er schon unter godot/.
 ENDUNGEN = (".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg")
+BINAER = (".glb", ".bin", ".png", ".jpg", ".bild", ".ttf", ".svg")
+# Ziel (Muster auf den Dateinamen) -> (Erzeuger, Eingaben); Erzeuger nach Aufruf im Arbeitsablauf (bl/bin/python -I tools/blender348/…)
+ERZEUGER = [
+    (r"pruefliste\.json$", ["tools/pruefliste.py"], ["docs/chefsache/ansehen/t*.md", "docs/entwurf/t*.md"]),   # godot.yml:111, Reiter „Test“
+    (r"(-info|held-klassen|leute-kauf|kampf-bewegungen)\.json$", ["tools/blender348/**/*.py"], ["tools/blender348/**/*.json"]),
+]
 
-def kopierquellen(root):
-    """Quellen der Kopierschritte nach godot/ in .github/workflows/*.yml: [(Quelle, Ziel, Datei:Zeile)]."""
+def _ziele(z):
+    """Schritte einer Zeile: [(Quelle oder Erzeuger-Aufruf, Ziel unter godot/)]."""
+    aus = []
+    for m in re.finditer(r"\bcp\s+((?:-\w+\s+)*)(.+?)(?=\s*(?:;|&&|\|\||\||\bdone\b|$))", z):
+        t = [x.strip("\"'") for x in m.group(2).split()]
+        if len(t) >= 2 and t[-1].startswith("godot/"): aus += [(q, t[-1]) for q in t[:-1]]
+    aus += [("gradle " + m.group(1), m.group(2)) for m in re.finditer(r"gradlew -p (\w+) \S+ -Pout=(godot/[^\s;]*)", z)]
+    aus += [("echo" if re.search(r"\becho\b[^>]*>>?\s*" + re.escape(m.group(1)), z) else "Umleitung", m.group(1))
+            for m in re.finditer(r">>?\s*(godot/[^\s;]+)", z)]
+    aus += [(m.group(1), m.group(2)) for m in re.finditer(r"python3 (tools/\S+\.py) (godot/\S+)", z)]
+    return aus
+
+def kopierschritte(root):
+    """Schritte nach godot/ in .github/workflows/*.yml: [(Datei:Zeile, Quelle, Ziel, Herkunft, zu lesen)]; zu lesen: Dateien im Repo."""
     aus = []
     for wf in sorted(glob.glob(os.path.join(root, ".github", "workflows", "*.yml"))):
+        var = {}
         for i, z in enumerate(lesen(wf).splitlines(), 1):
-            z = z.split(" #")[0]
-            for m in re.finditer(r"\bcp\s+(?:-\w+\s+)*([^\s$;&|]+)\s+(godot/[^\s;&|]*)", z):
-                q = m.group(1)
-                if q.startswith(("godot/", "/", "~")) or "*" in q or not os.path.isfile(os.path.join(root, q)): continue
-                aus.append((q, m.group(2), "%s:%d" % (os.path.basename(wf), i)))
+            z = re.sub(r"\s#\s.*$", "", z)
+            if z.lstrip().startswith("#"): continue
+            for m in re.finditer(r"\b([A-Z])=([^\s;]+)", z): var[m.group(1)] = m.group(2)
+            z = z.replace("$GITHUB_WORKSPACE/", "")
+            for k, v in var.items():
+                if v.startswith("godot/"): z = re.sub(r"\$\{?%s\}?(?=/|\s|$)" % k, v, z)
+            for q, ziel in _ziele(z):
+                if "export_templates" in ziel: continue
+                wo, lies = "%s:%d" % (os.path.basename(wf), i), []
+                erz = [e for e in ERZEUGER if re.search(e[0], ziel) or re.search(e[0], q) or q in e[1]]
+                if q.startswith("godot/"): her = "lesbar (unter godot/)" if not q.endswith(BINAER) else "binär (unter godot/)"
+                elif erz:
+                    e = erz[0]
+                    her = "erzeugt von %s aus %s" % (", ".join(e[1]), ", ".join(e[2]))
+                    for g in e[1] + e[2]: lies += [os.path.relpath(p, root) for p in glob.glob(os.path.join(root, g), recursive=True)]
+                elif ziel.endswith("kauf.txt"): her = "erzeugt im Arbeitsablauf (Dateiliste der Kaufmodelle, nur Pfade)"
+                elif not q.startswith(("$", "/", "~", "gradle", "echo")) and glob.glob(os.path.join(root, q)):
+                    her = "binär" if q.endswith(BINAER) or "*" in q and ".jpg" in q else "lesbar"
+                    lies = [os.path.relpath(p, root) for p in glob.glob(os.path.join(root, q)) if p.endswith(ENDUNGEN)]
+                elif ziel.endswith(ENDUNGEN) or ziel.endswith("/") and not q.endswith(BINAER):
+                    her = "fremd (%s)" % ("core fehlt im Repo" if q.startswith("gradle") else "Kaufrepo oder Bauserver")
+                elif q.startswith("gradle"): her = "fremd (core fehlt im Repo)"
+                else: her = "binär"
+                aus.append((wo, q, ziel, her, lies))
     return aus
+
+def kopierquellen(root):
+    """Dateien im Repo, die der Bau nach godot/ bringt oder aus denen er Textdateien dort erzeugt (870)."""
+    return list(dict.fromkeys(p for s in kopierschritte(root) for p in s[4]))
 
 def srd_namen(root):
     """Alte Namen aus DESIGN-BRS.md Abschnitt 12 („Alt“), ohne Schild/Vorteil/Nachteil und eigene Entwürfe."""
@@ -132,6 +182,7 @@ def srd_namen(root):
         s = [x.strip() for x in z.split("|")]
         if len(s) < 4 or s[1] in ("Alt", "---", ""): continue
         if "Entwurf" in s[1]: continue   # 870.13: Umbenennung eigener Entwürfe (Glut), nichts aus dem SRD
+        for m in re.finditer(r"Zwischennamen ([^;)]+?) entfallen", s[2]): srd += [n.strip() for n in m.group(1).split(",")]   # 870-Ü3
         for n in re.split(r"[,/]", re.sub(r"\s*\(.*?\)", "", s[1])):
             n = re.sub(r"^Klassen\s+", "", n.strip())
             if n and n not in ("Schild", "Vorteil", "Nachteil"): srd.append(n)
@@ -144,12 +195,13 @@ def alte_namen(root, srd):
     for d, _, fs in os.walk(os.path.join(root, "godot")):
         if "tests" in os.path.relpath(d, root).split(os.sep): continue
         dateien += [os.path.join(d, f) for f in fs if f.endswith(ENDUNGEN)]
-    dateien += [os.path.join(root, q) for q, _, _ in kopierquellen(root) if q.endswith(ENDUNGEN)]
+    dateien += [os.path.join(root, q) for q in kopierquellen(root)]
     treffer = {}
     for p in dict.fromkeys(dateien):
         text = lesen(p)
         if p.endswith(".gd"): text = ohne_kommentar_gd(text)   # 870.13: Kommentare sieht kein Spieler (Export als Bytecode ohne sie)
         if p.endswith(".json"): text = ohne_info_json(text)     # 870.13: Felder „_…“ sind Quellenangaben, kein Spieltext
+        if p.endswith(".py"): text = ohne_kommentar_py(text)    # 870-Ü3: Erzeuger schreiben nur, was in ihren Zeichenketten steht
         for m in muster.finditer(text): treffer.setdefault(m.group(1), set()).add(os.path.relpath(p, root))
     return treffer
 
@@ -159,7 +211,12 @@ if "--namen" in sys.argv:
     wurzel = os.path.abspath(sys.argv[i + 1]) if len(sys.argv) > i + 1 else ROOT
     srd = srd_namen(wurzel)
     if not srd: print("DESIGN-BRS.md: Abschnitt „12. Namen“ ohne Tabelle Alt/Neu"); sys.exit(2)
-    for q, z, wo in kopierquellen(wurzel): print("Kopie %s: %s -> %s" % (wo, q, z))
+    ks = kopierschritte(wurzel)
+    for wo, q, z, her, _ in ks: print("Schritt %s: %s -> %s [%s]" % (wo, q, z, her))
+    print("Schritte nach godot/: %d (lesbar %d, erzeugt %d, binär %d, fremd %d); gelesen: %d Dateien unter godot/ und %d Quellen und Erzeuger" % (
+        len(ks), *[sum(1 for s in ks if s[3].startswith(h)) for h in ("lesbar", "erzeugt", "binär", "fremd")],
+        sum(1 for d, _, fs in os.walk(os.path.join(wurzel, "godot")) if "tests" not in os.path.relpath(d, wurzel).split(os.sep) for f in fs if f.endswith(ENDUNGEN)),
+        len(kopierquellen(wurzel))))
     tr = alte_namen(wurzel, srd)
     for n, fs in sorted(tr.items()): print("ALT %s: %s" % (n, ", ".join(sorted(fs))))
     print("Namenswächter: %s" % ("%d alte Namen" % len(tr) if tr else "keine alten Namen"))
