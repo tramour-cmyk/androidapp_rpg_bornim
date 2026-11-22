@@ -65,6 +65,7 @@ func _lauf() -> void:
 		quit(1)
 		return
 	var aus := OS.get_environment("BILD1566_AUS")   # leer: nur Zahlen, kein Bild
+	if aus != "": DirAccess.make_dir_recursive_absolute(aus)   # Lauf 22.11., 19:20: Ordner fehlte, kein PNG gespeichert
 	Testmodus.an = true
 	Testmodus.geladen = true
 	Grafik.lade(); Grafik.wahl = "auto"; Grafik.auto_stufe = Grafik.HOCH
@@ -93,6 +94,12 @@ func _lauf() -> void:
 		r = Rect2i(int(z[0]), int(z[1]), int(z[2]) - int(z[0]), int(z[3]) - int(z[1]))
 	var ms := kit()
 	print("URSACHE1566 Karte %s, Kit-Flächen %d, Nebel der Teichkacheln %s (0 nie gesehen, 1 gesehen, 2 in Sicht), night %s, Rechteck %s" % [spiel.karte.id, ms.size(), nb, ms[0].get_shader_parameter("night") if ms.size() else "-", r])
+	# Lauf 22.11., 19:20 (Silke): ohne R10-Kit (bau_am_rechner holt es nicht) trug der Teich wasser.gdshader, alle Kit-Abwandlungen
+	# liefen ins Leere; ohne Kit-Fläche kein gültiger Messlauf (vorher: bau_am_rechner.py "Wasser R10" mit dem Kit-Zip in anhang/stufe1)
+	if ms.is_empty():
+		print("FEHLER URSACHE1566 keine Kit-Fläche (addons/water_kit fehlt): Messung wie auf dem Handy nicht möglich")
+		quit(1)
+		return
 	await miss("neu", aus)
 	var v := abwandeln(ms, "night", 0.0)
 	await miss("ohne_nacht", aus)
