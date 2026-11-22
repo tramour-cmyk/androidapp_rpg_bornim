@@ -41,6 +41,12 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 373 · 1934, 1930 (lesend, Weiter Ford 12:23; Kopie `85a8a0acc`; 22.11., 12:23–12:26)
+
+- Alle 41 `tools/*_test.py` an der Kopie grün.
+- 1934 greift, damit 1930: `alles` liest nur „, auch Rückläufer“ in der fetten Laufsperre nach dem Pfeil; „Ja, alles klar, lass weniger laufen.“ und „alles“ im Zitat ohne Marke sperren nicht; Parser der Laufsperre erkennt die Zeile mit Marke weiter.
+- Lücke: **D373.1** → 1935 (Sokrates). Die Marke steht nur in `guthaben.py`; keine Regel in `ROLLE-BERATUNG.md` oder einem Profil sagt Sokrates, sie beim Chefwort „alles“ zu setzen. Ohne sie liefen Rückläufer gegen das Wort des Chefs weiter.
+
 ## Lauf 372 · 1932 (lesend, Weiter Ford 12:18; Kopie `8ac463dd7`; 22.11., 12:18–12:21)
 
 - Alle 41 `tools/*_test.py` an der Kopie grün; `liste_neu_test` mit 8 Fällen zu 1932.
