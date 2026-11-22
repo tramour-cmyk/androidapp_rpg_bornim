@@ -264,6 +264,26 @@ ERSETZT_1727 = {"Wochenzählung (Kennzahlen, Wochentermine gelaufen, Teilhaken 7
 def scharf_1727():
     return os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
 
+def nach_erledigt(titel, archiv):
+    """1793: Zeile mit diesem Titelanfang steht im Archiv oder in der Liste mit Stand „erledigt“."""
+    if titel in archiv: return True
+    return any(d["titel"].startswith(titel) and d["wort"] == "erledigt" for d in zeilen_liste())
+
+def nach_ausgefallen(jetzt, scharf=None):
+    """1793: Wochentermine mit „nach“, deren Nachholfrist (Termintag und Folgetag) vorbei ist, ohne dass sie angelegt wurden:
+    [(Titel ohne Datum, Termintag TT.MM., nach)] für eine Warnung (lauf.py), nur am Tag nach der Frist."""
+    jetzt = jetzt.replace(tzinfo=None)
+    scharf = scharf_1727() if scharf is None else scharf
+    if not scharf: return []
+    archiv = lesen("LISTE-VORGAENGE-ARCHIV.md"); da = lesen(LISTE) + archiv; aus = []
+    for wt, h, wer, name, ber, nach in WOCHENTERMINE_1727:
+        for zurueck in (2,):  # nur am Tag nach der Frist, sonst jeder Lauf eine Woche lang
+            t = jetzt - datetime.timedelta(days=zurueck)
+            if t.weekday() != wt or t.date() < datetime.date(2026, 11, 23): continue
+            tg = t.strftime("%d.%m.")
+            if ("Wochentermin %s: %s" % (tg, name)) not in da: aus.append((name, tg, nach))
+    return aus
+
 def wochentermine_faellig(jetzt, scharf=None):
     """719: [(Titel, Bereich, Besitzer)] heute fällig und noch ohne Zeile in Liste oder Archiv."""
     jetzt = jetzt.replace(tzinfo=None)  # 1372: lauf.py gibt Berliner Zeit mit Zone, startbar rechnet ohne (Absturz am ersten Montag 08:00 von urteil_faellig)
@@ -273,10 +293,22 @@ def wochentermine_faellig(jetzt, scharf=None):
     scharf = scharf_1727() if scharf is None else scharf
     termine = [(wt, h, wer, ERSETZT_1727.get(name, name) if scharf else name, ber, None) for wt, h, wer, name, ber in WOCHENTERMINE]
     termine += WOCHENTERMINE_1727 if scharf else []
-    return [("Wochentermin %s: %s (719)" % (tag, name), ber, wer) for wt, h, wer, name, ber, nach in termine
-            if jetzt.date() >= datetime.date(2026, 11, 10) and jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da
-            and (not nach or ("Wochentermin %s: %s" % (tag, nach)) in archiv)
-            ] + urteil_faellig(jetzt, da) + leichenpruefung_faellig(jetzt, da) + spiegel_auswertung_faellig(jetzt, da)
+    aus = []
+    for wt, h, wer, name, ber, nach in termine:
+        if jetzt.date() < datetime.date(2026, 11, 10): continue
+        if not nach:
+            if jetzt.weekday() == wt and jetzt.hour >= h and ("Wochentermin %s: %s" % (tag, name)) not in da:
+                aus.append(("Wochentermin %s: %s (719)" % (tag, name), ber, wer))
+            continue
+        # 1793 (Sokrates, Nachprüfung 22:30): mit „nach“ am Tag selbst und am Folgetag nachholen, unter dem Datum des Termintags;
+        # „nach“ gilt als erledigt, sobald die Zeile im Archiv steht oder in der Liste „erledigt“ trägt (vor dem Aufräumen)
+        for zurueck in (0, 1):
+            t = jetzt - datetime.timedelta(days=zurueck)
+            if t.weekday() != wt or (zurueck == 0 and jetzt.hour < h): continue
+            tg = t.strftime("%d.%m.")
+            if ("Wochentermin %s: %s" % (tg, name)) in da: continue
+            if nach_erledigt("Wochentermin %s: %s" % (tg, nach), archiv): aus.append(("Wochentermin %s: %s (719)" % (tg, name), ber, wer))
+    return aus + urteil_faellig(jetzt, da) + leichenpruefung_faellig(jetzt, da) + spiegel_auswertung_faellig(jetzt, da)
 
 # 1188 (Sokrates zu 1186, Chef 13.11., 16:28 „prüf nochmal alle Vorräte“, 16:44 „warum gibt es da so viele Leichen?“): Zeilen
 # veralten still (99 ruhte seit 17.10. überholt; Chefurteil nie nachgezogen, Arbeit unter Unternummern erledigt, Richtungswechsel).

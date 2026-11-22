@@ -74,7 +74,14 @@ soll("scharf: Wochenzählung als Routine, Rundblick wartet", any("Wochenzählung
 open(os.path.join(docs, "LISTE-VORGAENGE-ARCHIV.md"), "w").write("| 9101 | Wochentermin 23.11.: Wochenzählung (Routine, Auftrag x) (719) | Diogenes | erledigt |\n")
 r = [x for x in startbar.wochentermine_faellig(mo, scharf=True) if "Rundblick" in x[0]]
 soll("Wochenzählung erledigt: Rundblick fällig (Sokrates, B Abläufe)", r == [("Wochentermin 23.11.: Rundblick (Routine, Auftrag docs/entwurf/1727-muster/routine-rundblick.md Teil A) (719)", "B Abläufe", "Sokrates")], r)
-soll("Dienstag: kein Rundblick", not any("Rundblick" in t for t, _, _ in startbar.wochentermine_faellig(datetime.datetime(2026, 11, 24, 9, 0), scharf=True)))
+# 1793: Wochenzählung erst nach Montag erledigt → Rundblick am Dienstag unter dem Montagsdatum nachgeholt, danach Warnung
+di = [t for t, _, _ in startbar.wochentermine_faellig(datetime.datetime(2026, 11, 24, 9, 0), scharf=True) if "Rundblick" in t]
+soll("Dienstag: Rundblick vom Montag nachgeholt", di == [r[0][0]], di)
+soll("Mittwoch: kein Rundblick mehr", not any("Rundblick" in t for t, _, _ in startbar.wochentermine_faellig(datetime.datetime(2026, 11, 25, 9, 0), scharf=True)))
+soll("Mittwoch: ausgefallen gemeldet", [x[1] for x in startbar.nach_ausgefallen(datetime.datetime(2026, 11, 25, 9, 0), scharf=True)] == ["23.11."])
+open(os.path.join(docs, "LISTE-VORGAENGE.md"), "a").write("| 9102 | %s | Sokrates |\n" % r[0][0])
+soll("angelegt: nichts ausgefallen", startbar.nach_ausgefallen(datetime.datetime(2026, 11, 25, 9, 0), scharf=True) == [])
+soll("ohne Schalter: keine Meldung", startbar.nach_ausgefallen(datetime.datetime(2026, 11, 25, 9, 0), scharf=False) == [])
 
 print("laufbremse_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
