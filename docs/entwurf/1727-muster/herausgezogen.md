@@ -61,7 +61,7 @@ Abweichung zu Tabelle 0.1 je 1 bis 5 Byte (dort mit Zeilenende oder gerundet); M
 | Werkstatt Welt | Sockel + Signatur und Leben 876 + Welt 1.165 + Figur und Prüfbild 1.303 | 4.453 + Auftrag (bis 1,5 KB) |
 | Werkstatt Text | Sockel + Story 1.410 | 2.519 + Auftrag |
 | Werkstatt andere Fächer | Sockel + Fachprofil (+ Querprofil bei Bild oder Klang, + geladene Profile) | je Auftrag, offen |
-| Abnahme: Prüfer | Sockel + Kern Abnahme 1.567 (F3) + Profil Prüfer 2.826 (F10, 22.11., 07:36) (+ Querprofil Signatur und Leben 876, + Querprofil Fremde Inhalte Teil A 1.168, wenn der Auftrag sie zulädt) | 5.502, mit Signatur und Leben 6.378, mit beiden 7.546, + Auftrag (heute Kern Prüfer: 3.638) |
+| Abnahme: Prüfer | Sockel + Kern Abnahme 1.567 (F3) + Profil Prüfer 2.831 (F11, 22.11., 07:52) (+ Querprofil Signatur und Leben 876, + Querprofil Fremde Inhalte Teil A 1.168, wenn der Auftrag sie zulädt) | 5.507, mit Signatur und Leben 6.383, mit beiden 7.551, + Auftrag (heute Kern Prüfer: 3.638) |
 | Abnahme: Tester | Sockel + Kern Abnahme 1.567 + Profil Tester 2.626 (F6) (+ Querprofil 876, wenn geladen) | 5.302, mit Querprofil 6.178 |
 | Routine Wache | Sockel + Routine Wache 949 (F5) | 2.058 |
 | Routinen | Sockel + fester Auftrag | offen |
