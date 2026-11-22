@@ -32,8 +32,9 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument, Byte UTF-8. Bei jeder 
 | Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 2.375 | 3 KB | Entwurf, Fassung 2 17:05 gegengeprüft, Name 21:36 (vorher 3.110; 19.11.: 2.450) |
 | Kern Prüfer | 2.530 | – | Entwurf; 19:33 ohne Firmenname (vorher 2.571) |
 | Kern Abnahme | 1.336 | – | Entwurf; 19:33 ohne Firmenname (vorher 1.377) |
-| Profil Prüfer | 1.659 | – | Entwurf |
-| Profil Tester | 1.859 | – | Entwurf |
+| Profil Prüfer | 2.730 | – | Entwurf, Fassung 7 22.11., 07:05 (`1727-muster/profil-pruefer.md`; Ladesummen `1727-muster/herausgezogen.md`) |
+| Profil Tester | 2.626 | – | Entwurf, Fassung 6 22.11., 07:05 (`1727-muster/profil-tester.md`) |
+| Profil Disponent | 3.761 | – | Entwurf, Fassung 14 22.11., 07:05 (`1727-muster/profil-disponent.md`) |
 | Auftrag | – | 1,5 KB (Werkzeug: etwa 2 KB) | je Auftrag |
 | Profil Regeln | 1.740 | – | gegengeprüft |
 | Profil Kampf | 1.480 | – | gegengeprüft |

@@ -25,7 +25,7 @@ Bei jedem Wecken deiner Uhr, je Fall höchstens eine Meldung je Stunde (Stand in
 Dann schreibst du deine Zeitmarke und wartest auf den nächsten Wecker.
 ```
 
-Größe Text: 950 Byte (Fassung 2: 839; Zuwachs Haken-Bezug in Fall 1 und Zeitmarke).
+Größe Text: 949 Byte (Messregel; Ladesumme mit Sockel 1.109: 2.058; Fassung 2: 839; Zuwachs Haken-Bezug in Fall 1 und Zeitmarke).
 
 ## Raster
 
