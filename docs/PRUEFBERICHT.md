@@ -41,6 +41,14 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 348 · 1895, 1896, 1897, 1899, damit 1893 und 1798 (lesend, Weiter von Ford; Kopie `c6ad5904f`; 22.11., 09:33–09:40)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün, Arbeitskopie danach sauber.
+- 1895 greift: `weiter-haken.py` fragt mit `tools/1727-SCHARF` `lauf.py --haken <Profil>` (dieselbe Auswahl wie der Start: Pause, Muss vor Kür, nur gültiger Auftrag, nie Zeile „Auftrag“); Planer-Sitzung „Auftrag“ geht nicht weiter. Echt aufgerufen, alte und umgestellte Liste: leer, solange kein Auftrag steht; Arbeitsplaner „M?“. Hinweis ohne Befund (alt, nicht Teil von D338.1): Haken und `--haken` kennen die Guthabenstufe nicht, der Start schon (`guthaben.Bremse`).
+- 1896 greift: `sperr_nummer` gibt Nachtdeckel und Startsperre die Nummer aus `auftrag_fuer` (Vorrang `(a or b) if c else d` geprüft).
+- 1897 greift: Aufträge nach Klasse unter Muss bzw. Kür des Planers, Eilt und Zeilenfolge.
+- 1899 greift: Rückläufer ändert Vorgangsdatei, Liste und Archiv in einem Commit (`atomar_dateien`), gescheiterter Push lässt auch lokal nichts geändert (auftrag_test).
+
 ## Lauf 347 · 1782 Wiederwecken, Chefwort an Disponenten (lesend, Auftrag Ford; Kopie `claude/spike-1871-umschalten` `b0de2ea39`; 22.11., 09:21–09:32)
 
 - Gegen 3.3 Fassung 2 Nr. 3 und 7 (`uebergabekette.md`), Profil Technik 13 (Entwurf), Checkliste 11–13. An der Kopie alle 45 `tools/*_test.py` grün.
