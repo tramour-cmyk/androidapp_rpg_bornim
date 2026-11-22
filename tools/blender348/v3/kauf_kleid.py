@@ -521,18 +521,7 @@ if 'cloak' in TID and all(n in Q_KN for n in ('pelvis', 'spine_03', 'clavicle_l'
         k_ = _st(VK2[i, 2], _za - UMHANG_ACHSEL[0], _za - UMHANG_ACHSEL[1])
         k_ *= _st(abs(VK2[i, 0]), 0.02, 0.08)   # Mitte des Rückens ohne Schlüsselbein (beide ziehen nach vorn: L_gwenna Weinen gedehnt)
         for j in _isch: w[iS3] += w[j] * (1.0 - k_); w[j] *= k_
-        w /= max(w.sum(), 1e-6)
-        # über der Schulter fest (Dana 0783f69e5): spine_03, außen das Schlüsselbein, in der Mitte der Hals (die Haut dort mischt Hals,
-        # Schlüsselbein und Rumpf; Kragen und Hemd der Trachten stachen bei 1,5 m durch, Jana 22.11.)
-        t_ = _st(VK2[i, 2], _za - 0.10, _za - 0.02)
-        if t_ > 0:
-            wd = np.zeros(len(Q_KN)); wd[iS3] = 1.0
-            sw = _st(abs(VK2[i, 0]), 0.03, 0.07) * _st(VK2[i, 2], _za - 0.03, _za + 0.04)
-            wd *= (1.0 - sw); wd[_isch[0] if VK2[i, 0] > 0 else _isch[1]] += sw   # links +X
-            hw = (1.0 - _st(abs(VK2[i, 0]), 0.02, 0.05)) * _st(VK2[i, 2], _za, QP_MAT['neck_01'].translation.z)
-            wd *= (1.0 - hw); wd[Q_KN.index('neck_01')] += hw
-            w = (1.0 - t_) * w + t_ * wd
-        WKq[i] = w
+        WKq[i] = w / max(w.sum(), 1e-6)
     # beide Lagen gleich (wie SCHALE GEWICHTE): Mittel binnen SCHALE_R
     _kd = KDTree(len(_cl))
     for i in _cl: _kd.insert(Vector(VK2[i]), int(i))
