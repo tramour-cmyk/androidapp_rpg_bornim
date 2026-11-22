@@ -81,9 +81,10 @@ func _mars(art: String, s: int):
 	var mo: Dictionary = monsters[art]
 	var foe = Mars.monster_fighter("foe", Vector2i(Mars.FRONT, 0), mo, 999)
 	var hero = load("res://kampf/aufruf.gd").new()._kaempfer("hero", BrsHeld.fuer_spiel("Alrik", "Mensch", "Wachsoldat"), -1, Vector2i(Mars.FRONT, 0), skills)
-	hero.max_hp = 9999
+	var m = Mars.new([hero], [foe], tab, Wuerfel.new(s), Wuerfel.new(s + 281), 0, false)
+	hero.max_hp = 9999     # nach Mars.new, das das Leben aus dem Blatt setzt; so begrenzt kein Rest den Verlust
 	hero.hp = 9999
-	return Mars.new([hero], [foe], tab, Wuerfel.new(s), Wuerfel.new(s + 281), 0, false)
+	return m
 
 
 ## Verlust des Helden durch einen Schlag [intent] mit Ergebnis [re], Würfel [s]

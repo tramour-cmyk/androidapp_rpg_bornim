@@ -485,6 +485,8 @@
   "absichten": {
     "_quelle": "1049 (Sokrates 12.11.): was jede Art im MARS ansagt, als Tabelle statt Zweigen in mars.gd _pick_intent; je Eintrag [Absicht, Anzahl im Los, Bedingung]; gewuerfelt nur bei mehr als einer Absicht; Stand gleich dem Code vor 1049 (Test absicht_1049); Namen neuer Absichten von Homer (1057)",
     "_bedingungen": "rudel: zwei Woelfe stehen, keiner kreist schon, der Held hat gewaehlt, angreifbar; reihe: ein Gegner deckt einen anderen; nicht_versteckt: der Spaeher steht nicht im Schatten; ruf: Grak hat noch keinen gerufen und es ist ein Platz frei; halbes_leben: unter der Haelfte des Lebens",
+    "_ring": "1068 (1048 A, H, Chef 12.11., 20:05): jeder grosse Schlag hat den Ring; je Absicht der Schadensfaktor, mit dem sie trifft, wenn der Ring nicht perfekt ist (gut = halber, verfehlt = ganzer); neu Anspringen und Gift sammeln mit 2, damit gut = heutiger Schaden; fehlt eine Absicht hier, hat sie keinen Ring; Kroggs Prankenhieb (1603) traegt sich hier ein",
+    "ring": {"heavy": 1, "web": 1, "breakthrough": 1, "pounce": 2, "venom": 2},
     "je_art": {
       "giant_rat": [["bite", 1]],
       "giant_bat": [["bite", 1]],

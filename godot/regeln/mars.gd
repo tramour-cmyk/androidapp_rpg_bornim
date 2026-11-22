@@ -76,8 +76,8 @@ const EINGEBUNG := {"pounce": ["Er will springen. Stehe ich nicht mehr dort, woh
 		"He is catching his breath. Press now, or he regains his strength."],
 	"breakthrough": ["Er will durch die Reihe. Tritt der Bedrohte vorher selbst nach vorn, bleibt Grak nur ein einfacher Schlag.",     # [986.breakthrough]
 		"He means to break the line. If the threatened one steps forward first, Grak is left with a plain blow."],
-	"venom": ["Gegen den Giftbiss hilft kein Ring. Treffe ich sie vorher hart, versiegt das Gift.",     # [986.venom]
-		"No ring helps against the venom bite. If I hit her hard first, the venom dries up."],
+	"venom": ["Treffe ich sie vorher hart, versiegt das Gift; sonst bleibt mir der Ring.",     # [1069.venom]
+		"If I hit her hard first, the venom dries up; otherwise I still have the ring."],
 	"aim": ["Er legt an. Geht der Anvisierte in Abwehr, duckt er sich, und der Pfeil geht vorbei.",     # [986.aim]
 		"He takes aim. If the one in his sights Defends, the arrow flies past."],
 	"offen": ["Ich wollte ihm zuvorkommen und stand gegen seinen großen Schlag offen. Gegen große Schläge bin ich in Wehr besser dran.",     # [1367.offen], Kerbensystem (1366)
@@ -277,6 +277,17 @@ var I_SHADOW := _intent("shadow", "In den Schatten", "Into the shadows", "GATHER
 var I_BREAKTHROUGH := _intent("breakthrough", "Durchbrechen", "Break through", "STRIKE", [1, 6, 0], false, true, true, "BREAKTHROUGH")
 var I_FLANK := _intent("flank", "Flanke", "Flank", "STRIKE", null, false, false, false, "FLANK", true)
 
+## 1068 (1048 A, H, Chef 12.11., 20:05; 1049): welche Absicht den Ring hat, steht in werte.json „absichten“ „ring“, nicht hier;
+## der Wert dort ist der Schadensfaktor bei gut und verfehlt (ring_schaden, in _strike). Fehlt eine Absicht dort, hat sie keinen Ring.
+func _ringe() -> void:
+	var R: Dictionary = BrsKampf.w().get("absichten", {}).get("ring", {})
+	for p in get_property_list():
+		var n: String = p.name
+		if n.begins_with("I_") and get(n) is Dictionary and (get(n) as Dictionary).has("ring"):
+			var a: Dictionary = get(n)
+			a.ring = R.has(String(a.id))
+			a.ring_schaden = float(R.get(String(a.id), 1.0))
+
 const NO_REAIM := ["BREAKTHROUGH", "FLANK", "CIRCLE", "POUNCE"]
 const AT_TARGET := ["POUNCE", "AIM", "BREAKTHROUGH", "FLANK"]
 
@@ -462,6 +473,7 @@ func _init(party: Array, foes: Array, tables: Dictionary, p_dice, p_words, p_lan
 	words = p_words
 	lang = p_lang
 	winded = p_winded
+	_ringe()
 	for m in tables.monsters:
 		monsters[m.id] = m
 	for it in tables.items:
@@ -2086,6 +2098,8 @@ func _strike(foe: Fighter, t: Fighter, intent: Dictionary, re: String, cover := 
 			_say(fmt(MSG870_GEGEN_FLUEGER, lang, [foe.name(lang)]), foe.id, t.id)
 	if re != NONE:
 		_say(fmt(pick("MSG72_EVADES" if re == PERFECT else "MSG72_GOOD"), lang, [t.name(lang)]), t.id)
+	if intent.get("ring", false):     # 1068 H: der große Schlag trifft mit seinem Faktor härter, der Ring nimmt davon die Hälfte oder alles
+		dmg = roundi(dmg * float(intent.get("ring_schaden", 1.0)))
 	dmg = int(dmg * SHARE[re])
 	if dmg > 0:     # 478: kein Mindestschaden (Modell D: ein Kratzer kann 0 sein)
 		dmg = roundi(dmg * _schaden_faktor(foe))     # 870.6: Schwächung als Faktor

@@ -6,6 +6,8 @@
 # ergibt die Verlängerung der Runde). Krogg hat noch keinen Prankenhieb (nur „Stich“), darum heute wie A+H ohne Ring.
 # H wird hier nachgebildet: trifft ein neuer Ringschlag, zieht der Zuhörer denselben Schaden noch einmal ab (ohne die
 # Sonderregeln Unerbittlich und Unsterblich, die Rechnung ist darum für A+H leicht zu streng).
+# Stand vor dem Bau (main 625b69fe3): seit dem Bau A+H (werte.json „absichten“ „ring“) gilt die Nachbildung doppelt; zum Nachrechnen
+# dort „ring“ auf den Stand vor 1068 setzen.
 # Run: godot --headless --path godot -s res://tests/ring_1068.gd   (Tabelle, Exit 0; braucht daten/held.json; N=… in der Umgebung)
 extends SceneTree
 
