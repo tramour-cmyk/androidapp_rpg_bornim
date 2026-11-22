@@ -131,6 +131,13 @@ soll("Sokrates läuft, groß: NICHTS", len(aus) == 1 and aus[0].startswith("NICH
 aus = ["START Sokrates | opus | env | repo | main | Sokrates – Stellungnahme (x) | Sokrates\\n\\nStellungnahme …"]
 lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
 soll("schon eine Sokrates-Zeile: angehängt, nie zwei", len(aus) == 1 and "1763 C" in aus[0], aus)
+gesperrt = []; aus = ["START Sokrates | opus | env | repo | main | Sokrates – Stellungnahme (22.11., 07:50) | Sokrates\\n\\nStellungnahme …"]
+lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), sperre=gesperrt.append)
+soll("1807: Stellungnahme-START mit Nummer im Titel", "| Sokrates – 9001: offene Zeilen und Stellungnahme (1763 C, 22.11., 07:50) | " in aus[0] and lauf.nummer_aus_titel(aus[0].split(" | ")[5]) == "9001", aus)
+soll("1807: Startsperre mit Nummer auch beim Anhängen", gesperrt == ["9001"], gesperrt)
+gesperrt = []; aus = ["WEITER session_SOK | Sokrates | Stellungnahme | Stellungnahme …"]
+lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), sperre=gesperrt.append)
+soll("1807: WEITER bleibt ohne neue Sperre", gesperrt == [] and "1763 C" in aus[0], (gesperrt, aus))
 
 # 7 1739 F4 (1): offene Zeilen an andere (Arbeitsplaner = Ford bis zur Umschaltung)
 aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))

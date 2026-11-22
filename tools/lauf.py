@@ -553,7 +553,12 @@ def sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger=lambda r: None, do
         teil = "Offene Zeilen an dich (1763 C): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; „an den Chef“: Chefsache-Datei nach Muster, nicht selbst lösen; fertig: `vorgang.py erledigt <Kennung>`." % "; ".join("%s %s" % (k, w) for k, w in so_z[:6])
         i = next((j for j, z in enumerate(ausgabe) if z.startswith("START Sokrates |") or (z.startswith("WEITER ") and " | Sokrates | " in z)), None)
         if i is not None:
-            ausgabe[i] = ausgabe[i].replace(" | Stellungnahme | ", " | Stellungnahme | %s " % teil, 1) if ausgabe[i].startswith("WEITER ") else ausgabe[i] + "\\n\\n" + teil
+            if ausgabe[i].startswith("WEITER "):
+                ausgabe[i] = ausgabe[i].replace(" | Stellungnahme | ", " | Stellungnahme | %s " % teil, 1)
+            else:  # 1807 (D334.1): START der Stellungnahme trägt jetzt die Nummer der ersten Zeile im Titel und bekommt die Startsperre
+                nr = so_z[0][0].split("-Ü")[0]
+                ausgabe[i] = ausgabe[i].replace("| Sokrates – Stellungnahme (", "| Sokrates – %s: offene Zeilen und Stellungnahme (1763 C, " % nr, 1) + "\\n\\n" + teil
+                vorgaenger("Sokrates"); sperre(nr)
         else:
             tok_so = lambda s: s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens") or 10**9
             laeuft_so = [s for s in je_rolle.get("Sokrates", []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN)]
