@@ -25,5 +25,13 @@ soll("ohne Votum: durch", haken(S + "1931 Kern Büro V6 fertig.") == "")
 soll("andere Rolle mit Votum: durch", haken("**Perikles** [22.11., 13:20] Votum: B.") == "")
 soll("zweites Beenden: durch (keine Schleife)", haken(S + "Votum: B.", aktiv=True) == "")
 
+# 1943: mit tools/1727-SCHARF schweigt der Haken (Gegenprüfen nur für den Umbau 1727)
+sys.path.insert(0, HIER)
+import importlib.util
+_sp = importlib.util.spec_from_file_location("zug_haken", os.path.join(HIER, "zug-haken.py")); zh = importlib.util.module_from_spec(_sp); _sp.loader.exec_module(zh)
+soll("1943: scharf: schweigt", zh.votum_ohne_gegenpruefung(S + "Votum: B.", scharf=True) is None)
+soll("1943: nicht scharf: hält an", zh.votum_ohne_gegenpruefung(S + "Votum: B.", scharf=False) is not None)
+soll("1943: Schalter ist tools/1727-SCHARF", zh.SCHARF == os.path.join(HIER, "1727-SCHARF"))
+
 print("zug_haken_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

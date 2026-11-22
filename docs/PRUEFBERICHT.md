@@ -41,6 +41,12 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 384 · 1941, 1938, 1928, 1943 (lesend, Weiter Ford 13:56; Kopie `d8e970103`, `1d0b66272`, `main` `2e9612acd`; 22.11., 13:56–13:59)
+
+- 1941 greift, damit 1938: `laufbremse_test` und `gegengelesen_test` setzen `BORNIM_HAKEN_TROCKEN` (auch in der env des echten Hakenaufrufs). Alle `tools/*_test.py` an `1d0b66272` grün (13:57:04–13:57:39), `origin/haken` danach ohne Zeile aus meinem Lauf (einzige neue Zeile 13:57:10 auf Zweig `main`, echt; mein Lauf stand losgelöst).
+- 1928 greift: (a) nach Sokrates 12:04 (Satz bleibt in der Startnachricht, Profil ohne ihn); (b) `ladesumme_test` prüft beide Richtungen der Namen; (c) nachgestellt: `BORNIM_WURZEL=<Kopie von docs> ladesumme.py --anlegen` schreibt 20 Profile, `lauf.ladetext` findet für alle 19 ladbaren Profile Text, „Zugang Kaufrepo“ ohne `add_repo`. Damit ist 1923 wieder prüfbar.
+- 1943 greift: `votum_ohne_gegenpruefung` schweigt mit `tools/1727-SCHARF` neben `zug-haken.py` (gleicher Ort wie `lauf.ist_scharf`); `zug_haken_test` grün. Hinweis: `2e9612acd` ist noch nicht in der Kopie; vor dem Umschalten `main` mergen.
+
 ## Lauf 383 · 1732 nach 1942 (lesend, Auftrag Ford beim Neustart; `main` `b34316e88`; 22.11., 13:24–13:25)
 
 - Greift (erledigt). D382.1 aufgelöst: `ROLLE-BERATUNG-START.md`:25 sagt jetzt „Gilt nur bis zum Umschalten 1727“ (Chef 22.11., 10:39); Haken und Regel stimmen bis dahin überein, das Schweigen ab `tools/1727-SCHARF` baut Spike in 1943. `zug_haken_test` grün, Stop-Haken in `.claude/settings.json`:81. 1943 prüfe ich nach Bau.
