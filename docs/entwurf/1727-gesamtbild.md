@@ -14,6 +14,8 @@ Fassung 22.11., 15:29 (Sokrates, Korrektur Lauf 4, Runde 3, Nachprüfung 3): Ker
 
 Fassung 22.11., 15:38 (Sokrates, Korrektur Lauf 4, Runde 4, nach Chef 15:31 und 15:34): Kern Leitung unverändert (2.996); Kern Arbeitsplaner Feld 7 mit „Laufanforderung“ (15:31), 2.997 → 2.991; 4.1 Vermerk zu „abgebrochen“ in den alten Fassungen; Gedächtnis Reset-Lehre nach 18.11., 20:27 (15:34), 2.929 → 2.943; Kern Büro „sonst ‚Frage‘“ (V6), 759 → 778; Profil Regeln Regelentscheid ins BRS (02.11., 19:19), 1.922 → 1.991; 5.1 Vermerk Grundlage 461; Bauliste 7.1 Zeile Arbeitsplaner-Auftrag (verwandte Vorgänge). Tabelle 0.1 nachgezogen; Endvorlage `1727-muster/falltest-lauf4/endvorlage.md`.
 
+Fassung 22.11., 15:47 (Sokrates, Korrektur Lauf 4, Runde 5, Nachprüfung der Endvorlage): Kern Leitung unverändert (2.996); Gedächtnis Fäden und Übergabe „(beim Umschalten aus `ARBEIT-BERATUNG.md` übertragen)“ statt „(keine)“, Umbau-Lehre ohne Doppelung zum Vorbehalt, 2.943 → 2.939; Kern Arbeitsplaner „(trotz Behebung)“, „Frage“ statt Auftrag als Wenn-Satz, 2.991 → 2.999; Profil Prüfer „Profil in Feld 4“, Laufanforderung gibt der Prüfer frei (15:31), 2.979 → 3.120; Profil Disponent Laufanforderung an den Prüfer, laut auch bei Stillstand (Kern Büro), 4.206 → 4.328; Profil Regeln Satz geglättet, 1.991 → 2.001; Kern Büro Grenze 3 KB. Endvorlage mit Abschnitt „Neue Regeln“ (Nr. 11, 19, 20, 21, 22). Tabelle 0.1 nachgezogen.
+
 ## 0 Überblick
 
 | Sockel (jede Sitzung) | Gruppe, Funktion | Kern (immer geladen) | Profile (nur bei Bedarf) | rein → raus |
@@ -28,7 +30,7 @@ Fassung 22.11., 15:38 (Sokrates, Korrektur Lauf 4, Runde 4, nach Chef 15:31 und 
 | – | **Leitbild** | – | entfällt nach Umzug der Reste ([1a](#1a-leitbild-verteilen-entwurf-2011-1215-gegenprüfung-offen); Chef 20.11., 12:37) | – |
 | | **Werkzeuge**, die Regeln tragen | [7](#7-werkzeuge-die-regeln-tragen) | – | – |
 
-### 0.1 Größen (Stand 22.11., 15:38, Messregel ohne Kopfzeile, Leerzeile, letztes Zeilenende; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
+### 0.1 Größen (Stand 22.11., 15:47, Messregel ohne Kopfzeile, Leerzeile, letztes Zeilenende; Chef 16:49: je Änderung an Kern oder Profil Größe nennen; 16:52 Tabelle nachhalten)
 
 Gemessen: letzte Fassung je Abschnitt in diesem Dokument bzw. in `1727-muster/` (herausgezogen), Byte UTF-8. Bei jeder Änderung Zeile und Stand nachziehen. Ladesummen: `1727-muster/herausgezogen.md`.
 
@@ -38,17 +40,17 @@ Gemessen: letzte Fassung je Abschnitt in diesem Dokument bzw. in `1727-muster/` 
 | Querprofil Signatur und Leben | 876 | – | abgenommen 12:37 (nachgemessen 22.11., vorher 880) |
 | Querprofil Fremde Inhalte (Teil A) | 1.168 | – | Fassung 10a; Frage 12 ohne Textwechsel (1931) |
 | Kern Leitung (vorher „Kern Sokrates“) | 2.996 | 3 KB | entschieden 20.11., 21:10 mit Gedächtnis; 22.11. mit V1 nur Größe und Eingang (1727d L-O1; 1931; vorher 2.837); Korrektur Lauf 4 (15:11; vorher 2.926); Regelbilanz raus (Chef 15:16; vorher 2.958); Runde 2: Kurzform Chef-Lesung, „Vorschlag“, `chefwort` heraus (15:20; vorher 2.909); Runde 3: „Sockel“ im Vorbehalt, „Vorschlag“ und „Bestand“ heraus, großes Vorhaben: Chefgespräch (15:29; vorher 2.987) |
-| Gedächtnis Sokrates (`docs/leitung/gedaechtnis.md`) | 2.943 | 3 KB | entschieden 21:10, angelegt 22.11. (1931); Korrektur Lauf 4 (15:11; vorher 2.904); Runde 2 Umbau-Lehre (15:20; vorher 2.939); Runde 3 „mit Datum“ heraus (15:29; vorher 2.940); Runde 4 Reset-Lehre nach 18.11., 20:27 und 15:34 (15:38; vorher 2.929) |
-| Kern Büro | 778 | – | schmal, entschieden 21.11., 11:46 (`1727-muster/kern-buero.md`); mit V6 (1931; vorher 680); Runde 4 „sonst ‚Frage‘“ aus V6 (15:38; vorher 759) |
-| Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 2.991 | 3 KB | entschieden 1727f (`1727-muster/kern-arbeitsplaner.md` Fassung 6c); Runde 4: „Laufanforderung“ in Feld 7 (Chef 15:31), Platz aus knapperen Fassungen (15:38; vorher 2.997), verwandte Vorgänge in Bauliste 7.1; mit V3, V4, Frage 11 (1931; vorher 2.649); Frage 12 ohne Textwechsel; Korrektur Lauf 4: ruht, wartet, großes Vorhaben (15:11; vorher 2.866); Runde 2: „wartet“ heraus, „groß“ nach 1236 (15:20; vorher 2.991); Runde 3: „ohne Chefgespräch vor erstem Code-Commit“ (15:29; vorher 2.999), „auch beschlossen“ passt nicht; Alt und Bestand, verwandte Vorgänge passen nicht in die Grenze |
+| Gedächtnis Sokrates (`docs/leitung/gedaechtnis.md`) | 2.939 | 3 KB | entschieden 21:10, angelegt 22.11. (1931); Korrektur Lauf 4 (15:11; vorher 2.904); Runde 2 Umbau-Lehre (15:20; vorher 2.939); Runde 3 „mit Datum“ heraus (15:29; vorher 2.940); Runde 4 Reset-Lehre nach 18.11., 20:27 und 15:34 (15:38; vorher 2.929); Runde 5 Fäden und Übergabe aus `ARBEIT-BERATUNG.md` übertragen, Umbau-Lehre ohne Doppelung (15:47; vorher 2.943) |
+| Kern Büro | 778 | 3 KB | schmal, entschieden 21.11., 11:46 (`1727-muster/kern-buero.md`); mit V6 (1931; vorher 680); Runde 4 „sonst ‚Frage‘“ aus V6 (15:38; vorher 759), Zusatz zur Vorlage |
+| Kern Arbeitsplaner (vorher „Arbeitsvorbereitung“) | 2.999 | 3 KB | entschieden 1727f (`1727-muster/kern-arbeitsplaner.md` Fassung 6d); Runde 5: „(trotz Behebung)“, „Frage“ als Wenn-Satz (15:47; vorher 2.991); Runde 4: „Laufanforderung“ in Feld 7 (Chef 15:31), Platz aus knapperen Fassungen (15:38; vorher 2.997), verwandte Vorgänge in Bauliste 7.1; mit V3, V4, Frage 11 (1931; vorher 2.649); Frage 12 ohne Textwechsel; Korrektur Lauf 4: ruht, wartet, großes Vorhaben (15:11; vorher 2.866); Runde 2: „wartet“ heraus, „groß“ nach 1236 (15:20; vorher 2.991); Runde 3: „ohne Chefgespräch vor erstem Code-Commit“ (15:29; vorher 2.999), „auch beschlossen“ passt nicht; Alt und Bestand, verwandte Vorgänge passen nicht in die Grenze |
 | Kern Prüfer | 2.529 | – | Verlauf, ersetzt durch Kern Abnahme und Profil Prüfer |
 | Kern Abnahme | 1.567 | – | Entwurf, Fassung 3 (`1727-muster/kern-abnahme.md`) |
-| Profil Prüfer | 2.979 | – | Entwurf, Fassung 13a (`1727-muster/profil-pruefer.md`); 1727j Fragen 2, 3 (1931; vorher 2.817 bzw. laut Kopf 2.831); Handwerksregel aus Feld 4 (15:11; vorher 2.935); „Fachprofil“ (15:20; vorher 2.975) |
+| Profil Prüfer | 3.120 | – | Entwurf, Fassung 14 (`1727-muster/profil-pruefer.md`); 1727j Fragen 2, 3 (1931; vorher 2.817 bzw. laut Kopf 2.831); Handwerksregel aus Feld 4 (15:11; vorher 2.935); „Fachprofil“ (15:20; vorher 2.975); Runde 5 „Profil“ statt „Fachprofil“, Laufanforderung (15:47; vorher 2.979) |
 | Profil Tester | 2.626 | – | Entwurf, Fassung 6 22.11., 07:05 (`1727-muster/profil-tester.md`) |
-| Profil Disponent | 4.206 | – | Entwurf, Fassung 17a (`1727-muster/profil-disponent.md`); 1727j Frage 8, Marke 1934 (1931; vorher 3.775); Korrektur Lauf 4 (15:11; vorher 4.083); Runde 2: Anhalt 5 Minuten statt Hindernisvermerk (15:20; vorher 4.279) |
+| Profil Disponent | 4.328 | – | Entwurf, Fassung 17b (`1727-muster/profil-disponent.md`); 1727j Frage 8, Marke 1934 (1931; vorher 3.775); Korrektur Lauf 4 (15:11; vorher 4.083); Runde 2: Anhalt 5 Minuten statt Hindernisvermerk (15:20; vorher 4.279); Runde 5: Laufanforderung an den Prüfer, laut auch bei Stillstand (15:47; vorher 4.206) |
 | Auftrag | – | 1,5 KB (Werkzeug: etwa 2 KB) | je Auftrag |
 | Rollensätze (1933, 22.11., 12:44) | je 135–229 | – | in Technik, Werkzeug, Welt, Kampf, Regeln, Klang, Oberfläche, Story (1931) |
-| Profil Regeln | 1.991 | – | gegengeprüft; mit Rollensatz (1931; vorher 1.743); Runde 4 Regelentscheid im selben Schritt ins BRS (Chef 02.11., 19:19; 15:38; vorher 1.922) |
+| Profil Regeln | 2.001 | – | gegengeprüft; mit Rollensatz (1931; vorher 1.743); Runde 4 Regelentscheid im selben Schritt ins BRS (Chef 02.11., 19:19; 15:38; vorher 1.922), neue Regel zur Vorlage; Runde 5 Satz geglättet (15:47; vorher 1.991) |
 | Profil Kampf | 1.655 | – | gegengeprüft; mit Rollensatz (1931; vorher 1.482) |
 | Profil Kataloge | 1.448 | – | gegengeprüft (nachgemessen 22.11., vorher 1.450) |
 | Profil Figur und Prüfbild | 1.466 | – | Entwurf 19.11.; „Vor jeder Vorlage“ (461) und Kerntests, Korrektur Lauf 4 (15:11; vorher 1.303); Kerntests wieder heraus (15:20; vorher 1.551); Runde 3 nur Vermerk Grundlage (Chef 14:51, 461), Ladetext unverändert; Runde 4 Vermerk: Grundlage 461, zur Vorlage beim Chef nach 15:16 |
