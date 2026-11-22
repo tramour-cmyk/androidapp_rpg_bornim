@@ -41,6 +41,16 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 359 · 1879 + 1917, 1915, 1914, 1912, 1913, 1916; danach 1795, 1887, 1873 (lesend, Weiter Ford 10:52; Kopie `636821b07`; 22.11., 10:51–10:54)
+
+- Alle 46 `tools/*_test.py` an der Kopie grün.
+- 1915 greift (D345.2): „Die Wachen sollen nicht mehr laufen“, „Gegner sollen weniger laufen“ zu einem Spielvorgang → Arbeitsplaner; schwache Wörter ohne Vorgang oder in Bereich B → Sokrates (alle Aufrufer geben eine Nummer mit); starke Wörter immer Sokrates. Damit greift 1876.
+- 1914 greift (D345.1): nur `startbar.offen_warte` hält (vergangenes Datum, erledigte Nummer nicht), Warten auf den Empfänger selbst (auch über `ALT_EMPFAENGER`) nie. Damit greifen 1911 und 1873.
+- 1912 greift (D344.1): „Teste Build 312, Vorgang 1990.“ → 1990; erst Kopf „– N“, dann „Vorgang N“, dann erste Zahl nicht nach „Build“/„t“. Rest ohne Befund: „Build 312 und 313“ ohne Vorgang nähme 313 (der Kopf trägt die Nummer sonst). Damit greift 1795.
+- 1913 greift (D344.2): offene Wächterzeile beim Disponenten mit demselben Stichwort → keine zweite (`ue.offen_lokal`). Damit greift 1887.
+- 1916 greift (D346.1): `vorgang.py neu` prüft die Länge mit dem Zähler als Nummer.
+- 1917 greift nicht, damit 1879 nicht: **D349.1** → 1920 (Spike): `FEHLWORT` verlangt jetzt „<Teil des Auftrags> fehlt/unklar/offen“ unmittelbar hintereinander und ohne `re.I`. Nachgestellt mit `auftrag.pruefen` an `GUT` (Feld 1): frei „Das Ziel ist unklar.“, „Es fehlt das Ziel; erst klären.“, „Unklar, was gebaut werden soll.“, „Herkunft noch unklar.“, „Ziel: noch offen.“, „ziel fehlt“; hält „Das Ziel fehlt auf der Gebietskarte (Markierung).“, „Die Quelle fehlt im Dorf, Wasser holen geht nicht.“, „Der Zweig fehlt am Baum vor der Mühle.“, „Nummer fehlt am Haus des Schmieds.“. Zudem prüft es Zitate jetzt mit (`_ohne_zitate` entfernt).
+
 ## Lauf 358 · 1892 Startsperre gepusht (lesend; Kopie `a5b12067d`; 22.11., 10:44–10:50)
 
 - Alle 45 `tools/*_test.py` an der Kopie grün. Ohne Schalter unverändert (lokal schreiben, „bitte committen“); scharf nur bei Startsperren; Marken und Warnungen nur mit `--sperre`, dann im selben Commit; Push scheitert → lokal mit „NICHT GEPUSHT“. Ford ruft `bornim-main/tools/lauf.py`, damit sind `DOCS` und `uebergabe.WURZEL` dieselbe Kopie.
