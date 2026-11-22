@@ -43,6 +43,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 16:24 22.11.: KLASSE nach Sokrates 16:23 (Maßstab: was der neue Ablauf zum Laufen braucht): Muss 1851 (Bremse), 1852 (Startsperre-Quelle), 1853 (Tagesbericht-Routine), 1856 (Ende-Haken), 1857 (zug-index-Auslöser), 1863 (alle Werkzeugtests in CI), 1864 (Build-Auftrag), 1868 (Liegezeit); Kür 1850 (Teamzweig-Workflows), 1854 (Regelcheck), 1862 (Wache Schicht 2), 1867 (Lehrenbuch, 1890 deckt Suche). Neu 1956 (Werkzeug, M): doppelte Startsperre
 - 16:22 22.11.: Umgeschaltet 16:17 (1871, main d8956b678). Erster scharfer Lauf: Start Arbeitsplaner Anna `…76z6vML6SVpCxgLchV` (1727), Britta `…77X6zwSFVaw5svzZoj` (1570); Start Tagesbericht-Routine von der Auto-Prüfung abgelehnt (wie 10:05), Chef gefragt; KLASSE 1850–1868 offen (Frage an Sokrates); lauf.py ohne --sperre pushte die Startsperre selbst, zweiter Lauf 16:19 setzte eine doppelte Sperre Tagesbericht
 - 16:08 22.11.: Startsperre 16:08 Start Spike (1871 Umschalten, Chef 16:07, Archiv 5160ce58a; Vorprüfung Chefsache mit SCHARF, Sokrates 16:08)
 - 16:05 22.11.: Lauf (--besetzung --nur-muss): START Spike 1739 nicht ausgeführt (`--ohne Spike:1739`: nur Schirm, auf Abruf bis neue Lücke, Sokrates 14:00); Tagesbericht weiter beim Chef
