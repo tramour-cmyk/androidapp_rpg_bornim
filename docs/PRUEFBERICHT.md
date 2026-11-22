@@ -41,6 +41,12 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 353 · 1873, 1877 (lesend, Weiter von Ford; Kopie `4ac384c95`; 22.11., 10:22–10:25)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1877 greift: „Hinweis“ des Disponenten (Ford, Ford 2, Disponent) → Besitzer laut Liste (sonst Macher, sonst Arbeitsplaner) und Zeile an Sokrates; „Hinweis: Prüffrage fehlt“ → Arbeitsplaner; übrige Hinweise wie bisher an den Disponenten. Signalworte schließen sich aus (`worte`), kein „fertig“ geht im Hinweis-Zweig verloren.
+- 1873 greift nicht: **D343.1** → 1911 (Spike): die Zeile an den Macher bei „nein … steckt fest“ (Text „erst nach Sokrates nachbessern“) stellt `lauf.uebergabe_zeilen` sofort zu: jede offene Zeile außer an Sokrates bekommt Start oder Nachricht, „wartet auf“ des Vorgangs wird nicht gelesen (`lauf.py`:734–758). Der Macher wird gestartet, während der Vorgang auf Sokrates wartet: Start ohne Startbares (340.12/3). 1873 wartet auf 1911.
+
 ## Lauf 352 · 1908, damit 1782 (lesend, Weiter von Ford; Kopie `297d14ffe`; 22.11., 10:20–10:22)
 
 - Alle 45 `tools/*_test.py` an der Kopie grün.
