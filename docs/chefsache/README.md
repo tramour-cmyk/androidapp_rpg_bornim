@@ -263,7 +263,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1281 | K | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, | nach dem Meilenstein |
 | 1939 | K | Von Werkzeug (Startwarnung 1425, 1642, seit 22.11., 07:02): ARBEIT-TEAM-JERRY.md: 1 „Zu“ z | startbar |
 
-**Spike** – offen 71, Muss 40, startbar 40
+**Spike** – offen 64, Muss 33, startbar 33
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -331,13 +331,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 22.11.; „star
 | 1629 | K | Von Chef (18.11., 09:00, Rollenspiegel Sokrates): epische Beute (höchste Stufe) zeigt beim | nach dem Meilenstein |
 | 1924 | K | Von Diogenes (D363.1, Lauf 363 zu 1779): Restsperre 1143 (vorgang.rest_offen) liest den Üb | startbar |
 | 1937 | M | Von Sokrates (1727k A, Chef 22.11., 12:28): Probelauf-Haken bleibt; Ersatz je Prüfung (Lau | wartet auf 1871 (in Arbeit) |
-| 1944 | M | Von Sokrates (1727 Falltest Lauf 4, Befund 9; Chef 22.11., 14:51 Korrektur veranlassen): v | startbar |
-| 1945 | M | Von Sokrates (1727 Falltest Lauf 4, Befund 9; Chef 22.11., 14:51 Korrektur veranlassen): l | startbar |
-| 1946 | M | Von Sokrates (1727 Falltest Lauf 4, Befund 9; Chef 22.11., 14:51 Korrektur veranlassen): v | startbar |
-| 1947 | M | Von Sokrates (1727 Falltest Lauf 4, Befund 9; Chef 22.11., 14:51 Korrektur veranlassen): R | startbar |
-| 1948 | M | Von Sokrates (1727 Falltest Lauf 4, Befund 9; Chef 22.11., 14:51 Korrektur veranlassen): c | startbar |
-| 1949 | M | Von Sokrates (1727 Falltest Lauf 4, Befund 9; Chef 22.11., 14:51 Korrektur veranlassen): B | startbar |
-| 1950 | M | Von Sokrates (1727 Lauf 4, Befund 9; Chef 22.11., 14:51): fertig mit Commit zu Werkzeug so | startbar |
 
 **Perikles** – offen 30, Muss 22, startbar 5
 
