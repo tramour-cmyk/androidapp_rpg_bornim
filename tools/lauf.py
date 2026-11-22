@@ -38,10 +38,10 @@ Ausgabe, Zeile für Zeile auszuführen:
   GELÖST <Nr> | <Rolle> | wartet auf … erfüllt | <session_id|->      → send_message „GELÖST <Nr>: wartet auf … erfüllt, startbar“ an die Sitzung (bei - nichts; „bleibt gesperrt“: nichts); --sperre hat die Zeile gesetzt (275.2), Notizen pushen
   (Bedeutung dieser Zeilen ist Fords Anleitung, LISTE-BETRIEB.md „Jeder Lauf“ 4 verweist hierher, 276)
 --ohne NR:Grund  (mehrfach) schließt die Zeile NR für diesen Lauf aus; lauf.py nimmt dann die nächste startbare Zeile derselben Rolle (190.2). Ohne Grund gilt es nicht.
-             Steht statt NR ein Rollenname (auch Spike, Tuffy), fällt die Rolle ganz aus dem Lauf: kein START, keine Zusatzentwickler-Zeile, kein ARCHIVIERE, keine Warnung „Start nicht angekommen“ (1148).
-             Dasselbe tut die Marke „Lauf läuft bis TT.MM., HH:MM“ oben im Vorrat (höchstens 12 h voraus), solange die Zeit nicht vorbei ist (Hintergrundlauf in der Sitzung; im geteilten Vorrat Jerry/Tuffy mit Namen in Klammern).
+             Steht statt NR ein Rollenname (auch Spike), fällt die Rolle ganz aus dem Lauf: kein START, kein ARCHIVIERE, keine Warnung „Start nicht angekommen“ (1148).
+             Dasselbe tut die Marke „Lauf läuft bis TT.MM., HH:MM“ oben im Vorrat (höchstens 12 h voraus), solange die Zeit nicht vorbei ist (Hintergrundlauf in der Sitzung).
 --wecker ID[,ID]  (mehrfach) Sitzungen mit offenem eigenem Weckruf (list_triggers: enabled, next_run_at in der Zukunft, persistent_session_id) gelten als laufend:
-             belegen ihre Rolle (auch Spike/Tuffy), werden nicht archiviert und bekommen kein WEITER, auch nach 20 oder 60 Minuten Ruhe (916, Tuffy 784 am 11.11.).
+             belegen ihre Rolle (auch Spike), werden nicht archiviert und bekommen kein WEITER, auch nach 20 oder 60 Minuten Ruhe (916, Tuffy 784 am 11.11.).
 --ohne-pull  lässt das Vorspulen der Notizen aus (380: sonst zieht lauf.py bornim-main auf origin/main und bricht ab, wenn das nicht geht).
 --nur-muss   startet nur Muss, keine Kür und nichts „nach dem Meilenstein“ (D31.3: Ford setzt es bei `allowed_warning` vor Wochenmitte, D20.2).
 --sperre     trägt „Startsperre HH:MM Start <Name>“ ins Protokoll von ARBEIT-BETRIEB.md (Ford pusht, erst dann create_session).
@@ -97,7 +97,7 @@ def umgebung(r, hoch=False):
     """901: Umgebung für den Start einer Rolle; bis HOCH_BIS alle HOCH, für einen Start mit hoch (827.1) HOCH, sonst UMGEBUNG/MITTEL."""
     if hoch or JETZT < HOCH_BIS:
         return HOCH
-    return UMGEBUNG.get(startbar.ZUSATZ.get(r, r), UMGEBUNG.get(r, MITTEL))
+    return UMGEBUNG.get(r, MITTEL)
 REPO = "https://github.com/tramour-cmyk/androidapp_rpg_bornim"  # ohne source_url startet die Sitzung ohne Repo (18.10., Jerry 39; 187)
 REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten Stand (26.10., ohne add_repo-Erlaubnis; Tom 376.1a)
 # 1472 (Chef 16.11., 18:07: „Erst in die Startnachricht bei allen Beschäftigten“): add_repo gelang nur mit der Erlaubnis im Gespräch
@@ -250,7 +250,7 @@ def modell(r, nr, nachfolger=""):
     """(Modell, Satz für die Startnachricht, hoch). 827.1 (Chef 13.11., 22:08: „wenn einer … mehr Leistung braucht, dann setzt er den
     Aufwand für die Aufgabe auf hoch … und dann wieder zurück“): ein Nachfolger mit „Aufwand hoch“ startet mit effort high und Umgebung
     HOCH, jeder andere Start Mittel; festgefahren (startbar.festgefahren) nur als Hinweis. Stärkstes Modell (827 A) nur ab STARK_AB (aus)."""
-    team = startbar.ZUSATZ.get(r, r)
+    team = r
     d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None) if nr else None
     g = startbar.festgefahren(d)
     if g and not startbar.STARK_MARKE.search(d["titel"]) and JETZT >= startbar.STARK_AB.replace(tzinfo=BERLIN):
@@ -276,7 +276,7 @@ for _nr, _tafel, _k, _wert, _b in PROBEN:
     else: ABGELAUFEN.append((_nr, _tafel, _k, _b))
 VORRAT = {"Homer": "ARBEIT-KREATIV.md", "Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "ARBEIT-TEAM-JERRY.md",
           "Perikles": "ARBEIT-PROJEKT.md", "Diogenes": "ARBEIT-PRUEFUNG.md", "Sokrates": "ARBEIT-BERATUNG.md",
-          "Spike": "ARBEIT-TEAM-SPIKE.md", "Tuffy": "ARBEIT-TEAM-JERRY.md"}  # 394: Tuffy Vorrat des Teams; 1328: Spike eigener Vorrat
+          "Spike": "ARBEIT-TEAM-SPIKE.md"}  # 1328: Spike eigener Vorrat; 433 Zusatzentwickler fällt (1871)
 START_REIHE = ["Tom", "Jerry", "Spike", "Diogenes", "Homer", "Perikles"]
 MIT_KUER = {"Tom", "Jerry", "Spike", "Diogenes", "Homer", "Perikles"}
 PLANER = "Perikles"  # 1893: an der neuen Liste „Arbeitsplaner“ (M?, Kosten, Stillstand)
@@ -532,7 +532,7 @@ def fremd_besitzer(rolle, nr, muss):
     d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
     if not d or "erledigt" in d.get("stand", ""): return None
     b = d.get("besitzer", "")
-    if not b or b in (rolle, startbar.ZUSATZ.get(rolle)) or any(x[0] == nr for x in muss): return None
+    if not b or b == rolle or any(x[0] == nr for x in muss): return None
     return b
 
 def stillstand(st, je_rolle, archiviert, ausschluss):
@@ -576,12 +576,11 @@ def lauf_laeuft(rolle):
     """1148 (von Ford), 1154 (Diogenes D205.5): Marke „Lauf läuft bis TT.MM., HH:MM“ oben im Vorrat — ein Hintergrundlauf
     (Render, Messung) hält die Sitzung belegt, obwohl sie idle aussieht; bis dahin startet und archiviert Ford die Rolle nicht.
     Nur mit Datum (ohne Datum blieb eine vergessene Marke bis zu 24 h stehen) und höchstens 12 h voraus; abgelaufen gilt sie nicht.
-    Spike und Tuffy teilen den Vorrat des Teams: ohne Namen gilt die Marke für das Team, mit „(Spike)“ nur für ihn."""
+    Ohne Namen gilt die Marke für den Vorrat, mit Namen nur für diese Rolle."""
     if rolle not in VORRAT or NEU_LISTE: return None  # 1893: Profile ohne Vorrat
     for m in re.finditer(LAUF_MARKE, startbar.lesen(VORRAT[rolle])[:4000]):
         wer, _ = marke_wer(m, VORRAT[rolle])
         if wer and wer != rolle: continue
-        if not wer and rolle in startbar.ZUSATZ: continue
         try: bis = marke_bis(m)
         except ValueError: continue
         if JETZT <= bis <= JETZT + datetime.timedelta(hours=12): return m.group(0)
@@ -612,7 +611,7 @@ def marke_bis(m):
 def lauf_marke_falsch(rolle):
     """1161 (D206.1): Marke, die nicht zählt (ohne Datum, Zeit unlesbar, über 12 h voraus), als Warnung statt still;
     Zitate der Regel („Lauf läuft bis …“ in Anführungszeichen) zählen nicht als Marke. Abgelaufen schweigt (gilt nach Regel nicht mehr)."""
-    if rolle not in VORRAT or rolle in startbar.ZUSATZ or NEU_LISTE: return []  # Zusatzentwickler teilen den Vorrat des Teams: einmal je Datei
+    if rolle not in VORRAT or NEU_LISTE: return []
     kopf, falsch = startbar.lesen(VORRAT[rolle])[:4000], []
     for a in re.finditer(r"Lauf läuft bis", kopf):
         if a.start() and kopf[a.start() - 1] in "„\"“": continue
@@ -1153,7 +1152,7 @@ def main():
             nr, _, grund = a[i + 1].partition(":")
             if grund.strip(): ausschluss[nr.strip()] = grund.strip()
             else: print("WARNUNG --ohne %s ohne Grund ignoriert (190.2)" % nr)
-    # 1148 (von Ford): --ohne <Rolle>:Grund nimmt die ganze Rolle aus diesem Lauf (START, auch als Zusatzentwickler,
+    # 1148 (von Ford): --ohne <Rolle>:Grund nimmt die ganze Rolle aus diesem Lauf (START,
     # ARCHIVIERE und die Warnung „Start nicht angekommen“); vorher wirkte nur --ohne <Nr>, und Ford bekam weiter START Spike
     ohne_rollen = {n for n in ausschluss if re.fullmatch(startbar.ROLLEN_NAMEN, n)}
     seiten = [x for i, x in enumerate(a) if not x.startswith("--") and not (i and a[i - 1] in ("--ohne", "--wecker"))]
@@ -1366,7 +1365,7 @@ def main():
     for r in START_REIHE:
         for stueck, grund in lauf_marke_falsch(r):  # 1161: sonst archiviert der Lauf die Sitzung mitten im Hintergrundlauf
             ausgabe.append("%s Marke „%s“ in %s zählt nicht (%s): Sitzung gilt als fertig; richtig „Lauf läuft bis TT.MM., HH:MM“, höchstens 12 h, "
-                           "im geteilten Vorrat (Jerry/Tuffy) „(Name)“ dahinter (1148, 1369)" % (laut_nachts(), stueck, VORRAT[r], grund))
+                           "(1148, 1369)" % (laut_nachts(), stueck, VORRAT[r], grund))
         if r in ohne_rollen:  # 1148
             ausgabe.append("NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (r, r, ausschluss[r])); continue
         if (lm := lauf_laeuft(r)):  # 1148: Hintergrundlauf in der Sitzung
@@ -1471,53 +1470,7 @@ def main():
         msg += satz
         ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
         vorgaenger(r); sperren.append(r); sperr_nr[r] = zaehl_nr
-    # 433 (Chef 31.10., 22:1x: „Da muss doch nicht jetzt Tom drei Wochen auf Tom warten“): arbeitet Tom (Jerry), startet Spike (Tuffy)
-    # die nächste startbare Muss-Zeile des Teams, die von der laufenden Arbeit unabhängig ist: andere Nummer, anderer Zweig, nicht „nur Tom“.
-    # Nur Muss (Leiharbeiter „notfalls“). Spike setzt zuerst „in Arbeit bei Spike“, dann nimmt das Team die Zeile nicht (startbar.py);
-    # endete Spike ohne neuen Stand, startet er auf dieser Zeile wieder, sobald Tom belegt ist.
-    def laeuft(rr): return [s for s in je_rolle.get(rr, []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN)]
-    for team, zusatz in ((("Jerry", "Tuffy"),) if not NEU_LISTE else ()):  # 1893: an der neuen Liste keine Zusatzentwickler  # 1328: Spike eigene Rolle, startet wie Tom
-        if zusatz in ohne_rollen:  # 1148: --ohne Spike nimmt auch die Zusatzentwickler-Zeile aus
-            ausgabe.append("NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (zusatz, zusatz, ausschluss[zusatz])); continue
-        if (lm := lauf_laeuft(zusatz)):  # 1148
-            ausgabe.append("NICHTS %s: „%s“ im Vorrat, Hintergrundlauf in der Sitzung" % (zusatz, lm)); continue
-        team_s = laeuft(team); zus_s = laeuft(zusatz)
-        team_start = [l for l in ausgabe if l.startswith("START %s " % team) or (l.startswith("WEITER ") and " | %s | " % team in l)]
-        if not team_s and not team_start: ausgabe.append("NICHTS %s: %s frei, macht es selbst" % (zusatz, team)); continue
-        if zus_s: ausgabe.append("NICHTS %s: belegt durch %s" % (zusatz, zus_s[0].get("title", zus_s[0]["id"]))); continue
-        if zusatz in marken and (JETZT - marken[zusatz]).total_seconds() < SPERRE_MIN * 60:
-            ausgabe.append("NICHTS %s: Startmarke %s jünger als %d Minuten" % (zusatz, marken[zusatz].strftime("%H:%M"), SPERRE_MIN)); continue
-        besetzt = set()
-        for s in team_s: besetzt.update(x for x in nummern_aus_titel(s.get("title", "")).split(",") if x)
-        for l in team_start:
-            m = re.search(r"Vorgang (\S+) \(|^WEITER \S+ \| \w+ \| (\S+) \|", l) if not l.startswith("START") or "Nachfolger laut" not in l else None
-            if m: besetzt.add(m.group(1) or m.group(2))
-            elif l.startswith("START"): besetzt.add("Nachfolger")  # Nachfolger: Thema aus dem Titel
-        alle_m = [x for x in st.get(team, ([], [], None, []))[0] if not x[3].get("fuer")]  # nur eigene Zeilen des Teams
-        def zweig(x): return x[3].get("zweig", "–")
-        zweige = {zweig(x) for x in alle_m if any(gleich(x[0], b) for b in besetzt)} - {"–", "-", ""}
-        zweige |= sitzungszweige(team_s) | (frische_zweige(team) if team_s else set())  # 1407: frisch gepushte Teamzweige; 1396 (Tuffy 16.11., 10:00): Zweig einer laufenden Teamsitzung ist belegt, auch wenn der Titel eine andere Nummer nennt
-        frei = [x for x in alle_m if x[0] not in ausschluss and not any(gleich(x[0], b) for b in besetzt)
-                and zweig(x) not in zweige and not re.search(r"nur %s\b" % team, x[2] + " " + x[3].get("stand", ""))
-                and x[0] not in startbar.SONDER]
-        if besetzt == {"Nachfolger"} or not besetzt and not team_s:
-            ausgabe.append("NICHTS %s: Arbeit von %s unbekannt (Nachfolger oder Titel ohne Nummer)" % (zusatz, team)); continue
-        eigen = [n for n, g in GESPERRT.get(team, {}).items() if g == "in Arbeit bei " + zusatz]
-        eigen = [n for n in eigen if n not in ausschluss]  # 916 (1): --ohne gilt auch für die eigene Zeile des Zusatzentwicklers
-        if eigen: frei = [(eigen[0], "M", "", {})]
-        if not frei: ausgabe.append("NICHTS %s: kein zweites unabhängiges Muss bei %s" % (zusatz, team)); continue
-        if bremse:  # 1804
-            frei = [x for x in frei if not bremse.erlaubt(zusatz, x[1], x[3] or startbar_zeile(x[0]))]
-            if not frei: ausgabe.append("NICHTS %s: Guthaben oder Laufsperre (1804)" % zusatz); continue
-            bremse.zaehle(zusatz, frei[0][3] or startbar_zeile(frei[0][0]))
-        nr, kl, thema, _ = frei[0]
-        titel = "%s – %s (%s)" % (zusatz, nr, berlin(JETZT))
-        msg = ("%s\n\nArbeite Vorgang %s (Muss) aus der Vorgangsliste von Team %s (`vorgang.py %s`) als Zusatzentwickler (433, ROLLE-ENTWICKLUNG.md); %s arbeitet an %s, das fasst du nicht an. "
-               "Zuerst Start nach der Rollendatei, dann sofort `python3 tools/vorgang.py stand %s 'in Arbeit, bei %s'` und pushen (sonst nimmt %s die Zeile auch), dann den Vorgang lesen; eigener Zweig; fertig: Stand setzen, keine Übergabe im Vorrat, kein Nachfolger."
-               % (zusatz, nr, team, nr, team, ", ".join(sorted(besetzt - {"Nachfolger"})) or "Betrieb", nr, zusatz, team))
-        mo, satz, hoch = modell(zusatz, nr); msg += satz
-        ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (zusatz, mo, aufwand(hoch), umgebung(team, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
-        vorgaenger(zusatz); sperren.append(zusatz)
+    # 433 Zusatzentwickler fällt (1871 Stilllegung C; Disponent teilt jeden Auftrag zu, G:128, G:130).
     vorentscheid_marken = []
     try:
         import abgleich
@@ -1572,7 +1525,7 @@ def main():
     # 927 (D162.1): Anlässe, die Ford sonst nur unter „Bei Anlass“ fände, als Ausgabezeile
     if per_start(8, 0):  # Schritt 8 Nachhalten, im ersten Lauf ab 8 Uhr
         einmal("Nachhalten %s" % heute, "NACHHALTEN %s: LISTE-BETRIEB.md Schritt 8 (Zeilen „von …“, Freigaben)" % heute)
-    vorraete = {r: lesen(os.path.join(DOCS, f)) for r, f in VORRAT.items() if r != "Tuffy" and os.path.exists(os.path.join(DOCS, f))}
+    vorraete = {r: lesen(os.path.join(DOCS, f)) for r, f in VORRAT.items() if os.path.exists(os.path.join(DOCS, f))}
     for marke, text in neu_fuer_chef(lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")), vorraete):
         einmal(marke, "%s %s (Schritt 9, 927)" % (laut_nachts(), text))
     # 1334 (Chef 15.11., 21:09): derselbe Test zweimal rot binnen 48 h oder Wackeltest → Ford legt den Vorgang beim Besitzer an
@@ -1830,28 +1783,6 @@ def ohne_ueberholt(ausschluss, leb):
                           or any(w in s.get("status_bucket", "") for w in ("WORKING", "BLOCKED")))]
             if not tätig: aus.append("OHNE-ÜBERHOLT %s: „in Arbeit“, aber keine Sitzung mit %s im Titel seit %d h" % (nr, nr, OHNE_ARBEIT_H))
     return aus
-
-def sitzungszweige(sitzungen):
-    """1396: Zweige, auf denen laufende Sitzungen arbeiten (external_metadata.current_branches), ohne main."""
-    aus = set()
-    for s in sitzungen:
-        for zw in ((s.get("external_metadata") or {}).get("current_branches") or {}).values():
-            if isinstance(zw, str) and zw and zw not in ("main", "–"): aus.add(zw.removeprefix("refs/heads/"))
-    return aus
-
-def frische_zweige(team, refs=None, minuten=45):
-    """1407 (D262.1): list_sessions liefert current_branches nicht; darum gilt als belegt, was das Team (claude/<team>-…) oder ein
-    Sammelbuild (claude/build-…) in den letzten `minuten` gepusht hat. refs: [(Unix-Zeit, Zweig)] für den Test, sonst aus origin."""
-    if refs is None:
-        try:
-            subprocess.run(["git", "-C", DOCS, "fetch", "-q", "origin"], capture_output=True, timeout=60)
-            r = subprocess.run(["git", "-C", DOCS, "for-each-ref", "--format=%(committerdate:unix) %(refname:short)", "refs/remotes/origin/claude"],
-                               capture_output=True, text=True, timeout=30)
-            refs = [(int(a), b.removeprefix("origin/")) for a, b in (z.split(" ", 1) for z in r.stdout.splitlines() if " " in z)]
-        except (OSError, subprocess.SubprocessError, ValueError):
-            return set()
-    grenze = JETZT.timestamp() - minuten * 60
-    return {zw for t, zw in refs if t >= grenze and re.match(r"claude/(%s-|build-)" % team.lower(), zw)}
 
 def besetzung_schreiben(leb):
     p = os.path.join(DOCS, "ARBEIT-BESETZUNG.md"); t = lesen(p)

@@ -795,7 +795,6 @@ def treffer(nr):
     return aus
 
 def ansicht(rolle, nur_startbar=False):
-    rolle = startbar.ZUSATZ.get(rolle, rolle)
     zs = startbar.plan(rolle)
     p = startbar.pause(startbar.lesen(startbar.VORRAT.get(rolle, "")))
     print("%s: %d offen, %d Muss, %d startbar%s (Reihenfolge = Vorrang; „für X“: X wartet auf dich)" % (
@@ -838,7 +837,7 @@ def haupt(a):
     rolle = None
     if "--rolle" in a:
         i = a.index("--rolle")
-        if i + 1 >= len(a) or a[i + 1].capitalize() not in ROLLEN + list(startbar.ZUSATZ):
+        if i + 1 >= len(a) or a[i + 1].capitalize() not in ROLLEN:
             sys.exit("vorgang.py: --rolle braucht eine von: " + ", ".join(ROLLEN))
         rolle = a[i + 1].capitalize(); del a[i:i + 2]
         if not a or a[0] == "--startbar": return ansicht(rolle, bool(a))

@@ -248,15 +248,6 @@ def je_rolle():
         b = besetzt_rolle(r)
         if b: was = "läuft: %s (Besetzung); %s" % (b, was)
         aus.append("| %s | %s |" % (r, was.replace("|", "/")))
-        for zus, team in ({} if s.NEU else s.ZUSATZ).items():  # 1371; 1893: an der neuen Liste kein Zusatzentwickler (D254.2, Chef 16.11., 07:02 „den kann man auch Arbeit geben“): Aushilfe nimmt Startbares ihres Teams
-            if team != r: continue
-            eigen = [x for x in muss if not x[2].startswith("Übernahme von")]
-            zw = (eigen[0][3].get("zweig") or "–") if eigen else "–"
-            frei = [x for x in eigen[1:] if (x[3].get("zweig") or "–") in ("–", "-", "", None) or x[3].get("zweig") != zw]
-            frei = [x for x in frei if not re.search(r"nur %s\b" % team, x[2] + " " + x[3].get("stand", ""))]
-            if frei: wz = zeile(frei[0], "Muss von %s, neben dessen Arbeit" % team) + ("; dann %d weitere" % (len(frei) - 1) if len(frei) > 1 else "")
-            else: wz = "leer, weil %s kein zweites unabhängiges Muss hat" % team + (" (Pause)" if p else "")
-            aus.append("| %s | %s |" % (zus, wz.replace("|", "/")))
     return aus
 
 

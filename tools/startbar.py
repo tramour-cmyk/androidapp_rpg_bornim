@@ -6,8 +6,7 @@ Eine Tabelle, je Vorgang eine Zeile: Nr. · Titel · Besitzer · Kl. · Stand ·
 Reihenfolge der Zeilen eines Besitzers = Vorrang. Vorräte `ARBEIT-*.md` haben keine Tabelle mehr, nur Übergabe, Pause und „Zu <Nr>“.
 Je Rolle: oberstes startbares Muss und oberste startbare Kür (Kl. „M?“ zählt als Kür), dazu, warum andere Zeilen nicht startbar sind
 (--alle: jede Zeile); --stand: „offen n, Muss m, startbar s, gesperrt g“. „Pause bis <Zeit>“ oben im Vorrat sperrt die Rolle; „Halt nur für <Nr>, …“ oder eine Pause ohne Datum mit Nummern nur diese Zeilen, eine Pause ohne Datum und Nummern nur die Kür (1246).
-Stand = ein Wort der Liste WORTE, dahinter nach Komma oder Doppelpunkt höchstens ein kurzer Zusatz; gerechnet wird nur mit dem Wort
-(und „in Arbeit bei Spike|Tuffy“, 433).
+Stand = ein Wort der Liste WORTE, dahinter nach Komma oder Doppelpunkt höchstens ein kurzer Zusatz; gerechnet wird nur mit dem Wort.
 **Automatik A „wartet auf“** (275.2): Feld mit Nummern, Rollen, Daten (TT.MM.[ HH:MM]) oder „Chef[ <Dateinummer>]“, mit Komma getrennt; „Chef Gespräch“ (1236) löst der Archiveintrag „- **<Nr>, Chef Gespräch …“.
 Erfüllt: Nummer erledigt (für die Sperre auch gebaut oder zu testen, 190.1; geschrieben wird nur bei erledigt, D80.3); Datum vorbei;
 Chefsache-Datei weg; t<Build> mit Archiveintrag.
@@ -34,7 +33,6 @@ VORRAT = {r: d for d, r in ROLLEN}
 VORRAT["Ford"] = "ARBEIT-BETRIEB.md"
 BESITZER = [r for _, r in ROLLEN] + ["Ford", "Ideen"]  # „Ideen“: Ideenspeicher, wird nie gestartet (LISTE-IDEEN.md)
 WARTE_ROLLEN = [r for _, r in ROLLEN] + ["Ford"]
-ZUSATZ = {"Tuffy": "Jerry"}  # 394, 433: Zusatzentwickler arbeiten auf Zeilen ihres Teams; 1328 (Chef 15.11., 21:05): Spike eigene Rolle
 FERTIG = re.compile(r"erledigt|auf main|getestet|gebaut|zu testen", re.I)
 ROLLEN_NAMEN = r"(?:Homer|Tom|Jerry|Spike|Tuffy|Perikles|Diogenes|Sokrates|Ford(?: 2)?|Chef)"  # 394: Spike, Tuffy
 JETZT = datetime.datetime.now()
@@ -940,8 +938,6 @@ def sperre(d):
     if w == "Dauer" and not d["warte"]: return "Dauerzeile"
     if w in ("wartet", "Chef") and not d["warte"]: return "wartet (ohne Feld „wartet auf“)"
     if w == "nach Meilenstein": return "nach dem Meilenstein"
-    m = re.match(r"bei (Tuffy)\b", d["zusatz"]) if w == "in Arbeit" else None
-    if m: return "in Arbeit bei " + m.group(1)  # 433: das Team nimmt die Zeile nicht, lauf.py startet den Zusatzentwickler darauf wieder
     if w in ("startbar", "offen", "in Arbeit", "wartet", "Chef", "ruht", "Dauer") and altes_system(d["titel"], d["stand"], d["nr"]):
         return "ruht (424: altes SRD-System)"
     k = kostenhalt(d)
@@ -1010,7 +1006,6 @@ def jetzt_zeile(d):
 def plan(rolle):
     """[(nr, kl, titel, d, grund)] der Rolle in Vorrangfolge: eigene Zeilen (ohne erledigt), danach fremde, die auf die Rolle warten
     (grund None = startbar). Fremde Zeilen haben d["fuer"] = Besitzer."""
-    rolle = ZUSATZ.get(rolle, rolle)
     f = fremd_wartend()
     eigen, fremd = [], []
     for d in zeilen_liste():
@@ -1566,9 +1561,6 @@ def main():
         for r in BAUTEAMS:  # 1364: auch Spike
             u = uebernahme(r)
             if u: print("  Übernahme für %s: %s" % (r, u))
-        for zus, team in ZUSATZ.items():  # 1371 (D254.2): Aushilfe nimmt das zweite unabhängige Muss ihres Teams (lauf.py, 433)
-            m = [z for z in plan(team) if z[1] == "M" and not z[4] and "fuer" not in z[3]][1:]
-            print("  Zusatz für %s (bei %s): %s" % (zus, team, ", ".join(z[0] for z in m[:8]) + (" …" if len(m) > 8 else "") if m else "leer, kein zweites startbares Muss bei " + team))
         teams = [r for r in BAUTEAMS if r in info]
         if all(r in info for r in UEBERNAHME) and sum(info[r][1] for r in teams) >= 4:  # 317: ab 4 fertigen Punkten aller Teams bittet der Erste
             print("  Gemeinsamer Build: %s warten auf Test (ab 4 bittet der Erste, dann alle fertigen Zweige ohne Obergrenze; 317, Chef 07.11., 20:5x)%s" % (", ".join("%s %d" % (r, info[r][1]) for r in teams),
