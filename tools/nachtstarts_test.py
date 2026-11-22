@@ -43,6 +43,9 @@ if N.ausnahme("Spike", "1739", um(22, 30, 22), A): fehler.append("Ausnahme gilt 
 if N.ausnahme("Tom", "1739", um(22, 0), A): fehler.append("Ausnahme ohne Chef")
 if N.ausnahme("Spike", "1792", um(22, 0), A): fehler.append("anderer Vorgang")
 if N.ausnahme("Jerry", "1739", um(22, 0), A): fehler.append("andere Rolle")
+A2 = A.replace("21:54", "20:30")  # 1806 (D333.1): Entscheid vor 21 Uhr für „heute Nacht“
+if N.grenze("Spike", "1739", um(22, 27), vor + nach[:4], text=A2)[1] != 8: fehler.append("1806: Entscheid 20:30 verworfen")
+if N.grenze("Spike", "1739", um(22, 27), vor + nach[:4], text=A2)[0] != 7: fehler.append("1806: weitere zählen ab 21 Uhr")
 N.archiv = lambda: A
 sh.nachtstarts = N
 import nachtstarts as N2
