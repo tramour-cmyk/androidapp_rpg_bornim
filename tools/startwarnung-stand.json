@@ -1,43 +1,20 @@
 {
  "969": {
-  "besitzer": "Jerry",
+  "besitzer": "Arbeitsplaner",
   "seit": "2026-11-19T08:17+01:00",
   "text": "docs/LISTE-REGELWERTE.md veraltet; python3 tools/regelwerte.py, committen",
   "vorgang": "1729"
  },
  "groesse:docs/ARBEIT-BETRIEB.md": {
-  "besitzer": "Ford",
+  "besitzer": "Disponent",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 46662 Bytes (Grenze 30000), Erledigtes streichen",
+  "text": "docs/ARBEIT-BETRIEB.md hat 46987 Bytes (Grenze 30000), Erledigtes streichen",
   "vorgang": "1688"
  },
  "regel:ARBEIT-TEAM-JERRY.md:Übergabe über N Zeichen (nur Getanes und": {
-  "besitzer": "Jerry",
+  "besitzer": "Arbeitsplaner",
   "seit": "2026-11-21T22:18+01:00",
   "text": "ARBEIT-TEAM-JERRY.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2)",
   "vorgang": "1802"
- },
- "vorrat:ARBEIT-PROJEKT.md": {
-  "besitzer": "Perikles",
-  "seit": "2026-11-22T07:02+01:00",
-  "text": "ARBEIT-PROJEKT.md: 2 „Zu“ zu Erledigtem (1624, 1605), beim Übergeben streichen",
-  "vorgang": "1940"
- },
- "vorrat:ARBEIT-TEAM-JERRY.md": {
-  "besitzer": "Jerry",
-  "seit": "2026-11-22T07:02+01:00",
-  "text": "ARBEIT-TEAM-JERRY.md: 1 „Zu“ zu Erledigtem (1776), beim Übergeben streichen",
-  "vorgang": "1939"
- },
- "vorrat:ARBEIT-TEAM-SPIKE.md": {
-  "besitzer": "Spike",
-  "seit": "2026-11-22T15:38+01:00",
-  "text": "ARBEIT-TEAM-SPIKE.md: 1 „Zu“ zu Erledigtem (1951), beim Übergeben streichen"
- },
- "vorrat:ARBEIT-TEAM-TOM.md": {
-  "besitzer": "Tom",
-  "seit": "2026-11-18T10:55+01:00",
-  "text": "ARBEIT-TEAM-TOM.md: 4 „Zu“ zu Erledigtem (1569, 1569, 1569.1, 1663), beim Übergeben streichen",
-  "vorgang": "1690"
  }
 }
