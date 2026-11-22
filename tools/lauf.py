@@ -155,6 +155,11 @@ def mit_rufnamen(ausgabe, sitzungen, jetzt=None):
 
 
 KAUFREPO = " Das Kaufrepo schaltest du bei Bedarf selbst mit add_repo frei, so wie es der Chef festgelegt hat und wie es auch in deiner Rollendatei steht."  # Wortlaut Chef 16.11., 18:13
+def mit_kaufrepo(l):
+    """1472/1803: Kaufrepo-Satz an jede Startnachricht (START: letztes Feld, auch Routinen; Archiv 1472, 1781), bei WEITER vor dem Hinweis auf send_message."""
+    if l.startswith("START "): return l if l.endswith(KAUFREPO) else l + KAUFREPO
+    if l.startswith("WEITER ") and KAUFREPO not in l: return l.replace("; wird send_message", ";" + KAUFREPO + " Wird send_message", 1)
+    return l
 MODELL = {"Tom": "opus", "Spike": "opus", "Homer": "opus", "Sokrates": "opus", "Jerry": "opus", "Perikles": "opus", "Diogenes": "opus"}  # 270: alle außer Ford groß (Chef 09.11., 13:01: „bis auf Ford grundsätzlich alle … auf Opus“)
 STARK_GESTARTET = []
 AUFWAND_HOCH = re.compile(r"Aufwand hoch\b", re.I)  # 827.1: „Nachfolger: … (Aufwand hoch, weil …)“ in der Übergabe
@@ -1412,7 +1417,7 @@ def main():
     haengt_weg = lambda l: " Sitzung hängt: " in l and any(l.endswith("code/%s (927)" % a) for a in archiviert)
     ausgabe = [l for l in ausgabe if not haengt_weg(l)]
     # 1472: Chefwort zum Kaufrepo an jede Startnachricht (START: letztes Feld), bei WEITER vor dem Hinweis auf send_message
-    ausgabe = [l + KAUFREPO if l.startswith("START ") and l[6:].split(" |", 1)[0] not in ROUTINE_ROLLEN else l.replace("; wird send_message", ";" + KAUFREPO + " Wird send_message", 1) if l.startswith("WEITER ") else l for l in ausgabe]
+    ausgabe = [mit_kaufrepo(l) for l in ausgabe]
     ausgabe = [mit_kern(l) for l in ausgabe]
     if ist_scharf(): ausgabe = mit_rufnamen(ausgabe, alle.values())
     for l in ausgabe: print(l)

@@ -39,7 +39,10 @@ soll("Teil A und Nummer in der Nachricht", a and "**Rundblick** Ziel." in a[0] a
 soll("ohne Kern (mit_kern ändert nichts)", a and lauf.mit_kern(a[0]) == a[0])
 r = lauf.mit_rufnamen(a, [], J) if a else []
 soll("ohne Rufname", r == a, r)
-soll("Kaufrepo-Satz nicht an der Routine", lauf.ROUTINE_ROLLEN == {"Rundblick"})
+soll("Kaufrepo-Satz an der Routine (1803)", a and lauf.mit_kaufrepo(a[0]).endswith(lauf.KAUFREPO) and lauf.mit_kaufrepo(lauf.mit_kaufrepo(a[0])) == lauf.mit_kaufrepo(a[0]), a)
+soll("Kaufrepo-Satz an START Tom", lauf.mit_kaufrepo("START Tom | opus | x | y").endswith(lauf.KAUFREPO))
+soll("Kaufrepo-Satz bei WEITER vor send_message", lauf.KAUFREPO.strip() + " Wird send_message" in lauf.mit_kaufrepo("WEITER Tom | x; wird send_message an y"))
+soll("NACHRICHT ohne Kaufrepo-Satz", lauf.mit_kaufrepo("NACHRICHT Tom | s | t") == "NACHRICHT Tom | s | t")
 soll("Zeile wartet: nichts", rz(zeilen=[dict(Z[0], warte=["Wochenzählung"])]) == (None, []))
 soll("Besitzer nicht Sokrates: nichts", rz(zeilen=[dict(Z[0], besitzer="Tom")]) == (None, []))
 soll("erledigt: nichts", rz(zeilen=[dict(Z[0], stand="erledigt")]) == (None, []))
