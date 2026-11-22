@@ -395,3 +395,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 1970 | Von Welt (Emil 22.11., 17:43, zu 1566; Sokrates 18:07): tools/godot/bau_am_rechner.py holt das R10-Wasserkit nicht | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1971 | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Titel), Halbsatz im Kern Büro (Chef 22.11., 18:13) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1972 | Von Chef (22.11., 18:39): Kennzahlen Kosten, Sitzungen, Vorgänge, Aufträge je Stunde, Tag, gestern, Woche, Monat und je Vorgang (Sitzungen, Aufträge, Kosten); Bestand kostenbericht.py, KOSTEN-GEBUCHT.tsv, tagesbericht.py | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
