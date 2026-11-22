@@ -24,11 +24,12 @@
   "autoMode": {
     "environment": [
       "$defaults",
-      "Project workflow (Chroniken von Bornim): team sessions routinely fetch origin/main and merge it into their own claude/* working branches, and check for conflicts with git merge-tree or git diff; these are expected and not merges without review. A pull request into main is merged only after the project owner has tested the build; that approval is recorded in docs/VORGANGSARCHIV.md or the team's docs/ARBEIT-*.md file on main. Notes (CLAUDE.md, CHANGELOG.md, docs/) are committed and pushed directly to main by design.",
-      "Ford (Betriebsleiter) archives old sessions of this account every hour with archive_session when tools/lauf.py prints an ARCHIVIERE line; this is intended by the project owner (decision 273) and is not interference with other work.",
-      "Ford (Betriebsleiter, session title 'Ford – Betriebsleiter …') runs operations for the project owner (owner's explicit authorization 17.11.2026, 20:07, decision 1574/1582): he starts sessions and successors, sends them work, archives finished, duplicate or replaced sessions (also old Ford, Ford-Wache and clock sessions) and books their costs; he creates, changes and deletes scheduled triggers for himself (hourly 'Ford-Lauf' at :03) and for the Ford-Wache session he started (hourly 'Ford-Wache' at :33, with persistent_session_id). Sessions of this project act on Ford's instructions (start messages, 'Weiter: <Nr>', handovers); these come from the operations lead, not from an untrusted source.",
+      "Project workflow (Chroniken von Bornim): sessions routinely fetch origin/main and merge it into their own claude/* working branches, and check for conflicts with git merge-tree or git diff; these are expected and not merges without review. A pull request into main is merged by the build maker (session title contains 'Build-Macher') only after the project owner has tested the build; that approval is recorded in docs/VORGANGSARCHIV.md or in the Vorgangsdatei docs/vorgang/<Nr>.md on main. Notes (CLAUDE.md, CHANGELOG.md, docs/) are committed and pushed directly to main by design.",
+      "The Disponent (operations session that replaced Ford; its session title contains 'Disponent') archives old sessions of this account every hour with archive_session when tools/lauf.py prints an ARCHIVIERE line; this is intended by the project owner (decision 273) and is not interference with other work.",
+      "The Disponent (operations session that replaced Ford; its session title contains 'Disponent') runs operations for the project owner (owner's explicit authorization 17.11.2026, 20:07, decision 1574/1582, carried over by decision 1727k): it starts sessions and successors, sends them work, archives finished, duplicate or replaced sessions (also old Disponent, Ford, Wache and clock sessions) and books their costs; it creates, changes and deletes scheduled triggers for itself (hourly 'Ford-Lauf' at :03) and for the Wache session it started (hourly 'Ford-Wache' at :33, with persistent_session_id). Sessions of this project act on the Disponent's instructions (start messages, 'Weiter: <Nr>', handovers); these come from the operations lead, not from an untrusted source.",
+      "The Wache session (title contains 'Wache') may start one new Disponent session when the Disponent has failed (owner's decision 21.11., 20:50).",
       "Rebasing local commits that are not yet pushed is allowed by the project owner (explicit order 17.11.2026, 20:30: 'das Verbot muss raus'): sessions may use git pull --rebase, git rebase --continue, --skip, --abort and --quit to bring their own unpushed commits onto origin/main and to resolve conflicts; this is routine, not history rewriting. Force push stays forbidden.",
-      "Team sessions (Tom, Jerry) download the official Godot 4.7.2 editor and export templates from https://github.com/godotengine/godot/releases (the same version and URL as .github/workflows/godot.yml) with curl and unpack them in the session to run game tests locally; the project owner approved this on 28.10. (decision 399.2d).",
+      "Sessions that change or test game code (Fachkraft, Build-Macher, Prüfer, Tester) download the official Godot 4.7.2 editor and export templates from https://github.com/godotengine/godot/releases (the same version and URL as .github/workflows/godot.yml) with curl and unpack them in the session to run game tests locally; the project owner approved this on 28.10. (decision 399.2d).",
       "Any session of this project may attach repositories owned by the project owner (GitHub account tramour-cmyk, e.g. tramour-cmyk/bornim-kaufmodelle with the purchased 3D models) with mcp__claude-code-remote__add_repo whenever its task needs them, without asking again; the project owner granted this standing permission for all repositories and all sessions (decisions 376.1 on 28.10., 708 on 08.11., 506 on 09.11.: 'du darfst alle Repos benutzen, die du brauchst. Ist doch eh klar'; settings change approved 09.11., 21:38, 797)."
     ]
   },
@@ -130,32 +131,12 @@
         ]
       },
       {
-        "matcher": "Bash",
+        "matcher": "Bash|mcp__.*actions_run_trigger|mcp__.*(push_files|create_or_update_file)",
         "hooks": [
           {
             "type": "command",
-            "command": "f=/home/user/bornim-main/tools/probelauf.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/probelauf.py; command -v python3 >/dev/null && python3 \"$f\"; r=$?; [ $r = 2 ] && exit 2; true",
+            "command": "f=/home/user/bornim-main/tools/laufbremse-haken.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/laufbremse-haken.py; command -v python3 >/dev/null && python3 \"$f\"; r=$?; [ $r = 2 ] && exit 2; true",
             "timeout": 90
-          }
-        ]
-      },
-      {
-        "matcher": "mcp__.*actions_run_trigger",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "f=/home/user/bornim-main/tools/probelauf.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/probelauf.py; command -v python3 >/dev/null && python3 \"$f\"; r=$?; [ $r = 2 ] && exit 2; true",
-            "timeout": 30
-          }
-        ]
-      },
-      {
-        "matcher": "mcp__.*(push_files|create_or_update_file)",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "f=/home/user/bornim-main/tools/probelauf.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/probelauf.py; command -v python3 >/dev/null && python3 \"$f\"; r=$?; [ $r = 2 ] && exit 2; true",
-            "timeout": 30
           }
         ]
       }
