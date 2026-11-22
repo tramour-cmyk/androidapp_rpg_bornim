@@ -1,5 +1,7 @@
 # 1750 Ortsklang im Kampf: Beleg
 
+[Bild von 22.11., 20:03](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/22-2003-1750-Disponent.mp3) (eingetragen von meldung.sh, Disponent)
+
 Ute (Klang), 22.11., 19:44. Stand `c55217898`, Zweig `claude/klang-1750-ortsklang-kampf`.
 
 **Regel** (`godot/klang/klang.gd` `_lage`, `ort_faktor`): Lage KARTE, KAMPF oder STILL. Im Kampf jede Schleife und jeder Einzellaut des Orts auf Kartenpegel × 0,5 (−6 dB), Vögel und Eule 0. Feuer und Fluss nach der Heldkachel bei Kampfbeginn. Menü (Baum angehalten): still. Nach dem Kampf mit den bisherigen Blendzeiten zurück (Wind 2 s, Feuer und Fluss 1 s je ganzem Anschwellen).
