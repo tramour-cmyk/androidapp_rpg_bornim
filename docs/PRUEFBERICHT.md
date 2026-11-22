@@ -41,6 +41,13 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 361 · 1898, 1894, 1919 (lesend, Weiter Ford 11:03; Kopie `f9fc83125`; 22.11., 11:03–11:06)
+
+- Alle 46 `tools/*_test.py` an der Kopie grün, dazu `gepusht-haken.py --test` und `herzschlag.py --test`.
+- 1919 greift: Stand oder „wartet auf“, die eine Zeile erst über 400 bringen, halten mit „Titel kürzen“; war sie schon zu lang, geht es weiter (1492).
+- 1894 gebaut, greift erst nach Merge auf `main` (echter Lauf der Kette): Aufbau stimmig (Repo öffentlich, `workflow_dispatch` über `GITHUB_TOKEN` löst Läufe aus, eigene Gruppe ohne Abbruch, 55 Min. unter Zeitgrenze 70). Rest ohne Befund: scheitert `gh workflow run herzschlag-kette.yml` im Schritt „Kette läuft?“, wird der ganze Herzschlag rot (Fehlalarm) statt nur zu warnen. Prüfen nach Merge: `actions_list` zeigt stündlich ein Glied der Kette und je Glied einen Herzschlag-Lauf.
+- 1898 greift nicht: **D350.1** → 1921 (Spike), nachgestellt: (a) nur eine fremde Datei (Verlauf nur `ls`) → Exit 2 mit „fremd, nicht mitpushen“ und im selben Satz „Vor dem Zugende committen und pushen“; (b) `eigen()` zählt zu viel: ein Aufruf `tools/meldung.sh Jerry "…"` macht jede Datei unter `docs/` eigen (auch `chefsache/ansehen/1535-flanke.md`, `ARBEIT-TEAM-TOM.md`), das lesende `vorgang.py --rolle` macht `LISTE-VORGAENGE.md` und `ARBEIT-BETRIEB.md` eigen. Im Fall 1776 (18 fremde Dateien unter `docs/`, Sitzung mit `meldung.sh`) hieße alles „eigen“ wie vorher.
+
 ## Lauf 360 · 1918, 1892 erneut (lesend, Weiter Ford 10:58; Kopie `1e6b2d697`; 22.11., 10:58–11:00)
 
 - Alle 46 `tools/*_test.py` an der Kopie grün.
