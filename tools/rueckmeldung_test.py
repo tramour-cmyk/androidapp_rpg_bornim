@@ -278,6 +278,20 @@ aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"
 open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(_l)
 soll("1911: nach Sokrates (wartet auf –) wird zugestellt", any(k == "9011-Ü3" for k, _ in je.get("Tom", [])), je.get("Tom"))
 
+# 1875 (Lauf 3 Disponent L4): Empfänger „Fachkraft“ → Besitzer (vor der Umschaltung) bzw. Fachprofil des Themenblocks (scharf)
+rc, out = vg("uebergabe", "9014", "Fachkraft", "Fackel heller", zeit="21.11., 23:20")
+g("pull", "-q", "origin", "main", cwd=A)
+_s = lauf.ist_scharf; lauf.ist_scharf = lambda: False
+aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
+soll("1875: Fachkraft vor der Umschaltung → Besitzer Tom", any("Fackel heller" in w for k, w in je.get("Tom", [])) and "Fachkraft" not in je, (je.keys(), aus))
+os.makedirs(os.path.join(A, "docs", "chefsache"), exist_ok=True)
+_tb = os.path.join(A, "docs", "chefsache", "themenbloecke.md")
+open(_tb, "w", encoding="utf-8").write("| Nr | Block | Profil | a | b | Bereiche | Vorgänge |\n|---|---|---|---|---|---|---|\n| 3 | Dorf | Welt | – | – | E Welt | – |\n")
+lauf.ist_scharf = lambda: True
+aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
+os.remove(_tb); lauf.ist_scharf = _s
+soll("1875: Fachkraft scharf → Fachprofil des Themenblocks (Welt)", any("Fackel heller" in w for k, w in je.get("Welt", [])) and "Fachkraft" not in je, (je.keys(), aus))
+
 # 1910 (D342.1): Chef-Nein zählt für Obergrenze A, nicht für die Laufbremse (V5 offen)
 cw.eintragen("9016", "Nein, Tür klemmt", "21.11., 23:00", "Sokrates")
 rc, out = vg("rueckmeldung", "9016", "nein: Tür klemmt noch", zeit="21.11., 23:05")

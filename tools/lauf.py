@@ -741,11 +741,25 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
     --ohne, Hintergrundlauf, Startsperre jünger als 20 Min.) oder fehlt es, NACHRICHT an Ford. Bis zur Umschaltung
     (tools/1727-SCHARF) sind Arbeitsplaner und Disponent Ford, der Prüfer Diogenes (ALT_EMPFAENGER).
     1911 (D343.1): wartet der Vorgang (Feld „wartet auf“, etwa Sokrates nach „steckt fest“), bleibt eine Zeile an eine Fachkraft
-    liegen (kein Start ohne Startbares, 340.12/3); Zeilen an das Büro (startbar.BUERO) gehen weiter."""
+    liegen (kein Start ohne Startbares, 340.12/3); Zeilen an das Büro (startbar.BUERO) gehen weiter.
+    1875 (Lauf 3 Disponent L4): Empfänger „Fachkraft“ (vorgang.py uebergabe) ist keine Rolle: bis zur Umschaltung der Besitzer des
+    Vorgangs in der Liste, danach das Fachprofil seines Themenblocks (startbar.block_von, themenbloecke.md); sonst bleibt „Fachkraft“."""
     try:
-        wartet = {x["nr"]: x["warte"] for x in startbar.vorgangsliste(lesen(os.path.join(docs or DOCS, startbar.LISTE))) if x.get("warte")}
+        zl = {x["nr"]: x for x in startbar.vorgangsliste(lesen(os.path.join(docs or DOCS, startbar.LISTE)))}
     except Exception:
-        wartet = {}
+        zl = {}
+    wartet = {n: x["warte"] for n, x in zl.items() if x.get("warte")}
+    scharf = ist_scharf()
+    def fachkraft(nr):
+        x = zl.get(nr) or {}
+        b = (x.get("besitzer") or "").strip()
+        if not scharf and b and b not in ("-", "–"): return b
+        try:
+            p = startbar.themenbloecke(docs)[0].get(startbar.block_von(nr, x.get("bereich"), docs))
+            if p and p not in startbar.BUERO: return p
+        except Exception:
+            pass
+        return b if b and b not in ("-", "–") else "Fachkraft"
     try:
         import uebergabe as _ue
         d = os.path.join(docs or DOCS, "vorgang")
@@ -754,13 +768,14 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
             if not n.endswith(".md"): continue
             for z in _ue.zeilen(open(os.path.join(d, n), encoding="utf-8").read()):
                 if not _ue.ist_offen(z["z"]) or z["an"].lower() == "sokrates": continue
-                w = wartet.get(z["k"].split("-Ü")[0])
-                if w and z["an"] not in startbar.BUERO:
-                    ausgabe.append("NICHTS Übergabe: %s an %s liegt, Vorgang wartet auf %s (1911)" % (z["k"], z["an"], ", ".join(w))); continue
-                je.setdefault(z["an"], []).append((z["k"], z["was"]))
+                nr = z["k"].split("-Ü")[0]
+                an = fachkraft(nr) if z["an"] == "Fachkraft" else z["an"]
+                w = wartet.get(nr)
+                if w and an not in startbar.BUERO:
+                    ausgabe.append("NICHTS Übergabe: %s an %s liegt, Vorgang wartet auf %s (1911)" % (z["k"], an, ", ".join(w))); continue
+                je.setdefault(an, []).append((z["k"], z["was"]))
     except Exception as e:
         ausgabe.append("WARNUNG offene Übergabezeilen nicht gelesen: %s (1739)" % e); return {}
-    scharf = ist_scharf()
     for an, zs in sorted(je.items()):
         r = "Ford" if an == "Disponent" else an if scharf else ALT_EMPFAENGER.get(an, an)  # 1893: Disponent ist Fords Sitzung
         teil = "Offene Zeilen an %s (1739): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; fertig: `vorgang.py erledigt <Kennung>`." % (an, "; ".join("%s %s" % (k, w) for k, w in zs[:6]))
