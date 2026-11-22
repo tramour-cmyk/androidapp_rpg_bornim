@@ -45,7 +45,25 @@ func miss(name: String, aus: String) -> void:
 			if (0.2126 * c.r + 0.7152 * c.g + 0.0722 * c.b) * 255.0 > 2.0: ueber += 1
 	print("URSACHE1566 %-15s Mittel %5.2f  hellster %5.1f  über 2: %d  (%d Punkte; im ganzen Schirm anders als neu: %d)" % [name, summe / maxf(n, 1), hell, ueber, n, anders])
 
+# Prüfer 22.11., 18:30: je Abwandlung den vorher gelesenen Wert zurück (nicht fest 0,6/0,03/weiß), sonst verfälscht sie die nächste
+func abwandeln(ms: Array, name: String, wert) -> Array:
+	var vorher := []
+	for m in ms:
+		vorher.append(m.get_shader_parameter(name))
+		m.set_shader_parameter(name, wert)
+	return vorher
+
+func zurueck(ms: Array, name: String, vorher: Array) -> void:
+	for i in ms.size(): ms[i].set_shader_parameter(name, vorher[i])
+
 func _lauf() -> void:
+	# Prüfer 22.11., 18:30: das Funkeln zeigt sich nur unter Mobile (Renderer des Handys); ohne Mobile kein gültiger Messlauf
+	var renderer := RenderingServer.get_current_rendering_method()
+	print("URSACHE1566 Renderer %s" % renderer)
+	if renderer != "mobile":
+		print("FEHLER URSACHE1566 Renderer %s statt mobile: Aufruf mit --rendering-method mobile --rendering-driver vulkan" % renderer)
+		quit(1)
+		return
 	var aus := OS.get_environment("BILD1566_AUS")   # leer: nur Zahlen, kein Bild
 	Testmodus.an = true
 	Testmodus.geladen = true
@@ -76,21 +94,23 @@ func _lauf() -> void:
 	var ms := kit()
 	print("URSACHE1566 Karte %s, Kit-Flächen %d, Nebel der Teichkacheln %s (0 nie gesehen, 1 gesehen, 2 in Sicht), night %s, Rechteck %s" % [spiel.karte.id, ms.size(), nb, ms[0].get_shader_parameter("night") if ms.size() else "-", r])
 	await miss("neu", aus)
-	for m in ms: m.set_shader_parameter("night", 0.0)
+	var v := abwandeln(ms, "night", 0.0)
 	await miss("ohne_nacht", aus)
-	for m in ms: m.set_shader_parameter("night", k_nacht)
-	for m in ms: m.set_shader_parameter("specular", 0.0)
+	zurueck(ms, "night", v)
+	v = abwandeln(ms, "specular", 0.0)
 	await miss("ohne_glanz", aus)
-	for m in ms: m.set_shader_parameter("specular", 0.6)
-	for m in ms: m.set_shader_parameter("roughness", 0.5)   # Glanz breit statt spitz (Vermutung: Spitzlicht läuft im Halbfloat-Puffer über)
+	zurueck(ms, "specular", v)
+	v = abwandeln(ms, "roughness", 0.5)   # Glanz breit statt spitz (Vermutung: Spitzlicht läuft im Halbfloat-Puffer über)
 	await miss("glanz_rau", aus)
-	for m in ms: m.set_shader_parameter("roughness", 0.03)
-	for m in ms: m.set_shader_parameter("refraction_tint", Color(0, 0, 0))
+	zurueck(ms, "roughness", v)
+	v = abwandeln(ms, "refraction_tint", Color(0, 0, 0))
 	await miss("ohne_durchsicht", aus)
-	for m in ms: m.set_shader_parameter("refraction_tint", Color(1, 1, 1))
+	zurueck(ms, "refraction_tint", v)
+	print("URSACHE1566 zurückgesetzt: night %s, specular %s, roughness %s, refraction_tint %s" % [ms[0].get_shader_parameter("night"), ms[0].get_shader_parameter("specular"), ms[0].get_shader_parameter("roughness"), ms[0].get_shader_parameter("refraction_tint")] if ms.size() else "")
+	var ohne_vorher = spiel.nebel.mat.get_shader_parameter("ohne")
 	spiel.nebel.mat.set_shader_parameter("ohne", 1.0)
 	await miss("ohne_nebel", aus)
-	spiel.nebel.mat.set_shader_parameter("ohne", 0.0)
+	spiel.nebel.mat.set_shader_parameter("ohne", ohne_vorher)
 	for mi in (spiel.gebiet as Node).find_children("*Wasser*", "MeshInstance3D", true, false): mi.visible = false
 	await miss("ohne_wasser", aus)
 	print("URSACHE1566 fertig")
