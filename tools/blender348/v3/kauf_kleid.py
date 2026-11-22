@@ -495,6 +495,15 @@ if 'cloak' in TID and all(n in Q_KN for n in ('pelvis', 'spine_01', 'spine_02', 
     _kette = ['pelvis', 'spine_01', 'spine_02', 'spine_03']; _kz = [QP_MAT[n].translation.z for n in _kette]
     _za = QP_MAT['upperarm_l'].translation.z; _zn = QP_MAT['neck_01'].translation.z
     _cl = np.where(np.isin(LTk, [TID[t] for t in ('cloak', 'clasp') if t in TID]))[0]
+    # Schulterblatt (Jana 22.11.: an Wirbelkette allein stachen Kutte, Schulterstück und Kapuze, die mit dem Schlüsselbein gehen, in
+    # Bewegung bei 1,3-1,5 m durch den Umhang): hinten zwischen Achsel und Schulter, innerhalb des Schultergelenks, die Gewichte der Haut
+    # darunter, Arm an das Schlüsselbein derselben Seite (der Arm hebt den Umhang nicht, 861), Kopf an den Hals
+    _xa = abs(QP_MAT['upperarm_l'].translation.x)
+    _zuS = np.arange(len(Q_KN))
+    for k, nm in enumerate(Q_KN):
+        if nm.startswith(('upperarm', 'lowerarm', 'hand', 'thumb', 'index', 'middle', 'ring', 'pinky')) and nm[-2:] in ('_l', '_r'):
+            _zuS[k] = Q_KN.index('clavicle' + nm[-2:])
+        elif nm == 'Head': _zuS[k] = iHals
     for i in _cl:
         z = VK2[i, 2]; w = np.zeros(len(Q_KN))
         if z <= _kz[0]: w[Q_KN.index('pelvis')] = 1.0
@@ -503,6 +512,14 @@ if 'cloak' in TID and all(n in Q_KN for n in ('pelvis', 'spine_01', 'spine_02', 
             for k in range(3):
                 if z <= _kz[k + 1]:
                     t = (z - _kz[k]) / (_kz[k + 1] - _kz[k]); w[Q_KN.index(_kette[k])] = 1 - t; w[Q_KN.index(_kette[k + 1])] = t; break
+        bw = _st(z, _za - 0.22, _za - 0.08) * (1.0 - _st(abs(VK2[i, 0]), _xa - 0.06, _xa - 0.02))
+        if bw > 0:
+            c, _, fi, _ = qbvh.find_nearest(Vector(VK2[i]))
+            if fi is not None:
+                ecken = list(QF[fi]); d = np.linalg.norm(QV[ecken] - np.array(c), axis=1)
+                g = 1.0 / np.maximum(d, 1e-4); wh = (g[:, None] * WQ[ecken]).sum(0) / g.sum()
+                wb = np.zeros(len(Q_KN)); np.add.at(wb, _zuS, wh)
+                w = (1.0 - bw) * w + bw * wb / max(wb.sum(), 1e-6)
         sw = _st(abs(VK2[i, 0]), 0.03, 0.07) * _st(z, _za - 0.03, _za + 0.04)
         w *= (1.0 - sw); w[Q_KN.index('clavicle_l' if VK2[i, 0] > 0 else 'clavicle_r')] += sw   # links +X
         hw = (1.0 - _st(abs(VK2[i, 0]), 0.02, 0.05)) * _st(z, _za, _zn)
