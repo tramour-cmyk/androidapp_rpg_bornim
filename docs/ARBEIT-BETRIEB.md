@@ -43,6 +43,7 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
+- 16:32 22.11.: Startsperre 16:32 Start Werkzeug (1957 nach 1957-Ü1, von Hand wegen 1957); Start Sokrates `…78cQFrwz9xMJtEJtun`; neu 1959 (Werkzeug, Tagesbericht-Start abgelehnt)
 - 16:30 22.11.: Startsperre 16:30 Start Sokrates (Neustart 400 Tsd., 6b551daf7, Leitung nach dem Umschalten); Start Figur Dana `…77eawfwxZTjnt3cZap`, Arbeitsplaner Elke `…7ABizvCYsSqPn7zCpC`; Britta archiviert (1,05 $ auf 1570); Anna angehalten (1727 erledigt)
 - 16:27 22.11.: Startsperre 16:27 Start Figur, Arbeitsplaner (von Hand wegen 1957: Figur Dana 1570 nach 1570-Ü1, Arbeitsplaner Elke 1957; lauf.py wollte zusätzlich Carla 1727 doppelt und Tagesbericht, beides nicht)
 - 16:24 22.11.: KLASSE nach Sokrates 16:23 (Maßstab: was der neue Ablauf zum Laufen braucht): Muss 1851 (Bremse), 1852 (Startsperre-Quelle), 1853 (Tagesbericht-Routine), 1856 (Ende-Haken), 1857 (zug-index-Auslöser), 1863 (alle Werkzeugtests in CI), 1864 (Build-Auftrag), 1868 (Liegezeit); Kür 1850 (Teamzweig-Workflows), 1854 (Regelcheck), 1862 (Wache Schicht 2), 1867 (Lehrenbuch, 1890 deckt Suche). Neu 1956 (Werkzeug, M): doppelte Startsperre
