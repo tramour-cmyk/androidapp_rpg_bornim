@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 19:01, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 19:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -58,7 +58,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | **Chef** | [1566.md](entscheiden/1566.md) entscheiden |
 | Arbeitsplaner | läuft: 1068 (Besetzung); 45 Geschäftsmodell und Umsetzung (nach dem Meilenstein) |
 | Regeln | läuft: 870 (Besetzung); 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss) |
-| Kampf | 1068 Ring bei jedem großen Schlag der Gegner … (Muss); dann 4 weitere |
+| Kampf | läuft: 1589.2 (Besetzung); 1068 Ring bei jedem großen Schlag der Gegner … (Muss); dann 4 weitere |
 | Figur | läuft: 1570 (Besetzung); 1570 Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 f… (Muss); dann 10 weitere |
 | Kataloge | leer, weil 7 wartet auf Vorgang (649.2, 1331, 644.1, 649.2, 644.1, 644.1, 649.2), 2 ruht, 1 wartet auf Test/Build |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
@@ -67,7 +67,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 2 weitere |
 | Werkzeug | läuft: 1963 (Besetzung); 1967 Reihenfolge Klasse vor Themenblock; lauf.auftrag_offen und… (Muss); dann 31 weitere |
-| Prüfer | läuft: 1962 (Besetzung); leer, weil keine offene Zeile |
+| Prüfer | leer, weil keine offene Zeile |
 | Tester | leer, weil keine offene Zeile |
 
 **Die nächsten 20**
