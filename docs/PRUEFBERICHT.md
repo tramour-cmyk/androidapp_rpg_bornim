@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 387 · 1951, damit 1948 (lesend, Weiter Ford 15:15; Kopie `36a66b176`; 22.11., 15:15–15:17)
+
+- Greifen (erledigt). Alle 43 `tools/*_test.py` grün, keine Haltzeile aus Testläufen. Proben aus Lauf 386 jetzt kein Nein (Truhe/Fackel, Bank, „Kein Unterschied zu gestern beim Laden, gut so.“, „Daneben steht der Brunnen, passt.“), auch `bisher_nein`; weiter Nein: „Wieder daneben.“, „Daneben.“, „Völlig daneben, nochmal.“, „Also fail.“, „Film t300.11 Fail“, „kein Unterschied zwischen alt und neu“, „Ich sehe keinen Unterschied.“, „Nicht besser.“, „299.3 ✗“ mitten im Satz.
+- Nicht als Befund: „Das ist daneben gegangen.“ zählt nicht als Nein (Urteilswort nach „daneben“ nicht erfasst); fällt in die vorsichtige Richtung.
+
 ## Lauf 386 · 1944–1950 Werkzeuglücken Falltest 1727 Lauf 4 (lesend, Weiter Ford 15:05; Kopie `1c5ac8fd8`; 22.11., 15:06–15:09)
 
 - Alle 43 `tools/*_test.py` an der Kopie grün, `werkzeugluecken_lauf4_test` 38 Fälle; keine Haltzeile aus Testläufen in `origin/haken`.
