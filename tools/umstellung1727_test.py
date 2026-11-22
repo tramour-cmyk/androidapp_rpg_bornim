@@ -75,5 +75,23 @@ if os.path.exists(os.path.join(quelle, "LISTE-VORGAENGE.md")):
         soll("echt: Titel kurz", all(len(z[1]) <= U.KURZ + 2 or z[8].startswith("*erledigt") for z in neu))
     shutil.rmtree(k)
 
+# 1871 Umzug „Zu <Nr>“: wörtlich in die Datei der ersten Nummer, Verweis bei weiteren, ohne Nummer gesammelt, Rest bleibt
+import umzug as Z
+d = tempfile.mkdtemp(); os.makedirs(os.path.join(d, "vorgang"))
+open(os.path.join(d, "LISTE-VORGAENGE.md"), "w").write(K + "| 1700 | Von Tom (1334): Wiederholrot | Tom | M | startbar | – | – | – | B Werkzeuge | – |\n")
+open(os.path.join(d, "vorgang", "1700.md"), "w").write("# 1700 · Wiederholrot\n\n## Herkunft\n\nx\n")
+open(os.path.join(d, "ARBEIT-TEAM-TOM.md"), "w").write(
+    "# Vorrat Team Tom\n\n**Übergabe (x):** getan\n- **Zu 1700, 1800, von Chef (22.11., 07:00):** „Wort“\n  Folgezeile\n"
+    "- **Zugriff, von Chef:** bleibt\n- **Zu Archivprüfung (Chef):** ohne Nummer\n\n## Einzelheiten\n\nbleibt\n")
+B = Z.umziehen(d)
+v = open(os.path.join(d, "ARBEIT-TEAM-TOM.md")).read()
+a = open(os.path.join(d, "vorgang", "1700.md")).read()
+soll("Umzug: Vorrat ohne Zu", "**Zu " not in v and "Zugriff" in v and "Übergabe" in v and "bleibt\n" in v)
+soll("Umzug: wörtlich mit Folgezeile", "„Wort“\n  Folgezeile" in a and "## Herkunft" in a and "ARBEIT-TEAM-TOM.md" in a)
+soll("Umzug: Verweis in neuer Datei", "[1700.md]" in open(os.path.join(d, "vorgang", "1800.md")).read() and sorted(B["neu"]) == ["1800", "ohne-nummer"])
+soll("Umzug: ohne Nummer", "Archivprüfung" in open(os.path.join(d, "vorgang", "ohne-nummer.md")).read())
+soll("Umzug: zweiter Lauf", Z.umziehen(d)["absaetze"] == 0 and open(os.path.join(d, "vorgang", "1700.md")).read() == a)
+shutil.rmtree(d)
+
 print("umstellung1727_test:", "grün" if not fehler else "ROT: " + "; ".join(fehler))
 sys.exit(1 if fehler else 0)
