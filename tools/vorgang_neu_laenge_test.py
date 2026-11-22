@@ -12,7 +12,6 @@ vorgang.zaehler_pushen = lambda zeile, nr, wer: gezogen.append(nr) or "gültig"
 vorgang.schreiben = lambda *a, **k: None
 vorgang.text_liste = lambda: "| Nr. |\n"
 vorgang.waechter = lambda *a, **k: None
-vorgang.leere_entwickler = lambda r: []
 fehl = 0
 def soll(name, ok, zeige=""):
     global fehl; fehl += not ok; print(("ok  " if ok else "FEHL"), name, "" if ok else zeige)

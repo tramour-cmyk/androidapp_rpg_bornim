@@ -186,9 +186,7 @@ def setzen(nr, paare, rolle=None):
         elif k == "bereich" and not bereiche.gueltig(v): sys.exit("vorgang.py: Bereich aus der festen Liste (651), Vorschlag „%s“:\n%s" % (bereiche.einordnen(v), bereiche.liste_text()))
         else: n[k] = v.strip() or "–"
     if n["besitzer"] != d["besitzer"]:  # neuer Besitzer: Zeile ans Ende seiner Zeilen
-        leer = leere_entwickler(n["besitzer"]) if n["kl"] != "K" else []  # 1604
         ersetzen(d, n); rang(nr, "unten", None, n["besitzer"])
-        if leer: print(leer_text(nr, n["besitzer"], leer))
     else:
         ersetzen(d, n)
     print("vorgang.py: %s gesetzt: %s" % (nr, ", ".join(paare)))
@@ -448,37 +446,7 @@ def zaehler_pushen(zeile, nr, besitzer):
     except Exception:
         return "aus"
 
-# 1604 (Chef 17.11., 23:16 „warum ich dich erinnern muss, dass es mehr als 2 Entwickler gibt“): Fehler 341 zum zweiten Mal (1600),
-# Arbeit nach Fach an Jerry und Tom, während Spike und Tuffy leer standen. Geht ein Muss an Tom oder Jerry, warnt das Werkzeug,
-# wenn Spike kein startbares Muss (auch keine Übernahme 1364) hat oder Tuffy kein zweites unabhängiges bei Jerry (wie ueberblick.py).
-# Nur warnen: verteilt wird nach Last, entscheiden tut der Anlegende.
-def _muss_startbar(rolle):
-    zs = [z for z in startbar.plan(rolle) if z[1] == "M" and not z[4] and "fuer" not in z[3]]
-    inhalt = startbar.lesen(startbar.VORRAT.get(rolle, ""))
-    if startbar.pause(inhalt) and startbar.pause_frei(inhalt):  # wie startbares_muss: Pause ohne „frei für“ hält nur die Kür
-        frei = startbar.pause_frei(inhalt); zs = [z for z in zs if startbar.ist_frei(z[0], frei)]
-    return zs
-
-def leere_entwickler(besitzer):
-    """[Spike, Tuffy] ohne Arbeit, wenn ein Muss an Tom oder Jerry geht (1604); Tuffy nur bei Tom (eine neue Jerry-Zeile ist Tuffys Arbeit)."""
-    if besitzer not in ("Tom", "Jerry"): return []
-    aus = []
-    try:
-        if not _muss_startbar("Spike") and not startbar.uebernahmen("Spike"): aus.append("Spike")
-        if besitzer == "Tom":
-            eigen = _muss_startbar("Jerry")
-            zw = (eigen[0][3].get("zweig") or "–") if eigen else "–"
-            frei = [x for x in eigen[1:] if (x[3].get("zweig") or "–") in ("–", "-", "") or x[3].get("zweig") != zw]
-            if not [x for x in frei if not re.search(r"nur Jerry\b", x[2] + " " + x[3].get("stand", ""))]: aus.append("Tuffy")
-    except Exception as e:  # die Warnung darf das Anlegen nie verhindern
-        print("vorgang.py: Lastprüfung 1604 übersprungen (%s)" % e)
-    return aus
-
-def leer_text(nr, besitzer, leer):
-    wer = " und ".join({"Spike": "Spike hat kein startbares Muss", "Tuffy": "Tuffy kein zweites unabhängiges Muss bei Jerry"}[x] for x in leer)
-    ziel = " oder ".join({"Spike": "`vorgang.py setze %s besitzer=Spike`" % nr, "Tuffy": "`vorgang.py setze %s besitzer=Jerry` (Tuffy arbeitet auf Jerrys Zeilen)" % nr}[x] for x in leer)
-    return ("vorgang.py: WARNUNG 1604: %s geht an %s, aber %s. Nach Last verteilen, nicht nach Fach (Fehler 341): "
-            "kann es ein anderer bauen, %s oder Abgabe-Zeile im Vorrat (1364); sonst begründet so lassen." % (nr, besitzer, wer, ziel))
+# 1604 Leerlauf-Warnung „Spike/Tuffy ohne Muss“ fällt (1871 Stilllegung C; Disponent teilt jeden Auftrag zu, G:130, G:498).
 
 ARCHIV = "LISTE-VORGAENGE-ARCHIV.md"
 
@@ -550,13 +518,11 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
         else: sys.exit("vorgang.py: Zähler sechsmal abgewiesen (origin/main bewegt sich zu schnell); nichts angelegt, gleich noch einmal")
         if r != "gültig": schreiben("ARBEIT-BETRIEB.md", b.replace(m.group(0), zeile, 1))
         # gültig: der Zähler steht auf origin/main; die eigene Kopie holt ihn beim nächsten pull ohne Konflikt (Zeile hier unverändert)
-    leer = leere_entwickler(besitzer) if kl != "K" else []  # vor dem Einfügen: Stand ohne die neue Zeile
     L = text_liste().split("\n")
     eigen, ende = gruppe(L, besitzer)
     L.insert(eigen[0] if oben and eigen else ende, startbar.zeile_text(d))
     schreiben(startbar.LISTE, "\n".join(L))
     print("vorgang.py: %s angelegt (%s, %s, %s); Einzelheiten als „Zu %s“ in den Vorrat, dann pushen, dann die Nummer nennen" % (nr, bereich, kl, besitzer, nr))
-    if leer: print(leer_text(nr, besitzer, leer))
     if not titel.startswith(SYSTEM): waechter(nr, titel, bereich)
     return nr
 
