@@ -78,7 +78,7 @@ def finden(nr, rolle=None):
 
 def fehler_oder(d, alt=None):
     alle = set(startbar.VORG) | {x["nr"] for x in startbar.zeilen_liste()}
-    f = startbar.pruefen_zeile(dict(d, zeile=startbar.zeile_text(d), spalten=len(startbar.SPALTEN)), alle)
+    f = startbar.pruefen_zeile(dict(d, zeile=startbar.zeile_text(d), spalten=len(startbar.SPALTEN_NEU if startbar.NEU else startbar.SPALTEN)), alle)
     # 1492 (D281.3): Stand und „wartet auf“ setzen geht auch, wenn die Zeile schon zu lang ist; die Länge zählt nur, wenn der Titel sich ändert
     if alt is not None and d.get("titel") == alt.get("titel"):
         f = [x for x in f if not x.startswith("Zeile über 400 Zeichen")]
@@ -91,12 +91,28 @@ def fehler_oder(d, alt=None):
     if f: sys.exit("vorgang.py: %s nicht geschrieben: %s" % (d["nr"], "; ".join(f)))
 
 def ersetzen(alt, neu):
+    if startbar.NEU:  # 1893: Eilt ist Kl. der neuen Liste (nur Wort des Chefs); Block und Besitzer folgen dem Bereich; Build in die Vorgangsdatei
+        if neu.get("kl") == "Eilt": neu["kl"] = "M"; neu["eilt"] = True
+        elif neu.get("kl") != alt.get("kl"): neu["eilt"] = False
+        if neu.get("bereich") != alt.get("bereich") or not neu.get("block"):
+            neu["block"] = startbar.block_von(neu["nr"], neu["bereich"])
+        neu["besitzer"] = startbar.themenbloecke()[0].get(neu["block"], "Arbeitsplaner")
+        if (neu.get("build") or "–") != (alt.get("build") or "–"): build_in_datei(neu["nr"], neu.get("build") or "–")
     neu["wort"] = startbar.wort_von(neu["stand"]); neu["zusatz"] = startbar.zusatz_von(neu["stand"])
     fehler_oder(neu, alt)
     L = text_liste().split("\n")
     if L[alt["i"]] != alt["zeile"]: sys.exit("vorgang.py: Liste hat sich beim Lesen geändert, nichts geschrieben")
     L[alt["i"]] = startbar.zeile_text(neu)
     schreiben(startbar.LISTE, "\n".join(L))
+
+def build_in_datei(nr, build):
+    """1893: Build der neuen Liste steht in docs/vorgang/NR.md als Zeile „- Build: <n>“ (letzte gilt; startbar.build_aus_datei)."""
+    p = os.path.join(DOCS, "vorgang", "%s.md" % nr)
+    try: t = open(p, encoding="utf-8").read()
+    except OSError: t = "# %s\n\nVorgangsdatei (1727 Gesamtbild 0a). Übergaben schreibt nur `vorgang.py` (1760).\n" % nr
+    if "## Build" not in t: t = t.rstrip("\n") + "\n\n## Build\n"
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    open(p, "w", encoding="utf-8").write(t.rstrip("\n") + "\n- Build: %s\n" % build)
 
 def warte_aus(text):
     t = text.strip()
@@ -156,6 +172,7 @@ def setzen(nr, paare, rolle=None):
         k, _, v = p.partition("=")
         if k not in FELDER: sys.exit("vorgang.py: Feld „%s“ unbekannt (%s)" % (k, ", ".join(sorted(set(FELDER)))))
         k = FELDER[k]
+        if k == "besitzer" and startbar.NEU: sys.exit("vorgang.py: neue Liste (1727): Besitzer folgt dem Bereich (Block, Fachprofil); `vorgang.py setze %s bereich=<Bereich>`" % nr)
         if k == "warte": n[k] = warte_aus(v)
         elif k == "stand":
             if stand_pruefen(v, nr) == "erledigt" and (sp := rest_sperre(nr, d)): sys.exit("vorgang.py: " + sp)   # 1153
@@ -180,6 +197,7 @@ def klasse(nr, kl, rolle=None):
 def stufe(d):
     """1543: Rang der Klasse für ordnen()."""
     if d.get("stand", "").startswith("nach"): return 3
+    if d.get("eilt"): return -1  # 1893: Eilt vor Muss
     return {"M": 0, "M?": 1}.get(d.get("kl", "").strip(), 2)
 
 def muss_vorn(text):
@@ -466,6 +484,9 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     if any(c in titel for c in "|\n"): sys.exit("vorgang.py: Titel ohne | und Zeilenumbruch")
     if nr and (nr in startbar.VORG or any(d["nr"] == nr for d in startbar.zeilen_liste())): sys.exit("vorgang.py: %s gibt es schon" % nr)
     d = dict(nr=nr or "?", titel=titel.strip(), besitzer=besitzer, kl=kl, stand="startbar", warte=[], zweig="–", build="–", bereich=bereich.strip(), kosten="–")
+    if startbar.NEU:  # 1893: neue Liste ohne Besitzer; Besitzer = Fachprofil des Blocks aus dem Bereich
+        d["block"] = startbar.block_von(d["nr"], d["bereich"]); d["besitzer"] = startbar.themenbloecke()[0].get(d["block"], "Arbeitsplaner")
+        d["runde"] = "0"; d["sitzung"] = "–"; besitzer = d["besitzer"]
     d["wort"] = "startbar"; d["zusatz"] = ""
     fehler_oder(d)
     if not nr:

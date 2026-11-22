@@ -51,6 +51,7 @@ def blank(t):
     return re.sub(r"^[\s*`_]+", "", re.sub(r"\*\*|`", "", t)).strip()
 
 def lesen(name):
+    if not name: return ""  # 1893: Profil ohne Vorrat
     p = os.path.join(DOCS, name)
     return open(p, encoding="utf-8").read() if name and os.path.isfile(p) else ""  # Homer 1264: Besitzer ohne Vorrat („Ideen“) gab docs/
 
@@ -108,13 +109,75 @@ def tabellen(text):
 
 SCHLUESSEL = {"Nr.": "nr", "Nr": "nr", "Titel": "titel", "Vorgang": "titel", "Besitzer": "besitzer", "Vorrat": "besitzer", "Kl.": "kl",
               "Stand": "stand", "wartet auf": "warte", "Zweig": "zweig", "Build": "build", "Bereich": "bereich", "Kosten": "kosten"}
+SCHLUESSEL.update({"Block": "block", "Bezug": "bezug", "*Stand*": "stand", "*Sitzung*": "sitzung", "*Runde*": "runde", "*Kosten*": "kosten"})
+
+# 1893 (1727, Umschalt-Commit 1871): Leser und Schreiber der umgestellten Liste (Muster docs/entwurf/1727-muster/LISTE-VORGAENGE.md,
+# tools/umstellung1727/umstellen.py). Kopf ohne Besitzer und Build: Besitzer = Fachprofil des Blocks (chefsache/themenbloecke.md),
+# Build aus der Vorgangsdatei („- Build:“ unter „## Herkunft“); Kl. „Eilt“ zählt als Muss mit d["eilt"] (Vorrang wie „jetzt“).
+# Rechenfelder (*Stand* …) kursiv; Stand schreibt bis zum Auftragsrechner weiter vorgang.py. Alte Liste liest und schreibt alles wie bisher.
+SPALTEN_NEU = ["Nr.", "Titel", "Block", "Bereich", "Kl.", "wartet auf", "Bezug", "Zweig", "*Stand*", "*Sitzung*", "*Runde*", "*Kosten*"]
+KOPF_NEU = "| " + " | ".join(SPALTEN_NEU) + " |"
+BUERO = ["Disponent", "Arbeitsplaner", "Prüfer", "Tester"]  # wartet auf: Ford → Disponent, Perikles → Arbeitsplaner, Diogenes → Prüfer
+NEU = None  # Kopf der zuletzt gelesenen Liste: True neu, False alt
+
+def themenbloecke(docs=None):
+    """(Block → Fachprofil, Bereich → Block, Vorgang → Block); Block ohne Fachprofil („–“, Marktstart) → „Arbeitsplaner“ (verteilt)."""
+    try: t = open(os.path.join(docs or DOCS, "chefsache", "themenbloecke.md"), encoding="utf-8").read()
+    except OSError: t = ""
+    profil, nach_bereich, nach_nr = {"9": "Arbeitsplaner"}, {"G Regeln": "10"}, {}
+    for z in t.splitlines():
+        if not re.match(r"\| \d+ \|", z): continue
+        c = [x.strip() for x in z.strip().strip("|").split(" | ")]
+        if len(c) < 7: continue
+        profil[c[0]] = c[2] if c[2] not in ("", "–", "-") else "Arbeitsplaner"
+        for b in re.split(r",\s*", c[5]):
+            if b and b != "–": nach_bereich[b] = c[0]
+        for n in re.split(r",\s*", c[6]):
+            if n and n != "–": nach_nr[n] = c[0]
+    return profil, nach_bereich, nach_nr
+
+def block_von(nr, bereich, docs=None):
+    """Block eines Vorgangs wie umstellen.py: Vorgangsnummer (auch Unternummer 458.3 → 458), sonst Bereich, sonst 9 „Übriges“."""
+    _, nach_bereich, nach_nr = themenbloecke(docs)
+    n = nr or ""
+    while n:
+        if n in nach_nr: return nach_nr[n]
+        n = n.rsplit(".", 1)[0] if "." in n else re.sub(r"[a-z]+$", "", n) if re.search(r"[a-z]$", n) else ""
+    return nach_bereich.get((bereich or "").strip(), "9")
+
+def profile(docs=None):
+    """Alle Besitzer der neuen Liste: Fachprofile der Themenblöcke, dann Büro."""
+    aus = []
+    for p in list(themenbloecke(docs)[0].values()) + BUERO:
+        if p not in aus: aus.append(p)
+    return aus
+
+for _p in profile():
+    if _p not in BESITZER: BESITZER.append(_p)
+    if _p not in WARTE_ROLLEN: WARTE_ROLLEN.append(_p)
+
+def build_aus_datei(nr, docs=None):
+    """Build aus „- Build: <n>“ der Vorgangsdatei (Herkunft der Umstellung, danach vorgang.py build), sonst „–“."""
+    try: t = open(os.path.join(docs or DOCS, "vorgang", "%s.md" % nr), encoding="utf-8").read()
+    except OSError: return "–"
+    m = re.findall(r"(?m)^- Build: (.+)$", t)
+    return m[-1].strip() if m else "–"
+
+def besitzer_reihe():
+    """[(Vorratsdatei, Besitzer)] für Schleifen je Besitzer: alte Liste ROLLEN, neue Liste je Profil ohne Vorrat (1893)."""
+    if NEU is None: vorgangsliste()
+    return [(None, p) for p in profile()] if NEU else ROLLEN
+
+def kursiv_weg(x):
+    x = (x or "").strip()
+    return x[1:-1].strip() if len(x) >= 2 and x[0] == "*" and x[-1] == "*" and not x.startswith("**") else x
 
 def tafel_zeilen(text):
     """Zeilen aller Vorgangstabellen eines Textes als dict mit den Schlüsseln aus SCHLUESSEL (nr, titel, besitzer, kl, stand, bereich,
     kosten, …), Spalten über den Kopf: liest die Liste mit Feldern (275.2) und das alte Format (Archiv, Git-Stände vor 275.2) gleich."""
     aus = []
     for kopf, zs in tabellen(text):
-        if not ("Nr." in kopf and "Stand" in kopf): continue
+        if not ("Nr." in kopf and ("Stand" in kopf or "*Stand*" in kopf)): continue
         idx = {SCHLUESSEL[k]: n for n, k in enumerate(kopf) if k in SCHLUESSEL}
         for _, t in zs:
             if len(t) < len(kopf): continue
@@ -135,14 +198,24 @@ def zusatz_von(stand):
 def vorgangsliste(text=None):
     """Zeilen der Vorgangsliste als dict (nr, titel, besitzer, kl, stand, wort, zusatz, warte [Liste], zweig, build, bereich, kosten,
     zeile, i). Liest die erste Tabelle mit Spalte „Besitzer“ und „wartet auf“."""
+    global NEU
     text = lesen(LISTE) if text is None else text
     for kopf, zs in tabellen(text):
-        if "Besitzer" not in kopf or "wartet auf" not in kopf: continue
+        if "wartet auf" not in kopf or not ("Besitzer" in kopf or "Block" in kopf): continue
+        neu = "Besitzer" not in kopf
+        NEU = neu
         idx = {SCHLUESSEL.get(k, k): n for n, k in enumerate(kopf)}
         aus = []
         L = text.split("\n")
+        profil = themenbloecke()[0] if neu else {}
         for i, t in zs:
             d = {k: (t[n] if n < len(t) else "") for k, n in idx.items()}
+            if neu:  # 1893
+                for k in ("stand", "sitzung", "runde", "kosten"): d[k] = kursiv_weg(d.get(k, ""))
+                d["besitzer"] = profil.get(d.get("block", ""), "Arbeitsplaner")
+                d["eilt"] = d.get("kl") == "Eilt"
+                if d["eilt"]: d["kl"] = "M"
+                d["build"] = build_aus_datei(d.get("nr", ""))
             d["zeile"] = L[i]; d["i"] = i; d["spalten"] = len(t)
             d["wort"] = wort_von(d.get("stand", "")); d["zusatz"] = zusatz_von(d.get("stand", ""))
             w = d.get("warte", "").strip()
@@ -151,9 +224,16 @@ def vorgangsliste(text=None):
         return aus
     return []
 
-def zeile_text(d):
-    """dict → Tabellenzeile im Format KOPF."""
+def zeile_text(d, neu=None):
+    """dict → Tabellenzeile im Format KOPF (alte Liste) bzw. KOPF_NEU (1893: Kopf der zuletzt gelesenen Liste, sonst neu=True/False)."""
     w = ", ".join(d.get("warte") or []) or "–"
+    if (NEU if neu is None else neu):
+        kl = "Eilt" if d.get("eilt") or d.get("kl") == "Eilt" else d.get("kl", "")
+        block = d.get("block") or block_von(d.get("nr", ""), d.get("bereich", ""))
+        bz = d.get("bezug") or "–"
+        werte = [d.get("nr", ""), d.get("titel", ""), block, d.get("bereich", ""), kl, w, bz, d.get("zweig") or "–"]
+        rech = ["*%s*" % (str(d.get(k) or ("0" if k == "runde" else "–")).replace("*", "")) for k in ("stand", "sitzung", "runde", "kosten")]
+        return "| " + " | ".join(str(x).replace("|", "/").replace("\n", " ").strip() for x in werte + rech) + " |"
     werte = [d.get("nr", ""), d.get("titel", ""), d.get("besitzer", ""), d.get("kl", ""), d.get("stand", ""), w,
              d.get("zweig") or "–", d.get("build") or "–", d.get("bereich", ""), d.get("kosten") or "–"]
     return "| " + " | ".join(str(x).replace("|", "/").replace("\n", " ").strip() for x in werte) + " |"
@@ -638,7 +718,8 @@ GEPRUEFT = re.compile(r"Geprüft an:?\s*(?:https?://\S+|bilder:\S+|`?[0-9a-f]{7,
 def pruefen_zeile(d, alle_nr=None):
     """Formfehler einer Listenzeile (275.2); leer = gut."""
     f = []
-    if d.get("spalten") not in (None, len(SPALTEN)): f.append("%d statt %d Spalten" % (d["spalten"], len(SPALTEN)))
+    soll = len(SPALTEN_NEU if NEU else SPALTEN)
+    if d.get("spalten") not in (None, soll): f.append("%d statt %d Spalten" % (d["spalten"], soll))
     if not d["nr"]: f.append("Nummer fehlt")
     if d.get("besitzer") not in BESITZER: f.append("Besitzer „%s“ (nur %s)" % (d.get("besitzer"), ", ".join(BESITZER)))
     if d.get("kl") not in ("M", "K", "M?", "–"): f.append("Klasse „%s“ (M, K, M?, –)" % d.get("kl"))
@@ -655,7 +736,7 @@ def pruefen_zeile(d, alle_nr=None):
         f.append("„%s“ ohne Feld „wartet auf“ (Test des Chefs: Stand „gebaut“ oder „zu testen“ mit Build; Ereignis ohne Nummer: „ruht“ mit Zusatz)" % d["wort"])
     if d["wort"] == "Chef" and not any(art(t) == "chef" for t in d["warte"]): f.append("„Chef“ ohne „Chef“ im Feld „wartet auf“")
     if d["wort"] == "gebaut" and not GEPRUEFT.search(d.get("stand", "")): f.append("„gebaut“ ohne „Geprüft an: <Link, Lauf oder Commit>“ (340.4, D80.7)")
-    if len(d.get("zeile", "")) > 400: f.append("Zeile über 400 Zeichen (Einzelheiten als „Zu %s“ in den Vorrat)" % d["nr"])
+    if len(d.get("zeile", "")) > 400 and not (NEU and d.get("wort") == "erledigt"): f.append("Zeile über 400 Zeichen (Einzelheiten als „Zu %s“ in den Vorrat)" % d["nr"])
     if d["nr"] not in SONDER and not bereiche.gueltig(d.get("bereich")):  # 651: feste Liste
         f.append("Bereich „%s“ nicht in der festen Liste (`python3 tools/bereiche.py`; Vorschlag „%s“)" % (d.get("bereich"), bereiche.einordnen(d.get("bereich"))))
     return f
@@ -925,7 +1006,7 @@ def fremd_wartend():
     return _FREMD
 
 def jetzt_zeile(d):
-    return "„jetzt“" in d["titel"] + d["stand"]
+    return bool(d.get("eilt")) or "„jetzt“" in d["titel"] + d["stand"]  # 1893: Kl. Eilt der neuen Liste
 
 def plan(rolle):
     """[(nr, kl, titel, d, grund)] der Rolle in Vorrangfolge: eigene Zeilen (ohne erledigt), danach fremde, die auf die Rolle warten
@@ -1430,8 +1511,8 @@ def main():
     else: print("Startbar am %s (Systemdatum):" % datetime.date.today().strftime("%d.%m."))
     fehler = pruefen_liste()
     if not zeilen_liste():
-        print("  UNLESBAR: %s ohne Tabelle (Kopf %s)" % (LISTE, KOPF)); sys.exit(1)
-    for datei, rolle in ROLLEN:
+        print("  UNLESBAR: %s ohne Tabelle (Kopf %s oder %s)" % (LISTE, KOPF, KOPF_NEU)); sys.exit(1)
+    for datei, rolle in besitzer_reihe():
         inhalt = lesen(datei)
         zs = plan(rolle)
         sperr = {z[0]: z[4] for z in zs}
@@ -1479,7 +1560,7 @@ def main():
         elif sperren:
             print("      nicht startbar: " + "; ".join("%s: %s" % s for s in sperren[:6]) + (" …" if len(sperren) > 6 else ""))
     if not md:
-        mf = ["%s (%s)" % (z[0], rolle) for _, rolle in ROLLEN for z in plan(rolle) if z[1] == "M?" and not z[4]]
+        mf = ["%s (%s)" % (z[0], rolle) for _, rolle in besitzer_reihe() for z in plan(rolle) if z[1] == "M?" and not z[4]]
         if mf: print("  M? für Perikles (190.8; lauf.py startet es als Muss „M? entscheiden“, 921): " + ", ".join(mf))
         ko = kosten_offen()
         if ko: print("  Kosten für Perikles (1538; lauf.py startet es als Muss „Kosten entscheiden“): " + ", ".join("%s (%s, %s, Schwelle %d $)" % x for x in ko))
