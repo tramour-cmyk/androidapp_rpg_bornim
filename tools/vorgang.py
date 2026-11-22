@@ -522,6 +522,9 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
         d["block"] = startbar.block_von(d["nr"], d["bereich"]); d["besitzer"] = startbar.themenbloecke()[0].get(d["block"], "Arbeitsplaner")
         d["runde"] = "0"; d["sitzung"] = "–"; besitzer = d["besitzer"]
     d["wort"] = "startbar"; d["zusatz"] = ""
+    if not nr:  # 1916 (D346.1): Länge mit einer Nummer so lang wie die echte prüfen (Zähler), nicht mit „?“
+        mz = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*", startbar.lesen("ARBEIT-BETRIEB.md") or "")
+        d["nr"] = str(max([int(mz.group(1)) if mz else 9999] + fern_zaehler())) if mz else "9999"
     fehler_oder(d)
     if not nr:
         b = startbar.lesen("ARBEIT-BETRIEB.md")
