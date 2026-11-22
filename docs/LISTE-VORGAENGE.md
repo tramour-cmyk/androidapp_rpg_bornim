@@ -11,7 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 1960 | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla – Auftrag 1675“; Soll wie tools/rufname.py: „<Rufname> – <Nr>: <Thema> (TT.MM., HH:MM)“, Thema aus dem Vorgangstitel (Chef 22.11., 16:52) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1960 | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla – Auftrag 1675“; Soll wie tools/rufname.py: „<Rufname> – <Nr>: <Thema> (TT.MM., HH:MM)“, Thema aus dem Vorgangstitel (Chef 22.11., 16:52) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *0,90 $* |
 | 1957 | Von Ford (22.11., 16:23): lauf.py erkennt eigene Rufnamen-Sitzungen nicht (Titel „Anna – Auftrag 1727“): „keine Rolle im Titel“, „Start nicht angekommen“ und erneuter START Arbeitsplaner trotz laufender Anna, Britta | 7 | B Werkzeuge | M | – | – | – | *erledigt* | *–* | *0* | *5,52 $* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer, 23.11. | – | – | *gebaut, Geprüft an: c315ec551* | *–* | *0* | *6,50 $* |
 | 1727 | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts, Pflichtlast je Sitzung ultrakompakt | 7 | B Abläufe | Eilt | – | 1625, 1725 | – | *erledigt* | *–* | *0* | *578,51 $* |
@@ -35,7 +35,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1398 | Prüfliste mischt wieder Bild/Film mit APK-Wegen | 6 | Q QS | M | – | 1128, 1217 | – | *gebaut, Geprüft an: 68b53e087* | *–* | *0* | *2,25 $* |
 | 1710 | Bildvergleich-Wächter in meldung.sh: Meldung alt gegen neu ohne messbaren Unterschied im markierten Ausschnitt hält an | 6 | E Technik | M | – | – | – | *gebaut, Geprüft an: 46922ae71* | *–* | *0* | *6,23 $* |
 | 1414 | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | 7 | B Werkzeuge | M | 23.11. | – | – | *gebaut, Geprüft an: 5307f68d3* | *–* | *0* | *2,44 $* |
-| 1520 | An den Läufen sparen | 7 | B Steuerung | M | – | – | – | *startbar, Chef 22.11., 13:34 Neustarts zu früh* | *–* | *0* | *10,90 $* |
+| 1520 | An den Läufen sparen | 7 | B Steuerung | M | – | – | – | *startbar, Chef 22.11., 13:34 Neustarts zu früh* | *–* | *0* | *11,61 $* |
 | 1572 | Ford hing ab 16:04 zwei Stunden (Rebase-Abbruch abgelehnt), keiner startete, kein Telegram | 7 | B Abläufe | M | 1610, 23.11. | – | – | *gebaut, Geprüft an: 239b6745a* | *–* | *0* | *1,38 $* |
 | 1715 | Laufzahl täglich im Tagesbericht Perikles: Läufe der Build-Zweige grün, rot, abgebrochen mit verlorener Bauzeit | 7 | B Abläufe | M | 23.11. | – | – | *gebaut, Geprüft an: a3fe7a452* | *–* | *0* | *0,72 $* |
 | 1725 | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *1,21 $* |
