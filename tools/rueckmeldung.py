@@ -84,7 +84,16 @@ def ist_routine(nr):
         return False
 
 
-def weitergabe(w, t, zeit, wer, text, vorher, routine=False):
+def ist_werkzeug(nr):
+    """1790: Vorgang nr ist ein Werkzeug (Bereich B, 724 A); es geht nach grünem Lauf ohne Test des Chefs nach main (1311)."""
+    try:
+        import startbar
+        return any(d["nr"] == nr and d.get("bereich", "").startswith("B ") for d in startbar.vorgangsliste(startbar.lesen(startbar.LISTE)))
+    except Exception:
+        return False
+
+
+def weitergabe(w, t, zeit, wer, text, vorher, routine=False, werkzeug=False):
     """1739 (3.3 Nr. 5): Empfänger und Zeile für „fertig“, „nein“, „Beleg fehlt“, „ja“, „Hinweis“; (None, None) sonst."""
     satz = ue._rein(text)[:160]
     von = "Rückmeldung %s von %s" % (zeit, wer or "unbekannt")
@@ -98,6 +107,8 @@ def weitergabe(w, t, zeit, wer, text, vorher, routine=False):
             return DISPONENT, "Routine fertig (%s): Vorschläge aus den offenen Übergabezeilen als Vorgänge anlegen, dann `vorgang.py schliessen` (1789)" % von
         if COMMIT.search(text): return PRUEFER, "prüfen: „fertig“ (%s): „%s“ (1739)" % (von, satz)
         return DISPONENT, "„fertig“ ohne Commit (%s): nicht annehmen, Macher nennt Commit und Beleg (1739)" % von
+    if "ja" in w and werkzeug:  # 1790 (Sokrates 1727 Nachprüfung 22:20): Werkzeug, keine Testbitte an den Chef
+        return DISPONENT, "ja des Prüfers (%s): Werkzeug (Bereich B), kein Test des Chefs (1311): liegt der Zweig nicht auf main, mischt der Macher jetzt; dann `vorgang.py fertig`" % von
     if "ja" in w: return DISPONENT, "ja des Prüfers (%s): an den Chef vorlegen (Testbitte), nicht selbst nach main (1739)" % von
     if "Hinweis" in w: return DISPONENT, "Hinweis (%s): wie einen Eingang behandeln (1739)" % von
     return None, None
@@ -149,7 +160,7 @@ def eintragen(nr, text, wer, sid=""):
         elif "nein, Auftrag" in w:
             an, was = PLANER, "nein, Auftrag: Rückmeldung %s von %s lesen" % (zeit, wer or "unbekannt")
         else:
-            an, was = weitergabe(w, t, zeit, wer, text, vorher, "fertig" in w and ist_routine(nr))
+            an, was = weitergabe(w, t, zeit, wer, text, vorher, "fertig" in w and ist_routine(nr), "ja" in w and ist_werkzeug(nr))
         if not an: return t, (None, "ruht schon, nur eingetragen" if schon else "eingetragen, kein Signalwort zum Weitergeben")
         ks = [int(x["k"].rsplit("Ü", 1)[1]) for x in ue.zeilen(t)]
         k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)

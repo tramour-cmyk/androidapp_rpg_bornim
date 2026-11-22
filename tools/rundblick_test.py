@@ -76,6 +76,12 @@ soll("Routine fertig ohne Commit → Disponent: anlegen, schließen", an == "Dis
 an, was = rueckmeldung.weitergabe({"fertig"}, "", "23.11., 10:00", "Tom", "fertig", "", routine=False)
 soll("sonst „fertig“ ohne Commit abgewiesen", an == "Disponent" and "ohne Commit" in was, was)
 soll("ist_routine: Zeile nicht da", rueckmeldung.ist_routine("99999") is False)
+# 1790: „ja“ des Prüfers bei einem Werkzeug ist keine Testbitte an den Chef
+an, was = rueckmeldung.weitergabe({"ja"}, "", "23.11., 10:00", "Prüfer", "ja, greift", "", werkzeug=True)
+soll("ja bei Werkzeug → Disponent ohne Testbitte", an == "Disponent" and "kein Test des Chefs" in was and "Testbitte" not in was and "vorgang.py fertig" in was, was)
+an, was = rueckmeldung.weitergabe({"ja"}, "", "23.11., 10:00", "Prüfer", "ja", "")
+soll("ja sonst → Testbitte an den Chef", an == "Disponent" and "Testbitte" in was, was)
+soll("ist_werkzeug: Zeile nicht da", rueckmeldung.ist_werkzeug("99999") is False)
 
 print("rundblick_test: %d Fehler" % fehl)
 sys.exit(1 if fehl else 0)
