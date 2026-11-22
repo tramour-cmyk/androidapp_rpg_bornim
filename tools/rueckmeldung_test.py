@@ -57,7 +57,8 @@ for t, w in [("nein, Auftrag: Prüffrage am Ziel vorbei", {"nein, Auftrag"}), ("
              ("Nein [Hof] steckt fest", {"nein", "steckt fest"}),
              ("**nein, Auftrag**: falsch", {"nein, Auftrag"}), ("**steckt fest**: Licht", {"steckt fest"}), ("**Frage:** welcher Text?", {"Frage"}),
              ("**Nein.** steckt fest", {"nein", "steckt fest"}), ("**Frage** zum Licht", {"Frage"}), ("**Spike** [21.11.2026, 20:41] nein", {"nein"}),
-             ("abgebrochen: Filmlauf ohne Ausgabe", {"abgebrochen"}), ("**Spike** [22.11., 08:00] abgebrochen", {"abgebrochen"}),
+             ("Laufanforderung: Filmlauf ohne Ausgabe, behoben in 1a2b3c4", {"Laufanforderung"}), ("**Spike** [22.11., 08:00] Laufanforderung", {"Laufanforderung"}),
+             ("abgebrochen: Filmlauf ohne Ausgabe", set()),
              ("Auftrag steht: 1694-4", {"Auftrag steht"}), ("kein Auftrag nötig: schon gebaut", {"kein Auftrag nötig"}),
              ("fertig 1a2b3c4. Hinweis: Prüffrage fehlt", {"fertig", "Hinweis im Text"}), ("Notiz. Hinweis: Geländer", {"Hinweis"})]:
     soll("Wort %r" % t[:25], rm.worte(t) == w, rm.worte(t))
@@ -111,7 +112,8 @@ soll("nein ohne fertig: Disponent, Fachkraft unbekannt", "OFFEN 9006-Ü1 an Disp
 rc, out = lauf("rueckmeldung", "9006", "Hinweis: Geländer fehlt auch", zeit="21.11., 20:37")
 soll("Hinweis → Disponent wie Eingang", "OFFEN 9006-Ü2 an Disponent" in out and "wie einen Eingang" in datei("9006"), out)
 rc, out = lauf("rueckmeldung", "9006", "Notiz ohne Signalwort", zeit="21.11., 20:38")
-soll("ohne Signalwort: nur eingetragen", out.startswith("EINGETRAGEN 9006: eingetragen, kein Signalwort"), out)
+soll("1952: ohne Katalogwort eingetragen und mit Liste zurückgewiesen", rc == 1 and "ZURÜCKGEWIESEN" in out and "Laufanforderung:" in out
+     and "Notiz ohne Signalwort" in datei("9006"), (rc, out))
 
 # 5 Chefworte und Rückmeldungen bleiben getrennt
 import chefwort as cw
@@ -401,10 +403,22 @@ open(_p92, "w", encoding="utf-8").write("# Betrieb (Ford)\n\nZeile 1\n- alt\n")
 lauf.protokoll_lokal(_p92, lambda t: t.rstrip("\n") + "\n- 11:40 22.11.: Startsperre 11:40 Start Spike (lauf.py)\n")
 soll("1892-Fehler: lokale Sperre hängt an, Datei bleibt ganz", open(_p92, encoding="utf-8").read() == "# Betrieb (Ford)\n\nZeile 1\n- alt\n- 11:40 22.11.: Startsperre 11:40 Start Spike (lauf.py)\n", open(_p92, encoding="utf-8").read())
 # 1797 abgebrochen (ein Neustart, zweites an Sokrates), Auftrag steht, kein Auftrag nötig, Hinweis hinter fertig
-rc, out = rm_lauf("rueckmeldung", "9027", "abgebrochen: Filmlauf ohne Ausgabe", zeit="21.11., 20:40")
-soll("1797 abgebrochen → Disponent, ein Neustart", "OFFEN 9027-Ü1 an Disponent" in out and "einmal neu starten" in datei("9027"), out)
-rc, out = rm_lauf("rueckmeldung", "9027", "abgebrochen: wieder ohne Ausgabe", zeit="21.11., 20:41")
-soll("1797 zweites abgebrochen → Sokrates steckt fest", "OFFEN 9027-Ü2 an Sokrates" in out and "2. „abgebrochen“" in datei("9027"), out)
+rc, out = rm_lauf("rueckmeldung", "9027", "Laufanforderung: Filmlauf ohne Ausgabe", zeit="21.11., 20:39")
+soll("1952: Laufanforderung ohne Commit zurückgewiesen, keine Zeile", rc == 1 and "ZURÜCKGEWIESEN" in out and "-Ü" not in datei("9027"), (rc, out))
+rc, out = rm_lauf("rueckmeldung", "9027", "Laufanforderung: Filmlauf ohne Ausgabe, Ursache Pfad, behoben in 1a2b3c4d", zeit="21.11., 20:40")
+soll("1952: Laufanforderung mit Commit → Prüfer", "OFFEN 9027-Ü1 an Prüfer" in out and "Laufanforderung prüfen" in datei("9027"), out)
+rc, out = rm_lauf("rueckmeldung", "9027", "nein: Ursache nicht belegt", "--sitzung", "Prüfer", zeit="21.11., 20:40")
+soll("1952: nein des Prüfers zur Laufanforderung → zurück an die Fachkraft", "| 9027-Ü2 | unbekannt |" not in datei("9027") and "Rückläufer (nein" in datei("9027"), (out, datei("9027")[-500:]))
+rc, out = rm_lauf("rueckmeldung", "9027", "ja", "--sitzung", "Prüfer", zeit="21.11., 20:40")
+soll("1952: ja des Prüfers zur Laufanforderung → Disponent startet neu", "Laufanforderung freigegeben" in datei("9027") and "an den Chef vorlegen" not in datei("9027"), datei("9027")[-500:])
+rc, out = rm_lauf("rueckmeldung", "9027", "Laufanforderung: wieder ohne Ausgabe, behoben in 2b3c4d5e", zeit="21.11., 20:41")
+t = datei("9027")
+soll("1952: zweite Laufanforderung → Sokrates steckt fest", "an Sokrates" in out and "2. Laufanforderung" in t, (out, t[-500:]))
+soll("1952: zählt als steckt fest", rm.zaehlen(t)["steckt fest"] == 1, rm.zaehlen(t))
+rc, out = rm_lauf("rueckmeldung", "9027", "steckt fest: Import hängt weiter", zeit="21.11., 20:42")
+soll("1952: danach steckt fest → Obergrenze B", "Obergrenze B" in out and "ruht, beim Chef" in datei("9027"), out)
+rc, out = rm_lauf("rueckmeldung", "9006", "Sieht gut aus", "--sitzung", "Chef", zeit="21.11., 20:43")
+soll("1952: Chefwort nie zurückgewiesen", rc == 0 and "ZURÜCKGEWIESEN" not in out, (rc, out))
 rc, out = rm_lauf("rueckmeldung", "9008", "Auftrag steht: 9008-1", zeit="21.11., 20:42")
 soll("1797 Auftrag steht → Disponent startet Fachkraft", "OFFEN 9008-Ü1 an Disponent" in out and "Fachkraft nach Profil" in datei("9008"), out)
 rc, out = rm_lauf("rueckmeldung", "9008", "kein Auftrag nötig: schon gebaut in abc1234", zeit="21.11., 20:43")
@@ -412,19 +426,6 @@ soll("1797 kein Auftrag nötig → Disponent", "OFFEN 9008-Ü2 an Disponent" in 
 rc, out = rm_lauf("rueckmeldung", "9009", "fertig 1a2b3c4d. Hinweis: Prüffrage 3 fehlt", zeit="21.11., 20:44")
 soll("1797 fertig mit Hinweis: Prüfer und zweite Zeile an Disponent", "OFFEN 9009-Ü1 an Prüfer" in out
      and "| 9009-Ü2 | Disponent | Hinweis (Rückmeldung 21.11., 20:44" in datei("9009") and "Prüffrage 3 fehlt" in datei("9009"), datei("9009"))
-
-# 1871 (Merge 1782 mit 1797): Halter einer angenommenen Übergabezeile meldet „abgebrochen“ → nur ein Neustart (Zeile wieder offen,
-# lauf.py gibt sie weiter), keine zweite Neustart-Bitte an den Disponenten
-vg("uebergabe", "9018", "Tom", "Tür im Turm ölen", zeit="21.11., 23:30")
-lauf_als("session_TUER", "annehmen", "9018-Ü1", "--frist", "30", zeit="21.11., 23:31")
-soll("1871: Tom nimmt 9018-Ü1 an", "angenommen session_TUER" in datei("9018"), datei("9018")[-400:])
-rc, out = lauf_als("session_TUER", "rueckmeldung", "9018", "abgebrochen: Godot hängt beim Import", zeit="21.11., 23:35")
-t = datei("9018")
-soll("1871: abgebrochen mit eigener Übergabezeile → wieder offen, kein Disponent", "wieder 1" in t and "| Disponent |" not in t, (out, t[-600:]))
-lauf_als("session_TUER2", "annehmen", "9018-Ü1", "--frist", "30", zeit="21.11., 23:40")
-rc, out = lauf_als("session_TUER2", "rueckmeldung", "9018", "abgebrochen: wieder hängt der Import", zeit="21.11., 23:50")
-t = datei("9018")
-soll("1871: zweites abgebrochen → genau eine Zeile steckt fest an Sokrates, kein Disponent", t.count("| Sokrates |") == 1 and "| Disponent |" not in t, (out, t[-700:]))
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

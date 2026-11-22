@@ -17,7 +17,12 @@ im selben Commit eine offene Übergabezeile (1760):
   1877: „Hinweis“ des Disponenten (Ford) zu einem bestehenden Vorgang → an dessen Besitzer (Liste; ohne Besitzer der Macher, sonst
   der Arbeitsplaner) und eine Zeile „Hinweis“ an Sokrates (Soll D1), nicht an den Disponenten selbst
   1795: „Befunde: n“ des Testers → Disponent (je Befund ohne Nummer Vorgang anlegen), je Befund mit Nummer Rückläufer an den Arbeitsplaner
-  1797: „abgebrochen“ → Disponent (ein Neustart), zweites je Vorgang → Sokrates „steckt fest“ (AB:12); „Auftrag steht“ → Disponent startet
+  1952 (1727, Chef 22.11., 15:31, Archiv): „Laufanforderung“ (ersetzt „abgebrochen“) nur mit Commit der Behebung → an den Prüfer; sein
+  „ja“ → Disponent startet die Fachkraft einmal neu (Auftrag unverändert), sein „nein“ → zurück an die Fachkraft; die zweite
+  Laufanforderung je Vorgang zählt als „steckt fest“ (an Sokrates, auch für Obergrenze B). Fremder Abbruch (Sitzung endet mit Fehler)
+  bleibt beim Werkzeug (uebergabe.frei: Halter abgebrochen, ein Neustart). Katalog der Rückmeldewörter (KATALOG): anderes erstes
+  Wort wird eingetragen und mit der Liste zurückgewiesen (Exit 2), ebenso Laufanforderung ohne Commit; Chefworte nie
+  1797: „Auftrag steht“ → Disponent startet
   die Fachkraft; „kein Auftrag nötig“ → Disponent schließt oder fragt Sokrates; „Hinweis:“ hinter einem anderen Signalwort → zweite Zeile
   an den Disponenten
   1947: „fertig“ ohne Commit einer Routine-Sitzung (Rundblick, Ideenlauf, Wache, Tagesbericht, Wochenzählung) gilt wie unter einem
@@ -44,8 +49,24 @@ PLANER = os.environ.get("BORNIM_CHEFWORT_AN", "Arbeitsplaner")
 RUHT = "ruht, beim Chef"
 MAX_NEIN_AUFTRAG, MAX_NEIN, MAX_FEST = 2, 3, 2
 LAUFBREMSE_NEIN = 2  # 1766 (Archiv 19.11., 13:02 Laufbremse): zweites „nein“ des Prüfers → „steckt fest“ an Sokrates; drittes ist Obergrenze A
-SIGNAL = {"nein", "ja", "fertig", "frage", "hinweis", "abgebrochen"}
-MAX_ABBRUCH = 2  # 1797 (EA L-U8 wie L-S2, AB:12): erstes „abgebrochen“ → ein Neustart durch den Disponenten, zweites → „steckt fest“
+SIGNAL = {"nein", "ja", "fertig", "frage", "hinweis", "laufanforderung"}
+MAX_LAUF = 2  # 1952 (Chef 22.11., 15:31): zweite „Laufanforderung“ je Vorgang zählt als „steckt fest“ (auch Obergrenze B)
+# 1952: Katalog der Rückmeldewörter (erstes Wort; Gesamtbild „Feste Werte“): Wort → wer es meldet, was folgt
+KATALOG = [
+    ("fertig", "Fachkraft, mit Commit und Beleg → Prüfer"),
+    ("Frage", "jede Rolle → Sokrates"),
+    ("steckt fest", "jede Rolle, nach Ursache und Behebung geht es nicht weiter → Sokrates"),
+    ("Laufanforderung", "Fachkraft, Lauf endete ohne Ergebnis; Ursache und Commit der Behebung → Prüfer gibt frei"),
+    ("ja", "Prüfer → Disponent"),
+    ("nein", "Prüfer, je Mangel ein Satz → dieselbe Fachkraft"),
+    ("nein, Auftrag", "Prüfer → Arbeitsplaner"),
+    ("Beleg fehlt", "Prüfer → dieselbe Fachkraft"),
+    ("wirkt nein", "jede Rolle, Chefwort klingt wie ein Nein → Sokrates"),
+    ("Hinweis", "jede Rolle, „Hinweis: was, wo“ → Disponent"),
+    ("Befunde: n", "Tester → Disponent"),
+    ("Auftrag steht", "Arbeitsplaner → Disponent startet die Fachkraft"),
+    ("kein Auftrag nötig", "Arbeitsplaner, mit Begründung → Disponent"),
+]
 PRUEFER, DISPONENT = "Prüfer", "Disponent"  # 1739: neue Profile; lauf.py setzt bis tools/1727-SCHARF Diogenes, Ford ein
 COMMIT = re.compile(r"\b[0-9a-f]{7,40}\b")
 BLOCK = re.compile(r"(?m)^- \*\*(?P<zeit>[^*]+)\*\*, (?P<wer>[^\n]*?)(?: \(`(?P<sid>[^`]*)`\))?:\n> (?P<text>.*)$")
@@ -68,7 +89,7 @@ def worte(text):
     elif re.match(r"fertig\b", t): w.add("fertig")
     elif re.match(r"ja\b", t): w.add("ja")
     elif re.match(r"hinweis\b", t): w.add("Hinweis")
-    elif re.match(r"abgebrochen\b", t): w.add("abgebrochen")  # 1782: Kern Arbeitsplaner Feld 7
+    elif re.match(r"laufanforderung\b", t): w.add("Laufanforderung")  # 1952 (ersetzt „abgebrochen“, 1782/1797)
     elif re.match(r"befunde:\s*\d+", t): w.add("Befunde")  # 1795: Meldung des Testers (profil-tester.md „Meldung“)
     elif re.match(r"auftrag steht\b", t): w.add("Auftrag steht")  # 1797 Kern Arbeitsplaner :3
     elif re.match(r"kein auftrag nötig\b", t): w.add("kein Auftrag nötig")  # 1797 Ausgang des Arbeitsplaners
@@ -103,10 +124,13 @@ def zaehlen(text):
     ganzer Wortlaut) zählt als abgelehnter Auftrag („nein“), sonst stoppt „Prüfer ja, Chef nein“ nie.
     1925 (1727j Frage 1, Chef 22.11., 11:21 „Frage 1 ja.“): das Chef-Nein zählt auch für die Laufbremse (Rückbau 1910): Chef-Nein,
     ein Versuch der Fachkraft, beim nächsten Nein „steckt fest“ an Sokrates."""
-    z = {"nein, Auftrag": 0, "nein": 0, "steckt fest": 0, "abgebrochen": 0}
+    z = {"nein, Auftrag": 0, "nein": 0, "steckt fest": 0, "Laufanforderung": 0}
     for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, [^\n]*:\n> (.*)$", ue.abschnitt(text, "Rückmeldungen")):
-        for w in worte(m.group(1)):
+        ws = worte(m.group(1))
+        if "Laufanforderung" in ws and not COMMIT.search(m.group(1)): continue  # 1952: ohne Commit zurückgewiesen, zählt nicht
+        for w in ws:
             if w in z: z[w] += 1
+    z["steckt fest"] += max(0, z["Laufanforderung"] - (MAX_LAUF - 1))  # 1952: zweite und jede weitere zählt als „steckt fest“
     z["nein"] += beleg_als_nein(text)  # 1926
     import chefwort
     vorher = z["nein"]
@@ -180,7 +204,7 @@ def macher(text, nr=None):
     """1739: wer zuletzt „fertig“ meldete (Rückmeldungen der Datei, ohne die gerade eingetragene); None, wenn keiner.
     1888 (Lauf 3 Prüfer-1 L9): steht dort „unbekannt“ (Sitzung ohne Besetzungszeile), die Rolle ihrer Sitzung aus der Besetzung
     von jetzt, sonst der Besitzer des Vorgangs in der Liste (Nummer aus der Kopfzeile „# NR · …“); erst dann None (Disponent)."""
-    ms = [m for m in BLOCK.finditer(ue.abschnitt(text, "Rückmeldungen")) if "fertig" in worte(m.group("text"))]
+    ms = [m for m in BLOCK.finditer(ue.abschnitt(text, "Rückmeldungen")) if worte(m.group("text")) & {"fertig", "Laufanforderung"}]
     if not ms: return None
     w = ms[-1].group("wer").strip()
     if w and w != "unbekannt": return w
@@ -317,6 +341,9 @@ def weitergabe(w, t, zeit, wer, text, vorher, routine=False, werkzeug=False):
             return DISPONENT, "Routine fertig (%s): Vorschläge aus den offenen Übergabezeilen als Vorgänge anlegen, dann `vorgang.py schliessen` (1789)" % von
         if COMMIT.search(text): return PRUEFER, "prüfen: „fertig“ (%s): „%s“ (1739)" % (von, satz)
         return DISPONENT, "„fertig“ ohne Commit (%s): nicht annehmen, Fachkraft nennt Commit und Beleg (1739)" % von
+    if "ja" in w and lauf_offen(vorher):  # 1952: Prüfer gibt die Laufanforderung frei
+        m = macher(vorher)
+        return DISPONENT, "Laufanforderung freigegeben (ja des Prüfers, %s): %s einmal neu starten, Auftrag unverändert (1952)" % (von, m or "dieselbe Fachkraft")
     if "ja" in w and werkzeug:  # 1790 (Sokrates 1727 Nachprüfung 22:20): Werkzeug, keine Testbitte an den Chef
         return DISPONENT, "ja des Prüfers (%s): Werkzeug (Bereich B), kein Test des Chefs (1311): liegt der Zweig nicht auf main, mischt der Macher jetzt; dann `vorgang.py fertig`" % von
     if "ja" in w: return DISPONENT, "ja des Prüfers (%s): an den Chef vorlegen (Testbitte), nicht selbst nach main (1739)" % von
@@ -324,6 +351,24 @@ def weitergabe(w, t, zeit, wer, text, vorher, routine=False, werkzeug=False):
     if "Auftrag steht" in w: return DISPONENT, "Auftrag steht (%s): Fachkraft nach Profil des Auftrags starten (1797)" % von
     if "kein Auftrag nötig" in w: return DISPONENT, "kein Auftrag nötig (%s): Begründung lesen, Vorgang schließen (`vorgang.py schliessen`) oder an Sokrates (1797)" % von
     return None, None
+
+
+def lauf_offen(text):
+    """1952: die jüngste Meldung der Fachkraft („fertig“ oder „Laufanforderung“ mit Commit) ist eine Laufanforderung."""
+    ms = [worte(m.group("text")) for m in BLOCK.finditer(ue.abschnitt(text, "Rückmeldungen"))
+          if worte(m.group("text")) & {"fertig", "Laufanforderung"} and COMMIT.search(m.group("text"))]
+    return bool(ms) and "Laufanforderung" in ms[-1]
+
+
+def unbekannt(text, wer):
+    """1952: Grund zum Zurückweisen (Text bleibt eingetragen) oder None. Chefworte nie."""
+    if (wer or "").strip().lower() == "chef": return None
+    w = worte(text)
+    if not w:
+        return "erstes Wort nicht im Katalog der Rückmeldewörter; neu melden mit einem davon (1952):\n" + "\n".join("  %s: %s" % k for k in KATALOG)
+    if "Laufanforderung" in w and not COMMIT.search(text):
+        return "Laufanforderung nur mit Ursache und Commit der Behebung; neu melden (1952)"
+    return None
 
 
 def _datei(nr):
@@ -357,11 +402,13 @@ def eintragen(nr, text, wer, sid=""):
         if "Beleg fehlt" in w and beleg_als_nein(t) > beleg_als_nein(vorher):  # 1926: drittes „Beleg fehlt“ je Auftrag gilt als „nein“
             w.discard("Beleg fehlt"); w.add("nein")
         grund = None
+        lauf_ok = "Laufanforderung" in w and COMMIT.search(text)
+        lauf2 = bool(lauf_ok) and z["Laufanforderung"] >= MAX_LAUF  # 1952: zählt als „steckt fest“
         aus = None  # mehrere Zeilen in einem Commit (1795 Befunde, 1873, 1877); sonst nur (an, was)
         if not schon:
             if "nein, Auftrag" in w and z["nein, Auftrag"] >= MAX_NEIN_AUFTRAG: grund = "Obergrenze A: %d. „nein, Auftrag“" % z["nein, Auftrag"]
             elif "nein" in w and z["nein"] >= MAX_NEIN: grund = "Obergrenze A: %d. abgelehnter Auftrag" % z["nein"]
-            elif "steckt fest" in w and z["steckt fest"] >= MAX_FEST: grund = "Obergrenze B: %d. „steckt fest“" % z["steckt fest"]
+            elif (lauf2 or "steckt fest" in w) and z["steckt fest"] >= MAX_FEST: grund = "Obergrenze B: %d. „steckt fest“" % z["steckt fest"]
         if grund:
             t = zustand_ruht(t, zeit, grund)
             if grund.startswith("Obergrenze B"): t = kopf_kosten(t, nr, zeit)  # 1927
@@ -382,19 +429,19 @@ def eintragen(nr, text, wer, sid=""):
             aus = befund_weitergabe(nr, text, zeit, wer); an, was = aus[0]
         elif "Hinweis" in w:  # 1873, 1877
             aus = hinweis_weitergabe(nr, text, zeit, wer, vorher); an, was = aus[0]
-        elif "abgebrochen" in w and z["abgebrochen"] >= MAX_ABBRUCH:
-            an, was = SOKRATES, "steckt fest (%d. „abgebrochen“, AB:12): Rückmeldung %s von %s lesen (1797)" % (z["abgebrochen"], zeit, wer or "unbekannt")
-        elif "abgebrochen" in w and sid and any((m_ := ue.ANG.match(x["z"])) and m_.group("sid") == sid for x in ue.zeilen(t)):
-            an = was = None  # 1871 (1782 mit 1797): eigene angenommene Zeile wird wieder offen, lauf.py startet neu; kein zweiter Neustart
-        elif "abgebrochen" in w:
-            an, was = DISPONENT, "abgebrochen (Rückmeldung %s von %s): einmal neu starten, Auftrag unverändert; beim zweiten Mal geht es an Sokrates (1797, AB:12)" % (zeit, wer or "unbekannt")
+        elif "Laufanforderung" in w and not lauf_ok:
+            an = was = None  # 1952: ohne Commit zurückgewiesen (haupt)
+        elif lauf2:
+            an, was = SOKRATES, "steckt fest (%d. Laufanforderung, 1952): Rückmeldung %s von %s lesen; gelöst: `vorgang.py warte %s –`" % (z["Laufanforderung"], zeit, wer or "unbekannt", nr)
+        elif "Laufanforderung" in w:
+            an, was = PRUEFER, "Laufanforderung prüfen (Rückmeldung %s von %s): „%s“; Ursache und Commit der Behebung ansehen: „ja“ gibt den erneuten Lauf frei, „nein“ mit Satz zurück an die Fachkraft (1952)" % (zeit, wer or "unbekannt", ue._rein(text)[:160])
         else:
             an, was = weitergabe(w, t, zeit, wer, text, vorher, "fertig" in w and ist_routine(nr, wer), "ja" in w and ist_werkzeug(nr))
             if "fertig" in w and an == PRUEFER and ist_werkzeug(nr):  # 1950: Werkzeug sofort auf main prüfen, nicht beim nächsten Wecker
                 z2 = nicht_auf_main(text, nr, zeit, wer)
                 if z2: aus = [(an, was), z2]
-        if not an: return t, (None, "ruht schon, nur eingetragen" if schon else "eingetragen, Neustart über die eigene Übergabezeile (1782)"
-                              if "abgebrochen" in w else "eingetragen, kein Signalwort zum Weitergeben")
+        if not an: return t, (None, "ruht schon, nur eingetragen" if schon else "eingetragen, zurückgewiesen (1952)"
+                              if unbekannt(text, wer) else "eingetragen, kein Signalwort zum Weitergeben")
         ks = [int(x["k"].rsplit("Ü", 1)[1]) for x in ue.zeilen(t)]
         start = max(ks, default=0) + 1
         k = "%s-Ü%d" % (nr, start)
@@ -525,24 +572,17 @@ def haupt(a):
         dt = _datei(a[0])
         r = lehren.roh_aus_rueckmeldung(a[0], a[1], wer, dt, zaehlen(dt)["nein"])
         if r: print("LEHRENBUCH %s angehängt" % r)
-    if "abgebrochen" in worte(a[1]) and sid:  # 1782: eigene angenommene Zeilen wie nach abgelaufener Frist
-        try:
-            for kz, neu in ue.abgebrochen(a[0], sid) or []:
-                print("ÜBERGABE %s: %s%s" % (kz, neu, " (lauf.py gibt es an Sokrates)" if neu.startswith(ue.FEST) else " (lauf.py startet neu)"))
-                if neu.startswith(ue.FEST) and not any(x["k"] == k and x["an"] == SOKRATES for x in ue.zeilen(_datei(a[0]))):  # 1797 gab schon „steckt fest“ an Sokrates
-                    ue.uebergabe(a[0], SOKRATES, "steckt fest: Übergabe %s zweimal ohne Ergebnis (abgebrochen; 1782); gelöst: `vorgang.py warte %s –`" % (kz, a[0]))
-                if neu.startswith(ue.FEST): liste_fest(a[0])
-        except ue.Fehler as e:
-            print("ÜBERGABE nicht zurückgegeben (%s); von Hand: vorgang.py freigeben" % e)
     if not k:
         print("EINGETRAGEN %s: %s" % (a[0], grund))
         if grund != "schon eingetragen": nein_waechter(a[0], a[1])
+        u = unbekannt(a[1], wer) if grund != "schon eingetragen" else None
+        if u: sys.exit("vorgang.py rueckmeldung %s: ZURÜCKGEWIESEN, %s" % (a[0], u))
         return
     zeile = [x for x in ue.zeilen(_datei(a[0])) if x["k"] == k]
     an = zeile[0]["an"] if zeile else "?"
     print("EINGETRAGEN %s, OFFEN %s an %s%s" % (a[0], k, an, (" (%s → %s)" % (grund, RUHT)) if grund else ""))
     if grund: liste_ruht(a[0], grund)
-    elif an == SOKRATES and "steckt fest" in worte(a[1]): liste_fest(a[0])  # 1800
+    elif an == SOKRATES and worte(a[1]) & {"steckt fest", "Laufanforderung"}: liste_fest(a[0])  # 1800, 1952
     nein_waechter(a[0], a[1])
     alt = {"Prüfer": "Diogenes", "Disponent": "Ford", PLANER: "Ford"}.get(an, "")  # 1739: bis zur Umschaltung (lauf.ALT_EMPFAENGER)
     if an == SOKRATES and not ue.besetzung(an):
