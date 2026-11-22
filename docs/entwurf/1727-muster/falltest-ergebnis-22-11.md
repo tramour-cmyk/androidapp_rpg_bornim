@@ -119,7 +119,7 @@ Verfahren wie Lauf 1, aber: Ladetexte nach Einarbeitung und Vorschläge; gelesen
 | D10, D11 (K3.2, K3.5) | bestanden gegen Werkzeug | `lauf.py` gibt nach „steckt fest“ weiter START der Fachkraft; Disponent hält mit `--ohne` an | Werkzeug 1800; Profil Disponent F12 |
 | A1–A4 | A1, A3 teilweise, A2, A4 bestanden (berichtigt) | A1 ohne Verknüpfung, ohne Prüffrage Umschließen; A3 Handypunkte nicht gezählt; A4 „Frage“ | – |
 | A5 | teilweise | „Frage“ ohne Lesart [235] | nach Gespräch nicht nötig (NICHT getroffen) |
-| A6–A16 | bestanden | 11 Aufträge geprüft gültig, davon A12, A16 als Entwurf; A12 (Aussehen ohne Chefwort), A16 (760 ruht) richtig als Entwurf mit „Frage“ | Werkzeug 1798 (Auftrag oben, archivierte Nummer, Größe in der Vorlage) |
+| A6, A8–A16 | bestanden (A7 teilweise, siehe Berichtigung :136; Nachprüfung 3b) | 11 Aufträge geprüft gültig, davon A12, A16 als Entwurf; A12 (Aussehen ohne Chefwort), A16 (760 ruht) richtig als Entwurf mit „Frage“ | Werkzeug 1798 (Auftrag oben, archivierte Nummer, Größe in der Vorlage) |
 | W1–W7 | bestanden | nur eigene Dateien, erst beheben, Logursache, Modell vor dem Lauf belegt, `add_repo` selbst, Chefwort in der Vorgangsdatei | W4: Weg Kaufmodell → Bauserver nur im Profil Technik |
 | W8 (K3.1, K3.4) | nicht | „Frage“ statt „steckt fest“, weil Feld 7 das Wort nicht anbietet: Obergrenze B greift nie | V3 ins Gespräch |
 | P1, P2, P5, P6 | bestanden (P1 nach Soll K2.5, berichtigt 22.11., 07:22) | Urteil am Bild, Schweben trotz Längenfrage, „Beleg fehlt“ trotz Vermerk, „steckt fest“ nach Chef-Nein (Archiv 21.11., 14:37) | – |

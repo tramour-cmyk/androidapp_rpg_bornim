@@ -57,11 +57,11 @@ Abweichung zu Tabelle 0.1 je 1 bis 5 Byte (dort mit Zeilenende oder gerundet); M
 |---|---|---|
 | Leitung | Sockel 1.109 + Kern Leitung 2.837 (mit V1 Fassung 3: 2.962) | 3.946 (mit V1: 4.071); dazu Gedächtnis bis 3 KB, auf Zuruf Chefrunde 574 oder Markt und Recherche 1.279 |
 | Büro: Disponent | Sockel 1.109 + Kern Büro 680 (schmal) + Profil Disponent 3.775 (F15, 22.11., 07:22) | 5.564 (F14: 5.550; F13: 5.431; F10: 4.829) |
-| Büro: Arbeitsplaner | Sockel 1.109 + Kern Büro 680 + Kern Arbeitsplaner 2.649 (F4; mit V3 und V4: 2.787) | 4.438, mit V3 und V4 4.576 (ohne Kern Büro 3.758); + Profil Werkzeug Teil A 1.103 = 5.541, + Querprofil Fremde Inhalte Teil A 1.168 = 5.606; Profil Arbeitsplaner nach 3.3: offen |
+| Büro: Arbeitsplaner | Sockel 1.109 + Kern Büro 680 + Kern Arbeitsplaner 2.649 (F4; mit V3 und V4: 2.787; mit V4 Feld 7 nach Nachprüfung 3b Nr. 10: 2.834) | 4.438, mit V3 und V4 4.576, mit V4 Feld 7 4.623 (ohne Kern Büro 3.758); + Profil Werkzeug Teil A 1.103 = 5.541, + Querprofil Fremde Inhalte Teil A 1.168 = 5.606; Profil Arbeitsplaner nach 3.3: offen |
 | Werkstatt Welt | Sockel + Signatur und Leben 876 + Welt 1.165 + Figur und Prüfbild 1.303 | 4.453 + Auftrag (bis 1,5 KB) |
 | Werkstatt Text | Sockel + Story 1.410 | 2.519 + Auftrag |
 | Werkstatt andere Fächer | Sockel + Fachprofil (+ Querprofil bei Bild oder Klang, + geladene Profile) | je Auftrag, offen |
-| Abnahme: Prüfer | Sockel + Kern Abnahme 1.567 (F3) + Profil Prüfer 2.817 (F9, 22.11., 07:22) (+ Querprofil Signatur und Leben 876, + Querprofil Fremde Inhalte Teil A 1.168, wenn der Auftrag sie zulädt) | 5.493, mit Signatur und Leben 6.369, mit beiden 7.537, + Auftrag (heute Kern Prüfer: 3.638) |
+| Abnahme: Prüfer | Sockel + Kern Abnahme 1.567 (F3) + Profil Prüfer 2.826 (F10, 22.11., 07:36) (+ Querprofil Signatur und Leben 876, + Querprofil Fremde Inhalte Teil A 1.168, wenn der Auftrag sie zulädt) | 5.502, mit Signatur und Leben 6.378, mit beiden 7.546, + Auftrag (heute Kern Prüfer: 3.638) |
 | Abnahme: Tester | Sockel + Kern Abnahme 1.567 + Profil Tester 2.626 (F6) (+ Querprofil 876, wenn geladen) | 5.302, mit Querprofil 6.178 |
 | Routine Wache | Sockel + Routine Wache 949 (F5) | 2.058 |
 | Routinen | Sockel + fester Auftrag | offen |

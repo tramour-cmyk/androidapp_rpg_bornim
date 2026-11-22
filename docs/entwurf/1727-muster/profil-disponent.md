@@ -57,6 +57,7 @@ Größe Text: 3.775 Byte (Fassung 14: 3.761; Fassung 13: 3.642; Fassung 9: 3.068
 4. „Systemlösung?“ an den Arbeitsplaner weitergeben ist Auslegung von VA 20.11., 10:27 (BG:13, L-U6).
 5. **Ausnahmen in :20 „Fertig“ (Nachprüfungen 22:29, 22:47):** Ausnahme 1311 (Werkzeug nach grünem Lauf sofort nach `main`), „Ergebnis nach Checkliste 11, 12“ (Durchfall: Revert, Rest nach `main`, wie Profil Technik 13) und Routine („fertig“ ohne Commit, gebaut 1789 in `rueckmeldung.py` `weitergabe`). Der Nachtrag liegt jetzt in Vorgang 1794 (Perikles; Ausnahmen 1311, Checkliste 11/12, Routine), nicht 1773; Satz in :20 als Vorschlag Sokrates, Wortlaut Fassung 14 (Werkzeug „fertig“ auf `main`, Prüfer danach, sonst Zeile an die Fachkraft), Perikles prüft.
 6. **Chefwort gegen START (Nachprüfung 2 Nr. 7):** verlangt ein inhaltliches Urteil, das :12 dem Disponenten nicht gibt; bleibt, weil der Falltest D10/D11 ohne den Satz falsch startete. Werkzeug 1800 (offenes „steckt fest“), Laufsperre aus Chefwort ohne Werkzeug: Vorgang an Spike (Nachprüfung 2 Nr. 6).
+7. **Folge bis 1796 (Nachprüfung 3a Nr. 3, 3b):** bis `uebergabe.py` und `lauf.py` Eilt, Fund und Themenblock selbst ordnen, liest der Disponent je offene Zeile die Vorgangsdatei und bestimmt die Folge selbst; das ist ein Urteil, das :12 ihm sonst nicht gibt, und gilt nur bis 1796.
 
 ## Stärkstes Gegenargument
 
