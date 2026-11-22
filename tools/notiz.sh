@@ -82,12 +82,9 @@ else
     echo "Notizen auf main, neu seit dem letzten Aufruf:"
     TZ=Europe/Berlin git log --format='  %ad  %s' --date=format-local:'%d.%m. %H:%M' "$alt..$neu" -- CLAUDE.md CHANGELOG.md docs
 fi
-# 1642: Startwarnungen fortschreiben (nach 6 h Vorgang beim Besitzer, gelöste schließen) bei jedem Start; Rollenspiegel ab Mittwoch
-# nach dem Tagesbericht als Zeile „Spiegel“ (1461; darum ein zweiter Lauf, sobald der Tagesbericht des Tages steht);
+# 1642: Startwarnungen fortschreiben (nach 6 h Vorgang beim Besitzer, gelöste schließen) bei jedem Start;
 # im Hintergrund, eigener Commit auf origin/main ohne Arbeitskopie
 [ -f "$wt/tools/startwarnung.py" ] && (python3 "$wt/tools/startwarnung.py" --pflegen >/dev/null 2>&1 &)
-pm="$HOME/.bornim-pflege-$(TZ=Europe/Berlin date +%Y%m%d)$(grep -qF "**Stand $(TZ=Europe/Berlin date +%d.%m.), " "$wt/docs/ARBEIT-TAGESBERICHT.md" 2>/dev/null && echo b)"
-if [ -f "$wt/tools/pflegehinweis.py" ] && [ ! -f "$pm" ]; then touch "$pm"; (python3 "$wt/tools/pflegehinweis.py" >/dev/null 2>&1 &); fi
 # Commit-Prüfung (192.1): pre-commit-Haken, gilt für Notizkopie und Arbeitskopie (gemeinsames Verzeichnis); fehlt das Skript im Zweig, tut er nichts
 hk="$(git rev-parse --git-common-dir)/hooks/pre-commit"
 # D55.4: immer die Fassung von main (Notizkopie), auch in Arbeitszweigen ohne neue Fassung; alter Haken wird ersetzt

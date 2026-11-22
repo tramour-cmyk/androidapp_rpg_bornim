@@ -21,7 +21,7 @@ if command -v montage >/dev/null && command -v convert >/dev/null; then pass "Im
 else fail "ImageMagick: sudo apt-get install -y imagemagick"; fi
 
 echo "Repository:"
-[ -f CLAUDE.md ] && [ -f docs/ARBEIT-TEAM-TOM.md ] && [ -f docs/DESIGN-STIL.md ] && pass "CLAUDE.md, docs/ARBEIT-TEAM-TOM.md, docs/DESIGN-STIL.md" || fail "Projektdateien unvollständig"
+[ -f CLAUDE.md ] && [ -f docs/LISTE-VORGAENGE.md ] && [ -f docs/DESIGN-STIL.md ] && pass "CLAUDE.md, docs/LISTE-VORGAENGE.md, docs/DESIGN-STIL.md" || fail "Projektdateien unvollständig"
 [ -f godot/tests/logik.txt ] && pass "Logiksatz godot/tests/logik.txt ($(grep -cv '^#' godot/tests/logik.txt) Tests)" || fail "godot/tests/logik.txt"
 if git ls-files --error-unmatch local.properties >/dev/null 2>&1; then fail "local.properties ist eingecheckt (darf nicht)"; else pass "local.properties nicht im Repository"; fi
 if git ls-files | grep -qiE '\.(jks|keystore)$'; then fail "Keystore im Repository (darf nicht)"; else pass "kein Keystore im Repository"; fi

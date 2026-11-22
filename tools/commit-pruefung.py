@@ -236,7 +236,7 @@ def kerntest_stop(dat):
 # (Pfadfilter von godot.yml) hält an; frei: Merge eines Buildzweigs claude/build-…, Tests und uid-Dateien (godot/tests/, *.uid).
 # Bis zur Umstellung (1727, rückwärtsverträglich, Chef 20.11., 10:38) nur Warnung beim Merge eines Teamzweigs (Checkliste 3:
 # „ohne dich“ und Kleinkram gehen nach grünem Lauf auf main); ALTER_WEG = False schaltet das ab.
-ALTER_WEG = True
+ALTER_WEG = False
 
 
 def spielcode_pfade():
@@ -440,6 +440,13 @@ def _blob(rev, p):
     return git("rev-parse", "-q", "--verify", "%s:%s" % (rev, p)).strip()
 
 ROLLEN_GL = ("Sokrates", "Perikles", "Homer", "Diogenes", "Ford", "Tom", "Jerry", "Spike", "Tuffy")
+try:  # 1893: an der umgestellten Liste lesen Profile gegen („Gegengelesen: Prüfer 22.11., 10:00“); Fachprofile sind Teams (881)
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import startbar as _sb
+    PROFILE_GL = tuple(p for p in _sb.profile() if p not in ROLLEN_GL)
+    FACH_GL = tuple(p for p in PROFILE_GL if p not in _sb.BUERO)
+except Exception: PROFILE_GL, FACH_GL = (), ()
+ROLLEN_GL = ROLLEN_GL + PROFILE_GL
 try:  # 1783 (1739): Gegenleser auch mit Rufnamen
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import rufname as _rufname
@@ -662,7 +669,8 @@ def main():
         h = git("rev-parse", ":docs/LISTE-VORGAENGE.md").strip()
         ok = os.path.join(git("rev-parse", "--git-common-dir").strip(), "bornim-liste-ok")
         if h and h not in (open(ok).read().split() if os.path.exists(ok) else []):
-            warn.append("LISTE-VORGAENGE.md von Hand geändert; neue Zeile mit `vorgang.py neu \"Titel\" \"Bereich\" KLASSE \"Besitzer\" [--nr NR]`, "
+            neu_kopf = startbar.KOPF_NEU in git("show", ":docs/LISTE-VORGAENGE.md")  # 1893: Besitzer folgt dort dem Bereich
+            warn.append("LISTE-VORGAENGE.md von Hand geändert; neue Zeile mit `vorgang.py neu \"Titel\" \"Bereich\" KLASSE %s[--nr NR]`, " % ("" if neu_kopf else "\"Besitzer\" ") +
                         "Stand mit `vorgang.py stand|fertig` (275 Stufe 2; Diogenes zählt die Warnungen, danach hält sie an)")
             try:  # 734 (D92.1): je Warnung eine Zeile in warnungen-275.tsv im Zweig probelaeufe, sonst nicht zählbar
                 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -676,7 +684,7 @@ def main():
             fehler = lambda rev: {"%s: %s" % f for f in startbar.pruefen_liste(startbar.vorgangsliste(git("show", rev + "docs/LISTE-VORGAENGE.md")))}
             alt_f = fehler("HEAD:")
             for f in sorted(fehler(":") - alt_f): stop.append("LISTE-VORGAENGE.md: " + f + " (Form 275.2; vorgang.py schreibt nur Gültiges)")
-            if not startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")): stop.append("LISTE-VORGAENGE.md: keine Tabelle mit Kopf " + startbar.KOPF)
+            if not startbar.vorgangsliste(git("show", ":docs/LISTE-VORGAENGE.md")): stop.append("LISTE-VORGAENGE.md: keine Tabelle mit Kopf " + startbar.KOPF + " oder " + startbar.KOPF_NEU)
         except Exception as e: warn.append("Formprüfung Liste übersprungen: %s" % e)
     for s, p in dat:  # 1277 (Chef 15.11., 11:07 „Wie kann der einfach verschwinden?“): t286 ging nach 👍 auf 286.1–.5 weg, 286.6–.13 offen
         m = re.match(r"docs/chefsache/ansehen/t(\d+)-[^/]+\.md$", p)
@@ -777,7 +785,7 @@ def main():
         kopf = (inhalt.splitlines() or [""])[0].split("·")[0]
         def eigen(g):
             team = {"Tuffy": "Jerry"}.get(gegenleser_rolle(g), gegenleser_rolle(g))  # 1328: Spike eigenes Team
-            return team in ("Tom", "Jerry", "Spike") and re.search(r"\b(%s)\b" % "|".join([team] + (["Tuffy"] if team == "Jerry" else [])), kopf)
+            return team in ("Tom", "Jerry", "Spike") + FACH_GL and re.search(r"\b(%s)\b" % "|".join([team] + (["Tuffy"] if team == "Jerry" else [])), kopf)
         # 1410 (Jerry, t292): jede Zeile „Gegengelesen“ zählt; eine von außerhalb des Teams genügt (Sokrates bei Listen beider Teams)
         alle = list(GEGENGELESEN.finditer(inhalt))
         ohne = [g.group(1) for g in alle if not gegenleser_rolle(g)]

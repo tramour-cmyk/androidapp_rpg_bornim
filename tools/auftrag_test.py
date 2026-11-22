@@ -13,6 +13,9 @@ open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "# Vorgangsliste\n\n| Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |\n|---|---|---|---|---|---|---|---|---|---|\n"
     "| 9001 | Zwerg auf dem Tisch | Tom | M | startbar | – | – | – | E Welt | – |\n"
     "| 9002 | Schatten im Wald | Spike | M | gebaut, Geprüft an: abc1234 | – | – | – | B Werkzeuge | – |\n")
+open(os.path.join(A, "docs", "LISTE-VORGAENGE-ARCHIV.md"), "w").write(
+    "# Archiv\n\n| Nr. | Vorgang | Bereich | Kl. | Kosten | Vorrat | Stand |\n|---|---|---|---|---|---|---|\n"
+    "| 8001 | Alte Laterne | E Welt | M | 1,20 $ | Tom | erledigt |\n")
 g("add", "-A", cwd=A); g("commit", "-q", "-m", "start", cwd=A); g("push", "-q", "origin", "main", cwd=A)
 ENV = dict(os.environ, BORNIM_WURZEL=A, BORNIM_JETZT="21.11., 20:40", GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@t",
            GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t@t", BORNIM_SITZUNG="session_T")
@@ -38,7 +41,7 @@ GUT = """1. **Ziel:** Der Zwerg steht auf dem Tisch, nicht darin.
    - nur Tom-Bereich
    - Kerntests
 5. **Umsetzen:** Stellfläche aus dem Netz lesen.
-6. **Prüfart und Prüfe vor dem Senden:** Bild in Spielkamera; steht er auf der Fläche? Ja/Nein.
+6. **Prüfart und Prüfe vor dem Senden:** Bild in Spielkamera; steht er auf der Fläche? Ist nichts im Tisch? Zeigt das Bild den Commit?
 7. **Zurück:** an das Büro, erstes Wort „fertig“, mit Commit und Bild.
 """
 
@@ -58,6 +61,57 @@ soll("gültiger Auftrag ohne Fehler", au.pruefen(GUT) == [], au.pruefen(GUT))
 soll("ohne „Zurück“ hält an", any("Zurück" in x for x in au.pruefen(GUT.split("7. ")[0])), au.pruefen(GUT.split("7. ")[0]))
 soll("„Zurück“ zu knapp", any("knapp" in x for x in au.pruefen(GUT.replace("an das Büro, erstes Wort „fertig“, mit Commit und Bild.", "Büro"))))
 soll("über 2 KB hält an", any("Byte" in x for x in au.pruefen(GUT + "x" * 2100)))
+# 1878 (Lauf 3 Arbeitsplaner L4): wörtliche Zitate unter „Bisher“ zählen nicht zur Grenze, eigene Grenze
+nein = "„" + "der Stiel liegt nicht in der geschlossenen Hand, also fail " * 30 + "“"
+mit_zitat = GUT.replace("3. **Bisher:**", "3. **Bisher:** Chef 17:38: " + nein + " ·", 1)
+soll("1878: langes Zitat unter „Bisher“ hält nicht an", au.pruefen(mit_zitat) == [] and len(mit_zitat.encode()) > 2048, au.pruefen(mit_zitat))
+soll("1878: Zitat mit geraden Anführungszeichen ebenso", au.pruefen(mit_zitat.replace("„", '"').replace("“", '"')) == [])
+soll("1878: dasselbe ohne Anführungszeichen hält an", any("ohne Zitate" in x for x in au.pruefen(mit_zitat.replace("„", "").replace("“", ""))))
+lang_ziel = GUT.replace("1. **Ziel:**", "1. **Ziel:** " + nein, 1)
+soll("1878: Zitat außerhalb „Bisher“ zählt mit", any("ohne Zitate" in x for x in au.pruefen(lang_ziel)), au.pruefen(lang_ziel))
+zuviel = GUT.replace("3. **Bisher:**", "3. **Bisher:** " + nein + nein + nein, 1)
+soll("1878: Zitate über 2048 Byte halten an", any("Zitate unter „Bisher“" in x for x in au.pruefen(zuviel)), au.pruefen(zuviel))
+soll("1878: groesse trennt Zitate", au.groesse(mit_zitat)[1] == len(nein.encode()) and sum(au.groesse(mit_zitat)) == len(mit_zitat.encode()))
+# 1879 (Lauf 3 Arbeitsplaner L7, Prüfer-1 L8): Inhalt statt nur Form
+a3_ziel = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", "Ziel und Herkunft fehlen, „Frage“ an Sokrates; dieser Auftrag wird erst mit der Antwort eingetragen.")
+soll("1879: Fehlwörter im Ziel halten an (A3)", any("Feld 1" in x and "fehlt" in x for x in au.pruefen(a3_ziel)), au.pruefen(a3_ziel))
+a3_zur = GUT.replace("an das Büro, erstes Wort", "`vorgang.py rueckmeldung <Nr> \"fertig …\"` an das Büro, erstes Wort")
+soll("1879: Platzhalter <Nr> in Zurück hält an (A3)", any("Platzhalter <Nr>" in x for x in au.pruefen(a3_zur)), au.pruefen(a3_zur))
+pfad = GUT.replace("Stellfläche aus dem Netz lesen.", "Stellfläche aus dem Netz lesen, Muster `docs/vorgang/<Nr>.md` und docs/profil/<Name>.md.")
+soll("1879: Platzhalter in Pfaden zählt nicht", au.pruefen(pfad) == [], au.pruefen(pfad))
+zitat = GUT.replace("Höhe fest eingetragen", "Chef: „steht <wieder> drin“, Ursache unbekannt, Quelle fehlt; Höhe fest eingetragen")
+soll("1879: in Bisher sind „unbekannt“, „fehlt“ und Zitate erlaubt", au.pruefen(zitat) == [], au.pruefen(zitat))
+eine = GUT.replace("steht er auf der Fläche? Ist nichts im Tisch? Zeigt das Bild den Commit?", "steht er auf der Fläche? Ja/Nein.")
+soll("1879: eine Prüffrage hält an", any("1 Prüffragen" in x for x in au.pruefen(eine)), au.pruefen(eine))
+sechsf = GUT.replace("Zeigt das Bild den Commit?", "Zeigt das Bild den Commit? A? B? C?")
+soll("1879: sechs Prüffragen halten an", any("6 Prüffragen" in x for x in au.pruefen(sechsf)), au.pruefen(sechsf))
+frage = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", "Steht der Zwerg auf dem Tisch?")
+soll("1879: Ziel als Frage hält an", any("Feld 1" in x and "Frage" in x for x in au.pruefen(frage)), au.pruefen(frage))
+offen = GUT.replace("Stellfläche aus dem Netz lesen.", "Weg noch offen, TODO.")
+soll("1879: „noch offen“, TODO in Umsetzen halten an", any("Feld 5" in x for x in au.pruefen(offen)), au.pruefen(offen))
+gefehlt = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", "Der Zwerg steht auf dem Tisch; fehlerhafte Höhe weg.")
+soll("1879: „fehlerhaft“ ist kein Fehlwort", au.pruefen(gefehlt) == [], au.pruefen(gefehlt))
+# 1917 (D347.1): „fehlt“ über das Spiel ist ein Fund, kein fehlender Auftrag
+f1 = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", "Im Hof fehlt die Fackel; sie brennt wieder an der Wand.")
+f1 = f1.replace("Stellfläche aus dem Netz lesen.", "Fackel ergänzen, die seit Build 310 fehlt.")
+f1 = f1.replace("Ist nichts im Tisch?", "Fehlt der Schatten noch?")
+soll("1917: Spielfunde mit „fehlt“ gelten (Ziel, Umsetzen, Prüfart)", au.pruefen(f1) == [], au.pruefen(f1))
+f2 = GUT.replace("Ist nichts im Tisch?", "Ist die Tür noch offen?")
+soll("1917: „noch offen“ über das Spiel gilt", au.pruefen(f2) == [], au.pruefen(f2))
+f3 = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", "Der Zwerg steht auf dem Tisch; Quelle fehlt.")
+soll("1917: „Quelle fehlt“ im Ziel hält weiter an", any("Feld 1" in x and "Quelle fehlt" in x for x in au.pruefen(f3)), au.pruefen(f3))
+f4 = GUT.replace("Stellfläche aus dem Netz lesen.", "Commit und Zweig unklar.")
+soll("1917: „Commit und Zweig unklar“ hält an", any("Feld 5" in x for x in au.pruefen(f4)), au.pruefen(f4))
+# 1920 (D349.1): Satzaussagen über den Auftrag in jeder Schreibweise halten an; Spielfunde mit Ziel, Quelle, Zweig gelten
+for ziel in ("Das Ziel ist unklar.", "Es fehlt das Ziel", "Unklar, was gebaut werden soll", "Ziel: noch offen.", "ziel fehlt",
+             "Was gebaut werden soll, ist unklar.", "Ziel ist nicht klar."):
+    x = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", ziel)
+    soll("1920: „%s“ im Ziel hält an" % ziel, any("Feld 1" in y and "fehlt" in y for y in au.pruefen(x)), au.pruefen(x))
+for ziel in ("Das Ziel fehlt auf der Gebietskarte.", "Die Quelle fehlt im Dorf.", "Der Zweig fehlt am Baum.", "Die Tür bleibt offen, wenn der Held geht."):
+    x = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", ziel)
+    soll("1920: Spielfund „%s“ gilt" % ziel, au.pruefen(x) == [], au.pruefen(x))
+x = GUT.replace("Ist nichts im Tisch?", "Ist der Weg offen?")
+soll("1920: „Ist der Weg offen?“ in der Prüfart gilt", au.pruefen(x) == [], au.pruefen(x))
 sechs = GUT.replace("   - Kerntests\n", "   - a\n   - b\n   - c\n   - d\n   - e\n")
 soll("Beachte mit sechs Punkten hält an", any("Beachte" in x for x in au.pruefen(sechs)), au.pruefen(sechs))
 num = GUT.replace("   - nur Tom-Bereich\n   - Kerntests\n", "   1. nur Tom\n   2. Kerntests\n")
@@ -75,6 +129,37 @@ soll("--pruefen schreibt nichts", c == 0 and "gültig" in t and datei("9001") ==
 c, t = lauf("auftrag", "9001", "--datei", "-", eingabe=GUT)
 x = datei("9001")
 soll("gültig: Abschnitt „## Auftrag (21.11., 20:40)“ gepusht", c == 0 and "## Auftrag (21.11., 20:40)" in x and "Stellfläche aus dem Netz" in x, (t, x))
+
+# 4a 1798: Kern Arbeitsplaner (Feld 6 „Prüfart“, Auftrag oben, Größe in der Vorlage, Rückläufer zu archivierter Nummer)
+soll("Feld 6 auch als „Prüfart“", au.pruefen(GUT.replace("Prüfart und Prüfe vor dem Senden:", "Prüfart:")) == [], au.pruefen(GUT.replace("Prüfart und Prüfe vor dem Senden:", "Prüfart:")))
+soll("Vorlage nennt die Größe", "2048 Byte" in au.vorlage("9001") and "etwa 2 KB" in au.vorlage("9001"))
+os.environ["BORNIM_JETZT"] = ENV["BORNIM_JETZT"] = "21.11., 21:10"
+c, t = lauf("auftrag", "9001", "--datei", "-", eingabe=GUT.replace("Stellfläche aus dem Netz lesen.", "Zweiter Auftrag."))
+x = datei("9001")
+soll("zweiter Auftrag oben, vor dem ersten", c == 0 and 0 < x.find("## Auftrag (21.11., 21:10)") < x.find("## Auftrag (21.11., 20:40)"), (t, x))
+sys.path.insert(0, HIER)
+import lauf as _lauf, datetime as _dt
+ab = _lauf.juengster_auftrag(x, _dt.datetime(2026, 11, 22))
+soll("lauf: jüngster Auftrag nach Zeit, nicht nach Ort", ab and "Zweiter Auftrag." in x[ab[0]:ab[1]] and "## Auftrag (21.11., 20:40)" not in x[ab[0]:ab[1]], ab)
+alt_unten = "# 1\n\n## Auftrag (20.11., 10:00)\n\nalt\n\n## Rückmeldung\n\nx\n\n## Auftrag (21.11., 10:00)\n\nneu\n"
+ab = _lauf.juengster_auftrag(alt_unten, _dt.datetime(2026, 11, 22))
+soll("lauf: alte Datei mit Auftrag unten", ab and alt_unten[ab[0]:ab[1]].strip() == "neu", ab)
+_vor = open(os.path.join(A, "docs", "LISTE-VORGAENGE.md")).read()  # 1899: scheitert der Push, bleibt die Liste auch lokal unverändert
+ENV["BORNIM_OHNE_PUSH"] = "1"; c, t = lauf("auftrag", "8001", "--datei", "-", eingabe=GUT); ENV.pop("BORNIM_OHNE_PUSH")
+soll("Rückläufer: Push scheitert, Liste und Archiv unverändert", c != 0 and open(os.path.join(A, "docs", "LISTE-VORGAENGE.md")).read() == _vor
+     and "| 8001 |" in open(os.path.join(A, "docs", "LISTE-VORGAENGE-ARCHIV.md")).read() and not g("status", "--porcelain", "docs", cwd=A).strip(), (t, g("status", "--porcelain", cwd=A)))
+c, t = lauf("auftrag", "8001", "--datei", "-", eingabe=GUT)
+g("fetch", "-q", "origin", cwd=A)
+_ol = g("show", "origin/main:docs/LISTE-VORGAENGE.md", cwd=A); _oa = g("show", "origin/main:docs/LISTE-VORGAENGE-ARCHIV.md", cwd=A)
+soll("Rückläufer: Liste und Archiv auf origin/main, ein Commit mit dem Auftrag", "| 8001 | Alte Laterne | Tom | M | startbar |" in _ol and "| 8001 |" not in _oa
+     and set(g("show", "--name-only", "--format=", "origin/main", cwd=A).split()) == {"docs/LISTE-VORGAENGE.md", "docs/LISTE-VORGAENGE-ARCHIV.md", "docs/vorgang/8001.md"}, t)
+liste = open(os.path.join(A, "docs", "LISTE-VORGAENGE.md")).read(); arch = open(os.path.join(A, "docs", "LISTE-VORGAENGE-ARCHIV.md")).read()
+soll("archivierte Nummer: wieder offen, Auftrag eingetragen", c == 0 and "| 8001 | Alte Laterne | Tom | M | startbar |" in liste and "| 8001 |" not in arch
+     and "## Auftrag (21.11., 21:10)" in datei("8001"), (t, liste[-300:]))
+c, t = lauf("auftrag", "8002", "--datei", "-", eingabe=GUT)
+soll("Nummer weder in Liste noch Archiv hält an", c != 0 and "nicht im Archiv" in t, t)
+g("checkout", "-q", "--", "docs/LISTE-VORGAENGE.md", "docs/LISTE-VORGAENGE-ARCHIV.md", cwd=A)
+os.environ["BORNIM_JETZT"] = ENV["BORNIM_JETZT"] = "21.11., 20:40"
 
 # 5 Schließen
 c, t = lauf("schliessen", "9002", "erledigt")

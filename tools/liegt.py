@@ -60,10 +60,17 @@ def stand_von(d):
     return w
 
 
+def naiv(jetzt):
+    """1893: lauf.py gibt JETZT mit Zeitzone, startbar rechnet naiv in Berliner Zeit."""
+    if not jetzt.tzinfo: return jetzt
+    import zoneinfo
+    return jetzt.astimezone(zoneinfo.ZoneInfo("Europe/Berlin")).replace(tzinfo=None)
+
+
 def zeilen(zs, zeiten, jetzt, empfaenger=None, auf_main_fn=auf_main):
     """LIEGT-Zeilen für die Liste zs (dicts aus startbar.vorgangsliste) mit zeiten[i] (Unix-Sekunden je Zeilenindex).
     empfaenger: Abbildung neuer Rollen auf heutige (ALT bis zur Umschaltung), None = neue Namen."""
-    aus = []
+    aus, jetzt = [], naiv(jetzt)
     an = (lambda r: empfaenger.get(r, r)) if empfaenger else (lambda r: r)
     for d in zs:
         if d.get("besitzer") == "Ideen" or d["nr"] in startbar.SONDER: continue
@@ -106,6 +113,7 @@ def zeilen(zs, zeiten, jetzt, empfaenger=None, auf_main_fn=auf_main):
 def liegt(jetzt=None, scharf=None):
     """Zeilen für lauf.py aus der echten Liste."""
     jetzt = jetzt or startbar.JETZT
+    jetzt = naiv(jetzt)
     scharf = os.path.isfile(os.path.join(HIER, "1727-SCHARF")) if scharf is None else scharf
     zs = startbar.zeilen_liste()
     zeiten = startbar.zeilen_zeiten(jetzt)

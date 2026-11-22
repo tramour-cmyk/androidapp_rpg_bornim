@@ -13,7 +13,7 @@ import json, os, re, subprocess, sys
 
 ROLLEN = ("Build-Macher", "Spike", "Tom", "Jerry", "Tuffy", "Ford", "Perikles", "Homer", "Sokrates", "Diogenes")
 BUILD_NAME = r"claude/build-[^\s:;&|]+"
-ERLAUBT = ("Spike", "Build-Macher")
+ERLAUBT = ("Build-Macher",)
 # 1768 (D328.1): vor git dürfen Shell-Schlüsselwörter und Vorsätze stehen (do, then, else, if, while, until, !, {, time, nohup,
 # exec, command, env, timeout [-k N] DAUER, VAR=wert), etwa „for i in 1 2; do git push …“ oder „timeout 60 git push …“
 VORSATZ = (r"(?:(?:do|then|else|elif|if|while|until|!|\{|time(?:\s+-p)?|nohup|exec|command|builtin|env(?:\s+-\S+)*"

@@ -59,4 +59,23 @@ b = guthaben.Bremse(J, betrieb(50), archiv=A0, protokoll=[], rueck=rueck)
 soll("„keine“ = 0, ohne Ende 24 h mit Warnung", b.rest == 0 and b.erlaubt("Tom", "M", M) and "Ende fehlt" in b.zeilen()[1], b.zeilen())
 soll("Deckel aus nachtstarts (Rolle-Starts an) ist keine Laufsperre", guthaben.laufsperre(J, "- **1784 A** (22.11., 10:00, Chef) → **höchstens zwei weitere Spike-Starts an 1694**") is None)
 
+# 1930 (Chef 22.11., 11:48): Chefwort „alles“ sperrt auch die Rückläufer; Wache und Sokrates bleiben frei.
+# 1934 (D371.1): erkannt an der Marke „, auch Rückläufer“ in der fetten Laufsperre, die Sokrates nur bei „alles“ setzt
+AA = A.replace("„weniger laufen“", "„weniger laufen, alles“").replace("spätestens 18:00**", "spätestens 18:00, auch Rückläufer**")
+s = guthaben.laufsperre(J, AA)
+soll("1930: Marke „auch Rückläufer“ erkannt", s and s["alles"] and not guthaben.laufsperre(J, A)["alles"], s)
+soll("1930: „alles“ nur im Text nach dem Pfeil zählt nicht", not guthaben.laufsperre(J, A.replace("(Umfang Sokrates)", "(alles Weitere Sokrates)"))["alles"])
+soll("1934: „Ja, alles klar, lass weniger laufen.“ ohne Marke sperrt Rückläufer nicht", not guthaben.laufsperre(J, A.replace("„weniger laufen“", "„Ja, alles klar, lass weniger laufen.“"))["alles"])
+soll("1934: „alles“ im Zitat ohne Marke sperrt Rückläufer nicht", not guthaben.laufsperre(J, A.replace("„weniger laufen“", "„weniger laufen, alles“"))["alles"])
+soll("1934: Marke außerhalb der fetten Laufsperre zählt nicht", not guthaben.laufsperre(J, A.replace("(Umfang Sokrates)", "(Umfang Sokrates, auch Rückläufer)"))["alles"])
+soll("1934: Marke ohne „spätestens“ erkannt", guthaben.laufsperre(J, A.replace(", spätestens 18:00**", ", auch Rückläufer**"))["alles"])
+soll("1930: gezählt mit „alles“: Tom und Rückläufer Jerry → 2", guthaben.gezaehlt(s, J, P, rueck) == 2, guthaben.gezaehlt(s, J, P, rueck))
+b = guthaben.Bremse(J, betrieb(50), archiv=AA, protokoll=P, rueck=rueck)
+soll("1930: Deckel verbraucht, Rückläufer angehalten", b.rest == 0 and b.erlaubt("Jerry", "M", R1) and "auch Rückläufer" in b.erlaubt("Jerry", "M", R1), (b.rest, b.erlaubt("Jerry", "M", R1)))
+soll("1930: Sokrates und Wache bleiben frei", b.erlaubt("Sokrates", "K", M) is None and b.erlaubt("Wache", "M", M) is None)
+soll("1930: Zeile nennt die Sperre der Rückläufer", "frei: Wache, Sokrates (Chef „alles“" in b.zeilen()[1], b.zeilen())
+b = guthaben.Bremse(J, betrieb(50), archiv=AA.replace("zwei", "drei"), protokoll=P, rueck=rueck)
+b.zaehle("Jerry", R1)
+soll("1930: Rückläufer zählt mit „alles“ mit", b.rest == 0, b.rest)
+
 print("%d Fehler" % fehl); sys.exit(1 if fehl else 0)

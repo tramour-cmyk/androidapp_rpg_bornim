@@ -5,6 +5,7 @@ name: Herzschlag
 # Zeitmarke): roter Lauf (GitHub meldet ihn dem Besitzer) und Telegram, wenn das Secret TELEGRAM_BOT_TOKEN gesetzt ist.
 # Zeitpläne laufen bei GitHub ohne Gewähr (1191), darum prüft auch jeder Push auf docs/ in main.
 # Nachts (22–7 Uhr Berliner Zeit) nur lautlos wie tools/meldung.sh (G:921; 1739, werkzeuge.md A).
+# 1894: Hauptauslöser ist die Kette herzschlag-kette.yml (stündlich, unabhängig von Ford); fehlt sie, startet dieser Lauf sie.
 on:
   schedule:
     - cron: "23 * * * *"
@@ -57,6 +58,17 @@ jobs:
     if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.test) }}
     runs-on: ubuntu-latest
     steps:
+      - name: Kette läuft? (1894)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          n=0
+          for st in in_progress queued waiting pending; do
+            k=$(gh run list --workflow herzschlag-kette.yml --status $st --json databaseId --jq length 2>/dev/null || echo 0)
+            n=$((n + k))
+          done
+          if [ "$n" = 0 ]; then gh workflow run herzschlag-kette.yml --ref main && echo "Kette neu gestartet (1894)"; else echo "Kette läuft ($n)"; fi
       - uses: actions/checkout@v4
         with:
           sparse-checkout: |

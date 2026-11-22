@@ -137,6 +137,41 @@ def besitzer(test):
     return wer if wer in startbar.BESITZER and wer != "Ideen" else "Ford"
 
 
+def zeile_von_nr(nr, archiv=False):
+    """Zeile der Liste; mit archiv=True sonst aus LISTE-VORGAENGE-ARCHIV.md (Nr., Bereich, Besitzer = Fachprofil des Blocks, 1893)."""
+    for d in startbar.zeilen_liste():
+        if d["nr"] == nr: return d
+    if not archiv: return None
+    try: zeilen = open(os.path.join(startbar.DOCS, "LISTE-VORGAENGE-ARCHIV.md"), encoding="utf-8").read().splitlines()
+    except OSError: return None
+    for z in zeilen:
+        f = [x.strip() for x in z.split("|")]
+        if len(f) > 4 and f[1] == nr:
+            block = startbar.block_von(nr, f[3])
+            return {"nr": nr, "bereich": f[3], "block": block, "besitzer": startbar.themenbloecke()[0].get(block, "Arbeitsplaner")}
+    return None
+
+
+def ziel(test):
+    """1893: (Besitzer, Bereich) des neuen Vorgangs. Alte Liste: besitzer(test), Bereich „E Technik“. Umgestellte Liste (Besitzer =
+    Fachprofil des Blocks, `vorgang.py neu` nimmt nur den Bereich): Bereich der Zeile, deren Nummer im Betreff des anlegenden Commits
+    oder im Testnamen steht und deren Profil Spielcode baut (kein Büro, kein Arbeitsplaner); sonst Technik."""
+    startbar.zeilen_liste()
+    if not startbar.NEU: return besitzer(test), "E Technik"
+    r = subprocess.run(["git", "-C", REPO, "log", "--diff-filter=A", "--format=%H %s", "--", "godot/" + test], capture_output=True, text=True)
+    zeilen = [z for z in r.stdout.splitlines() if z]
+    sha, _, erst = (zeilen[-1] if zeilen else "").partition(" ")
+    if sha in grenzen(): erst = anleger_netz(test)
+    erst = re.sub(r"^[^:–\d]{1,30}(?::|\s–)\s*", "", erst, count=1)  # „Tom: 416 …“, „Anna – 1739 …“
+    nrs = [n.group(1)] if (n := re.match(r"(\d+[a-z]?(?:\.\d+[a-z]?)*)\b", erst)) else []
+    for z in re.findall(r"_(\d{3,})(?=_|$)", os.path.basename(test)[:-3]):
+        nrs += [z] + [z[:i] + "." + z[i:] for i in range(len(z) - 1, 0, -1)]
+    for k in nrs:
+        d = zeile_von_nr(k, archiv=True)  # 1893: erledigte Mutter steht im Archiv
+        if d and d.get("besitzer") not in startbar.BUERO + ["Arbeitsplaner"] and d.get("bereich"): return d["besitzer"], d["bereich"]
+    return "Technik", "E Technik"
+
+
 def bekannt(test):
     """Nummer einer offenen Zeile, deren Titel den Test nennt (Dateiname ohne .gd), sonst None."""
     stamm = os.path.basename(test)[:-3]
@@ -193,7 +228,7 @@ def kandidaten(zahl=None):
             titel = "Von Werkzeug (1334): Wackeltest %s: rot und grün am selben Commit (Läufe %s); deterministisch machen, nie abschalten · wiederholt" % (stamm, laeufe_)
         else:
             titel = "Von Werkzeug (1334): Wiederholrot %s: %d× rot in %d h (Läufe %s); Ursache nachstellen, beheben · wiederholt" % (stamm, len(z["rot"]), STUNDEN, laeufe_)
-        aus.append((t, besitzer(t), titel))
+        aus.append((t,) + ziel(t) + (titel,))
     return aus
 
 
@@ -225,9 +260,9 @@ def main():
         print("ROT %s: %d×%s, Läufe %s%s" % (t, len(z["rot"]), " WACKELT" if z["wackelt"] else "", ", ".join(str(n) for n, _, _ in z["rot"]),
                                            (", bekannt in " + bekannt(t)) if bekannt(t) else ""))
     ks = kandidaten(zahl)
-    for t, wer, titel in ks:
+    for t, wer, bereich, titel in ks:
         if "--anlegen" in sys.argv:
-            r = subprocess.run([sys.executable, os.path.join(REPO, "tools", "vorgang.py"), "neu", titel, "E Technik", "M", wer, "--oben"], capture_output=True, text=True)
+            r = subprocess.run([sys.executable, os.path.join(REPO, "tools", "vorgang.py"), "neu", titel, bereich, "M", wer, "--oben"], capture_output=True, text=True)
             print("ANGELEGT %s (%s): %s" % (t, wer, (r.stdout or r.stderr).strip().splitlines()[-1] if (r.stdout or r.stderr).strip() else "?"))
         else:
             print("NEU %s (%s): %s → python3 tools/rotbuch.py --anlegen" % (t, wer, titel))

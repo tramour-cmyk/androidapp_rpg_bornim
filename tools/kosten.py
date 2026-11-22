@@ -11,7 +11,8 @@ import json, sys, re, datetime
 from collections import defaultdict
 
 SPIEL = {"Tom", "Jerry", "Homer"}
-ROLLEN = ["Ford 2", "Ford", "Perikles", "Diogenes", "Sokrates", "Tom", "Jerry", "Homer", "Spike", "Tuffy", "Rundblick"]  # 1789: Routine Rundblick (lauf.rundblick_zeilen)
+ROLLEN = ["Ford 2", "Ford", "Perikles", "Diogenes", "Sokrates", "Tom", "Jerry", "Homer", "Spike", "Tuffy", "Rundblick", "Ideenlauf", "Tagesbericht",
+          "Prüfer", "Büro", "Arbeitsplaner", "Tester"]  # 1789, 1907: Routinen Rundblick, Ideenlauf (lauf.rundblick_zeilen); 1779 d: Rollen nach der Umstellung, sonst „Sonstige“ (Höchstdauer prüft sie nie)
 TEAM = {"Tuffy": "Jerry"}  # 1328: Spike eigene Rolle; 394 (Chef 28.10., 10:26): Zusatzentwickler, eigene Sitzung, Vorrat und Kosten ihres Teams
 
 def sitzungen(pfad, offen):
@@ -30,11 +31,11 @@ def sitzungen(pfad, offen):
             s["status_bucket"] = ""; s.setdefault("post_turn_summary", {})["status_category"] = "need_input"
     return aus
 
-BEKANNTE_STATUS = {"working", "idle", "blocked", "need_input", "archived"}
+BEKANNTE_STATUS = {"working", "idle", "blocked", "need_input", "archived", "failed"}  # failed: Zug mit Fehler beendet (status_bucket, 1782)
 
 def kurzzeilen(t):
     """Kurzform statt Seiten-JSON (Ford kann Ausgaben nicht in Dateien umleiten, 167.2): je Sitzung eine Zeile
-    `Kennung | Status | updated_at | Titel | Kosten $ [| created_at [| used_tokens]]`, Status working|idle|blocked|need_input|archived,
+    `Kennung | Status | updated_at | Titel | Kosten $ [| created_at [| used_tokens]]`, Status working|idle|blocked|need_input|archived|failed (status_bucket „failed“, 1782),
     Kosten leer oder „-“ = unbekannt. Zeilen mit # und Leerzeilen fallen weg."""
     aus = []
     for z in t.splitlines():
@@ -46,7 +47,7 @@ def kurzzeilen(t):
             raise ValueError("Kurzzeile %s: unbekannter Status „%s“ (erlaubt: %s)" % (f[0], f[1], ", ".join(sorted(BEKANNTE_STATUS))))
         s = {"id": f[0], "title": f[3], "updated_at": f[2], "created_at": f[5] if len(f) > 5 and f[5] else f[2],
              "session_status": {"working": "SESSION_STATUS_RUNNING", "blocked": "SESSION_STATUS_RUNNING", "archived": "SESSION_STATUS_ARCHIVED"}.get(st, "SESSION_STATUS_IDLE"),
-             "status_bucket": {"working": "WORKING", "blocked": "BLOCKED"}.get(st, "")}
+             "status_bucket": {"working": "WORKING", "blocked": "BLOCKED", "failed": "FAILED"}.get(st, "")}
         if st == "need_input": s["post_turn_summary"] = {"status_category": "need_input"}
         k = f[4].replace(",", ".").replace("$", "").strip() if len(f) > 4 else ""
         if k not in ("", "-", "–"): s["external_metadata"] = {"usage": {"cost_usd": float(k)}}
@@ -55,9 +56,19 @@ def kurzzeilen(t):
         aus.append(s)
     return aus
 
+_PROFILE = {}
 def rolle(titel):
     for r in ROLLEN:
         if titel == r or titel.startswith((r + " ", r + ",", r + ":")): return r  # 360: „Homer, 279 …“ blieb als Klon stehen
+    try:  # 1893: Titel mit Profil statt Rufname („Technik – 1893 …“, Start vor tools/1727-SCHARF an der neuen Liste)
+        import os
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import startbar
+        if "p" not in _PROFILE: _PROFILE["p"] = startbar.profile()
+        for r in _PROFILE["p"]:
+            if titel == r or titel.startswith((r + " ", r + ",", r + ":")): return r
+    except Exception:
+        pass
     # 1739 Rufnamen: „Anna – 1739: …“ zählt beim Besitzer des Vorgangs im Titel (Bereich), alte Titel wie bisher
     try:
         import os

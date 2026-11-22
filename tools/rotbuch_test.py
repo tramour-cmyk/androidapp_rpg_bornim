@@ -31,7 +31,7 @@ r.grenzen = lambda: set()
 soll("voller Verlauf: Anleger im Betreff", r.besitzer("tests/ziege_4162.gd"), "Sokrates")
 r.subprocess.run = echt
 r.bekannt = lambda t: None; r.besitzer = lambda t: "Tom"
-k = {t: titel for t, _, titel in r.kandidaten(z)}
+k = {t: titel for t, _, _, titel in r.kandidaten(z)}
 soll("Wiederholer wird Vorgang", "Wiederholrot zwei_2" in k.get("tests/zwei_2.gd", ""), True)
 soll("Wackeltest wird Vorgang", "Wackeltest wackel_1" in k.get("tests/wackel_1.gd", ""), True)
 soll("zweimal rot auf demselben Teamzweig bleibt ohne Vorgang (Zu 1334, Tom)", "tests/alt_4.gd" in k, False)
@@ -41,9 +41,9 @@ soll("einmal rot bleibt ohne Vorgang", "tests/einmal_3.gd" in k, False)
 for l in ls: l["created_at"] = "2026-11-17T1%d:00:00Z" % l["id"]
 z = r.zaehlen(ls, speicher)
 r.erledigt_seit = lambda t: "2026-11-17T18:30:00Z" if "bau_5" in t else ("2026-11-17T12:30:00Z" if "zwei_2" in t else "")
-k = {t: titel for t, _, titel in r.kandidaten(z)}
+k = {t: titel for t, _, _, titel in r.kandidaten(z)}
 soll("1583: beide Rot vor der Erledigung, kein neuer Vorgang", "tests/bau_5.gd" in k, False)
 soll("1583: Rot danach zählt weiter (zweimal nach 12:30)", "tests/zwei_2.gd" in k, True)
 r.erledigt_seit = lambda t: "2026-11-17T13:30:00Z"
-soll("1583: nur ein Rot nach der Erledigung, kein Vorgang", "tests/wackel_1.gd" in {t for t, _, _ in r.kandidaten(z)}, False)
+soll("1583: nur ein Rot nach der Erledigung, kein Vorgang", "tests/wackel_1.gd" in {t for t, _, _, _ in r.kandidaten(z)}, False)
 sys.exit(1 if fehl else 0)

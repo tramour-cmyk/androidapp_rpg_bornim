@@ -14,7 +14,7 @@ Aufruf: als PreToolUse-Haken (JSON auf stdin); zum Prüfen: startsperre-haken.py
 import datetime, json, os, re, subprocess, sys
 
 FENSTER = datetime.timedelta(minutes=10)
-ROLLEN = ("Tom", "Jerry", "Spike", "Tuffy", "Ford", "Perikles", "Homer", "Sokrates", "Diogenes", "Rundblick")  # 1789: Routine Rundblick braucht die Startsperre wie jede Rolle
+ROLLEN = ("Tom", "Jerry", "Spike", "Tuffy", "Ford", "Perikles", "Homer", "Sokrates", "Diogenes", "Rundblick", "Ideenlauf", "Tagesbericht")  # 1789, 1907: Routinen Rundblick, Ideenlauf brauchen die Startsperre wie jede Rolle
 MAIN = "/home/user/bornim-main"
 
 

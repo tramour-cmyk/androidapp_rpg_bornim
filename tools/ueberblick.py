@@ -163,6 +163,13 @@ def rechnen():
 
 
 ROLLEN_REIHE = ["Tom", "Jerry", "Spike", "Homer", "Diogenes", "Sokrates", "Perikles"]
+
+
+def reihe():
+    """1893: alte Liste ROLLEN_REIHE, umgestellte Liste je Profil ohne Disponent (startet selbst, hat keine Zeilen). Liest die
+    Liste neu: startbar.NEU gilt für die zuletzt gelesene, `morgen()` liest den Stand von 0:00 (am Umschalttag noch alt)."""
+    s.vorgangsliste(s.lesen(s.LISTE))
+    return [p for p in s.profile() if p != "Disponent"] if s.NEU else ROLLEN_REIHE
 CHEF_ART = ("test", "entscheiden", "tun", "ansehen", "billigen")  # 1391: Folge nach Vorschlag Sokrates (Testbitte hält die meisten Zeilen)
 
 
@@ -207,19 +214,18 @@ def besetzt_rolle(rolle):
 
 
 def je_rolle():
-    """1364 (Chef 16.11., 06:52 „jeder braucht doch einen Job“): je Rolle die nächste Zeile, wie Ford sie startet (lauf.stand, mit
-    Übernahme), oder „leer, weil …“ mit den häufigsten Gründen; eine Pause, die startbares Muss liegen lässt, sagt es."""
+    """1364 (Chef 16.11., 06:52 „jeder braucht doch einen Job“): je Rolle die nächste Zeile, wie Ford sie startet (lauf.stand),
+    oder „leer, weil …“ mit den häufigsten Gründen; eine Pause, die startbares Muss liegen lässt, sagt es."""
     import collections, lauf
+    rr = reihe()  # 1893: vor lauf.stand(), das sich nach der zuletzt gelesenen Liste richtet
     st = lauf.stand()
     aus = ["| **Chef** | %s |" % chef_naechstes().replace("|", "/")]  # 1391
-    for r in ROLLEN_REIHE:
+    for r in rr:
         if r not in st: continue
         muss, kuer, p, _ = st[r]
         def zeile(x, art):
             t = x[2]
-            vor = "Übernahme von %s: " % re.match(r"Übernahme von (\w+)", t).group(1) if t.startswith("Übernahme von") else ""
-            t = re.sub(r"^Übernahme von [^:]*\):\s*", "", t)
-            return "%s %s%s (%s)" % (x[0], vor, worum(t, 60), art)
+            return "%s %s (%s)" % (x[0], worum(t, 60), art)
         if p:
             was = "Pause bis %s" % p + ("; lässt liegen: %s" % ", ".join(x[0] for x in muss[:5]) if muss else "")
         elif muss: was = zeile(muss[0], "Muss") + ("; dann %d weitere" % (len(muss) - 1) if len(muss) > 1 else "")
@@ -240,15 +246,6 @@ def je_rolle():
         b = besetzt_rolle(r)
         if b: was = "läuft: %s (Besetzung); %s" % (b, was)
         aus.append("| %s | %s |" % (r, was.replace("|", "/")))
-        for zus, team in s.ZUSATZ.items():  # 1371 (D254.2, Chef 16.11., 07:02 „den kann man auch Arbeit geben“): Aushilfe nimmt Startbares ihres Teams
-            if team != r: continue
-            eigen = [x for x in muss if not x[2].startswith("Übernahme von")]
-            zw = (eigen[0][3].get("zweig") or "–") if eigen else "–"
-            frei = [x for x in eigen[1:] if (x[3].get("zweig") or "–") in ("–", "-", "", None) or x[3].get("zweig") != zw]
-            frei = [x for x in frei if not re.search(r"nur %s\b" % team, x[2] + " " + x[3].get("stand", ""))]
-            if frei: wz = zeile(frei[0], "Muss von %s, neben dessen Arbeit" % team) + ("; dann %d weitere" % (len(frei) - 1) if len(frei) > 1 else "")
-            else: wz = "leer, weil %s kein zweites unabhängiges Muss hat" % team + (" (Pause)" if p else "")
-            aus.append("| %s | %s |" % (zus, wz.replace("|", "/")))
     return aus
 
 
@@ -296,7 +293,7 @@ def morgen(jetzt=None):
         return st if st and st[1] else None   # 1496: vor 08.11. hatte die Liste kein Feld Stand, offen las sich als 0
     def erster_lesbarer(t):
         """frühester Stand der Vorgangsliste nach t mit lesbaren offenen Zeilen (Halbierung über die Commits der Liste)."""
-        cs = s._git("log", "--reverse", "--format=%H", "--since=" + t.isoformat(), "HEAD", "--", os.path.join(s.DOCS, s.LISTE)).stdout.split()
+        cs = s._git("log", "--reverse", "--format=%H", "--since=" + t.isoformat(), "HEAD", "--", ":/docs/" + s.LISTE).stdout.split()  # Pfad im Repo des Werkzeugs: lauf setzt s.DOCS auf ../bornim-main (Nebenfund 1893)
         lo, hi = 0, len(cs)
         while lo < hi:
             m = (lo + hi) // 2
@@ -334,7 +331,7 @@ def md():
     bes = besetzt()
     # Stand = letzte Änderung der Vorgangsliste (Berliner Zeit), nicht die Uhr: sonst schriebe jeder Lauf die Übersicht neu
     stand = s._git("-c", "log.showSignature=false", "log", "-1", "--date=format-local:%d.%m., %H:%M", "--format=%cd", "--",
-                   os.path.join(s.DOCS, s.LISTE)).stdout.strip() or s.JETZT.strftime("%d.%m., %H:%M")
+                   ":/docs/" + s.LISTE).stdout.strip() or s.JETZT.strftime("%d.%m., %H:%M")
     aus = ["## Überblick", "",
            "Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom %s, neu bei jeder Änderung. "
            "Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. "
@@ -358,7 +355,9 @@ def md():
             sum(wartet_auf_test(d) for d in je), sum(d["wort"] in RUHT for d in je),
             ("%s (%s) %s" % (n["nr"], n["besitzer"], worum(n["titel"], 50))) if n else "–"))
     if mo: aus += ["", mo[1]]
-    aus += ["", "**Je Rolle das Nächste** (wie Ford startet, mit Übernahme, 1364)", "", "| Rolle | als Nächstes |", "|---|---|"] + je_rolle()
+    je = je_rolle()
+    aus += (["", "**Je Profil das Nächste** (wie der Disponent startet, 1893)", "", "| Profil | als Nächstes |", "|---|---|"] if s.NEU else
+            ["", "**Je Rolle das Nächste** (wie Ford startet, 1364)", "", "| Rolle | als Nächstes |", "|---|---|"]) + je
     aus += ["", "**Die nächsten %d**" % ANZAHL, "", "| # | Nr. | Wer | Worum | Kl. | Block | Stand |", "|---|---|---|---|---|---|---|"]
     for i, (key, d, grund) in enumerate(kommt[:ANZAHL], 1):
         aus.append("| %d | %s | %s | %s | %s | %s | %s |" % (i, d["nr"], d["besitzer"], worum(d["titel"]).replace("|", "/"),
