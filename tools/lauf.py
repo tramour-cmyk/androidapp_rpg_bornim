@@ -104,7 +104,16 @@ REVISION = "main"  # 382: ohne source_revision lasen neue Sitzungen einen alten 
 def kern(rolle):
     """1683 (Chef 18.11., 16:54 „Kern über lauf.py, genauso“): Abschnitt „## Kern“ der Rollendatei, deren erste Zeile die Rolle nennt
     (ROLLE-TECHNIK.md „# Technik (Spike)“, ROLLE-BERATUNG-START.md „# Startprompt Sokrates“), bis zur nächsten „## “-Überschrift;
-    mit „## Schwerpunkte“ dahinter dazu Schwerpunkt A (ohne Angabe A, ROLLE-BERATUNG-START.md 1). Ohne solche Datei leer."""
+    mit „## Schwerpunkte“ dahinter dazu Schwerpunkt A (ohne Angabe A, ROLLE-BERATUNG-START.md 1). Ohne solche Datei leer.
+    1893: an der neuen Liste der Ladetext des Profils `docs/profile/<Profil>.md` (werkzeuge.md Schritt 8): die Datei ohne Kopfzeile
+    „# …“ und die Leerzeile danach (Messregel), bis zum ersten „## “; ohne Datei leer (Start ohne Kern, wie bisher)."""
+    if NEU_LISTE:
+        p = os.path.join(DOCS, "profile", "%s.md" % rolle)
+        if not os.path.isfile(p): return ""
+        zeilen = lesen(p).split("\n")
+        if zeilen and zeilen[0].startswith("# "): zeilen = zeilen[1:]
+        j = next((k for k, z in enumerate(zeilen) if z.startswith("## ")), len(zeilen))
+        return "\n".join(zeilen[:j]).strip()
     for p in sorted(glob.glob(os.path.join(DOCS, "ROLLE-*.md"))):
         zeilen = lesen(p).split("\n")
         if not zeilen or not re.search(r"\b%s\b" % re.escape(rolle), zeilen[0]): continue
@@ -123,13 +132,17 @@ def kern(rolle):
 
 
 def mit_kern(l):
-    """1683: jede START-Zeile beginnt in der ersten Nachricht (letztes Feld) mit dem Kern der Rolle, darunter „Auftrag:“ und die bisherige Nachricht."""
+    """1683: jede START-Zeile beginnt in der ersten Nachricht (letztes Feld) mit dem Kern der Rolle, darunter „Auftrag:“ und die bisherige Nachricht.
+    1893: an der neuen Liste Ladetext des Profils statt Kern; „Start nach deiner Rollendatei“ heißt dort „den Ladetext oben“ (Profile ohne Rollendatei)."""
     if not l.startswith("START "): return l
     rolle = l[6:].split(" |", 1)[0].strip()
     if rolle in ROUTINE_ROLLEN: return l  # 1789: Routine ohne Kern (Archiv 20.11., 07:37 „nicht deinen Kern“)
     k = kern(rolle)
-    if not k: return l
     kopf, _, msg = l.rpartition(" | ")
+    if NEU_LISTE and rolle != "Sokrates":
+        msg = msg.replace("zuerst Start nach deiner Rollendatei, dann", "zuerst den Ladetext oben, dann" if k else "zuerst").replace(
+            "Zuerst Start nach deiner Rollendatei.", "Zuerst den Ladetext oben." if k else "")
+    if not k: return "%s | %s" % (kopf, msg)
     return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
 
 
@@ -175,11 +188,11 @@ def modell(r, nr, nachfolger=""):
         STARK_GESTARTET.append(nr)  # 827 A: „die nächste Sitzung“, eine je Vorgang; --sperre setzt die Marke an den Titel
         return startbar.STARK_MODELL, " Stärkstes Modell (827 A): Vorgang %s ist festgefahren (%s); Ziel ist das „passt“ des Chefs mit möglichst wenig weiteren Rückläufern." % (nr, g), False
     if nachfolger and AUFWAND_HOCH.search(nachfolger):
-        return MODELL[team], " Aufwand hoch (827.1) laut Übergabe; nur für diese Aufgabe, im eigenen Nachfolger „Aufwand hoch“ nur mit neuem Grund.", True
+        return MODELL.get(team, "opus"), " Aufwand hoch (827.1) laut Übergabe; nur für diese Aufgabe, im eigenen Nachfolger „Aufwand hoch“ nur mit neuem Grund.", True
     # festgefahren allein schaltet nicht hoch (Chef 22:04 „Mittel für alle“; 709, 709.1 liefen sonst dauernd hoch), nur Hinweis
     if g:
-        return MODELL[team], " Vorgang %s ist festgefahren (%s): braucht der nächste Start mehr Leistung, Übergabe mit „Nachfolger: … (Aufwand hoch, weil …)“ (827.1)." % (nr, g), False
-    return MODELL[team], "", False
+        return MODELL.get(team, "opus"), " Vorgang %s ist festgefahren (%s): braucht der nächste Start mehr Leistung, Übergabe mit „Nachfolger: … (Aufwand hoch, weil …)“ (827.1)." % (nr, g), False
+    return MODELL.get(team, "opus"), "", False
 # 718 A (Chef 09.11., 11:25): jede Probe = Abweichung vom alten Wert mit Enddatum; ab BIS gilt der alte Wert in der Tafel oben, lauf.py meldet
 # einmal am Tag „Probe <Nr> abgelaufen, auswerten“ (WARNUNG-LAUT, Marke „Probe-abgelaufen <Nr>“); verlängern nur auf Wort des Chefs (BIS ändern, Wortlaut dazu)
 PROBEN = [  # (Nr, Tafel, Schlüssel, Probewert, BIS „TT.MM.JJJJ“: ab diesem Tag alter Wert)
@@ -197,6 +210,26 @@ VORRAT = {"Homer": "ARBEIT-KREATIV.md", "Tom": "ARBEIT-TEAM-TOM.md", "Jerry": "A
           "Spike": "ARBEIT-TEAM-SPIKE.md", "Tuffy": "ARBEIT-TEAM-JERRY.md"}  # 394: Tuffy Vorrat des Teams; 1328: Spike eigener Vorrat
 START_REIHE = ["Tom", "Jerry", "Spike", "Diogenes", "Homer", "Perikles"]
 MIT_KUER = {"Tom", "Jerry", "Spike", "Diogenes", "Homer", "Perikles"}
+PLANER = "Perikles"  # 1893: an der neuen Liste „Arbeitsplaner“ (M?, Kosten, Stillstand)
+NEU_LISTE = False  # 1893: True, wenn die Vorgangsliste den Kopf ohne Besitzer hat (startbar.NEU); setzt neue_liste()
+NIE_START_NEU = {"Disponent"}  # 1893: der Disponent ist Fords Sitzung (startet die Wache), lauf.py startet ihn nie aus Zeilen
+
+def neue_liste():
+    """1893 (1727, Umschalt-Commit 1871): an der umgestellten Liste starten die Profile statt der Rollen. START_REIHE und MIT_KUER =
+    Profile aus startbar.profile() (Fachprofile der Themenblöcke, dann Büro) ohne Disponent; Zeilen M?, Kosten, Stillstand an den
+    Arbeitsplaner; Profile haben keinen Vorrat (Nachfolger und Pause kommen aus der Vorgangsdatei). Alte Liste: alles wie bisher."""
+    global START_REIHE, MIT_KUER, PLANER, NEU_LISTE
+    startbar.besitzer_reihe()
+    NEU_LISTE = bool(startbar.NEU)
+    if not NEU_LISTE: return False
+    START_REIHE = [p for p in startbar.profile() if p not in NIE_START_NEU]
+    MIT_KUER = set(START_REIHE); PLANER = "Arbeitsplaner"
+    return True
+
+def vorrat_hinweis(r, nr=None):
+    """Satzende der Startnachricht: alte Liste „die Übergabe in <Vorrat> beachten“, neue Liste die Vorgangsdatei (1893)."""
+    if r in VORRAT and not NEU_LISTE: return "die Übergabe in %s beachten" % VORRAT[r]
+    return "die Vorgangsdatei `docs/vorgang/%s.md` lesen (Auftrag, Feld „Zurück“)" % (nr or "<Nr>")
 ROUTINE_ROLLEN = {"Rundblick"}  # 1789: Routinen mit eigenem Start (ohne Kern, ohne Rufname, ohne Feld „Zurück“), nur mit tools/1727-SCHARF
 NIE_ARCHIV = {"Ford"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
 
@@ -353,8 +386,9 @@ def stand():
     """Rolle → (Muss-Liste, Kür-Liste, Pause, Chef-Nummern) aus der Vorgangsliste (275.2, startbar.plan); Listen = alle startbaren Zeilen
     in Vorrangfolge, je Eintrag (Nr, Kl, Titel, Zeile als dict)."""
     aus = {}; m_fragen = []
-    for datei, rolle in startbar.ROLLEN:
-        inhalt = startbar.lesen(datei)
+    for datei, rolle in startbar.besitzer_reihe():  # 1893: neue Liste je Profil, ohne Vorrat
+        if rolle in NIE_START_NEU: continue
+        inhalt = startbar.lesen(datei) if datei else ""
         zs = startbar.plan(rolle)
         sperr = {x[0]: x[4] for x in zs}
         muss = [x[:4] for x in zs if x[1] == "M" and not x[4]]
@@ -377,12 +411,12 @@ def stand():
         for nr, titel, geber, _ in startbar.uebernahmen(r):
             aus[r][0].append((nr, "M", "Übernahme von %s (1364, zuerst vorgang.py setze %s besitzer=%s): %s" % (geber, nr, r, titel), {}))
             if geber in aus: aus[geber][0][:] = [x for x in aus[geber][0] if x[0] != nr]
-    if m_fragen and "Perikles" in aus:  # 190.8: offene „M?“ als eine Muss-Zeile für Perikles, alle in einem Zug
+    if m_fragen and PLANER in aus:  # 190.8: offene „M?“ als eine Muss-Zeile für Perikles, alle in einem Zug
         m_zeile = ("M?", "M", "M? entscheiden: " + ", ".join(m_fragen) + " (190.8: je Vorgang M oder K mit einem Satz Grund, vorgang.py klasse)", {})
-        aus["Perikles"][0].insert(0, m_zeile)
+        aus[PLANER][0].insert(0, m_zeile)
     ko = startbar.kosten_offen()
-    if ko and "Perikles" in aus:  # 1538 (1520 so): Vorgänge an der Kostenschwelle als eine Muss-Zeile für Perikles, wie M?
-        aus["Perikles"][0].insert(0, ("Kosten", "M", "Kosten entscheiden: " + ", ".join("%s (%s, %s)" % (n, b, k) for n, b, k, _ in ko)
+    if ko and PLANER in aus:  # 1538 (1520 so): Vorgänge an der Kostenschwelle als eine Muss-Zeile für Perikles, wie M?
+        aus[PLANER][0].insert(0, ("Kosten", "M", "Kosten entscheiden: " + ", ".join("%s (%s, %s)" % (n, b, k) for n, b, k, _ in ko)
             + " (1538: je Vorgang weiter, vereinfachen oder streichen mit einem Satz Grund; weiter/vereinfachen = Zeile „Kosten frei:“ in ARBEIT-PROJEKT.md"
             " bis zur nächsten Schwelle; Chefauftrag streichen nur über die Chefsache)", {}))
     return aus
@@ -399,7 +433,7 @@ def stillstand(st, je_rolle, archiviert, ausschluss):
     """1246: Text der Ursachen, wenn keine Rolle aus START_REIHE startbares Muss hat und keine ihrer Sitzungen arbeitet, aber Muss-Zeilen
     an einer startbaren Zeile einer nicht gestarteten Rolle hängen; sonst None. Warten auf Test, Chef oder Termin ist
     kein Stillstand."""
-    rollen = [r for r in START_REIHE if r != "Perikles"]
+    rollen = [r for r in START_REIHE if r != PLANER]
     if any([x for x in st.get(r, ([],))[0] if x[0] not in ausschluss] for r in rollen): return None
     if any(s["_info"][1] for r in rollen for s in je_rolle.get(r, []) if s["id"] not in archiviert): return None
     eigner = {d["nr"]: d for d in startbar.zeilen_liste()}
@@ -437,7 +471,7 @@ def lauf_laeuft(rolle):
     (Render, Messung) hält die Sitzung belegt, obwohl sie idle aussieht; bis dahin startet und archiviert Ford die Rolle nicht.
     Nur mit Datum (ohne Datum blieb eine vergessene Marke bis zu 24 h stehen) und höchstens 12 h voraus; abgelaufen gilt sie nicht.
     Spike und Tuffy teilen den Vorrat des Teams: ohne Namen gilt die Marke für das Team, mit „(Spike)“ nur für ihn."""
-    if rolle not in VORRAT: return None
+    if rolle not in VORRAT or NEU_LISTE: return None  # 1893: Profile ohne Vorrat
     for m in re.finditer(LAUF_MARKE, startbar.lesen(VORRAT[rolle])[:4000]):
         wer, _ = marke_wer(m, VORRAT[rolle])
         if wer and wer != rolle: continue
@@ -472,7 +506,7 @@ def marke_bis(m):
 def lauf_marke_falsch(rolle):
     """1161 (D206.1): Marke, die nicht zählt (ohne Datum, Zeit unlesbar, über 12 h voraus), als Warnung statt still;
     Zitate der Regel („Lauf läuft bis …“ in Anführungszeichen) zählen nicht als Marke. Abgelaufen schweigt (gilt nach Regel nicht mehr)."""
-    if rolle not in VORRAT or rolle in startbar.ZUSATZ: return []  # Zusatzentwickler teilen den Vorrat des Teams: einmal je Datei
+    if rolle not in VORRAT or rolle in startbar.ZUSATZ or NEU_LISTE: return []  # Zusatzentwickler teilen den Vorrat des Teams: einmal je Datei
     kopf, falsch = startbar.lesen(VORRAT[rolle])[:4000], []
     for a in re.finditer(r"Lauf läuft bis", kopf):
         if a.start() and kopf[a.start() - 1] in "„\"“": continue
@@ -488,6 +522,7 @@ def lauf_marke_falsch(rolle):
 
 def nachfolger(rolle):
     """(Titel, Übergabezeit, Rohtext) aus der Übergabe im Vorrat, sonst (None, None, Grund); Titel None + Grund „bedingt“ lässt die Zeilenregel gelten."""
+    if rolle not in VORRAT or NEU_LISTE: return None, None, "kein Vorrat (1893: Nachfolger aus der Vorgangsdatei)"
     inhalt = startbar.lesen(VORRAT[rolle])
     for l in inhalt.splitlines()[:30]:
         if "Übergabe" not in l or "Nachfolger:" not in l: continue
@@ -640,7 +675,7 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
         ausgabe.append("WARNUNG offene Übergabezeilen nicht gelesen: %s (1739)" % e); return {}
     scharf = os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
     for an, zs in sorted(je.items()):
-        r = an if scharf else ALT_EMPFAENGER.get(an, an)
+        r = "Ford" if an == "Disponent" else an if scharf else ALT_EMPFAENGER.get(an, an)  # 1893: Disponent ist Fords Sitzung
         teil = "Offene Zeilen an %s (1739): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; fertig: `vorgang.py erledigt <Kennung>`." % (an, "; ".join("%s %s" % (k, w) for k, w in zs[:6]))
         sitz = [s for s in je_rolle.get(r, []) if s["id"] not in archiviert] if r != "Ford" else []
         if sitz: ausgabe.append("NACHRICHT %s | %s | %s" % (r, juengste(sitz)["id"], teil))
@@ -948,6 +983,7 @@ def main():
             startbar.neu_laden()
         except SystemExit as e:
             ausgabe.append("WARNUNG Zusammenführen nicht angelegt: %s (1424, Perikles)" % e)
+    neue_liste()  # 1893
     st = stand(); chefd = chefdateien_je_rolle(); marken = startmarken()
     je_rolle = {}
     for s in leb:
@@ -1109,8 +1145,8 @@ def main():
     # Sitzung arbeitet, aber Muss-Zeilen hängen an einer startbaren Zeile einer Rolle, die lauf.py nicht startet (Sokrates; Halt und
     # Pause mit Datum sind gewollt, Pause ohne Datum sperrt nur die Kür, startbar.halt) → Perikles bekommt eine Muss-Zeile „Stillstand lösen“, höchstens alle 3 Stunden (Marke „Stillstand“).
     still = stillstand(st, je_rolle, archiviert, ausschluss)
-    if still and "Perikles" in st and not [d for d in marke_zeit("Stillstand") if (JETZT - d).total_seconds() < 3 * 3600]:
-        st["Perikles"][0].insert(0, ("Stillstand", "M", "Stillstand lösen (1246): " + still + "; je Ursache lösen (Zeile freigeben, Besitzer anstoßen, Chefsache), nicht nur melden", {}))
+    if still and PLANER in st and not [d for d in marke_zeit("Stillstand") if (JETZT - d).total_seconds() < 3 * 3600]:
+        st[PLANER][0].insert(0, ("Stillstand", "M", "Stillstand lösen (1246): " + still + "; je Ursache lösen (Zeile freigeben, Besitzer anstoßen, Chefsache), nicht nur melden", {}))
         neue_marken.append("Stillstand")
     for r in START_REIHE:
         for stueck, grund in lauf_marke_falsch(r):  # 1161: sonst archiviert der Lauf die Sitzung mitten im Hintergrundlauf
@@ -1206,12 +1242,12 @@ def main():
             sperren.append(r); continue
         titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
         fuer = wahl[3].get("fuer") if isinstance(wahl[3], dict) else None
-        msg = "%s\n\nArbeite Vorgang %s (%s) aus der Vorgangsliste (`python3 tools/vorgang.py --rolle %s`, Einzelheiten `vorgang.py %s`)%s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und die Übergabe in %s beachten." % (
+        msg = "%s\n\nArbeite Vorgang %s (%s) aus der Vorgangsliste (`python3 tools/vorgang.py --rolle %s`, Einzelheiten `vorgang.py %s`)%s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und %s." % (
             r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", r, nr,
-            (", Zeile von %s, die auf dich wartet; fertig: `vorgang.py warte %s –` oder das Feld kürzen" % (fuer, nr)) if fuer else "", VORRAT[r])
+            (", Zeile von %s, die auf dich wartet; fertig: `vorgang.py warte %s –` oder das Feld kürzen" % (fuer, nr)) if fuer else "", vorrat_hinweis(r, nr))
         if nr in ("M?", "Stillstand", "Kosten"):  # 921, 1246, 1538: die Zeile hat keine Nummer in der Liste; Auftrag steht im Thema
             titel = "%s – %s (%s)" % (r, "M? entscheiden" if nr == "M?" else "Kosten entscheiden" if nr == "Kosten" else "1246: Stillstand lösen", berlin(JETZT))
-            msg = "%s\n\n%s; zuerst Start nach deiner Rollendatei, dann die Übergabe in %s beachten." % (r, thema, VORRAT[r])
+            msg = "%s\n\n%s; zuerst Start nach deiner Rollendatei, dann %s." % (r, thema, vorrat_hinweis(r))
         if thema.startswith("Übernahme von"): msg += " " + thema[:160] + "."  # 1364: die Zeile gehört noch dem Geber
         msg += satz
         if JETZT.weekday() == 2 and bericht_heute(): msg += " Mittwoch: am Ende der Sitzung Rollenspiegel mit tools/rollenspiegel.sh <Rolle>, Datei nicht öffnen (340, 1461)."
@@ -1222,7 +1258,7 @@ def main():
     # Nur Muss (Leiharbeiter „notfalls“). Spike setzt zuerst „in Arbeit bei Spike“, dann nimmt das Team die Zeile nicht (startbar.py);
     # endete Spike ohne neuen Stand, startet er auf dieser Zeile wieder, sobald Tom belegt ist.
     def laeuft(rr): return [s for s in je_rolle.get(rr, []) if s["id"] not in archiviert and (s["_info"][1] or s["_info"][2] < SPERRE_MIN)]
-    for team, zusatz in (("Jerry", "Tuffy"),):  # 1328: Spike eigene Rolle, startet wie Tom
+    for team, zusatz in ((("Jerry", "Tuffy"),) if not NEU_LISTE else ()):  # 1893: an der neuen Liste keine Zusatzentwickler  # 1328: Spike eigene Rolle, startet wie Tom
         if zusatz in ohne_rollen:  # 1148: --ohne Spike nimmt auch die Zusatzentwickler-Zeile aus
             ausgabe.append("NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (zusatz, zusatz, ausschluss[zusatz])); continue
         if (lm := lauf_laeuft(zusatz)):  # 1148
@@ -1289,7 +1325,7 @@ def main():
     # 192.2, Schritt 5: startbares Muss, aber weder gestartet noch belegt/Pause/Startmarke/Nachfolger-Termin → STILLSTAND (Ford schreibt die Protokollzeile)
     for r in START_REIHE:
         muss = st.get(r, ([], [], None, []))[0]
-        if not muss or any(l.startswith(("START %s " % r, "NICHTS %s: belegt" % r, "NICHTS %s: Pause" % r, "NICHTS %s: Startmarke" % r, "NICHTS %s: Nachfolger" % r)) or (l.startswith("WEITER ") and " | %s | " % r in l) for l in ausgabe): continue
+        if not muss or any(l.startswith(("START %s " % r, "NICHTS %s: belegt" % r, "NICHTS %s: Pause" % r, "NICHTS %s: Startmarke" % r, "NICHTS %s: Nachfolger" % r, "NICHTS %s: ohne gültigen Auftrag" % r)) or (l.startswith("WEITER ") and " | %s | " % r in l) for l in ausgabe): continue
         ausgabe.append("STILLSTAND %s: Muss %s ohne Sitzung, Protokollzeile „Stillstand %s seit %s“" % (r, muss[0][0], r, JETZT.strftime("%H:%M")))
     # 192.2, Schritt 9: alle Vorräte leer (Muss, Kür, „nach dem Meilenstein“) → Ford meldet einmal am Tag „Vorrat leer“
     if st and all(not st[r][0] and not st[r][1] for r in st if r != "Sokrates"):

@@ -55,9 +55,19 @@ def kurzzeilen(t):
         aus.append(s)
     return aus
 
+_PROFILE = {}
 def rolle(titel):
     for r in ROLLEN:
         if titel == r or titel.startswith((r + " ", r + ",", r + ":")): return r  # 360: „Homer, 279 …“ blieb als Klon stehen
+    try:  # 1893: Titel mit Profil statt Rufname („Technik – 1893 …“, Start vor tools/1727-SCHARF an der neuen Liste)
+        import os
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import startbar
+        if "p" not in _PROFILE: _PROFILE["p"] = startbar.profile()
+        for r in _PROFILE["p"]:
+            if titel == r or titel.startswith((r + " ", r + ",", r + ":")): return r
+    except Exception:
+        pass
     # 1739 Rufnamen: „Anna – 1739: …“ zählt beim Besitzer des Vorgangs im Titel (Bereich), alte Titel wie bisher
     try:
         import os

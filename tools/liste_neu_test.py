@@ -45,6 +45,17 @@ soll("Schleife je Besitzer: Profile ohne Vorrat", [r for _, r in startbar.besitz
      startbar.besitzer_reihe()[:3])
 soll("Tafel liest die neue Liste (Archiv-Leser)", [t["nr"] for t in startbar.tafel_zeilen(neu)] == ["1484", "513", "458.3", "45"])
 
+import lauf  # 1893: lauf.py an der neuen Liste
+startbar.vorgangsliste(neu)
+soll("lauf: Start je Profil ohne Disponent, Planer Arbeitsplaner", lauf.neue_liste() and "Technik" in lauf.START_REIHE
+     and "Disponent" not in lauf.START_REIHE and lauf.PLANER == "Arbeitsplaner" and lauf.MIT_KUER == set(lauf.START_REIHE), lauf.START_REIHE)
+soll("lauf: Profil ohne Vorrat (Nachfolger, Hintergrundlauf)", lauf.nachfolger("Technik")[0] is None and lauf.lauf_laeuft("Technik") is None
+     and lauf.lauf_marke_falsch("Technik") == [])
+soll("lauf: Nachricht nennt Vorgangsdatei statt Vorrat", "docs/vorgang/1484.md" in lauf.vorrat_hinweis("Technik", "1484"))
+_k = lauf.mit_kern("START Technik | opus | e | r | main | T | Technik\\n\\nArbeite 1484; zuerst Start nach deiner Rollendatei, dann x.")
+soll("lauf: ohne Ladetext kein Verweis auf die Rollendatei", "Rollendatei" not in _k and _k.endswith("zuerst x."), _k)
+startbar.NEU = None
+
 alt_z = "| 1484 | Welt | Spike | M | startbar | 1270.6 | – | – | E Technik | 3,10 $ |"
 alt = "# Vorgänge\n\n" + startbar.KOPF + "\n|" + "---|" * 10 + "\n" + alt_z + "\n"
 za = startbar.vorgangsliste(alt)
