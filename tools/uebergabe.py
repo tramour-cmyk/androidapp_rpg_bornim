@@ -370,8 +370,9 @@ def _status(dateien):
 FUND = re.compile(r"fund des chefs|\bchefwort\b|\bnein des chefs\b", re.I)
 
 def buero_rang(docs=None):
-    """1796 (Archiv 21.11., 20:51/20:54 „Eilt zuerst“): Schlüssel der Büro-Folge für eine Zeile (Nr, was, seit): Eilt, dann Fund des
-    Chefs, dann Themenblock (Folge in `chefsache/themenbloecke.md`), dann Eingangszeit. Eilt: Klasse „Eilt“ (Liste nach 1727) oder „jetzt“
+    """1796 (Archiv 21.11., 20:51/20:54 „Eilt zuerst“): Schlüssel der Büro-Folge für eine Zeile (Nr, was, seit): Klasse (1967, Chef 22.11.,
+    17:46: Eilt, Fund des Chefs, Muss, Kür, nach dem Meilenstein), dann Themenblock (Folge in `chefsache/themenbloecke.md`), dann
+    Eingangszeit; Zeile ohne Klasse zählt wie Muss. Eilt: Klasse „Eilt“ (Liste nach 1727) oder „jetzt“
     im Titel (Liste vor 1727, 383) oder „Eilt“ im Text; Fund: Titel „Von Chef“, Zeile aus `chefwort.py` („Chefwort … lesen“) oder „Fund
     des Chefs“ im Text. Liest Liste und Themenblöcke einmal; fehlt etwas, zählt die Zeile als „Übriges“."""
     docs = docs or os.path.join(WURZEL, "docs")
@@ -403,7 +404,8 @@ def buero_rang(docs=None):
         fund = fund or bool(FUND.search(was or ""))
         try: z = _zeit(seit, jahr)
         except (ValueError, TypeError): z = datetime.datetime.max
-        return (0 if eilt else 1, 0 if fund else 1, folge.index(block) if block in folge else len(folge), z)
+        klasse = 0 if eilt else 1 if fund else {"K": 3, "N": 4}.get(kl, 2)
+        return (klasse, folge.index(block) if block in folge else len(folge), z)
     return schluessel
 
 def offen(an=None, sitzungen_dateien=(), still=False):

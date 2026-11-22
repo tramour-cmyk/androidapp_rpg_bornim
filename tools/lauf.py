@@ -493,13 +493,19 @@ def _liegezeiten():
     return {d["nr"]: zeiten[d["i"]] for d in startbar.zeilen_liste() if d.get("i") is not None and d["i"] < len(zeiten) and zeiten[d["i"]] is not None}
 
 def auftrag_offen(st, ohne=()):
-    """1932: [(Gruppe, Rang, Nr, Profil, Titel, Grund, Klasse)] der startbaren Zeilen ohne gültigen „## Auftrag“ in der Folge des Chefs
-    (Archiv 1727j Frage 16): 0 Eilt, 1 Funde des Chefs (Rückläufer, guthaben.ruecklaeufer), 2 Muss reihum je Fachprofil (oberste
-    startbare Muss-Zeile je Profil, dann die nächste; in einer Runde Zeilenfolge der Liste), 3 Kür nach Liegezeit (älteste zuerst,
-    Maß wie liegt.py), 4 nach dem Meilenstein. Nummern in ohne (Auftrag in Arbeit) fallen weg."""
+    """1932: [(Gruppe, Rang, Nr, Profil, Titel, Grund, Klasse)] der startbaren Zeilen ohne gültigen „## Auftrag“. 1967 (Chef 22.11.,
+    17:43, 17:46): Schlüssel (Klasse, Blockrang, Rest); Klasse 0 Eilt, 1 Funde des Chefs (guthaben.ruecklaeufer), 2 Muss, 3 Kür,
+    4 nach dem Meilenstein; Blockrang = Zeilenfolge in chefsache/themenbloecke.md (projektplan.bloecke, Block je Zeile
+    startbar.block_von); im Block Zeilenfolge der Liste, bei Kür Liegezeit (älteste zuerst, Maß wie liegt.py). Nummern in ohne
+    (Auftrag in Arbeit) fallen weg."""
+    import projektplan
     import guthaben
     liste = {d["nr"]: (i, d) for i, d in enumerate(startbar.zeilen_liste())}
-    offen, gesehen, runde, kuer = [], set(), {}, []
+    folge = [b for b, _ in projektplan.bloecke()]
+    def rang(nr, d):
+        b = startbar.block_von(str(nr), d.get("bereich"))
+        return folge.index(b) if b in folge else len(folge)
+    offen, gesehen, kuer = [], set(), []
     for teil in (0, 1):
         for r, x in st.items():
             for z in x[teil]:
@@ -511,16 +517,15 @@ def auftrag_offen(st, ohne=()):
                 i, d = liste.get(nr, (10 ** 6, {}))
                 d = d or (z[3] if isinstance(z[3], dict) else {})
                 kl = "M" if teil == 0 else "N" if z[1] == "N" else "K"  # 1897: Klasse der Zeile, für die der Auftrag ist
-                if d.get("eilt"): offen.append((0, (i,), nr, r, z[2], g, kl))
-                elif guthaben.ruecklaeufer(d): offen.append((1, (i,), nr, r, z[2], g, kl))
-                elif kl == "M":
-                    k = runde.get(r, 0); runde[r] = k + 1  # Folge in x[0] = Vorrang des Profils
-                    offen.append((2, (k, i), nr, r, z[2], g, kl))
-                elif kl == "N": offen.append((4, (i,), nr, r, z[2], g, kl))
-                else: kuer.append((i, nr, r, z[2], g, kl))
+                b = rang(nr, d)
+                if d.get("eilt"): offen.append((0, (b, i), nr, r, z[2], g, kl))
+                elif guthaben.ruecklaeufer(d): offen.append((1, (b, i), nr, r, z[2], g, kl))
+                elif kl == "M": offen.append((2, (b, i), nr, r, z[2], g, kl))
+                elif kl == "N": offen.append((4, (b, i), nr, r, z[2], g, kl))
+                else: kuer.append((b, i, nr, r, z[2], g, kl))
     if kuer:
         zeit = _liegezeiten()
-        for i, nr, r, titel, g, kl in kuer: offen.append((3, (zeit.get(nr, float("inf")), i), nr, r, titel, g, kl))
+        for b, i, nr, r, titel, g, kl in kuer: offen.append((3, (b, zeit.get(nr, float("inf")), i), nr, r, titel, g, kl))
     return sorted(offen)
 
 def planer_zahl(st, ohne=()):
@@ -531,7 +536,7 @@ def planer_zahl(st, ohne=()):
 def auftrag_zeilen(st, n=None, ohne=None):
     """1893 (Gesamtbild 3.3 Fassung 2 Nr. 4, Archiv 21.11., 10:11 „3.3 so“; Sokrates 22.11., 08:33): startbare Zeilen ohne gültigen
     „## Auftrag“ bekommen ihren Auftrag vom Arbeitsplaner, frisch je Auftrag: je Zeile eine Zeile „Auftrag“ für den Planer, höchstens
-    n (AUFTRAG_PLANER). Folge nach 1932 (auftrag_offen): Eilt, Funde des Chefs, Muss reihum je Fachprofil, Kür nach Liegezeit.
+    n (AUFTRAG_PLANER). Folge nach 1967 (auftrag_offen): Klasse (Eilt, Funde des Chefs, Muss, Kür), darin Themenblock-Reihenfolge.
     Aufträge, die eine laufende Planer-Sitzung schreibt (AUFTRAG_IN_ARBEIT), fallen weg; den zweiten Planer startet main() (1932)."""
     aus = []
     for _, _, nr, r, titel, g, kl in auftrag_offen(st, AUFTRAG_IN_ARBEIT if ohne is None else ohne):
