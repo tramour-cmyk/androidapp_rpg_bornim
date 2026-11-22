@@ -7,7 +7,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 **Guthaben zurückgesetzt Sa 21.11., 19:59; Uhren wieder an.** **Chef 21.11., 20:06 (über Sokrates, Archiv):** „Tom und Jerry machen nur mal fertig, was sie jetzt noch offen haben … Ansonsten machen sie nichts. … Uns fehlen die restlichen Werkzeuge. Die müssen wir jetzt machen.“ → Spike nur 1727-Werkzeuge (1760, 1739, 1742, 1749 und neue von Sokrates); Tom nur 1535 zu Ende; Jerry nur 1765 (Chef 20:20); Diogenes nur lesend (1718, Gegenlesen 1727); Perikles 1767; keine anderen Team-Vorgänge, keine Kür; Stundenlauf bis zur Umstellung nur `lauf.py --besetzung` ohne `--sperre` (sonst neue Startsperren für Rollen, die nicht starten; `--ohne` greift je Nummer, lauf.py nimmt dann die nächste); Starts von Hand nach Chefwort. Umgeschaltet wird nach Falltest (14:37). **Herzschlag (1764, seit 21.11.):** nach jedem `lauf.py --besetzung` `ARBEIT-BESETZUNG.md` committen und pushen, sonst Fehlalarm nach 2 h. 21.11. tagsüber lief Mehrnutzung („isUsingOverage“), Chef gemeldet 15:09. Aufträge (Probe 1625) als neue Sitzung mit dem Auftrag aus `entwurf/` wörtlich, ohne Startlektüre; Ford trägt ein, sortiert ein, gleicht ab („gibt es schon?“); Aufträge schreiben Perikles und Sokrates. Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 **Regeln für Ford bis Sa 14.11., 20:00 (Chef 07:09/07:18/07:19, Ford 08:13):** Archivieren und Kosten dauerhaft in `ROLLE-BETRIEB.md` (1110); alle Rollen in Hoch (`lauf.py` kann es seit 901, Umgebung `env_017fgL1YDcVTYTkJsU3APEfR`; Prüfen im START); ohne `--nur-muss`; Teampausen aufgehoben. `lauf.py` immer aus `/home/user/bornim-main/tools` rufen, nie aus dem Arbeitskopf ohne `git pull` (rechnet mit altem Stand). Dauerausschluss siehe Übergabe unten. Nachfolger: Ford – Betriebsleiter
 
-**Nächste freie Vorgangsnummer: 1900** (zuletzt 1899 Spike 22.11. 09:08:46 c93e) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1901** (zuletzt 1900 Homer 22.11. 09:28:27 9a9a) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. **Jerry läuft in der Zentrale** (`LISTE-BETRIEB.md` „Ruht die Niederlassung“). Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -48,22 +48,8 @@ Anregungen ohne Bereich und Startwünsche (eine Zeile, Datum, Absender). Ford te
 ## Protokoll
 Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streichen (Verlauf in Git, 117). Marken von `lauf.py` (Startsperre, Marke, Warnung) bleiben bis zur Aufräumung durch das Werkzeug.
 
-- 09:21 22.11.: Startsperre 09:21 Start Spike (Neustart, 1a917d744, 1895–1899 zuerst)
-- 09:20 22.11.: Startsperre 09:20 Start Diogenes (1782 lesend, Spike b0de2ea39)
-- 09:11 22.11.: Startsperre 09:11 Start Sokrates (Neustart 400 Tsd., f51b732a1, 1727)
-- 09:06 22.11.: Startsperre 09:06 Start Spike (Neustart, e6ad9292b, 1781)
-- 09:00 22.11.: Startsperre 09:00 Start Diogenes (Neustart, 58ff22342, 1893 lesend)
-- 08:45 22.11.: Startsperre 08:45 Start Spike (Neustart, c1e7dd544, 1893 Restpunkte)
-- 08:31 22.11.: Startsperre 08:31 Start Spike (Neustart, 78e4b3d14, 1893 Teil 3)
-- 08:23 22.11.: Startsperre 08:23 Start Spike (Neustart, 6594013ca, 1893 Teil 2)
-- 08:14 22.11.: Startsperre 08:14 Start Sokrates (Neustart 400 Tsd., 3b27e1746, 1727)
-- 08:08 22.11.: Startsperre 08:08 Start Spike (Neustart, cff5c3d00, 1893 zuerst nach Rang Sokrates 0d09626c0)
-- 08:02 22.11.: Startsperre 08:02 Start Diogenes (1874 lesend prüfen, Spike 71cde8ca7)
 - 22.11., 07:55 Ford: Spike `…787KJ4un4X2q9HM7Fe` archiviert (4,10 $ auf 1804, 1807), Nachfolger `…79tQTiER1tcELHt1vz` (1871 zuerst); Diogenes `…75RZKDwbGpBQvdoTJd` archiviert (4,29 $ auf 1801, 1807, 1760, 1799), Nachfolger Wochenzählung erst 23.11.; Warnung „Start Diogenes nicht angekommen“ (07:16) irrig, lief und ist archiviert.
-- 07:50 22.11.: Startsperre 07:50 Start Spike (Neustart, 775c171a2, 1871 zuerst wegen Frist 09:30)
 - 22.11., 07:45 Ford: übernommen (`…75isNEtDyWupWmoFTR`); alter Ford archiviert (208,46 $ auf 1574), Sokrates `…75SrwmjpvNxeNEdckU` archiviert (27,76 $ auf 1727), Nachfolger `…766KCj14w54LxrDwYN`; Spike `…778HYhvtMFZAaJ8bQm` archiviert (5,70 $ auf 1739), Nachfolger `…787KJ4un4X2q9HM7Fe` (1871 zuerst); Diogenes 1760, 1799. Uhr neu `trig_01GL9hSYfk6n7WN8ABr4WeVf`, alte aus. Offen: Kosten Diogenes 22:07 (Lauf 330) ungebucht.
-- 07:36 22.11.: Startsperre 07:36 Start Spike (Neustart, 24ba5be7f, 1804)
-- 07:31 22.11.: Startsperre 07:31 Start Sokrates (Neustart 401 Tsd., 9d19b2671, 1727)
 
 - 18.11., 22:04 Ford: Sokrates `…7A28496XNYFsbMGkrg` (Chefrunde 21:53); Perikles 1704 erledigt, archiviert (2,07 $).
 - 18.11., 21:20 Ford: Jerry `…75kYKWo6WGkcdYQsnX` (1697); archiviert Jerry alt (11,96 $), Tom (7,69 $ auf 1700, 1655, 1570); Tom-Nachfolger 1570 wegen Guthaben zurückgestellt.
@@ -118,6 +104,8 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - Fehler 341 11.11., 09:30 (Chef fand ihn): Spike …76eB7 „Spike – 470 (10.11., 16:19)“ idle seit 10.11., 18:51 nicht archiviert. Ursache: ab 07:48 las ich nur die erste Seite von `list_sessions` und ignorierte die Warnung „Seite abgeschnitten“; künftig alle Seiten über `after_id` lesen, Warnung „abgeschnitten“ gilt als Abbruch
 - Fehler 341 10.11., 10:3x (Chef fand ihn): Ford ließ START Jerry aus eigener Beurteilung aus, ohne --ohne, und nannte im Bericht „keine Arbeit“ (falsch). Lehre: START ausführen oder `--ohne NR:Grund` und lautlos an Perikles
 
+- 00:02 22.11.: Morgen 1643: Sokrates 1727 nach zwei Neustarts in der Nacht angehalten, Ursache ansehen (Übergabe e17efdf1a, Nachfolger „Nachprüfung 2 einarbeiten, Lauf 3, Vorlage 10:00“; Start ab 07:00)
+- 22:28 21.11.: Morgen 1643: Spike 1784 nach zwei Neustarts in der Nacht angehalten, Ursache ansehen. Ausnahme 1784 A: 3 von 8 Starts genutzt (Teil 7–9, je mit tools/-Commit), Start 4 hält der Haken an (keine Ausnahme-Regel im Haken); Kosten Teil 7–9: 3,91 + 3,96 + 3,94 = 11,81 $ auf 1739/1789
 - 21:41 21.11.: Morgen 1643: Spike 1739 nach zwei Neustarts in der Nacht angehalten, Ursache ansehen (Haken Nachtstopp; sieben Spike-Sitzungen seit 20:08, Neustart-Grenze 200 Tsd. nach je 10 Min.)
 - 23:21 16.11.: Diogenes (…75vVcD77XixJkEaw7D) nach Neustart-Meldung 120f7ecac archiviert, 6,02 $ auf 1485, 1498, 1500, 1499 gebucht; Nachfolger „1485 APK-Dateiname am Build-Zweig“ startet lauf.py, sobald 1485 startbar (Jerry 1501)
 - 23:05 16.11.: Lauf 23:03: Start Spike 1499 (session_01Hmoj77pzGpWBZo1H1FppQo, Übernahme von Jerry), Start Perikles M? 1500 (session_01Hmoj76CDuBaNGRkJoRGqaj), alte Spike …76zAeRQxR3Re8uoBTU archiviert, 13,37 $ auf 1385, 1445, 1476, 1481, 1490, 1491 gebucht; beide Starts mit Kaufrepo-Satz und Telegram-Chefwort; Diogenes wartet auf Build 294 (1485 mit --ohne ausgeschlossen); Tom, Jerry, Tuffy, Sokrates laufen
@@ -136,55 +124,26 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:21 16.11.: Planabweichung: lauf.py plante Tuffy 1408, Start stattdessen auf 1411.1 (Sokrates 20:20, Chef 20:19 „kann das ein freier Entwickler machen“; 1411.1 laut Vorgangsliste „startbar, Tuffy“)
 - 19:43 16.11.: Sokrates Neustart (session_01Hmoj7A8bEWynsHcFDiq9Qy), alte …78yKr84GyQjcDaM636 archiviert, 5,39 $ auf 1411, 1478 gebucht
 - 19:37 16.11.: Lauf 19:35: Start Diogenes 1385 (session_01Hmoj76ZXZhJrxTbHvQ4FiN), Start Perikles M? 1478 (session_01Hmoj7A9JQitciHyQxAs6gq, erste Nachricht mit Kaufrepo-Satz); alte Perikles archiviert, 4,55 $ auf 1474; Neustart Sokrates (cb4a0255a) offen: alte …78yKr84GyQjcDaM636 arbeitet noch, Start nach ihrem Ende; Tom bleibt (Weckrufe 1417/1420)
-- 19:24 16.11.: Chef „freigegeben“ (19:22): Uhr trig_014gxLmndi38XvoQWufDEs98 angelegt, alte Uhr aus, alter Ford archiviert, 10,65 $ auf 1019, 1366 gebucht; Sokrates 1411 (…78yKr84GyQjcDaM636), Jerry (…76XQ54YtEhfAGyiZ3Y) schon 19:04/19:05 vom alten Ford gestartet, Diogenes 1477 erledigt
-- 19:11 16.11.: Diogenes archiviert (Neustart 7c27178be, Nachfolger erst 18.11.), 12,24 $ auf 1463, 1477, 1445
-- 21:59 21.11.: Startsperre 21:59 Start Jerry (1786, dann 1783; Werkzeuge, Chef 20:06)
-- 22:07 21.11.: Startsperre 22:07 Start Diogenes (1786, 1783 lesend; Chef 20:20)
-- 22:17 21.11.: Startsperre 22:17 Start Spike (Ausnahme 1784 A, Start 3/8; Übergabe 0e3036f26 nennt fd53ce41c, 24a029770, 194e9647f, b45137faa mit tools/ und .github/; 1739 Teil 9, dazu 1789)
-- 22:17 21.11.: Startsperre 22:17 Start Diogenes (1780, 1787, 1788 lesend; Chef 20:20)
-- 22:27 21.11.: Startsperre 22:27 Start Spike (Ausnahme 1784 A, Start 4/8; Übergabe c6b06a908 nennt 60b49ffbb mit tools/ und .github/, dazu 1e38d1a2d; 1739 Teil 10)
+- 09:21 22.11.: Startsperre 09:21 Start Spike (Neustart, 1a917d744, 1895–1899 zuerst)
+- 09:20 22.11.: Startsperre 09:20 Start Diogenes (1782 lesend, Spike b0de2ea39)
+- 09:11 22.11.: Startsperre 09:11 Start Sokrates (Neustart 400 Tsd., f51b732a1, 1727)
+- 09:06 22.11.: Startsperre 09:06 Start Spike (Neustart, e6ad9292b, 1781)
+- 09:00 22.11.: Startsperre 09:00 Start Diogenes (Neustart, 58ff22342, 1893 lesend)
+- 08:45 22.11.: Startsperre 08:45 Start Spike (Neustart, c1e7dd544, 1893 Restpunkte)
+- 08:31 22.11.: Startsperre 08:31 Start Spike (Neustart, 78e4b3d14, 1893 Teil 3)
+- 08:23 22.11.: Startsperre 08:23 Start Spike (Neustart, 6594013ca, 1893 Teil 2)
+- 08:14 22.11.: Startsperre 08:14 Start Sokrates (Neustart 400 Tsd., 3b27e1746, 1727)
+- 08:08 22.11.: Startsperre 08:08 Start Spike (Neustart, cff5c3d00, 1893 zuerst nach Rang Sokrates 0d09626c0)
+- 08:02 22.11.: Startsperre 08:02 Start Diogenes (1874 lesend prüfen, Spike 71cde8ca7)
+- 07:50 22.11.: Startsperre 07:50 Start Spike (Neustart, 775c171a2, 1871 zuerst wegen Frist 09:30)
+- 07:36 22.11.: Startsperre 07:36 Start Spike (Neustart, 24ba5be7f, 1804)
+- 07:31 22.11.: Startsperre 07:31 Start Sokrates (Neustart 401 Tsd., 9d19b2671, 1727)
 - 07:27 22.11.: Startsperre 07:27 Start Ford (Selbstneustart, Chef 07:25 „Ja“; Übergabe oben)
 - 07:16 22.11.: Startsperre 07:16 Start Spike (Neustart, Übergabe 855d8aeaf; zuerst 1803, 1806, 1805, dann 1739 Teil 11; Werkzeuge, Chef 20:06)
 - 07:16 22.11.: Startsperre 07:16 Start Diogenes (1801 lesend; Chef 20:20)
 - 07:02 22.11.: Startsperre 07:02 Start Spike (nach Nachtstopp; 1792 Ausnahme im Nachtstopp-Haken, dann 1739 Teil 10, Übergabe c6b06a908; Werkzeuge, Chef 20:06)
 - 07:02 22.11.: Startsperre 07:02 Start Diogenes (1789-Ü1 lesend; Chef 20:20)
 - 07:00 22.11.: Startsperre 07:00 Start Sokrates (nach Nachtstopp, Übergabe e17efdf1a; 1727 Nachprüfung 2, Lauf 3, Vorlage 10:00)
-- 00:02 22.11.: Morgen 1643: Sokrates 1727 nach zwei Neustarts in der Nacht angehalten, Ursache ansehen (Übergabe e17efdf1a, Nachfolger „Nachprüfung 2 einarbeiten, Lauf 3, Vorlage 10:00“; Start ab 07:00)
-- 00:01 22.11.: Startsperre 00:01 Start Sokrates (Neustart-Haken, Übergabe e17efdf1a; 1727 Nachprüfung 2, Lauf 3, Vorlage 10:00)
-- 23:18 21.11.: Startsperre 23:18 Start Sokrates (Neustart-Haken, Übergabe bad4e7b08; 1727 Falltest, Brücke bis 10:00, Chef 22:12)
-- 22:28 21.11.: Morgen 1643: Spike 1784 nach zwei Neustarts in der Nacht angehalten, Ursache ansehen. Ausnahme 1784 A: 3 von 8 Starts genutzt (Teil 7–9, je mit tools/-Commit), Start 4 hält der Haken an (keine Ausnahme-Regel im Haken); Kosten Teil 7–9: 3,91 + 3,96 + 3,94 = 11,81 $ auf 1739/1789
-- 22:06 21.11.: Startsperre 22:06 Start Spike (Ausnahme 1784 A, Start 2/8; Übergabe e51d2b920 nennt dbf44708a mit .github/ und tools/; 1739 Teil 8)
-- 21:55 21.11.: Startsperre 21:55 Start Spike (Ausnahme 1784 A, Start 1/8 bis 03:00; Übergabe 723e0b4ab nennt 0b6b8f46c mit tools/; 1739 Teil 7)
-- 21:52 21.11.: Startsperre 21:52 Start Sokrates (Neustart 420488e64, 1727)
-- 21:22 21.11.: Startsperre 21:22 Start Spike (Nachfolger 1739 Teil 6, 69673a07a)
-- 21:13 21.11.: Startsperre 21:13 Start Spike (Nachfolger 1739 Teil 5, 43c433d09)
-- 21:07 21.11.: Startsperre 21:07 Start Diogenes (1776, 1777 lesend; Chef 20:20)
-- 21:06 21.11.: Startsperre 21:06 Start Sokrates (Neustart 7861a4391, 1727)
-- 21:05 21.11.: Startsperre 21:05 Start Spike (Nachfolger 1739 Teil 4, 53eb460ca)
-- 20:54 21.11.: Startsperre 20:54 Start Spike (Nachfolger 1739 Teil 3, 0a35ff006)
-- 20:53 21.11.: Startsperre 20:53 Start Jerry (1775, Befund Diogenes zu 1771, Werkzeug; Chef 20:06/20:20)
-- 20:48 21.11.: Startsperre 20:48 Start Diogenes (Nachfolger 1771, 1768 lesend, c4db13ec4)
-- 20:41 21.11.: Startsperre 20:41 Start Spike (Nachfolger 1739 Teil 2, c8dc21b3c)
-- 20:39 21.11.: Startsperre 20:39 Start Diogenes (Nachfolger Gegenlesen 1727 Perikles F3, 94f72fbce)
-- 20:37 21.11.: Startsperre 20:37 Start Jerry (Nachfolger 1765 Rest, b1c0769ab)
-- 20:33 21.11.: Startsperre 20:33 Start Perikles (Nachfolger 1761 Tagesbericht, c32f3fe84)
-- 20:30 21.11.: Startsperre 20:30 Start Sokrates (Neustart c616a909d, 1727)
-- 20:29 21.11.: Startsperre 20:29 Start Spike (Nachfolger 1739, 53cd6b8b9; 1762, 1763 gebaut)
-- 20:23 21.11.: Startsperre 20:23 Start Perikles (Nachfolger 1761 Tagesbericht, d67dc870a)
-- 20:22 21.11.: Startsperre 20:22 Start Diogenes (1718 lesend, Chef 20:20)
-- 20:22 21.11.: Startsperre 20:22 Start Jerry 1765, Diogenes 1718 lesend (Chef 20:20 „Jerry, ja, Diogenes, ja“, ea88cd39f)
-- 20:17 21.11.: Startsperre 20:17 Start Spike (Neustart nach 1760 gebaut b40f2d8b2; weiter 1762, 1763, 1739 …)
-- 20:06 21.11.: Startsperre 20:06 Start Tom, Jerry, Spike, Diogenes, Homer, Perikles, Tuffy (lauf.py, Tom 1535, Jerry 1068, Spike 458.3, Diogenes 1718, Homer 1628)
-- 20:06 21.11.: Marke Tagesbericht 21.11. (lauf.py)
-- 20:06 21.11.: Marke Nachhalten 21.11. (lauf.py)
-- 20:06 21.11.: Marke Tagesbericht fehlt 21.11. (lauf.py)
-- 20:06 21.11.: Marke Abgleich ganz 21.11. (lauf.py)
-- 20:06 21.11.: Nachfolger-Warnung Spike (Übergabe 19.11., 11:17) (lauf.py)
-- 22:04 21.11.: Startsperre 22:04 Start Tom, Diogenes, Homer, Perikles, Tuffy (lauf.py, Tom 1535, Diogenes 1775, Homer 1636, Perikles 1773)
-- 22:04 21.11.: Marke Archiv session_01Hmoj792CjL1M4Es8CUXxjB (lauf.py)
-- 22:04 21.11.: Marke Start-fehlt Diogenes 21.11.-21:07 (lauf.py)
-- 22:04 21.11.: Marke Start-fehlt Homer 21.11.-20:06 (lauf.py)
-- 22:04 21.11.: Marke Start-fehlt Perikles 21.11.-20:33 (lauf.py)
-- 22:04 21.11.: Marke Start-fehlt Tom 21.11.-20:06 (lauf.py)
-- 22:04 21.11.: Marke Start-fehlt Tuffy 21.11.-20:06 (lauf.py)
-- 22:04 21.11.: Nachfolger-Warnung Perikles (Übergabe 21.11., 20:40) (lauf.py)
+- 09:28 22.11.: Startsperre 09:28 Start Homer (lauf.py, 1900)
+- 09:28 22.11.: Marke Nachhalten 22.11. (lauf.py)
+- 09:28 22.11.: Marke Abgleich ganz 22.11. (lauf.py)
