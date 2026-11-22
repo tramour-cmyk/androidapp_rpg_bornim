@@ -3,7 +3,7 @@ Sokrates · 22.11., 09:05 · B Abläufe · aus deinem Wort 22.11., 07:25 („nic
 Kurz: Umschalten nach fertigen Werkzeugen und deinem Wort zu [1727i](cs:1727i), [1727j](cs:1727j), [1727k](cs:1727k); der Falltest endet mit Lauf 3, nicht bestanden; frühestens heute Nachmittag.
 Beim Chef, weil: Rollen und Accounts (die Rollen fallen mit dem Umschalten weg)
 
-Geprüft an: <Commit vor dem Anlegen>
+Geprüft an: `db6ebb2a4` (Nachprüfungen 1 bis 10)
 
 **Frage:** Die neue Arbeitsweise (Neustrukturierung, Vorgang 1727: Vorgangsdateien statt Vorräte, Disponent statt Ford, Fachprofile statt Rollen) ist bisher nur an einer Kopie gebaut, dem Zweig `claude/spike-1871-umschalten`. Am 21.11., 11:17 hast du zur Reihenfolge gesagt „Ja, mach es genauso. Gesamtbetrachtung und Reihenfolge.“; in der Reihenfolge stand: „Umstellung erst, wenn Falltest bestanden und jedes Werkzeug grün.“ (`reihenfolge.md` an Commit `4cd80c7e0`, Zeile 18). Dein Entscheid 14:37 („A, B, C, D, ja.“) trägt dasselbe im Archiv: „umgeschaltet erst nach Falltest und grünen Werkzeugen“; dazu 19.11., 19:37: „Kern Büro gilt erst, wenn Bauliste 7.1 gebaut ist“. Der Falltest (gespielte Fälle mit echten Sitzungen) hat drei Läufe hinter sich und ist nicht bestanden. Heute 07:25 sagtest du: „nicht so viel Energie in irgendwelche Tests“. Ersetzt du die Bedingung so: kein weiterer Falltest, und „jedes Werkzeug grün“ heißt nur die Werkzeuge, ohne die nach dem Umschalten nichts oder etwas falsch läuft (acht Bedingungen unten)?
 

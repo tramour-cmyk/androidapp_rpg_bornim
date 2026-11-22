@@ -3,7 +3,7 @@ Sokrates · 22.11., 09:05 · B Werkzeuge · aus der Werkzeugliste der Neustruktu
 Kurz: vier Sätze der Auto-Freigabe auf die neuen Namen, ein neuer Satz für die Wache, zwei schon eingetragene Haken nachträglich; der Probelauf-Haken bleibt, bis jede seiner Prüfungen Ersatz hat.
 Beim Chef, weil: Rollen und Accounts (`settings.json` ändert eine Sitzung nur mit deiner Freigabe: Archiv 235 vom 20.10., „eine Sitzung darf sich dort keine Erlaubnisse schreiben“; 797 vom 09.11., deine Freigabe zum Ändern)
 
-Geprüft an: <Commit vor dem Anlegen>
+Geprüft an: `db6ebb2a4` (Nachprüfungen 1 bis 10)
 
 **Frage:** Die Projekteinstellungen `.claude/settings.json` tragen Sätze für die Auto-Freigabe (Abschnitt `autoMode.environment`, Zeilen 27–31), die Ford, Tom, Jerry und die Vorräte `docs/ARBEIT-*.md` nennen, und Haken, die bei Befehlen, Commits oder am Sitzungsende Werkzeuge aufrufen. Mit dem Umschalten ([1727h](cs:1727h)) gibt es diese Namen und Vorräte nicht mehr. Erstens: Gibst du die Sätze unten frei, und nachträglich zwei Haken, die Spike am 21.11. eingetragen hat? Ihren Bau hast du entschieden, ihren Eintrag in `settings.json` nicht. Zweitens: Am 19.11., 10:53 hast du entschieden „Dann bei Umsetzung 1 streichen, 2 streichen“ (1 Rollenspiegel, 2 die Laufzählung `probelauf.py` samt Regeln). Spike hat geprüft: an `probelauf.py` hängen heute gut ein Dutzend weitere Prüfungen, darunter die Laufbremse, die du am 19.11., 13:02 entschieden hast. Ersetzt du „bei Umsetzung streichen“ durch „streichen je Prüfung, sobald sie Ersatz hat“?
 

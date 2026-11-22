@@ -3,7 +3,7 @@ Sokrates · 22.11., 09:05 · B Abläufe · aus dem Falltest Lauf 1 bis 3 und dei
 Kurz: vier kleine Änderungen an abgenommenen Ladetexten mit Byte, dazu sechzehn Fragen je mit Votum; zum entschiedenen Kaufrepo-Satz im Sockel (V7) nur der Wortlaut.
 Beim Chef, weil: Rollen und Accounts (Änderung an abgenommenen Ladetexten)
 
-Geprüft an: <Commit vor dem Anlegen>
+Geprüft an: `db6ebb2a4` (Nachprüfungen 1 bis 10)
 
 **Frage:** Der Falltest hat an abgenommenen Ladetexten (1727i) Stellen gezeigt, an denen eine Sitzung falsch oder gar nicht weiterkam, und Fragen offengelassen, die kein Text beantwortet; eine weitere (Frage 14) kam beim Umbau der Werkzeuge. Frage 16 kam aus Diogenes' Prüfung der Werkzeuge am 22.11., 09:07. Nimmst du die vier Änderungen an, und wie entscheidest du die Fragen? Wortlaut alt und neu, Fall und Gegenargument je Änderung: `docs/entwurf/1727-muster/vorschlaege-10-00.md`. Begriffe: eine Fachkraft baut, ein Prüfer prüft ihr Ergebnis und meldet „ja“, „nein“ (Mangel am Ziel), „nein, Auftrag“ (Mangel im Auftrag) oder „Beleg fehlt“ (Bild oder Ausgabe reicht nicht zum Urteil); „steckt fest“ meldet, wer nach Ursache und Behebung nicht weiterkommt; „Bisher“ ist der Abschnitt der Vorgangsdatei mit früheren Versuchen und deinen Urteilen.
 
