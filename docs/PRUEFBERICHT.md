@@ -41,6 +41,14 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 357 · 1878, 1879, 1891 (lesend, Weiter-Haken; Kopie `ec0966b7b`; 22.11., 10:39–10:42)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1878 greift: wörtliche Zitate in Feld 3 „Bisher“ zählen getrennt (eigene Grenze 2048), verschachtelte Anführung läuft nicht über (zählt dann mit, nie zu wenig).
+- 1891 greift (D336.1): START Stellungnahme ohne offene Zeilen setzt die Startsperre Sokrates mit Nummer der ersten Chefsache-Datei („1727j-vorschlaege.md“ → 1727j, „72o1.md“ → 72o1, sonst ohne Nummer).
+- 1879 greift nicht: **D347.1** → 1917 (Spike): `FEHLWORT` trifft die Beschreibung eines Spielfehlers: „Im Hof fehlt die Fackel am Tor“ (Ziel), „Fackel ergänzen, die seit Build 310 fehlt.“ (Umsetzen), „Fehlt der Schatten noch?“ (Prüfart) → Auftrag ungültig, über `lauf.auftrag_fehlt` Startsperre.
+- Nebenfund **D346.1** → 1916 (Spike, K): `vorgang.py neu` prüft die Zeilenlänge mit Nummer „?“; Zeile mit 398 Zeichen wird mit „1914“ 401, die Commit-Prüfung hält an.
+
 ## Lauf 356 · 1910, damit 1872; 1911; 1876 (lesend, Weiter-Haken; Kopie `acd9e7b08`; 22.11., 10:35–10:38)
 
 - Alle 45 `tools/*_test.py` an der Kopie grün.
