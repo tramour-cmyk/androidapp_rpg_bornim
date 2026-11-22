@@ -4,6 +4,7 @@
 Aufruf: python3 tools/regelcheck.py [--kurz] [--anlass SHA] | --rueckmeldung [--um "TT.MM. HH:MM"]   (--rueckmeldung: nur Prüfung 559, ruft lauf.py stündlich; --um: Stand aus Git zu dieser Zeit; --kurz: nur Pflegefehler der Vorräte, Teil 1 und 2; ruft notiz.sh beim Start)    (Ford ruft es im Morgenlauf, Ausgabe in die Zeile „Morgen“ im Protokoll, 783 W7)
 Prüft: startbar.py (unlesbare oder ungültige Zeilen der Vorgangsliste, 275.2), Größen (Vorräte 30 KB, 1129 A 7; CLAUDE.md 15 KB),
 Zeilen über 1 500 Zeichen in Vorräten, Testbuilds am Tag (höchstens 6, 317), tote Verweise auf `Datei.md` / `tools/x` / `docs/…`, alte Dateinamen (notiz.sh), Lizenzhinweis SRD (446: Meldezeile, solange alte Namen im Spiel; Fund, wenn der Hinweis dann fehlt).
+--namen [ROOT]: nur der Namenswächter (870): Godot-Spiel und Quellen der Kopien nach godot/ (Arbeitsabläufe), Exit 1 bei alten Namen.
 --anlass SHA: nennt die Regeldateien (CLAUDE.md, ROLLE-*, LISTE-BETRIEB.md, VORGANGSARCHIV.md), die seit SHA geändert wurden;
 nur dann gehört die Zeile „Widersprüche prüfen“ in ARBEIT-PRUEFUNG.md (Anlass-Lauf Diogenes, einmal im Monat voller Lauf).
 Inhaltliche Widersprüche sieht das Skript nicht. Exit 1, wenn etwas gefunden wurde.
@@ -80,6 +81,89 @@ def rueckmeldung(um=None):
             aus.append((nr, sorted(rollen), d, "%s: Rückmeldung des Chefs da (%s, %s; Chefsache zuletzt %s), Stand nachziehen (559)" % (
                 nr, d.strftime("%d.%m., %H:%M"), her, datei_zeit.strftime("%d.%m., %H:%M"))))
     return aus
+
+def ohne_kommentar_gd(text):
+    """GDScript ohne Kommentare: ab „#“ ausserhalb einer Zeichenkette bis Zeilenende (870.13)."""
+    aus = []
+    for z in text.split("\n"):
+        q, i = None, 0
+        while i < len(z):
+            c = z[i]
+            if q:
+                if c == "\\": i += 1
+                elif c == q: q = None
+            elif c in "\"'": q = c
+            elif c == "#": z = z[:i]; break
+            i += 1
+        aus.append(z)
+    return "\n".join(aus)
+
+def ohne_info_json(text):
+    """JSON ohne Felder, deren Schlüssel mit „_“ beginnt (870.13); unlesbar: unverändert."""
+    try: d = json.loads(text)
+    except ValueError: return text
+    weg = lambda x: {k: weg(v) for k, v in x.items() if not str(k).startswith("_")} if isinstance(x, dict) else [weg(v) for v in x] if isinstance(x, list) else x
+    return json.dumps(weg(d), ensure_ascii=False)
+
+# 870 (Fund Fenja 22.11.): der Bau kopiert Dateien aus tools/ nach godot/ (godot.yml, godot-kampf.yml: werte.json, gegenstaende.json,
+# leute.json); im Checkout fehlen die Kopien (godot/.gitignore), der Wächter sah sie nicht. Er liest darum auch jede Quelle eines
+# Schritts „cp <Datei ausserhalb godot/> godot/…“ aus den Arbeitsabläufen. Erzeugte Dateien (pruefliste.py, Kaufmodelle) sieht er nicht.
+ENDUNGEN = (".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg")
+
+def kopierquellen(root):
+    """Quellen der Kopierschritte nach godot/ in .github/workflows/*.yml: [(Quelle, Ziel, Datei:Zeile)]."""
+    aus = []
+    for wf in sorted(glob.glob(os.path.join(root, ".github", "workflows", "*.yml"))):
+        for i, z in enumerate(lesen(wf).splitlines(), 1):
+            z = z.split(" #")[0]
+            for m in re.finditer(r"\bcp\s+(?:-\w+\s+)*([^\s$;&|]+)\s+(godot/[^\s;&|]*)", z):
+                q = m.group(1)
+                if q.startswith(("godot/", "/", "~")) or "*" in q or not os.path.isfile(os.path.join(root, q)): continue
+                aus.append((q, m.group(2), "%s:%d" % (os.path.basename(wf), i)))
+    return aus
+
+def srd_namen(root):
+    """Alte Namen aus DESIGN-BRS.md Abschnitt 12 („Alt“), ohne Schild/Vorteil/Nachteil und eigene Entwürfe."""
+    nw = os.path.join(root, "docs", "DESIGN-BRS.md")
+    text = lesen(nw) if os.path.exists(nw) else ""
+    abschnitt = text.split("\n## 12. ")[1].split("\n## ")[0] if "\n## 12. " in text else ""
+    srd = []
+    for z in abschnitt.splitlines():
+        s = [x.strip() for x in z.split("|")]
+        if len(s) < 4 or s[1] in ("Alt", "---", ""): continue
+        if "Entwurf" in s[1]: continue   # 870.13: Umbenennung eigener Entwürfe (Glut), nichts aus dem SRD
+        for n in re.split(r"[,/]", re.sub(r"\s*\(.*?\)", "", s[1])):
+            n = re.sub(r"^Klassen\s+", "", n.strip())
+            if n and n not in ("Schild", "Vorteil", "Nachteil"): srd.append(n)
+    return srd
+
+def alte_namen(root, srd):
+    """Treffer {Name: {Datei}} im Godot-Spiel (ohne tests/) und in den Quellen der Kopien nach godot/ (870)."""
+    muster = re.compile(r"(?<!\w)(%s)(?!\w)" % "|".join(map(re.escape, srd)))
+    dateien = []
+    for d, _, fs in os.walk(os.path.join(root, "godot")):
+        if "tests" in os.path.relpath(d, root).split(os.sep): continue
+        dateien += [os.path.join(d, f) for f in fs if f.endswith(ENDUNGEN)]
+    dateien += [os.path.join(root, q) for q, _, _ in kopierquellen(root) if q.endswith(ENDUNGEN)]
+    treffer = {}
+    for p in dict.fromkeys(dateien):
+        text = lesen(p)
+        if p.endswith(".gd"): text = ohne_kommentar_gd(text)   # 870.13: Kommentare sieht kein Spieler (Export als Bytecode ohne sie)
+        if p.endswith(".json"): text = ohne_info_json(text)     # 870.13: Felder „_…“ sind Quellenangaben, kein Spieltext
+        for m in muster.finditer(text): treffer.setdefault(m.group(1), set()).add(os.path.relpath(p, root))
+    return treffer
+
+# --namen [ROOT] (870): nur der Namenswächter; listet Kopierschritte und Treffer; Exit 1 bei alten Namen
+if "--namen" in sys.argv:
+    i = sys.argv.index("--namen")
+    wurzel = os.path.abspath(sys.argv[i + 1]) if len(sys.argv) > i + 1 else ROOT
+    srd = srd_namen(wurzel)
+    if not srd: print("DESIGN-BRS.md: Abschnitt „12. Namen“ ohne Tabelle Alt/Neu"); sys.exit(2)
+    for q, z, wo in kopierquellen(wurzel): print("Kopie %s: %s -> %s" % (wo, q, z))
+    tr = alte_namen(wurzel, srd)
+    for n, fs in sorted(tr.items()): print("ALT %s: %s" % (n, ", ".join(sorted(fs))))
+    print("Namenswächter: %s" % ("%d alte Namen" % len(tr) if tr else "keine alten Namen"))
+    sys.exit(1 if tr else 0)
 
 if "--rueckmeldung" in sys.argv:
     um = sys.argv[sys.argv.index("--um") + 1] if "--um" in sys.argv else None
@@ -194,53 +278,12 @@ for p in quellen:
 # 4b. Lizenzhinweis SRD (446; Chef 01.11., 09:41, 413a): alte Namen aus Nachschlagewerk Abschnitt 12 („Alt“) im Godot-Spiel (ohne tests/).
 # Solange einer steht: Meldezeile (kein Fund); fehlt dann der Hinweis „SRD 5.1 · CC BY 4.0“ im Hauptmenü oder README: Fund (Lizenz).
 # Allgemeine Wörter (Schild, Vorteil, Nachteil) sieht die Suche nicht; Monsterwerte und Zaubertexte auch nicht: die prüft ein Mensch vor dem Wegfall.
-def ohne_kommentar_gd(text):
-    """GDScript ohne Kommentare: ab „#“ ausserhalb einer Zeichenkette bis Zeilenende (870.13)."""
-    aus = []
-    for z in text.split("\n"):
-        q, i = None, 0
-        while i < len(z):
-            c = z[i]
-            if q:
-                if c == "\\": i += 1
-                elif c == q: q = None
-            elif c in "\"'": q = c
-            elif c == "#": z = z[:i]; break
-            i += 1
-        aus.append(z)
-    return "\n".join(aus)
-
-def ohne_info_json(text):
-    """JSON ohne Felder, deren Schlüssel mit „_“ beginnt (870.13); unlesbar: unverändert."""
-    try: d = json.loads(text)
-    except ValueError: return text
-    weg = lambda x: {k: weg(v) for k, v in x.items() if not str(k).startswith("_")} if isinstance(x, dict) else [weg(v) for v in x] if isinstance(x, list) else x
-    return json.dumps(weg(d), ensure_ascii=False)
-
-nw = os.path.join(DOCS, "DESIGN-BRS.md")
-abschnitt =lesen(nw).split("\n## 12. ")[1].split("\n## ")[0] if "\n## 12. " in lesen(nw) else ""
-srd = []
-for z in abschnitt.splitlines():
-    s = [x.strip() for x in z.split("|")]
-    if len(s) < 4 or s[1] in ("Alt", "---", ""): continue
-    if "Entwurf" in s[1]: continue   # 870.13: Umbenennung eigener Entwürfe (Glut), nichts aus dem SRD
-    for n in re.split(r"[,/]", re.sub(r"\s*\(.*?\)", "", s[1])):
-        n = re.sub(r"^Klassen\s+", "", n.strip())
-        if n and n not in ("Schild", "Vorteil", "Nachteil"): srd.append(n)
+srd = srd_namen(ROOT)
 srd_info = None
 if not srd:
     fund.append("DESIGN-BRS.md: Abschnitt „12. Namen“ ohne Tabelle Alt/Neu, Wächter Lizenzhinweis blind (446)")
 else:
-    muster = re.compile(r"(?<!\w)(%s)(?!\w)" % "|".join(map(re.escape, srd)))
-    treffer = {}
-    for d, _, fs in os.walk(os.path.join(ROOT, "godot")):
-        if "tests" in os.path.relpath(d, ROOT).split(os.sep): continue
-        for f in fs:
-            if not f.endswith((".gd", ".tscn", ".tres", ".json", ".csv", ".txt", ".cfg")): continue
-            text = lesen(os.path.join(d, f))
-            if f.endswith(".gd"): text = ohne_kommentar_gd(text)   # 870.13: Kommentare sieht kein Spieler (Export als Bytecode ohne sie)
-            if f.endswith(".json"): text = ohne_info_json(text)     # 870.13: Felder „_…“ sind Quellenangaben, kein Spieltext
-            for m in muster.finditer(text): treffer.setdefault(m.group(1), set()).add(f)
+    treffer = alte_namen(ROOT, srd)
     if treffer:
         srd_info = "Lizenzhinweis SRD bleibt (446): %d alte Namen aus Nachschlagewerk 12 im Godot-Spiel, z. B. %s" % (
             len(treffer), ", ".join("%s (%d)" % (n, len(fs)) for n, fs in sorted(treffer.items(), key=lambda x: -len(x[1]))[:6]))
