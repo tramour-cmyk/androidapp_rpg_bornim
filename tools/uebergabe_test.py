@@ -107,5 +107,33 @@ rc, t = lauf(A, "session_DISP", "21.11., 22:11", "offen")
 reihen = [l.split(" | ")[0] for l in t.splitlines() if l.startswith("9001-Ü")]
 soll("Büro-Liste nach Eingangszeit", reihen[:2] == ["9001-Ü2", "9001-Ü3"] and "9001-Ü3 | an Tom | Auftrag 9001-2 bauen | seit 21.11., 21:00 | offen" in t, t)
 soll("Commits tragen nur die Vorgangsdatei", set(g("log", "--format=", "--name-only", "origin/main", "-n", "25", cwd=A).split()) <= {"docs/vorgang/9001.md", "docs/vorgang/9002.md", "docs/ARBEIT-BESETZUNG.md"})
+# 1796 Büro-Folge (Archiv 21.11., 20:51): Eilt, Fund des Chefs, Themenblock, Eingangszeit; alte und neue Liste
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import uebergabe as UE
+for neu_liste in (False, True):
+    D = tempfile.mkdtemp(); os.makedirs(os.path.join(D, "chefsache")); os.makedirs(os.path.join(D, "vorgang"))
+    open(os.path.join(D, "chefsache", "themenbloecke.md"), "w").write(
+        "| Nr. | Themenblock | Fachprofil | Kapitel 1 | ruht bis | Bereiche | Vorgänge |\n|---|---|---|---|---|---|---|\n"
+        "| 2 | Kampf | Kampf | ja | – | E Kampf | – |\n| 7 | Firma | Werkzeug | nein | – | B Werkzeuge | – |\n")
+    alt_z = {"1": ("Von Sokrates: Werkzeug", "M", "B Werkzeuge"), "2": ("Von Sokrates: Kampf", "M", "E Kampf"),
+             "3": ("Von Chef (21.11.): Werkzeug", "M", "B Werkzeuge"), "4": ("Von Sokrates: Werkzeug · „jetzt“ 21.11., 20:00", "M", "B Werkzeuge")}
+    if neu_liste:
+        kopf = "| Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |\n|---|---|---|---|---|---|---|---|---|---|---|---|\n"
+        zs = "".join("| %s | %s | – | %s | %s | – | – | – | *startbar* | *–* | *0* | *–* |\n" % (n, ti.split(": ", 1)[1], b, "Eilt" if "jetzt" in ti else k) for n, (ti, k, b) in alt_z.items())
+        for n, (ti, k, b) in alt_z.items(): open(os.path.join(D, "vorgang", n + ".md"), "w").write("# %s\n\n## Herkunft\n\nHerkunft: %s\n" % (n, ti))
+    else:
+        kopf = "| Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |\n|---|---|---|---|---|---|---|---|---|---|\n"
+        zs = "".join("| %s | %s | Spike | %s | startbar | – | – | – | %s | – |\n" % (n, ti, k, b) for n, (ti, k, b) in alt_z.items())
+    open(os.path.join(D, "LISTE-VORGAENGE.md"), "w").write("# Vorgänge\n\n" + kopf + zs)
+    r = UE.buero_rang(D)
+    zeilen_ = [("1", "Auftrag bauen", "21.11., 20:00"), ("2", "Auftrag bauen", "21.11., 21:00"), ("3", "Auftrag bauen", "21.11., 22:00"),
+               ("4", "Auftrag bauen", "21.11., 23:00"), ("5", "Chefwort 21.11., 20:00 aus Sitzung x lesen (Abschnitt Chefworte)", "21.11., 23:30"),
+               ("1", "frühere Zeile", "21.11., 19:00")]
+    folge = [z[0] + " " + z[2][-5:] for z in sorted(zeilen_, key=lambda z: r(*z))]
+    soll("1796 Büro-Folge Eilt, Fund, Block, Eingang (%s Liste)" % ("neue" if neu_liste else "alte"),
+         folge == ["4 23:00", "3 22:00", "5 23:30", "2 21:00", "1 19:00", "1 20:00"], folge)
+lauf_txt = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "lauf.py"), encoding="utf-8").read()
+soll("1796 lauf.py ordnet offene Zeilen nach buero_rang", "_ue.buero_rang(" in lauf_txt)
+
 print("uebergabe_test: %s" % ("grün" if not fehl else "%d Fehler" % fehl))
 sys.exit(fehl)
