@@ -538,6 +538,53 @@ def auftrag_zeilen(st, n=None, ohne=None):
         aus.append(("Auftrag", kl, "Auftrag schreiben für %s (%s, %s): %s (`vorgang.py auftrag %s`; 3.3 Nr. 4, ein Auftrag je Sitzung)" % (nr, r, g, titel, nr), {"auftrag_fuer": nr}))
     return aus[:AUFTRAG_PLANER if n is None else n]
 
+THEMA_MAX = 50  # 1960: Zeichen des Themas im START-Titel, mit „…“
+
+FUELLWORT = {"nach", "zu", "von", "vom", "ab", "im", "in", "mit", "auf", "für", "und", "oder", "der", "die", "das", "des", "den", "dem",
+            "bei", "aus", "zum", "zur", "an", "am", "über", "seit", "bis", "ohne", "je", "als", "wie", "statt"}
+
+def _sieht_nummer(t):
+    """1960: läse nummern_aus_titel in t hinter „X – 1:“ eine weitere Vorgangsnummer (Kosten zu gleichen Teilen, 197)?"""
+    return nummern_aus_titel("X – 1: %s (01.01., 00:00)" % t) != "1"
+
+def thema(t):
+    """1960 (Chef 22.11., 16:52): Thema für den START-Titel aus dem Vorgangstitel: ohne Markdown, „|“, Zeilenumbruch und
+    „Auftrag <Zahl>“; Vorspann bis zum ersten „: “ außerhalb von Klammern weg, wenn er mit „Von “ beginnt oder eine Vorgangsnummer
+    trägt („Aus 623.2 (Jerry): …“); endet vor „;“, „: “, „ (“, „ – “, einem unpaarigen „ und vor jedem Wort, das nummern_aus_titel
+    als weitere Vorgangsnummer läse (dann ohne Füllwort am Ende und mit „…“); höchstens THEMA_MAX Zeichen am Wortende mit „…“."""
+    t = re.sub(r"\*\*|`", "", str(t or ""))
+    t = " ".join(re.sub(r"[|\r\n]+", " ", t).split())
+    tiefe = 0
+    for i, c in enumerate(t):
+        tiefe += (c == "(") - (c == ")")
+        if c == ":" and tiefe == 0 and t[i + 1:i + 2] in (" ", ""):
+            if (re.match(r"(D\d\S* )?[Vv]on ", t) or _sieht_nummer(t[:i])) and t[i + 1:].strip(): t = t[i + 1:]
+            break
+    t = re.split(r";|:(?=\s|$)| \(| – ", t.strip())[0]
+    t = re.sub(r"\bAuftrag\s+\d[0-9a-zA-Z.]*", " ", t)
+    if t.count("„") > t.count("“"): t = t[:t.rindex("„")]
+    worte, rest = [], False
+    for w in t.split():
+        if _sieht_nummer(" ".join(worte + [w])): rest = True; break
+        worte.append(w)
+    if not worte and t.split(): worte = [re.split(r"\d", t.split()[0])[0]]  # „chefsache/bilder/415-…“: Teil vor der Zahl
+    while rest and len(worte) > 1 and worte[-1].lower() in FUELLWORT: worte.pop()
+    t = " ".join(worte).rstrip(" ,;:(–-/")
+    if len(t) > THEMA_MAX - 2:
+        t = t[:THEMA_MAX - 2]
+        t = t[:t.rindex(" ")] if " " in t else t
+        if t.count("„") > t.count("“"): t = t[:t.rindex("„")]
+        rest = True
+    t = t.rstrip(" ,;:(–-/")
+    while rest and " " in t and t.rsplit(" ", 1)[1].lower() in FUELLWORT: t = t.rsplit(" ", 1)[0].rstrip(" ,;:(–-/")
+    return (t + " …") if rest and t else t
+
+def start_titel(kopf, nr):
+    """1960: START-Titel „<Kopf>: <Thema> (TT.MM., HH:MM)“ (Fachkraft, Planer, zweiter Planer), Thema aus dem Vorgangstitel von nr;
+    ohne tools/1727-SCHARF oder ohne Zeile wie bisher „<Kopf> (…)“. mit_rufnamen setzt danach den Rufnamen statt der Rolle."""
+    th = thema(next((d["titel"] for d in startbar.zeilen_liste() if d["nr"] == nr), "")) if ist_scharf() else ""
+    return "%s%s (%s)" % (kopf, (": " + th) if th else "", berlin(JETZT))
+
 def auftrag_aus_titel(titel):
     """1932: Nummer aus einem Planer-Titel „<Name> – Auftrag <Nr> (…)“, sonst None."""
     m = re.search(r"\bAuftrag (\d[0-9a-zA-Z.]*[0-9a-zA-Z]|\d)\b", titel or "")
@@ -582,7 +629,7 @@ def zweiter_planer(ausgabe, st, je_rolle, archiviert, ausschluss, bremse, sperre
     if nacht_halt(PLANER, fn, ausgabe, morgen): return
     if bremse: bremse.zaehle(PLANER, wahl[3])
     mo, satz, hoch = modell(PLANER, "Auftrag")
-    titel = "%s 2 – Auftrag %s (%s)" % (PLANER, fn, berlin(JETZT))
+    titel = start_titel("%s 2 – Auftrag %s" % (PLANER, fn), fn)  # 1960
     msg = "%s\n\n%s; zweiter Planer (1932, über %d Eilt, Funde, Muss ohne Auftrag); zuerst Start nach deinem Ladetext, dann %s, den Auftrag schreiben, pushen und enden.%s" % (
         PLANER, re.sub(r"\*\*|`", "", wahl[2]), ZWEITER_PLANER_AB, vorrat_hinweis(PLANER, fn), satz)
     ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (PLANER, mo, aufwand(hoch), umgebung(PLANER, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))
@@ -1547,14 +1594,14 @@ def main():
             s = max(alte, key=lambda x: z(x["updated_at"]))
             ausgabe.append("WEITER %s | %s | %s | Weiter: %s (%s) aus der Vorgangsliste (vorgang.py --rolle %s); wird send_message abgelehnt, stattdessen START" % (s["id"], r, nr, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", r))
             sperren.append(r); continue
-        titel = "%s – %s (%s)" % (r, nr, berlin(JETZT))
+        titel = start_titel("%s – %s" % (r, nr), nr)  # 1960
         fuer = wahl[3].get("fuer") if isinstance(wahl[3], dict) else None
         msg = "%s\n\nArbeite Vorgang %s (%s) aus der Vorgangsliste (`python3 tools/vorgang.py --rolle %s`, Einzelheiten `vorgang.py %s`)%s; zuerst Start nach deiner Rollendatei, dann den Vorgang lesen und %s." % (
             r, nr, "Muss" if kl == "M" else "nach dem Meilenstein" if kl == "N" else "Kür", r, nr,
             (", Zeile von %s, die auf dich wartet; fertig: `vorgang.py warte %s –` oder das Feld kürzen" % (fuer, nr)) if fuer else "", vorrat_hinweis(r, nr))
         if nr == "Auftrag":  # 1893 (Sokrates 22.11., 08:33): frisch je Auftrag, nie WEITER
             fn = wahl[3].get("auftrag_fuer")
-            titel = "%s – Auftrag %s (%s)" % (r, fn, berlin(JETZT))
+            titel = start_titel("%s – Auftrag %s" % (r, fn), fn)  # 1960
             msg = "%s\n\n%s; zuerst Start nach deinem Ladetext, dann %s, den Auftrag schreiben, pushen und enden." % (r, thema, vorrat_hinweis(r, fn))
         msg += satz
         ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION, titel, msg.replace("\n", "\\n")))

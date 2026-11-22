@@ -28,17 +28,21 @@ def titel(kopf, nr):  # vor 1960: Titel ohne Thema wie in lauf.py Z. 1550/1557/5
 # Kürzung
 soll("Thema bis „:“", th(ZEILEN[0]["titel"]) == "Sitzungstitel ohne Thema", th(ZEILEN[0]["titel"]))
 soll("Vorspann „Von X (…):“ weg, bis „ (“", th(ZEILEN[1]["titel"]) == "lauf.py erkennt eigene Rufnamen-Sitzungen nicht", th(ZEILEN[1]["titel"]))
-soll("höchstens 50 Zeichen am Wortende mit …", th(ZEILEN[4]["titel"]) == "Höhlenwasser leuchtet hinter Wänden im Dunkeln, …", th(ZEILEN[4]["titel"]))
+soll("höchstens 50 Zeichen am Wortende mit …", th(ZEILEN[4]["titel"]) == "Höhlenwasser leuchtet hinter Wänden im Dunkeln …", th(ZEILEN[4]["titel"]))
 soll("ohne „|“, Zeilenumbruch, „ – “, „Auftrag <Zahl>“", th("Fix | Auftrag 1727 für\nden Lauf – Rest") == "Fix für den Lauf", th("Fix | Auftrag 1727 für\nden Lauf – Rest"))
-soll("Zahl im Thema endet davor (sonst Kosten auf Vorgang 131)", th(ZEILEN[2]["titel"]) == "Zweihandwaffen kürzer Großaxt", th(ZEILEN[2]["titel"]))
+soll("Zahl im Thema endet davor (sonst Kosten auf Vorgang 131)", th(ZEILEN[2]["titel"]) == "Zweihandwaffen kürzer Großaxt …", th(ZEILEN[2]["titel"]))
+soll("unpaariges „ nach Kürzung weg", th("Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht") == "Kampfmeldung MSG532_CURED …", th("Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht"))
+soll("Zahl im ersten Wort: Teil davor", th("chefsache/bilder/415-strahlen-gl.webp und mehr") == "chefsache/bilder …", th("chefsache/bilder/415-strahlen-gl.webp und mehr"))
+soll("Vorspann mit Nummer weg, Uhrzeit kein Schnitt", th("Aus 1141 (Jerry 13.11., 18:55): Ford hing ab 16:04 zwei Stunden (x)") == "Ford hing ab 16:04 zwei Stunden", th("Aus 1141 (Jerry 13.11., 18:55): Ford hing ab 16:04 zwei Stunden (x)"))
+soll("Schnitt an Zahl ohne Füllwort am Ende", th("vier Läufe zu 1655 an einem Tag") == "vier Läufe …", th("vier Läufe zu 1655 an einem Tag"))
 soll("Markdown weg, unpaariges „ weg", th("**Titel** mit „Zitat: x") == "Titel mit", th("**Titel** mit „Zitat: x"))
 
 # START-Titel (Fachkraft 1550, Planer 1557, zweiter Planer 585) mit Thema, scharf
 lauf.ist_scharf = lambda: True
 f = titel("Werkzeug – 1960", "1960"); p = titel("Arbeitsplaner – Auftrag 1675", "1675"); p2 = titel("Arbeitsplaner 2 – Auftrag 1621", "1621")
 soll("Fachkraft-Titel mit Thema", f == "Werkzeug – 1960: Sitzungstitel ohne Thema (22.11., 16:56)", f)
-soll("Planer-Titel mit Thema", p == "Arbeitsplaner – Auftrag 1675: Wachsoldatin im Hauptmenü, Schild schwebt neben ihr (22.11., 16:56)", p)
-soll("zweiter Planer mit Thema", p2 == "Arbeitsplaner 2 – Auftrag 1621: Zweihandwaffen kürzer Großaxt (22.11., 16:56)", p2)
+soll("Planer-Titel mit Thema", p == "Arbeitsplaner – Auftrag 1675: Wachsoldatin im Hauptmenü, Schild schwebt neben … (22.11., 16:56)", p)
+soll("zweiter Planer mit Thema", p2 == "Arbeitsplaner 2 – Auftrag 1621: Zweihandwaffen kürzer Großaxt … (22.11., 16:56)", p2)
 soll("Nummer ohne Zeile: Titel ohne Thema", titel("Werkzeug – 9999", "9999") == "Werkzeug – 9999 (22.11., 16:56)", titel("Werkzeug – 9999", "9999"))
 
 # Rufnamen und Zuordnung mit Thema wie ohne
