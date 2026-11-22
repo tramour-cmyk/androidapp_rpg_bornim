@@ -2,6 +2,7 @@ extends SceneTree
 # 1720 Bilder alt gegen neu (Chef 18.11., 23:14, Bilder t300.3 Wald 11/19, t300.4 Hoehle): Vordergrund deckte bis zur halben
 # Bildflaeche schwarz ab. Je Stelle mittags ein Bild in der Spielkamera (540 x 1170 wie am Handy); laeuft im alten und neuen Stand gleich.
 # Aufruf im Ordner godot: godot --resolution 540x1170 -s res://tests/vordergrund_bild_1720.gd -- --aus=<ordner>
+# Alt: WorldScreen.kt:936-970 (hides: nur was den Helden verdeckt, halb durchsichtig); neu auch Vordergrund, der die Spielflaeche verdeckt.
 
 const STELLEN := [["forest", Vector2i(11, 19)], ["forest", Vector2i(9, 12)], ["station", "Krogg"], ["cave", Vector2i(10, 9)],
 	["village", Vector2i(12, 12)]]
