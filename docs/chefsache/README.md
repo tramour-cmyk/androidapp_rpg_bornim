@@ -17,7 +17,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Spike:** Technik, jede APK
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 11:39, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 11:48, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -33,7 +33,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 
 | ↳ **12** Bedienung und Oberfläche | 5 (5) | 0 | 0 | 0 | 4 | 954a.12 (Tom) Erschaffung: nicht wählbare Fertigkeiten in einer… |
 | ↳ **13** Geschichte und Texte | 9 (11) | 0 | 0 | 0 | 3 | 1628 (Homer) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 7 | 1484 (Spike) Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s k… |
-| **7** Firma: Werkzeuge und Abläufe | 98 (88) | 56 | 2 | 1 | 14 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
+| **7** Firma: Werkzeuge und Abläufe | 100 (88) | 58 | 2 | 1 | 14 | 1727 (Sokrates) Neustrukturierung frei gedacht: Grobablauf als Fl… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Sokrates) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -41,8 +41,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 76 | 22 | 519 | 1379 |
-| neu | 80 | 49 | 568 | 1458 |
-| **netto** (erledigt − neu) | **−4** | **−27** | **−49** | **−79** |
+| neu | 82 | 49 | 570 | 1460 |
+| **netto** (erledigt − neu) | **−6** | **−27** | **−51** | **−81** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -54,9 +54,9 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Tom | 1589.3 Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwä… (Muss); dann 5 weitere |
 | Jerry | 1068 Ring bei jedem großen Schlag der Gegner, diese Schläge härt… (Muss); dann 9 weitere |
 | Tuffy | 1566 Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nich… (Muss von Jerry, neben dessen Arbeit); dann 8 weitere |
-| Spike | läuft: 1920 (Besetzung); 1871 Umschalt-Commit samt Umzug „Zu <Nr>“ in Vorgangsdateien an… (Muss); dann 13 weitere |
+| Spike | läuft: 1920 (Besetzung); 1871 Umschalt-Commit samt Umzug „Zu <Nr>“ in Vorgangsdateien an… (Muss); dann 14 weitere |
 | Homer | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
-| Diogenes | läuft: 1855 (Besetzung); leer, weil 2 Termin, 1 ruht, 1 wartet auf Vorgang (644.1) |
+| Diogenes | läuft: 1855 (Besetzung); 1929 lauf.py leert ARBEIT-BETRIEB.md, wenn die Startsperre nicht… (Muss) |
 | Sokrates | läuft: 1727j (Besetzung); 1727 Neustrukturierung frei gedacht: Grobablauf als Flussdiagram… (Muss); dann 7 weitere |
 | Perikles | M? M? entscheiden: 1850, 1851, 1852, 1853, 1854, 1856, 1857, 1… (Muss); dann 3 weitere |
 
@@ -78,21 +78,21 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 12 | 1785 | Tom | Weg aus 4fd7055c8 in die Handwerksliste Figur, Teil von 1535 | M | 3 Figuren und Kleidung | startbar |
 | 13 | 455.2 | Jerry | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker | M | 3 Figuren und Kleidung | gebaut, t300 ohne deine Antwort |
 | 14 | 1652 | Jerry | Durchstechprüfung: Osric innere Stücke stechen durch die Robe; Sichtbarkeit prü… | M | 3 Figuren und Kleidung | gebaut, t300 ohne deine Antwort |
-| 15 | 1665 | Spike | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu se… | M | 3 Figuren und Kleidung | startbar |
-| 16 | 1653 | Jerry | Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Sichtbarkeit prüfen, d… | M | 3 Figuren und Kleidung | startbar |
+| 15 | 1653 | Jerry | Durchstechprüfung: Thessa Kleid sticht durch den Kragen; Sichtbarkeit prüfen, d… | M | 3 Figuren und Kleidung | startbar |
+| 16 | 1665 | Spike | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu se… | M | 3 Figuren und Kleidung | startbar |
 | 17 | 1654 | Jerry | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch; Sichtbarkeit prüfen,… | M | 3 Figuren und Kleidung | startbar |
 | 18 | 1566 | Jerry | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne… | M | 5 Welt und Karten | gebaut, t300 ohne deine Antwort |
 | 19 | 1753 | Jerry | Streicherspur nach 120 bauen, nur bei Jägern; Hörprobe auf Telegram, Bewegung a… | M | 11 Klang und Musik | startbar |
 | 20 | 1484 | Spike | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt; Grundwert Tablet in LISTE… | M | 6 Technik, Leistung, Build | startbar |
 
-Danach 122 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 27. Ruhend oder nach dem Meilenstein: 103.
+Danach 123 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 28. Ruhend oder nach dem Meilenstein: 103.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [1727j](entscheiden/1727j-vorschlaege.md) | **Muss** | B Abläufe | 22.11., 11:31 | vier kleine Änderungen an abgenommenen Ladetexten mit Byte, dazu sechzehn Fragen je mit Votum; zum entschiedenen Kaufrepo-Satz im Sockel (V7) nur der Wortlaut. | Sokrates |
+| [1727j](entscheiden/1727j-vorschlaege.md) | **Muss** | B Abläufe | 22.11., 11:48 | vier kleine Änderungen an abgenommenen Ladetexten mit Byte, dazu sechzehn Fragen je mit Votum; zum entschiedenen Kaufrepo-Satz im Sockel (V7) nur der Wortlaut. | Sokrates |
 | [1727k](entscheiden/1727k-settings.md) | **Muss** | B Werkzeuge | 22.11., 09:05 | vier Sätze der Auto-Freigabe auf die neuen Namen, ein neuer Satz für die Wache, zwei schon eingetragene Haken nachträglich; der Probelauf-Haken bleibt, bis jede seiner Prüfungen Ersatz hat. | Sokrates |
 
 ## Zu billigen
