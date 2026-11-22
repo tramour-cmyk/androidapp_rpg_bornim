@@ -30,23 +30,42 @@ import uebergabe as ue
 AN = os.environ.get("BORNIM_CHEFWORT_AN", "Arbeitsplaner")
 DISPONENT = "Disponent"  # 1782 (3.3 Nr. 7, L-U15): Freigabe des Builds oder Ergebnis nach Checkliste 11, 12 startet den Build-Macher
 FREIGABE = re.compile(r"(?i)\b(passt|freigegeben)\b|^\W*gut\b")  # Profil Technik 13; „gut“ nur als erstes Wort (sonst zu oft im Satz)
-ERGEBNIS = re.compile(r"(?m)(^\W*(\d+(\.\d+)?|Rest)\s*[✓✗]|👍|👎)")  # Checkliste 11: „- n.k ✓“, „- n.k ✗ <Fund>“, „- Rest ✓“, Telegram 👍/👎
+# 1903 (D340.1): Verneinung im selben Satzteil („passt nicht“, „noch nicht freigegeben“, „gut ist das nicht“) ist keine Freigabe
+VERNEINT = re.compile(r"(?i)\b(nicht|nichts|kein\w*|nie)\b")
+TEIL = re.compile(r"(?i)[,.;:!?\n–—]|\b(?:aber|doch|sondern|jedoch)\b")
+# Checkliste 11: „- n.k ✓“, „- n.k ✗ <Fund>“, „- Rest ✓“. Ein 👍/👎 gilt nur für einen Punkt (Profil Technik 13): Fund, Arbeitsplaner;
+# die 👍/👎 der Bild- und Filmpunkte trägt das Werkzeug ins Ergebnis, erst das Ergebnis geht an den Disponenten (1903)
+ERGEBNIS = re.compile(r"(?m)^\W*(\d+(\.\d+)?|Rest)\s*[✓✗]")
+BUILD_IM_TEXT = re.compile(r"(?i)\bBuild\s+\d|(?<![\w.])t\d{2,4}\b")
+
+
+def freigabe(w):
+    """1903: Freigabewort und kein Satzteil, der eins verneint („Gut gemeint, aber nicht freigegeben“); im Zweifel Arbeitsplaner,
+    denn eine falsche Freigabe führt zusammen, ein falscher Fund kostet nur eine Weitergabe."""
+    w = w or ""
+    if not FREIGABE.search(w): return False
+    return not any(t and re.search(r"(?i)\b(passt|freigegeben|gut)\b", t) and VERNEINT.search(t) for t in TEIL.split(w))
+
+
+def _build_am_vorgang(nr, d):
+    if d is None and nr:
+        try:
+            import startbar
+            d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
+        except Exception: d = None
+    return bool(d and str(d.get("build") or "").strip() not in ("", "-", "–"))
 
 
 def empfaenger(wort, nr=None, d=None):
-    """1782: Disponent bei Freigabe eines Builds („gut“, „passt“, „freigegeben“; nur wenn der Text einen Build nennt oder der Vorgang
-    einen Build trägt) oder bei einem Ergebnis nach Checkliste 11, 12; sonst der Arbeitsplaner (AN)."""
+    """1782, 1903: Disponent bei Freigabe eines Builds („gut“, „passt“, „freigegeben“, unverneint) oder bei einem Ergebnis nach
+    Checkliste 11, 12 („- n.k ✓/✗“, „- Rest ✓“), beides nur, wenn der Text einen Build nennt oder der Vorgang einen Build trägt;
+    sonst der Arbeitsplaner (AN): Verneinung, einzelnes 👍/👎, Fund."""
     w = wort or ""
-    if ERGEBNIS.search(w): return DISPONENT
-    if FREIGABE.search(w):
-        if re.search(r"(?i)\bBuild\s+\d|(?<![\w.])t\d{2,4}\b", w): return DISPONENT
-        if d is None and nr:
-            try:
-                import startbar
-                d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None)
-            except Exception: d = None
-        if d and str(d.get("build") or "").strip() not in ("", "-", "–"): return DISPONENT
+    if not (ERGEBNIS.search(w) or freigabe(w)): return AN
+    if BUILD_IM_TEXT.search(w) or _build_am_vorgang(nr, d): return DISPONENT
     return AN
+
+
 SCHARF = os.path.join(ue.WURZEL, "tools", "1727-SCHARF")
 LANG = 6000  # Zeichen je Eintrag; längeres steht im Protokoll der Sitzung
 ROLLEN = r"(Perikles|Homer|Sokrates|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)"
