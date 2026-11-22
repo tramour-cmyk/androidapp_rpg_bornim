@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 19:30, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 19:35, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -30,24 +30,24 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 8 (6) | 1 | 1 | 0 | 5 | 870 (Regeln) Umstellung ganz auf BRS, SRD-Parallelbetrieb been… |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 64 (61) | 20 | 1 | 1 | 36 | 1068 (Kampf) Ring bei jedem großen Schlag der Gegner … |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 36 (35) | 23 | 1 | 2 | 8 | 1570 (Figur) Umhang einmal grundsätzlich lösen statt Einzelfli… |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 64 (61) | 20 | 2 | 1 | 36 | 1068 (Kampf) Ring bei jedem großen Schlag der Gegner … |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 35 (35) | 22 | 2 | 2 | 8 | 1570 (Figur) Umhang einmal grundsätzlich lösen statt Einzelfli… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (35) | 3 | 0 | 0 | 15 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
 | ↳ **12** Bedienung und Oberfläche | 6 (5) | 0 | 0 | 0 | 5 | 954a.12 (Oberfläche) Erschaffung: nicht wählbare Fertigkeiten … |
 | ↳ **13** Geschichte und Texte | 9 (11) | 0 | 0 | 0 | 3 | 1628 (Story) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 25 (24) | 13 | 0 | 1 | 8 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 110 (88) | 73 | 1 | 1 | 15 | 1967 (Werkzeug) Reihenfolge Klasse vor Themenblock; lauf.auftrag_… |
+| **7** Firma: Werkzeuge und Abläufe | 110 (88) | 73 | 2 | 1 | 15 | 1967 (Werkzeug) Reihenfolge Klasse vor Themenblock; lauf.auftrag_… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Arbeitsplaner) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 111 | 22 | 554 | 1411 |
+| erledigt | 112 | 22 | 555 | 1412 |
 | neu | 127 | 49 | 615 | 1505 |
-| **netto** (erledigt − neu) | **−16** | **−27** | **−61** | **−94** |
+| **netto** (erledigt − neu) | **−15** | **−27** | **−60** | **−93** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -57,9 +57,9 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 |---|---|
 | **Chef** | nichts offen in der Chefsache |
 | Arbeitsplaner | läuft: 1694 (Besetzung); 45 Geschäftsmodell und Umsetzung (nach dem Meilenstein) |
-| Regeln | 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss) |
-| Kampf | 1068 Ring bei jedem großen Schlag der Gegner … (Muss); dann 4 weitere |
-| Figur | 1570 Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 f… (Muss); dann 9 weitere |
+| Regeln | läuft: 870 (Besetzung); 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss) |
+| Kampf | läuft: 1068 (Besetzung); 1068 Ring bei jedem großen Schlag der Gegner … (Muss); dann 4 weitere |
+| Figur | läuft: 1570 (Besetzung); 1570 Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 f… (Muss); dann 8 weitere |
 | Kataloge | leer, weil 7 wartet auf Vorgang (649.2, 1331, 644.1, 649.2, 644.1, 644.1, 649.2), 2 ruht, 1 wartet auf Test/Build |
 | Welt | läuft: 1566 (Besetzung); 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | läuft: 1750 (Besetzung); 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
@@ -67,7 +67,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 2 weitere |
 | Werkzeug | läuft: 1967 (Besetzung); 1967 Reihenfolge Klasse vor Themenblock; lauf.auftrag_offen und… (Muss); dann 31 weitere |
-| Prüfer | läuft: 870 (Besetzung); leer, weil keine offene Zeile |
+| Prüfer | leer, weil keine offene Zeile |
 | Tester | leer, weil keine offene Zeile |
 
 **Die nächsten 20**
@@ -75,27 +75,27 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 870 | Regeln | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen… | M | 10 Regeln | in Arbeit |
-| 2 | 1068 | Kampf | Ring bei jedem großen Schlag der Gegner … | M | 2 Kampf | startbar |
+| 2 | 1068 | Kampf | Ring bei jedem großen Schlag der Gegner … | M | 2 Kampf | in Arbeit |
 | 3 | 1589.2 | Kampf | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf | startbar |
 | 4 | 1589.3 | Kampf | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf | startbar |
 | 5 | 1603 | Kampf | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf | startbar |
 | 6 | 1750 | Kampf | Kampfort klingt wie seine Stelle der Karte, etwa halb so laut unter der Kampfmu… | M | 2 Kampf | in Arbeit |
-| 7 | 1570 | Figur | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Figuren und Kleidung | startbar |
+| 7 | 1570 | Figur | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge, off… | M | 3 Figuren und Kleidung | in Arbeit |
 | 8 | 1675 | Figur | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | M | 3 Figuren und Kleidung | startbar |
 | 9 | 1676 | Figur | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Figuren und Kleidung | startbar |
 | 10 | 1694 | Figur | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je… | M | 3 Figuren und Kleidung | in Arbeit |
-| 11 | 455.2 | Figur | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker | M | 3 Figuren und Kleidung | gebaut, t300 ohne deine Antwort |
-| 12 | 1652 | Figur | Durchstechprüfung: Osric innere Stücke stechen durch die Robe | M | 3 Figuren und Kleidung | gebaut, t300 ohne deine Antwort |
-| 13 | 1653 | Figur | Durchstechprüfung: Thessa Kleid sticht durch den Kragen | M | 3 Figuren und Kleidung | startbar |
-| 14 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
-| 15 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
-| 16 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
-| 17 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
-| 18 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
-| 19 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
-| 20 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
+| 11 | 1652 | Figur | Durchstechprüfung: Osric innere Stücke stechen durch die Robe | M | 3 Figuren und Kleidung | gebaut, t300 ohne deine Antwort |
+| 12 | 1653 | Figur | Durchstechprüfung: Thessa Kleid sticht durch den Kragen | M | 3 Figuren und Kleidung | startbar |
+| 13 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
+| 14 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
+| 15 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
+| 16 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
+| 17 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
+| 18 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
+| 19 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
+| 20 | 1967 | Werkzeug | Reihenfolge Klasse vor Themenblock; lauf.auftrag_offen und uebergabe.buero_rang | M | 7 Firma | in Arbeit |
 
-Danach 132 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 112.
+Danach 131 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 112.
 ## Zu entscheiden
 
 Nichts offen.
