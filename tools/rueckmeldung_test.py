@@ -119,6 +119,15 @@ liste = open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), encoding="utf-8").re
 soll("1887: Nein mit Stichwort ändert die Liste nicht", rc == 0 and "Systemlösung? Treppe" not in liste and "LISTE docs/LISTE-VORGAENGE.md geändert" not in out
      and not g("status", "--porcelain", "--", "docs", cwd=A).strip(), (out, g("status", "--porcelain", cwd=A)))
 soll("1887: Zeile an den Disponenten mit Befehl für Systemlösung? Treppe", re.search(r"\| 9002-Ü\d+ \| Disponent \| Wiederholungswächter \(654, 1887\): Stichwort „Treppe“.*vorgang.py neu \"Systemlösung\? Treppe: .*\" \"[^\"]+\" K Sokrates", datei("9002")), (out, datei("9002")[-600:]))
+# 1913 (D344.2): weiteres Nein mit demselben Stichwort, solange die erste Wächterzeile offen ist: keine zweite Zeile
+g("checkout", "-q", "--", "docs", cwd=A); g("pull", "-q", "origin", "main", cwd=A)
+rc, out = lauf("rueckmeldung", "9007", "nein: Treppe zu steil, Schatten fehlt")
+g("pull", "-q", "origin", "main", cwd=A)
+_wz = lambda nr: re.findall(r"\| %s-Ü\d+ \| Disponent \| Wiederholungswächter \(654, 1887\): Stichwort „Treppe“" % nr, datei(nr))
+soll("1913: zweites Nein (9007) mit Stichwort Treppe: keine zweite Wächterzeile", rc == 0 and not _wz("9007") and len(_wz("9002")) == 1 and "1913" in out, (out, datei("9007")[-400:]))
+rc, out = lauf("rueckmeldung", "9002", "nein: Treppe wirft immer noch keinen Schatten")
+g("pull", "-q", "origin", "main", cwd=A)
+soll("1913: drittes Nein im selben Vorgang: weiter nur eine Wächterzeile", len(_wz("9002")) == 1, (out, datei("9002")[-600:]))
 g("checkout", "-q", "--", "docs", cwd=A); g("pull", "-q", "origin", "main", cwd=A)
 rc, out = lauf("rueckmeldung", "9007", "ja: Treppe passt")
 soll("Ja ohne Wächter, an den Disponenten", rc == 0 and "Systemlösung" not in out and "an Disponent" in out and "an den Chef vorlegen" in datei("9007"), out)
