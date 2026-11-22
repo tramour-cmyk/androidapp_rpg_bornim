@@ -21,7 +21,8 @@ open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "| 9012 | Kerze im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n"
     "| 9013 | Nachtstopp-Haken | Spike | K | startbar | – | – | – | B Werkzeuge | – |\n"
     "| 9014 | Fackel im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n"
-    "| 9015 | Fackel im Keller | Jerry | K | startbar | – | – | – | E Welt | – |\n")
+    "| 9015 | Fackel im Keller | Jerry | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9016 | Tür im Keller | Tom | K | startbar | – | – | – | E Welt | – |\n")
 open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md"), "w").write("**Nächste freie Vorgangsnummer: 9100**\n")
 open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "w").write(
     "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Prüfer | [P](https://claude.ai/code/session_PR1) | – | – | 21.11. |\n")
@@ -265,6 +266,15 @@ open(_bp, "w", encoding="utf-8").write(_b + "| Fachkraft | [F](https://claude.ai
 rc, out = vg("rueckmeldung", "9015", "nein: Fackel zu dunkel", zeit="21.11., 22:57")
 open(_bp, "w", encoding="utf-8").write(_b)
 soll("1888: Rolle der Sitzung aus der Besetzung von jetzt (Fachkraft) vor dem Listenbesitzer", re.search(r"\| 9015-Ü\d+ \| Fachkraft \| Rückläufer", datei("9015")), (out, datei("9015")[-500:]))
+
+# 1910 (D342.1): Chef-Nein zählt für Obergrenze A, nicht für die Laufbremse (V5 offen)
+cw.eintragen("9016", "Nein, Tür klemmt", "21.11., 23:00", "Sokrates")
+rc, out = vg("rueckmeldung", "9016", "nein: Tür klemmt noch", zeit="21.11., 23:05")
+t = datei("9016")
+soll("1910: Chef-Nein + erstes Prüfer-Nein: keine Laufbremse", "Laufbremse" not in t and rm.zaehlen(t)["nein"] == 2 and rm.zaehlen(t)["nein Prüfer"] == 1, (out, t[-500:]))
+rc, out = vg("rueckmeldung", "9016", "nein: klemmt immer noch", zeit="21.11., 23:10")
+t = datei("9016")
+soll("1910: drittes Nein (eins vom Chef) → Obergrenze A", "Obergrenze A: 3. abgelehnter Auftrag" in t, t[-500:])
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
