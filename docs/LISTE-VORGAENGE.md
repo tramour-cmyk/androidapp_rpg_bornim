@@ -145,7 +145,7 @@
 | 1802 | Von Werkzeug (Startwarnung Pflege, 1642, seit 21.11., 22:18): ARBEIT-TEAM-JERRY.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | Jerry | K | startbar | – | – | – | B Abläufe | – |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | Jerry | K | nach Meilenstein, Kapitel 2/3 nach Kapitel 1 (Perikles 17.11.) | – | – | – | G Story | – |
 | 1281 | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, 937, 938, 1002; Einzelpunkte im Archiv der Liste (gebündelt), nach Stufe 4 | Jerry | K | nach Meilenstein | – | – | – | E Kampf | – |
-| 1900 | Wochentermin 22.11.: Ideenspeicher (719) | Homer | M | startbar | – | – | – | B Abläufe | – |
+| 1900 | Wochentermin 22.11.: Ideenspeicher (719) | Homer | M | erledigt | – | – | – | B Abläufe | – |
 | 1628 | Von Chef (18.11., 09:00, Rollenspiegel Perikles): Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank für den Bosskampf (gewinnt nur 56–62 von 100, 1486); Text Homer, Balance beim Chef | Homer | K | startbar | – | – | – | G Story | 0,31 $ |
 | 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem Meilenstein | Homer | K | ruht, bis Kapitel 1 fertig (Chef 18.11., 09:51) | Chef Gespräch | – | – | G Story | 6,54 $ |
 | 1636 | Von Chef (18.11., 09:11, Idee Sokrates 4): Gnade: schwer verwundeter Goblin allein, verschonen oder töten; verschont Hinweis auf den grauen Mann mit Siegel oder er warnt den Stamm; Text Homer, Bau danach | Homer | K | startbar | – | – | – | G Story | – |
