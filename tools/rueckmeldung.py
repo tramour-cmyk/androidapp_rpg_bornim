@@ -248,6 +248,31 @@ def liste_fest(nr):
     except ue.Fehler as e: print("LISTE nicht geändert (%s); von Hand: vorgang.py warte %s Sokrates" % (e, nr))
 
 
+def fest_an_sokrates(nr, kennung, an, grund):
+    """1904 (D340.2): „steckt fest“ einer Übergabezeile → Zeile an Sokrates und Liste „steckt fest, wartet auf Sokrates“ in EINEM Commit
+    auf origin/main (uebergabe.atomar_dateien). Steht schon eine Zeile an Sokrates zu KENNUNG, nichts (je Lauf nachholbar, gleich ob
+    der Zustand in lauf.py, von Hand mit `vorgang.py offen --sitzungen` oder über „abgebrochen“ entstand, und nach einem Fehler).
+    Rückgabe: neue Kennung oder None (schon da). Fehler (ue.Fehler) gehen an den Aufrufer."""
+    import startbar
+    vp, lp = ue._pfad(nr), "docs/" + startbar.LISTE
+    marke = "Übergabe %s an " % kennung
+    was = ue._rein("steckt fest: Übergabe %s an %s zweimal ohne Ergebnis (%s; 1782, 1904); gelöst: `vorgang.py warte %s –`" % (kennung, an, grund, nr))
+    def f(alt):
+        if any(z["an"] == SOKRATES and marke in z["was"] for z in ue.zeilen(alt[vp])): return {}, None
+        t = ue._mit_abschnitt(alt[vp], nr)
+        ks = [int(z["k"].rsplit("Ü", 1)[1]) for z in ue.zeilen(t)]
+        k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
+        aus = {vp: t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, SOKRATES, was, ue.fmt(ue.jetzt()))}
+        L = alt[lp]; d = next((x for x in startbar.vorgangsliste(L) if x["nr"] == nr), None) if L.strip() else None
+        if d:
+            n = dict(d, stand=fest_stand(d["stand"], d["wort"]), warte=list(d["warte"]) + ([SOKRATES] if SOKRATES not in d["warte"] else []))
+            Z = L.split("\n"); Z[d["i"]] = startbar.zeile_text(n); aus[lp] = "\n".join(Z)
+        return aus, k
+    k = ue.atomar_dateien([vp, lp], f, "%s: Übergabe %s steckt fest, Zeile an Sokrates, wartet auf Sokrates (1782, 1904)" % (nr, kennung))
+    if k: ue.wecker(nr, k, SOKRATES)
+    return k
+
+
 def nein_waechter(nr, text):
     """1739 (7.1, Büro-Gegenüberstellung F3): Wiederholungswächter auch auf jedes Nein; Treffer „Systemlösung?“ in der Liste."""
     if not worte(text) & {"nein", "nein, Auftrag"}: return

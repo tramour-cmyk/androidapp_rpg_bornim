@@ -175,6 +175,27 @@ soll("Frist ab, Halter arbeitet: bleibt angenommen", frei == [] and "angenommen 
 open(seite, "w").write("session_TOM | idle | 2026-11-21T19:30:00Z | Tom – 9005 | - | 2026-11-21T18:00:00Z\n# has_more: nein\n")
 aus = []; frei = lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
 soll("Frist ab, Halter ruht: wieder offen, Zeile NICHTS", frei == ["9005-Ü1"] and "| offen (wieder 1) |" in datei("9005") and aus and aus[0].startswith("NICHTS Übergabe: 9005-Ü1 wieder offen"), (frei, aus, datei("9005")))
+# 1904 (D340.2): „steckt fest“ von Hand (vorgang.py offen --sitzungen) geschrieben; Schreiben an Sokrates scheitert → nächster Lauf holt nach
+os.environ["BORNIM_JETZT"] = "21.11., 20:51"
+rc = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py"), "annehmen", "9005-Ü1", "--frist", "5"], env=dict(ENV, BORNIM_SITZUNG="session_TOM", BORNIM_JETZT="21.11., 20:51"), capture_output=True, text=True, cwd=A).returncode
+p = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py"), "offen", "--sitzungen", seite], env=dict(ENV, BORNIM_SITZUNG="session_DISP", BORNIM_JETZT="21.11., 21:00"), capture_output=True, text=True, cwd=A)
+soll("von Hand: steckt fest geschrieben, keine Zeile an Sokrates", rc == 0 and "| steckt fest (Frist abgelaufen" in datei("9005") and "| Sokrates | steckt fest: Übergabe 9005-Ü1" not in datei("9005"), (p.stdout, datei("9005")))
+os.environ["BORNIM_JETZT"] = "21.11., 21:01"
+import uebergabe as _ue4
+_ad = _ue4.atomar_dateien
+def _kaputt(*a, **k): raise _ue4.Fehler("origin/main nicht erreichbar: Probe")
+_ue4.atomar_dateien = _kaputt
+aus = []; lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
+_ue4.atomar_dateien = _ad
+soll("Schreiben scheitert: WARNUNG, nächster Lauf holt nach", any(z.startswith("WARNUNG Übergabe 9005-Ü1 steckt fest") and "nächster Lauf" in z for z in aus) and "| Sokrates | steckt fest: Übergabe 9005-Ü1" not in datei("9005"), aus)
+aus = []; lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
+t = datei("9005")
+soll("nächster Lauf: Zeile an Sokrates nachgeholt", any(z.startswith("NICHTS Übergabe: 9005-Ü1 steckt fest, Zeile 9005-Ü2 an Sokrates") for z in aus) and "| 9005-Ü2 | Sokrates | steckt fest: Übergabe 9005-Ü1 an Tom zweimal ohne Ergebnis (Frist abgelaufen;" in t, (aus, t))
+soll("im selben Commit: Liste steckt fest, wartet auf Sokrates", "| 9005 | Treppe knarrt | Tom | K | startbar, steckt fest | Sokrates |" in liste_origin()
+     and set(g("show", "--name-only", "--format=", "origin/main", cwd=A).split()) == {"docs/vorgang/9005.md", "docs/LISTE-VORGAENGE.md"}, liste_origin())
+aus = []; lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
+soll("dritter Lauf: keine zweite Zeile an Sokrates", datei("9005").count("| Sokrates | steckt fest: Übergabe 9005-Ü1") == 1 and not any("9005" in z for z in aus), aus)
+g("pull", "-q", "origin", "main", cwd=A)
 os.environ["BORNIM_JETZT"] = "21.11., 20:30"
 import auftrag as _af
 ad = os.path.join(d, "adocs"); os.makedirs(os.path.join(ad, "vorgang"))

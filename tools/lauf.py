@@ -709,17 +709,21 @@ def fristen_runde(ausgabe, seiten, docs=None):
         ausgabe.append("WARNUNG Fristen der Übergabezeilen nicht geprüft: %s (1739)" % e); return []
     frei = [z["k"] for z, _nr, wie in liste if wie.startswith("wieder offen")]
     if frei: ausgabe.append("NICHTS Übergabe: %s wieder offen (Frist abgelaufen oder Halter abgebrochen; 1739, 1782: ein Neustart), schon auf origin/main" % ", ".join(frei))
-    for z, nr, wie in liste:  # 1782 (3.3 Nr. 3): zweites Mal → „steckt fest“ an Sokrates, Vorgang wartet auf Sokrates (wie 1800)
-        if not wie.startswith(_ue.FEST + " (zweites Mal"): continue
+    for z, nr, wie in liste:  # 1782 (3.3 Nr. 3), 1904 (D340.2): jede Zeile „steckt fest“ (frisch oder schon geschrieben) → Zeile an Sokrates nachholen
+        if not (wie.startswith(_ue.FEST + " (zweites Mal") or z["z"].startswith(_ue.FEST)): continue
+        if wie.startswith(_ue.FEST + " (zweites Mal"): grund = wie.split(": ", 1)[-1].rstrip(")").split(";")[0]
+        else:
+            m = re.match(r"steckt fest \(([^\d]*?)\s*\d", z["z"]); grund = m.group(1) if m else "Frist abgelaufen oder abgebrochen"
         import contextlib, io
         try:
-            with contextlib.redirect_stdout(io.StringIO()):
-                _ue.uebergabe(nr, "Sokrates", "steckt fest: Übergabe %s an %s zweimal ohne Ergebnis (%s; 1782); gelöst: `vorgang.py warte %s –`" % (z["k"], z["an"], wie.split(": ", 1)[-1].rstrip(")").split(";")[0], nr))
-                import rueckmeldung as _rm
-                _rm.liste_fest(nr)
-            ausgabe.append("NICHTS Übergabe: %s steckt fest (zweites Mal), Zeile an Sokrates, %s wartet auf Sokrates (1782)" % (z["k"], nr))
+            import rueckmeldung as _rm
+            alt = _ue.WURZEL; _ue.WURZEL = os.path.normpath(os.path.join(docs or DOCS, ".."))
+            try:
+                with contextlib.redirect_stdout(io.StringIO()): k = _rm.fest_an_sokrates(nr, z["k"], z["an"], grund)
+            finally: _ue.WURZEL = alt
+            if k: ausgabe.append("NICHTS Übergabe: %s steckt fest, Zeile %s an Sokrates, %s wartet auf Sokrates (1782, 1904)" % (z["k"], k, nr))
         except Exception as e:
-            ausgabe.append("WARNUNG Übergabe %s steckt fest, Zeile an Sokrates nicht geschrieben: %s; von Hand `vorgang.py uebergabe %s Sokrates …` (1782)" % (z["k"], str(e)[:120], nr))
+            ausgabe.append("WARNUNG Übergabe %s steckt fest, Zeile an Sokrates nicht geschrieben: %s; nächster Lauf holt es nach (1782, 1904)" % (z["k"], str(e)[:120]))
     return frei
 
 
