@@ -22,7 +22,7 @@ Dorftiere: Ziege meckert im Kampf halb so laut (0,241 = Hälfte des Kartenpegels
 
 ## Hörprobe
 
-Wald am Fluss, Lagerfeuer 1 Kachel, Fluss 2 Kacheln, am Tag (`godot/tests/hoerprobe_1750.gd`, Movie Maker): 0–10 s Karte, 10 s Kampfbeginn, 10–25 s Kampf, 25 s Sieg, bis 35 s zurück.
+Datei `docs/entwurf/1750-hoerprobe.mp3` (35 s). Wald am Fluss, Lagerfeuer 1 Kachel, Fluss 2 Kacheln, am Tag (`godot/tests/hoerprobe_1750.gd`, Movie Maker, Stand `c55217898`): 0–10 s Karte, 10 s Kampfbeginn, 10–25 s Kampf, 25 s Sieg, bis 35 s zurück.
 
 | Zeit | Wind | Feuer | Fluss | Musik |
 |---|---|---|---|---|
