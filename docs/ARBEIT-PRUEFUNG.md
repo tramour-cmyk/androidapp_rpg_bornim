@@ -4,7 +4,7 @@ Prüfaufträge (`ROLLE-PRUEFUNG.md`). Alle tragen ein: eine Zeile mit Vorgang un
 
 **Geprüft bis:** `51707abf` (21.10., Lauf 41) · nächste Nummer D127 (Läufe 95–110 am 09.11.: Werkzeugvorgänge Bereich B, Ergebnisse je Lauf im Prüfbericht; ältere Läufe im Prüfbericht und in Git). Seit 755: „greift“ schließe ich selbst mit `vorgang.py greift NR LAUF`; greift es nur mit Lücke, `warte NR <Lücke>`.
 
-**Übergabe (22.11., 15:17):** Läufe 379–387 (Prüfbericht): 1871 Umschalt-Kopie bis `f1e247f2f` ohne Befund; 1890, 1732, 1941, 1938, 1928, 1943, 1923, 1944–1951 greifen. Nächste Nummer D388. Neustart wegen Gesprächslänge. Nachfolger: Diogenes – Spike-Bauten an der Kopie auf Abruf (Weiter von Ford), dann Wochenzählung 23.11.
+**Übergabe (22.11., 15:17):** Läufe 379–388 (Prüfbericht): 1871 Umschalt-Kopie bis `f1e247f2f` ohne Befund; 1890, 1732, 1941, 1938, 1928, 1943, 1923, 1944–1952 greifen (D388.1 → 1953 Sokrates). Nächste Nummer D389. Neustart wegen Gesprächslänge. Nachfolger: Diogenes – Spike-Bauten an der Kopie auf Abruf (Weiter von Ford), dann Wochenzählung 23.11.
 - **Zu 1894:** prüfbar erst nach Merge auf `main` (Lauf 361).
 - **Zu Wochenzählung 23.11. (Haltzahl):** in `haken.tsv` sieben Prüf-Haltzeilen vom 22.11. abziehen (Lauf 381: 13:12:19, 13:12:32, 13:12:33, 13:12:55, 13:13:01, 13:13:10, 13:17:13).
 - **Zu 1763:** nach der Umschaltung erste echte Rückmeldung „steckt fest“ oder „Frage“ → Zeile an Sokrates, nächster `lauf.py` START/WEITER Sokrates mit der Kennung → `greift 1763`; Stempel vor dem Signalwort beobachten (Prüfbericht Lauf 328).
