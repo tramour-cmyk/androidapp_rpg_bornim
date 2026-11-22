@@ -8,7 +8,23 @@ Kurzzeichen je Zeile: **T** im geladenen Text (wo) · **W** durch Werkzeug getra
 
 ## 1 Zählung
 
-TABELLE_PLATZHALTER
+Gezählt je inhaltlicher Aussage (Abschnitt 3), nach dem ersten Kurzzeichen der Zeile.
+
+| Rollendatei | Aussagen | im Text | Werkzeug | fehlt, wichtig | fehlt, verzichtbar |
+|---|---|---|---|---|---|
+| `ROLLE-TECHNIK.md` (Spike) | 35 | 23 | 3 | 1 | 8 |
+| `ROLLE-ENTWICKLUNG.md` (Tom, Jerry) | 61 | 22 | 8 | 5 | 26 |
+| `ROLLE-PROJEKT.md` (Perikles) | 55 | 25 | 5 | 7 | 18 |
+| `ROLLE-BETRIEB.md` (Ford) | 40 | 14 | 19 | 0 | 7 |
+| `ROLLE-PRUEFUNG.md` (Diogenes) | 31 | 18 | 3 | 1 | 9 |
+| `ROLLE-KREATIV.md` (Homer) | 36 | 19 | 2 | 1 | 14 |
+| `ROLLE-BERATUNG.md` (Sokrates) | 40 | 20 | 3 | 5 | 12 |
+| `ROLLE-BERATUNG-START.md` | 31 | 23 | 1 | 2 | 5 |
+| **Summe** | **329** | **164** | **44** | **22** | **99** |
+
+Die 22 Zeilen „fehlt, wichtig“ sind 14 verschiedene Lücken (Abschnitt 2); `add_repo` allein steht in sechs Rollendateien. Bei 5 der 44 Werkzeug-Zeilen ist das Werkzeug nur geplant (Testbitte-Schreiber, Rufnamen; dazu als Nebenträger Laufbremse, Lehrenbuch, Stop-Haken 1732); bis es gebaut ist, fehlen sie praktisch.
+
+**Urteil zur Frage des Chefs:** Ja, die Rollen gehen halbwegs auf, Technik fast ganz (eine Lücke: Alt und Bestand über den Verweis auf `ROLLE-ENTWICKLUNG.md`), Betrieb und Prüfung ganz bis auf `add_repo`. Was fehlt, liegt bei der Werkstatt (Alt zuerst, Bestand zuerst, großes Vorhaben, „Vor jeder Vorlage“) und bei den Lehren der Leitung, die ins noch nicht angelegte Gedächtnis Sokrates gehören.
 
 Gegen den Abgleich vom 20.11. (90 im Text, 61 fehlt): Profil Technik, Werkzeug, Fremde Inhalte, Disponent, Release, Routinen sind seitdem geschrieben; fast alle damaligen „fehlt“ aus TECHNIK, BETRIEB und PRUEFUNG sind jetzt im Text oder im Werkzeug. Was bleibt, liegt bei den Fachkräften (Entwicklung) und bei der Leitung (Lehren Sokrates, Perikles).
 
@@ -35,7 +51,7 @@ Reihenfolge nach Wirkung. Byte = geschätzter Zuwachs am Zielort.
 
 ### Grenzfälle (als „verzichtbar“ gezählt, mit Vorbehalt)
 
-- **Kleines im Bereich selbst entscheiden** (ENTWICKLUNG Z.29): Sockel 3 sagt „Ist der Auftrag unklar … anhalten, Frage zurückmelden“; ohne Gegenstück kann das mehr Rückfragen bringen. Anthropic empfiehlt für Opus 5 ausdrücklich „Make routine judgment calls yourself, and check in only when different readings of the request would lead to materially different work.“ (https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5, „Task scope and over-verification“). Kein Fehlerbeleg bei uns; im Falltest beobachten (Anteil „Frage“ je Auftrag).
+- **Kleines im Bereich selbst entscheiden** (ENTWICKLUNG Z.29): Sockel 3 sagt „Ist der Auftrag unklar … anhalten, Frage zurückmelden“; ohne Gegenstück kann das mehr Rückfragen bringen. Anthropic empfiehlt für das neueste Modell ausdrücklich „Make routine judgment calls yourself, and check in only when different readings of the request would lead to materially different work.“ (https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5, „Task scope and over-verification“). Kein Fehlerbeleg bei uns; im Falltest beobachten (Anteil „Frage“ je Auftrag).
 - **`LISTE-FIGUREN.md` vor jeder Figur** (ENTWICKLUNG Z.61): laut Kopf „die einzige Quelle fürs Aussehen“ wiederkehrender Figuren; nur Profil Story verweist darauf (für den Charakter), Profil Figur und Welt nicht. Kein Vorfall gefunden.
 - **Leveldesign als Draufsicht mit Maßstab in `DESIGN-WELT.md`** (KREATIV Z.33, 1679 A) und **Bildvorschlag an der Karte nachrechnen** (KREATIV Z.56, 70.6): Profil Welt nennt `DESIGN-WELT.md` nicht. Chefentscheid, aber kein Fehlerbeleg nachgesehen.
 - **Ideen sonntags aufbereiten** (KREATIV Z.31): Gesamtbild 4.3 gibt es Sokrates „einmal die Woche über `lauf.py`“; weder Kern Leitung noch eine Routine trägt es. Ablauf, kein Fehlerschutz.
@@ -417,14 +433,14 @@ Reihenfolge nach Wirkung. Byte = geschätzter Zuwachs am Zielort.
 - „Setting a role in the system prompt focuses Claude’s behavior and tone for your use case. Even a single sentence makes a difference“ (Abschnitt „Give Claude a role“; Beispiel: „You are a helpful coding assistant specializing in Python.“). https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices (beide genannten Adressen `docs.claude.com/…/system-prompts` und `…/claude-4-best-practices` leiten über `platform.claude.com` auf diese eine Seite „Prompting best practices“ um.)
 - „Providing context or motivation behind your instructions, such as explaining to Claude why such behavior is important, can give Claude more information about your goals and help it deliver more targeted responses.“ … „Claude can generalize from the explanation.“ (ebd., „Add context to improve performance“)
 - „Think of Claude as a brilliant but new employee who lacks context on your norms and workflows. The more precisely you explain what you want, the better the result.“ (ebd., „Be clear and direct“)
-- Gegen Übertreibung: „If your prompts were designed to reduce undertriggering … these models might now overtrigger. The fix is to soften any aggressive language.“ (ebd., „Tool usage“) und für Opus 5: „Claude Opus 5 can also expand the scope of a task, adding steps that weren’t requested or applying its own judgment about what the task should be. For narrow tasks, constrain scope explicitly“ (https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5, „Task scope and over-verification“).
+- Gegen Übertreibung: „If your prompts were designed to reduce undertriggering … these models might now overtrigger. The fix is to soften any aggressive language.“ (ebd., „Tool usage“) und für das neueste Modell: „[das neueste Modell] can also expand the scope of a task, adding steps that weren’t requested or applying its own judgment about what the task should be. For narrow tasks, constrain scope explicitly“ (https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/prompting-claude-opus-5, „Task scope and over-verification“).
 - `1625-prompts-kuerzen.md` hat zum Selbstbild nichts gesammelt; dort nur „Kern je Rolle höchstens 3 KB: wer, Ziel, fünf Regeln, wo nachsehen“ (Vorschlag 1, „wer“ also vorgesehen) und die Quellen gegen Länge („every line … takes a little of Claude's attention“, Context Rot, Widersprüche).
 
 ### Abwägung
 
 Für einen kurzen Rollensatz im Fachprofil spricht: Anthropic nennt die Rolle ausdrücklich als Hebel, schon ein Satz wirke; die Werkstatt hat als einzige Gruppe keinen Kern und damit gar keinen Rollensatz; ein Satz zum Anspruch („bis in den Renderer“) setzt den Maßstab, an dem die Fachkraft ihr „fertig“ misst, und erklärt so das Warum der Regeln darunter (Anthropic: „generalize from the explanation“). Er kostet 100 bis 160 Byte.
 
-Was nicht hineingehört: Lob und Geschichte („hast es bewiesen: 1645, 698, 854“, „unser Technikguru“) steuern nichts; „Du sagst Nein …, auch zu einem Team“ verleitet zu dem, was Anthropic für Opus 5 als Schwäche nennt (eigenes Urteil über den Auftrag hinaus) und widerspricht dem Sockel („nicht darüber hinaus“, „Fund … zurückmelden, nicht beheben“). Der Satz soll Fach und Maßstab nennen, nicht die Person loben.
+Was nicht hineingehört: Lob und Geschichte („hast es bewiesen: 1645, 698, 854“, „unser Technikguru“) steuern nichts; „Du sagst Nein …, auch zu einem Team“ verleitet zu dem, was Anthropic für das neueste Modell als Schwäche nennt (eigenes Urteil über den Auftrag hinaus) und widerspricht dem Sockel („nicht darüber hinaus“, „Fund … zurückmelden, nicht beheben“). Der Satz soll Fach und Maßstab nennen, nicht die Person loben.
 
 Stapeln: Profil Kampf lädt Figur und Prüfbild und Regeln, Profil Welt lädt Figur und Prüfbild. Darum keinen Rollensatz in Zusatzprofilen (Figur und Prüfbild, Querprofile), und die Sätze so, dass zwei nebeneinander nicht streiten („Du arbeitest wie …“ statt „Du bist ausschließlich …“).
 
@@ -471,5 +487,5 @@ Summe bei allen acht: etwa 1.070 Byte, je Sitzung aber nur 100 bis 300 (ein bis 
 - **Inhalt von „Vor jeder Vorlage“ gegen Profil Figur und Prüfbild** Punkt für Punkt: nur Kopf und erste Kennungen gelesen; wie viel davon schon im Profil steht, ist ungezählt.
 - **Vorfälle hinter einigen Nummern** (54, 70.6, 112, 228, 377, 499, 1207, 774, D41.1, D205.3): nur aus den Rollendateien zitiert; im Archiv gefunden nur 1236, 408, 1311, 1672, 854; 377, 774, 1207 stehen dort nicht (vermutlich in Git oder im Vorgangsarchiv der Liste).
 - **Falltest:** keine Probe, ob eine Fachkraft mit den vorgeschlagenen Sätzen besser arbeitet; die Empfehlung Selbstbild ist begründet, nicht gemessen.
-- **Modellseiten:** von Anthropic gelesen die allgemeine Seite und die zu Opus 5; die Seiten zu den Modellen, mit denen Sitzungen laufen, nicht im Einzelnen (`LISTE-BETRIEB.md` nicht geöffnet).
+- **Modellseiten:** von Anthropic gelesen die allgemeine Seite und die zu das neueste Modell; die Seiten zu den Modellen, mit denen Sitzungen laufen, nicht im Einzelnen (`LISTE-BETRIEB.md` nicht geöffnet).
 - **Zählweise:** eine Zeile der Rollendatei kann mehrere Regeln tragen; ich habe nach inhaltlichen Aussagen getrennt, nicht nach Zeilen. Der Abgleich vom 20.11. hat anders geschnitten, die Summen sind nicht eins zu eins vergleichbar.
