@@ -41,6 +41,11 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 378 · 1937 Zählung 275 eigenständig (lesend, Weiter Ford 13:01; `main` `c52385e64`; 22.11., 13:02–13:04)
+
+- Ohne Befund. Alle 45 `tools/*_test.py` grün, dazu `--test` von vorpush, sperre-haken, buildzweig-haken, gepusht-haken.
+- `zaehlzeile.zaehlen` gleicht dem gestrichenen `probelauf.zaehlen` (Zeitformat mit Sekunden wie `jetzt()`, Kennung, `REPO`, Zweig `probelaeufe`, drei Versuche, lokal zuerst, `BORNIM_PROBELAUF_TROCKEN`); neu nur Zeitgrenzen 8 s für fetch, commit-tree, push. `commit-pruefung.py` importiert `probelauf` nicht mehr; `probelauf.zaehlen` leitet weiter.
+
 ## Lauf 377 · 1937 Prüfung 511, 1859 settings.json (lesend, Weiter Ford 12:57; `main` `a22975809`, Kopie `e47128837`, Stand `5a32507f7`; 22.11., 12:57–13:00)
 
 - 511 ohne Befund: `alte_einstellungen` und ihr Aufruf in `main()` gestrichen, kein Verweis mehr in `tools/`, `.github/`; Wort Sokrates 12:41 in `docs/vorgang/1937.md`.
