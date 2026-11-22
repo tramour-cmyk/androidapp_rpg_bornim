@@ -120,6 +120,9 @@ aus = []
 z = lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
 soll("offene Zeilen an Sokrates gefunden", [k for k, _ in z] == ["9001-Ü1", "9001-Ü2", "9002-Ü2", "9003-Ü4", "9003-Ü6"], z)
 soll("keine Sitzung: START Sokrates", len(aus) == 1 and aus[0].startswith("START Sokrates |") and "9001-Ü2 an den Chef" in aus[0] and "\n" not in aus[0], aus)
+soll("1801: Titel mit Vorgangsnummer der ersten Zeile", "| Sokrates – 9001: offene Zeilen (1763 C, " in aus[0], aus)
+gesperrt = []; aus = []; lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), sperre=gesperrt.append)
+soll("1801: Startsperre mit Nummer", gesperrt == ["9001"], gesperrt)
 so = {"id": "session_SOK", "_info": (0, True, 0), "updated_at": "2026-11-21T19:00:00Z", "created_at": "2026-11-21T18:00:00Z", "context_usage": {"used_tokens": 50000}}
 aus = []; lauf.sokrates_zeilen(aus, {"Sokrates": [so]}, set(), docs=os.path.join(A, "docs"))
 soll("Sokrates läuft, klein: WEITER", len(aus) == 1 and aus[0].startswith("WEITER session_SOK | Sokrates | 1763 C | "), aus)

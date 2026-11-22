@@ -58,6 +58,15 @@ N2.zeilen = lambda seit, wurzel=None: vor + nach + ["- 23:58 21.11.: Startsperre
 Uhr.now = classmethod(lambda cls, tz=None: um(23, 58))
 f = sh.nacht("Spike", {"title": "Spike – 1739: Teil 14 (21.11., 23:58)"})
 if not f or "1792" not in f or "8 von 8" not in f: fehler.append("Haken nach Deckel: %r" % f)
+# 1801: Sokrates-Starts für offene Zeilen zählen je Vorgang der Zeile (Titel „Sokrates – <Nr>: offene Zeilen (1763 C, …)“)
+so = ["- 22:00 21.11.: Startsperre 22:00 Start Sokrates (lauf.py, 9001)", "- 23:00 21.11.: Startsperre 23:00 Start Sokrates (lauf.py, 9002)",
+      "- 23:30 21.11.: Startsperre 23:30 Start Sokrates (lauf.py, 9003)"]
+N2.zeilen = lambda seit, wurzel=None: so
+Uhr.now = classmethod(lambda cls, tz=None: um(23, 30))
+if sh.nacht("Sokrates", {"title": "Sokrates – 9003: offene Zeilen (1763 C, 21.11., 23:30)"}): fehler.append("1801: dritter Sokrates-Start anderer Vorgang angehalten")
+N2.zeilen = lambda seit, wurzel=None: [l.replace("9002", "9001").replace("9003", "9001") for l in so] + ["- 23:40 21.11.: Startsperre 23:40 Start Sokrates (lauf.py, 9001)"]
+Uhr.now = classmethod(lambda cls, tz=None: um(23, 40))
+if not sh.nacht("Sokrates", {"title": "Sokrates – 9001: offene Zeilen (1763 C, 21.11., 23:40)"}): fehler.append("1801: vierter Start desselben Vorgangs nicht angehalten")
 N2.datetime.datetime = dt
 print("nachtstarts_test:", "grün" if not fehler else "ROT: " + "; ".join(fehler))
 sys.exit(1 if fehler else 0)

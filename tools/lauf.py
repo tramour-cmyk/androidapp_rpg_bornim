@@ -535,7 +535,7 @@ def sokrates_ziel(s, ss):
     neuere = [x for x in ss if x is not s and z(x["created_at"]) > z(s["created_at"])]
     return ",".join(kosten_auf(min(z(x["created_at"]) for x in neuere) if neuere else z(s["updated_at"])))
 
-def sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger=lambda r: None, docs=None):
+def sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger=lambda r: None, docs=None, sperre=lambda nr: None):
     """1763 C (Chef 21.11., 14:37): offene Übergabezeilen an Sokrates („steckt fest“, „Frage“, „wirkt nein“, Obergrenze A/B → an den Chef)
     → Sokrates wecken (WEITER) oder starten; steht schon eine Sokrates-Zeile dieses Laufs, kommt der Auftrag dazu (nie zwei Sokrates)."""
     try:
@@ -557,8 +557,11 @@ def sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger=lambda r: None, do
             elif laeuft_so:
                 ausgabe.append("NICHTS Sokrates: %d offene Zeile(n) warten (1763 C), Sokrates läuft (Token über %d Tsd. oder unbekannt)" % (len(so_z), WEITER_TOKEN // 1000))
             else:
-                ausgabe.append("START Sokrates | opus%s | %s | %s | %s | Sokrates – 1763 C: offene Zeilen (%s) | %s" % (aufwand(), umgebung("Sokrates"), REPO, REVISION, berlin(JETZT), ("Sokrates\n\n" + teil + " Zuerst Start nach deiner Rollendatei.").replace("\n", "\\n")))
-                vorgaenger("Sokrates")
+                # 1801: Titel mit der Vorgangsnummer der ersten Zeile, damit der Nachtstopp (1643) je Vorgang zählt, nicht alle 1763 C
+                # zusammen; Startsperre mit dieser Nummer (vorher fehlte sie, der Startsperre-Haken hielt den Start an)
+                nr = so_z[0][0].split("-Ü")[0]
+                ausgabe.append("START Sokrates | opus%s | %s | %s | %s | Sokrates – %s: offene Zeilen (1763 C, %s) | %s" % (aufwand(), umgebung("Sokrates"), REPO, REVISION, nr, berlin(JETZT), ("Sokrates\n\n" + teil + " Zuerst Start nach deiner Rollendatei.").replace("\n", "\\n")))
+                vorgaenger("Sokrates"); sperre(nr)
     return so_z
 
 
@@ -1323,7 +1326,10 @@ def main():
                 ausgabe.append("START Sokrates | opus%s | %s | %s | %s | Sokrates – Stellungnahme (%s) | %s" % (aufwand(), umgebung("Sokrates"), REPO, REVISION, berlin(JETZT), msg.replace("\n", "\\n")))
                 vorgaenger("Sokrates")  # 261.5 (2): die ruhende alte Sitzung gleich danach archivieren, nicht zwei Sokrates nebeneinander
             if msg: wochen.append("Stellungnahme Sokrates %s" % heute)
-    sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger)  # 1763 C
+    def _so_sperre(nr):  # 1801
+        if "Sokrates" not in sperren: sperren.append("Sokrates")
+        sperr_nr["Sokrates"] = nr
+    sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger, sperre=_so_sperre)  # 1763 C
     try:
         if (rb := rundblick_zeilen(ausgabe, je_rolle, archiviert, marken)): sperren.append("Rundblick"); sperr_nr["Rundblick"] = rb
     except Exception as e: ausgabe.append("WARNUNG Rundblick nicht geprüft: %s (1789, Spike)" % e)
