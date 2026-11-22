@@ -41,6 +41,13 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 369 · 1871 Stilllegung C (g), 1860 (lesend, Weiter Ford 12:02; Kopie `48699c11e`; 22.11., 12:02–12:05)
+
+- Alle 41 `tools/*_test.py` an der Kopie grün; `projektplan_test.py` steht in `werkzeuge.yml`.
+- (g) ohne Befund (`73f8417ef`): `kostenhalt`, `kosten_frei`, `kosten_offen`, `uebergabe_stand`, `kosten_auf`, `sokrates_ziel` ohne Aufruf (nur als Abwesenheit in `liste_neu_test.py` geprüft); STILLSTAND-LÖSEN behält die Drossel 3 h (Marke „Stillstand“ wird weiter geschrieben); KLASSE ohne Start. Rest ohne Befund: Docstring `lauf.py` Zeile 852 nennt noch „M?, Stillstand, Kosten“.
+- 1860 greift (`48699c11e`): `projektplan.py` ohne Wochenziel, dritte Tafel in der Zeilenfolge von `chefsache/themenbloecke.md` (10, 2, 3, 4, 5, 11, 12, 13, 6, 7), Summe 315 gleich „Kapitel 1 fertig“ offen.
+- Stilllegung C (a)–(h) damit gebaut und an der Kopie geprüft; 1871 bleibt in Arbeit (1858, 1866 laut Zeile).
+
 ## Lauf 368 · 1871 Stilllegung C (d), (f) (lesend, Weiter Ford 11:52; Kopie `79eae8105`; 22.11., 11:52–11:54)
 
 - Alle 41 `tools/*_test.py` an der Kopie grün; `startbar.py --stand`, `startwarnung.py`, `tagesbericht.py` laufen mit Exit 0.
