@@ -14,7 +14,8 @@ ZS = [z("1", "startbar", 7), z("2", "startbar", 5), z("3", "startbar", 30, kl="K
       z("7", "zu testen", 24 * 6, build="301"), z("8", "zu testen", 24 * 15, build="301"), z("9", "ruht", 50),
       z("10", "ruht", 50, warte="21.11."), z("11", "ruht", 50, warte="30.11."), z("12", "startbar, steckt fest", 49),
       z("13", "in Arbeit", 7), z("14", "wartet", 100, warte="1"), z("15", "erledigt", 900), z("16", "neu", 25),
-      z("17", "gebaut, Geprüft an: 9f6e4c4", 30, warte="t301"), z("18", "ruht, bis Sa 21.11.", 50), z("19", "ruht", 50, warte="1331")]
+      z("17", "gebaut, Geprüft an: 9f6e4c4", 30, warte="t301"), z("18", "ruht, bis Sa 21.11.", 50), z("19", "ruht", 50, warte="1331"),
+      z("20", "ruht, Chef 04.11.", 50), z("21", "ruht, bis Kapitel 1 fertig (Chef 18.11.)", 50)]
 kopf = "| Nr. | Vorgang | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |\n|---|---|---|---|---|---|---|---|---|---|\n"
 text = kopf + "\n".join(r for r, _ in ZS) + "\n"
 zs = startbar.vorgangsliste(text)
@@ -43,6 +44,8 @@ soll("neu über 1 Tag → Arbeitsplaner", zu("16") and "an Arbeitsplaner" in zu(
 soll("gebaut, wartet auf t301 = Chef testet (unter 5 Tagen nichts)", not zu("17"))
 soll("ruht bis Datum im Zusatz: zurück auf Auftrag", zu("18") and "Datum 21.11. erreicht" in zu("18")[0], zu("18"))
 soll("ruht, wartet auf Vorgang: nichts", not zu("19"))
+soll("1874 ruht, Datum eines Chefworts ist kein Termin", zu("20") and "ruht ohne Datum" in zu("20")[0], zu("20"))
+soll("1874 ruht bis Kapitel 1 (Chef 18.11.): kein Termin", zu("21") and "ruht ohne Datum" in zu("21")[0], zu("21"))
 soll("bis zur Umschaltung: Disponent = Ford, Tagesbericht = Perikles", zu("1", alt) and "an Ford:" in zu("1", alt)[0] and "an Perikles:" in zu("7", alt)[0], alt)
 soll("Form LIEGT <Nr> | Stand | Alter | an <Rolle>", all(l.count(" | ") == 3 and " | an " in l for l in neu), neu)
 soll("Alter in Tagen", liegt.alter_text(2 * 86400 + 3 * 3600) == "2 d 3 h")
