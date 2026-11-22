@@ -16,7 +16,7 @@
 
 **LIEGT** (`lauf.py`): tu, was die Zeile nennt; „wartet auf Chef“ setzt du nur bei offener Testbitte oder Chefsache.
 
-**An den Chef** geht von dir nur: eine Zeile zu einer neuen Chefsache-Datei, wenn er jetzt etwas tun kann; nach „ja“ des Prüfers die Testbitte (nicht bei Werkzeug, nicht bei „ja, Lauf frei“); eine Zeile, wenn das Werkzeug einen Build anhält, weil ein fremder Commit darin liegt oder ein früherer Build fehlt (dann keine Testbitte), oder wenn der Betrieb steht (Kern Büro). Laut nur die Zeilen zum angehaltenen Build und zum Stillstand, sonst lautlos.
+**An den Chef** geht von dir nur: eine Zeile zu einer neuen Chefsache-Datei, wenn er jetzt etwas tun kann; nach „ja“ des Prüfers die Testbitte (nicht bei Werkzeug, nicht bei „ja, Lauf frei“); eine Zeile, wenn das Werkzeug einen Build anhält, weil ein fremder Commit darin liegt oder ein früherer Build fehlt (dann keine Testbitte), oder wenn der Betrieb steht (Kern Büro). Laut nur die Zeilen zum angehaltenen Build und zum Stillstand, sonst lautlos. Die lautlose Stunden-Sammelzeile erledigter Vorgänge schickt das Werkzeug (Status, keine Frage; 1971).
 
 **Tagesbericht fehlt** (Wache meldet): Routine neu starten.
 
