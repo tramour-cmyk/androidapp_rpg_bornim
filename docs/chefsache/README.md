@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 17:47, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 17:51, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 22.11., 
 | ↳ **12** Bedienung und Oberfläche | 6 (5) | 0 | 0 | 0 | 5 | 954a.12 (Oberfläche) Erschaffung: nicht wählbare Fertigkeiten … |
 | ↳ **13** Geschichte und Texte | 9 (11) | 0 | 0 | 0 | 3 | 1628 (Story) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 25 (24) | 13 | 0 | 1 | 8 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 106 (88) | 69 | 2 | 1 | 15 | 1967 (Werkzeug) Muss reihum: innerhalb jeder Runde nach Themenblo… |
+| **7** Firma: Werkzeuge und Abläufe | 106 (88) | 69 | 2 | 1 | 15 | 1967 (Werkzeug) Reihenfolge Klasse vor Themenblock; lauf.auftrag_… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Arbeitsplaner) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -66,7 +66,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Oberfläche | leer, weil 3 ruht, 2 wartet auf Vorgang (458.3, 870), 1 Idee |
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 2 weitere |
-| Werkzeug | 1967 Muss reihum: innerhalb jeder Runde nach Themenblock-Reihenf… (Muss); dann 27 weitere |
+| Werkzeug | 1967 Reihenfolge Klasse vor Themenblock; lauf.auftrag_offen und… (Muss); dann 27 weitere |
 | Prüfer | leer, weil keine offene Zeile |
 | Tester | leer, weil keine offene Zeile |
 
