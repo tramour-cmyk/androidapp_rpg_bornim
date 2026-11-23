@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 22:29, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 22:41, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -31,22 +31,22 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (8) | 0 | 0 | 0 | 5 | 1487 (Regeln) Heiler wächst in Kapitel 1 nie im Willen |
 | ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 64 (63) | 20 | 1 | 1 | 36 | 1589.2 (Kampf) Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.… |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 34 (34) | 21 | 1 | 2 | 10 | 431 (Figur) Völker als Modelle: erst Bibliothek sichten, Kand… |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 34 (34) | 21 | 1 | 2 | 10 | 1675 (Figur) Wachsoldatin im Hauptmenü, Schild schwebt neben i… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 2 | 0 | 0 | 14 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
 | ↳ **12** Bedienung und Oberfläche | 6 (6) | 0 | 0 | 0 | 5 | 954a.12 (Oberfläche) Erschaffung: nicht wählbare Fertigkeiten … |
 | ↳ **13** Geschichte und Texte | 9 (9) | 0 | 0 | 0 | 3 | 1628 (Story) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 25 (25) | 13 | 0 | 1 | 8 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 128 (110) | 85 | 1 | 1 | 16 | 2006 (Werkzeug) Kein Fachkraft-Start, solange am Vorgang eine off… |
+| **7** Firma: Werkzeuge und Abläufe | 128 (110) | 85 | 0 | 1 | 16 | 1960 (Werkzeug) Sitzungstitel ohne Thema: Rufnamen-Sitzungen heiß… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Arbeitsplaner) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 17 | 115 | 17 | 1432 |
-| neu | 34 | 128 | 34 | 1540 |
+| erledigt | 18 | 115 | 18 | 1433 |
+| neu | 35 | 128 | 35 | 1541 |
 | **netto** (erledigt − neu) | **−17** | **−13** | **−17** | **−108** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
@@ -59,14 +59,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Arbeitsplaner | läuft: 2006 (Besetzung); 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | läuft: 1603 (Besetzung); 1589.2 Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwa… (Muss); dann 2 weitere |
-| Figur | läuft: 1675 (Besetzung); 513 Ein Figurenstand für alle Zweige (Muss); dann 4 weitere |
+| Figur | läuft: 1675 (Besetzung); 513 Ein Figurenstand für alle Zweige (Muss); dann 5 weitere |
 | Kataloge | 644.2 Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pfli… (Kür) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
 | Oberfläche | 531a Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast k… (Kür) |
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 2 weitere |
-| Werkzeug | 2006 Kein Fachkraft-Start, solange am Vorgang eine offene Planer… (Muss); dann 45 weitere |
+| Werkzeug | läuft: 2006 (Besetzung); 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 45 weitere |
 | Prüfer | 1716 Buildzweig gehört Spike: nur Spike pusht auf claude/build-<… (Muss); dann 2 weitere |
 | Tester | leer, weil keine offene Zeile |
 
@@ -77,15 +77,15 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 1 | 1589.2 | Kampf | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf | startbar |
 | 2 | 1589.3 | Kampf | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf | startbar |
 | 3 | 2009 | Kampf | Kampf-Zeitmaß reißt auf main: sollbild_784 STRENG=1 17 Werte über Maß, Runde 26… | M | 2 Kampf | startbar |
-| 4 | 431 | Figur | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Figuren und Kleidung | startbar |
-| 5 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
-| 6 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
-| 7 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
-| 8 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
-| 9 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
-| 10 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
-| 11 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
-| 12 | 2006 | Werkzeug | Kein Fachkraft-Start, solange am Vorgang eine offene Planerzeile hängt; Vorgang… | M | 7 Firma | in Arbeit |
+| 4 | 1675 | Figur | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | M | 3 Figuren und Kleidung | in Arbeit |
+| 5 | 431 | Figur | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Figuren und Kleidung | startbar |
+| 6 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
+| 7 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
+| 8 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
+| 9 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
+| 10 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
+| 11 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
+| 12 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
 | 13 | 1960 | Werkzeug | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla –… | M | 7 Firma | startbar |
 | 14 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
 | 15 | 1725 | Werkzeug | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | M | 7 Firma | startbar |
