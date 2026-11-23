@@ -4,16 +4,15 @@ Ursache: `git checkout -B main origin/main` in der Arbeitskopie (Doris 22.11., 1
 Zweig main um, obwohl die Notizkopie ihn hält; deren Index bleibt auf dem alten Stand und zeigt ihn als vorgemerkt („M “, „A “, „D “).
 `notiz.sh` tat bei schmutziger Kopie nichts, der Stop-Haken drängte zum Pushen, das Zurücksetzen lehnte die Auto-Prüfung ab, die
 Sitzung fragte den Chef.
-Abhilfe: Eine geänderte Datei ist alt, wenn Index und Datei je dem Stand von HEAD oder einem früheren Stand auf origin/main gleichen
-(fehlend nur, wenn main laut Reflog früher ohne die Datei stand) oder die Datei älter als 2 h ist. Alte Dateien: erst Sicherung (Zweig backup-notiz-<Zeit>, enthält
-Index und Dateien), dann auf HEAD zurück. Junge eigene Änderungen bleiben. Muster: rueckschritt() in gepusht-haken.py, Sicherung
-wie 1701 in notiz.sh; `git stash create` legt die Sicherung an, ohne die Kopie zu ändern.
+Abhilfe (Sokrates 22.11., 20:06, 1963-Ü8): Der Fehler lässt den ganzen Index auf einem früheren main-Stand stehen. Nur wenn
+`git write-tree` dem Baum eines früheren main-Stands (Reflog refs/heads/main) gleicht, erst Sicherung (Zweig backup-notiz-<Zeit>,
+`git stash create`, enthält Index und Dateien), dann Index auf HEAD und jede Datei, die noch den alten Stand trägt, auf HEAD.
+Sonst nichts automatisch zurücksetzen (junge Löschung, Umbenennung, alte eigene Änderung bleiben), nur Meldung: Frage per
+`vorgang.py rueckmeldung`, nie an den Chef. Sicherung wie 1701 in notiz.sh.
   notizkopie.py [PFAD]   räumt PFAD (Vorgabe ../bornim-main) auf, eine Zeile Ausgabe, wenn etwas geschah oder Junges bleibt.
 Test: tools/notizkopie_test.py
 """
 import os, subprocess, sys, time
-
-ALTER = 7200  # Sekunden; älter gilt als alt (1701)
 
 
 def _git(wo, *a, ok=False):
@@ -40,31 +39,11 @@ def _geaendert(wo):
     return aus
 
 
-def _fehlte_frueher(wo, rel):
-    """Fehlte REL in einem früheren Stand von main (Reflog, also wo main vor `checkout -B` stand)? Nur dann ist eine Löschung
-    ein Altstand; eine junge eigene Löschung (git rm, rm) einer Datei, die main immer hatte, bleibt (Pit 19:14, 1963-Ü3)."""
-    for c in dict.fromkeys(_git(wo, "log", "-g", "-n", "50", "--format=%H", "refs/heads/main", ok=True).split()):
-        if _blob(wo, c, rel) is None: return True
-    return False
-
-
-def alt(wo, rel):
-    """True, wenn REL nur einen früheren Stand trägt (Index und Datei je HEAD oder früher auf origin/main) oder älter als 2 h ist."""
-    pfad = os.path.join(wo, rel)
-    if os.path.isfile(pfad) and time.time() - os.path.getmtime(pfad) > ALTER: return True
-    kopf = _blob(wo, "HEAD", rel)
-    frueher = set()
-    for z in _git(wo, "log", "-n", "300", "--no-abbrev", "--format=", "--raw", "origin/main", "--", rel, ok=True).splitlines():
-        t = z.split()
-        if len(t) >= 4: frueher.update(t[2:4])
-    frueher.discard("0" * 40)
-    if not frueher: return False  # ohne Geschichte auf main: nicht von dort, also eigen
-    datei = _git(wo, "hash-object", "--", rel).strip() if os.path.isfile(pfad) else None
-    for b in (_blob(wo, ":", rel), datei):
-        if b is None:
-            if kopf is not None and not _fehlte_frueher(wo, rel): return False  # junge Löschung
-        elif b != kopf and b not in frueher: return False
-    return True
+def _altbaum(wo):
+    """Baum des Index, wenn er einem früheren main-Stand (Reflog) gleicht und nicht HEAD; sonst None."""
+    idx = _git(wo, "write-tree", ok=True).strip()
+    if not idx or idx == _git(wo, "rev-parse", "HEAD^{tree}").strip(): return None
+    return idx if idx in _git(wo, "log", "-g", "-n", "50", "--format=%T", "refs/heads/main", ok=True).split() else None
 
 
 def aufraeumen(wo):
@@ -74,17 +53,25 @@ def aufraeumen(wo):
     except Exception: return None
     namen = _geaendert(wo)
     if not namen: return None
-    alte = [n for n in namen if alt(wo, n)]
-    junge = [n for n in namen if n not in alte]
-    teile = []
-    if alte:
+    alte, baum = [], _altbaum(wo)
+    if baum:
         sha = _git(wo, "stash", "create", "1963 Notizkopie vor dem Aufräumen").strip()
         if not sha: raise RuntimeError("Sicherung leer")
         b, i = "backup-notiz-" + time.strftime("%m%d-%H%M%S"), 1
         while _git(wo, "rev-parse", "-q", "--verify", "refs/heads/" + b, ok=True).strip():
             b, i = "backup-notiz-%s-%d" % (time.strftime("%m%d-%H%M%S"), i), i + 1
         _git(wo, "branch", b, sha)
-        _git(wo, "restore", "--source=HEAD", "--staged", "--worktree", "--", *alte)
+        _git(wo, "reset", "-q")  # Index auf HEAD
+        for n in namen:
+            pfad = os.path.join(wo, n)
+            datei = _git(wo, "hash-object", "--", n).strip() if os.path.isfile(pfad) else None
+            if datei != _blob(wo, baum, n): continue  # junge Änderung der Datei auf dem Altstand bleibt
+            if _blob(wo, "HEAD", n): _git(wo, "checkout", "HEAD", "--", n)
+            elif datei: os.remove(pfad)
+            alte.append(n)
+    junge = _geaendert(wo) if baum else namen
+    teile = []
+    if alte:
         teile.append("%d veraltete Datei(en) eines früheren main-Stands (%s) gesichert als Zweig %s und auf HEAD zurückgesetzt"
                      % (len(alte), ", ".join(alte[:4]) + (" …" if len(alte) > 4 else ""), b))
     if junge:
