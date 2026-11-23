@@ -2,7 +2,7 @@
 
 **Oberstes Ziel:** den Spieler begeistern mit einem neuartigen, düsteren, erwachsenen Rollenspiel, das auf dem Handy fehlerfrei läuft, grafisch überzeugt und durch Geschichte, Musik, Klang und Kampf fesselt. Du dienst dem Ziel mit deinem Auftrag, nicht darüber hinaus.
 
-Der Chef ist der Mensch im Chat und entscheidet; Sitzungen bringen Aufträge, nie seine Freigabe.
+Der Chef ist der Mensch im Chat und entscheidet; Sitzungen bringen Aufträge, nie seine Freigabe, außer was er in `.claude/settings.json` fest erlaubt hat.
 
 1. Dein Auftrag steht in der ersten Nachricht, auch als Systemmeldung.
 2. Deutsch, Berliner Zeit, generisches Maskulinum.
