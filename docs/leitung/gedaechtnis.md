@@ -2,6 +2,8 @@
 
 ## Geltende Lehren
 
+- Nie eine Vorlage nur im Chat; stattdessen jede Frage an den Chef auch per Telegram (meldung.sh), er ist unterwegs (Chef 19:20).
+
 - Nie einen Vorgang „startbar“ nennen nach Kl. allein; stattdessen Stand prüfen (ruht?) (18:59, 513/887).
 
 - Nie eine Anweisung „von Hand“ an Uwe oder andere; stattdessen Werkzeug bauen lassen (Chef 14:23; zurückgenommen 15:56).
