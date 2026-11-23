@@ -126,3 +126,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:19 23.11.: Startsperre 22:19 Start Werkzeug, Arbeitsplaner (lauf.py, Werkzeug 2006 Erna, Arbeitsplaner 887 Gustav)
 - 22:21 23.11.: Takt 22:19 (--ohne 513, 1716, 1961): START Werkzeug Erna 2006 ausgeführt; START Planer Gustav 887 nicht ausgeführt (887 ruht, Fund 2005); NACHRICHT Arbeitsplaner an Fritz (1068-Ü13), Figur an Doris (1653-Ü6); NACHRICHT Kampf an Dana (1068-Ü8) nicht gesendet (Dana soll enden, 1068 wartet auf Chef); LIEGT Laufsperre
 - 22:24 23.11.: Sokrates 22:22: 2002-Ü1 (Leiche), 2006-Ü1/Ü2 (Duplikat, Erna 2006 läuft) erledigt; Alter-Ego-Archivierung (78XH…) erst nach Meldung der neuen Sitzung, Kosten auf 2010; 1589.2-Ü9 Kampf im nächsten Takt wenn lauf.py START nennt; Fritz fertig, 1068-Ü13 braucht frischen Planer (lauf.py)
+- 22:31 23.11.: Startsperre 22:31 Start Arbeitsplaner, Prüfer (lauf.py, Arbeitsplaner 2005 Gustav, Prüfer 2006 Hugo)
