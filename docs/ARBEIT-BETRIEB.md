@@ -270,3 +270,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:40 23.11.: Startsperre 06:40 Start Arbeitsplaner, Kampf, Figur, Welt, Werkzeug, Arbeitsplaner, Regeln (lauf.py, Arbeitsplaner 513 Anna, Kampf 1068 Britta, Figur 1675 Carla, Welt 1566 Dana, Werkzeug 1964 Elke, Arbeitsplaner 1716 Frieda, Regeln 870 Gerda)
 - 07:03 23.11.: Startsperre 07:03 Start Arbeitsplaner, Kampf, Figur, Welt, Werkzeug, Arbeitsplaner, Sokrates, Prüfer, Regeln (lauf.py, Arbeitsplaner 513 Anna, Kampf 1068 Britta, Figur 1675 Carla, Welt 1566 Dana, Werkzeug 1964 Elke, Arbeitsplaner 1716 Frieda, Sokrates 1570, Prüfer 1566 Gerda, Regeln 870 Heike)
 - 07:04 23.11.: Startsperre 07:04 Start Sokrates (lauf.py, 1570)
+- 07:06 23.11.: Startsperre 07:06 Start Prüfer, Regeln, Werkzeug (Disponent von Hand nach Sokrates 06:45/06:50: Prüfer 1566 Gerda, Regeln 870 Heike, Werkzeug 1963 Elke; Silke 1566 archiviert, 8,67 $)
