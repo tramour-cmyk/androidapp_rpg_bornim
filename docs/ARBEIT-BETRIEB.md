@@ -279,3 +279,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:03 23.11.: Startsperre 08:03 Start Arbeitsplaner, Kampf, Figur, Welt, Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 513 Jonas, Kampf 1068 Karla, Figur 1675 Lutz, Welt 1566 Marta, Arbeitsplaner 1716 Nils, Tagesbericht 448)
 - 08:04 23.11.: Startsperre 08:04 Start Tagesbericht (lauf.py, 448)
 - 08:06 23.11.: Startsperre 08:06 Start Prüfer (Disponent von Hand: Petra B301-Ü6, zweites Gegenlesen; Prüfer-Zählung Petra 0 von 3; Nora 3 von 3 archiviert)
+- 08:15 23.11.: Startsperre 08:15 Start Arbeitsplaner (Disponent von Hand nach Sokrates 08:13: Rosa für 1570-Ü7 Auftrag und weitere Zeilen); 1566 nach main gemischt (Chef 08:09), Godot-Lauf offen; Mara, Petra archiviert, Build 301 entfällt
