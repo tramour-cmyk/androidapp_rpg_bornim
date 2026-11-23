@@ -2090,8 +2090,11 @@ def herzschlag_pushen(leb):
     vorher ab, bleibt die Marke alt und herzschlag.py meldet ALARM. Hat die lokale Datei Ungepushtes oder geht der Push nicht (1918):
     lokal schreiben, der Disponent pusht selbst."""
     pfad = "docs/ARBEIT-BESETZUNG.md"
+    _ue = wurzel = None
     try:
         import uebergabe as _ue
+        # aus der Arbeitskopie (abgelöster HEAD) liegen die Notizen in ../bornim-main: dort committen und pushen (Test lauf_herzschlag_test.py)
+        wurzel = _ue.WURZEL; _ue.WURZEL = os.path.normpath(os.path.join(DOCS, ".."))
         grund = _ue.ungepusht(pfad)
         if grund: raise RuntimeError("lokale ARBEIT-BESETZUNG.md %s (1918)" % grund)
         _ue.atomar_dateien([pfad], lambda alt: ({pfad: besetzung_text(alt[pfad], leb).rstrip("\n") + "\n"}, True),
@@ -2103,6 +2106,8 @@ def herzschlag_pushen(leb):
         protokoll_lokal(p, lambda t: besetzung_text(t, leb))
         print("HERZSCHLAG NICHT GEPUSHT (1997): %s; Zeitmarke lokal geschrieben, ARBEIT-BESETZUNG.md jetzt committen und pushen, sonst ALARM nach 2 h" % str(e)[:160])
         return False
+    finally:
+        if _ue is not None and wurzel is not None: _ue.WURZEL = wurzel
 
 def warnen(ausgabe, neue, bekannt, rolle, zeit, grund):
     """WARNUNG beim ersten Mal, WARNUNG-LAUT, wenn dieselbe Übergabe schon einmal gewarnt hat (190.7)."""

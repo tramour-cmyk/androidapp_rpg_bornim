@@ -47,6 +47,17 @@ try:
     # --besetzung bleibt erlaubt, ohne eigene Wirkung: zweiter Lauf mit Schalter endet ebenso
     r2 = subprocess.run([sys.executable, os.path.join(A, "tools", "lauf.py"), "--ohne-pull", "--besetzung", seite], cwd=A, env=ENV, capture_output=True, text=True, timeout=600)
     soll("lauf.py --besetzung bleibt erlaubt", r2.returncode == 0 and "Traceback" not in r2.stderr, r2.stderr)
+    # Lage wie im Betrieb: Arbeitskopie mit abgelöstem HEAD, Notizen in ../bornim-main (auf main); lauf.py schreibt dorthin und pusht von dort
+    N = os.path.join(d, "bornim-main"); g("clone", "-q", O, N, cwd=d)
+    tn = os.path.join(N, "docs", "ARBEIT-BESETZUNG.md")
+    open(tn, "w", encoding="utf-8").write(re.sub(r"\*\*Stand:\*\*[^\n]*", "**Stand:** %s (lauf.py)" % alt.strftime("%d.%m., %H:%M"), open(tn, encoding="utf-8").read(), count=1))
+    g("commit", "-qam", "alt", cwd=N); g("push", "-q", "origin", "main", cwd=N)
+    g("fetch", "-q", "origin"); g("checkout", "-q", "--detach", "origin/main")
+    r3 = subprocess.run([sys.executable, os.path.join(A, "tools", "lauf.py"), "--ohne-pull", seite], cwd=A, env=ENV, capture_output=True, text=True, timeout=600)
+    o = g("show", "main:docs/ARBEIT-BESETZUNG.md", cwd=O).stdout
+    open(f, "w", encoding="utf-8").write(o)
+    h = subprocess.run([sys.executable, os.path.join(A, "tools", "herzschlag.py"), "--datei", f], capture_output=True, text=True, env=ENV)
+    soll("Arbeitskopie abgelöst, Notizen in ../bornim-main: Zeitmarke auf origin/main", h.returncode == 0 and "HERZSCHLAG gepusht" in r3.stdout, h.stdout + "\n" + r3.stdout[-600:] + r3.stderr[-600:])
 finally:
     shutil.rmtree(d, ignore_errors=True)
 print("lauf_herzschlag_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
