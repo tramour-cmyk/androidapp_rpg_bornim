@@ -121,3 +121,117 @@ static func griff(skel: Skeleton3D, s: String, ding: Node3D, halt: Dictionary) -
 ## bis 1,2 cm
 static func griff_gut(w: Dictionary) -> bool:
 	return w.kontakt <= 0.3 and w.kontakt >= -1.2 and w.umschl >= 300.0 and w.tief >= -0.6 and w.kuppe >= -1.2
+
+## 1694 (23.11., roter Test griff_bild_1694: Netz meldete 330° Umschlingung, im Bild lag der Stiel offen zwischen den Fingern): Prüfung
+## nach dem Bild. [pk]: Punkte der Hand in Welt (hand_punkte, im Signal skeleton_updated genommen); [sv]: SubViewport derselben Welt mit
+## Kamera [kam]. Gezeichnet wird nur das Stück des Schafts in der Faust (zwischen den Ebenen durch Zeige- und Kleinfingergrundgelenk) in
+## Prüffarbe ohne Licht; je Blick (innen: Handfläche, außen: Handrücken) Bildpunkte mit und ohne Körper: {innen, aussen} Anteil sichtbar,
+## {innen_n, aussen_n} Bildpunkte ohne Körper (zu wenige: Schaft nicht im Bild)
+const SICHT_HOECHST := 0.10   # höchstens so viel des Schafts in der Faust sichtbar
+const SICHT_SCHLITZ := 2      # Bildpunkte (Bild 200 px, Faust etwa 120 px breit): Schlitze bis 4 px Breite zählen nicht
+const SICHT_SHADER := """
+shader_type spatial;
+render_mode unshaded, cull_disabled, shadows_disabled, fog_disabled;
+uniform vec3 a; uniform vec3 d; uniform float t0; uniform float t1;
+varying vec3 wp;
+void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
+void fragment() {
+	float t = dot(wp - a, d);
+	if (t < t0 || t > t1) discard;
+	ALBEDO = vec3(1.0, 0.0, 1.0);
+}
+"""
+static var _sicht_mat: ShaderMaterial
+# der Körper nur um die Faust (Kugel KUGEL um ihre Mitte), schwarz: Oberschenkel, Gürtel, Rock davor verdecken sonst den Schaft
+const KUGEL := 0.10
+const KOERPER_SHADER := """
+shader_type spatial;
+render_mode unshaded, cull_disabled, shadows_disabled, fog_disabled;
+uniform vec3 mitte; uniform float weit;
+varying vec3 wp;
+void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
+void fragment() {
+	if (distance(wp, mitte) > weit) discard;
+	ALBEDO = vec3(0.0);
+}
+"""
+static var _koerper_mat: ShaderMaterial
+
+static func hand_punkte(skel: Skeleton3D, s: String) -> Dictionary:
+	var pk := {}
+	for b in ["hand", "index_01", "middle_01", "pinky_01", "thumb_01"]:
+		pk[b] = skel.global_transform * skel.get_bone_global_pose(skel.find_bone(b + "_" + s)).origin
+	return pk
+
+static func sicht(pk: Dictionary, ding: Node3D, halt: Dictionary, sv: SubViewport, kam: Camera3D, koerper: Array, bild := "") -> Dictionary:
+	if _sicht_mat == null:
+		var sh := Shader.new(); sh.code = SICHT_SHADER
+		_sicht_mat = ShaderMaterial.new(); _sicht_mat.shader = sh
+		var sk2 := Shader.new(); sk2.code = KOERPER_SHADER
+		_koerper_mat = ShaderMaterial.new(); _koerper_mat.shader = sk2
+	var lang: Vector3 = (pk["middle_01"] - pk["hand"]).normalized()
+	var quer: Vector3 = (pk["index_01"] - pk["pinky_01"]).normalized()
+	var fl := lang.cross(quer).normalized()
+	if fl.dot(pk["thumb_01"] - pk["hand"]) < 0.0: fl = -fl
+	var hm := halt.duplicate() if not halt.is_empty() else {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.RIGHT}
+	var W: Transform3D = ding.global_transform * Halt.griff_rahmen(hm)
+	var d := W.basis.y.normalized()
+	var sch := Griff.schaft(ding, halt)
+	var faust: Vector3 = (pk["index_01"] + pk["pinky_01"]) * 0.5
+	var yq := (W.affine_inverse() * faust).y
+	var c := Griff.mitte_bei(sch, yq - 0.02, yq + 0.02)
+	var a := W * Vector3(c.x, yq, c.y)
+	var ti: float = (pk["index_01"] - a).dot(d); var tk: float = (pk["pinky_01"] - a).dot(d)
+	_sicht_mat.set_shader_parameter("a", a); _sicht_mat.set_shader_parameter("d", d)
+	_sicht_mat.set_shader_parameter("t0", minf(ti, tk)); _sicht_mat.set_shader_parameter("t1", maxf(ti, tk))
+	var waffen := ding.find_children("*", "MeshInstance3D", true, false) + ([ding] if ding is MeshInstance3D else [])
+	_koerper_mat.set_shader_parameter("mitte", faust); _koerper_mat.set_shader_parameter("weit", KUGEL)
+	var vorher_mat := {}
+	for m in koerper: vorher_mat[m] = (m as MeshInstance3D).material_override
+	var aus := {}
+	for bl in ["innen", "aussen"]:
+		var r: Vector3 = fl if bl == "innen" else -fl
+		var mitte := faust + fl * 0.01
+		kam.global_position = mitte + r * 0.32 + lang * 0.06
+		kam.look_at(mitte, lang)
+		kam.near = 0.05
+		for m in waffen: (m as MeshInstance3D).material_override = _sicht_mat
+		for m in koerper: (m as MeshInstance3D).material_override = _koerper_mat
+		var mit := await _pruefpunkte(sv, bild + "-" + bl if bild != "" else "")
+		for m in koerper: (m as MeshInstance3D).material_override = vorher_mat[m]
+		var vorher := {}
+		for m in koerper:
+			vorher[m] = (m as MeshInstance3D).visible; (m as MeshInstance3D).visible = false
+		var ohne := await _pruefpunkte(sv)
+		for m in koerper: (m as MeshInstance3D).visible = vorher[m]
+		for m in waffen: (m as MeshInstance3D).material_override = null
+		aus[bl] = float(mit) / maxf(1.0, float(ohne))
+		aus[bl + "_n"] = ohne
+	return aus
+
+static func sicht_gut(w: Dictionary) -> bool:
+	return int(w.innen_n) >= 30 and int(w.aussen_n) >= 30 and float(w.innen) <= SICHT_HOECHST and float(w.aussen) <= SICHT_HOECHST
+
+static func _pruefpunkte(sv: SubViewport, bild := "") -> int:
+	for f in 2: await sv.get_tree().process_frame
+	await RenderingServer.frame_post_draw
+	var img := sv.get_texture().get_image()
+	if bild != "": img.save_png(bild + ".png")
+	img.convert(Image.FORMAT_RGB8)
+	var b := img.get_data()
+	var w := img.get_width(); var h := img.get_height()
+	var m := PackedByteArray(); m.resize(w * h)
+	for i in w * h:
+		m[i] = 1 if b[3 * i] > 200 and b[3 * i + 2] > 200 and b[3 * i + 1] < 64 else 0
+	# schmale Schlitze zwischen den Fingern (Glieder schmaler als der Knöchelabstand, im Spielbild nicht zu sehen) zählen nicht: die
+	# Maske wird um SICHT_SCHLITZ Bildpunkte abgetragen (je Schritt fällt jeder Punkt mit einem leeren Nachbarn weg), offene Stellen bleiben
+	for it in SICHT_SCHLITZ:
+		var m2 := m.duplicate()
+		for y in range(1, h - 1):
+			for x in range(1, w - 1):
+				var i := y * w + x
+				if m[i] == 1 and (m[i - 1] == 0 or m[i + 1] == 0 or m[i - w] == 0 or m[i + w] == 0): m2[i] = 0
+		m = m2
+	var n := 0
+	for i in w * h: n += m[i]
+	return n
