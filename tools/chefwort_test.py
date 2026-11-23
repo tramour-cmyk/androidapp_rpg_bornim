@@ -209,6 +209,23 @@ g("add", "-A", cwd=A); g("commit", "-q", "-m", "ruht 9007 neu", cwd=A); g("push"
 p = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py"), "chefwort", "9007", "so machen", "--zeit", "22.11., 20:05"],
                    env=dict(ENV, BORNIM_OHNE_PUSH="1"), capture_output=True, text=True, cwd=A)
 soll("1976: Aufheben scheitert → Fehler, Exit ≠ 0, nichts geschrieben", p.returncode != 0 and rm.ruht(datei("9007")) and "20:05" not in datei("9007"), (p.returncode, p.stdout + p.stderr))
+# 1976-Ü5 (Nora 23.11., 08:00; Ursache 1566: Sokrates gab 1566-Ü11 „Chefwort …“ von Hand): auch die Übergabe „Chefwort …“ hebt auf
+rc, out = lauf("uebergabe", "9007", "Arbeitsplaner", "Rückfrage zum Teich")
+soll("1976-Ü5: andere Übergabe an ruhenden Vorgang lässt „ruht“ stehen", rc == 0 and rm.ruht(datei("9007")), (rc, out))
+rc, out = lauf("uebergabe", "9007", "Arbeitsplaner", "Chefwort 22.11., 20:10 lesen (im Archiv eingetragen)")
+t = datei("9007"); L = liste_o()
+soll("1976-Ü5: Übergabe „Chefwort …“ hebt „Zustand: ruht“ in NR.md auf", rc == 0 and not rm.ruht(t)
+     and "durch Chefwort 22.11., 20:10 (war: ruht, beim Chef seit 22.11., 20:00" in t and "OFFEN 9007-Ü" in out, (rc, out, t))
+soll("1976-Ü5: Liste unverändert, wenn sie nicht ruht", "| 9007 | Teich im Turm | Tom | M | startbar | – |" in L, [z for z in L.splitlines() if "9007" in z])
+g("pull", "-q", "--ff-only", cwd=A); p_l = os.path.join(A, "docs", "LISTE-VORGAENGE.md")
+alt_l = open(p_l).read(); open(p_l, "w").write(alt_l.replace("| 9006 | Teich im Hof | Tom | M | startbar, Chefwort 22.11., 19:06 |", "| 9006 | Teich im Hof | Tom | M | ruht, beim Chef (Obergrenze B) |"))
+g("add", "-A", cwd=A); g("commit", "-q", "-m", "ruht 9006 neu", cwd=A); g("push", "-q", "origin", "main", cwd=A)
+rc, out = lauf("uebergabe", "9006", "Arbeitsplaner", "chefwort 22.11., 20:12 lesen")
+L = liste_o()
+soll("1976-Ü5: Übergabe „Chefwort …“ hebt „ruht“ in der Liste im selben Commit auf", rc == 0
+     and "| 9006 | Teich im Hof | Tom | M | startbar, Chefwort 22.11., 20:12 |" in L
+     and set(g("show", "--name-only", "--format=", "origin/main", cwd=A).split()) == {"docs/vorgang/9006.md", "docs/LISTE-VORGAENGE.md"},
+     (rc, out, [z for z in L.splitlines() if "9006" in z]))
 
 # 12 1962: Startnachrichten (Disponent, Wache, Routine) sind nie Chefwort, auch wenn das Protokoll beim Haken leer oder frisch ist.
 # Beleg 22.11., 18:15 (Protokoll dieser Sitzung): beim Haken steht dort zuerst nur „queue-operation“ (enqueue, Inhalt ohne origin);
