@@ -99,3 +99,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:07 23.11.: Takt 16:05: START Arbeitsplaner 513 Karla, Arbeitsplaner 1961 Lutz, Prüfer 1997 Marta nicht ausgeführt (513/1961 weder Spiel noch Eilt, Laufsperre; Prüfer-Start war Folge einer nicht geschlossenen Zeile 1997-Ü3, geschlossen); LIEGT 103 Zeilen, Grund Laufsperre (Chef 14:43); Laufsperre 3 von 3 laufen (Conrad, Ida, Isolde), Jutta 1999 und Conrad 1068 fertig, Prüfung Hanna
 - 16:19 23.11.: Startsperre 16:19 Start Werkzeug (lauf.py, Werkzeug 2002 Anna; Nachfolger Ida, Eilt)
 - 16:57 23.11.: Startsperre 16:57 Start Werkzeug (lauf.py, Werkzeug 2001 Beate; letzter enger Lauf, Eilt)
+- 17:04 23.11.: Startsperre 17:04 Start Arbeitsplaner, Kampf, Figur, Werkzeug, Arbeitsplaner, Prüfer (lauf.py, Arbeitsplaner 513 Lutz, Kampf 1589.2 Marta, Figur 1675 Otto, Werkzeug 1964 Oda, Arbeitsplaner 1971 Pit, Prüfer 1999 Rudi)
