@@ -364,7 +364,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1850 | Workflows godot-kampf.yml, tom-probe.yml, spike-probe-4552.yml lösen nur auf Teamzweigen aus | 7 | B Werkzeuge | K | – | 1739, 1765 | – | *startbar* | *–* | *0* | *–* |
 | 1625 | feste Startprompts je Rolle statt Startlektüre | 7 | B Abläufe | K | 25.11. | – | – | *ruht, 1625 A, Probe bis 25.11.* | *–* | *0* | *38,14 $* |
 | 1734 | Forschung und Entwicklung bei Sokrates, wöchentlich oder auf Bedarf: wie arbeiten andere … | 7 | B Steuerung | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1129,87 $* |
+| Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1133,14 $* |
 | 102 | Dokumente BornWire TCS nachziehen | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | 7 | B Abläufe | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
