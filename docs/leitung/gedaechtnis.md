@@ -25,6 +25,7 @@
 ## Offene Fäden
 
 - Rundblick 23.11. offen: 1966 KISS, bis drei Verfahren, Bilanz (Chef 07:31–08:29).
+- Chef ab 24.11. auf Konferenz in Spanien, wenig Zeit (14:43): Vorlagen bündeln, kurz.
 - Täglich: Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07); Raster Startprompts `docs/leitung/startpruefung.md` (1989) je Art einmal.
 - Laufsperre bis Sa 28.11.: zwei Fachkräfte, beide ans Spiel (Chef 11:13); Werkzeug nur, wenn Betrieb steht.
 - Offen: 1068 Leitwolf-Ring messen (11:27), 1589.2 nach grünem Lauf auf main, 1971 Rückläufer, 1995, 1996.
