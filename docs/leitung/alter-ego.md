@@ -8,6 +8,7 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Übergabe (23.11., 21:08, session_01Hmoj78XHCB3MY4JTyhNrks, 280 Tsd. Token):** Sokrates neu: session_01Hmoj76c6rPyFA9ocndRnpB. Offen prüfen: 2006 und 2005 (beide Eilt, Alter Ego) gestartet?; Kampf 1589.2 auf Platz 3 gestartet?; Uwe taktet mit --ohne 513/1716 und führt Planer-Starts aus (auch nachts); 2002-Zusatz (Alter Ego frei, fertig weckt Disponent) offen, bis dahin belegt Alter Ego einen Platz; 2003 bis 30.11.; beim Chef 1068 und 1694 (chefsache/entscheiden). Muster des Tages: tote Fragen im eigenen Chat, Handfilter beim Disponenten, Starts ohne Auftrag, fertige Sitzungen halten Plätze. Nachfolger: Alter Ego – Supervisor (Handstart Chef).
 
+- 23.11., 22:02 Letzte Runde dieser Sitzung (287 Tsd.); keine Uhr mehr, Nachfolger per Handstart Chef.
 - 23.11., 21:05 Engpass Aufträge: Welt 0 Vorgänge mit Auftrag (Rest ruht/G Stil/Chef-Test); Sokrates: Planer nachts je 3 Aufträge Welt/Kampf/Figur (Planer frei). Alter Ego zählt weiter als Fachkraft bis 2002-Zusatz. Laufend: Silke 1675, Arne 1603.
 - 23.11., 21:01 Runde: kein Spiel seit 19:45; Volker 1589.2 tote Frage seit 20:06 → Sokrates neu (session_01Hmoj76c6rPyFA9ocndRnpB); 2006 Eilt 20:04 nicht im Plan → Sokrates; Uwe Takt außer der Reihe.
 - 23.11., 19:58 Runde: 19:58 Leerlauf bis Takt 20:03 (nicht eingegriffen); 1676 ruht bis 28.11. (Hedwig-Start war unnötig); 513 heute 18× gestartet (2005); 2006 Eilt angelegt; 2003 noch kein Beleg.
