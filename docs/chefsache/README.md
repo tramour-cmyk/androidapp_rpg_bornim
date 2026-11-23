@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 10:50, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 21:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -30,24 +30,24 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (8) | 0 | 0 | 0 | 5 | 1487 (Regeln) Heiler wächst in Kapitel 1 nie im Willen |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 63 (63) | 19 | 1 | 1 | 36 | 1068 (Kampf) Ring bei jedem großen Schlag der Gegner … |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 34 (34) | 21 | 0 | 2 | 9 | 1675 (Figur) Wachsoldatin im Hauptmenü, Schild schwebt neben i… |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 63 (63) | 19 | 0 | 1 | 36 | 1589.2 (Kampf) Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.… |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 34 (34) | 21 | 0 | 2 | 11 | 1675 (Figur) Wachsoldatin im Hauptmenü, Schild schwebt neben i… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 2 | 0 | 0 | 14 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
 | ↳ **12** Bedienung und Oberfläche | 6 (6) | 0 | 0 | 0 | 5 | 954a.12 (Oberfläche) Erschaffung: nicht wählbare Fertigkeiten … |
 | ↳ **13** Geschichte und Texte | 9 (9) | 0 | 0 | 0 | 3 | 1628 (Story) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 25 (25) | 13 | 0 | 1 | 8 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 118 (110) | 78 | 0 | 1 | 15 | 1961 (Werkzeug) Ford heißt Disponent: Werkzeug auf Titel „Dispone… |
+| **7** Firma: Werkzeuge und Abläufe | 126 (110) | 83 | 0 | 1 | 16 | 2006 (Werkzeug) Kein Fachkraft-Start, solange am Vorgang eine off… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Arbeitsplaner) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 12 | 115 | 12 | 1427 |
-| neu | 18 | 128 | 18 | 1524 |
-| **netto** (erledigt − neu) | **−6** | **−13** | **−6** | **−97** |
+| erledigt | 17 | 115 | 17 | 1432 |
+| neu | 31 | 128 | 31 | 1537 |
+| **netto** (erledigt − neu) | **−14** | **−13** | **−14** | **−105** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -55,18 +55,18 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Profil | als Nächstes |
 |---|---|
-| **Chef** | nichts offen in der Chefsache |
+| **Chef** | [1694](entscheiden/1694-grossaxt-stiel.md) entscheiden, hält 3 Zeilen; dann 2 weitere |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
-| Kampf | läuft: 1068 (Besetzung); 1068 Ring bei jedem großen Schlag der Gegner … (Muss); dann 3 weitere |
-| Figur | 513 Ein Figurenstand für alle Zweige (Muss); dann 8 weitere |
+| Kampf | 1589.2 Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwa… (Muss); dann 2 weitere |
+| Figur | 513 Ein Figurenstand für alle Zweige (Muss); dann 5 weitere |
 | Kataloge | 644.2 Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pfli… (Kür) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
 | Oberfläche | 531a Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast k… (Kür) |
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 2 weitere |
-| Werkzeug | läuft: 1992 (Besetzung); 1961 Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstel… (Muss); dann 41 weitere |
+| Werkzeug | 2006 Kein Fachkraft-Start, solange am Vorgang eine offene Planer… (Muss); dann 44 weitere |
 | Prüfer | 1716 Buildzweig gehört Spike: nur Spike pusht auf claude/build-<… (Muss); dann 2 weitere |
 | Tester | leer, weil keine offene Zeile |
 
@@ -74,31 +74,36 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1068 | Kampf | Ring bei jedem großen Schlag der Gegner … | M | 2 Kampf | in Arbeit |
-| 2 | 1589.2 | Kampf | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf | startbar |
-| 3 | 1589.3 | Kampf | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf | startbar |
-| 4 | 1603 | Kampf | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf | startbar |
-| 5 | 1675 | Figur | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | M | 3 Figuren und Kleidung | startbar |
-| 6 | 1676 | Figur | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Figuren und Kleidung | startbar |
-| 7 | 1694 | Figur | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je… | M | 3 Figuren und Kleidung | startbar |
-| 8 | 431 | Figur | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Figuren und Kleidung | startbar |
-| 9 | 1653 | Figur | Durchstechprüfung: Thessa Kleid sticht durch den Kragen | M | 3 Figuren und Kleidung | startbar |
-| 10 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
-| 11 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
-| 12 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
-| 13 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
-| 14 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
-| 15 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
-| 16 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
-| 17 | 1961 | Werkzeug | Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstellen, dann Übergabe a… | M | 7 Firma | startbar |
-| 18 | 1971 | Werkzeug | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgäng… | M | 7 Firma | startbar |
-| 19 | 1960 | Werkzeug | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla –… | M | 7 Firma | startbar |
-| 20 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
+| 1 | 1589.2 | Kampf | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf | startbar |
+| 2 | 1589.3 | Kampf | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf | startbar |
+| 3 | 1603 | Kampf | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf | startbar |
+| 4 | 1675 | Figur | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | M | 3 Figuren und Kleidung | startbar |
+| 5 | 431 | Figur | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Figuren und Kleidung | startbar |
+| 6 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
+| 7 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
+| 8 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
+| 9 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
+| 10 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
+| 11 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
+| 12 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
+| 13 | 2006 | Werkzeug | Kein Fachkraft-Start, solange am Vorgang eine offene Planerzeile hängt; Vorgang… | M | 7 Firma | startbar |
+| 14 | 1961 | Werkzeug | Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstellen, dann Übergabe a… | M | 7 Firma | startbar |
+| 15 | 1960 | Werkzeug | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla –… | M | 7 Firma | startbar |
+| 16 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
+| 17 | 1725 | Werkzeug | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | M | 7 Firma | startbar |
+| 18 | 1933 | Werkzeug | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halb… | M | 7 Firma | startbar |
+| 19 | 1954 | Werkzeug | Chefsache-README als kurzes Dashboard: laufende Sitzungen, wer woran, als Nächs… | M | 7 Firma | startbar |
+| 20 | 1128.3 | Werkzeug | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | 7 Firma | startbar |
 
-Danach 134 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 31. Ruhend oder nach dem Meilenstein: 112.
+Danach 139 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 31. Ruhend oder nach dem Meilenstein: 115.
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [1694](entscheiden/1694-grossaxt-stiel.md) | **Muss** | E Figuren | 23.11., 17:58 | Im Bild hält der Held die Großaxt nicht, der Stiel (7,1 cm) liegt zwischen Daumen und Zeigefinger; echte Stiele 3,4 bis 3,9 cm; Votum: Stiel dünner. |  |
+| [1068](entscheiden/1068-testbuild-zeitmass.md) | **Muss** | E Kampf | 23.11., 16:59 | Arbeit abgenommen; das Kampf-Zeitmaß reißt schon auf main; Votum: 1068 in den Testbuild, Zeitmaß als eigener Vorgang. | Sokrates |
 
 ## Zu billigen
 
@@ -106,7 +111,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [1653](ansehen/1653-thessa-kragen-altneu.md) | Thessa: Kragen, alt gegen neu (Spielkamera) | – | 23.11., 20:29 |
 
 ## Zu tun
 
@@ -142,7 +151,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 | 1486 | K | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Begegnungen bi | wartet auf Sokrates |
 | 1487 | K | Heiler wächst in Kapitel 1 nie im Willen (Heilmagie 12/13 am Kapitelende, übt Stumpfe Waff | startbar |
 
-**Kampf** – offen 63, Muss 19, startbar 27
+**Kampf** – offen 63, Muss 19, startbar 26
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -155,7 +164,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 | 931 | M | Wolf vorn – „Anspringen!“ steht, während er sich duckt (keine eigene Pause), Sprung bis Bi | wartet auf 760 (ruht) |
 | 1032 | M | nach dem eigenen Angriff taumelt ein Wachsoldat getroffen, im Bericht steht ein Angriff, a | wartet auf 760 (ruht) |
 | 1043 | M | MARS-Probekampf Wölfe, Klosterschüler, „Ausweichen“ erzwungen: „davon hab ich nix gesehen. | wartet auf 760 (ruht) |
-| 1068 | M | Ring bei jedem großen Schlag der Gegner … | startbar |
+| 1068 | M | Ring bei jedem großen Schlag der Gegner … | Chef (Datei in der Chefsache) |
 | 1415 | M | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A) | wartet auf 709 (ruht) |
 | 1588 | M | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | wartet auf 1589.4 (startbar) |
 | 1589.2 | M | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit un | startbar |
@@ -210,7 +219,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 | 1635 | K | Systemlösung? Bogen: 2 frühere Vorgänge (26.1, 1041), neu 1634 | startbar |
 | 72c | K | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunde | nach dem Meilenstein |
 
-**Figur** – offen 34, Muss 21, startbar 17
+**Figur** – offen 34, Muss 21, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -218,21 +227,21 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 | 1535 | M | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand | wartet auf Test/Build (gebaut) |
 | 1570 | M | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge (1006, 1052, 10 | ruht bis 28.11. |
 | 1619 | M | Held stakst im Film 458.3, sieht nicht nach Gehen aus („vielleicht Tempo“) | wartet auf Test t301 (Chef) |
-| 1621 | M | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffe | wartet auf 1694 (startbar) |
+| 1621 | M | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffe | wartet auf 1694 (ruht) |
 | 1665 | M | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu sehen (Fackel | wartet auf 458.3 (gebaut) |
 | 1674 | M | Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 Minuten an der Bank fest, kommt nicht | wartet auf Test/Build (gebaut) |
 | 1675 | M | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | startbar |
-| 1676 | M | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | startbar |
-| 1694 | M | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finge | startbar |
+| 1676 | M | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | ruht bis 28.11. |
+| 1694 | M | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finge | Chef (Datei in der Chefsache) |
 | 1709 | M | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535 | ruht bis 28.11. |
 | 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | startbar |
 | 1297 | M | Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | wartet auf 431 (startbar) |
-| 1649 | M | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den | wartet auf 1694 (startbar) |
+| 1649 | M | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den | wartet auf 1694 (ruht) |
 | 1650 | M | Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin, | wartet auf 1535 (gebaut) |
-| 1653 | M | Durchstechprüfung: Thessa Kleid sticht durch den Kragen (1,4–1,5 m, bis 224 Ecken) | startbar |
+| 1653 | M | Durchstechprüfung: Thessa Kleid sticht durch den Kragen (1,4–1,5 m, bis 224 Ecken) | Chef (Datei in der Chefsache) |
 | 1654 | M | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m, bis 305 Ecken in Ruhe_Tr | startbar |
 | 1655 | M | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, bis 135 Ecken) | wartet auf Test/Build (gebaut) |
-| 1657 | M | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dre | wartet auf 1694 (startbar) |
+| 1657 | M | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dre | wartet auf 1694 (ruht) |
 | 1785 | M | Weg aus 4fd7055c8 … | startbar |
 | 1632 | K | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtempo, je Waff | wartet auf Test t301 (Chef) |
 | 134 | K | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | aufgeteilt |
@@ -366,13 +375,13 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 116, Muss 77, startbar 71
+**Werkzeug** – offen 125, Muss 83, startbar 78
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1992 | M | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit | wartet auf Diogenes (greift?) |
+| 2006 | M | Kein Fachkraft-Start, solange am Vorgang eine offene Planerzeile hängt (Ü an Arbeitsplaner | startbar |
 | 1961 | M | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann | startbar |
-| 1971 | M | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Ti | startbar |
 | 1716 | M | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten B | wartet auf Prüfer |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | startbar |
 | 1129 | M | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einf | wartet auf 1387 (gebaut) |
@@ -434,7 +443,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 | 1868 | M | Kennzahlen Wochenzählung: Liegezeit (Median je Übergabe, Fälle über 6 h) aus den Übergabez | startbar |
 | 1956 | M | Von Ford (22.11., 16:18): lauf.py pusht scharf die Startsperre schon ohne --sperre; ein zw | startbar |
 | 1958 | M | Von Chef (20.11., 15:52; Rest aus 1727): Leistungsstufe je Auftrag, nach Ergebnis 1742 Fas | wartet auf 1742 (startbar) |
-| 1964 | M | Von Disponent (22.11., 17:23, zu 1961): lauf.py kennt Titel „Wache – Disponent (…)“ nicht: | startbar |
 | 1965 | M | WEITER nach Plan 1727: neue Arbeit nie per WEITER an Arbeitsplaner, Prüfer, Tester (frisch | startbar |
 | 1966 | M | Vorlage KISS im neuen Ablauf: kleiner Werkzeugfehler mit klarem Befund ohne Planer direkt | startbar |
 | 1969 | M | Von Tagesbericht (22.11., 17:43): Tabelle je Rolle im Tagesbericht zeigt nach der Umstellu | startbar |
@@ -486,6 +494,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 | 1990 | M | vorgang.py uebergabe nennt als WECKER eine archivierte Sitzung (Besetzung veraltet), Weckr | startbar |
 | 1991 | M | Rufnamen doppelt vergeben: lauf.py --start und Takt geben denselben Rufnamen an Sitzungen | startbar |
 | 1993 | M | lauf.py startet seit 06:40 fünfmal einen Planer für 513, obwohl 513 ruht (Chef 04.11., 13: | startbar |
+| 1994 | M | tagesbericht.py zählt erledigte Vorgänge nicht: Stand seit 22.11., 16:26 kursiv (*erledigt | startbar |
+| 1995 | M | Kür nach Abhängigen ordnen: nach Eilt, Halt, Muss Kür mit vielen offenen wartenden Vorgäng | startbar |
+| 1996 | M | Weckruf-Sperre: Haken am Zugende prüft, dass jeder WECKER aus vorgang.py als Nachricht ver | startbar |
+| 1998 | K | Von Werkzeug (Startwarnung 108, 1642, seit 23.11., 06:39): Datei über 60 KB: docs/chefsach | startbar |
+| 2000 | K | Von 1997 (Prüfer Hanna 14:27): lauf.py druckt LEERLAUF „Ford endet, nichts zu pushen“ und | startbar |
+| 2001 | M | Laufsperre als Obergrenze: höchstens N Fachkräfte gleichzeitig, wahlweise nur bestimmte Be | ruht |
+| 2003 | M | PermissionDenied-Block in settings.json raus, falls nach der ersten echten Auto-Ablehnung | Termin 30.11. |
+| 2004 | M | meldung.sh schreibt die Lehrenbuch-Zeile der lauten Wache vor dem Senden und je Text statt | startbar |
+| 2005 | M | Von Arbeitsplaner (23.11., 19:00, zu 513): lauf.py startet für ruhenden 513 (Stand „ruht, | startbar |
+| 2007 | K | Von 1971 (Prüfer Vera 19:05): Übergabezeilen in vorgang.py (LISTE-VORGAENGE.md) werden mit | startbar |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 
@@ -506,6 +524,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): entscheiden/1694-grossaxt-stiel.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/1653-thessa-kragen-altneu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.

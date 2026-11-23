@@ -281,15 +281,31 @@ def uebergabe(nr, an, was):
 DISPONENT_ALT = "Ford"  # 1739: bis zur Umschaltung (lauf.ALT_EMPFAENGER)
 ALT = {"Prüfer": "Diogenes", "Disponent": DISPONENT_ALT, "Arbeitsplaner": DISPONENT_ALT}
 
-def wecker(nr, k, an, alt=None):
+def disponent_aktuell():
+    """2001 (Prüfer 23.11., 14:43): Kennung aus „**Disponent (aktuell)** <Name> `session_…`“ in ARBEIT-BETRIEB.md (bei jedem Neustart
+    gesetzt; ARBEIT-BESETZUNG.md hinkt bis zu einer Stunde nach), sonst None."""
+    try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BETRIEB.md"), encoding="utf-8").read()
+    except OSError: return None
+    m = re.search(r"\*\*Disponent \(aktuell\)\*\*[^`\n]*`(session_\w+)`", t)
+    return m.group(1) if m else None
+
+def disponent():
+    """2001: der laufende Disponent, „Disponent (aktuell)“ vor der Tabelle."""
+    d = disponent_aktuell()
+    return [d] if d else besetzung("Disponent")
+
+def wecker(nr, k, an, alt=None, scharf=None):
     """WECKER an die laufenden Sitzungen von AN (sonst der alten Rolle ALT); läuft keine, WECKER an den Disponenten, der den Start
-    ausgibt (1760, Sokrates 22.11., 07:08). Gibt die geweckten Kennungen zurück."""
-    alt = ALT.get(an, "") if alt is None else alt
-    ss = besetzung(an) or (besetzung(alt) if alt else [])
+    ausgibt (1760, Sokrates 22.11., 07:08). Gibt die geweckten Kennungen zurück. 2001 (Chef 23.11., 14:38): mit tools/1727-SCHARF
+    kein Ford-Ersatz mehr (auch nicht, wenn rueckmeldung.py oder chefwort.py ALT mitgeben); Disponent über disponent()."""
+    scharf = _scharf() if scharf is None else scharf
+    alt = "" if scharf else ALT.get(an, "") if alt is None else alt
+    ss = (disponent() if an == "Disponent" and scharf else besetzung(an)) or (besetzung(alt) if alt else [])
     for s in ss: print("WECKER %s | sieh in %s (%s)" % (s, nr, k))
     if ss: return ss
     print("KEINE SITZUNG %s läuft (ARBEIT-BESETZUNG.md): die Zeile wartet; Start über den Disponenten, die neue Sitzung liest `vorgang.py offen %s`" % (an, an))
-    ds = [] if DISPONENT_ALT in (an, alt) or an == "Disponent" else (besetzung("Disponent") or besetzung(DISPONENT_ALT))
+    if scharf: ds = [] if an == "Disponent" else disponent()
+    else: ds = [] if DISPONENT_ALT in (an, alt) or an == "Disponent" else (besetzung("Disponent") or besetzung(DISPONENT_ALT))
     for s in ds: print("WECKER %s | sieh in %s (%s): keine Sitzung %s, Start ausgeben" % (s, nr, k, an))
     if not ds: print("KEIN DISPONENT läuft: Wache bzw. Herzschlag meldet (1764)")
     return ds

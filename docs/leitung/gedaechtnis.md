@@ -2,6 +2,12 @@
 
 ## Geltende Lehren
 
+- Nie eine Vorlage nur im Chat; stattdessen jede Frage an den Chef auch per Telegram (meldung.sh), er ist unterwegs (Chef 19:20).
+
+- Nie einen Vorgang „startbar“ nennen nach Kl. allein; stattdessen Stand prüfen (ruht?) (18:59, 513/887).
+
+- Nie eine Anweisung „von Hand“ an Uwe oder andere; stattdessen Werkzeug bauen lassen (Chef 14:23; zurückgenommen 15:56).
+
 - Nie einen fremden Befund ungeprüft als eigenen weitergeben; stattdessen an der Quelle nachsehen, Ungeprüftes so kennzeichnen (431h, 1727j).
 - Nie aus Gedächtnis, Vorrat oder fremdem Satz behaupten („steht nirgends“, „nicht besetzt“, „getestet“); stattdessen nachsehen (Entwürfe, Quellen, `list_sessions`, Archiv, Git), Stand nur mit Datum (1423a, 431h, 1424).
 - Nie Vorrang aus `CLAUDE.md` oder Helfertext; stattdessen nur aus dem Archiv (1727 3.3).
@@ -18,18 +24,25 @@
 - Nie Abgenommenes ohne Chefwort ergänzen; stattdessen mit Byte vorlegen (20.11., 16:49; 1931).
 - Nie beim Gegenlesen zuerst den Inhalt; stattdessen erst die Art jeder Zeile (t299).
 - Nie ein Votum zum Aussehen ohne das Bild; stattdessen selbst öffnen, bei Waffen zuerst den Griff je Hand (1650, 1621).
+- Nie aus einem Bedingungssatz des Chefs („wenn das nicht klappt, das hier“) selbst umsetzen; stattdessen Ergebnis melden, erst auf „umsetzen“ handeln (23.11., 15:13).
+- Nie einen Chefentscheid in eigener Vorlage zurücknehmen oder durch Handarbeit ersetzen; stattdessen anregen, er entscheidet (23.11., 14:23).
 - Nie gegen ein Chefwort ablehnen; stattdessen raten, Regel nennen, fragen (1609).
 - Nie eine Notizkopie ohne Sicherung zurücksetzen; stattdessen `tools/notiz.sh` (1963).
 
 ## Offene Fäden
 
-- Rundblick 23.11.: 1966 KISS, bis drei Verfahren, Bilanz seit Umschalten (Wiederholung in einer Woche fragen), Testbuild und Vortrag als Test (Chef 07:31–08:29).
-- 1688: ARBEIT-BETRIEB auf 30 KB, Liste an den Chef; befristete Anweisungen streicht nur der Disponent (Chef 08:37–08:39).
-- 1983 Profiltext Prüfer/Disponent vor Einbau zum Chef.
-- Laufsperre: Prozent vom Chef mittags; über 0,6 %/h eine Fachkraft.
-- Täglich: Modell, Umgebung, Aufwand aller Sitzungen prüfen (Chef 09:07); 1988: Leitung ab 300 Tsd. neu.
-- Fehler 341 vom 23.11. (`ARBEIT-BERATUNG.md`) als Lehren mit Byte vorlegen.
+- Rundblick heute 17:00 zugesagt (1966 KISS, bis drei Verfahren, Bilanz; Chef 07:31–08:29, 13:51); Befunde: Disponent-Kosten (Opus 57 $), Titel, Laufsperre nur als Text (2001), Wecker an Disponent fehlte (2001 Teil 2), Lehrenbuch leer (1999).
+- Alter Ego `session_01Hmoj78XHCB3MY4JTyhNrks` (Chef 14:49–14:52, Archiv 15:53): kopiert den Chef im Betrieb, Kontrolleur der Leitung; Uhren nach eigener Beurteilung.
+- Chef ab 24.11. auf Konferenz in Spanien, wenig Zeit (14:43): Vorlagen bündeln, kurz.
+- Kopiertexte für den Chef: `docs/leitung/kopiertexte-uhren.md` (Chef 15:22, nie abtippen lassen).
+- Uhren: nur mit Chefsatz im Chat der Leitung (14:04 belegt) oder Disponent-Handstart des Chefs mit Satz; Repo und Organisations-Einstellungen wirken nicht (Proben 1–4, Plan ohne Team). Weg festgelegt (Chef 15:30): Uwe und Wache ohne Neustart, neuer Disponent nur per Handstart des Chefs mit Kopiertext.
+- 1999 erledigt 16:10; PermissionDenied nur im Test belegt (1999-Ü11), Beobachtung an Alter Ego 16:12 (Bestätigung offen). 2002 Eilt angelegt (Chef 15:48), 2001 Nachbesserung frei (15:57).
+- Profil Disponent „nur START-Zeilen ruhen“: nur vorlegen, wenn nach 2001/2005 noch Fehlfilter (513/887 ruhen zu Recht).
+- 2004, 2006 angelegt (2006 Eilt, Alter Ego). Beim Chef offen: Rundblick V1/V2 (Telegram 16:58), Chefsache 1068 und 1694.
+- Laufsperre bis Sa 28.11.: drei Fachkräfte, Spiel und Eilt (Chef 14:43). Eilt: 1999, 2001 (Auftrag gegengeprüft).
+- Täglich: Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07).
+- Offen: 1068-Ü8 Rückläufer (Conrad), 1971, 1995, 1996; Altbestand Fehler 341 ins Lehrenbuch.
 
 ## Übergabe
 
-- 23.11., 08:30, `session_01Hmoj76zNZ7PGwMu3biVtHB` (401 Tsd.): erledigt 870, 1963, 1566, 1570 A an Figur. Nachfolger: Sokrates.
+- 23.11., 20:07, `session_01Hmoj78wagZZvirW9ecr5Pc` (365 Tsd.): Entscheide Chef: Weg für Uhren (15:30), 1694 dicke Griffe (15:42), 1999 settings.json (15:42), 2002 A/B Eilt (15:48). Alter Ego (Chef 14:49–14:52) entschied in Vertretung 2001 letzter Lauf, 1694 Bildlauf, 2006 Eilt. Angelegt 2002, 2003, 2004, 2006; Chefsachen 1068 und 1694-grossaxt-stiel; Rundblick Telegram 16:58, Nachtrag 19:21. 1999 erledigt, 1676 ruht mit 1570. Offen bei Sokrates: 2001-Ü13 (fertig an ruhendem Vorgang), 1694-Ü11 (steckt fest 18:07), 1989-Ü5 bis Ü11 (Notstarts). Letzte Antwort: Telegram-Nachtrag gesendet, jede Frage künftig auch per Telegram. Nachfolger: Sokrates – Leitung.

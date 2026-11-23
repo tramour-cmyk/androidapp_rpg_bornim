@@ -57,7 +57,8 @@ Ausgabe, Zeile für Zeile auszuführen:
 --aufraeumen kürzt Fords Protokoll auf die 20 neuesten Taten (plus Marken von heute, Startsperren auch von gestern, solange lauf.py sie prüft, 1187) und schiebt erledigte Zeilen von LISTE-VORGAENGE.md ins Archiv (270); --sperre tut es in jedem Lauf.
 --liegt     Lauf auf eine Meldung „Start <Rolle> <Nr>, <Commit>“ (891): ruhende Sitzungen (nicht working/blocked) unter 20 Minuten belegen die Rolle nicht;
              neue Arbeit geht per WEITER in sie (unter 200 Tsd. Token), sonst START. Startmarke und laufende Sitzungen gelten wie sonst.
---besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
+--besetzung  erlaubt, ohne Wirkung (1997): jeder vollständige Lauf schreibt am Ende Tabelle und Zeitmarke von ARBEIT-BESETZUNG.md
+             und pusht sie selbst (Zeile HERZSCHLAG gepusht; sonst HERZSCHLAG NICHT GEPUSHT: Disponent pusht).
 --kosten NR USD SESSION_ID  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile, mit der Kennung).
   Kennung Pflicht (384: nachts gebuchte Sitzungen ohne Kennung waren nicht mehr nachweisbar); ohne Sitzung nur `ohne:<Grund>`. USD frisch aus get_session nach dem Archivieren
   (384: 3,13 statt 6,31 $ aus einer alten Abfrage gebucht).
@@ -388,7 +389,12 @@ def vorrat_hinweis(r, nr=None):
     if r in VORRAT and not NEU_LISTE: return "die Übergabe in %s beachten" % VORRAT[r]
     return "die Vorgangsdatei `docs/vorgang/%s.md` lesen (Auftrag, Feld „Zurück“)" % (nr or "<Nr>")
 ROUTINE_ROLLEN = {"Rundblick", "Ideenlauf", "Tagesbericht"}  # 1789, 1907 (Ideenlauf, Gesamtbild 4.3 G:451): Routinen mit eigenem Start (ohne Kern, ohne Rufname, ohne Feld „Zurück“), nur mit tools/1727-SCHARF
-NIE_ARCHIV = {"Ford"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
+NIE_ARCHIV = {"Ford", "Wache"}  # Ford, Wache (1964: vorher fehlte die Wache); Sokrates und Sonstige nach eigener Regel (197)
+
+def ohne_rollen_aus(ausschluss):
+    """1148, 1964: Namen aus --ohne, die eine Rolle sind (alte Rollen, Profile, Routinen, Wache; kosten.ROLLEN), nicht Nummern."""
+    rollen = set(kosten.ROLLEN) | set(startbar.profile()) | ROUTINE_ROLLEN
+    return {n for n in ausschluss if n in rollen or re.fullmatch(startbar.ROLLEN_NAMEN, n)}
 
 def geschuetzt():
     """1531 (Chef 17.11., 08:52 zur Sitzung Sokrates: „diese Sitzung definitiv nicht archivieren oder schließen lassen“): Kennungen aus der
@@ -885,11 +891,46 @@ def startsperre_zeile(sperren, sperr_nr, jetzt=None, rufnamen=None):
     return "- %s %s: Startsperre %s Start %s (lauf.py%s)" % (j.strftime("%H:%M"), j.strftime("%d.%m."), j.strftime("%H:%M"), ", ".join(sperren), "".join(", " + x for x in mit))
 
 
-def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None):
+def vorgang_texte(docs=None):
+    """2002: Texte aller Vorgangsdateien (docs/vorgang/*.md) für guthaben.fertige_sitzungen."""
+    d = os.path.join(docs or DOCS, "vorgang")
+    try: return [lesen(os.path.join(d, f)) for f in sorted(os.listdir(d)) if f.endswith(".md")]
+    except OSError: return []
+
+
+def sitzungen_lesen(seiten):
+    """2002: lebende Sitzungen aus gespeicherten Seiten von list_sessions oder der Kurzform (wie der Takt)."""
+    alle = {}; offen = []
+    for p in seiten:
+        for s in kosten.sitzungen(p, offen): alle[s["id"]] = s
+    return [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
+
+
+def laufend_setzen(bremse, sitz, marken, fertig=None, archiviert=()):
+    """2001/2002: bremse.laufend und bremse.namen: laufende Fachkräfte („Laufend“, Kopf; ohne fertige ohne Rückläufer, 2002 A), dazu
+    Startsperren unter SPERRE_MIN ohne Sitzung seither. sitz: je_rolle des Takts oder eine Liste lebender Sitzungen (Handstart)."""
+    import guthaben
+    if isinstance(sitz, list):
+        je = {}
+        for s in sitz:
+            s.setdefault("_info", (kosten.rolle(s.get("title", ""), s.get("created_at")), guthaben.ist_laufend(s, JETZT), 0, []))
+            je.setdefault(s["_info"][0], []).append(s)
+        sitz = je
+    if fertig is None: fertig = guthaben.fertige_sitzungen(vorgang_texte())
+    gesperrt = ["Startsperre %s %s" % (r, d.strftime("%H:%M")) for r, d in sorted(marken.items()) if guthaben.fachkraft(r) and (JETZT - d).total_seconds() < SPERRE_MIN * 60
+                and not any(z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN) for s in sitz.get(r, []))]
+    bremse.laufend = guthaben.laufende_fachkraefte(sitz, archiviert, fertig) + len(gesperrt)
+    bremse.namen = guthaben.laufende_namen(sitz, archiviert, fertig) + gesperrt  # 2001-Ü10: wer gezählt ist
+
+
+def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None, bremse=None, zeile=None):
     """1989 (Chef 23.11., 09:04, 09:11): Handstart außerhalb des Takts wie ein Start im Takt: START-Zeile (Modell, Aufwand, Umgebung,
     Repo, main, Titel „<Rolle> – <Nr>: Handstart (…)“) mit Kaufrepo-Satz, Startblock (mit_kern) und, scharf, Rufname; dazu
     „STARTSPERRE <Protokollzeile>“ mit Rolle, Nummer und Rufname (startsperre_zeile), damit rufname.rolle sie zuordnet.
-    sitzungen: (Titel, created_at) der heutigen Sitzungen für den Rufnamen; ohne sie die Rufnamen der heutigen Startsperren."""
+    sitzungen: (Titel, created_at) der heutigen Sitzungen für den Rufnamen; ohne sie die Rufnamen der heutigen Startsperren.
+    2002 (e): bremse (guthaben.Bremse mit laufend) und zeile (Vorgangszeile): hält die Obergrenze den Start an, nur „NICHTS“."""
+    if bremse is not None and (g := bremse.ober_grund(rolle, zeile)):
+        return ["NICHTS %s: Handstart %s angehalten: %s (2002)" % (rolle, nr, g)]
     neue_liste()
     mo, satz, hoch = modell(rolle, nr)
     msg = "%s\n\n%s Zuerst Start nach deiner Rollendatei.%s" % (rolle, nachricht.strip(), satz)
@@ -1136,6 +1177,7 @@ def auftrag_fehlt(nr, docs=None, titel=None):
     text = lesen(p) if os.path.isfile(p) else ""
     ab = juengster_auftrag(text)
     if not ab: return "kein Auftrag"
+    if (rl := ruecklaeufer_offen(text)): return rl  # 1964 (d)
     teil = text[ab[0]:]
     n = re.search(r"(?m)^## ", teil)
     try:
@@ -1145,6 +1187,20 @@ def auftrag_fehlt(nr, docs=None, titel=None):
         return "Auftrag nicht geprüft (%s)" % e
     return ("Auftrag: " + "; ".join(f[:2])) if f else None
 
+def ruecklaeufer_offen(text, jetzt=None):
+    """1964 (d, 1960-Ü7): Übergabezeile an den Arbeitsplaner, nicht erledigt, jünger als der jüngste „## Auftrag (…)“ = Rückläufer,
+    der neue Auftrag steht noch aus: Grund (kein START, Zeile „Auftrag“), sonst None."""
+    import uebergabe as _ue
+    k = auftrag_koepfe(text, jetzt)
+    if not k: return None
+    seit = max(d for d, _ in k); j = jetzt or JETZT
+    for z in _ue.zeilen(text or ""):
+        if z["an"].strip() != "Arbeitsplaner" or z["z"].strip().startswith("erledigt"): continue
+        t, mo, h, mi = (int(x) for x in re.findall(r"\d+", z["seit"]))
+        d = datetime.datetime(j.year if (mo, t) <= (j.month, j.day) else j.year - 1, mo, t, h, mi)
+        if d > seit: return "Rückläufer: %s an Arbeitsplaner %s seit %s, neuer Auftrag fehlt" % (z["k"], z["z"].strip(), z["seit"])
+    return None
+
 ARCHIV_SCHUTZ_MIN = 15
 def schutz_min(scharf=None):
     """1739 (7.1 „Archivieren mit Schutz 15 Minuten“; Büro-Gegenüberstellung: „nie binnen 15 Minuten nach der letzten Chefnachricht“):
@@ -1152,29 +1208,32 @@ def schutz_min(scharf=None):
     Ereignis (updated_at; enger als verlangt, nie weiter). Bis zur Umschaltung (tools/1727-SCHARF) 1 Minute (340.10 (c))."""
     return ARCHIV_SCHUTZ_MIN if (ist_scharf() if scharf is None else scharf) else 1
 
-AUFTRAG_KOPF = re.compile(r"(?m)^## Auftrag \((\d\d)\.(\d\d)\.,? (\d\d):(\d\d)\)")
+# 1964: eine Kopfregel „## Auftrag ([Name, [Rolle, ]]TT.MM., HH:MM[; Zusatz])“ (auftrag.py, Planer mit Rufname, Rückläufer mit Zusatz)
+AUFTRAG_KOPF = re.compile(r"(?m)^## Auftrag \((?:[^()\n\d,;]+, ){0,2}(\d\d)\.(\d\d)\.,? (\d\d):(\d\d)[;)][^\n]*")
+
+def auftrag_koepfe(text, jetzt=None):
+    """1964: [(Zeit ohne Zone, Ende der Kopfzeile)] aller Köpfe „## Auftrag (…)“ nach AUFTRAG_KOPF; Jahr: dieses, liegt TT.MM. nach jetzt, das vorige."""
+    j = jetzt or JETZT; aus = []
+    for m in AUFTRAG_KOPF.finditer(text or ""):
+        t, mo, h, mi = (int(x) for x in m.groups())
+        try: aus.append((datetime.datetime(j.year if (mo, t) <= (j.month, j.day) else j.year - 1, mo, t, h, mi), m.end()))
+        except ValueError: continue
+    return aus
 
 def juengster_auftrag(text, jetzt=None):
     """1798 (Kern Arbeitsplaner: Auftrag oben in die Vorgangsdatei): (Anfang nach der Kopfzeile, Ende vor dem nächsten „## “) des
-    jüngsten Abschnitts „## Auftrag (TT.MM., HH:MM)“ nach Zeit, gleich wo er steht (alte Dateien: unten); sonst None."""
-    j = jetzt or JETZT; beste = None
-    for m in AUFTRAG_KOPF.finditer(text or ""):
-        t, mo, h, mi = (int(x) for x in m.groups())
-        try: d = datetime.datetime(j.year if (mo, t) <= (j.month, j.day) else j.year - 1, mo, t, h, mi)
-        except ValueError: continue
-        if beste is None or d >= beste[0]: beste = (d, m.end())
+    jüngsten Abschnitts „## Auftrag (…)“ (AUFTRAG_KOPF) nach Zeit, gleich wo er steht (alte Dateien: unten); sonst None."""
+    beste = None
+    for d, ende in auftrag_koepfe(text, jetzt):
+        if beste is None or d >= beste[0]: beste = (d, ende)
     if not beste: return None
     n = re.search(r"(?m)^## ", text[beste[1]:])
     return beste[1], (beste[1] + n.start()) if n else len(text)
 
 def auftrag_seit(text, jetzt=None):
-    """Zeit des jüngsten Abschnitts „## Auftrag (TT.MM., HH:MM)“ der Vorgangsdatei (auftrag.py), sonst None."""
-    j = jetzt or JETZT; beste = None
-    for t, m, h, mi in AUFTRAG_KOPF.findall(text or ""):
-        try: d = datetime.datetime(j.year if (int(m), int(t)) <= (j.month, j.day) else j.year - 1, int(m), int(t), int(h), int(mi), tzinfo=BERLIN)
-        except ValueError: continue
-        beste = max(beste or d, d)
-    return beste
+    """Zeit (Berlin) des jüngsten Abschnitts „## Auftrag (…)“ der Vorgangsdatei, gleiche Kopfregel wie juengster_auftrag (1964), sonst None."""
+    k = auftrag_koepfe(text, jetzt)
+    return max(d for d, _ in k).replace(tzinfo=BERLIN) if k else None
 
 def leistungsstufe(s, text):
     """„Hoch“ bei Umgebung HOCH oder „Leistungsstufe: Hoch“ im jüngsten Auftrag (Feld 8 nach 1742), sonst „Mittel“."""
@@ -1391,7 +1450,15 @@ def main():
         if r[3:]:
             import rufname as _r2; ss = []
             for p in r[3:]: ss += _r2.lies_sitzungen(lesen(p))
-        zs = start_zeilen(r[0], r[1], r[2], ss)
+        br = None
+        if ist_scharf():  # 2002 (e): Handstart prüft die Obergrenze wie der Takt; Laufende aus den übergebenen Seiten (Kurzform), sonst unbekannt → kein Start
+            import guthaben
+            br = guthaben.Bremse(JETZT, lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")))
+            if br.ober and guthaben.fachkraft(r[0]):
+                if r[3:]: laufend_setzen(br, sitzungen_lesen(r[3:]), startmarken())
+                else: print("WARNUNG Handstart ohne Sitzungsliste: Laufende unbekannt, Fachkraft startet nicht; Seiten von list_sessions oder Kurzform anhängen (2002)")
+                for x in br.zeilen(): print(x)
+        zs = start_zeilen(r[0], r[1], r[2], ss, bremse=br, zeile=next((d for d in startbar.zeilen_liste() if d["nr"] == r[1]), None) if br else None)
         sp = [x[len("STARTSPERRE "):] for x in zs if x.startswith("STARTSPERRE ")]
         if "--sperre" in a and sp:
             if protokoll_pushen(lambda alt: alt.rstrip("\n") + "\n" + sp[0] + "\n", "Startsperre %s %s (lauf.py --start, 1989)" % (r[0], r[1])):
@@ -1413,7 +1480,7 @@ def main():
         zl = {d["nr"]: d for d in startbar.zeilen_liste()}
         bremse = guthaben.Bremse(JETZT, lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")), rueck=lambda n: guthaben.ruecklaeufer(zl.get(n)))
         vorab.extend(bremse.zeilen()); nur_muss = nur_muss or bremse.nur_muss()
-    sperre = "--sperre" in a; besetz = "--besetzung" in a
+    sperre = "--sperre" in a  # 1997: --besetzung erlaubt, ohne Wirkung (jeder Lauf schreibt und pusht die Besetzung)
     liegt = "--liegt" in a  # 891: Lauf auf „Start <Rolle> <Nr>“; eine ruhende Sitzung unter 20 Minuten belegt dann nicht, sie bekommt WEITER
     ausschluss = {}; wecker = set()
     for i, x in enumerate(a):
@@ -1424,7 +1491,7 @@ def main():
             else: print("WARNUNG --ohne %s ohne Grund ignoriert (190.2)" % nr)
     # 1148 (von Ford): --ohne <Rolle>:Grund nimmt die ganze Rolle aus diesem Lauf (START,
     # ARCHIVIERE und die Warnung „Start nicht angekommen“); vorher wirkte nur --ohne <Nr>, und Ford bekam weiter START Spike
-    ohne_rollen = {n for n in ausschluss if re.fullmatch(startbar.ROLLEN_NAMEN, n)}
+    ohne_rollen = ohne_rollen_aus(ausschluss)  # 1964: auch Profile, Routinen (Tagesbericht), Wache
     seiten = [x for i, x in enumerate(a) if not x.startswith("--") and not (i and a[i - 1] in ("--ohne", "--wecker"))]
     if not seiten: sys.exit(__doc__)
     offen = []; alle = {}
@@ -1606,6 +1673,10 @@ def main():
         ausgabe.append("WARNUNG-LAUT Start %s nicht angekommen: Startsperre %s, keine Sitzung %s seither; Disponent: START ausführen oder mit --ohne NR:Grund ausschließen (837)" % (name, d.strftime("%d.%m., %H:%M"), name))
         neue_marken.append(schl)
     for name in nicht_da: marken.pop(name, None)  # (2) zählt nicht als Belegung
+    if bremse and bremse.ober:  # 2001: laufende Fachkräfte aus der Sitzungsliste („Laufend“, Kopf), dazu Startsperren unter SPERRE_MIN ohne Sitzung seither
+        laufend_setzen(bremse, je_rolle, marken, archiviert=archiviert)
+        neu_ = [l for l in bremse.zeilen() if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l]
+        ausgabe[:] = [neu_[0] if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l and neu_ else l for l in ausgabe]
     # Starten
     for nr, grund in sorted(ausschluss.items()): ausgabe.append("AUSGESCHLOSSEN %s: %s" % (nr, grund))
     ausgabe.extend(ohne_ueberholt(ausschluss, leb))
@@ -1788,6 +1859,8 @@ def main():
         return zl or warn
     def einmal(marke, zeile, tb=False):
         if marke in marke_text: return
+        if tb and tb_rolle in ohne_rollen:  # 1964: --ohne Tagesbericht: kein START, keine Sperre, keine Marke (nächster Lauf startet ihn)
+            ausgabe.append("NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (tb_rolle, tb_rolle, ausschluss[tb_rolle])); return
         if per_belegt and (tb or "| Perikles |" in zeile):
             ausgabe.append("NICHTS %s: %s wartet, %s läuft (149a)" % (tb_rolle, marke, tb_rolle)); return
         ausgabe.append(zeile() if callable(zeile) else zeile); wochen.append(marke)
@@ -1812,7 +1885,7 @@ def main():
         wie = ("%s läuft noch, Disponent erinnert ihn" if per_belegt else "%s neu gestartet") % tb_rolle  # D55.5: kein „neu gestartet“ ohne Start
         ausgabe.append("TAGESBERICHT-FEHLT %s: Tagesbericht um %s nicht da; Disponent meldet laut „448: Tagesbericht fehlt, %s“" % (heute, JETZT.strftime("%H:%M"), wie))
         wochen.append("Tagesbericht fehlt %s" % heute)
-        if "Tagesbericht %s" % heute in marke_text and not per_belegt:  # sonst startet ihn die Zeile oben schon
+        if "Tagesbericht %s" % heute in marke_text and not per_belegt and tb_rolle not in ohne_rollen:  # 1964; sonst startet ihn die Zeile oben schon
             ausgabe.append(tb_zeile(", fehlte um 10 Uhr (Sa, So 12 Uhr)" if not tb_scharf else " Fehlte um 10 Uhr (Sa, So 12 Uhr)."))
     # Wochenziel und Wochenzählung (früher WOCHENSTART) sind seit 719 Vorgänge aus startbar.WOCHENTERMINE, angelegt oben vor dem Plan
     # 194.2: Datei eines anderen in der Chefsache ohne „Stellungnahme Sokrates“ → Sokrates starten, höchstens zweimal am Tag (Marke im Protokoll)
@@ -1860,6 +1933,11 @@ def main():
         if r in marken and (JETZT - marken[r]).total_seconds() < SPERRE_MIN * 60:
             ausgabe.append("NICHTS %s: Start unterwegs (Startsperre %s), offene Zeilen gehen im nächsten Lauf per NACHRICHT (1739)" % (r, marken[r].strftime("%H:%M"))); return True
         if nacht_halt(r, nr, ausgabe, morgen): return True
+        if bremse:  # 2001: auch der Start für offene Übergabezeilen hält Guthaben und Laufsperre ein (vorher an der Bremse vorbei)
+            zl_ = startbar_zeile(nr)
+            if (g := bremse.erlaubt(r, (zl_ or {}).get("kl", "M"), zl_)):
+                ausgabe.append("NICHTS %s: offene Übergabe %s angehalten: %s" % (r, nr, g)); return True
+            bremse.zaehle(r, zl_)
         mo, satz, hoch = modell(r, nr)
         msg = "%s\n\n%s Zuerst Start nach deiner Rollendatei.%s" % (r, teil, satz)
         ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION,
@@ -1904,6 +1982,10 @@ def main():
         except Exception as e: ausgabe.append("WARNUNG LIEGT nicht geprüft: %s (1799)" % str(e)[:120])
     # 1472: Chefwort zum Kaufrepo an jede Startnachricht (START: letztes Feld), bei WEITER vor dem Hinweis auf send_message
     ausgabe = [mit_kaufrepo(l) for l in ausgabe]
+    if ohne_rollen:  # 1964: eine Regel für jede Rolle und Routine: mit --ohne <Rolle> kein START und keine Startsperre, gleich welcher Teil ihn schrieb
+        ausgabe = ["NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (r_, r_, ausschluss[r_]) if (r_ := l[6:].split(" |")[0].strip()) in ohne_rollen and l.startswith("START ") else l
+                   for l in ausgabe]
+        sperren[:] = [s_ for s_ in sperren if s_ not in ohne_rollen]
     ausgabe = [mit_kern(l) for l in ausgabe]
     ausgabe += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
     rufnamen = {}  # 1957: Rolle → Rufnamen der STARTs, für die Startsperre
@@ -1917,6 +1999,11 @@ def main():
     ausgabe = warnung_einmal_je_stunde(ausgabe)  # 1988 (Zusatz Chef 09:26): gleiche Warnung höchstens einmal je Stunde
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
+    if sperre:  # 1999 (d): gescheiterter Start/Neustart wird eine rohe Zeile im Lehrenbuch (je Tag und Rolle einmal)
+        try:
+            import lehren
+            lehren.aus_lauf(ausgabe)
+        except Exception as e: print("WARNUNG Lehrenbuch Betrieb nicht geschrieben: %s (1999)" % str(e)[:120])
     scharf_push = ist_scharf() and bool(sperren)  # 1892 (Lauf 3 Disponent L1): scharf setzt lauf.py die Startsperre bei START selbst und pusht
     if (sperre or scharf_push) and (sperren or neue_warnungen or wochen or morgen):
         def anhaengen(t):
@@ -1955,11 +2042,12 @@ def main():
                                                                                    ("an " + juengste(sitz)["id"]) if sitz else "-"))
         n = aufraeumen()
         if n: print("Aufgeräumt: %d Zeilen aus Protokoll und LISTE-VORGAENGE.md (270; Notizen pushen)" % n)
-    if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
     # 1100 A (6), Chef 13.11., 09:29: nichts zu starten, nichts zu melden und nichts zu pushen → Ford endet nach diesem Schritt (kein Telegram, kein Push)
     zahl_zeile = lambda l: l.startswith("WARNUNG Abgleich: ") and "ohne Build (ganz einmal am Tag" in l
     if all(l.startswith("NICHTS") or zahl_zeile(l) for l in ausgabe) and not geaendert() and not NOTIZ_WARNUNG:
         print("LEERLAUF: nichts zu starten, nichts zu melden, nichts zu pushen; Ford endet hier mit der Chatzeile „Ford HH:MM ok“ (1100 A 6)")
+    # 1997: zuletzt, ohne Schalter (auch --besetzung hat keine eigene Wirkung mehr): Absturz vorher = alte Marke = ALARM
+    herzschlag_pushen([s for s in leb if s["id"] not in archiviert])
 
 def geaendert():
     """1100 A (6): hat dieser Lauf Notizen geschrieben (Protokoll, Besetzung, Vorgangsliste)? Dann ist er nicht leer, Ford pusht."""
@@ -2064,8 +2152,8 @@ def ohne_ueberholt(ausschluss, leb):
             if not tätig: aus.append("OHNE-ÜBERHOLT %s: „in Arbeit“, aber keine Sitzung mit %s im Titel seit %d h" % (nr, nr, OHNE_ARBEIT_H))
     return aus
 
-def besetzung_schreiben(leb):
-    p = os.path.join(DOCS, "ARBEIT-BESETZUNG.md"); t = lesen(p)
+def besetzung_text(t, leb):
+    """Tabelle aus leb und Zeitmarke „**Stand:** … (lauf.py)“ in den Text t von ARBEIT-BESETZUNG.md; 1997: Zeitmarke immer neu."""
     zeilen = ["| Rolle | Sitzung | Vorgang | Zweig | seit |", "|---|---|---|---|---|"]
     try: vz = {d["nr"]: d.get("zweig", "–") for d in startbar.vorgangsliste(lesen(os.path.join(DOCS, "LISTE-VORGAENGE.md")))}  # 1407: Zweig aus der Vorgangszeile
     except Exception: vz = {}
@@ -2078,22 +2166,34 @@ def besetzung_schreiben(leb):
         zeilen.append("| %s | [%s](https://claude.ai/code/%s) | %s | %s | %s |" % (r, titel, s["id"], zl, zw, berlin(z(s["created_at"]))))
     tabelle = "\n".join(zeilen)
     neu = re.sub(r"\| Rolle \| Sitzung.*?(?=\n\n|\Z)", lambda m: tabelle, t, count=1, flags=re.S)
-    neu_ohne = re.sub(r"\*\*Stand:\*\*[^\n]*", "", neu)
-    alt_ohne = re.sub(r"\*\*Stand:\*\*[^\n]*", "", t)
-    if neu_ohne == alt_ohne:
-        # 1764 Herzschlag: Zeitmarke spätestens nach 60 Minuten erneuern, auch ohne geänderte Tabelle (herzschlag.py, herzschlag.yml)
-        try:
-            import herzschlag
-            d = herzschlag.marke(t, JETZT)
-            alt = d is None or (JETZT - d).total_seconds() >= 3600
-        except Exception:
-            alt = False
-        if not alt or "**Stand:**" not in t:
-            print("Besetzung unverändert."); return
-        print("Besetzung unverändert, Zeitmarke erneuert (1764 Herzschlag).")
-    neu = re.sub(r"\*\*Stand:\*\*[^\n]*", "**Stand:** %s (lauf.py)" % berlin(JETZT), neu, count=1)
-    open(p, "w", encoding="utf-8").write(neu)
-    print("Besetzung geschrieben.")
+    stand = "**Stand:** %s (lauf.py)" % berlin(JETZT)
+    if "**Stand:**" in neu: return re.sub(r"\*\*Stand:\*\*[^\n]*", lambda m: stand, neu, count=1)
+    return neu.rstrip("\n") + "\n\n" + stand + "\n"
+
+def herzschlag_pushen(leb):
+    """1997 (Chef 23.11., 13:56): Totmannschalter. Am Ende jedes vollständigen Laufs, ohne Schalter: Tabelle und Zeitmarke von
+    ARBEIT-BESETZUNG.md auf origin/main schreiben und pushen (wie protokoll_pushen, ein Commit, lokale Datei bleibt). Stürzt der Lauf
+    vorher ab, bleibt die Marke alt und herzschlag.py meldet ALARM. Hat die lokale Datei Ungepushtes oder geht der Push nicht (1918):
+    lokal schreiben, der Disponent pusht selbst."""
+    pfad = "docs/ARBEIT-BESETZUNG.md"
+    _ue = wurzel = None
+    try:
+        import uebergabe as _ue
+        # aus der Arbeitskopie (abgelöster HEAD) liegen die Notizen in ../bornim-main: dort committen und pushen (Test lauf_herzschlag_test.py)
+        wurzel = _ue.WURZEL; _ue.WURZEL = os.path.normpath(os.path.join(DOCS, ".."))
+        grund = _ue.ungepusht(pfad)
+        if grund: raise RuntimeError("lokale ARBEIT-BESETZUNG.md %s (1918)" % grund)
+        _ue.atomar_dateien([pfad], lambda alt: ({pfad: besetzung_text(alt[pfad], leb).rstrip("\n") + "\n"}, True),
+                           "Herzschlag: Zeitmarke %s (lauf.py, 1997)" % JETZT.strftime("%H:%M"))
+        print("HERZSCHLAG gepusht (1997): Zeitmarke %s und Besetzung auf origin/main; vor dem nächsten eigenen Commit `git pull --rebase`" % berlin(JETZT))
+        return True
+    except Exception as e:
+        p = os.path.join(DOCS, "ARBEIT-BESETZUNG.md")
+        protokoll_lokal(p, lambda t: besetzung_text(t, leb))
+        print("HERZSCHLAG NICHT GEPUSHT (1997): %s; Zeitmarke lokal geschrieben, ARBEIT-BESETZUNG.md jetzt committen und pushen, sonst ALARM nach 2 h" % str(e)[:160])
+        return False
+    finally:
+        if _ue is not None and wurzel is not None: _ue.WURZEL = wurzel
 
 def warnen(ausgabe, neue, bekannt, rolle, zeit, grund):
     """WARNUNG beim ersten Mal, WARNUNG-LAUT, wenn dieselbe Übergabe schon einmal gewarnt hat (190.7)."""

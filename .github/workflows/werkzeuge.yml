@@ -44,10 +44,13 @@ jobs:
           python3 tools/gegengelesen_test.py    # 1783 Gegengelesen mit Rufnamen
           python3 tools/kostenbericht_test.py   # 1739 Kosten in drei Teilen
           python3 tools/lehren_test.py          # 1739 Lehrenbuch
+          python3 tools/betrieb_lehre_test.py   # 1999 Betriebsfehler roh ins Lehrenbuch, Sperre Vorlage ohne Abgleich, 461b ersetzt durch
           python3 tools/lieferung_test.py       # 1739 wartet auf leeren bei Lieferung
           python3 tools/tagesbericht_test.py    # 1739 Tagesbericht: Wo stehen wir, Fristen
-          python3 tools/herzschlag.py --test    # 1788 (1764) Herzschlag
+          python3 tools/herzschlag.py --test    # 1788 (1764) Herzschlag, 1997 Wache-Fälle
+          python3 tools/lauf_herzschlag_test.py # 1997 jeder Lauf ohne Schalter pusht die Zeitmarke
           python3 tools/ladesumme_test.py       # 1739 Größen und Ladesumme
+          python3 tools/lauf_1964_test.py       # 1964 Wache im Titel, --ohne jede Rolle/Routine, Kopfregel Auftrag, Rückläufer hält START
           python3 tools/lauf_kern_test.py       # 1923 Startblock, 1986 Sokrates mit Kern Leitung und Gedächtnis
           python3 tools/leitung_test.py         # 1988 Neustart Leitung und Disponent ab 300 Tsd. Token, Warnung einmal je Stunde
           python3 tools/sammelzeile_test.py     # 1971 stündliche Sammelzeile erledigter Vorgänge

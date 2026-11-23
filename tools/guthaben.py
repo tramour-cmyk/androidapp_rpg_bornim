@@ -15,9 +15,22 @@ Rückläufer des Chefs; frei bleiben dann nur Wache und Sokrates (FREI_ROLLEN). 
 Zitat („alles klar“ stand in 51 von 1184 Archivzitaten), sondern aus der Marke „, auch Rückläufer“ in der fetten Laufsperre nach dem
 Pfeil, die Sokrates nur bei diesem Chefwort setzt: „→ **Laufsperre: höchstens zwei Starts, spätestens 18:00, auch Rückläufer**“.
 
+Laufsperre als Obergrenze (2001, Chef 23.11., 14:37; Archiv 287): höchstens N Fachkräfte laufen zugleich, neben der Startzahl:
+„→ **Laufsperre: höchstens <Zahl> Fachkräfte zugleich[, nur <Bereiche>][, nachts HH–HH keine][, spätestens TT.MM., HH:MM]**“
+(Zahl als Ziffer oder Wort; Bereiche durch Komma oder „und“ wie bereiche.py, „Spiel“ = G Regeln, E Kampf, E Figuren, E Welt;
+Eilt darf auch außerhalb der Bereiche und, 2002 (B, Chef 23.11., 15:48), bei N Laufenden noch starten, höchstens N+1; nachts startet
+keine Fachkraft, auch nicht Eilt). 2002 (A): eine Fachkraft, deren jüngste Rückmeldung „fertig“ ist und an die kein Rückläufer (Prüfwort außer
+„ja“ danach in derselben Vorgangsdatei, 2002-Ü4) ging, zählt nicht (fertige_sitzungen), außer sie arbeitet danach wieder (working,
+updated_at nach dem „fertig“, wieder_taetig). Takt, offene Übergaben und Handstart (lauf.py --start) prüfen
+dieselbe Bremse.
+Läuft = lauf.py „Laufend“ (working/blocked, updated_at unter 60 Minuten, Kopf von lauf.py), nie ARBEIT-BESETZUNG.md; jeder START
+dieses Laufs zählt dazu. Frei, zählt nicht (eigene Menge FREI_OBER): Arbeitsplaner, Prüfer, Tester, Wache, Sokrates, Tagesbericht (und
+Routinen Sokrates', Disponent, Ford). Ohne „spätestens“ STANDARD_STUNDEN mit Warnung; ohne „Chef“ in der Klammer keine. Beispiel 287:
+„→ **Laufsperre: höchstens drei Fachkräfte zugleich, nur Spiel, nachts 23–07 keine, spätestens 28.11., 20:00**“.
+
 Vorbild (erst nachsehen, wie andere es lösen): Budget-Aktionen in Cloud-Konten (Schwellen 80/100 % lösen gestufte Aktionen aus, bis
 zum Sperren neuer Starts) und Ausgabegrenzen von CI-Diensten (bei 100 % keine neuen Läufe); beide werten einen Messwert nur in
-seinem Abrechnungszeitraum.
+seinem Abrechnungszeitraum. Obergrenze: Jenkins-Executors (feste Zahl gleichzeitiger Läufe je Knoten, Rest wartet in der Schlange).
 
   guthaben.py            Stufe und Laufsperre jetzt (Prüfen von Hand)
 """
@@ -30,6 +43,9 @@ RESET = (5, 19, 59)  # Sa 19:59 Berliner Zeit (ARBEIT-BETRIEB.md „Guthaben“:
 STUFEN = ((100, "Stillstand"), (95, "nur Rückläufer"), (80, "nur Muss"))
 FREI_ROLLEN = {"Sokrates", "Rundblick", "Ideenlauf", "Wache", "Ford"}  # 1907: Ideenlauf ist Sokrates
 STANDARD_STUNDEN = 24
+FREI_OBER = {"Arbeitsplaner", "Planer", "Perikles", "Prüfer", "Diogenes", "Wache", "Sokrates", "Rundblick", "Ideenlauf", "Tagesbericht",
+             "Disponent", "Ford", "Tester"}  # 2001; Tester: 2001-Ü10: frei unter der Obergrenze; FREI_ROLLEN der alten Form bleibt
+SPIEL = ("G Regeln", "E Kampf", "E Figuren", "E Welt")  # 2001 (Archiv 287, 22.11., 19:57: „nur Spiel (Regeln, Kampf, Figur, Welt)“)
 ZAHLWORT = dict(nachtstarts.ZAHLWORT, keine=0, null=0, keinen=0)
 
 
@@ -99,6 +115,152 @@ def laufsperre(jetzt, archiv=None):
     return max(g, key=lambda a: a["ab"]) if g else None
 
 
+def obergrenzen(archiv, jahr):
+    """2001: Zeilen „→ **Laufsperre: höchstens <Zahl> Fachkräfte zugleich[, nur …][, nachts HH–HH keine][, spätestens …]**“."""
+    import bereiche
+    aus = []
+    for l in archiv.splitlines():
+        k = re.search(r"\((\d\d)\.(\d\d)\., (\d\d):(\d\d), Chef\b", l)
+        m = re.search(r"→.*?\*\*Laufsperre:? höchstens (\w+) Fachkräfte? zugleich([^*]*)\*\*", l)
+        if not k or not m: continue
+        z = m.group(1).lower()
+        n = int(z) if z.isdigit() else ZAHLWORT.get(z)
+        if n is None: continue
+        try:
+            ab = datetime.datetime(jahr, int(k.group(2)), int(k.group(1)), int(k.group(3)), int(k.group(4)), tzinfo=BERLIN)
+        except ValueError:
+            continue
+        rest = m.group(2)
+        nur = re.search(r", nur (.+?)(?=, nachts|, spätestens|$)", rest)
+        ber = None
+        if nur:
+            ber = []
+            for w in re.split(r",\s*|\s+und\s+", nur.group(1).strip()):
+                if w == "Spiel": ber += SPIEL
+                elif bereiche.gueltig(w): ber.append(w)
+                else: ber = "unbekannt: " + w; break
+            if isinstance(ber, list): ber = tuple(ber)
+        na = re.search(r", nachts (\d\d?)[–-](\d\d?) keine", rest)
+        sp = re.search(r", spätestens (?:(\d\d)\.(\d\d)\., )?(\d\d):(\d\d)", rest)
+        try:
+            if sp and sp.group(1):
+                bis = datetime.datetime(jahr, int(sp.group(2)), int(sp.group(1)), int(sp.group(3)), int(sp.group(4)), tzinfo=BERLIN)
+                if bis < ab - datetime.timedelta(days=180): bis = bis.replace(year=jahr + 1)
+            elif sp:
+                bis = ab.replace(hour=int(sp.group(3)), minute=int(sp.group(4)))
+                if bis <= ab: bis += datetime.timedelta(days=1)
+            else:
+                bis = ab + datetime.timedelta(hours=STANDARD_STUNDEN)
+        except ValueError:
+            continue
+        q = re.match(r"- \*\*([^,*]+)", l)
+        aus.append(dict(n=n, ab=ab, bis=bis, ende=bool(sp), bereiche=ber, nacht=(int(na.group(1)), int(na.group(2))) if na else None,
+                        quelle=q.group(1).strip() if q else "?"))
+    return aus
+
+
+def obergrenze(jetzt, archiv=None):
+    """2001: geltende Obergrenze (die jüngste) oder None."""
+    g = [a for a in obergrenzen(nachtstarts.archiv() if archiv is None else archiv, jetzt.year) if a["ab"] <= jetzt <= a["bis"]]
+    return max(g, key=lambda a: a["ab"]) if g else None
+
+
+def fachkraft(rolle):
+    """2001-Ü12 (Entscheid 16:57): unbekannt („Sonstige“) zählt nie als frei."""
+    return re.sub(r" \d+$", "", rolle or "") not in FREI_OBER
+
+
+TITEL_ROLLE = re.compile(r" – \d[0-9a-zA-Z.]*: (Prüfung|Test(?:er)?)\b")
+
+
+def ober_rolle(rolle, titel):
+    """2001-Ü10 (Prüfer 23.11., 15:54): Titel „<Rufname> – <Nr>: Prüfung …“ → Prüfer, „…: Test …“ → Tester, vor der Rolle aus dem
+    Vorgang oder einer doppelten Rufnamen-Sperre (kosten.rolle gab für „Hanna – 1675: Prüfung“ Figur); sonst die Rolle."""
+    m = TITEL_ROLLE.search(titel or "")
+    if m: return "Prüfer" if m.group(1) == "Prüfung" else "Tester"
+    return vorgang_rolle(titel) or rolle if rolle in (None, "", "Sonstige") else rolle
+
+
+ZEILEN = None  # Vorgangsliste (startbar.vorgangsliste); None: aus docs/ gelesen. Tests setzen sie.
+TITEL_NR = re.compile(r" – (\d{2,4}[a-zA-Z]?(?:\.\d+[a-z]?)*)\b")
+
+
+def vorgang_rolle(titel):
+    """2001-Ü12 (Entscheid 16:57): Besitzer des Vorgangs aus „<Name> – <Nr>…“, auch bei Rufnamen außerhalb der Liste (Isolde); sonst None."""
+    global ZEILEN
+    m = TITEL_NR.search(titel or "")
+    if not m: return None
+    if ZEILEN is None:
+        try:
+            import startbar
+            ZEILEN = startbar.vorgangsliste(startbar.lesen(startbar.LISTE))
+        except Exception:
+            return None  # ohne Liste bleibt die Rolle „Sonstige“ und zählt (nie frei)
+    return next((d.get("besitzer") for d in ZEILEN if d.get("nr") == m.group(1)), None)
+
+
+def ist_laufend(s, jetzt):
+    """lauf.py „Laufend“ (Kopf): working/blocked (oder RUNNING) und updated_at unter 60 Minuten. 2002: eine fertige Sitzung mit Frage
+    steht auf blocked und zählte so bis 60 Minuten weiter (Zora 23.11., fertig 14:57)."""
+    b = s.get("status_bucket", "")
+    u = datetime.datetime.fromisoformat(s["updated_at"].replace("Z", "+00:00"))
+    return ("WORKING" in b or "BLOCKED" in b or s.get("session_status") == "SESSION_STATUS_RUNNING") and (jetzt - u).total_seconds() < 3600
+
+
+RUECK = re.compile(r"(?m)^- \*\*(\d\d)\.(\d\d)\., (\d\d):(\d\d)\*\*, [^\n]*?(?: \(`(session_[^`]*)`\))?:\n> (.*)")
+RUECKLAEUFER = {"nein", "nein, Auftrag", "Beleg fehlt", "steckt fest"}  # 2002-Ü4 (Sokrates 23.11., 16:21): jedes Prüfwort außer „ja“
+
+
+def fertige_sitzungen(texte):
+    """2002 (A): Sitzungen, deren jüngste Rückmeldung (über alle Vorgangsdateien) „fertig“ ist, ohne Rückläufer an sie: kein Prüfwort
+    außer „ja“ (nein, nein Auftrag, Beleg fehlt, steckt fest; Signalworte wie rueckmeldung.worte) in derselben Datei danach (1739,
+    2002-Ü4). Ergebnis {Sitzung: (Monat, Tag, Std, Min) des „fertig“} für wieder_taetig. Nie aus ARBEIT-BESETZUNG.md."""
+    import rueckmeldung
+    letzte = {}
+    for i, t in enumerate(texte):
+        for m in RUECK.finditer(t or ""):
+            k = (int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4)))
+            if m.group(5) and (m.group(5) not in letzte or k >= letzte[m.group(5)][0]): letzte[m.group(5)] = (k, i, rueckmeldung.worte(m.group(6)))
+    aus = {}
+    for sid, (k, i, w) in letzte.items():
+        if "fertig" not in w: continue
+        if any((int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4))) > k and rueckmeldung.worte(m.group(6)) & RUECKLAEUFER
+               for m in RUECK.finditer(texte[i])): continue
+        aus[sid] = k
+    return aus
+
+
+def wieder_taetig(s, k):
+    """2002-Ü4 (Sokrates 16:21 (2)): fertige Sitzung arbeitet wieder: status_bucket WORKING und updated_at nach dem „fertig“ k
+    (Monat, Tag, Std, Min, Berliner Zeit; Jahr aus updated_at, über Silvester ein Jahr zurück). Ohne beides: nicht tätig."""
+    if not k or "WORKING" not in s.get("status_bucket", "") or not s.get("updated_at"): return False
+    u = datetime.datetime.fromisoformat(s["updated_at"].replace("Z", "+00:00")).astimezone(BERLIN)
+    try: f = datetime.datetime(u.year, k[0], k[1], k[2], k[3], tzinfo=BERLIN)
+    except ValueError: return False
+    if (f - u).days > 180: f = f.replace(year=u.year - 1)
+    return u > f + datetime.timedelta(minutes=1)  # Rückmeldung minutengenau: erst nach ihrer Minute
+
+
+def _laufend(je_rolle, archiviert, fertig=()):
+    return [(ober_rolle(r, s.get("title", "")), s) for r, ss in je_rolle.items() for s in ss if s["id"] not in archiviert
+            and (s["id"] not in fertig or wieder_taetig(s, fertig.get(s["id"]) if isinstance(fertig, dict) else None)) and s["_info"][1]]
+
+
+def laufende_fachkraefte(je_rolle, archiviert=(), fertig=()):
+    """2001: Zahl laufender Fachkraft-Sitzungen aus der Sitzungsliste von lauf.py (s["_info"] = (Rolle, Laufend, …), Kopf von lauf.py);
+    2002 (A): ohne fertige (fertige_sitzungen)."""
+    return sum(1 for r, s in _laufend(je_rolle, archiviert, fertig) if fachkraft(r))
+
+
+def laufende_namen(je_rolle, archiviert=(), fertig=()):
+    """2001-Ü10: „<Rufname> (<Rolle>)“ je gezählter Fachkraft, sortiert, für die Zeile LAUFSPERRE."""
+    return sorted("%s (%s)" % (re.split(r" – |, | \(", s.get("title", "") or s["id"])[0], r) for r, s in _laufend(je_rolle, archiviert, fertig) if fachkraft(r))
+
+
+def eilt(zeile):
+    return isinstance(zeile, dict) and (bool(zeile.get("eilt")) or "„jetzt“" in zeile.get("titel", "") + zeile.get("stand", ""))
+
+
 def gezaehlt(sperre, jetzt, protokoll=None, rueck=lambda nr: False):
     """Starts seit Beginn der Laufsperre, ohne freie Rollen und ohne Rückläufer des Chefs (Zuordnung „<Rolle> <Nr>“ in der Klammer)."""
     p = protokoll if protokoll is not None else nachtstarts.zeilen(sperre["ab"])
@@ -132,9 +294,14 @@ def ruecklaeufer(d):
 class Bremse:
     """Ein Lauf von lauf.py: erlaubt(rolle, nr, kl, zeile) → None oder Grund; zaehle() nach jedem START/WEITER."""
 
-    def __init__(self, jetzt, betrieb, archiv=None, protokoll=None, rueck=lambda nr: False):
+    def __init__(self, jetzt, betrieb, archiv=None, protokoll=None, rueck=lambda nr: False, laufend=None):
         self.stufe, self.prozent, self.zeit = stufe(betrieb, jetzt)
+        if archiv is None: archiv = nachtstarts.archiv()
+        self.jetzt = jetzt
         self.sperre = laufsperre(jetzt, archiv)
+        self.ober = obergrenze(jetzt, archiv)  # 2001
+        self.laufend = laufend  # 2001: laufende Fachkräfte (lauf.py setzt es nach der Sitzungsliste); None = unbekannt
+        self.namen = None  # 2001-Ü10: wer gezählt ist (lauf.py), für die Zeile LAUFSPERRE
         self.rest = None
         if self.sperre:
             self.rest = self.sperre["deckel"] - gezaehlt(self.sperre, jetzt, protokoll, rueck)
@@ -150,7 +317,37 @@ class Bremse:
             aus.append("LAUFSPERRE %s (Chef %s): noch %d von %d Starts bis %s; frei: %s; lauf.py jeden Takt, nur START-Zeilen ruhen (1978)%s" % (
                 s["quelle"], s["ab"].strftime("%d.%m., %H:%M"), max(self.rest, 0), s["deckel"], s["bis"].strftime("%d.%m., %H:%M"), self.frei_text(),
                 "" if s["ende"] else "; WARNUNG Ende fehlt, gilt %d h, Sokrates setzt „spätestens HH:MM“" % STANDARD_STUNDEN))
+        if self.ober:
+            o = self.ober
+            aus.append("LAUFSPERRE %s (Chef %s): höchstens %d Fachkräfte zugleich, %s%s%s, bis %s; frei: Arbeitsplaner, Prüfer, Tester, Wache, Sokrates, Tagesbericht (2001)%s" % (
+                o["quelle"], o["ab"].strftime("%d.%m., %H:%M"), o["n"], "? laufen" if self.laufend is None else "%d laufen%s" % (self.laufend, " (%s)" % ", ".join(self.namen) if self.namen else ""),
+                ", nur %s und Eilt" % self.ber_text() if o["bereiche"] else "", ", nachts %02d–%02d keine" % o["nacht"] if o["nacht"] else "",
+                o["bis"].strftime("%d.%m., %H:%M"), "" if o["ende"] else "; WARNUNG Ende fehlt, gilt %d h, Sokrates setzt „spätestens TT.MM., HH:MM“" % STANDARD_STUNDEN))
         return aus
+
+    def ber_text(self):
+        b = self.ober["bereiche"]
+        return "Spiel" if b == SPIEL else b if isinstance(b, str) else ", ".join(b)
+
+    def nachts(self):
+        n = self.ober and self.ober["nacht"]
+        if not n: return False
+        h = self.jetzt.hour
+        return (n[0] <= h or h < n[1]) if n[0] > n[1] else n[0] <= h < n[1]
+
+    def ober_grund(self, rolle, zeile):
+        """2001: None oder Grund, warum die Obergrenze diesen Start einer Fachkraft anhält."""
+        o = self.ober
+        if not o or not fachkraft(rolle): return None
+        q = "Laufsperre %s (bis %s)" % (o["quelle"], o["bis"].strftime("%d.%m., %H:%M"))
+        if self.nachts(): return "%s: nachts %02d–%02d keine Fachkräfte" % ((q,) + o["nacht"])
+        if isinstance(o["bereiche"], str): return "%s: Bereich %s, Zeile unklar, kein Start" % (q, o["bereiche"])
+        if o["bereiche"] and not eilt(zeile) and (not isinstance(zeile, dict) or zeile.get("bereich") not in o["bereiche"]):
+            return "%s: nur %s und Eilt, Zeile %s" % (q, self.ber_text(), zeile.get("bereich") or "ohne Bereich" if isinstance(zeile, dict) else "fehlt")
+        if self.laufend is None: return "%s: Zahl laufender Fachkräfte unbekannt, kein Start" % q
+        if self.laufend >= o["n"] + (1 if eilt(zeile) else 0):  # 2002 (B): Eilt bis N+1
+            return "%s: höchstens %d Fachkräfte zugleich%s, %d laufen" % (q, o["n"], ", Eilt eine mehr" if eilt(zeile) else "", self.laufend)
+        return None
 
     def frei_text(self):
         return "Wache, Sokrates (Chef „alles“: auch Rückläufer gesperrt, 1930)" if self.sperre and self.sperre.get("alles") else "Wache, Sokrates, Rückläufer des Chefs"
@@ -175,10 +372,11 @@ class Bremse:
         if self.sperre and not frei and not self.rueck_frei(zeile) and self.rest <= 0:
             return "Laufsperre %s, alle %d Starts verbraucht, bis %s nur %s" % (
                 self.sperre["quelle"], self.sperre["deckel"], self.sperre["bis"].strftime("%d.%m., %H:%M"), self.frei_text())
-        return None
+        return self.ober_grund(rolle, zeile)
 
     def zaehle(self, rolle, zeile):
         if self.sperre and rolle not in FREI_ROLLEN and not self.rueck_frei(zeile): self.rest -= 1
+        if self.ober and self.laufend is not None and fachkraft(rolle): self.laufend += 1  # 2001
 
 
 if __name__ == "__main__":

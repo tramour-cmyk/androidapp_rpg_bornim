@@ -42,9 +42,12 @@ def erledigt(wurzel, von, bis):
 VORSATZ = re.compile(r"^Von [^:(]+(?:\([^)]*\))?:\s+")  # 1971-Ü5: „Von <Rolle> (…): “ ist der Absender, nicht die Sache
 
 def kurz(titel):
-    titel = VORSATZ.sub("", titel)
-    t = re.split(r":\s|\s\(|;", titel, maxsplit=1)[0].strip()  # „01:12“ trennt nicht
-    return t if len(t) <= 60 else t[:59].rstrip() + "…"
+    """1971-Ü9 (Urteil Sokrates 23.11., 11:13): kein Schnitt am ersten Trenner; bis 60 Zeichen, sonst am Wortende mit „…“."""
+    t = VORSATZ.sub("", titel).strip()
+    if len(t) <= 60: return t
+    c = t[:59]
+    if t[59] != " " and " " in c: c = c[:c.rfind(" ")]
+    return c.rstrip() + "…"
 
 def text(zs, uhr):
     if not zs: return ""

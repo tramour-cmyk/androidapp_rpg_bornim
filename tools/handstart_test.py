@@ -51,6 +51,31 @@ nots = {"title": "Werkzeug – 1989: x", "prompt": "Werkzeug\n\nNotstart: lauf.p
 pruefe(haken.startblock_fehlt(nots) is None, "Haken: Notstart abgewiesen")
 pruefe(gemeldet and gemeldet[0][0] == "1989" and "lauf.py bricht ab" in gemeldet[0][1], "Haken: Notstart ohne Meldung an Sokrates: %s" % gemeldet)
 pruefe(haken.startblock_fehlt({"title": "Rundblick 23.11.", "prompt": "Rundblick: x"}) is None, "Haken: Routine (ohne Kern) abgewiesen")
+# 2002 (e): Handstart prüft die Obergrenze wie der Takt (Eilt bis N+1); Laufende aus der übergebenen Sitzungsliste
+def _e():
+    import datetime, guthaben
+    O = "- **287 Laufsperre** (22.11., 10:30, Chef an Sokrates: „x“) → **Laufsperre: höchstens drei Fachkräfte zugleich, nur Spiel, spätestens 28.12., 20:00**\n"
+    j = lauf.JETZT.replace(hour=15, minute=0) if lauf.JETZT.hour >= 23 or lauf.JETZT.hour < 7 else lauf.JETZT
+    WE = {"nr": "1961", "bereich": "B Werkzeuge", "eilt": True, "titel": "x", "stand": "startbar"}
+    def br(n): return guthaben.Bremse(j, "", archiv=O, protokoll=[], laufend=n)
+    zs = lauf.start_zeilen("Werkzeug", "1961", "Bau das.", [], bremse=br(3), zeile=WE)
+    pruefe(any(x.startswith("START Werkzeug") for x in zs), "2002 (e): Handstart Eilt bei N → START: %s" % [x[:120] for x in zs])
+    zs = lauf.start_zeilen("Werkzeug", "1961", "Bau das.", [], bremse=br(4), zeile=WE)
+    pruefe(not any(x.startswith(("START", "STARTSPERRE")) for x in zs) and any(x.startswith("NICHTS Werkzeug") and "höchstens 3" in x for x in zs),
+           "2002 (e): Handstart Eilt bei N+1 → nein: %s" % [x[:160] for x in zs])
+    zs = lauf.start_zeilen("Werkzeug", "1961", "Bau das.", [], bremse=br(3), zeile=dict(WE, eilt=False))
+    pruefe(not any(x.startswith("START") for x in zs), "2002 (e): Handstart ohne Eilt außerhalb Spiel → nein: %s" % [x[:160] for x in zs])
+    zs = lauf.start_zeilen("Prüfer", "1961", "Prüfe.", [], bremse=br(9), zeile=WE)
+    pruefe(any(x.startswith("START Prüfer") for x in zs), "2002 (e): Handstart Prüfer frei")
+    # Laufende aus der Sitzungsliste (Kurzform wie im Takt), fertige ohne Rückläufer zählen nicht
+    u = (lauf.JETZT - datetime.timedelta(minutes=5)).astimezone(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    d = tempfile.mkdtemp(); sp = os.path.join(d, "s.txt")
+    open(sp, "w", encoding="utf-8").write("".join("session_0%d | working | %s | %s – 10%d: Handstart (x) | - | %s | \n" % (i, u, r, i, u) for i, r in enumerate(("Kampf", "Welt", "Regeln", "Prüfer"))) + "# has_more: nein\n")
+    b = br(None)
+    lauf.laufend_setzen(b, lauf.sitzungen_lesen([sp]), marken={}, fertig={"session_02"})
+    pruefe(b.laufend == 2 and b.namen == ["Kampf (Kampf)", "Welt (Welt)"], "2002 (e): Laufende aus der Sitzungsliste (Prüfer frei, Regeln fertig): %s %s" % (b.laufend, b.namen))
+try: _e()
+except Exception as ex: pruefe(False, "2002 (e): Ausnahme %r" % ex)
 # 1992: eine lokale Variable in main() darf keine Funktion des Moduls überdecken (for z in zs → UnboundLocalError bei z(...))
 import ast, symtable
 _q = open(os.path.join(H, "lauf.py"), encoding="utf-8").read()
