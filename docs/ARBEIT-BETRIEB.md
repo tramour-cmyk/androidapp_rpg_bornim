@@ -134,3 +134,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:06 23.11.: Startsperre 23:06 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1694 Ilse)
 - 23:09 23.11.: Takt außer der Reihe 23:06 (Gustav 2005 fertig, archiviert, Kosten 1,12): START Planer Ilse (1694-Ü12/Ü13; 1068-Ü13 nicht mehr genannt) ausgeführt; NACHRICHT Prüfer an Ingo (1675-Ü9, 1653-Ü8); WÄCHTER 1694 (schon startbar, nichts zu tun)
 - 23:24 23.11.: Prüfer Ingo „ja“ 1675 und 1653, beide schon auf main (12c3fd0f4, 2f4a105e4), Chef-Freigabe 👍 (4941, 4943) belegt; keine Testbitte nötig; 1675 und 1653 fertig, Ü10/Ü9 erledigt
+- 00:03 24.11.: Startsperre 00:03 Start Sokrates (lauf.py, 1603)
