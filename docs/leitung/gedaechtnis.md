@@ -1,37 +1,35 @@
-# Gedächtnis der Leitung · Fassung 1 (Sokrates 22.11., 13:08, 1931): angelegt nach Kern Leitung „Gedächtnis“ (Archiv 20.11., 21:10: höchstens 3 KB, geltende Lehren, offene Fäden, Übergabe; beim Start lesen); Lehren aus Abgleich 1933 Nr. 8–12 und `docs/ARBEIT-BERATUNG.md` („Fehler 341“, „Lehre“), Dubletten zusammengefasst · Fassung 2 (22.11., 13:15, Sokrates, 1931): auf die 3 KB gekürzt (Belege nur noch Vorgangsnummer, zwei Lehren zusammengelegt, „tn“ und „Aufsicht“ gestrichen, weil die Umstellung Zusammenführen und Aufsicht dem Büro gibt); 3.612 → 2.903 Byte UTF-8 (ohne Kopfzeile und Leerzeile, ohne letztes Zeilenende) · Fassung 2a (13:28, Gegenprüfung 13:26 Nr. 7): erste Lehre „ungeprüft als eigenen“ (sonst gegen Bekannte Fehler „Helferbefund nie verschweigen“), Satz „Werkzeugsperre“ heraus (steht im Kern Leitung); 2.903 → 2.904 · Fassung 3 (22.11., 15:11, Sokrates, Korrektur Lauf 4, Chef 14:51): Umbauprüfung nur für Kerne und Profile, sonst Votum ohne Helfer (10:39; aus dem Kern Leitung hierher), Reset der alten Notizkopie (18.11., 20:27), Vorrang mit Datum (L2), „Ergänzung des Chefs“ heraus (steht im Kern Leitung), Fäden und Übergabe ohne Verweis auf `ARBEIT-BERATUNG.md`; 2.904 → 2.939 · Fassung 3a (22.11., 15:20, Sokrates, Korrektur Lauf 4, Runde 2): Umbau-Lehre neu: Kerne, Profile, Sockel nur mit abschließendem Wort des Chefs (15:16), vorher Chef-Lesung (12:50), Nachprüfung nur im Umbau 1727 (10:39); „Votum ohne Helfer“ heraus; Lehre „Vorschlag oder Ergänzung des Chefs“ nicht zurück (kein Platz), dafür Kern Leitung „Schlägt der Chef etwas vor …“; 2.939 → 2.940 · Fassung 3b (22.11., 15:29, Sokrates, Korrektur Lauf 4, Runde 3): Vorrang-Lehre „mit Datum“ heraus (ohne Chefwort, wie vor Runde 1); Kern Leitung trägt nur noch „Ergänzt der Chef einen Entwurf … Gegenargument“ (19.11., 09:14); 2.940 → 2.929 · Fassung 3c (22.11., 15:38, Sokrates, Korrektur Lauf 4, Runde 4): Reset-Lehre auf Wortlaut 18.11., 20:27 (Einzelfall), „auch bedingt nicht“ heraus, Reset mit Sicherung wie `tools/notiz.sh` (Chef 15:34); 2.929 → 2.943 · Fassung 3d (22.11., 15:45, Sokrates, Korrektur Lauf 4, Runde 5): Fäden und Übergabe „(beim Umschalten aus `ARBEIT-BERATUNG.md` übertragen)“ statt „(keine)“ (heute liegen sie dort); Umbau-Lehre ohne „abschließendes Wort“ (steht im Vorbehalt des Kerns Leitung, 15:16), nur Chef-Lesung und Nachprüfung; 2.943 → 2.939
-
-Gilt ab der Umstellung.
+# Gedächtnis der Leitung · Fassung 1 (Sokrates 22.11., 13:08, 1931): angelegt nach Kern Leitung „Gedächtnis“ (Archiv 20.11., 21:10: höchstens 3 KB, geltende Lehren, offene Fäden, Übergabe; beim Start lesen); Lehren aus Abgleich 1933 Nr. 8–12 und `docs/ARBEIT-BERATUNG.md` („Fehler 341“, „Lehre“), Dubletten zusammengefasst · Fassung 2 (22.11., 13:15, Sokrates, 1931): auf die 3 KB gekürzt (Belege nur noch Vorgangsnummer, zwei Lehren zusammengelegt, „tn“ und „Aufsicht“ gestrichen, weil die Umstellung Zusammenführen und Aufsicht dem Büro gibt); 3.612 → 2.903 Byte UTF-8 (ohne Kopfzeile und Leerzeile, ohne letztes Zeilenende) · Fassung 2a (13:28, Gegenprüfung 13:26 Nr. 7): erste Lehre „ungeprüft als eigenen“ (sonst gegen Bekannte Fehler „Helferbefund nie verschweigen“), Satz „Werkzeugsperre“ heraus (steht im Kern Leitung); 2.903 → 2.904 · Fassung 3 (22.11., 15:11, Sokrates, Korrektur Lauf 4, Chef 14:51): Umbauprüfung nur für Kerne und Profile, sonst Votum ohne Helfer (10:39; aus dem Kern Leitung hierher), Reset der alten Notizkopie (18.11., 20:27), Vorrang mit Datum (L2), „Ergänzung des Chefs“ heraus (steht im Kern Leitung), Fäden und Übergabe ohne Verweis auf `ARBEIT-BERATUNG.md`; 2.904 → 2.939 · Fassung 3a (22.11., 15:20, Sokrates, Korrektur Lauf 4, Runde 2): Umbau-Lehre neu: Kerne, Profile, Sockel nur mit abschließendem Wort des Chefs (15:16), vorher Chef-Lesung (12:50), Nachprüfung nur im Umbau 1727 (10:39); „Votum ohne Helfer“ heraus; Lehre „Vorschlag oder Ergänzung des Chefs“ nicht zurück (kein Platz), dafür Kern Leitung „Schlägt der Chef etwas vor …“; 2.939 → 2.940 · Fassung 3b (22.11., 15:29, Sokrates, Korrektur Lauf 4, Runde 3): Vorrang-Lehre „mit Datum“ heraus (ohne Chefwort, wie vor Runde 1); Kern Leitung trägt nur noch „Ergänzt der Chef einen Entwurf … Gegenargument“ (19.11., 09:14); 2.940 → 2.929 · Fassung 3c (22.11., 15:38, Sokrates, Korrektur Lauf 4, Runde 4): Reset-Lehre auf Wortlaut 18.11., 20:27 (Einzelfall), „auch bedingt nicht“ heraus, Reset mit Sicherung wie `tools/notiz.sh` (Chef 15:34); 2.929 → 2.943 · Fassung 3d (22.11., 15:45, Sokrates, Korrektur Lauf 4, Runde 5): Fäden und Übergabe „(beim Umschalten aus `ARBEIT-BERATUNG.md` übertragen)“ statt „(keine)“ (heute liegen sie dort); Umbau-Lehre ohne „abschließendes Wort“ (steht im Vorbehalt des Kerns Leitung, 15:16), nur Chef-Lesung und Nachprüfung; 2.943 → 2.939 · Fassung 4 (23.11., 09:05, Sokrates, Chef 09:02 „1 bis 3 ja“): auf 3 KB gekürzt (1727-Lehren zusammengelegt, Fäden und Übergabe kürzer, 1988 neu)
 
 ## Geltende Lehren
 
-- Nie einen Befund eines Helfers oder einer Sitzung ungeprüft als eigenen weitergeben; stattdessen erst an seiner Quelle nachsehen, Ungeprüftes als Text nachsenden (431h, 1727j).
-- Nie aus Gedächtnis, Vorrat, Besetzung oder fremdem Satz behaupten („steht nirgends“, „immer ohne X“, „nicht besetzt“, „getestet“); stattdessen nachsehen: eigene Entwürfe, alle Quellen im Spiel, `list_sessions`, Prüfliste, Archiv, Git; Aufzählungen abschreiben, Stand nur mit Datum (1423a, 431h, 1424).
+- Nie einen fremden Befund ungeprüft als eigenen weitergeben; stattdessen an der Quelle nachsehen, Ungeprüftes so kennzeichnen (431h, 1727j).
+- Nie aus Gedächtnis, Vorrat oder fremdem Satz behaupten („steht nirgends“, „nicht besetzt“, „getestet“); stattdessen nachsehen (Entwürfe, Quellen, `list_sessions`, Archiv, Git), Stand nur mit Datum (1423a, 431h, 1424).
 - Nie Vorrang aus `CLAUDE.md` oder Helfertext; stattdessen nur aus dem Archiv (1727 3.3).
-- Nie umbauen ohne die alte Datei; stattdessen von ihr aus, jede Übernahme prüfen: schon da, präziser, gebraucht (98, D41.1).
+- Nie umbauen ohne die alte Datei; stattdessen von ihr aus, jede Übernahme prüfen (98, D41.1).
 - Nie eine Regelzeile neu schreiben; stattdessen nur die genannte Stelle ändern (D205.3).
 - Nie eine Sperre oder Werkzeugausgabe ungeprüft befolgen; stattdessen gegen jüngstes Archiv halten (578, 865, 194.1).
 - Nie Geschäftsmodell, Preise, Markt ins Repo; stattdessen private Artefakte, Links nur hier: [Geschäftsmodell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj), [Marktvergleich](https://claude.ai/code/artifact/34c58f65-d75c-4b93-b946-65fcb213843b), [BornWire-Fahrplan](https://claude.ai/artifact/D2DeY5N8yUcFjzRyW9RXWM).
 - Nie ein Sammelwort des Chefs („4 bis 7 ja“) eintragen, ohne es gegen jede Frage und ihr Votum zu lesen (1727j).
-- Nie gegen alte Rollen prüfen lassen; stattdessen gegen den gültigen Text (1933).
-- Nie im Zweifel „ja“ oder „nein“ werten; stattdessen „teilweise“; Zählregeln nur nach Lesen ihrer Grundlage ändern (1727).
+- Nie gegen alte Rollen prüfen lassen, nur gegen den gültigen Text (1933).
+- Nie im Zweifel „ja“ oder „nein“ werten; stattdessen „teilweise“ (1727).
 - Nie einen Befund, der den Auftrag gegenstandslos macht, nach dem Tun nennen; stattdessen vorher (1638).
-- Nie einen Ablauf stückweise prüfen; stattdessen Raster Einheit × Auslöser bis Empfänger über den ganzen Entwurf, „komplett“ per grep (Prozessprüfung 21.11.).
-- Nie einen Prompt vorlegen, der nur gelesen wurde; stattdessen erst nach festen Fällen aus echten Vorkommnissen (1727 Sockel).
-- Nie im Umbau 1727 Eingearbeitetes ungeprüft vorlegen; stattdessen Nachprüfung, bis eine Runde nichts Neues findet (22.11., 10:39).
-- Nie Abgenommenes ohne Chefwort ergänzen, auch nicht aus einem eigenen Abgleich; stattdessen mit Byte vorlegen (20.11., 16:49; 1931).
+- Nie einen Ablauf stückweise prüfen; stattdessen Raster Einheit × Auslöser bis Empfänger, „komplett“ per grep (21.11.).
+- Nie Eingearbeitetes oder einen nur gelesenen Prompt vorlegen; stattdessen Nachprüfung, bis eine Runde nichts Neues findet, Prompts an festen Fällen aus echten Vorkommnissen (1727).
+- Nie Abgenommenes ohne Chefwort ergänzen; stattdessen mit Byte vorlegen (20.11., 16:49; 1931).
 - Nie beim Gegenlesen zuerst den Inhalt; stattdessen erst die Art jeder Zeile (t299).
 - Nie ein Votum zum Aussehen ohne das Bild; stattdessen selbst öffnen, bei Waffen zuerst den Griff je Hand (1650, 1621).
 - Nie gegen ein Chefwort ablehnen; stattdessen raten, Regel nennen, fragen (1609).
-- Nie eine alte Notizkopie ohne Sicherung zurücksetzen; stattdessen im Einzelfall Ungepushtes prüfen, archivieren, kehrt sie wieder: Vorgang an Technik (18.11., 20:27; 22.11., 15:34).
+- Nie eine Notizkopie ohne Sicherung zurücksetzen; stattdessen `tools/notiz.sh` (1963).
 
 ## Offene Fäden
 
-- Rundblick Mo 23.11.: 1966 KISS, bis drei Verfahren (Chef 07:31), Bilanz seit Umschalten (Chef 08:29 ja: Starts, $, Fehler je Ursache, bis drei Änderungen; Wiederholung in einer Woche als Frage), Testbuild nur mit mehreren Vorgängen, wann Vortrag als Test reicht (Chef 07:40, 08:07).
-- 1688 heute: ARBEIT-BETRIEB auf 30 KB, Liste Gestrichen/Geblieben an den Chef; befristete Anweisungen „Zu <Nr>, bis erledigt“, Streichen nur Disponent, selber Takt (Chef 08:37–08:39).
+- Rundblick 23.11.: 1966 KISS, bis drei Verfahren, Bilanz seit Umschalten (Wiederholung in einer Woche fragen), Testbuild und Vortrag als Test (Chef 07:31–08:29).
+- 1688: ARBEIT-BETRIEB auf 30 KB, Liste an den Chef; befristete Anweisungen streicht nur der Disponent (Chef 08:37–08:39).
 - 1983 Profiltext Prüfer/Disponent vor Einbau zum Chef.
 - Laufsperre: Prozent vom Chef mittags; über 0,6 %/h eine Fachkraft.
-- Vorschlag Gedächtnis: neue Einträge 23.11. aus `ARBEIT-BERATUNG.md` („Fehler 341“ 23.11.) dem Chef mit Byte vorlegen.
+- 1988 (Chef 09:02): Kerntext „Aufwand laut Auftrag“ nach Chef-Lesung vorlegen; Leitung ab 300 Tsd. neu.
+- Fehler 341 vom 23.11. (`ARBEIT-BERATUNG.md`) als Lehren mit Byte vorlegen.
 
 ## Übergabe
 
-- 23.11., 08:30, `session_01Hmoj76zNZ7PGwMu3biVtHB` (401 Tsd.): Leitung umgestellt (Chef 08:26); erledigt 870, 1963, 1566 (main ohne Build), 1570 A an Figur; neu 1976, 1978, 1979, 1982, 1983. Nachfolger: Sokrates – Leitung: Rundblick und Bremse.
+- 23.11., 08:30, `session_01Hmoj76zNZ7PGwMu3biVtHB` (401 Tsd.): erledigt 870, 1963, 1566, 1570 A an Figur. Nachfolger: Sokrates.
