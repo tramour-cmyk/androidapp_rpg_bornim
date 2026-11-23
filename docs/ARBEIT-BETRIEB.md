@@ -88,3 +88,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:44 23.11.: Startsperre 14:44 Start Kampf (lauf.py, Kampf 1068 Conrad; dritter Platz nach Chef 14:43)
 - 15:05 23.11.: Startsperre 15:05 Start Arbeitsplaner, Arbeitsplaner, Prüfer (lauf.py, Arbeitsplaner 513 Gustav, Arbeitsplaner 1961 Hugo, Prüfer 1997 Ingo)
 - 15:07 23.11.: Takt 15:05: START Arbeitsplaner 513 Gustav, Arbeitsplaner 1961 Hugo, Prüfer 1997 Ingo nicht ausgeführt (Laufsperre bis 28.11.: kein Spiel, nicht Eilt; 1997 von Hanna schon geprüft, ja 14:49); NACHRICHT-Zeilen an Disponent/Rita/Zora (Werkzeug-Zeilen, Figur 1675-Ü4) wegen Laufsperre ohne Wirkung; LIEGT-Leichenprüfung (Grund: Laufsperre) nicht einzeln bedient, an Sokrates gemeldet
+- 15:08 23.11.: LIEGT 100 Zeilen, Grund Laufsperre (Chef 14:43; Sokrates 15:09: bis Sa 28.11., 20:00 nicht einzeln, ausgenommen Eilt, Spiel, Chefworte)
