@@ -147,5 +147,29 @@ rc, out = pruefen()
 soll("(g) Eintrag ohne gemeinsame Nummer: geht durch", rc == 0, out)
 zurueck()
 
+# (h) .claude/settings.json: PermissionDenied und PostToolUseFailure rufen denselben Befehl wie PostToolUse, mit „abgelehnt“ (Chef 15:42)
+st = json.load(open(os.path.join(os.path.dirname(HIER), ".claude", "settings.json"), encoding="utf-8")).get("hooks", {})
+nach = [h["command"] for e in st.get("PostToolUse", []) for h in e.get("hooks", []) if "neustart-haken.py" in h.get("command", "")]
+for ev in ("PermissionDenied", "PostToolUseFailure"):
+    bef = [h["command"] for e in st.get(ev, []) for h in e.get("hooks", []) if "neustart-haken.py" in h.get("command", "")]
+    soll("(h) %s ruft neustart-haken.py abgelehnt wie PostToolUse" % ev, len(nach) == 1 and bef == [nach[0].replace('"$f" nach', '"$f" abgelehnt')]
+         and '"$f" abgelehnt' in bef[0], repr(bef))
+    if bef:  # Befehl echt in bash, mit dem Haken aus diesem Prüfstand
+        w = "create_session" if ev == "PermissionDenied" else "create_trigger"  # Ursache noch nicht im Buch (b, c nutzen die anderen)
+        e = {"hook_event_name": ev, "tool_name": "mcp__claude-code-remote__" + w, "reason": "h-Probe " + ev, "error": "h-Probe " + ev}
+        p = subprocess.run(["bash", "-c", bef[0].replace("/home/user/bornim-main/", "/nicht/da/")], env=dict(ENV, CLAUDE_PROJECT_DIR=A),
+                           input=json.dumps(e), capture_output=True, text=True, cwd=A)
+        z = warte("%s abgelehnt (%s)" % (w, ev))
+        soll("(h) %s-Befehl in bash → eine Zeile im Lehrenbuch, Exit 0" % ev, p.returncode == 0 and len(z) == 1 and "h-Probe" in z[0], p.stdout + p.stderr + buch())
+
+# (i) herzschlag.py --wache --probe: gleiche Ausgabe und Exit wie ohne, Lehrenbuch unverändert (Hinweis Prüfer 15:42)
+alt = os.path.join(d, "besetzung-alt.md"); open(alt, "w").write("**Stand:** 23.11., 10:12 (lauf.py)\n")
+vorher = buch()
+r1, o1 = lauf(sys.executable, HS, "--wache", "--probe", "--datei", alt, "--jetzt", "23.11.2026 16:00")
+r2, o2 = lauf(sys.executable, HS, "--wache", "--probe", "--datei", alt, "--jetzt", "23.11.2026 17:30", "--geweckt", "23.11.2026 16:00")
+time.sleep(2)
+soll("(i) --probe WECKEN: Exit 2, Zeile wie ohne, Lehrenbuch unverändert", r1 == 2 and o1.startswith("WACHE WECKEN") and "LEHRENBUCH" not in o1 and buch() == vorher, o1 + buch())
+soll("(i) --probe NEUSTART: Exit 3, Lehrenbuch unverändert", r2 == 3 and o2.startswith("WACHE NEUSTART") and "LEHRENBUCH" not in o2 and buch() == vorher, o2)
+
 print("betrieb_lehre_test: " + ("grün" if not fehl else "%d Fehler" % fehl))
 sys.exit(1 if fehl else 0)
