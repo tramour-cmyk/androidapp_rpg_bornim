@@ -28,7 +28,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   TAGESBERICHT TT.MM. | Perikles | [effort high] | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“);
                                                                      mit tools/1727-SCHARF statt dessen START Tagesbericht (Routine, routine-tagesbericht.md, 1871)
   NEUSTART-LEITUNG <session_id> | Sokrates | <n> Tsd. Token | …     → (1988) Disponent: Leitung neu starten (Übergabe ins Gedächtnis), im selben Takt wie STREICHEN; ab 300 Tsd. used_tokens
-  NEUSTART-DISPONENT <session_id> | Disponent | <n> Tsd. Token | … → (1988 Zusatz 09:26) Disponent: Übergabe zuerst, dann send_message an die Wache „Disponent neu starten“; ab 300 Tsd.
+  NEUSTART-DISPONENT <session_id> | Disponent | <n> Tsd. Token | … → (1988 Zusatz 09:26) Disponent: Übergabe zuerst, dann startet der Disponent seinen Nachfolger selbst (lauf.py --start Disponent, 1992); ab 300 Tsd.
   (1988 Zusatz 09:26) dieselbe WARNUNG-Zeile (gleicher Wortlaut, auch -LAUT) höchstens einmal je Stunde; Stand in BORNIM_WARN_STAND (Vorgabe /tmp/bornim-lauf-warnungen.json)
   (1989) lauf.py --start ROLLE NR "Nachricht" [SEITE …] [--sperre]: Handstart außerhalb des Takts → START-Zeile mit Startblock und
                                                                      STARTSPERRE <Protokollzeile> (mit --sperre selbst gepusht); von Hand nur so starten
@@ -249,7 +249,7 @@ def mit_kern(l, docs=None):
 
 LEITUNG_NEUSTART_TOKEN = 300000  # 1988 (Chef 23.11., 09:02): Leitung mit 430 Tsd. Token stempelte 20 Min. vor; Zusatz 09:26: auch Disponent
 NEUSTART_ZEILE = {"Sokrates": ("NEUSTART-LEITUNG", "Leitung neu starten (Übergabe ins Gedächtnis)"),
-                  "Disponent": ("NEUSTART-DISPONENT", "Übergabe zuerst (ARBEIT-BETRIEB.md pushen), dann send_message an die Wache %s „Disponent neu starten“; die Wache startet ihn neu")}
+                  "Disponent": ("NEUSTART-DISPONENT", "Übergabe zuerst, dann startet der Disponent seinen Nachfolger selbst mit `lauf.py --start Disponent`; der Nachfolger archiviert den Vorgänger")}  # 1992 (Chef 23.11., 10:04)
 
 def wache_id():
     """1988 (4): Kennung der Wache aus ARBEIT-BETRIEB.md („**Wache (aktuell)** `session_…`“), sonst „-“."""
@@ -1392,11 +1392,11 @@ def main():
             import rufname as _r2; ss = []
             for p in r[3:]: ss += _r2.lies_sitzungen(lesen(p))
         zs = start_zeilen(r[0], r[1], r[2], ss)
-        sp = [z[len("STARTSPERRE "):] for z in zs if z.startswith("STARTSPERRE ")]
+        sp = [x[len("STARTSPERRE "):] for x in zs if x.startswith("STARTSPERRE ")]
         if "--sperre" in a and sp:
             if protokoll_pushen(lambda alt: alt.rstrip("\n") + "\n" + sp[0] + "\n", "Startsperre %s %s (lauf.py --start, 1989)" % (r[0], r[1])):
-                zs = [z if not z.startswith("STARTSPERRE ") else "NICHTS Startsperre: geschrieben und gepusht (%s)" % sp[0] for z in zs]
-        for z in zs: print(z)
+                zs = [x if not x.startswith("STARTSPERRE ") else "NICHTS Startsperre: geschrieben und gepusht (%s)" % sp[0] for x in zs]
+        for x in zs: print(x)  # 1992: nicht z, das überdeckt z() in ganz main() (UnboundLocalError)
         return
     # 1100 A (1): Ford liest die Stellung nicht mehr selbst (notiz.sh entfällt im Lauf); lauf.py nennt sie, wenn sie nicht „Pilot“ ist (81g)
     stellung = re.search(r"\*\*Ford: (aus|Co-Pilot|Pilot)\*\*", lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")))

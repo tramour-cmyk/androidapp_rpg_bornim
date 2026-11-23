@@ -26,8 +26,8 @@ Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBI
 
 - **Disponent (aktuell)** `session_01Hmoj77RTR46iEhwH9oTheH` „Disponent – Betrieb (23.11., 09:52)“, Modell sonnet (1961, Sokrates 17:44). **Eigene Uhr** „Disponent-Lauf“ `trig_01MT1BcfGRnoSwu9jm4dJvvN` (`3 * * * *`, an diese Sitzung).
 - **Zu 287, bis erledigt (Sa 28.11., 20:00), streicht: Disponent.** **Laufsperre ab 23.11., 07:00 (Sokrates, Guthaben 38 % Chef 06:43):** höchstens zwei Fachkräfte zugleich, nur Spiel (Regeln, Kampf, Figur, Welt) und Eilt; Werkzeug nur Eilt; Kür ruht; Prüfer und Planer dazu; frei: Wache, Sokrates, Rückläufer des Chefs; 23–7 keine Fachkräfte, lauf.py aber jeden Takt; Laufende beenden ihren Schritt, danach archivieren statt nachstarten. Folge: 1589.2-Ü3 (Kampf, Rückläufer), 1068-Ü2 (Kampf, Nachfolger Zeno ab 20b158641), 1694 (Figur), 1603 (Kampf), 1961/1964/1965/1960/1520 (Werkzeug, nur Eilt).
-- **Zu 1961, bis erledigt, streicht: Disponent.** Marke für `neustart-haken.py` (sucht „Ford (aktuell)“): **Ford (aktuell)** `session_01Hmoj7825XQzzhzppzqkXKU`.
-- **Wache (aktuell)** `session_01Hmoj797Jp4k2iu91td6VHx` „Wache – Disponent (23.11., 05:35)“, Modell sonnet (Disponent 05:35), Uhr „Wache“ `trig_01UESvf8bCxAHdg7wYr4qP14` (:33). Stand: Zeitmarke 23.11., 09:33 (Werkzeugtests 1775 rot: 3 Läufe 07:42–07:51, 4 Läufe 09:11–09:27, laut an Chef und Disponent; Sokrates wartet seit 22:36 auf Chefwort Randlinie 1566, nachts kein laut; Disponent neu `session_01Hmoj7825XQzzhzppzqkXKU`); Meldungen: keine.
+- **Zu 1961, bis erledigt, streicht: Disponent.** Marke für `neustart-haken.py` (sucht „Ford (aktuell)“): **Ford (aktuell)** `session_01Hmoj77RTR46iEhwH9oTheH`.
+- **Wache (aktuell)** `session_01Hmoj797Jp4k2iu91td6VHx` „Wache – Disponent (23.11., 05:35)“, Modell sonnet (Disponent 05:35), Uhr „Wache“ `trig_01UESvf8bCxAHdg7wYr4qP14` (:33). Stand: Zeitmarke 23.11., 10:34 (neuer Disponent `session_01Hmoj7A1LRkD1KGfM636THN` wartet seit 10:15 auf Chefwort für Push nach main, Chef laut gemeldet; Tagesbericht heute fehlt, Weckruf an Disponent; Werkzeugtests 1775 zuletzt rot 09:36; Sokrates wartet seit 22:36 auf Chefwort Randlinie 1566, nachts kein laut; Disponent neu `session_01Hmoj7825XQzzhzppzqkXKU`); Meldungen: keine.
 
 ## Eingang
 
@@ -71,3 +71,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:50 23.11.: Startsperre 09:50 Start Disponent (lauf.py, Disponent 1961 Zita; Neustart bei 582 Tsd. Token von Hand, Vorgänger session_01Hmoj7825XQzzhzppzqkXKU)
 - 09:54 23.11.: Startsperre 09:54 Start Arbeitsplaner, Kampf, Figur, Werkzeug, Arbeitsplaner, Tagesbericht, Prüfer, Welt (lauf.py, Arbeitsplaner 513 Anna, Kampf 1068 Britta, Figur 1675 Carla, Werkzeug 1964 Dana, Arbeitsplaner 1971 Elke, Tagesbericht 448, Prüfer 1589.2 Frieda, Welt 1566 Gerda)
 - 10:03 23.11.: Startsperre 10:03 Start Arbeitsplaner, Kampf, Figur, Werkzeug, Arbeitsplaner, Tagesbericht, Welt (lauf.py, Arbeitsplaner 513 Anna, Kampf 1068 Britta, Figur 1675 Carla, Werkzeug 1964 Dana, Arbeitsplaner 1971 Elke, Tagesbericht 448, Welt 1566 Frieda)
+- 10:05 23.11.: Startsperre 10:05 Start Werkzeug (lauf.py, Werkzeug 1992 Emil)
+- 10:12 23.11.: Startsperre 10:12 Start Arbeitsplaner, Figur, Arbeitsplaner, Tagesbericht, Welt (lauf.py, Arbeitsplaner 513 Carla, Figur 1675 Dana, Arbeitsplaner 1961 Elke, Tagesbericht 448, Welt 1566 Frieda)

@@ -51,5 +51,14 @@ nots = {"title": "Werkzeug – 1989: x", "prompt": "Werkzeug\n\nNotstart: lauf.p
 pruefe(haken.startblock_fehlt(nots) is None, "Haken: Notstart abgewiesen")
 pruefe(gemeldet and gemeldet[0][0] == "1989" and "lauf.py bricht ab" in gemeldet[0][1], "Haken: Notstart ohne Meldung an Sokrates: %s" % gemeldet)
 pruefe(haken.startblock_fehlt({"title": "Rundblick 23.11.", "prompt": "Rundblick: x"}) is None, "Haken: Routine (ohne Kern) abgewiesen")
-print("handstart_test: %s" % ("gut" if not fehler else "%d Fehler" % fehler))
+# 1992: eine lokale Variable in main() darf keine Funktion des Moduls überdecken (for z in zs → UnboundLocalError bei z(...))
+import ast, symtable
+_q = open(os.path.join(H, "lauf.py"), encoding="utf-8").read()
+_main = [c for c in symtable.symtable(_q, "lauf.py", "exec").get_children() if c.get_name() == "main"][0]
+_mast = [n for n in ast.parse(_q).body if isinstance(n, ast.FunctionDef) and n.name == "main"][0]
+_mod = {n.name for n in ast.parse(_q).body if isinstance(n, ast.FunctionDef)}
+_ruf = _mod & {n.func.id for n in ast.walk(_mast) if isinstance(n, ast.Call) and isinstance(n.func, ast.Name)}
+_lok = sorted(s.get_name() for s in _main.get_symbols() if s.is_local() and s.get_name() in _ruf)
+pruefe(not _lok, "1992: main() ruft Namen auf, die dort lokal überdeckt sind: %s" % _lok)
+print("handstart_test: %s" %("gut" if not fehler else "%d Fehler" % fehler))
 sys.exit(1 if fehler else 0)

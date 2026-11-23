@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """1988 (Chef 23.11., 09:02 „1 bis 3 ja“): (1) „Aufwand“ im Startauftrag der Leitung gestrichen (Chef 09:07);
 (3) eine Leitungssitzung ab 300.000 used_tokens (context_usage) ergibt die Zeile NEUSTART-LEITUNG an den Disponenten,
-vorn bei den STREICHEN-Zeilen (1688); Zusatz Chef 09:26: (4) dasselbe für den Disponenten (NEUSTART-DISPONENT, Wache startet),
+vorn bei den STREICHEN-Zeilen (1688); Zusatz Chef 09:26: (4) dasselbe für den Disponenten (NEUSTART-DISPONENT; seit 1992 startet er seinen Nachfolger selbst),
 (5) dieselbe Warnung höchstens einmal je Stunde."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -34,12 +34,13 @@ pruefe(all(x.startswith("NEUSTART-LEITUNG ") and "Leitung neu starten (Übergabe
 pruefe(lauf.leitung_neustart({"Sokrates": [s("session_X", 300000)]}, set()) != [], "1988: genau 300.000 zählt (ab)")
 aus = lauf.vorn(["START Tom | x", "NEUSTART-LEITUNG session_A | Sokrates | 300 Tsd. | y", "STREICHEN 1-Ü1 | z"])
 pruefe(aus[0].startswith("STREICHEN ") and aus[1].startswith("NEUSTART-LEITUNG "), "1988: Neustartzeile vorn, nach STREICHEN: %s" % aus)
-# (4) Zusatz Chef 09:26: Disponent ab 300.000 Token, Übergabe zuerst, die Wache startet ihn neu
+# (4) Zusatz Chef 09:26: Disponent ab 300.000 Token, Übergabe zuerst; 1992: er startet den Nachfolger selbst
 d = {"Disponent": [s("session_P", 300000), s("session_Q", 299999)], "Sokrates": [s("session_A", 310000)]}
 z = lauf.leitung_neustart(d, set(), wache="session_W")
 pruefe([x.split(" ", 2)[:2] for x in z] == [["NEUSTART-LEITUNG", "session_A"], ["NEUSTART-DISPONENT", "session_P"]], "1988 (4): Disponent ab 300.000: %s" % z)
 zd = [x for x in z if x.startswith("NEUSTART-DISPONENT")]
-pruefe(zd and "Übergabe zuerst" in zd[0] and "session_W" in zd[0] and "Wache" in zd[0], "1988 (4): Wortlaut Übergabe zuerst, an die Wache: %s" % zd)
+pruefe(zd and "Übergabe zuerst, dann startet der Disponent seinen Nachfolger selbst mit `lauf.py --start Disponent`; der Nachfolger archiviert den Vorgänger" in zd[0]
+       and "Wache" not in zd[0] and "send_message" not in zd[0], "1992 (Chef 10:04): Disponent startet Nachfolger selbst, nicht über die Wache: %s" % zd)
 aus = lauf.vorn(["START Tom | x", "NEUSTART-DISPONENT session_P | y", "NEUSTART-LEITUNG session_A | y", "STREICHEN 1-Ü1 | z"])
 pruefe([a.split(" ")[0] for a in aus[:3]] == ["STREICHEN", "NEUSTART-LEITUNG", "NEUSTART-DISPONENT"], "1988 (4): Disponentzeile vorn: %s" % aus)
 import tempfile, datetime, json
