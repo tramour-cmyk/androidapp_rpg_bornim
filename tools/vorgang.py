@@ -31,12 +31,39 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
                                        committen; sonst hält die Commit-Prüfung an.
   vorgang.py archivbereich [NR=Bereich …]   Bereichsfeld im Archiv (LISTE-VORGAENGE-ARCHIV.md): jedes ungültige nach
                                        bereiche.einordnen(), die genannten Nummern fest (686, D90.3); meldet, was „? unbekannt“ bleibt
-  --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege, Spiegel).
+Übergabe (1760, 1727 Gesamtbild 3.3 Fassung 2; Zeile in docs/vorgang/NR.md, gepusht wie der Zähler, Nachricht nur Wecker):
+  vorgang.py uebergabe NR AN "was"     Zeile „offen“, dann WECKER-Zeilen (send_message „sieh in NR (Kennung)“ an die Sitzung aus der Besetzung)
+                                       AN (1946): Arbeitsplaner, Disponent, Prüfer, Tester, Sokrates, Fachkraft oder ein Fachprofil
+                                       (Regeln, Kampf, Figur, Kataloge, Welt, Klang, Oberfläche, Story, Technik, Werkzeug); alte Namen
+                                       (Spike = Technik, Diogenes = Prüfer, Ford = Disponent …) nur bis zur Umschaltung
+Build-Aufträge und Testmeldungen (1949): Nummer B<n> für Build n (B300, nie 300: das ist ein anderer Vorgang); auftrag, rueckmeldung,
+  uebergabe nehmen B<n> ohne Zeile in der Vorgangsliste, Datei docs/vorgang/B<n>.md; Empfänger des Build-Auftrags: Technik
+  vorgang.py annehmen KENNUNG [--frist MIN] · verlaengern KENNUNG [--frist MIN] · erledigt KENNUNG · freigeben (vor „Nachfolger:“)
+  vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen; abgelaufene Frist eines ruhenden Halters wird wieder offen
+                                       (Einzelheiten: tools/uebergabe.py)
+  vorgang.py chefwort NR "Wortlaut" [--zeit "TT.MM., HH:MM"] [--sitzung ROLLE]   Chefwort wörtlich in docs/vorgang/NR.md und
+                                       offene Zeile an den Arbeitsplaner (1762 Haken D; Einzelheiten: tools/chefwort.py)
+  vorgang.py rueckmeldung NR "Text" [--sitzung ROLLE]   Rückmeldung wörtlich in docs/vorgang/NR.md; „steckt fest“, „Frage“,
+                                       „wirkt nein“ → Zeile an Sokrates, „nein, Auftrag“ → Arbeitsplaner; Obergrenzen A, B → ruht, beim
+                                       Chef (1763; Einzelheiten: tools/rueckmeldung.py)
+Auftrag und Schließen (1739, Bauliste 1727 Gesamtbild 7.1; Einzelheiten: tools/auftrag.py):
+  vorgang.py auftrag NR [--datei PFAD|- [--pruefen]]   ohne Datei die Vorlage mit den sieben Feldern; mit Datei prüfen (Felder,
+                                       „Zurück“, höchstens 2 KB) und als „## Auftrag“ in docs/vorgang/NR.md eintragen (gepusht); NR muss in
+                                       der Liste oder im Archiv stehen, auch mit --pruefen (1944), oder B<n> sein (1949)
+  vorgang.py schliessen NR "Grund"     Stand „erledigt“ wie fertig, Grund als Zeile „Geschlossen“ in docs/vorgang/NR.md
+Lehrenbuch docs/LISTE-LEHREN.md (1739, Archiv „Lehrenbuch“ 21.11., 14:19; Einzelheiten: tools/lehren.py):
+  vorgang.py lehre suche WORT …        freie Suche · lehre bereich NR  Lehren des Bereichs von NR nach Rangfolge
+  vorgang.py lehre roh NR "Anlass" "Ursache und Satz"   rohe Zeile anhängen (sonst automatisch bei Rückmeldung und Schließen)
+  vorgang.py lehre zuordnen R<n> L<n> | --neu "Stichworte" "Lehre" | --keine "Grund"   Wirkung „wirkt nein“/„nicht gefunden“
+                                       an Sokrates
+  vorgang.py --hilfe                   diese Hilfe
+  --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege).
 """
 import os, re, sys, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import startbar
 import bereiche  # 651
+import uebergabe  # 1760
 
 DOCS = startbar.DOCS
 ROLLEN = startbar.BESITZER
@@ -57,10 +84,15 @@ def finden(nr, rolle=None):
 
 def fehler_oder(d, alt=None):
     alle = set(startbar.VORG) | {x["nr"] for x in startbar.zeilen_liste()}
-    f = startbar.pruefen_zeile(dict(d, zeile=startbar.zeile_text(d), spalten=len(startbar.SPALTEN)), alle)
-    # 1492 (D281.3): Stand und „wartet auf“ setzen geht auch, wenn die Zeile schon zu lang ist; die Länge zählt nur, wenn der Titel sich ändert
+    f = startbar.pruefen_zeile(dict(d, zeile=startbar.zeile_text(d), spalten=len(startbar.SPALTEN_NEU if startbar.NEU else startbar.SPALTEN)), alle)
+    # 1492 (D281.3): Stand und „wartet auf“ setzen geht auch, wenn die Zeile schon zu lang ist; die Länge zählt nur, wenn der Titel sich ändert.
+    # 1919: nur wenn sie vorher schon über 400 lag (alter Fehler, die Commit-Prüfung hält nur neue an); wird sie erst durch Stand oder
+    # „wartet auf“ zu lang, hält vorgang.py an, statt dass der Commit danach scheitert
     if alt is not None and d.get("titel") == alt.get("titel"):
-        f = [x for x in f if not x.startswith("Zeile über 400 Zeichen")]
+        if len(startbar.zeile_text(alt)) > 400:
+            f = [x for x in f if not x.startswith("Zeile über 400 Zeichen")]
+        else:
+            f = [(x + "; Titel kürzen: vorgang.py setze %s titel=… (1919)" % d["nr"]) if x.startswith("Zeile über 400 Zeichen") else x for x in f]
     # Chef nur mit Datei (275.2): beim Schreiben streng, beim Lesen erfüllt sie sich (Datei weg)
     for t in d["warte"]:
         if startbar.art(t) == "chef" and (alt is None or t not in alt["warte"]):
@@ -70,12 +102,28 @@ def fehler_oder(d, alt=None):
     if f: sys.exit("vorgang.py: %s nicht geschrieben: %s" % (d["nr"], "; ".join(f)))
 
 def ersetzen(alt, neu):
+    if startbar.NEU:  # 1893: Eilt ist Kl. der neuen Liste (nur Wort des Chefs); Block und Besitzer folgen dem Bereich; Build in die Vorgangsdatei
+        if neu.get("kl") == "Eilt": neu["kl"] = "M"; neu["eilt"] = True
+        elif neu.get("kl") != alt.get("kl"): neu["eilt"] = False
+        if neu.get("bereich") != alt.get("bereich") or not neu.get("block"):
+            neu["block"] = startbar.block_von(neu["nr"], neu["bereich"])
+        neu["besitzer"] = startbar.themenbloecke()[0].get(neu["block"], "Arbeitsplaner")
+        if (neu.get("build") or "–") != (alt.get("build") or "–"): build_in_datei(neu["nr"], neu.get("build") or "–")
     neu["wort"] = startbar.wort_von(neu["stand"]); neu["zusatz"] = startbar.zusatz_von(neu["stand"])
     fehler_oder(neu, alt)
     L = text_liste().split("\n")
     if L[alt["i"]] != alt["zeile"]: sys.exit("vorgang.py: Liste hat sich beim Lesen geändert, nichts geschrieben")
     L[alt["i"]] = startbar.zeile_text(neu)
     schreiben(startbar.LISTE, "\n".join(L))
+
+def build_in_datei(nr, build):
+    """1893: Build der neuen Liste steht in docs/vorgang/NR.md als Zeile „- Build: <n>“ (letzte gilt; startbar.build_aus_datei)."""
+    p = os.path.join(DOCS, "vorgang", "%s.md" % nr)
+    try: t = open(p, encoding="utf-8").read()
+    except OSError: t = "# %s\n\nVorgangsdatei (1727 Gesamtbild 0a). Übergaben schreibt nur `vorgang.py` (1760).\n" % nr
+    if "## Build" not in t: t = t.rstrip("\n") + "\n\n## Build\n"
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    open(p, "w", encoding="utf-8").write(t.rstrip("\n") + "\n- Build: %s\n" % build)
 
 def warte_aus(text):
     t = text.strip()
@@ -135,6 +183,7 @@ def setzen(nr, paare, rolle=None):
         k, _, v = p.partition("=")
         if k not in FELDER: sys.exit("vorgang.py: Feld „%s“ unbekannt (%s)" % (k, ", ".join(sorted(set(FELDER)))))
         k = FELDER[k]
+        if k == "besitzer" and startbar.NEU: sys.exit("vorgang.py: neue Liste (1727): Besitzer folgt dem Bereich (Block, Fachprofil); `vorgang.py setze %s bereich=<Bereich>`" % nr)
         if k == "warte": n[k] = warte_aus(v)
         elif k == "stand":
             if stand_pruefen(v, nr) == "erledigt" and (sp := rest_sperre(nr, d)): sys.exit("vorgang.py: " + sp)   # 1153
@@ -143,9 +192,7 @@ def setzen(nr, paare, rolle=None):
         elif k == "bereich" and not bereiche.gueltig(v): sys.exit("vorgang.py: Bereich aus der festen Liste (651), Vorschlag „%s“:\n%s" % (bereiche.einordnen(v), bereiche.liste_text()))
         else: n[k] = v.strip() or "–"
     if n["besitzer"] != d["besitzer"]:  # neuer Besitzer: Zeile ans Ende seiner Zeilen
-        leer = leere_entwickler(n["besitzer"]) if n["kl"] != "K" else []  # 1604
         ersetzen(d, n); rang(nr, "unten", None, n["besitzer"])
-        if leer: print(leer_text(nr, n["besitzer"], leer))
     else:
         ersetzen(d, n)
     print("vorgang.py: %s gesetzt: %s" % (nr, ", ".join(paare)))
@@ -159,6 +206,7 @@ def klasse(nr, kl, rolle=None):
 def stufe(d):
     """1543: Rang der Klasse für ordnen()."""
     if d.get("stand", "").startswith("nach"): return 3
+    if d.get("eilt"): return -1  # 1893: Eilt vor Muss
     return {"M": 0, "M?": 1}.get(d.get("kl", "").strip(), 2)
 
 def muss_vorn(text):
@@ -285,9 +333,17 @@ def fertig(nr, rolle=None):
         sys.exit(1)
     ersetzen(d, dict(d, stand="erledigt", warte=[]))
     wer = [x for x in startbar.zeilen_liste() if nr in x["warte"]]
+    for x in wer:  # 1739 (Bauliste 7.1): „wartet auf“ leeren bei Lieferung
+        y = finden(x["nr"], x["besitzer"])
+        ersetzen(y, dict(y, warte=[w for w in y["warte"] if w != nr]))
     zu = [l[:60] for l in startbar.lesen(startbar.VORRAT.get(d["besitzer"], "")).splitlines() if re.match(r"- \*\*Zu " + re.escape(nr) + r"\b", l)]
-    print("vorgang.py: %s erledigt (%s)%s%s" % (nr, d["besitzer"], ("; darauf warten: " + ", ".join("%s (%s)" % (x["nr"], x["besitzer"]) for x in wer)) if wer else "",
+    print("vorgang.py: %s erledigt (%s)%s%s" % (nr, d["besitzer"], ("; „wartet auf %s“ geleert bei: " % nr + ", ".join("%s (%s)" % (x["nr"], x["besitzer"]) for x in wer)) if wer else "",
                                             ("; Absätze noch da: " + " | ".join(zu)) if zu else ""))
+    try:  # 1688: Zeilen „Zu NR, bis erledigt“ als Übergabe „streichen: …“ an den Disponenten (nur bei Fund, sonst ohne Netz)
+        import streichen
+        if streichen.funde(nr): streichen.melden(nr)
+    except Exception as e:
+        print("WARNUNG Streichzeilen zu %s nicht gemeldet: %s (1688; von Hand: streichen.py melden %s)" % (nr, str(e)[:160], nr))
 
 def greift(nr, lauf, rolle=None):
     """755 (D101.1, 724 A): Diogenes schließt einen Vorgang im Bereich B mit seinem „greift“ selbst ab, im Commit des Laufs;
@@ -401,37 +457,41 @@ def zaehler_pushen(zeile, nr, besitzer):
     except Exception:
         return "aus"
 
-# 1604 (Chef 17.11., 23:16 „warum ich dich erinnern muss, dass es mehr als 2 Entwickler gibt“): Fehler 341 zum zweiten Mal (1600),
-# Arbeit nach Fach an Jerry und Tom, während Spike und Tuffy leer standen. Geht ein Muss an Tom oder Jerry, warnt das Werkzeug,
-# wenn Spike kein startbares Muss (auch keine Übernahme 1364) hat oder Tuffy kein zweites unabhängiges bei Jerry (wie ueberblick.py).
-# Nur warnen: verteilt wird nach Last, entscheiden tut der Anlegende.
-def _muss_startbar(rolle):
-    zs = [z for z in startbar.plan(rolle) if z[1] == "M" and not z[4] and "fuer" not in z[3]]
-    inhalt = startbar.lesen(startbar.VORRAT.get(rolle, ""))
-    if startbar.pause(inhalt) and startbar.pause_frei(inhalt):  # wie startbares_muss: Pause ohne „frei für“ hält nur die Kür
-        frei = startbar.pause_frei(inhalt); zs = [z for z in zs if startbar.ist_frei(z[0], frei)]
-    return zs
+# 1604 Leerlauf-Warnung „Spike/Tuffy ohne Muss“ fällt (1871 Stilllegung C; Disponent teilt jeden Auftrag zu, G:130, G:498).
 
-def leere_entwickler(besitzer):
-    """[Spike, Tuffy] ohne Arbeit, wenn ein Muss an Tom oder Jerry geht (1604); Tuffy nur bei Tom (eine neue Jerry-Zeile ist Tuffys Arbeit)."""
-    if besitzer not in ("Tom", "Jerry"): return []
-    aus = []
-    try:
-        if not _muss_startbar("Spike") and not startbar.uebernahmen("Spike"): aus.append("Spike")
-        if besitzer == "Tom":
-            eigen = _muss_startbar("Jerry")
-            zw = (eigen[0][3].get("zweig") or "–") if eigen else "–"
-            frei = [x for x in eigen[1:] if (x[3].get("zweig") or "–") in ("–", "-", "") or x[3].get("zweig") != zw]
-            if not [x for x in frei if not re.search(r"nur Jerry\b", x[2] + " " + x[3].get("stand", ""))]: aus.append("Tuffy")
-    except Exception as e:  # die Warnung darf das Anlegen nie verhindern
-        print("vorgang.py: Lastprüfung 1604 übersprungen (%s)" % e)
-    return aus
+ARCHIV = "LISTE-VORGAENGE-ARCHIV.md"
 
-def leer_text(nr, besitzer, leer):
-    wer = " und ".join({"Spike": "Spike hat kein startbares Muss", "Tuffy": "Tuffy kein zweites unabhängiges Muss bei Jerry"}[x] for x in leer)
-    ziel = " oder ".join({"Spike": "`vorgang.py setze %s besitzer=Spike`" % nr, "Tuffy": "`vorgang.py setze %s besitzer=Jerry` (Tuffy arbeitet auf Jerrys Zeilen)" % nr}[x] for x in leer)
-    return ("vorgang.py: WARNUNG 1604: %s geht an %s, aber %s. Nach Last verteilen, nicht nach Fach (Fehler 341): "
-            "kann es ein anderer bauen, %s oder Abgabe-Zeile im Vorrat (1364); sonst begründet so lassen." % (nr, besitzer, wer, ziel))
+def wieder_offen(nr):
+    """1798 (Kern Arbeitsplaner, Rückläufer zu archivierter Nummer): Titel der archivierten Nummer, sonst None. Nur lesen: Liste und
+    Archiv ändert auftrag.eintragen mit wieder_texte im selben Commit wie den Auftrag, gepusht (1899)."""
+    for z in startbar.lesen(ARCHIV).split("\n"):
+        f = [x.strip() for x in z.split("|")]
+        if z.startswith("| ") and len(f) > 8 and f[1] == nr: return f[2]
+    return None
+
+def wieder_texte(nr, liste, archiv):
+    """1798, 1899 (D339.1): Zeile nr aus dem Archivtext zurück in den Listentext, Stand „startbar“ (Kl. wie archiviert, „–“ → K); alte Liste:
+    Besitzer aus Spalte Vorrat (keine Rolle → Perikles), neue: Fachprofil des Blocks. (Liste, Archiv, Besitzer) oder None, wenn die Nummer
+    nicht im Archiv steht."""
+    A = archiv.split("\n")
+    for i, z in enumerate(A):
+        f = [x.strip() for x in z.split("|")]
+        if not (z.startswith("| ") and len(f) > 8 and f[1] == nr): continue
+        titel, bereich, kl, kosten, vorrat = f[2], f[3], f[4], f[5], f[6]
+        besitzer = {"Team Tom": "Tom", "Team Jerry": "Jerry", "Tuffy": "Jerry"}.get(vorrat, vorrat)
+        if besitzer not in ROLLEN: besitzer = "Perikles"
+        d = dict(nr=nr, titel=titel, besitzer=besitzer, kl=kl if kl in ("M", "K", "M?") else "K", stand="startbar", warte=[], zweig="–",
+                 build="–", bereich=bereich, kosten=(kosten.split(";")[0].strip() or "–"), wort="startbar", zusatz="")
+        startbar.vorgangsliste(liste)  # NEU folgt der gelesenen Liste
+        if startbar.NEU:
+            d["block"] = startbar.block_von(nr, bereich); d["besitzer"] = startbar.themenbloecke()[0].get(d["block"], "Arbeitsplaner")
+            d["runde"] = "0"; d["sitzung"] = "–"
+        L = liste.split("\n")
+        _, ende = gruppe(L, d["besitzer"])
+        L.insert(ende, startbar.zeile_text(d))
+        del A[i]
+        return "\n".join(L), "\n".join(A), d["besitzer"]
+    return None
 
 def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     """275 Stufe 2, 275.2: neue Zeile (Stand startbar, Kosten –); ohne --nr die nächste freie Nummer aus ARBEIT-BETRIEB.md, die hochzählt."""
@@ -442,7 +502,13 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
     if any(c in titel for c in "|\n"): sys.exit("vorgang.py: Titel ohne | und Zeilenumbruch")
     if nr and (nr in startbar.VORG or any(d["nr"] == nr for d in startbar.zeilen_liste())): sys.exit("vorgang.py: %s gibt es schon" % nr)
     d = dict(nr=nr or "?", titel=titel.strip(), besitzer=besitzer, kl=kl, stand="startbar", warte=[], zweig="–", build="–", bereich=bereich.strip(), kosten="–")
+    if startbar.NEU:  # 1893: neue Liste ohne Besitzer; Besitzer = Fachprofil des Blocks aus dem Bereich
+        d["block"] = startbar.block_von(d["nr"], d["bereich"]); d["besitzer"] = startbar.themenbloecke()[0].get(d["block"], "Arbeitsplaner")
+        d["runde"] = "0"; d["sitzung"] = "–"; besitzer = d["besitzer"]
     d["wort"] = "startbar"; d["zusatz"] = ""
+    if not nr:  # 1916 (D346.1): Länge mit einer Nummer so lang wie die echte prüfen (Zähler), nicht mit „?“
+        mz = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*", startbar.lesen("ARBEIT-BETRIEB.md") or "")
+        d["nr"] = str(max([int(mz.group(1)) if mz else 9999] + fern_zaehler())) if mz else "9999"
     fehler_oder(d)
     if not nr:
         b = startbar.lesen("ARBEIT-BETRIEB.md")
@@ -463,13 +529,12 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
         else: sys.exit("vorgang.py: Zähler sechsmal abgewiesen (origin/main bewegt sich zu schnell); nichts angelegt, gleich noch einmal")
         if r != "gültig": schreiben("ARBEIT-BETRIEB.md", b.replace(m.group(0), zeile, 1))
         # gültig: der Zähler steht auf origin/main; die eigene Kopie holt ihn beim nächsten pull ohne Konflikt (Zeile hier unverändert)
-    leer = leere_entwickler(besitzer) if kl != "K" else []  # vor dem Einfügen: Stand ohne die neue Zeile
     L = text_liste().split("\n")
     eigen, ende = gruppe(L, besitzer)
     L.insert(eigen[0] if oben and eigen else ende, startbar.zeile_text(d))
     schreiben(startbar.LISTE, "\n".join(L))
-    print("vorgang.py: %s angelegt (%s, %s, %s); Einzelheiten als „Zu %s“ in den Vorrat, dann pushen, dann die Nummer nennen" % (nr, bereich, kl, besitzer, nr))
-    if leer: print(leer_text(nr, besitzer, leer))
+    wohin = "in docs/vorgang/%s.md (Vorräte fallen, 1871)" % nr if startbar.NEU else "als „Zu %s“ in den Vorrat" % nr
+    print("vorgang.py: %s angelegt (%s, %s, %s); Einzelheiten %s, dann pushen, dann die Nummer nennen" % (nr, bereich, kl, besitzer, wohin))
     if not titel.startswith(SYSTEM): waechter(nr, titel, bereich)
     return nr
 
@@ -490,24 +555,38 @@ QUERSCHNITT = {"Menü": "785", "Knopf": "785", "Fenster": "785", "Kasten": "785"
 # 793 (D116.1): Wortanfänge, die ein anderes Wort sind (Beispiel Halt/Haltung, Halt gestrichen 654.1)
 NICHT = {}
 
-def waechter(nr, titel, bereich):
+def waechter_funde(nr, titel, laut=True):
+    """654: [(Stichwort, frühere Nummern)], für die waechter() eine Zeile „Systemlösung?“ anlegen würde; ändert nichts (1887)."""
     def hat(t, w): return re.search(r"(?<![\w])" + w + NICHT.get(w, ""), t, re.I) is not None  # Wortanfang, auch Zusammensetzungen (Schildhöhe)
     titel_alle = []
     for name in (startbar.LISTE, "LISTE-VORGAENGE-ARCHIV.md"):
         for m in re.finditer(r"(?m)^\| ([^|\s]+) \| ([^|]*) \|", startbar.lesen(name)):
             if m.group(1) not in (nr, "Nr.") and not m.group(2).startswith(SYSTEM): titel_alle.append((m.group(1), m.group(2)))
     offen = " ".join(d["titel"] for d in startbar.zeilen_liste() if d["titel"].startswith(SYSTEM))
+    aus = []
     for w in STICHWORTE:
         if not hat(titel, w): continue
         frueher = [n for n, t in titel_alle if hat(t, w)]
         if len(frueher) < 2: continue
         if w in QUERSCHNITT:
-            print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen; gehört zum Querschnitt %s (654 A), keine neue Zeile" % (w, len(frueher), QUERSCHNITT[w])); continue
+            if laut: print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen; gehört zum Querschnitt %s (654 A), keine neue Zeile" % (w, len(frueher), QUERSCHNITT[w]))
+            continue
         if re.search(re.escape(SYSTEM) + " " + w + r"\b", offen):
-            print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen, Zeile „%s %s“ für Sokrates offen (654)" % (w, len(frueher), SYSTEM, w)); continue
-        zeige = ", ".join(frueher[-5:]) + (" …" if len(frueher) > 5 else "")
-        n2 = neu("%s %s: %d frühere Vorgänge (%s), neu %s; einmal grundsätzlich lösen? (654)" % (SYSTEM, w, len(frueher), zeige, nr), bereich, "K", "Sokrates")
+            if laut: print("vorgang.py: Stichwort „%s“ schon in %d Vorgängen, Zeile „%s %s“ für Sokrates offen (654)" % (w, len(frueher), SYSTEM, w))
+            continue
         offen += " %s %s" % (SYSTEM, w)
+        aus.append((w, frueher))
+    return aus
+
+
+def waechter_titel(w, frueher, nr):
+    zeige = ", ".join(frueher[-5:]) + (" …" if len(frueher) > 5 else "")
+    return "%s %s: %d frühere Vorgänge (%s), neu %s; einmal grundsätzlich lösen? (654)" % (SYSTEM, w, len(frueher), zeige, nr)
+
+
+def waechter(nr, titel, bereich):
+    for w, frueher in waechter_funde(nr, titel):
+        n2 = neu(waechter_titel(w, frueher, nr), bereich, "K", "Sokrates")
         print("vorgang.py: Wiederholung „%s“ → %s für Sokrates (654); vor dem Bauen die Systemfrage" % (w, n2))
 
 # ---------------------------------------------------------------- Automatik B
@@ -692,7 +771,9 @@ def build_abschluss(n, datei=None, probe=False):
         if neu_d is d: continue
         alt = finden(d["nr"], d["besitzer"] if d["nr"] in startbar.SONDER else None)
         ersetzen(alt, neu_d)
-        for k, e, f in durch: zu_absatz(d["besitzer"], d["nr"], "Fund t%s, Test Build %s, Automatik B" % (k, n), f or "✗ ohne Text, Prüfpunkt %s" % k)
+        for k, e, f in durch:
+            zu_absatz(d["besitzer"], d["nr"], "Fund t%s, Test Build %s, Automatik B" % (k, n), f or "✗ ohne Text, Prüfpunkt %s" % k)
+            if f: waechter(d["nr"], f, d["bereich"])  # 1739 (7.1, F3): Wächter prüft auch jeden Fund des Chefs
         # 1445 (Chef 16.11., 14:36): eine Anmerkung bei „Passt“ („- n.k ✓ <Anmerkung>“) geht als Absatz an den Besitzer, nie verloren
         for k, e, f in [x for x in je.get(d["nr"], []) if x[1] == "✓" and x[2] and not x[2].startswith("👍")]:
             zu_absatz(d["besitzer"], d["nr"], "Anmerkung t%s (✓), Test Build %s, Automatik B" % (k, n), f)
@@ -726,7 +807,6 @@ def treffer(nr):
     return aus
 
 def ansicht(rolle, nur_startbar=False):
-    rolle = startbar.ZUSATZ.get(rolle, rolle)
     zs = startbar.plan(rolle)
     p = startbar.pause(startbar.lesen(startbar.VORRAT.get(rolle, "")))
     print("%s: %d offen, %d Muss, %d startbar%s (Reihenfolge = Vorrang; „für X“: X wartet auf dich)" % (
@@ -769,12 +849,24 @@ def haupt(a):
     rolle = None
     if "--rolle" in a:
         i = a.index("--rolle")
-        if i + 1 >= len(a) or a[i + 1].capitalize() not in ROLLEN + list(startbar.ZUSATZ):
+        if i + 1 >= len(a) or a[i + 1].capitalize() not in ROLLEN:
             sys.exit("vorgang.py: --rolle braucht eine von: " + ", ".join(ROLLEN))
         rolle = a[i + 1].capitalize(); del a[i:i + 2]
         if not a or a[0] == "--startbar": return ansicht(rolle, bool(a))
     if not a: print(__doc__); sys.exit(2)
     b = a[0]
+    if b in ("--hilfe", "-h", "--help", "hilfe"):  # 1739 (Bauliste 7.1): fand „nichts“
+        print(__doc__); return
+    if b in ("auftrag", "schliessen"):  # 1739
+        import auftrag; return auftrag.haupt(a, fertig=lambda nr: fertig(nr, rolle), wieder=wieder_offen)
+    if b in uebergabe.BEFEHLE:  # 1760
+        r = uebergabe.haupt(a); sys.exit(3 if r == "BELEGT" else 0)
+    if b == "chefwort":  # 1762
+        import chefwort; return chefwort.haupt(a)
+    if b == "rueckmeldung":  # 1763
+        import rueckmeldung; return rueckmeldung.haupt(a)
+    if b == "lehre":  # 1739 Lehrenbuch
+        import lehren; return lehren.haupt(a)
     if b == "pruefen":
         f = startbar.pruefen_liste()
         for nr, x in f: print("%s: %s" % (nr, x))
@@ -803,7 +895,7 @@ def haupt(a):
         print("== %s" % nr)
         print("\n".join(treffer(nr)) or "nichts gefunden")
 
-SCHREIBT = ("stand", "warte", "setze", "klasse", "fertig", "rang", "ordnen", "neu", "build")
+SCHREIBT = ("stand", "warte", "setze", "klasse", "fertig", "schliessen", "rang", "ordnen", "neu", "build")
 
 def liegt_melden(vorher):
     """891 (654, Chef 10.11., 17:15; 506 lag 16:43–17:00, Ford lief erst 16:59): neu startbares Muss nennen; läuft keine Sitzung

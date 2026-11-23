@@ -2,11 +2,9 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 18.11., 20:04 (lauf.py)
+**Stand:** 23.11., 18:57 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Sonstige | [Ford-Wache (17.11., 18:42)](https://claude.ai/code/session_01Hmoj76ew1cGKY7mCBVHUFx) | Betrieb | – | 17.11., 18:41 |
-| Ford | [Ford – Betriebsleiter (18.11., 08:50)](https://claude.ai/code/session_01Hmoj78M61cNk8nkWNPfU9N) | Betrieb | – | 18.11., 08:50 |
-| Sokrates | [Sokrates – 1608: Zusammenführen getesteter Builds (18.11., 17:09)](https://claude.ai/code/session_01Hmoj79Z3t6fDaYCiMy2dKv) | 1608 | – | 18.11., 17:09 |
-| Spike | [Spike – 1595: Build 300 grün und Testbitte (18.11., 20:01)](https://claude.ai/code/session_01Hmoj76gWm8hNEQSVkMDF94) | 1595 | – | 18.11., 20:01 |
+| Disponent | [Disponent – Betrieb (23.11., 13:53)](https://claude.ai/code/session_01Hmoj75wHERahcfNJhym3bB) | Betrieb | – | 23.11., 13:53 |
+| Sokrates | [Sokrates – Leitung (23.11., 15:22)](https://claude.ai/code/session_01Hmoj78wagZZvirW9ecr5Pc) | Betrieb | – | 23.11., 15:23 |

@@ -5,62 +5,63 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 18.11., 07:51** (Werkzeug `tools/tagesbericht.py`)
+**Stand 23.11., 10:49** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
 | 1 | Stufe | **Stufe 1 Kern spielbar**: 2 von 4 abgenommen, 2 gebaut, 0 in Arbeit | 41 Punkte in 6 Stufen: 3 abgenommen, 2 gebaut, 7 in Arbeit, 29 offen |
-| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 122 / 929, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 83 / 556; neu 126 / 864 |
-| 3 | Rest geschätzt | Wochenziel 16.–22.11. „Kampf passt, mit festen Plätzen“ wird nicht erreicht: der Kampf ruht nach deinem Wort bis Sa 21.11., 20:00, weil das neue Kampfsystem (1589) den alten Kampfweg ersetzt. (ganz unter „Eingaben“) | Sitzungen bis zur nächsten Stufe, Tom und Jerry, montags neu |
-| 4 | Wartet auf dich | **8 zu billigen**, **1 Build zum Testen** | ältestes: 1571 seit 17.11., 00:00; [Chefsache](chefsache/README.md) |
-| 5 | Builds | Änderungen warten auf deinen Test: **14** (Tom 4, Jerry 10); rote Läufe 24 h **5 von 9** (Jerry 1, beim Bau eines Test-Builds 4), 7 Tage 101 von 186; rote Tests 48 h: wolf_mess_438 8×, tod_ragdoll_1215 4×, arkan_993 3×, biss_1284 3×, reihe_1305 3×, rand_1022 2×; APK-Läufe 24 h: **9**, Ø **46 min** (min 25, max 82), vorgerendert **7 von 9** (Ø 39 min, mit Neubau 71 min) | bei dir zum Testen: Build 298; ein Build nimmt alle fertigen Zweige (317) |
-| 6 | Fehler | **17** offen, davon 5 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
-| 7 | Geld | Woche unbekannt; gestern 745 $ Rechenwert, Spiel 72 %; **Bitte Bild der Nutzung** (Anteil der Woche in Prozent; solange die Niederlassung ruht, nur vom Account Max) | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
-| 8 | Von dir zuerst gefunden | seit dem letzten Bericht (17.11., 07:42): Ford hing zwei Stunden und keiner meldete es (17:02, 1572); der weiße Streifen an der Wache war entgegen der Meldung noch da (21:45, 1515); der Feuerzauber beginnt hinter dem Kopf statt am Stab (21:40, 385.2); die Arbeit lief wieder nur auf zwei Entwickler zu … (ganz unter „Eingaben“) | Woche, zählt Diogenes montags |
-| 9 | Größtes Risiko | der Stillstand ab Do 19.11. gegen 10:00, wenn das Guthaben 100 % erreicht; geht der Schlussbuild 299 heute rot, hast du bis Samstag nur Build 298, in dem ein Test rot war (Kartenrand rand_1022, 1606). Darum fliegt in 299 jeder rote Zweig hinaus statt repariert zu werden. |  |
-| 10 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
+| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 0 / 400, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 0 / 189; neu 76 / 570 |
+| 3 | Wo stehen wir | Oberster Block bleibt 10 Regeln (`chefsache/themenbloecke.md`); seit gestern abgenommen sind 870 „Umstellung ganz auf BRS“ (dein Votum A, 23.11., 07:40, ohne Spieltest) und das Höhlenwasser 1566 (Block 5, 23.11., 08:09 nach `main` ohne Build); damit hat Block 10 kein … (ganz unter „Eingaben“) | Themenblock oben, seit gestern abgenommen, als Nächstes (Routine Tagesbericht) |
+| 4 | Wartet auf dich | nichts | ältestes: –; [Chefsache](chefsache/README.md) |
+| 5 | Builds | Änderungen warten auf deinen Test: **0** (Tom 0, Jerry 0); wie wirksam die Läufe sind: Zeile 10 | bei dir zum Testen: kein Build; ein Build nimmt alle fertigen Zweige (317) |
+| 6 | Fehler | **10** offen, davon 2 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
+| 7 | Geld | Woche unbekannt; gestern 713 $ Rechenwert, Spiel 12 %; **Bitte Bild der Nutzung** (Anteil der Woche in Prozent; solange die Niederlassung ruht, nur vom Account Max) | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
+| 8 | Von dir zuerst gefunden | seit dem letzten Bericht (22.11., 17:43) kein Fund im Spiel, weil kein Build bei dir war; im Büro einer: deine Telegram-Nachrichten ohne Bezug liest keiner, „1566 B“ von 06:40 kam erst auf Nachfrage an (23.11., 06:47, 1982). | Woche, zählt Diogenes montags |
+| 9 | Größtes Risiko | gestern liefen 718 $ Rechenwert, davon 12 % fürs Spiel (Zeile 7), und vor dem Kampf (19 Muss) stehen im Werkzeug-Block 77 Muss (Überblick 10:12), während du bis 27.11. abwesend bist (1961); so beginnt das neue Kampfsystem (1589) wohl erst nach dem Reset 28.11. |  |
+| 10 | Läufe | 24 h **98 % grün** (818 von 831), **9 min in roten Läufen** (1 % der Laufzeit), **– Läufe je erledigtem Spielvorgang** (weiter unter der Tabelle) | alle Bau- und Testläufe ohne abgebrochene; je Spielvorgang = Läufe geteilt durch erledigte oder abgenommene Vorgänge des Spiels, ohne verworfene (1659) |
+| 11 | Fristen | Testbitten über 5 Tage **0**; Fragen an dich ohne Antwort **0**; Vorgänge ohne Auftrag über 1 Tag **352** (26.1, 30, 39, 41.2, 45 …); unter „Unveröffentlicht“ **151** Einträge; letztes Release v0.1.867 vor **36 Tagen** | Testbitte 5 Tage (A13), Vorgang ohne Auftrag 1 Tag (A3, erst nach der Umstellung), Frage an dich ohne Frist (L-O16); Release nur auf dein Wort |
+| 12 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
+
+- Zeile 10 (Läufe), weiter: 7 Tage 96 % grün (890 von 929), 1352 min in roten Läufen (36 % der Laufzeit), 4,9 Läufe je erledigtem Spielvorgang; rot 24 h nach Team: sonstige 13; Buildzweige 24 h: keine Läufe; rote Tests 48 h: keine; APK-Läufe 24 h: **3**, Ø **4 min** (min 4, max 5), vorgerendert **3 von 3**
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
 |---|---|---|---|---|---|
-| Tom | 52 | 13 | 9 | 32 | 217 |
-| Jerry | 73 | 25 | 1 | 32 | 239 |
-| Homer | 1 | 0 | 0 | 4 | 69 |
-| Sokrates | 41 | 8 | 6 | 4 | 104 |
-| Perikles | 24 | 18 | 1 | 34 | 223 |
-| Diogenes | 6 | 5 | 0 | 0 | 19 |
+| Tom | 0 | 0 | 0 | 0 | 65 |
+| Jerry | 0 | 0 | 0 | 0 | 83 |
+| Homer | 0 | 0 | 0 | 0 | 22 |
+| Sokrates | 0 | 0 | 0 | 0 | 39 |
+| Perikles | 0 | 0 | 0 | 0 | 87 |
+| Diogenes | 0 | 0 | 0 | 0 | 7 |
 <!-- /zahlen -->
 
-## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 18.11., 07:48)
+## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 21.11., 20:37; seit 19.11. unverändert, weil das Spiel stand)
 
 | Stufe | Was du spielen kannst | Punkte | Stand |
 |---|---|---|---|
 | **1 Kern spielbar** | Erschaffung nach dem BRS, Dorf und Wald, Kampf nach neuem Rechenmodell, Fertigkeiten durch Tun, Heldenstufe | 4 | 1.1 und 1.4 abgenommen (720, 09.11., 14:49); 1.2 Fertigkeiten gebaut (471 in t274 bestanden); 1.3 gebaut |
-| **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 17 | 2.14 abgenommen; 2.13, 2.15, 2.16 als Teilhaken gebilligt (1375); Builds 295, 296, 297 gestern getestet; Sammelbuild 298 seit 17.11., 23:45 bei dir; Schlussbuild 299 ab heute 13:00 (1595) |
+| **2 Kapitel 1 durchspielbar** | alle Orte bis Blutzahnhöhle, alle Quests, Bosse, Schleichen, Spähen, Rasten, je Herkunft eine Handlung | 17 | 2.14 abgenommen; 2.13, 2.15, 2.16 als Teilhaken gebilligt (1375); Builds 298, 299, 300 gestern getestet und freigegeben (298 um 14:42, 299 um 16:22, 300 heute 07:24 ohne den Wolfsbiss 760); kein Build bei dir |
 | **3 Alle Systeme angelegt** | Lehrmeister, Meisterschaften, Ruf, Herstellen und Sammeln, Abnutzung, Tiere beruhigen, Chronik, Gegenstandskatalog | 8 | Gegenstandskatalog: Waffenstaffel am Helden gebaut (458.3), Langwaffen kürzer (1621, heute 07:37 A); Figurenkatalog Teil A gebilligt (649.2), Teil B ruht mit dem Kampf; Rest offen |
 | **4 Kapitel 1 fertig** | Aussehen, Musik und Klang je Ort, Englisch, keine SRD-Namen, keine offenen Fehler | 10 | in Arbeit (unten); 4.8 keine SRD-Namen in Arbeit (870) |
 | **5 marktreif** | Kapitel 1 im Play Store | 1 | Vorlauf: Firmennummer für das Play-Konto (D-U-N-S) beantragt, Umstellung des Kontos Wiedervorlage 24.11. (142.4); AAB des Godot-Builds ruht bis „Kampf passt“ (622) |
 | **6 SRD im Code abgelöst** | nach dem Marktstart, für dich unsichtbar | 1 | – |
 
-- **Kampf (Block 2) ruht bis Sa 21.11., 20:00** (dein Wort 17.11., 23:21, 1605): keine Arbeit am alten Kampfweg, weil das neue Kampfsystem (Arena, Stellung, Beinarbeit, 1589) ihn ersetzt; 47 Zeilen warten auf diesen Termin, auch Gegenstandskatalog 458.3 und Welt in Zellen 1484a, die in den Sammelbuild danach gehen. Das Wochenziel „Kampf passt“ wird damit in dieser Woche nicht erreicht; ich setze es am Montag neu.
-- **Stufe 2:** Build 295 (10:09), 296 (11:03) und 297 (16:16) hast du gestern getestet; Build 298 (Neues Spiel nur BRS, Wiesen, Dorftiere, Stäbe, Siegtafel, Wolfssprung) liegt seit 23:45 bei dir, ein Test darin war rot (Kartenrand rand_1022, am Rechner grün, Tom 1606). Danach baut Jerry ab 13:00 den Schlussbuild 299 mit allem bis dahin Gebilligten (1595), damit du vor dem Stillstand eine aktuelle App zum Durchspielen hast.
-- **Stufe 3:** Nachts hat Sokrates als dein Vertreter vorentschieden: Waffenstaffel am Helden (458.3), Größen je Volk (455.2), Glanz ab episch (1613), Umhang und Robe (1569, 1569.1), Fackel in der linken Hand (1571), Funkenlicht B (1211), Welt in Zellen (1484a); alles liegt zum Billigen in der Chefsache, „zurück“ heißt Rückbau.
-- **Stufe 4:** gebilligt seit dem letzten Bericht: Höhlenwasser (1566), Siegtafel (1567), Schatten im Kampfort (1568), Stäbe (1587), Streifen an der Wache weg (1515), fremde Rüstungen Stufe 2 (431h), Fackelzug im Vorspann (1530).
+- **Kampf (Block 2):** die Ruhe bis heute 20:00 (dein Wort 17.11., 1605) ist abgelaufen, aber seit 20:06 gilt dein neues Wort „nur fertigmachen, dann Werkzeuge“; das neue Kampfsystem (1589) beginnt erst danach.
+- **Stufe 2:** Build 300 liegt seit 19.11., 08:14 auf `main`, ohne den Wolfsbiss 760 (1724). Garrick (1535) ist bei Tom gebaut, das Bild steht aus; dafür hast du heute 20:31 einen Lauf freigegeben.
+- **Stufe 3 und 4:** kein neuer Stand seit 19.11.; Thessas Spangen (1653) und Rowenas Schürze (1654) hast du am 19.11. gebilligt.
 
-## Wer hinkt (18.11., 07:48)
+## Wer hinkt (21.11., 20:37)
 
-- **Guthaben:** 71 % am 17.11., 21:50; bei 0,8 % je Stunde 80 % heute gegen 09:00 (dann nur noch Muss), 100 % Do 19.11. gegen 10:00, danach Stillstand bis Sa 20:00. Ein neues Bild der Nutzung hilft mir, die Rechnung zu prüfen.
-- **Verteilung:** startbar sind jetzt Tom 9, Sokrates 6, Spike 2, Jerry 1, Perikles 1; Tuffy ist leer, weil Jerry kein zweites unabhängiges Muss außerhalb des ruhenden Kampfs hat. Nach deinem Wort 23:16 (1604) warnt `vorgang.py` jetzt beim Anlegen, wenn Spike oder Tuffy leer stehen; die Wirkung zähle ich am 23.11.
-- **Zusammenführen:** getestete Builds (274 und 15 weitere) sind laut Werkzeug noch nicht ganz auf `main`; Sokrates führt zusammen, was grün ist, rote Tests gehen ans Team (1608, Muss, vor dem Schlussbuild 299).
-- **Rote Läufe:** der Test Kartenrand (rand_1022) war in den Läufen 558 und 559 von Build 298 rot; Ursache gefunden (Stoff der Wiesenflecken aus 1205), Tom hat sie behoben, die Behebung fährt im Schlussbuild 299 mit (1606).
-- **Hänger:** Ford hing gestern zwei Stunden, ohne dass es dir jemand gemeldet hat (1572, dein Fund 17:02); seitdem meldet der Hängeralarm jede blockierte Sitzung nach 15 Minuten laut (1610, prüft Diogenes am 23.11.).
+- **Das Spiel stand seit 19.11., 08:30** (dein Wort: Stillstand bis Sa 20:00 nach dem Griff 1694, Guthaben aufgebraucht): kein Build, kein Spielcode. Build 300 liegt seit 19.11., 08:14 auf `main`, ohne den Wolfsbiss 760 (1724). Die Zeit ging in den Umbau zum Büro (1727) mit Sokrates.
+- **Dieser Bericht fehlte zwei Tage** (20. und 21.11.): die Warnung stand seit 20.11., 10:46 bei mir, und ich habe sie übergangen, weil keine Spielarbeit lief. Das ist derselbe Fehler wie am 19.11. (Fehler 341). Ab Montag kommt er wieder täglich, auch unter Sperre.
+- **Pflege:** die Vorratsprüfung zeigt 36 Funde, alle bei anderen Besitzern: meist mögliche Doppelungen unter den Systemvorgängen von Sokrates, dazu Toms Zweig 431 (Ausrüstung), der ganz in `main` steckt und mit 125,77 $ als festgefahren gilt. Die Besitzer räumen beim Übergeben auf.
+- **Vollzug fehlt** zu vier Entscheiden, darunter der Wolfsbiss 760 (Stichtag heute 20:00); melden muss der Empfehler Sokrates.
 
-## Wo du Prioritäten setzen kannst (18.11., 07:48)
+## Wo du Prioritäten setzen kannst (21.11., 20:37)
 
-1. **Build 298 testen** (seit 17.11., 23:45, Prüfliste `ansehen/t298-sammelbuild.md`, getestet, in Git): er hält 9 Zeilen; was du dort findest, kommt noch in den Schlussbuild 299 ab 13:00.
-2. **Vorentscheide der Nacht billigen oder „zurück“ sagen** (acht Dateien in `chefsache/billigen/`): mit deinem 👍 bis 13:00 kommen sie noch in den Schlussbuild 299, sonst erst in den Sammelbuild nach dem Stillstand (Sa 21.11., 20:00).
-3. **Mittwochsrunde** (dein Wort 18.11., 00:03): heute beantworten Sokrates, Perikles, Homer, Ford, Diogenes, Tom und Jerry den Fragebogen zur eigenen Arbeit (Rollenspiegel); danach bekommst du ihre Vorschläge, wie Kapitel 1 besser wird, als eine Übersicht.
+1. **Wann wieder Spielarbeit?** Seit 20:06 gilt dein Wort: Tom nur Garrick (1535), Jerry nur das Build-Werkzeug (1765), Spike nur die Büro-Werkzeuge (1727), sonst nichts. Sag, ob die Teams am Montag mit dem neuen Kampfsystem (1589) anfangen oder erst nach dem Falltest des Büros.
+2. **Blender-Probe** an deinem PC (1709, Garricks Flanke) steht für morgen, So 22.11.; gilt der Termin?
 
-*Stärkstes Gegenargument zu 1:* Build 299 kommt heute Abend ohnehin und enthält 298; ein Test von 298 kostet dich doppelt. *Wie es zu entkräften ist:* 298 ist die sichere App, falls 299 rot bleibt, und Funde aus 298 kann Jerry nur bis 13:00 in 299 aufnehmen.
+*Stärkstes Gegenargument zu 1:* Spielarbeit vor dem fertigen Büro verbraucht Guthaben in den alten Abläufen. *Wie es zu entkräften ist:* die Teams fangen nur das Kampfsystem an, das ohnehin ganz neu gebaut wird. Entscheiden kannst nur du.
 
 ## Wie das Projekt aufgebaut ist
 
@@ -70,8 +71,8 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 ## Eingaben
 
-Von Hand (Perikles), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
+Von Hand (Tagesbericht-Routine, 448), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
 
-- Rest geschätzt: Wochenziel 16.–22.11. „Kampf passt, mit festen Plätzen“ wird nicht erreicht: der Kampf ruht nach deinem Wort bis Sa 21.11., 20:00, weil das neue Kampfsystem (1589) den alten Kampfweg ersetzt. Bis dahin zählt der Schlussbuild 299 (1595, Jerry, Bau ab 13:00, Testbitte bis 20:00). Schätzungen von Tom und Jerry liegen nicht vor; Montag neu.
-- Von dir zuerst gefunden: seit dem letzten Bericht (17.11., 07:42): Ford hing zwei Stunden und keiner meldete es (17:02, 1572); der weiße Streifen an der Wache war entgegen der Meldung noch da (21:45, 1515); der Feuerzauber beginnt hinter dem Kopf statt am Stab (21:40, 385.2); die Arbeit lief wieder nur auf zwei Entwickler zu (23:16, 1604, Wiederholung von 1508); die Langwaffen waren zu lang (07:29, 1621) und der Held stakst im Film (07:29, 1619); die Bremse für Vorentscheide zählte falsch (07:32, 1620). Wiederholt statt neu: 1604 (ungleiche Verteilung, wie schon 1508 am 17.11.), 1515 (Rückläufer). Die Woche zählt Diogenes am 23.11.
-- Größtes Risiko: der Stillstand ab Do 19.11. gegen 10:00, wenn das Guthaben 100 % erreicht; geht der Schlussbuild 299 heute rot, hast du bis Samstag nur Build 298, in dem ein Test rot war (Kartenrand rand_1022, 1606). Darum fliegt in 299 jeder rote Zweig hinaus statt repariert zu werden.
+- Wo stehen wir: Oberster Block bleibt 10 Regeln (`chefsache/themenbloecke.md`); seit gestern abgenommen sind 870 „Umstellung ganz auf BRS“ (dein Votum A, 23.11., 07:40, ohne Spieltest) und das Höhlenwasser 1566 (Block 5, 23.11., 08:09 nach `main` ohne Build); damit hat Block 10 kein Muss mehr, als Nächstes kommt dort 1487 „Heiler wächst in Kapitel 1 nie im Willen“, davor nach deinem Werkzeug-Eilt (09:15) die Werkzeuge 1992 und 1961 (Überblick `chefsache/README.md`, 23.11., 10:12).
+- Von dir zuerst gefunden: seit dem letzten Bericht (22.11., 17:43) kein Fund im Spiel, weil kein Build bei dir war; im Büro einer: deine Telegram-Nachrichten ohne Bezug liest keiner, „1566 B“ von 06:40 kam erst auf Nachfrage an (23.11., 06:47, 1982).
+- Größtes Risiko: gestern liefen 718 $ Rechenwert, davon 12 % fürs Spiel (Zeile 7), und vor dem Kampf (19 Muss) stehen im Werkzeug-Block 77 Muss (Überblick 10:12), während du bis 27.11. abwesend bist (1961); so beginnt das neue Kampfsystem (1589) wohl erst nach dem Reset 28.11.

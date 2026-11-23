@@ -38,7 +38,13 @@ def seit_text(m, pfad):
             return f"{tag}, {uhr}"
     return m.group(0)
 BEREICH = re.compile(r"^[A-Z] [A-ZÄÖÜ]\w+$")  # D77: alle Bereichsbuchstaben der Vorgangsliste (C Kampf, F Firma …)
-WER = re.compile(r"^(?:Team )?(?:Tom|Jerry|Spike|Tuffy|Homer|Sokrates|Perikles|Diogenes|Ford)(?:\b.*)?$")
+ROLLEN_ALT = ("Tom", "Jerry", "Spike", "Tuffy", "Homer", "Sokrates", "Perikles", "Diogenes", "Ford")
+try:  # 1871: nach dem Umschalten schreiben Profile („Disponent · 22.11.“, „Build-Macher · Build 301“); Profile aus themenbloecke.md
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import startbar as _sbp
+    PROFILE = tuple(_sbp.profile())
+except Exception: PROFILE = ()
+NAMEN = ROLLEN_ALT + tuple(p for p in PROFILE if p not in ROLLEN_ALT) + ("Build-Macher",)
+WER = re.compile(r"^(?:Team )?(?:%s)(?:\b.*)?$" % "|".join(re.escape(n) for n in sorted(NAMEN, key=len, reverse=True)))
 
 
 def anlage_zeit(pfad):
@@ -221,7 +227,7 @@ def letzter_testbuild():
     return ""
 
 DOCS = os.path.join(ZUG, "..")
-TEAMS =("Tom", "Jerry", "Spike", "Tuffy", "Homer", "Perikles", "Sokrates", "Diogenes", "Ford")
+TEAMS = NAMEN  # 1871: auch Profile und Build-Macher
 
 def formfehler():
     """Testdateien in ansehen/ mit t<Build>-Namen: Team in Zeile 1, Bereichszeile („E Kampf · Team · TT.MM.“) als Zeile 2, Tabelle mit Spalten # | Nr. | Wo und wie | Passt | Falsch (1033; alte Listen „Richtig“)."""
@@ -351,7 +357,26 @@ def zustaendig():
         if wer == "Sokrates": was = re.sub(r";.*$", "", was)
         zeilen.append("- **%s:** %s" % (wer, was))
         if wer == "Jerry": zeilen.append("- **Tuffy:** Aushilfe bei Jerry, nimmt dessen Muss-Zeilen auf anderem Zweig")
+    if not zeilen:  # 1871: Rollentabelle fällt mit dem Umschalten; dann aus Kern Büro und themenbloecke.md (werkzeuge.md :46)
+        zeilen = zustaendig_profile()
     return ("## Wer wofür\n\n" + "\n".join(zeilen)) if zeilen else ""
+
+def zustaendig_profile():
+    """1871: „Wer wofür“ nach dem Umschalten: Leitung, Büro, Abnahme fest (Kern Büro), Fachprofile je Themenblock aus themenbloecke.md."""
+    try: bloecke = open(os.path.join(ZUG, "themenbloecke.md"), encoding="utf-8").read()
+    except OSError: return []
+    je = {}
+    for z in bloecke.splitlines():
+        c = [x.strip() for x in z.strip().strip("|").split(" | ")] if re.match(r"\| \d+ \|", z) else []
+        if len(c) < 3 or c[2] in ("", "–"): continue
+        m = re.search(r"\((.*)\)$", c[1]); je.setdefault(c[2], []).append(m.group(1) if m else c[1])
+    if not je: return []
+    z = ["- **Sokrates:** Leitung mit dir, bringt deine Worte als Aufträge",
+         "- **Büro:** Disponent (Takt, Eingang, Guthaben) und Arbeitsplaner (aus dem Vorgang ein Auftrag)",
+         "- **Abnahme:** Prüfer (prüft einen Auftrag) und Tester (testet ein Ganzes)"]
+    z += ["- **%s:** %s" % (p, ", ".join(b)) for p, b in je.items()]
+    z.append("- **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte")
+    return z
 
 def ueberblick():
     """1313 (Chef 15.11., 19:37: „Das muss auf Chefsache direkt sichtbar stehen.“): Themenblöcke und die nächsten 20, bei jedem Lauf

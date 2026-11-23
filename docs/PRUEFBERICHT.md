@@ -41,6 +41,302 @@ Frühere Wochen (02.–08.11., 25.10.–01.11., 18.–24.10.): `git show ddbeed7
 
 Aus Lauf 59–92 noch offen, je ein Vorgang beim Besitzer: 725 D72, 726 D73, 727 D62.2, 729 D85.1, 730 D86.1, 731 D87.1, 732 D89.1, 733 D91.1, 734 D92.1, 735 D92.4 (Perikles), 742 D78.1 (Perikles); 736 D92.4 (Homer); 737 D92.2 (Tom); 738 D92.3 (Jerry); 739 D84.1, 740 D63.7 (Sokrates); 741 D61.1 (Ford); dazu schon bestehend D75 (Perikles). Neuere Befunde: Vorgangsliste, Titel „D<Lauf>.<n>“.
 
+## Lauf 389 · 1871 „ja, Lauf frei“ (lesend, Weiter Ford 16:01; Kopie `128da4ed4`; 22.11., 16:01–16:03)
+
+- Ohne Befund (1871 bleibt in Arbeit). Alle 43 `tools/*_test.py` grün. Gegen Endvorlage Lauf 4 Nr. 21, 22: „ja, Lauf frei“ im KATALOG und in `worte` („Ja. Lauf frei“ ebenso); mit offener Laufanforderung → Disponent startet einmal neu, ohne → Disponent fragt den Prüfer, in beiden Fällen keine Testbitte, auch vor dem Werkzeugzweig. „nein“ des Prüfers nach jüngster Laufanforderung zählt nicht in `zaehlen` (damit weder Laufbremse noch Obergrenze A); „nein“ nach jüngerem „fertig“ zählt weiter; Laufanforderung ohne Commit setzt den Bezug nicht. Endlos-Nein ausgeschlossen: nächste Laufanforderung ist die zweite → Sokrates.
+- Nicht als Befund: bloßes „ja“ zu offener Laufanforderung gibt weiter frei (wie Lauf 388, nachsichtig).
+
+## Lauf 388 · 1952 Laufanforderung und Katalog (lesend, Neustart Ford 15:37; Kopie `7084767d4`; 22.11., 15:38–15:42)
+
+- Greift (erledigt). Alle 43 `tools/*_test.py` grün. Gegen Archiv 15:31: „Laufanforderung“ ersetzt „abgebrochen“ (altes Wort ohne Signal, zurückgewiesen); nur mit Commit, sonst ZURÜCKGEWIESEN, Exit 1, zählt nicht; mit Commit → Prüfer, „ja“ → Disponent startet einmal neu, „nein“ → Rückläufer an die Fachkraft; zweite je Vorgang → Sokrates, zählt als „steckt fest“ (danach „steckt fest“ → Obergrenze B); KATALOG 13 Wörter, alle in `worte` erkannt; unbekanntes erstes Wort bleibt eingetragen, Liste in der Fehlermeldung; Chefworte nie (gehen ohnehin über `chefwort.py`). Fremder Abbruch bleibt bei `uebergabe.frei`.
+- **D388.1** → 1953 (Sokrates, M): Gesamtbild Z. 416, 439, `profil-werkzeug.md`, `profil-fremde-inhalte.md` („Ende“) sagen noch „abgebrochen“; die Fachkraft würde nach dem Umschalten zurückgewiesen. `kern-arbeitsplaner.md` Z. 26 veraltet.
+- Nicht als Befund: Kopfkommentar sagt „Exit 2“, tatsächlich Exit 1 (wie Auftrag); `uebergabe.abgebrochen()` hat keinen Aufrufer mehr.
+
+## Lauf 387 · 1951, damit 1948 (lesend, Weiter Ford 15:15; Kopie `36a66b176`; 22.11., 15:15–15:17)
+
+- Greifen (erledigt). Alle 43 `tools/*_test.py` grün, keine Haltzeile aus Testläufen. Proben aus Lauf 386 jetzt kein Nein (Truhe/Fackel, Bank, „Kein Unterschied zu gestern beim Laden, gut so.“, „Daneben steht der Brunnen, passt.“), auch `bisher_nein`; weiter Nein: „Wieder daneben.“, „Daneben.“, „Völlig daneben, nochmal.“, „Also fail.“, „Film t300.11 Fail“, „kein Unterschied zwischen alt und neu“, „Ich sehe keinen Unterschied.“, „Nicht besser.“, „299.3 ✗“ mitten im Satz.
+- Nicht als Befund: „Das ist daneben gegangen.“ zählt nicht als Nein (Urteilswort nach „daneben“ nicht erfasst); fällt in die vorsichtige Richtung.
+
+## Lauf 386 · 1944–1950 Werkzeuglücken Falltest 1727 Lauf 4 (lesend, Weiter Ford 15:05; Kopie `1c5ac8fd8`; 22.11., 15:06–15:09)
+
+- Alle 43 `tools/*_test.py` an der Kopie grün, `werkzeugluecken_lauf4_test` 38 Fälle; keine Haltzeile aus Testläufen in `origin/haken`.
+- Greifen (erledigt): 1944 (`--pruefen` lehnt Nummer ohne Liste und Archiv ab; `wieder_offen` liest nur), 1945 (`--help` vor jeder Prüfung), 1946 (AN geprüft, Liste in Hilfe und Fehler; alte Namen nach `1727-SCHARF` Fehler mit neuem Namen), 1947 (Routine-Sitzung „fertig“ ohne Commit unter fremdem Vorgang), 1949 (B<n> in auftrag, rueckmeldung, uebergabe, lauf; bloße Nummer mit „Build n“ hält an), 1950 (Werkzeug-Commit nicht auf `origin/main` → zweite Zeile an die Fachkraft).
+- 1948 greift nicht: **D386.1** → 1951 (Spike, M). `ABLEHNUNG` trifft „daneben“ als Ortsangabe und lobendes „kein Unterschied … gut so“ (Proben im Vorrat Spike „Zu 1951“), auch über `bisher_nein`; ein falsches Chef-Nein zählt für Obergrenze A. 1948 wartet auf 1951.
+
+## Lauf 385 · 1923 Startblock nach 1928 (lesend, Weiter Ford 14:00; Kopie `1d0b66272`; 22.11., 14:00)
+
+- Greift (erledigt). `lauf_kern_test` grün. Nachgestellt mit den 20 Profilen aus `ladesumme.py --anlegen` (Lauf 384), `NEU_LISTE`, `mit_kaufrepo` (scharf) dann `mit_kern`: Prüfer mit Auftrag „Querprofil „Signatur und Leben““ → Kern Abnahme, Prüfer, Signatur und Leben, Zugang Kaufrepo; Prüfer mit „Profil Werkzeug“ → ohne Kaufrepo; Kampf → Kampf, Werkzeug, Zugang Kaufrepo; Tester → mit Kern Abnahme. Je Nachricht `add_repo` genau einmal (Satz am Ende, Sockel-Fassung), kein Sockeltext, keine „## Herkunft“, Auftrag wörtlich, „Rollendatei“ ersetzt; `STARTBLOCK_FEHLT` leer.
+
+## Lauf 384 · 1941, 1938, 1928, 1943 (lesend, Weiter Ford 13:56; Kopie `d8e970103`, `1d0b66272`, `main` `2e9612acd`; 22.11., 13:56–13:59)
+
+- 1941 greift, damit 1938: `laufbremse_test` und `gegengelesen_test` setzen `BORNIM_HAKEN_TROCKEN` (auch in der env des echten Hakenaufrufs). Alle `tools/*_test.py` an `1d0b66272` grün (13:57:04–13:57:39), `origin/haken` danach ohne Zeile aus meinem Lauf (einzige neue Zeile 13:57:10 auf Zweig `main`, echt; mein Lauf stand losgelöst).
+- 1928 greift: (a) nach Sokrates 12:04 (Satz bleibt in der Startnachricht, Profil ohne ihn); (b) `ladesumme_test` prüft beide Richtungen der Namen; (c) nachgestellt: `BORNIM_WURZEL=<Kopie von docs> ladesumme.py --anlegen` schreibt 20 Profile, `lauf.ladetext` findet für alle 19 ladbaren Profile Text, „Zugang Kaufrepo“ ohne `add_repo`. Damit ist 1923 wieder prüfbar.
+- 1943 greift: `votum_ohne_gegenpruefung` schweigt mit `tools/1727-SCHARF` neben `zug-haken.py` (gleicher Ort wie `lauf.ist_scharf`); `zug_haken_test` grün. Hinweis: `2e9612acd` ist noch nicht in der Kopie; vor dem Umschalten `main` mergen.
+
+## Lauf 383 · 1732 nach 1942 (lesend, Auftrag Ford beim Neustart; `main` `b34316e88`; 22.11., 13:24–13:25)
+
+- Greift (erledigt). D382.1 aufgelöst: `ROLLE-BERATUNG-START.md`:25 sagt jetzt „Gilt nur bis zum Umschalten 1727“ (Chef 22.11., 10:39); Haken und Regel stimmen bis dahin überein, das Schweigen ab `tools/1727-SCHARF` baut Spike in 1943. `zug_haken_test` grün, Stop-Haken in `.claude/settings.json`:81. 1943 prüfe ich nach Bau.
+
+## Lauf 382 · 1732 Stop-Haken Votum ohne „Gegengeprüft:“ (lesend, Weiter-Haken; `main` `a5353fdad`; 22.11., 13:18–13:20)
+
+- Gebaut wie der Auftrag: `zug_haken_test` grün (9 Fälle, auch Zitat/Code, andere Rolle, zweites Beenden ohne Schleife); in `.claude/settings.json` läuft `zug-haken.py` schon als Stop-Haken.
+- Befund **D382.1** → 1942 (Sokrates, M), 1732 wartet darauf: VA 22.11., 10:39 (Chef: „in der neuen Struktur … nicht alles erst gegenchecken … das wäre bekloppt“ → Gegenprüfen gilt nur für den Umbau 1727) gegen `ROLLE-BERATUNG-START.md`:25 (jedes festlegende Votum) und den Haken, der jede Sokrates-Antwort mit „Votum“ anhält (Ausweg „Gegengeprüft: entfällt, …“ besteht). Erst Regel angleichen, dann Haken eingrenzen oder mit 1727 enden lassen.
+
+## Lauf 381 · 1938 laufbremse-haken fängt Unaufloesbar (lesend, Weiter Ford 13:14; Kopie `5bffd19cd`; 22.11., 13:17–13:20)
+
+- Fang greift: `laufbremse-haken.py` hält bei unauflösbarem `cd $VAR` mit Exit 2 und Text 725, wie `probelauf.py`. `laufbremse_test` grün; Gegenprobe mit dem Haken von `f1e247f2f`: neue Prüfung rot (Exit 1).
+- Befund **D381.1** → 1941 (Spike, M), 1938 wartet darauf: die neue Prüfung ruft den Haken echt auf, `anhalten` → `hakenzahl.vermerk` pusht je Testlauf eine Haltzeile nach `origin/haken` (13:13:01, 13:13:10 Spike, 13:17:13 meine Gegenprobe); verfälscht die Haltzahl 1129.1 P3. Abhilfe `BORNIM_HAKEN_TROCKEN=1` in der env des Testaufrufs.
+- Für die Wochenzählung 23.11.: in `haken.tsv` sind am 22.11. sieben Haltzeilen aus Prüfungen, nicht echt: 13:12:19, 13:12:32, 13:12:33 (meine Haken-Proben aus Lauf 379, ohne `BORNIM_HAKEN_TROCKEN`), 13:12:55 `cd $UNBEK`, 13:13:01, 13:13:10, 13:17:13.
+- 1890: Ford nennt dazu `e68cceefe` (Lehrenbuch, `auftrag` zeigt Lehren des Bereichs), auf `main`; `lehren_test` grün, schon in Lauf 380 abgedeckt.
+
+## Lauf 380 · 1890 Bereiche E Kataloge, G Regeln (lesend, Weiter-Haken; `main` `57f9014a2`, gebaut `ad70aedcc`; 22.11., 13:15–13:17)
+
+- Greift (erledigt). `bereiche.py` wie VA 20.11., 08:21 und 09:27: „E Kataloge“ und „G Regeln“ gültig, „Regeln“ führt nach G Regeln, „E Regeln“ nach E Kampf, Erklärung E Kampf „Einbau der Regeln“, G Balance bleibt. Lehrensuche: `lehren.rangfolge` filtert schon nach Teilbereich; mit Probetext findet sie G Regeln und E Kataloge getrennt (`LISTE-LEHREN.md` gibt es auf `main` noch nicht). `lehren_test`, `umstellung1727_test` (Block 4 und 10), `auftrag_test`, `chefwort_test` grün.
+
+## Lauf 379 · 1871 Umschalt-Kopie bis `f1e247f2f` (lesend, Auftrag Ford beim Neustart; neu `d99e91caa`, `f1e247f2f`; 22.11., 13:10–13:15)
+
+- Ohne Befund. Alle 41 `tools/*_test.py` an der Kopie grün, dazu `--test` von vorpush, sperre-haken, buildzweig-haken, gepusht-haken; `probelauf_messfrage_test.py` gestrichen, kein Verweis mehr in `.github/`, `tools/`.
+- `d99e91caa` wie Sokrates 12:41/12:48 (`docs/vorgang/1937.md`): 621 A, 654.2 (`messlauf_frei`, `HAND`, `bild_nein`) ausgetragen, Laufbremse ohne Schalterbedingung; die Freigabe durch den Prüfer (`pruefer_frei`) hängt weiter an `tools/1727-SCHARF`, die Kopie hat die Datei. Am Haken nachgestellt (`laufbremse-haken.py`, trocken): `PROBEBILD=` Exit 2 mit Weg `PROBE=`/`MESS=`, `MESS=` ohne Bild frei, Bildlauf ohne Nummer Exit 2.
+- `f1e247f2f`: „abgebrochen“ des Halters einer angenommenen Übergabezeile → keine Zeile an den Disponenten, die Zeile wird über `ue.abgebrochen` wieder offen (ein Neustart); zweites → genau eine Zeile an Sokrates (Doppelprüfung `x["k"] == k`). Fall „Zeile nach Fristablauf schon einmal wieder offen, dann erstes abgebrochen“ gelesen: eine Zeile an Sokrates, kein Disponent.
+- Nicht als Befund: Hilfetext `probelauf.py --probebild` (Z. 836) und Kopf Z. 33 nennen noch Probebild/Einzelbild.
+
+## Lauf 378 · 1937 Zählung 275 eigenständig (lesend, Weiter Ford 13:01; `main` `c52385e64`; 22.11., 13:02–13:04)
+
+- Ohne Befund. Alle 45 `tools/*_test.py` grün, dazu `--test` von vorpush, sperre-haken, buildzweig-haken, gepusht-haken.
+- `zaehlzeile.zaehlen` gleicht dem gestrichenen `probelauf.zaehlen` (Zeitformat mit Sekunden wie `jetzt()`, Kennung, `REPO`, Zweig `probelaeufe`, drei Versuche, lokal zuerst, `BORNIM_PROBELAUF_TROCKEN`); neu nur Zeitgrenzen 8 s für fetch, commit-tree, push. `commit-pruefung.py` importiert `probelauf` nicht mehr; `probelauf.zaehlen` leitet weiter.
+
+## Lauf 377 · 1937 Prüfung 511, 1859 settings.json (lesend, Weiter Ford 12:57; `main` `a22975809`, Kopie `e47128837`, Stand `5a32507f7`; 22.11., 12:57–13:00)
+
+- 511 ohne Befund: `alte_einstellungen` und ihr Aufruf in `main()` gestrichen, kein Verweis mehr in `tools/`, `.github/`; Wort Sokrates 12:41 in `docs/vorgang/1937.md`.
+- Kopie enthält `main` bis `5a32507f7`. 1859: Sätze in `autoMode.environment` nach 1727k (Disponent statt Ford, Satz Wache, Build-Macher, Godot-Satz nach Profilen); drei Probelauf-Einträge zu einem mit vereintem Matcher, Zeitgrenze jetzt überall 90 s. JSON gültig.
+- Befund **D377.1** → 1938 (Spike, M): `laufbremse-haken.py` ruft `probelauf.main()` ohne den Fang `except Unaufloesbar` aus `probelauf.py` (`if __name__`-Block). Nachgestellt mit `cd $UNBEKANNT_XYZ && git push origin claude/tom-1-x`: `probelauf.py` Exit 2 (725 hält an), `laufbremse-haken.py` Traceback, Exit 1; der Settings-Befehl hält nur bei 2 an, also geht es durch. Vor dem Merge von 1859 beheben (Chef 12:55 „settings frei“).
+
+## Lauf 376 · 1937 Teil Push-Prüfungen (lesend, Weiter Ford 12:44; `main` `c6bea7050`, Werkzeuglauf 45018686353; 22.11., 12:44–12:47)
+
+- Ohne Befund. `vorpush.py --test`, `sperre-haken.py --test`, `probelauf_*_test`, `laufbremse_test` grün. Echter `git push` mit dem Haken wie aus `notiz.sh` nachgestellt: Teamzweig mit Spielcode ohne „Alt:“ angehalten (Exit 1), nach `--amend` mit „Alt:“ durch.
+- 647, 464, 748, 1719 inhaltsgleich zu den gestrichenen Stellen in `probelauf.py` (gleiche Zweigmuster, Pfade, Texte); 748 holt den Lauf auch hier über den Proxy (Probe auf `main`: success). `probelauf.py` ohne verwaiste Aufrufe. `--no-verify`/`-n` beim Commit wird angehalten, `tail -n`, `sort -n` nach `&&`/`|` und `-n` im Nachrichtentext nicht.
+- Der Haken steht in bestehenden Arbeitskopien erst nach dem nächsten `notiz.sh`. 1937 bleibt in Arbeit (Rest wartet auf Sokrates).
+
+## Lauf 375 · 1871 Tagesbericht als Routine (lesend, Weiter Ford 12:32; Kopie `42b8fb85e`; 22.11., 12:34–12:37)
+
+- Alle `tools/*_test.py` an der Kopie grün, `rundblick_test` +6.
+- Ohne Befund: ohne `tools/1727-SCHARF` sind beide Zeilen (TAGESBERICHT und fehlt um 10 Uhr) zeichengleich wie vorher. Scharf: START Tagesbericht mit 448, Startsperre, `per_belegt` auf der Rolle Tagesbericht (`kosten.rolle` erkennt den Titel), Marke `**Stand TT.MM., ` in `ARBEIT-TAGESBERICHT.md` wie in `routine-tagesbericht.md` Schritt 1. Guthaben und Laufsperre halten ihn nicht an, wie vorher Perikles nicht (Bremse nur bei Planstarts). 1871 bleibt in Arbeit.
+
+## Lauf 374 · 1936 Probeknopf Herzschlag (lesend, Weiter Ford 12:32; `main` `a97b36351`; 22.11., 12:32–12:34)
+
+- 1936 greift: Lauf 45017686324 (workflow_dispatch, test) mit Job `probe` grün, Schritt Testmeldung ok (Telegram `"ok":true`), `pruefen` übersprungen; ohne Haken läuft `pruefen` wie vorher. Chat-Kennung wie im Alarm von `pruefen` und in `meldung.sh`. YAML gültig.
+
+## Lauf 373 · 1934, 1930 (lesend, Weiter Ford 12:23; Kopie `85a8a0acc`; 22.11., 12:23–12:26)
+
+- Alle 41 `tools/*_test.py` an der Kopie grün.
+- 1934 greift, damit 1930: `alles` liest nur „, auch Rückläufer“ in der fetten Laufsperre nach dem Pfeil; „Ja, alles klar, lass weniger laufen.“ und „alles“ im Zitat ohne Marke sperren nicht; Parser der Laufsperre erkennt die Zeile mit Marke weiter.
+- Lücke: **D373.1** → 1935 (Sokrates). Die Marke steht nur in `guthaben.py`; keine Regel in `ROLLE-BERATUNG.md` oder einem Profil sagt Sokrates, sie beim Chefwort „alles“ zu setzen. Ohne sie liefen Rückläufer gegen das Wort des Chefs weiter.
+
+## Lauf 372 · 1932 (lesend, Weiter Ford 12:18; Kopie `8ac463dd7`; 22.11., 12:18–12:21)
+
+- Alle 41 `tools/*_test.py` an der Kopie grün; `liste_neu_test` mit 8 Fällen zu 1932.
+- 1932 greift: `auftrag_offen` Folge 0 Eilt, 1 Fund (`guthaben.ruecklaeufer` auf der Listenzeile), 2 Muss mit Schlüssel (Rang im Profil, Listenplatz) = reihum, 3 Kür nach `startbar.zeilen_zeiten` (älteste zuerst, ohne Zeit zuletzt), 4 nach dem Meilenstein. `zweiter_planer` nur scharf, nur wenn ein Planer läuft oder in diesem Lauf startet, höchstens 2, Auftrag nie doppelt (Aufträge laufen nur als START mit „Auftrag <Nr>“ im Titel, nie WEITER), Bremse und Nachtdeckel wie beim ersten. Rest ohne Befund: `sperr_nr.setdefault` trägt nur die Nummer des ersten Planers in die Startsperre.
+
+## Lauf 371 · 1927, 1930 (lesend, Weiter Ford 12:13; Kopie `5623689c5`; 22.11., 12:13–12:17)
+
+- Alle 41 `tools/*_test.py` an der Kopie grün.
+- 1927 greift: `kopf_kosten` nur bei Obergrenze B, Zeile vor dem ersten „## “, alte ersetzt; `kosten_bisher` gegen die Liste auf `main` nachgestellt: 1871 → 10,27 $, 1727 → 506,68 $ wie Kostenspalte; `vorgangskosten.py` rechnet mit derselben Summe.
+- 1930 greift nur mit Lücke: **D371.1** → 1934 (Spike). `guthaben.alles` nimmt jedes „alles“ in einem Zitat vor dem Pfeil; nachgestellt: „Ja, alles klar, lass weniger laufen.“ → `alles` wahr, Rückläufer gesperrt. Im Archiv tragen 51 von 1184 Chefzitaten „alles“ in anderem Sinn („alles klar“, „dann passt alles“). Chef 11:48: nur bei ausdrücklichem „alles“.
+
+## Lauf 370 · 1928 (b) (lesend, Weiter Ford 12:05; Kopie `73b4ca640`; 22.11., 12:05–12:07)
+
+- Alle 41 `tools/*_test.py` an der Kopie grün; neue Prüfung „Profilnamen wie lauf.py“ ohne fremden Namen.
+- (b) ohne Befund: `ladesumme.py` misst „Figur“ wie `lauf.ladetext`. Teil A gleich: liegt `docs/profile/<Name>.md` vor, messen beide nach Messregel bis vor „## “; nur ohne Profildatei misst `ladesumme` den Codeblock unter „## Teil A“ im Entwurf (Rückfall, kein Start). 1928 wartet weiter auf 1931 für (a), (c).
+
+## Lauf 369 · 1871 Stilllegung C (g), 1860 (lesend, Weiter Ford 12:02; Kopie `48699c11e`; 22.11., 12:02–12:05)
+
+- Alle 41 `tools/*_test.py` an der Kopie grün; `projektplan_test.py` steht in `werkzeuge.yml`.
+- (g) ohne Befund (`73f8417ef`): `kostenhalt`, `kosten_frei`, `kosten_offen`, `uebergabe_stand`, `kosten_auf`, `sokrates_ziel` ohne Aufruf (nur als Abwesenheit in `liste_neu_test.py` geprüft); STILLSTAND-LÖSEN behält die Drossel 3 h (Marke „Stillstand“ wird weiter geschrieben); KLASSE ohne Start. Rest ohne Befund: Docstring `lauf.py` Zeile 852 nennt noch „M?, Stillstand, Kosten“.
+- 1860 greift (`48699c11e`): `projektplan.py` ohne Wochenziel, dritte Tafel in der Zeilenfolge von `chefsache/themenbloecke.md` (10, 2, 3, 4, 5, 11, 12, 13, 6, 7), Summe 315 gleich „Kapitel 1 fertig“ offen.
+- Stilllegung C (a)–(h) damit gebaut und an der Kopie geprüft; 1871 bleibt in Arbeit (1858, 1866 laut Zeile).
+
+## Lauf 368 · 1871 Stilllegung C (d), (f) (lesend, Weiter Ford 11:52; Kopie `79eae8105`; 22.11., 11:52–11:54)
+
+- Alle 41 `tools/*_test.py` an der Kopie grün; `startbar.py --stand`, `startwarnung.py`, `tagesbericht.py` laufen mit Exit 0.
+- (d) ohne Befund (`f0347ec43`): `uebernahmen`, `uebernahme`, `FACH` ohne verwaisten Aufruf (nur in der Altkopie `tools/umstellung2752/`); `UEBERNAHME` bleibt als Spielteams für Sammelbuild und „OHNE BUILD“.
+- (f) ohne Befund (`79eae8105`): `vorratspruefung.py` ohne Aufruf in `tools/`, `.github/`, `.claude/`; Warnung 1425 aus `startwarnung.py` fort. Rest ohne Befund: `startbar.leichenpruefung_faellig` endet mit `return []`, toter Code dahinter.
+
+## Lauf 367 · 1929, 1871 Stilllegung C (c) (lesend, Weiter Ford 11:47; Kopie `fc89c4dac`; 22.11., 11:47–11:51)
+
+- Alle 42 `tools/*_test.py` an der Kopie grün; `rueckmeldung_test`, `lauf_kern_test`, `ueberblick_test` einzeln mit Exit 0.
+- 1929 greift: `protokoll_lokal` liest erst, schreibt dann; Aufruf im Zweig „nicht fern gepusht“ ersetzt. Kein zweites `open(…, "w").write(…lesen/read…)` in `tools/*.py`.
+- 1871 (c) ohne Befund (`f63a150ac`): `startbar.ZUSATZ`, `sitzungszweige`, `frische_zweige` ohne verwaisten Aufruf (`grep -w` über `tools/`, `.github/`). Bleibt bewusst: „Tuffy“ in Namenslisten (`kosten.py`, `chefwort.py`, `commit-pruefung.py`, `startbar.ROLLEN_NAMEN`) und Umschlüsselung „Tuffy“ → Jerry in `vorgang.py`, nur zum Lesen alter Zeilen.
+
+## Lauf 366 · 1923, 1925, 1926 (lesend, Weiter Ford 11:35; Kopie `31f4a192f`; 22.11., 11:35–11:38)
+
+- Alle 43 `tools/*_test.py` an der Kopie grün (Stilllegung C hat Tests gestrichen).
+- 1925 greift: `zaehlen` ohne „nein Prüfer“, Laufbremse bei `z["nein"] == 2` samt Chef-Nein: Chef-Nein, dann erstes Prüfer-Nein → „steckt fest“ an Sokrates; Obergrenze A wie 1872.
+- 1926 greift: `beleg_als_nein` zählt „Beleg fehlt“ je Auftrag (ab jüngstem „## Auftrag (…)“), jedes dritte gilt als „nein“ (Rückläufer, Laufbremse, Obergrenze A). Rest ohne Befund: zählt „Beleg fehlt“ jedes Absenders, nicht nur des Prüfers.
+- 1923 greift nicht: **D366.1** → 1928 (Spike). (a) Kaufrepo-Satz doppelt: `main()` ruft erst `mit_kaufrepo` (hängt den Satz an jede START-Zeile), dann `mit_kern` mit Profil „Zugang Kaufrepo“; dazu Sockelzeile 7 mit demselben Satz; Chef 11:09 „nichts doppelt“. (b) Profilnamen uneins: `lauf.py` liest `docs/profile/Figur.md` (startbar.profile), `ladesumme.py` `docs/profile/Figur und Prüfbild.md`; Werkzeug und Fremde Inhalte misst `ladesumme` als „## Teil A“, `ladetext` liest bis zum ersten „## “. (c) Kein Entwurf für Profil „Zugang Kaufrepo“, `docs/profile/` fehlt an der Kopie ganz: jeder Start hätte heute nur WARNUNG Startblock; Probe erst mit den Profildateien.
+
+## Lauf 365 · 1922, damit 1866 (lesend, Weiter Ford 11:19; Kopie `7c11da0dd`; 22.11., 11:20–11:22)
+
+- Alle 46 `tools/*_test.py` an der Kopie grün; ein Test `ladesumme_test.py` in `werkzeuge.yml`, grün auch aus fremdem Arbeitsverzeichnis.
+- 1922 greift, damit 1866: ein `ladesumme.py`; ohne Pfad Teile mit Grenzen und Summe je Sitzungsart, Werte gleich `herausgezogen.md` (Disponent 5.564, Prüfer 5.507, Tester 5.302, Wache 2.058), Routine Wache 949 nach Messregel (auch bei freier Messung `PFAD --vor`); `--gegen 8c4da3b8d` vorher/nachher je Teil; `--alt` (Startlektüre je Rolle, CLAUDE.md 15.000 gemessen) und `laden.json` bleiben; über Grenze „**über Grenze**“.
+
+## Lauf 364 · 1920, 1921 (lesend, Weiter Ford 11:17; Kopie `cde4b1eeb`; 22.11., 11:17–11:20)
+
+- Alle 46 `tools/*_test.py` an der Kopie grün, `gepusht-haken.py --test` 0 Fehler.
+- 1920 greift, damit 1917 und 1879: hält „Das Ziel ist unklar.“, „Es fehlt das Ziel“, „Unklar, was gebaut werden soll“, „Ziel: noch offen.“, „ziel fehlt“, „ZIEL FEHLT“, „Das Ziel ist nicht klar.“, „Herkunft unbekannt“, „Ziel offen, Quelle fehlt“, „Prüffragen fehlen noch.“; frei „Das Ziel fehlt auf der Gebietskarte“, „Die Quelle fehlt im Dorf“, „Der Zweig fehlt am Baum“, „Im Hof fehlt die Fackel“, „Fehlt der Schatten noch?“, „Die Tür bleibt offen, wenn man geht“. Rest ohne Befund: „Die Quelle ist offen“ (Quelle im Spiel) hält an; nur Felder 1, 5, 6, 7.
+- 1921 greift, damit 1898: nur fremde Dateien lassen durch, nur fremde mit Rückschritt nennen ihn ohne „committen und pushen“; `meldung.sh`, `vorgang.py --rolle … | head`, `cat`, `grep`, `git diff` machen nichts eigen; `vorgang.py greift/setze/warte` (auch mit `VAR=…` davor), `cp … docs/X`, `> docs/X` eigen. Rest ohne Befund (Rückgang gegen vorher, selten): `find … -exec sed -i` und `grep -l … | xargs sed -i` zählen nicht als eigen, die eigene Änderung ginge ohne Mahnung durch.
+
+## Lauf 363 · 1779, 1866 erneut (lesend, Weiter-Haken; Kopie `6ac934e9a`; 22.11., 11:12–11:15)
+
+- Alle 46 `tools/*_test.py` an der Kopie grün.
+- 1779 greift: (a) `HOECHSTDAUER_MIN` Mittel 360, Hoch 300, Test und Kommentar nachgezogen; (b) Sitzung, die nur der Weckruf hält, trägt `_nur_wecker` und wird nicht geprüft, working mit Weckruf weiter; (c) Uhr ab der eigenen Rückmeldung „Höchstdauer“ neu, danach „steckt fest“, nach eigenem „steckt fest“ nichts; (d) Prüfer, Büro, Arbeitsplaner, Tester in `kosten.ROLLEN`, „Ford 2“ ausgenommen. „1779 noch nicht“ in Spikes Übergabe meint die Meldung an Ford, kein Rest; die Restsperre (1143) liest Übergaben ohne „Kein Folgevorgang“ (Commit daf5772a1 hebt nur Commits auf), daher mit `VORGANG_REST_OK=1779` geschlossen.
+- 1866 weiter nicht: 6ac934e9a stellt `ladesumme.py` auf b45137faa zurück (Werkzeuglauf wieder grün), dort aber keine Summe je Sitzung (kein `laden.json` im Repo) und nicht nach Messregel (Routine Wache 950 statt 949). 1922 entsprechend geschärft.
+
+## Lauf 362 · 1855, 1866 (lesend, Auftrag Ford; Kopie `b90ec6c4f`; 22.11., 11:07–11:10)
+
+- 1855 greift: `check-env.sh` an der Kopie: „OK CLAUDE.md, docs/LISTE-VORGAENGE.md, docs/DESIGN-STIL.md“, 9 in Ordnung, 0 fehlen. Übrige Verweise auf `ARBEIT-TEAM-TOM.md` (lauf.py, startbar.py, startwarnung.py, regelcheck.py, neustart-haken.py, vorratspruefung.py) nicht Gegenstand von 1855; die Vorräte bestehen an der Kopie weiter.
+- 1866 greift nicht: `ladesumme.py --test` grün, alle Werte gleich `herausgezogen.md` (Sockel 1.109, Kern Leitung 2.837, Disponent 5.564, Arbeitsplaner 4.438, Prüfer 5.507, Tester 5.302, Wache 2.058); `--gegen 8c4da3b8d` zeigt vorher/nachher je Teil. **D362.1** → 1922 (Spike): b90ec6c4f ersetzt das `ladesumme.py` aus 1739 (b45137faa, schon auf `main`), lässt `tools/ladesumme_test.py` und seine Zeile in `werkzeuge.yml` stehen: `AttributeError: module 'ladesumme' has no attribute 'messen'`, Exit 1 → Werkzeuglauf nach Merge rot. `--alt` (Startlektüre je Rolle) und `laden.json` entfallen ohne Wort. Über Grenze nur Hinweis, Exit 0 (ohne Befund, Vorgang verlangt kein Anhalten).
+
+## Lauf 361 · 1898, 1894, 1919 (lesend, Weiter Ford 11:03; Kopie `f9fc83125`; 22.11., 11:03–11:06)
+
+- Alle 46 `tools/*_test.py` an der Kopie grün, dazu `gepusht-haken.py --test` und `herzschlag.py --test`.
+- 1919 greift: Stand oder „wartet auf“, die eine Zeile erst über 400 bringen, halten mit „Titel kürzen“; war sie schon zu lang, geht es weiter (1492).
+- 1894 gebaut, greift erst nach Merge auf `main` (echter Lauf der Kette): Aufbau stimmig (Repo öffentlich, `workflow_dispatch` über `GITHUB_TOKEN` löst Läufe aus, eigene Gruppe ohne Abbruch, 55 Min. unter Zeitgrenze 70). Rest ohne Befund: scheitert `gh workflow run herzschlag-kette.yml` im Schritt „Kette läuft?“, wird der ganze Herzschlag rot (Fehlalarm) statt nur zu warnen. Prüfen nach Merge: `actions_list` zeigt stündlich ein Glied der Kette und je Glied einen Herzschlag-Lauf.
+- 1898 greift nicht: **D350.1** → 1921 (Spike), nachgestellt: (a) nur eine fremde Datei (Verlauf nur `ls`) → Exit 2 mit „fremd, nicht mitpushen“ und im selben Satz „Vor dem Zugende committen und pushen“; (b) `eigen()` zählt zu viel: ein Aufruf `tools/meldung.sh Jerry "…"` macht jede Datei unter `docs/` eigen (auch `chefsache/ansehen/1535-flanke.md`, `ARBEIT-TEAM-TOM.md`), das lesende `vorgang.py --rolle` macht `LISTE-VORGAENGE.md` und `ARBEIT-BETRIEB.md` eigen. Im Fall 1776 (18 fremde Dateien unter `docs/`, Sitzung mit `meldung.sh`) hieße alles „eigen“ wie vorher.
+
+## Lauf 360 · 1918, 1892 erneut (lesend, Weiter Ford 10:58; Kopie `1e6b2d697`; 22.11., 10:58–11:00)
+
+- Alle 46 `tools/*_test.py` an der Kopie grün.
+- 1918 greift (D348.1), dieselben Wegwerf-Repos wie Lauf 358, vier Fälle: geändert, nicht committet → kein Push, WARNUNG, lokal unverändert (lauf.py schreibt dann lokal, „NICHT GEPUSHT“); eigener Commit an der Datei voraus → ebenso, Fords Zeile bleibt; sauber → gepusht und lokal nachgezogen; eigener Commit nur an anderer Datei voraus → gepusht, Datei lokal auf `origin`-Stand (gleich HEAD + Sperre), nichts verloren. `_nachziehen` überschreibt keine Datei mehr, deren HEAD vom Ausgangsstand abweicht. Damit greift 1892.
+
+## Lauf 359 · 1879 + 1917, 1915, 1914, 1912, 1913, 1916; danach 1795, 1887, 1873 (lesend, Weiter Ford 10:52; Kopie `636821b07`; 22.11., 10:51–10:54)
+
+- Alle 46 `tools/*_test.py` an der Kopie grün.
+- 1915 greift (D345.2): „Die Wachen sollen nicht mehr laufen“, „Gegner sollen weniger laufen“ zu einem Spielvorgang → Arbeitsplaner; schwache Wörter ohne Vorgang oder in Bereich B → Sokrates (alle Aufrufer geben eine Nummer mit); starke Wörter immer Sokrates. Damit greift 1876.
+- 1914 greift (D345.1): nur `startbar.offen_warte` hält (vergangenes Datum, erledigte Nummer nicht), Warten auf den Empfänger selbst (auch über `ALT_EMPFAENGER`) nie. Damit greifen 1911 und 1873.
+- 1912 greift (D344.1): „Teste Build 312, Vorgang 1990.“ → 1990; erst Kopf „– N“, dann „Vorgang N“, dann erste Zahl nicht nach „Build“/„t“. Rest ohne Befund: „Build 312 und 313“ ohne Vorgang nähme 313 (der Kopf trägt die Nummer sonst). Damit greift 1795.
+- 1913 greift (D344.2): offene Wächterzeile beim Disponenten mit demselben Stichwort → keine zweite (`ue.offen_lokal`). Damit greift 1887.
+- 1916 greift (D346.1): `vorgang.py neu` prüft die Länge mit dem Zähler als Nummer.
+- 1917 greift nicht, damit 1879 nicht: **D349.1** → 1920 (Spike): `FEHLWORT` verlangt jetzt „<Teil des Auftrags> fehlt/unklar/offen“ unmittelbar hintereinander und ohne `re.I`. Nachgestellt mit `auftrag.pruefen` an `GUT` (Feld 1): frei „Das Ziel ist unklar.“, „Es fehlt das Ziel; erst klären.“, „Unklar, was gebaut werden soll.“, „Herkunft noch unklar.“, „Ziel: noch offen.“, „ziel fehlt“; hält „Das Ziel fehlt auf der Gebietskarte (Markierung).“, „Die Quelle fehlt im Dorf, Wasser holen geht nicht.“, „Der Zweig fehlt am Baum vor der Mühle.“, „Nummer fehlt am Haus des Schmieds.“. Zudem prüft es Zitate jetzt mit (`_ohne_zitate` entfernt).
+
+## Lauf 358 · 1892 Startsperre gepusht (lesend; Kopie `a5b12067d`; 22.11., 10:44–10:50)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün. Ohne Schalter unverändert (lokal schreiben, „bitte committen“); scharf nur bei Startsperren; Marken und Warnungen nur mit `--sperre`, dann im selben Commit; Push scheitert → lokal mit „NICHT GEPUSHT“. Ford ruft `bornim-main/tools/lauf.py`, damit sind `DOCS` und `uebergabe.WURZEL` dieselbe Kopie.
+- 1892 greift nicht: **D348.1** → 1918 (Spike), nachgestellt an Wegwerf-Repo mit `lauf.protokoll_pushen`: (a) lokale `ARBEIT-BETRIEB.md` mit einer ungepushten Zeile Fords (geändert, nicht committet; `notizen_frisch` lässt das durch, solange `origin` die Datei nicht ändert) → Push gelingt, „STARTSPERRE gepusht“, lokal bleibt die Datei ohne Sperrzeile; `aufraeumen` schreibt danach auf diesen Stand, beim nächsten `pull` Konflikt an genau diesen Zeilen. (b) lokaler Commit voraus, ungepusht → `_nachziehen` (`--ff-only` scheitert) überschreibt die saubere Datei mit dem `origin`-Stand: Fords Zeile ist im Arbeitsbaum gelöscht und fällt mit dem nächsten `commit -a` weg. (b) liegt in `uebergabe._nachziehen` (1899) und trifft jeden Nutzer von `atomar_dateien`; Vorschlag: bei Ungepushtem nicht pushen und lokal wie bisher, oder die Änderung auf den lokalen Stand anwenden statt überschreiben.
+
+## Lauf 357 · 1878, 1879, 1891 (lesend, Weiter-Haken; Kopie `ec0966b7b`; 22.11., 10:39–10:42)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1878 greift: wörtliche Zitate in Feld 3 „Bisher“ zählen getrennt (eigene Grenze 2048), verschachtelte Anführung läuft nicht über (zählt dann mit, nie zu wenig).
+- 1891 greift (D336.1): START Stellungnahme ohne offene Zeilen setzt die Startsperre Sokrates mit Nummer der ersten Chefsache-Datei („1727j-vorschlaege.md“ → 1727j, „72o1.md“ → 72o1, sonst ohne Nummer).
+- 1879 greift nicht: **D347.1** → 1917 (Spike): `FEHLWORT` trifft die Beschreibung eines Spielfehlers: „Im Hof fehlt die Fackel am Tor“ (Ziel), „Fackel ergänzen, die seit Build 310 fehlt.“ (Umsetzen), „Fehlt der Schatten noch?“ (Prüfart) → Auftrag ungültig, über `lauf.auftrag_fehlt` Startsperre.
+- Nebenfund **D346.1** → 1916 (Spike, K): `vorgang.py neu` prüft die Zeilenlänge mit Nummer „?“; Zeile mit 398 Zeichen wird mit „1914“ 401, die Commit-Prüfung hält an.
+
+## Lauf 356 · 1910, damit 1872; 1911; 1876 (lesend, Weiter-Haken; Kopie `acd9e7b08`; 22.11., 10:35–10:38)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1910 greift: Laufbremse liest „nein Prüfer“ (nur Rückmeldungen), Obergrenze A weiter „nein“ mit Chef-Nein. Damit greift 1872 (D342.1 geschlossen).
+- 1911 greift nicht: **D345.1** → 1914 (Spike): `uebergabe_zeilen` liest das rohe Feld „wartet auf“, nicht `startbar.offen_warte`, und hält auch, wenn der Vorgang auf den Empfänger selbst wartet. Nachgestellt (Testaufbau 9011, Zeile an Tom): „wartet auf Tom“, „20.11.“ (vergangen), „1001“ → jeweils NICHTS, nie zugestellt.
+- 1876 greift nicht: **D345.2** → 1915 (Spike): `chefwort.BETRIEB` trifft Spielfunde: „Die Wachen sollen nicht mehr laufen, sondern stehen.“, „Gegner im Wald sollen weniger laufen, mehr lauern.“ → Sokrates statt Arbeitsplaner. `--an` und „B Abläufe“ → Sokrates wirken.
+
+## Lauf 355 · 1875 Empfänger „Fachkraft“ (lesend, Weiter-Haken; Kopie `5643b49f8`; 22.11., 10:33–10:35)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1875 greift: `lauf.uebergabe_zeilen` stellt eine Zeile an „Fachkraft“ bis zur Umschaltung dem Listenbesitzer zu, scharf dem Fachprofil des Themenblocks (`block_von`, Nummer vor Bereich); Block ohne Fachprofil oder ohne Besitzer → bleibt „Fachkraft“, Nachricht an Ford „starten oder zuteilen“. Die Sperre 1911 („wartet auf“) prüft den abgebildeten Empfänger.
+- Hinweis ohne Befund: `uebergabe.wecker` beim Schreiben bildet „Fachkraft“ nicht ab (meldet „keine Sitzung Fachkraft“, weckt den Disponenten); zugestellt wird im nächsten `lauf.py`.
+
+## Lauf 354 · 1795 Rest, 1887, 1888 (lesend, Auftrag Ford; Kopie `451d38ca8`; 22.11., 10:28–10:33)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1888 greift: „fertig“ als „unbekannt“ → Rolle der Sitzung aus der Besetzung von jetzt, sonst Listenbesitzer (auch über die Kopfzeile, wo `weitergabe` ohne Nummer ruft); ohne „fertig“ weiter Disponent.
+- 1795 greift nicht: **D344.1** → 1912 (Spike): ohne Nummer im Titel nimmt `lauf.mit_kern` die erste drei- oder vierstellige Zahl der Nachricht; der Tester bekommt stets einen Build. Nachgestellt: „Teste Build 312, Vorgang 1990.“ und „Teste Build 312 (Abnahme Kapitel 1)“ → `rueckmeldung 312`. Mit Nummer im Titel („Tester – 1484: …“) richtig.
+- 1887 greift nicht: **D344.2** → 1913 (Spike): die Liste bleibt unverändert, aber `waechter_funde` sieht nur Listenzeilen; jedes weitere Nein mit demselben Stichwort gibt eine weitere Zeile „anlegen: `vorgang.py neu "Systemlösung? …"`“ an den Disponenten, solange die erste offen ist. Nachgestellt im Testaufbau: Nein zu 9002, dann zu 9007, beide „Treppe“ → zweite Zeile 9007-Ü3; `neu` prüft bei „Systemlösung?“ nicht auf Doppel. Vorher verhinderte die sofort angelegte Listenzeile das.
+- Nicht geprüft: echte Läufe (nichts scharf).
+
+## Lauf 353 · 1873, 1877 (lesend, Weiter von Ford; Kopie `4ac384c95`; 22.11., 10:22–10:25)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1877 greift: „Hinweis“ des Disponenten (Ford, Ford 2, Disponent) → Besitzer laut Liste (sonst Macher, sonst Arbeitsplaner) und Zeile an Sokrates; „Hinweis: Prüffrage fehlt“ → Arbeitsplaner; übrige Hinweise wie bisher an den Disponenten. Signalworte schließen sich aus (`worte`), kein „fertig“ geht im Hinweis-Zweig verloren.
+- 1873 greift nicht: **D343.1** → 1911 (Spike): die Zeile an den Macher bei „nein … steckt fest“ (Text „erst nach Sokrates nachbessern“) stellt `lauf.uebergabe_zeilen` sofort zu: jede offene Zeile außer an Sokrates bekommt Start oder Nachricht, „wartet auf“ des Vorgangs wird nicht gelesen (`lauf.py`:734–758). Der Macher wird gestartet, während der Vorgang auf Sokrates wartet: Start ohne Startbares (340.12/3). 1873 wartet auf 1911.
+
+## Lauf 352 · 1908, damit 1782 (lesend, Weiter von Ford; Kopie `297d14ffe`; 22.11., 10:20–10:22)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1908 greift: die vier Fälle aus D341.1 („Passt, aber Schatten zu dunkel“, „Gut gemeint, aber zu laut“, „Passt, aber noch nicht freigeben“, „Passt das?“, je mit Build 312) → Arbeitsplaner; „passt“, „Gut“, „Freigegeben“, „- 3 ✓“ mit Build → Disponent.
+- 1782 greift: D340.1 (1903), D340.2 (1904), D341.1 (1908) geschlossen.
+- Hinweis ohne Befund (zu 1872, wartet ohnehin auf 1910): „Nein, passt doch“ ist seit 1908 keine Freigabe mehr und zählt nun als Chef-Nein für Obergrenze A.
+
+## Lauf 351 · 1872 Chef-Nein für Obergrenze A (lesend, Weiter von Ford; Kopie `4e8df7634`; 22.11., 10:15–10:17)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün. Obergrenze A selbst wirkt: drittes Chef-Nein → „ruht, beim Chef“, Zeile an Sokrates; Freigabe zählt nicht (chefwort_test).
+- 1872 greift nicht: **D342.1** → 1910 (Spike): `rueckmeldung.zaehlen` zählt das Chef-Nein in „nein“, das auch die Laufbremse liest (`z["nein"] == LAUFBREMSE_NEIN`, 2). Nachgestellt: ein Chef-Nein unter „Chefworte“ und ein Prüfer-Nein → `{'nein': 2}`, also „steckt fest“ an Sokrates schon beim ersten Prüfer-Nein. Genau das ist V5 (`vorschlaege-10-00.md`:15), beim Chef offen. 1872 wartet auf 1910.
+- Nicht geprüft: echte Läufe (nichts scharf).
+
+## Lauf 350 · 1907 Wochentermin Ideenlauf (lesend, Weiter von Ford; Kopie `b555a44bb`; 22.11., 10:09–10:11)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1907 greift: scharf sonntags „Ideenlauf (Routine …)“ bei Sokrates statt „Ideenspeicher“ bei Homer, ohne Schalter unverändert; derselbe Starter wie der Rundblick (Rolle Ideenlauf in Kosten, Guthaben, Startsperre, Routine ohne Kern); kein Nachholen. Ohne Teil A nur WARNUNG, Teil A ist 1909 (Sokrates).
+- Hinweise ohne Befund: Titel 1907 nennt G:452, Quelle ist G:451 (`ein-ausgang.md`:44); G:451 „ohne feste Stunde“, gebaut ist „Sonntag ab 9“ als frühester Start. Bei Umschaltung gilt CLAUDE.md „Sonntags urteilt und verwirft Homer“ nicht mehr.
+
+## Lauf 349 · 1903, 1904, damit 1782; Nebenfund 1893 ueberblick_test (lesend, Auftrag Ford; Kopie `claude/spike-1871-umschalten` `58816e80d`; 22.11., 10:00–10:05)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün.
+- 1903 greift: Verneinung im Satzteil („passt nicht“, „noch nicht freigegeben“, „Gut, passt nicht“), einzelnes 👍/👎, „- 3 ✓“ ohne Build → Arbeitsplaner; „- 3 ✗ …“ mit Build → Disponent.
+- 1904 greift: „steckt fest“ von Hand geschrieben, Schreiben gescheitert → nächster Lauf holt die Zeile an Sokrates nach, Liste im selben Commit, dritter Lauf keine zweite (rueckmeldung_test). Auf `main` steht heute keine Zeile „steckt fest“, kein Schwall beim Umschalten.
+- 1782 greift nicht: **D341.1** → 1908 (Spike): Freigabe mit Einschränkung oder als Frage geht an den Disponenten, nachgestellt: „Passt, aber Schatten zu dunkel. Build 312“, „Gut gemeint, aber zu laut, Build 312“, „Passt, aber noch nicht freigeben, Build 312“, „Passt das? Build 312“ → Disponent. 1782 wartet auf 1908.
+- 58816e80d (Nebenfund 1893) wirkt: neben `../bornim-main` alt rot („FEHL Zeile heute, gestern, Woche, Monat“), neu grün. Ohne Befund: `ueberblick.py` läuft im Betrieb nur als eigener Prozess (`zug-index.py`), dort sind Werkzeug- und Notizrepo gleich; nur bei Import nach `lauf.py` läse der Stand die Liste des Zweigs (Probe: 07:53 statt 09:58 auf `main`).
+- Nicht geprüft: echte Läufe (nichts scharf).
+
+## Lauf 348 · 1895, 1896, 1897, 1899, damit 1893 und 1798 (lesend, Weiter von Ford; Kopie `c6ad5904f`; 22.11., 09:33–09:40)
+
+- Alle 45 `tools/*_test.py` an der Kopie grün, Arbeitskopie danach sauber.
+- 1895 greift: `weiter-haken.py` fragt mit `tools/1727-SCHARF` `lauf.py --haken <Profil>` (dieselbe Auswahl wie der Start: Pause, Muss vor Kür, nur gültiger Auftrag, nie Zeile „Auftrag“); Planer-Sitzung „Auftrag“ geht nicht weiter. Echt aufgerufen, alte und umgestellte Liste: leer, solange kein Auftrag steht; Arbeitsplaner „M?“. Hinweis ohne Befund (alt, nicht Teil von D338.1): Haken und `--haken` kennen die Guthabenstufe nicht, der Start schon (`guthaben.Bremse`).
+- 1896 greift: `sperr_nummer` gibt Nachtdeckel und Startsperre die Nummer aus `auftrag_fuer` (Vorrang `(a or b) if c else d` geprüft).
+- 1897 greift: Aufträge nach Klasse unter Muss bzw. Kür des Planers, Eilt und Zeilenfolge.
+- 1899 greift: Rückläufer ändert Vorgangsdatei, Liste und Archiv in einem Commit (`atomar_dateien`), gescheiterter Push lässt auch lokal nichts geändert (auftrag_test).
+
+## Lauf 347 · 1782 Wiederwecken, Chefwort an Disponenten (lesend, Auftrag Ford; Kopie `claude/spike-1871-umschalten` `b0de2ea39`; 22.11., 09:21–09:32)
+
+- Gegen 3.3 Fassung 2 Nr. 3 und 7 (`uebergabekette.md`), Profil Technik 13 (Entwurf), Checkliste 11–13. An der Kopie alle 45 `tools/*_test.py` grün.
+- Greift: erstes Mal „offen (wieder 1)“, zweites Mal „steckt fest“; Halter `failed` auch vor der Frist; Rückmeldung „abgebrochen“; Zähler übersteht annehmen, freigeben zählt nicht; lauf.py startet „offen (wieder n)“ wie „offen“ (`ist_offen`, Leser gegrept).
+- **D340.1 = 1903 (Spike, M):** `chefwort.empfaenger` nachgestellt: „Das passt nicht, Schatten falsch“ und „ist noch nicht freigegeben“ (Vorgang mit Build), „👍“ allein, „👎 Tür flackert“, „3 ✓“ (ohne Build) → Disponent „Build-Macher starten“. Profil Technik 13: „ein 👍 gilt nur für einen Punkt“; Fund geht nach Nr. 7 an den Arbeitsplaner.
+- **D340.2 = 1904 (Spike, M):** `uebergabe.offen` schreibt „steckt fest (…)“ dauerhaft, gleich wer aufruft (uebergabe_test 3b über `vorgang.py offen --sitzungen`); Zeile an Sokrates und `liste_fest` nur in `lauf.fristen_runde` am flüchtigen „steckt fest (zweites Mal“. Danach liest jeder Lauf „steckt fest (Frist …)“ und schreibt nie; ebenso nach Fehler in `uebergabe(… Sokrates …)` (nur WARNUNG).
+- 1782 greift erst mit 1903, 1904; Feld „wartet auf“ nicht gesetzt (Zeile über 400 Zeichen).
+- Nebenfund Spike zu 1893 (`ueberblick_test` „Zeile heute, gestern, Woche, Monat“ an der Kopie rot): nicht nachgestellt, kein Befund. Grün in Arbeitskopie (mit und ohne `tools/1727-SCHARF`, mit umgestellter Liste), in flachen Klonen Tiefe 3, 10, 50, dreimal einzeln, nach allen 45 Tests. Fehlt: Spikes Aufruf und Ausgabe.
+- Nicht geprüft: echter Fall `failed` in `list_sessions` (Schlüssel nur angenommen), Laufzeit an der echten Liste.
+
+## Lauf 331 · 1780, 1787, 1788 (lesend, Chef 21.11., 20:20, Auftrag Ford; main `abc0a538c`; 21.11., 22:18–22:21)
+
+- 1780 greift: herzschlag.yml schaltet 22–06 Uhr Berliner Zeit lautlos (`disable_notification=true`), gleiche Stunden wie `meldung.sh` (Muster für 00, 06, 07, 21, 22, 23 nachgeprüft); tags laut bleibt (Alarm, Chef dran).
+- 1788 greift: `herzschlag.py --test` in werkzeuge.yml, Lauf 23 (`194e9647f`) grün; Fehlschlag gibt Exit 1, Schritt bricht ab; Auslöser deckt tools/herzschlag.py und herzschlag.yml.
+- **1787 greift nicht → D331.1 = 1791 (Jerry, M).** `zweig_doppelt_test` grün; genannter Fall (Anlegen samt Vorratszeile, Löschen samt Folgeauftrag, nichts dazwischen) frei. Nachgestellt (Probe-Repo im Scratchpad): liegt dazwischen ein fremdes `vorgang.py neu` (LISTE-VORGAENGE, ARBEIT-BETRIEB) und legt das Löschen selbst einen Folgevorgang an, meldet `veraltet()` die Chefsache als Rückfall. Ausgenommen sind nur Dateien des Anlege-Commits. Jerrys Restlücke (zweite Arbeitskopie legt nur Chefsache samt Vorratszeile an) deckt 1776, ohne Befund.
+- Nicht geprüft: echter Herzschlag-Alarm nachts (keiner); `--auffrischen` am Fall 1791.
+- **Nachtrag 22:24, 1791 (Jerry `781a70324`) greift, damit 1787:** mein Fall aus diesem Lauf frei, Fall ohne Zwischencommit frei; `zweig_doppelt_test` grün, veralteter Index löscht neue Datei weiter erkannt; werkzeuge.yml Lauf 26 grün. Rückfall gilt jetzt nur, wenn eine andere Datei genau auf dem alten Stand steht.
+- **Nachtrag 22:25, 1786 greift** (mit 1787, 1791): Lücke aus Lauf 330 geschlossen; echter Fall `ansehen/1535-flanke.md` gelöscht in `d7c600a92` ohne Schalter.
+
+## Lauf 330 · 1783, 1786, 1760, 1764, Spike 1739 (lesend, Chef 21.11., 20:20; main `de51136f9`; 21.11., 22:07–22:13)
+
+- 1783 greift: `gegengelesen_test.py` 11/11, werkzeuge.yml Lauf 21 (`30736b6f6`) grün. Rufname ohne Rolle hält auch neben gültiger fremder Zeile an (strenger als 1410, vertretbar).
+- 1786 Lücke: Anlegen der Chefsache samt Vorratszeile, dann Löschen samt Folgeauftrag im selben Vorrat ohne Commit dazwischen → `veraltet()` meldet Rückfall, `--auffrischen` stellt her (nachgestellt) → 1787 D330.1 (Jerry).
+- 1760 greift technisch (`uebergabe_test` grün), im Betrieb noch ungenutzt (`docs/vorgang/` leer, bis Umstellung).
+- 1764 greift (Zeitmarke 22:03, herzschlag.yml grün); `herzschlag.py --test` in keinem Workflow → 1788 D330.2 (Spike, M?).
+- Spike 1739 `dbf44708a`, `4fc81e0bd`, `e68cceefe`, `4cb004338`, `fd53ce41c`: ohne Befund; werkzeuge.yml Läufe 16–21 grün, lokal alle 15 Aufrufe Exit 0.
+
+## Lauf 328 · 1718 Buildzweig-Haken (Spike `689d4d351`; 21.11., 20:26)
+
+- **1718 greift nicht → D328.1 = 1768 (Jerry, M; Haken seit 1765 bei Jerry), 1718 wartet auf 1768, 1716 weiter auf 1718.** `--test` 0 Fehler. Eigene Proben (Probe-Repo im Scratchpad, Zweig `claude/build-399`): gelöst sind `git push -u origin HEAD`, `@`, ohne Argumente, `--set-upstream`, `-o`, `git -C`, `cd … &&`, Rohr; kein Fehlalarm mehr bei `echo '…'`, `-m "…"`, Heredoc, `#`-Kommentar. Live in dieser Sitzung angehalten: `git -C … push -u origin HEAD`. **Rückschritt:** `PUSH` verlangt git direkt nach `;&|(\n`; nach `do`, `then`, `until`, `while`, `!`, `{`, `timeout 60` geht der Push durch, live: `for i in 1 2; do git -C … push -u origin HEAD && break; …; done` hat auf `claude/build-399` gepusht. Unter 1716 (ganzer Text) wurde das angehalten; die Wiederholschleife ist die Form, die die Systemvorgabe für Pushes verlangt. `git push origin HEAD:` ist in git ungültig (fatal: invalid refspec), keine Lücke.
+- GitHub: seit `689d4d351` (18.11., 23:42) ein Lauf auf `claude/build-*` (576, 19.11., 07:37, grün), kein abgebrochener; zuletzt „cancelled“ 574 (18.11., 20:31, vor 1716).
+- Nicht geprüft: echter fremder Push aus einer Teamsitzung (keiner gefunden); MCP-Schreibwerkzeuge nur am Quelltext (unverändert seit 1716).
+- **1762 Haken D (Spike `34de71832`, Auftrag Ford 20:25) greift nicht → D328.2 = 1769 (Spike, M), 1762 wartet auf 1769.** `chefwort_test` grün (27 Fälle); `tools/1727-SCHARF` fehlt, Haken also noch stumm. Gegen die echte Liste: Uhrzeit, Datum, Betrag, „t300“, „Kapitel 1“, „400/500 Tsd.“, „72o.1“ ohne Fehltreffer; Nachrichten mit `**Name** [`, `<…>`, „Weiter in“ nicht vom Chef. **Lücke:** Nummer mit Komma dahinter wird nicht erkannt (Lookahead `(?![\d,]…)`): „1535, ein Lauf frei“ → nichts, „1716, 1718 passen“ → nur 1718; im Archiv 9 Chefworte dieser Form („698, Grafikstufen gebilligt“, „595, 601 …“).
+- Nicht geprüft: Eintragen im echten Repo (nur im Test, schreibt sonst auf `main`); Nachricht einer Sitzung ohne fettes `**Name**` („Ford [21.11., 20:25]: …“ gilt als Chef, wenn das Protokoll keine Herkunft trägt; nicht nachgestellt, wie send_message im Protokoll ankommt).
+- **1769 greift (Spike `8e3aea93c`, 20:31):** „1535, ein Lauf frei“ → 1535; „1716, 1718 passen“ → beide; „1535, 1716, und 1718.“ → alle drei; „1535,5 Stunden“, „1535,50 €“ → nichts; `chefwort_test` grün. 1762 wartet jetzt auf 1727 (Umschaltung, erster echter Eintrag).
+- **1763 Rückmeldung, Obergrenzen A/B, C in `lauf.py` (Spike `17623dce7`, Auftrag Ford 20:28): kein Befund; greift erst am ersten echten Fall → wartet auf 1727 (Umschaltung).** `rueckmeldung_test` (30 Fälle), `uebergabe_test`, `lauf_kern_test` grün. Gegen Archiv 21.11., 14:37: A (zweites „nein, Auftrag“, drittes „nein“), B (zweites „steckt fest“ → ruht, Zeile an Sokrates „an den Chef“), C (START/WEITER Sokrates, nie zwei) stimmen. Verdacht widerlegt: Auftrag an Sokrates geht bei einer WEITER-Zeile ohne „Stellungnahme“ verloren (nachgestellt: ja), aber `lauf.py` erzeugt eine solche Zeile für Sokrates nicht (Sokrates nicht in `START_REIHE`).
+- Hinweis ohne Beleg im Betrieb: Signalwort nur am Anfang; mit Stempel davor („**Tom** [21.11.] steckt fest“) zählt nichts, Obergrenze stumm; Vorgabe „erstes Wort“ (`ein-ausgang.md` 38) deckt das, Stempelpflicht (CLAUDE.md 7) widerspricht ihr; „Nein. Auftrag …“ zählt als „nein“. Nicht geprüft: `docs/vorgang/` gibt es noch nicht, kein Aufrufer vor der Umschaltung.
+
+## Lauf 327 · 1716 Buildzweig gehört Spike (Spike `c315ec551`; 18.11., 23:10)
+
+- **1716 greift mit Lücke → D327.1 = 1718 (Spike, M), 1716 wartet auf 1718.** `buildzweig-haken.py --test` 0 Fehler; Rolle aus der ersten Nachricht dieser Sitzung richtig „Diogenes“ (Startzeile von Ford). Erkannt: Refspec, `HEAD:refs/heads/claude/build-300`, `+claude/build-300`, `a:claude/build-300`. Lücke 1: `git push -u origin HEAD` vom Buildzweig geht durch (HEAD nur ohne Refspec aufgelöst). Lücke 2: Fehlalarm auf Text, `echo "git push origin claude/build-300"` und `git commit -m "… git push …"` werden angehalten (mein erster Prüfbefehl hielt so an). `godot.yml`: `cancel-in-progress` auf `refs/heads/claude/build-*` aus, Teamzweige wie bisher; nach GitHub-Regel wartet höchstens ein Lauf, ein dritter Push ersetzt den wartenden (nicht den laufenden).
+- Nicht geprüft: echter fremder Push auf einen Buildzweig (seit 22:32 keiner); Sitzungen auf Zweigen älter als `c315ec551` laden den Haken nicht (Eintrag steht in `.claude/settings.json` des Zweigs). Satz in `LISTE-CHECK-BUILD-TEST.md` 3 steht noch alt, 1717 (Perikles) startbar.
+
 ## Lauf 326 · 1683 Kern über lauf.py (Spike `6f2f443ff`, Merge `e13780dd8`; 18.11., 17:01)
 
 - **1683 greift (Test):** `lauf_kern_test.py` Exit 0 an `main`; `kern()` liest aus den echten Rollendateien Spike 3868 und Sokrates 4223 Zeichen (mit Schwerpunkt A), übrige Rollen leer, kein `|` im Kern (Feldtrenner der START-Zeile bleibt heil). Gilt für alle START-Zeilen (Nachfolger 927, Vorrat, Zusatz, Stellungnahme 1099, Spiegel); WEITER an die laufende Sitzung ohne Kern (hat ihn schon). Folgezeilen stehen: `ROLLE-BETRIEB.md` (Handstart Ford), `ROLLE-BERATUNG-START.md`, `ROLLE-TECHNIK.md`.

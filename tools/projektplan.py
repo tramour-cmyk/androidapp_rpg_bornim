@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """1233 (Chef 13.11., 21:27: „Wie viele Vorgänge sind da noch offen? … dann kann ich mal eine Priorität vielleicht festlegen“):
-Zahlen für den Kopf von PROJEKTPLAN.md, je Meilenstein und je Teilprojekt (= Bereich der Vorgangsliste).
+Zahlen je Meilenstein und je Themenblock (1860: ohne Wochenziel, Reihenfolge der Themenblöcke wie docs/chefsache/themenbloecke.md;
+Archiv „Wochenziel fällt weg“ 19.11., 17:44).
 
-  tools/projektplan.py            Tafel als Markdown (Perikles übernimmt sie montags mit dem Wochenziel per Edit; das Werkzeug schreibt nichts)
+  tools/projektplan.py            Tafel als Markdown (das Werkzeug schreibt nichts)
 
 Zuordnung ohne Raten: Meilenstein „Marktstart“ = Bereich M Veröffentlichung und M Markt; „nach dem Meilenstein“ (Kl. N oder Stand)
 zählt zum Marktstart; alles andere Offene zu „Kapitel 1 fertig“ (Oberste Direktive: Kapitel 1 geht jedem Neuen vor).
@@ -52,6 +53,18 @@ def teilprojekte(offen):
     return aus
 
 
+def bloecke(docs=None):
+    """[(Nummer, Name)] der Themenblöcke in Zeilenfolge von chefsache/themenbloecke.md (Reihenfolge legt der Chef fest), dann 9 „Übriges“."""
+    try: t = open(os.path.join(docs or startbar.DOCS, "chefsache", "themenbloecke.md"), encoding="utf-8").read()
+    except OSError: t = ""
+    aus = []
+    for z in t.splitlines():
+        c = [x.strip() for x in z.strip().strip("|").split(" | ")]
+        if len(c) >= 7 and c[0].isdigit(): aus.append((c[0], re.sub(r"\s*\(.*\)$", "", c[1])))
+    if "9" not in [n for n, _ in aus]: aus.append(("9", "Übriges"))
+    return aus
+
+
 def main():
     offen = [d for d in startbar.zeilen_liste() if d["wort"] not in ("erledigt", None) and d["nr"] not in startbar.SONDER]
     med = {b: statistics.median(v) for b, v in archiv_kosten().items() if len(v) >= 5}
@@ -79,10 +92,11 @@ def main():
         for name, ds, weg in tp:
             print("| %s | %d | %d | %d | %d | %s |" % (name, len(ds), sum(1 for d in ds if d["kl"] == "M"), sum(1 for d in ds if d["wort"] in ("gebaut", "zu testen")),
                                                    sum(1 for d in ds if d["wort"] in ("ruht", "Idee", "Dauer")), ", ".join(weg) or "–"))
-    print("\n" + kopf % "Teilprojekt (Bereich) für Kapitel 1")
+    print("\n" + kopf % "Themenblock für Kapitel 1")
     k1 = [d for d in offen if ms(d) == "Kapitel 1 fertig"]
-    for b in sorted({d.get("bereich") for d in k1}, key=lambda b: (-sum(1 for d in k1 if d.get("bereich") == b and d["kl"] == "M"), -sum(1 for d in k1 if d.get("bereich") == b))):
-        print(zeile(b, [d for d in k1 if d.get("bereich") == b]))
+    for n, name in bloecke():  # 1860: Zeilenfolge der Themenblöcke statt Bereiche nach Muss-Zahl
+        ds = [d for d in k1 if startbar.block_von(d["nr"], d.get("bereich")) == n]
+        if ds: print(zeile("%s %s" % (n, name), ds))
 
 
 if __name__ == "__main__":

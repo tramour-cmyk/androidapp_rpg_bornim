@@ -1,0 +1,126 @@
+name: Herzschlag
+
+# 1764 (Lücke L-T1, ablauf.md A18): lief tools/lauf.py (Disponent) in den letzten 2 Stunden? Zeitmarke „**Stand:** … (lauf.py)“ in
+# docs/ARBEIT-BESETZUNG.md, erneuert spätestens alle 60 Minuten. Kostet keine Token. Alarm einmal je Ausfall (Cache-Schlüssel je
+# Zeitmarke): roter Lauf (GitHub meldet ihn dem Besitzer) und Telegram, wenn das Secret TELEGRAM_BOT_TOKEN gesetzt ist.
+# Zeitpläne laufen bei GitHub ohne Gewähr (1191), darum prüft auch jeder Push auf docs/ in main.
+# Nachts (22–7 Uhr Berliner Zeit) nur lautlos wie tools/meldung.sh (G:921; 1739, werkzeuge.md A).
+# 1894: Hauptauslöser ist die Kette herzschlag-kette.yml (stündlich, unabhängig von Ford); fehlt sie, startet dieser Lauf sie.
+on:
+  schedule:
+    - cron: "23 * * * *"
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+  workflow_dispatch:
+    inputs:
+      test:
+        description: "Probeknopf (1936): nur eine Testmeldung über Telegram senden, ohne Prüfung der Zeitmarke"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: herzschlag
+  cancel-in-progress: false
+
+jobs:
+  # 1936 (Chef 22.11., 12:26): Probeknopf. Actions → Herzschlag → Run workflow → „test“ anhaken: sendet eine Testmeldung über
+  # das Secret TELEGRAM_BOT_TOKEN (prüft den Alarmweg aus 1764); fehlt das Secret oder lehnt Telegram ab, roter Lauf mit Hinweis.
+  probe:
+    if: github.event_name == 'workflow_dispatch' && inputs.test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Testmeldung
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          if [ -z "$TELEGRAM_BOT_TOKEN" ]; then
+            echo "::error::Secret TELEGRAM_BOT_TOKEN fehlt (Settings → Secrets and variables → Actions); der Alarm käme nur als roter Lauf (1764)"
+            exit 1
+          fi
+          zeit=$(TZ=Europe/Berlin date "+%d.%m., %H:%M")
+          antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=8965432899" --data-urlencode "disable_notification=false" \
+            --data-urlencode "text=Herzschlag (GitHub): Testmeldung über den Probeknopf ($zeit, 1936). Der Alarmweg aus 1764 funktioniert.")
+          if echo "$antwort" | grep -q '"ok":true'; then
+            echo "Testmeldung gesendet ($zeit)"
+          else
+            echo "::error::Telegram lehnt ab: $(echo "$antwort" | grep -o '"description":"[^"]*"' || echo "$antwort" | head -c 200)"
+            exit 1
+          fi
+
+  pruefen:
+    if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.test) }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Kette läuft? (1894)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          n=0
+          for st in in_progress queued waiting pending; do
+            k=$(gh run list --workflow herzschlag-kette.yml --status $st --json databaseId --jq length 2>/dev/null || echo 0)
+            n=$((n + k))
+          done
+          if [ "$n" = 0 ]; then gh workflow run herzschlag-kette.yml --ref main && echo "Kette neu gestartet (1894)"; else echo "Kette läuft ($n)"; fi
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            docs/ARBEIT-BESETZUNG.md
+            tools/herzschlag.py
+          sparse-checkout-cone-mode: false
+      - name: Zeitmarke prüfen
+        id: hs
+        run: |
+          set +e
+          zeile=$(python3 tools/herzschlag.py)
+          rc=$?
+          set -e
+          echo "$zeile"
+          echo "rc=$rc" >> "$GITHUB_OUTPUT"
+          echo "marke=$(python3 tools/herzschlag.py --marke)" >> "$GITHUB_OUTPUT"
+          { echo "zeile<<ENDE"; echo "$zeile"; echo "ENDE"; } >> "$GITHUB_OUTPUT"
+          [ $rc = 1 ] && echo "::warning::$zeile"
+          exit 0
+      - name: Schon gemeldet?
+        if: steps.hs.outputs.rc == '2'
+        id: schon
+        uses: actions/cache/restore@v4
+        with:
+          path: .herzschlag
+          key: herzschlag-alarm-${{ steps.hs.outputs.marke }}
+          lookup-only: true
+      - name: Alarm
+        if: steps.hs.outputs.rc == '2' && steps.schon.outputs.cache-hit != 'true'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          ZEILE: ${{ steps.hs.outputs.zeile }}
+        run: |
+          mkdir -p .herzschlag && echo "$ZEILE" > .herzschlag/alarm
+          laut=true; case $(TZ=Europe/Berlin date +%H) in 22|23|0[0-6]) laut=false ;; esac
+          if [ -n "$TELEGRAM_BOT_TOKEN" ]; then
+            curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              --data-urlencode "chat_id=8965432899" --data-urlencode "disable_notification=$([ $laut = true ] && echo false || echo true)" \
+              --data-urlencode "text=Herzschlag (GitHub): $ZEILE" > /dev/null
+          else
+            echo "::warning::Secret TELEGRAM_BOT_TOKEN fehlt, Alarm nur als roter Lauf"
+          fi
+      - name: Gemeldet merken
+        if: steps.hs.outputs.rc == '2' && steps.schon.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .herzschlag
+          key: herzschlag-alarm-${{ steps.hs.outputs.marke }}
+      - name: Roter Lauf beim ersten Alarm
+        if: steps.hs.outputs.rc == '2' && steps.schon.outputs.cache-hit != 'true'
+        run: |
+          echo "::error::$ZEILE"
+          exit 1
+        env:
+          ZEILE: ${{ steps.hs.outputs.zeile }}

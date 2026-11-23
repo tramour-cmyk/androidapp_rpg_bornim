@@ -1,6 +1,11 @@
 # Chroniken von Bornim / Chronicles of Bornim
 
-Ein düsteres Fantasy-Rollenspiel für Android, erzählt in Kapiteln. Erkunde das Dorf Bornim, den Flüsterwald und die Höhlen darunter in schräger Sicht von oben, sprich mit den Leuten und stell dich Wölfen, Goblins und Schlimmerem im Kampf Zug um Zug. Die Regeln sind ein eigenes System, das Bornimer Rollenspielsystem (BRS): Du wirst, was du tust. Auf Deutsch und Englisch.
+Ein düsteres Rollenspiel mit eigener Geschichte und taktischem Kampf in einer 3D-Welt, die du drehen und zoomen kannst. Von Anfang an fürs Handy gebaut, erzählt in Kapiteln rund um das Dorf Bornim (ab 16), auf Deutsch und Englisch. Den Anfang macht „Der Blutzahn-Stamm“.
+
+- **Du wirst, was du tust.** Keine Klasse zu Beginn: Was du benutzt, wird besser; am Ende jedes Rangs wartet eine Prüfung. Die Regeln sind unser eigenes Bornimer Rollenspielsystem (BRS).
+- **Jeder Kampf ist eine Entscheidung.** Der Gegner zeigt, was er vorhat: Der Wolf duckt sich zum Sprung, der Hauptmann holt aus. Du antwortest mit Angriff oder Abwehr, und im Moment des Schlags weichst du selbst aus, parierst oder hebst den Schild.
+- **Eine Welt voller Details.** Das Gras wiegt sich im Wind, Hühner und Kaninchen laufen vor dir davon, und jedes Tier hört man erst, wenn man näher kommt. Nachts reicht der Blick nur so weit wie das Licht, Nebel liegt über der Wildnis, und die Monster siehst du kommen.
+- **Fair.** Keine Werbung, keine Beutekisten, keine Wartezeiten; grinden darf man, muss man nie.
 
 **Download:** [bornim.apk (neueste Version)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/latest/download/bornim.apk) · [Leitbild](docs/DESIGN-LEITBILD.md) · [Änderungshistorie](CHANGELOG.md) · [Notizen](docs/README.md) · [Ideen](docs/LISTE-IDEEN.md) · [Stil](docs/DESIGN-STIL.md) · [Entwicklung](docs/DESIGN-ABNAHME.md) · [Regeln (BRS)](docs/DESIGN-BRS.md) · [Projektplan](docs/PROJEKTPLAN.md)
 
@@ -13,7 +18,7 @@ Ein düsteres Fantasy-Rollenspiel für Android, erzählt in Kapiteln. Erkunde da
 
 **Welt**
 
-- **Tag und Nacht**: dunkle Nächte, Fackelschein um den Helden, erleuchtete Fenster; die Leute im Dorf gehen ihrem Tagwerk nach. Nachts kommen die Untoten in den Wald
+- **Tag und Nacht**: dunkle Nächte, Fackelschein um den Helden, erleuchtete Fenster. Nachts kommen die Untoten in den Wald
 - **Nebel über der Wildnis**: man sieht nur, was der Held sieht; das Land deckt sich beim Gehen auf
 - **Klang und Musik**: Geräusche aus echten Aufnahmen, düstere orchestrale Musik; man hört, was in der Nähe ist
 - **Sichtbare Monster** streifen durch Wald und Höhle. Wer von hinten angreift, schlägt zuerst; wer sich erwischen lässt, gerät in einen Hinterhalt

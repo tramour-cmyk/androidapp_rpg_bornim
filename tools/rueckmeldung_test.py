@@ -1,0 +1,471 @@
+# 1763: Rückmeldung in die Vorgangsdatei, Obergrenzen A (zweites „nein, Auftrag“, dritter abgelehnter Auftrag) und B (zweites
+# „steckt fest“) → ruht, beim Chef; „steckt fest“, „Frage“, „wirkt nein“ → Zeile an Sokrates, lauf.py startet oder weckt ihn (C).
+# Echtes Git mit nacktem origin. Aufruf: python3 tools/rueckmeldung_test.py
+import os, re, subprocess, sys, tempfile
+HIER = os.path.dirname(os.path.abspath(__file__))
+d = tempfile.mkdtemp(); o = os.path.join(d, "origin.git"); A = os.path.join(d, "a")
+def g(*a, cwd=None): return subprocess.run(["git"] + list(a), cwd=cwd, check=True, capture_output=True, text=True).stdout
+g("init", "-q", "--bare", "-b", "main", o)
+g("clone", "-q", o, A); g("config", "user.email", "t@t", cwd=A); g("config", "user.name", "t", cwd=A); g("checkout", "-q", "-b", "main", cwd=A)
+os.makedirs(os.path.join(A, "docs")); os.makedirs(os.path.join(A, "tools"))
+for f in ("rueckmeldung.py", "chefwort.py", "uebergabe.py", "startbar.py", "bereiche.py", "vorgang.py"):
+    os.symlink(os.path.join(HIER, f), os.path.join(A, "tools", f))
+open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
+    "# Vorgangsliste\n\n| Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |\n|---|---|---|---|---|---|---|---|---|---|\n"
+    "| 9001 | Zwerg auf dem Tisch | Tom | M | startbar | – | – | – | E Welt | 3,50 $; Jerry 1,25 $ |\n"
+    "| 9002 | Schatten im Wald | Spike | M | startbar | – | – | – | T Technik | – |\n"
+    "| 9003 | Höhlenklang | Jerry | M | startbar | – | – | – | K Klang | – |\n"
+    "| 9005 | Treppe knarrt | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9006 | Treppe zu steil | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9011 | Kerze im Keller | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9012 | Kerze im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9013 | Nachtstopp-Haken | Spike | K | startbar | – | – | – | B Werkzeuge | – |\n"
+    "| 9014 | Fackel im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9015 | Fackel im Keller | Jerry | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9016 | Tür im Keller | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9017 | Tor im Hof | Tom | K | startbar | – | – | – | E Welt | – |\n"
+    "| 9018 | Tür im Turm | Tom | K | startbar | – | – | – | E Welt | – |\n")
+open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md"), "w").write("**Nächste freie Vorgangsnummer: 9100**\n")
+open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "w").write(
+    "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Prüfer | [P](https://claude.ai/code/session_PR1) | – | – | 21.11. |\n")
+g("add", "-A", cwd=A); g("commit", "-q", "-m", "start", cwd=A); g("push", "-q", "origin", "main", cwd=A)
+ENV = dict(os.environ, BORNIM_WURZEL=A, BORNIM_JETZT="21.11., 20:30", GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@t",
+           GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t@t", BORNIM_SITZUNG="session_PR1")
+ENV.pop("BORNIM_OHNE_PUSH", None); ENV.pop("BORNIM_CHEFWORT_AN", None)
+fehl = 0
+def soll(name, ok, zeige=""):
+    global fehl; fehl += not ok; print(("ok  " if ok else "FEHL"), name, ("" if ok else zeige))
+def datei(nr):
+    g("fetch", "-q", "origin", cwd=A)
+    try: return g("show", "origin/main:docs/vorgang/%s.md" % nr, cwd=A)
+    except subprocess.CalledProcessError: return ""
+def lauf(*a, zeit="21.11., 20:30"):
+    p = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py")] + list(a), env=dict(ENV, BORNIM_JETZT=zeit), capture_output=True, text=True, cwd=A)
+    return p.returncode, p.stdout + p.stderr
+vg = lauf
+os.environ.update(ENV)
+sys.path.insert(0, os.path.join(A, "tools"))
+rm_lauf = lauf  # 1797: lauf wird weiter unten zum Modul lauf.py
+import rueckmeldung as rm
+
+# 1 Erstes Wort
+for t, w in [("nein, Auftrag: Prüffrage am Ziel vorbei", {"nein, Auftrag"}), ("Nein. Bart fehlt. steckt fest: Handwerksregel Bart", {"nein", "steckt fest"}),
+             ("Beleg fehlt", {"Beleg fehlt"}), ("wirkt nein", {"wirkt nein"}), ("Frage: welcher Text?", {"Frage"}), ("ja", {"ja"}), ("fertig, Commit abc", {"fertig"}),
+             ("„steckt fest“ beim Licht", {"steckt fest"}), ("neinsager", set()),
+             ("**Spike** [21.11., 20:41] nein, Auftrag: x", {"nein, Auftrag"}), ("Spike [21.11., 20:41]: steckt fest", {"steckt fest"}),
+             ("**Jerry** [21.11., 20:41]\nnein", {"nein"}), ("**Tom**: Frage zum Licht", {"Frage"}), ("Tom 2 [21.11., 20:41] fertig", {"fertig"}),
+             ("Nein [Hof] steckt fest", {"nein", "steckt fest"}),
+             ("**nein, Auftrag**: falsch", {"nein, Auftrag"}), ("**steckt fest**: Licht", {"steckt fest"}), ("**Frage:** welcher Text?", {"Frage"}),
+             ("**Nein.** steckt fest", {"nein", "steckt fest"}), ("**Frage** zum Licht", {"Frage"}), ("**Spike** [21.11.2026, 20:41] nein", {"nein"}),
+             ("Laufanforderung: Filmlauf ohne Ausgabe, behoben in 1a2b3c4", {"Laufanforderung"}), ("**Spike** [22.11., 08:00] Laufanforderung", {"Laufanforderung"}),
+             ("abgebrochen: Filmlauf ohne Ausgabe", set()),
+             ("Auftrag steht: 1694-4", {"Auftrag steht"}), ("kein Auftrag nötig: schon gebaut", {"kein Auftrag nötig"}),
+             ("fertig 1a2b3c4. Hinweis: Prüffrage fehlt", {"fertig", "Hinweis im Text"}), ("Notiz. Hinweis: Geländer", {"Hinweis"})]:
+    soll("Wort %r" % t[:25], rm.worte(t) == w, rm.worte(t))
+
+# 2 B: erstes „steckt fest“ an Sokrates, zweites an den Chef (ruht)
+rc, out = lauf("rueckmeldung", "9001", "steckt fest: Licht im Keller, Regel fehlt")
+soll("1. steckt fest → Sokrates", rc == 0 and "OFFEN 9001-Ü1 an Sokrates" in out and "KEINE SITZUNG Sokrates" in out, out)
+t = datei("9001")
+soll("Rückmeldung wörtlich mit Zeit und Sitzung", "- **21.11., 20:30**, Prüfer (`session_PR1`):\n> steckt fest: Licht im Keller, Regel fehlt\n" in t, t)
+soll("1927: erstes steckt fest schreibt keine Kosten", "Kosten bisher" not in t, t)
+soll("Zeile an Sokrates (C)", "| 9001-Ü1 | Sokrates | steckt fest: Rückmeldung 21.11., 20:30 von Prüfer lesen (1763 C); gelöst: `vorgang.py warte 9001 –` | 21.11., 20:30 | offen |" in t, t)
+def liste_origin():
+    g("fetch", "-q", "origin", cwd=A); return g("show", "origin/main:docs/LISTE-VORGAENGE.md", cwd=A)
+soll("1800: steckt fest, wartet auf Sokrates, gepusht", "| 9001 | Zwerg auf dem Tisch | Tom | M | startbar, steckt fest | Sokrates |" in liste_origin(), out)
+rc, out = lauf("rueckmeldung", "9001", "nein: Keller zu hell. steckt fest: wieder Licht", zeit="21.11., 21:00")
+t = datei("9001")
+soll("2. steckt fest → ruht, an den Chef", "OFFEN 9001-Ü2 an Sokrates (Obergrenze B: 2. „steckt fest“ → ruht, beim Chef)" in out, out)
+soll("Zustand in der Vorgangsdatei", "Zustand: ruht, beim Chef seit 21.11., 21:00 (Obergrenze B: 2. „steckt fest“, 1763)" in t, t)
+soll("1927: Kosten bisher im Kopf der Vorgangsdatei (Summe der Kostenspalte)", "\n\nKosten bisher: 4,75 $ (Stand 21.11., 21:00, Summe der Sitzungen laut Vorgangsliste; 1927)\n" in t.split("\n## ", 1)[0] + "\n", t)
+soll("Zeile sagt: an den Chef, nicht selbst lösen", "| 9001-Ü2 | Sokrates | an den Chef: Chefsache anlegen, nicht selbst lösen" in t, t)
+soll("Liste: ruht, beim Chef", "| 9001 | Zwerg auf dem Tisch | Tom | M | ruht, beim Chef (Obergrenze B) |" in open(os.path.join(A, "docs", "LISTE-VORGAENGE.md")).read())
+soll("1800: ruht gepusht", "| 9001 | Zwerg auf dem Tisch | Tom | M | ruht, beim Chef (Obergrenze B) | Sokrates |" in liste_origin(), out)
+rc, out = lauf("rueckmeldung", "9001", "steckt fest: noch mal", zeit="21.11., 21:10")
+# 1976: früher „ruht schon, nur eingetragen“ ohne Zeile (1566); jetzt Zeile an Sokrates, keine zweite Obergrenze, Liste bleibt „ruht“
+t = datei("9001")
+soll("1976: danach Zeile an Sokrates, keine zweite Obergrenze", "OFFEN 9001-Ü3 an Sokrates" in out and "ruht schon, nur eingetragen" not in out
+     and t.count("| 9001-Ü") == 3 and t.count("Obergrenze B") == 2, (out, t))
+soll("1976: Liste bleibt „ruht, beim Chef“", "| 9001 | Zwerg auf dem Tisch | Tom | M | ruht, beim Chef (Obergrenze B) | Sokrates |" in liste_origin(), liste_origin())
+
+# 3 A: zweites „nein, Auftrag“
+rc, out = lauf("rueckmeldung", "9002", "nein, Auftrag: Prüffrage fragt am Ziel vorbei")
+soll("1. nein, Auftrag → Arbeitsplaner", "OFFEN 9002-Ü1 an Arbeitsplaner" in out, out)
+rc, out = lauf("rueckmeldung", "9002", "nein, Auftrag: Text fehlt in der Quelle", zeit="21.11., 20:40")
+soll("2. nein, Auftrag → ruht, Sokrates an den Chef", "OFFEN 9002-Ü2 an Sokrates (Obergrenze A: 2. „nein, Auftrag“ → ruht, beim Chef)" in out, out)
+
+# 4 A: dritter abgelehnter Auftrag; „Beleg fehlt“ zählt nicht; 1739 Rückläufer an denselben Macher
+def tom(*a, zeit):
+    return lauf(*(list(a) + ["--sitzung", "Tom"]), zeit=zeit)
+rc, out = tom("rueckmeldung", "9003", "fertig: Hall 1,5 s, Commit 1a2b3c4d", zeit="21.11., 20:30")
+soll("fertig mit Commit → Prüfer", "OFFEN 9003-Ü1 an Prüfer" in out and "WECKER session_PR1" in out, out)
+for i, (t_, z) in enumerate([("nein: Hall zu lang", "20:31"), ("Beleg fehlt", "20:32"), ("nein: Hall noch zu lang", "20:33")]):
+    rc, out = lauf("rueckmeldung", "9003", t_, zeit="21.11., " + z)
+t = datei("9003")
+soll("1. nein → derselbe Macher mit Satz", "| 9003-Ü2 | Tom | Rückläufer (nein des Prüfers, Rückmeldung 21.11., 20:31 von Prüfer): „nein: Hall zu lang“;" in t, t)
+soll("Beleg fehlt → derselbe Macher", "| 9003-Ü3 | Tom | Rückläufer (Beleg fehlt des Prüfers" in t, t)
+soll("1766 Laufbremse: zweites nein → steckt fest an Sokrates", "| 9003-Ü4 | Sokrates | steckt fest (Laufbremse, 2. Nein; Chef 19.11., 13:02): Rückmeldung 21.11., 20:33 von Prüfer lesen (1766) |" in t and t.count("Laufbremse") == 1, t)
+rc, out = tom("rueckmeldung", "9003", "fertig", zeit="21.11., 20:34")
+soll("fertig ohne Commit → Disponent", "OFFEN 9003-Ü5 an Disponent" in out and "„fertig“ ohne Commit" in datei("9003") and "Zustand: ruht" not in datei("9003"), datei("9003") + out)
+rc, out = lauf("rueckmeldung", "9003", "nein: Hall immer noch", zeit="21.11., 20:35")
+soll("drittes nein → ruht", "Obergrenze A: 3. abgelehnter Auftrag → ruht, beim Chef" in out, out)
+rc, out = lauf("rueckmeldung", "9003", "nein: Hall immer noch", zeit="21.11., 20:35")
+soll("gleiche Rückmeldung zur gleichen Minute: einmal", "schon eingetragen" in out and datei("9003").count("Hall immer noch") == 1, out)
+rc, out = lauf("rueckmeldung", "9006", "nein: Stufe zu hoch", zeit="21.11., 20:36")
+soll("nein ohne fertig: Disponent, Fachkraft unbekannt", "OFFEN 9006-Ü1 an Disponent" in out and "Fachkraft unbekannt" in datei("9006"), out)
+rc, out = lauf("rueckmeldung", "9006", "Hinweis: Geländer fehlt auch", zeit="21.11., 20:37")
+soll("Hinweis → Disponent wie Eingang", "OFFEN 9006-Ü2 an Disponent" in out and "wie einen Eingang" in datei("9006"), out)
+rc, out = lauf("rueckmeldung", "9006", "Notiz ohne Signalwort", zeit="21.11., 20:38")
+soll("1952: ohne Katalogwort eingetragen und mit Liste zurückgewiesen", rc == 1 and "ZURÜCKGEWIESEN" in out and "Laufanforderung:" in out
+     and "Notiz ohne Signalwort" in datei("9006"), (rc, out))
+
+# 5 Chefworte und Rückmeldungen bleiben getrennt
+import chefwort as cw
+cw.eintragen("9003", "Hall kürzer, 1,2 s", "21.11., 20:50", "Sokrates")
+t = datei("9003")
+soll("Chefwort im eigenen Abschnitt", "Hall kürzer" in rm.uebergabe.abschnitt(t, "Chefworte") if hasattr(rm, "uebergabe") else "Hall kürzer" in rm.ue.abschnitt(t, "Chefworte"), t)
+soll("Rückmeldungen ohne Chefwort", "Hall kürzer" not in rm.ue.abschnitt(t, "Rückmeldungen") and rm.zaehlen(t)["nein"] == 3, t)
+soll("Übergaben bleiben unten", t.rstrip().endswith("| offen |"), t)
+
+# 5a 1739 (7.1, F3): Wiederholungswächter auch auf jedes Nein
+rc, out = lauf("rueckmeldung", "9002", "nein: Treppe im Turm wirft keinen Schatten")
+liste = open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), encoding="utf-8").read()
+soll("1887: Nein mit Stichwort ändert die Liste nicht", rc == 0 and "Systemlösung? Treppe" not in liste and "LISTE docs/LISTE-VORGAENGE.md geändert" not in out
+     and not g("status", "--porcelain", "--", "docs", cwd=A).strip(), (out, g("status", "--porcelain", cwd=A)))
+soll("1887: Zeile an den Disponenten mit Befehl für Systemlösung? Treppe", re.search(r"\| 9002-Ü\d+ \| Disponent \| Wiederholungswächter \(654, 1887\): Stichwort „Treppe“.*vorgang.py neu \"Systemlösung\? Treppe: .*\" \"[^\"]+\" K Sokrates", datei("9002")), (out, datei("9002")[-600:]))
+# 1913 (D344.2): weiteres Nein mit demselben Stichwort, solange die erste Wächterzeile offen ist: keine zweite Zeile
+g("checkout", "-q", "--", "docs", cwd=A); g("pull", "-q", "origin", "main", cwd=A)
+rc, out = lauf("rueckmeldung", "9007", "nein: Treppe zu steil, Schatten fehlt")
+g("pull", "-q", "origin", "main", cwd=A)
+_wz = lambda nr: re.findall(r"\| %s-Ü\d+ \| Disponent \| Wiederholungswächter \(654, 1887\): Stichwort „Treppe“" % nr, datei(nr))
+soll("1913: zweites Nein (9007) mit Stichwort Treppe: keine zweite Wächterzeile", rc == 0 and not _wz("9007") and len(_wz("9002")) == 1 and "1913" in out, (out, datei("9007")[-400:]))
+rc, out = lauf("rueckmeldung", "9002", "nein: Treppe wirft immer noch keinen Schatten")
+g("pull", "-q", "origin", "main", cwd=A)
+soll("1913: drittes Nein im selben Vorgang: weiter nur eine Wächterzeile", len(_wz("9002")) == 1, (out, datei("9002")[-600:]))
+g("checkout", "-q", "--", "docs", cwd=A); g("pull", "-q", "origin", "main", cwd=A)
+rc, out = lauf("rueckmeldung", "9007", "ja: Treppe passt")
+soll("Ja ohne Wächter, an den Disponenten", rc == 0 and "Systemlösung" not in out and "an Disponent" in out and "an den Chef vorlegen" in datei("9007"), out)
+
+# 6 C: lauf.py startet oder weckt Sokrates
+sys.argv = [sys.argv[0]]
+sys.path.insert(0, HIER)
+import lauf
+g("pull", "-q", "origin", "main", cwd=A)
+aus = []
+z = lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
+# 1976: 9001-Ü3, 9002-Ü3, 9002-Ü5 sind Rückmeldungen an die ruhenden 9001 und 9002 (früher verschluckt)
+soll("offene Zeilen an Sokrates gefunden", [k for k, _ in z] == ["9001-Ü1", "9001-Ü2", "9001-Ü3", "9002-Ü2", "9002-Ü3", "9002-Ü5", "9003-Ü4", "9003-Ü6"], z)
+soll("keine Sitzung: START Sokrates", len(aus) == 1 and aus[0].startswith("START Sokrates |") and "9001-Ü2 an den Chef" in aus[0] and "\n" not in aus[0], aus)
+soll("1801: Titel mit Vorgangsnummer der ersten Zeile", "| Sokrates – 9001: offene Zeilen (1763 C, " in aus[0], aus)
+gesperrt = []; aus = []; lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), sperre=gesperrt.append)
+soll("1801: Startsperre mit Nummer", gesperrt == ["9001"], gesperrt)
+so = {"id": "session_SOK", "_info": (0, True, 0), "updated_at": "2026-11-21T19:00:00Z", "created_at": "2026-11-21T18:00:00Z", "context_usage": {"used_tokens": 50000}}
+aus = []; lauf.sokrates_zeilen(aus, {"Sokrates": [so]}, set(), docs=os.path.join(A, "docs"))
+soll("Sokrates läuft, klein: WEITER", len(aus) == 1 and aus[0].startswith("WEITER session_SOK | Sokrates | 1763 C | "), aus)
+aus = []; lauf.sokrates_zeilen(aus, {"Sokrates": [dict(so, context_usage={"used_tokens": 900000})]}, set(), docs=os.path.join(A, "docs"))
+soll("Sokrates läuft, groß: NICHTS", len(aus) == 1 and aus[0].startswith("NICHTS Sokrates: 8 offene"), aus)
+aus = ["START Sokrates | opus | env | repo | main | Sokrates – Stellungnahme (x) | Sokrates\\n\\nStellungnahme …"]
+lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
+soll("schon eine Sokrates-Zeile: angehängt, nie zwei", len(aus) == 1 and "1763 C" in aus[0], aus)
+gesperrt = []; aus = ["START Sokrates | opus | env | repo | main | Sokrates – Stellungnahme (22.11., 07:50) | Sokrates\\n\\nStellungnahme …"]
+lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), sperre=gesperrt.append)
+soll("1807: Stellungnahme-START mit Nummer im Titel", "| Sokrates – 9001: offene Zeilen und Stellungnahme (1763 C, 22.11., 07:50) | " in aus[0] and lauf.nummer_aus_titel(aus[0].split(" | ")[5]) == "9001", aus)
+soll("1807: Startsperre mit Nummer auch beim Anhängen", gesperrt == ["9001"], gesperrt)
+# 1891 (D336.1): Stellungnahme ohne offene Zeilen trägt die Nummer der ersten Chefsache-Datei (Startsperre, Nachtdeckel)
+z, n = lauf.stellungnahme_start(["1727j-vorschlaege.md", "1727k-settings.md"], "Sokrates\n\nStellungnahme")
+soll("1891: Stellungnahme-START mit Nummer 1727j", n == "1727j" and " | Sokrates – 1727j: Stellungnahme (" in z and lauf.nummer_aus_titel(z.split(" | ")[5]) == "1727j", (z, n))
+z2, n2 = lauf.stellungnahme_start(["ohne-nummer.md"], "Sokrates\n\nx")
+soll("1891: Datei ohne Nummer: Titel wie bisher, Nummer None", n2 is None and " | Sokrates – Stellungnahme (" in z2, z2)
+gesperrt = []; aus = [z]
+lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), sperre=gesperrt.append)
+soll("1891: offene Zeilen an START mit Dateinummer: Nummer der Zeile gilt", "| Sokrates – 9001: offene Zeilen und Stellungnahme (1763 C, " in aus[0] and "1727j" not in aus[0].split(" | ")[5] and gesperrt == ["9001"], aus)
+import inspect as _insp
+_src = _insp.getsource(lauf.haupt) if hasattr(lauf, "haupt") else open(os.path.join(HIER, "lauf.py"), encoding="utf-8").read()
+soll("1891: Stellungnahme-START setzt Startsperre Sokrates", 'zeile, so_nr = stellungnahme_start(ohne, msg)' in _src and 'sperr_nr["Sokrates"] = so_nr' in _src)
+gesperrt = []; aus = ["WEITER session_SOK | Sokrates | Stellungnahme | Stellungnahme …"]
+lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), sperre=gesperrt.append)
+soll("1807: WEITER bleibt ohne neue Sperre", gesperrt == [] and "1763 C" in aus[0], (gesperrt, aus))
+
+# 7 1739 F4 (1): offene Zeilen an andere (Arbeitsplaner = Ford bis zur Umschaltung); Stand vor der Umschaltung auch an der Kopie mit tools/1727-SCHARF
+_scharf = lauf.ist_scharf; lauf.ist_scharf = lambda: False
+aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
+soll("Arbeitsplaner-Zeilen an Ford", "Arbeitsplaner" in je and any(z.startswith("NACHRICHT Ford | - | Offene Zeilen an Arbeitsplaner") for z in aus) and not any("Sokrates" in z.split("|")[0] for z in aus), (je, aus))
+soll("Disponent bis zur Umschaltung Ford", any(z.startswith("NACHRICHT Ford | - | Offene Zeilen an Disponent") for z in aus), aus)
+soll("Prüfer bis zur Umschaltung Diogenes (keine Sitzung: Ford)", any("keine Sitzung Diogenes" in z and "Offene Zeilen an Prüfer" in z for z in aus), aus)
+aus = []; lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: gerufen0.append(r) or True) if (gerufen0 := []) == [] else None
+soll("Prüfer ohne Sitzung: Start Diogenes", "Diogenes" in gerufen0 and "Tom" in gerufen0, gerufen0)
+lauf.ist_scharf = _scharf
+
+# 8 1739 Befund 1: Empfänger ohne Sitzung starten (start-Rückruf), sonst Ford; Fristen je Lauf
+rc, out = vg("uebergabe", "9005", "Tom", "Treppe im Turm prüfen")
+soll("Zeile an Tom angelegt", rc == 0 and "9005-Ü1" in datei("9005"), out)
+g("pull", "-q", "origin", "main", cwd=A)
+gerufen = []
+aus = []; lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: gerufen.append((r, nr)) or True)
+soll("Tom ohne Sitzung: start gerufen, keine NACHRICHT Ford für Tom", any(r == "Tom" for r, _ in gerufen) and not any("keine Sitzung Tom" in z for z in aus), (gerufen, aus))
+aus = []; lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: False)
+soll("start kann nicht: NACHRICHT Ford „keine Sitzung Tom“", any(z.startswith("NACHRICHT Ford | - | keine Sitzung Tom") for z in aus), aus)
+tom = {"id": "session_TOM", "_info": (0, False, 30), "updated_at": "2026-11-21T19:00:00Z", "created_at": "2026-11-21T18:00:00Z", "title": "Tom – 9005"}
+aus = []; lauf.uebergabe_zeilen(aus, {"Tom": [tom]}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: (r == "Tom" and gerufen.append("falsch")) or True)
+soll("Tom mit Sitzung: NACHRICHT an sie, kein Start", any(z.startswith("NACHRICHT Tom | session_TOM | ") for z in aus) and "falsch" not in gerufen, aus)
+rc, out = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py"), "annehmen", "9005-Ü1", "--frist", "5"], env=dict(ENV, BORNIM_SITZUNG="session_TOM"), capture_output=True, text=True, cwd=A).returncode, ""
+soll("Tom nimmt an (Frist 5 Min.)", rc == 0 and "angenommen session_TOM" in datei("9005"), datei("9005"))
+seite = os.path.join(d, "seite.txt")
+open(seite, "w").write("session_TOM | working | 2026-11-21T19:30:00Z | Tom – 9005 | - | 2026-11-21T18:00:00Z\n# has_more: nein\n")
+os.environ["BORNIM_JETZT"] = "21.11., 20:50"
+aus = []; frei = lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
+soll("Frist ab, Halter arbeitet: bleibt angenommen", frei == [] and "angenommen session_TOM" in datei("9005") and not aus, (frei, aus))
+open(seite, "w").write("session_TOM | idle | 2026-11-21T19:30:00Z | Tom – 9005 | - | 2026-11-21T18:00:00Z\n# has_more: nein\n")
+aus = []; frei = lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
+soll("Frist ab, Halter ruht: wieder offen, Zeile NICHTS", frei == ["9005-Ü1"] and "| offen (wieder 1) |" in datei("9005") and aus and aus[0].startswith("NICHTS Übergabe: 9005-Ü1 wieder offen"), (frei, aus, datei("9005")))
+# 1904 (D340.2): „steckt fest“ von Hand (vorgang.py offen --sitzungen) geschrieben; Schreiben an Sokrates scheitert → nächster Lauf holt nach
+os.environ["BORNIM_JETZT"] = "21.11., 20:51"
+rc = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py"), "annehmen", "9005-Ü1", "--frist", "5"], env=dict(ENV, BORNIM_SITZUNG="session_TOM", BORNIM_JETZT="21.11., 20:51"), capture_output=True, text=True, cwd=A).returncode
+p = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py"), "offen", "--sitzungen", seite], env=dict(ENV, BORNIM_SITZUNG="session_DISP", BORNIM_JETZT="21.11., 21:00"), capture_output=True, text=True, cwd=A)
+soll("von Hand: steckt fest geschrieben, keine Zeile an Sokrates", rc == 0 and "| steckt fest (Frist abgelaufen" in datei("9005") and "| Sokrates | steckt fest: Übergabe 9005-Ü1" not in datei("9005"), (p.stdout, datei("9005")))
+os.environ["BORNIM_JETZT"] = "21.11., 21:01"
+import uebergabe as _ue4
+_ad = _ue4.atomar_dateien
+def _kaputt(*a, **k): raise _ue4.Fehler("origin/main nicht erreichbar: Probe")
+_ue4.atomar_dateien = _kaputt
+aus = []; lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
+_ue4.atomar_dateien = _ad
+soll("Schreiben scheitert: WARNUNG, nächster Lauf holt nach", any(z.startswith("WARNUNG Übergabe 9005-Ü1 steckt fest") and "nächster Lauf" in z for z in aus) and "| Sokrates | steckt fest: Übergabe 9005-Ü1" not in datei("9005"), aus)
+aus = []; lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
+t = datei("9005")
+soll("nächster Lauf: Zeile an Sokrates nachgeholt", any(z.startswith("NICHTS Übergabe: 9005-Ü1 steckt fest, Zeile 9005-Ü2 an Sokrates") for z in aus) and "| 9005-Ü2 | Sokrates | steckt fest: Übergabe 9005-Ü1 an Tom zweimal ohne Ergebnis (Frist abgelaufen;" in t, (aus, t))
+soll("im selben Commit: Liste steckt fest, wartet auf Sokrates", "| 9005 | Treppe knarrt | Tom | K | startbar, steckt fest | Sokrates |" in liste_origin()
+     and set(g("show", "--name-only", "--format=", "origin/main", cwd=A).split()) == {"docs/vorgang/9005.md", "docs/LISTE-VORGAENGE.md"}, liste_origin())
+aus = []; lauf.fristen_runde(aus, [seite], docs=os.path.join(A, "docs"))
+soll("dritter Lauf: keine zweite Zeile an Sokrates", datei("9005").count("| Sokrates | steckt fest: Übergabe 9005-Ü1") == 1 and not any("9005" in z for z in aus), aus)
+g("pull", "-q", "origin", "main", cwd=A)
+os.environ["BORNIM_JETZT"] = "21.11., 20:30"
+import auftrag as _af
+ad = os.path.join(d, "adocs"); os.makedirs(os.path.join(ad, "vorgang"))
+soll("ohne Vorgangsdatei: kein Auftrag; M? braucht keinen", lauf.auftrag_fehlt("9001", ad) == "kein Auftrag" and lauf.auftrag_fehlt("M?", ad) is None)
+open(os.path.join(ad, "vorgang", "9001.md"), "w").write("# Vorgang 9001\n\n## Auftrag (21.11., 20:00)\n\n" + _af.vorlage("9001", "x"))
+soll("leere Vorlage: Auftrag ungültig", (lauf.auftrag_fehlt("9001", ad) or "").startswith("Auftrag: Feld 1"))
+open(os.path.join(ad, "vorgang", "9001.md"), "a").write("\n## Auftrag (21.11., 20:30)\n\nAuftrag 9001\n\n" + "\n".join("%d. **%s:** %s" % (i, f, "Steht es? Hält es? Gilt es?" if i == 6 else "etwas Inhalt hier") for i, f in enumerate(_af.FELDER, 1)) + "\n\n## Übergaben\n\nx\n")
+soll("jüngster Auftrag gültig: Start erlaubt", lauf.auftrag_fehlt("9001", ad) is None)
+soll("Archivschutz: 1 Min. bis zur Umschaltung, scharf 15 Min. (1739, 7.1)", lauf.schutz_min(False) == 1 and lauf.schutz_min(True) == 15)
+
+# 1795: „Befunde: n“ des Testers → Disponent (ohne Nummer anlegen), je Befund mit Nummer Rückläufer an den Arbeitsplaner
+soll("Wort Befunde", rm.worte("Befunde: 2") == {"Befunde"} and rm.worte("**Tester** [21.11., 22:00] Befunde: 0") == {"Befunde"} and rm.worte("Befunde ohne Zahl") == set())
+_bt = "Befunde: 2\n- Fehler, Keller, Bildrate 7 statt 9, Messung t301, Nr. 1484\n- Lücke, Hof, Tür ohne Klang, Film t301\n\nAbnahmeliste\n- 1: erfüllt\nHinweis: Text klein"
+soll("befunde: zwei Zeilen, Nummer nur bei der ersten", rm.befunde(_bt) == (2, [("Fehler, Keller, Bildrate 7 statt 9, Messung t301, Nr. 1484", "1484"), ("Lücke, Hof, Tür ohne Klang, Film t301", None)]), rm.befunde(_bt))
+soll("befunde: Nummer als letztes Feld", rm.befunde("Befunde: 1\n1. Rückschritt, Dorf, Gras fehlt, Bild, 1566")[1][0][1] == "1566")
+rc, out = vg("rueckmeldung", "9077", _bt, zeit="21.11., 22:00")
+t = datei("9077")
+soll("Befunde: Zeile an den Disponenten mit Befund ohne Nummer", rc == 0 and re.search(r"\| 9077-Ü\d+ \| Disponent \| Befunde: 2 \(Befunde des Testers zu 9077[^|]*\); ohne Nummer je Befund einen Vorgang anlegen: Lücke, Hof", t), (out, t[-600:]))
+soll("Befunde: Rückläufer zu 1484 an den Arbeitsplaner", re.search(r"\| 9077-Ü\d+ \| Arbeitsplaner \| Rückläufer zu 1484 \(Befunde des Testers", t) and "Hinweis: Text klein" not in t.split("## Übergaben")[-1], t[-600:])
+_n = [z for z in t.splitlines() if z.startswith("| 9077-Ü")]
+soll("Befunde: Kennungen fortlaufend", len({z.split(" | ")[0] for z in _n}) == len(_n), _n)
+rc, out = vg("rueckmeldung", "9077", "Befunde: 0", zeit="21.11., 22:10")
+soll("Befunde: 0 → nur Disponent, nichts anzulegen", "Befunde: 0 (Befunde des Testers zu 9077" in datei("9077") and "nichts anzulegen" in datei("9077"), out)
+
+# 1873 (Lauf 3 Prüfer-2 Lücke 1): „nein … steckt fest“ → Sokrates und die Mängelsätze an denselben Macher
+vg("rueckmeldung", "9011", "fertig, Commit abc1234, Bild t301", "--sitzung", "Tom", zeit="21.11., 22:20")
+rc, out = vg("rueckmeldung", "9011", "nein: Zahl und Quelle fehlen. steckt fest: wie zuvor", zeit="21.11., 22:30")
+t = datei("9011")
+soll("1873: nein … steckt fest → erste Zeile an Sokrates", re.search(r"\| 9011-Ü2 \| Sokrates \| steckt fest: Rückmeldung", t) and "OFFEN 9011-Ü2 an Sokrates" in out, (out, t[-700:]))
+soll("1873: Mängelsätze auch an den Macher (Tom), wartet auf Sokrates", re.search(r"\| 9011-Ü3 \| Tom \| Rückläufer \(nein des Prüfers, steckt fest.*Zahl und Quelle fehlen.*erst nach Sokrates", t), t[-700:])
+soll("1873: zweite Zeile genannt (Wecker)", "OFFEN 9011-Ü3 an Tom" in out, out)
+soll("1873: Liste steckt fest, wartet auf Sokrates", "| 9011 | Kerze im Keller | Tom | K | startbar, steckt fest | Sokrates |" in liste_origin(), out)
+rc, out = vg("rueckmeldung", "9012", "steckt fest: Regel fehlt", zeit="21.11., 22:31")
+soll("1873: steckt fest ohne nein: nur Sokrates", "| 9012-Ü1 | Sokrates |" in datei("9012") and "9012-Ü2" not in datei("9012"), datei("9012")[-500:])
+# 1873 (Lücke 3): „Hinweis: Prüffrage fehlt“ an den Arbeitsplaner
+rc, out = vg("rueckmeldung", "9012", "Hinweis: Prüffrage fehlt: Kerze flackert, keine Frage dazu", zeit="21.11., 22:32")
+soll("1873: Hinweis Prüffrage fehlt → Arbeitsplaner", re.search(r"\| 9012-Ü2 \| Arbeitsplaner \| Hinweis Prüffrage fehlt", datei("9012")) and "an Arbeitsplaner" in out, (out, datei("9012")[-500:]))
+rc, out = vg("rueckmeldung", "9012", "**Prüfer** [21.11., 22:33] Hinweis: Prüffragen fehlen zur Tür", zeit="21.11., 22:33")
+soll("1873: mit Stempel und Mehrzahl ebenso", re.search(r"\| 9012-Ü3 \| Arbeitsplaner \|", datei("9012")), datei("9012")[-400:])
+# 1877 (Lauf 3 Disponent L9, Soll D1): Hinweis des Disponenten → Besitzer und Sokrates, nicht an sich selbst
+rc, out = vg("rueckmeldung", "9013", "Hinweis: Haken kennt die entschiedene Ausnahme 1784 A nicht, Start 4/8", "--sitzung", "Ford", zeit="21.11., 22:40")
+t = datei("9013")
+soll("1877: Hinweis des Disponenten → Besitzer (Spike)", re.search(r"\| 9013-Ü1 \| Spike \| Hinweis des Disponenten .*1784 A", t) and "OFFEN 9013-Ü1 an Spike" in out, (out, t[-600:]))
+soll("1877: dazu Zeile Hinweis an Sokrates", re.search(r"\| 9013-Ü2 \| Sokrates \| Hinweis \(.*an Spike weitergegeben", t), t[-600:])
+soll("1877: keine Zeile an den Disponenten", "| Disponent |" not in t, t[-600:])
+rc, out = vg("rueckmeldung", "9013", "Hinweis: Text klein", "--sitzung", "Disponent", zeit="21.11., 22:41")
+soll("1877: auch unter dem neuen Profilnamen", re.search(r"\| 9013-Ü3 \| Spike \|", datei("9013")), datei("9013")[-400:])
+
+# 1888 (Lauf 3 Prüfer-1 L9): „fertig“ einer Sitzung ohne Besetzungszeile („unbekannt“) → Rückläufer trotzdem an die Fachkraft
+def lauf_als(sid, *a, zeit="21.11., 22:50"):
+    p = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py")] + list(a), env=dict(ENV, BORNIM_JETZT=zeit, BORNIM_SITZUNG=sid), capture_output=True, text=True, cwd=A)
+    return p.returncode, p.stdout + p.stderr
+lauf_als("session_FREMD", "rueckmeldung", "9014", "fertig, Commit abc1234, Bild t301")
+soll("1888: fertig ohne Besetzung als „unbekannt“ eingetragen", "unbekannt (`session_FREMD`)" in datei("9014"), datei("9014")[-400:])
+rc, out = vg("rueckmeldung", "9014", "nein: Fackel zu hell", zeit="21.11., 22:55")
+soll("1888: Rückläufer an den Besitzer der Liste (Tom), nicht an den Disponenten", re.search(r"\| 9014-Ü\d+ \| Tom \| Rückläufer \(nein des Prüfers", datei("9014")) and "Macher unbekannt" not in datei("9014"), (out, datei("9014")[-500:]))
+_bp = os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"); _b = open(_bp, encoding="utf-8").read()
+lauf_als("session_FK2", "rueckmeldung", "9015", "fertig, Commit def5678", zeit="21.11., 22:56")
+open(_bp, "w", encoding="utf-8").write(_b + "| Fachkraft | [F](https://claude.ai/code/session_FK2) | 9015 | – | 21.11. |\n")  # Zeile kommt nach dem fertig dazu
+rc, out = vg("rueckmeldung", "9015", "nein: Fackel zu dunkel", zeit="21.11., 22:57")
+open(_bp, "w", encoding="utf-8").write(_b)
+soll("1888: Rolle der Sitzung aus der Besetzung von jetzt (Fachkraft) vor dem Listenbesitzer", re.search(r"\| 9015-Ü\d+ \| Fachkraft \| Rückläufer", datei("9015")), (out, datei("9015")[-500:]))
+
+# 1911 (D343.1): Zeile an den Macher nach „nein … steckt fest“ liegt, solange der Vorgang auf Sokrates wartet
+g("pull", "-q", "origin", "main", cwd=A)
+aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
+soll("1911: 9011-Ü3 an Tom nicht zugestellt", not any(k == "9011-Ü3" for zs in je.values() for k, _ in zs) and any("NICHTS Übergabe: 9011-Ü3 an Tom liegt, Vorgang wartet auf Sokrates (1911)" in z for z in aus), (je.get("Tom"), aus))
+soll("1911: Büro-Zeilen gehen weiter (9012 Arbeitsplaner)", any(k.startswith("9012-Ü") for k, _ in je.get("Arbeitsplaner", [])), je.get("Arbeitsplaner"))
+_l = open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), encoding="utf-8").read()
+open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(_l.replace("| startbar, steckt fest | Sokrates |", "| startbar | – |"))
+aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
+open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(_l)
+soll("1911: nach Sokrates (wartet auf –) wird zugestellt", any(k == "9011-Ü3" for k, _ in je.get("Tom", [])), je.get("Tom"))
+# 1914 (D345.1): erfülltes „wartet auf“ (altes Datum) und Warten auf den Empfänger selbst halten nicht
+for _w, _name in (("01.11.", "erfülltes Datum 01.11."), ("Tom", "wartet auf den Empfänger Tom selbst")):
+    open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(_l.replace("| startbar, steckt fest | Sokrates |", "| startbar, steckt fest | %s |" % _w))
+    aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
+    soll("1914: %s: 9011-Ü3 zugestellt" % _name, any(k == "9011-Ü3" for k, _ in je.get("Tom", [])), (je.get("Tom"), aus))
+open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(_l.replace("| startbar, steckt fest | Sokrates |", "| startbar, steckt fest | Sokrates, 01.11. |"))
+aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
+open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w", encoding="utf-8").write(_l)
+soll("1914: offenes Sokrates neben erfülltem Datum hält, nennt nur Sokrates", not any(k == "9011-Ü3" for k, _ in je.get("Tom", [])) and any("9011-Ü3 an Tom liegt, Vorgang wartet auf Sokrates (1911)" in z for z in aus), aus)
+
+# 1875 (Lauf 3 Disponent L4): Empfänger „Fachkraft“ → Besitzer (vor der Umschaltung) bzw. Fachprofil des Themenblocks (scharf)
+rc, out = vg("uebergabe", "9014", "Fachkraft", "Fackel heller", zeit="21.11., 23:20")
+g("pull", "-q", "origin", "main", cwd=A)
+_s = lauf.ist_scharf; lauf.ist_scharf = lambda: False
+aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
+soll("1875: Fachkraft vor der Umschaltung → Besitzer Tom", any("Fackel heller" in w for k, w in je.get("Tom", [])) and "Fachkraft" not in je, (je.keys(), aus))
+os.makedirs(os.path.join(A, "docs", "chefsache"), exist_ok=True)
+_tb = os.path.join(A, "docs", "chefsache", "themenbloecke.md")
+open(_tb, "w", encoding="utf-8").write("| Nr | Block | Profil | a | b | Bereiche | Vorgänge |\n|---|---|---|---|---|---|---|\n| 3 | Dorf | Welt | – | – | E Welt | – |\n")
+lauf.ist_scharf = lambda: True
+aus = []; je = lauf.uebergabe_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), start=lambda r, nr, t: True)
+os.remove(_tb); lauf.ist_scharf = _s
+soll("1875: Fachkraft scharf → Fachprofil des Themenblocks (Welt)", any("Fackel heller" in w for k, w in je.get("Welt", [])) and "Fachkraft" not in je, (je.keys(), aus))
+
+# 1925 (1727j Frage 1, Chef 22.11., 11:21): Chef-Nein zählt für die Laufbremse (Rückbau 1910) und weiter für Obergrenze A (1872)
+cw.eintragen("9016", "Nein, Tür klemmt", "21.11., 23:00", "Sokrates")
+rc, out = vg("rueckmeldung", "9016", "nein: Tür klemmt noch", zeit="21.11., 23:05")
+t = datei("9016")
+soll("1925: Chef-Nein + erstes Prüfer-Nein: Laufbremse, steckt fest an Sokrates", re.search(r"\| 9016-Ü\d+ \| Sokrates \| steckt fest \(Laufbremse, 2\. Nein", t) and rm.zaehlen(t)["nein"] == 2, (out, t[-500:]))
+rc, out = vg("rueckmeldung", "9016", "nein: klemmt immer noch", zeit="21.11., 23:10")
+t = datei("9016")
+soll("1925: drittes Nein (eins vom Chef) → Obergrenze A", "Obergrenze A: 3. abgelehnter Auftrag" in t, t[-500:])
+soll("1925: Laufbremse nur einmal (beim 2. Nein)", len(re.findall(r"Laufbremse, \d\. Nein", t)) == 1, t[-500:])
+
+# 1892 (Lauf 3 Disponent L1): scharf setzt lauf.py die Startsperre bei START selbst und pusht sie
+import uebergabe as _ue92, datetime as _dt92
+_alt_w = _ue92.WURZEL; _ue92.WURZEL = A
+_j = _dt92.datetime(2026, 11, 22, 10, 45)
+_z = lauf.startsperre_zeile(["Sokrates", "Tom"], {"Sokrates": "1727j", "Tom": "9001"}, _j)
+soll("1892: Sperrzeile mit Rollen und Nummern", _z == "- 10:45 22.11.: Startsperre 10:45 Start Sokrates, Tom (lauf.py, Sokrates 1727j, Tom 9001)", _z)
+g("pull", "-q", "--rebase", cwd=A)
+_lokal = open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md")).read()
+ok = lauf.protokoll_pushen(lambda t: t.rstrip("\n") + "\n" + _z + "\n", "Betrieb: Startsperre (Test 1892)")
+_orig = g("show", "origin/main:docs/ARBEIT-BETRIEB.md", cwd=A) if not g("fetch", "-q", "origin", "main", cwd=A) else ""
+soll("1892: Startsperre auf origin/main gepusht, lokale Kopie nachgezogen", ok and _orig.rstrip().endswith(_z) and open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md")).read() == _orig and _lokal != _orig, (ok, _orig[-300:]))
+import importlib.util as _iu
+_spec = _iu.spec_from_file_location("sh92", os.path.join(HIER, "startsperre-haken.py")); _sh = _iu.module_from_spec(_spec); _spec.loader.exec_module(_sh)
+_jz = _j.replace(tzinfo=lauf.BERLIN) + _dt92.timedelta(minutes=2)
+soll("1892: Startsperre-Haken erkennt die gepushte Sperre", _sh.letzte_sperre(_orig, "Sokrates", _jz) is not None, _orig[-200:])
+# 1918 (D348.1, Lauf 358 zu 1892): lokale ARBEIT-BETRIEB.md mit Ungepushtem → nicht fern pushen (False, lauf.py schreibt lokal)
+_pb = os.path.join(A, "docs", "ARBEIT-BETRIEB.md")
+open(_pb, "a").write("- 10:50 22.11.: Ford lokal, nicht committet\n")
+_vor = g("rev-parse", "origin/main", cwd=A)
+soll("1918 (a): geändert, nicht committet → False, origin unverändert, lokale Zeile bleibt",
+     lauf.protokoll_pushen(lambda t: t.rstrip("\n") + "\n" + _z + "\n", "x") is False and (g("fetch", "-q", "origin", "main", cwd=A) or g("rev-parse", "origin/main", cwd=A)) == _vor
+     and "Ford lokal, nicht committet" in open(_pb).read(), g("log", "--oneline", "-2", "origin/main", cwd=A))
+g("commit", "-qam", "Betrieb: Ford lokal", cwd=A)
+soll("1918 (b): eigener Commit voraus → False, origin unverändert, Fords Zeile bleibt",
+     lauf.protokoll_pushen(lambda t: t.rstrip("\n") + "\n" + _z + "\n", "x") is False and (g("fetch", "-q", "origin", "main", cwd=A) or g("rev-parse", "origin/main", cwd=A)) == _vor
+     and "Ford lokal, nicht committet" in open(_pb).read(), g("log", "--oneline", "-2", "origin/main", cwd=A))
+# 1918 (b) allgemein: _nachziehen überschreibt keine Datei, deren lokaler Stand vom gepushten Ausgangsstand abweicht
+_ue92.atomar_dateien(["docs/ARBEIT-BETRIEB.md"], lambda alt: ({"docs/ARBEIT-BETRIEB.md": alt["docs/ARBEIT-BETRIEB.md"] + "- fern\n"}, True), "Test 1918 fern")
+soll("1918 (b): atomar_dateien bei eigenem Commit voraus: lokale Datei behält Fords Zeile", "Ford lokal, nicht committet" in open(_pb).read(), open(_pb).read()[-300:])
+_ue92.WURZEL = "/gibt/es/nicht"
+soll("1892: Push scheitert: False (lauf.py schreibt dann lokal)", lauf.protokoll_pushen(lambda t: t + "x", "x") is False)
+_ue92.WURZEL = _alt_w
+_src92 = open(os.path.join(HIER, "lauf.py"), encoding="utf-8").read()
+soll("1892: nur scharf (ist_scharf) und nur bei Startsperren", "scharf_push = ist_scharf() and bool(sperren)" in _src92)
+
+# 1926 (1727j Frage 2, Chef 22.11., 11:22): drittes „Beleg fehlt“ je Auftrag gilt als „nein“ (Laufbremse, Obergrenze A)
+def _rm(*xs):
+    return "# 9 · x\n\n## Auftrag (21.11., 20:00)\n\nA1\n\n## Auftrag (21.11., 22:00)\n\nA2\n\n## Rückmeldungen\n\n" + "".join(
+        "- **21.11., %s**, Prüfer:\n> %s\n\n" % (z, w) for z, w in xs)
+_b = "Beleg fehlt: Bild zeigt den Stand nicht"
+soll("1926: zwei „Beleg fehlt“ zählen nicht", rm.zaehlen(_rm(("20:10", _b), ("20:20", _b)))["nein"] == 0)
+soll("1926: drittes „Beleg fehlt“ je Auftrag = ein „nein“", rm.zaehlen(_rm(("20:10", _b), ("20:20", _b), ("20:30", _b)))["nein"] == 1)
+soll("1926: je Auftrag gezählt (2 + 2 über zwei Aufträge = kein nein)", rm.zaehlen(_rm(("20:10", _b), ("20:20", _b), ("22:10", _b), ("22:20", _b)))["nein"] == 0)
+soll("1926: „nein“ und drittes „Beleg fehlt“ = 2", rm.zaehlen(_rm(("22:05", "nein: Tor schief"), ("22:10", _b), ("22:20", _b), ("22:30", _b)))["nein"] == 2)
+for _z in ("21.11., 23:20", "21.11., 23:25"):
+    rc, out = vg("rueckmeldung", "9017", _b, zeit=_z)
+t = datei("9017")
+soll("1926: zwei „Beleg fehlt“: keine Laufbremse, kein nein", "Laufbremse" not in t and rm.zaehlen(t)["nein"] == 0, (out, t[-400:]))
+rc, out = vg("rueckmeldung", "9017", _b, zeit="21.11., 23:30")
+t = datei("9017")
+soll("1926: drittes „Beleg fehlt“ geht wie ein „nein“ weiter (Rückläufer)", rm.zaehlen(t)["nein"] == 1 and re.search(r"\| 9017-Ü\d+ \| [^|]+ \| Rückläufer \(nein", t), (out, t[-500:]))
+rc, out = vg("rueckmeldung", "9017", "nein: Tor schief", zeit="21.11., 23:35")
+t = datei("9017")
+soll("1926: danach ein „nein“ = zweiter Fehlversuch → Laufbremse", re.search(r"\| 9017-Ü\d+ \| Sokrates \| steckt fest \(Laufbremse, 2\. Nein", t), (out, t[-500:]))
+
+# 1892-Fehler (Spike 22.11., 11:40): lokales Schreiben der Startsperre ließ ARBEIT-BETRIEB.md leer bis auf die Sperrzeile
+import tempfile as _tf92
+_d92 = _tf92.mkdtemp(); _p92 = os.path.join(_d92, "ARBEIT-BETRIEB.md")
+open(_p92, "w", encoding="utf-8").write("# Betrieb (Ford)\n\nZeile 1\n- alt\n")
+lauf.protokoll_lokal(_p92, lambda t: t.rstrip("\n") + "\n- 11:40 22.11.: Startsperre 11:40 Start Spike (lauf.py)\n")
+soll("1892-Fehler: lokale Sperre hängt an, Datei bleibt ganz", open(_p92, encoding="utf-8").read() == "# Betrieb (Ford)\n\nZeile 1\n- alt\n- 11:40 22.11.: Startsperre 11:40 Start Spike (lauf.py)\n", open(_p92, encoding="utf-8").read())
+# 1797 abgebrochen (ein Neustart, zweites an Sokrates), Auftrag steht, kein Auftrag nötig, Hinweis hinter fertig
+rc, out = rm_lauf("rueckmeldung", "9027", "Laufanforderung: Filmlauf ohne Ausgabe", zeit="21.11., 20:39")
+soll("1952: Laufanforderung ohne Commit zurückgewiesen, keine Zeile", rc == 1 and "ZURÜCKGEWIESEN" in out and "-Ü" not in datei("9027"), (rc, out))
+rc, out = rm_lauf("rueckmeldung", "9027", "Laufanforderung: Filmlauf ohne Ausgabe, Ursache Pfad, behoben in 1a2b3c4d", zeit="21.11., 20:40")
+soll("1952: Laufanforderung mit Commit → Prüfer", "OFFEN 9027-Ü1 an Prüfer" in out and "Laufanforderung prüfen" in datei("9027"), out)
+rc, out = rm_lauf("rueckmeldung", "9027", "nein: Ursache nicht belegt", "--sitzung", "Prüfer", zeit="21.11., 20:40")
+soll("1952: nein des Prüfers zur Laufanforderung → zurück an die Fachkraft", "| 9027-Ü2 | unbekannt |" not in datei("9027") and "Rückläufer (nein" in datei("9027"), (out, datei("9027")[-500:]))
+soll("1952: nein zur Laufanforderung zählt nicht", rm.zaehlen(datei("9027"))["nein"] == 0, rm.zaehlen(datei("9027")))
+rc, out = rm_lauf("rueckmeldung", "9027", "ja, Lauf frei", "--sitzung", "Prüfer", zeit="21.11., 20:40")
+soll("1952: „ja, Lauf frei“ → Disponent startet neu, keine Testbitte", rc == 0 and "Laufanforderung freigegeben" in datei("9027") and "an den Chef vorlegen" not in datei("9027"), (rc, out, datei("9027")[-500:]))
+soll("1952: Wort „ja, Lauf frei“", rm.worte("**Diogenes** [22.11., 16:00] ja, Lauf frei: Ursache belegt") == {"ja", "Lauf frei"})
+rc, out = rm_lauf("rueckmeldung", "9006", "ja, Lauf frei", "--sitzung", "Prüfer", zeit="21.11., 20:44")
+soll("1952: „ja, Lauf frei“ ohne Laufanforderung: keine Testbitte", "ohne offene Laufanforderung" in datei("9006") and "an den Chef vorlegen" not in datei("9006"), datei("9006")[-400:])
+rc, out = rm_lauf("rueckmeldung", "9027", "Laufanforderung: wieder ohne Ausgabe, behoben in 2b3c4d5e", zeit="21.11., 20:41")
+t = datei("9027")
+soll("1952: zweite Laufanforderung → Sokrates steckt fest", "an Sokrates" in out and "2. Laufanforderung" in t, (out, t[-500:]))
+soll("1952: zählt als steckt fest", rm.zaehlen(t)["steckt fest"] == 1, rm.zaehlen(t))
+rc, out = rm_lauf("rueckmeldung", "9027", "steckt fest: Import hängt weiter", zeit="21.11., 20:42")
+soll("1952: danach steckt fest → Obergrenze B", "Obergrenze B" in out and "ruht, beim Chef" in datei("9027"), out)
+rc, out = rm_lauf("rueckmeldung", "9006", "Sieht gut aus", "--sitzung", "Chef", zeit="21.11., 20:43")
+soll("1952: Chefwort nie zurückgewiesen", rc == 0 and "ZURÜCKGEWIESEN" not in out, (rc, out))
+rc, out = rm_lauf("rueckmeldung", "9008", "Auftrag steht: 9008-1", zeit="21.11., 20:42")
+soll("1797 Auftrag steht → Disponent startet Fachkraft", "OFFEN 9008-Ü1 an Disponent" in out and "Fachkraft nach Profil" in datei("9008"), out)
+rc, out = rm_lauf("rueckmeldung", "9008", "kein Auftrag nötig: schon gebaut in abc1234", zeit="21.11., 20:43")
+soll("1797 kein Auftrag nötig → Disponent", "OFFEN 9008-Ü2 an Disponent" in out and "schliessen" in datei("9008"), out)
+rc, out = rm_lauf("rueckmeldung", "9009", "fertig 1a2b3c4d. Hinweis: Prüffrage 3 fehlt", zeit="21.11., 20:44")
+soll("1797 fertig mit Hinweis: Prüfer und zweite Zeile an Disponent", "OFFEN 9009-Ü1 an Prüfer" in out
+     and "| 9009-Ü2 | Disponent | Hinweis (Rückmeldung 21.11., 20:44" in datei("9009") and "Prüffrage 3 fehlt" in datei("9009"), datei("9009"))
+
+# 1976 (1566, Silke 22.11., 19:23, 20:00, 21:50): jedes Signalwort an einen ruhenden Vorgang („Zustand: ruht, beim Chef“ in NR.md)
+# legt eine Zeile an: Laufanforderung mit Commit an den Prüfer, alles andere an Sokrates; ohne Signalwort oder Laufanforderung ohne
+# Commit zurückgewiesen (Exit ≠ 0). Die Liste bleibt „ruht“.
+RUHT_FAELLE = [("nein, Auftrag: Prüffrage am Ziel vorbei", "Sokrates"), ("Beleg fehlt: kein Bild", "Sokrates"),
+               ("wirkt nein: Chef 21:00", "Sokrates"), ("nein: Tür schief", "Sokrates"), ("steckt fest: Licht", "Sokrates"),
+               ("Frage: Linie als Rest beheben oder so an den Chef?", "Sokrates"), ("fertig, Commit 1a2b3c4d", "Sokrates"),
+               ("fertig ohne Commit", "Sokrates"), ("ja", "Sokrates"), ("ja, Lauf frei", "Sokrates"), ("Hinweis: Geländer fehlt", "Sokrates"),
+               ("Laufanforderung: Messlauf ohne Ergebnis, Ursache Nebel, behoben in 50beafaa3", "Prüfer"),
+               ("Befunde: 1\n- Tür klemmt", "Sokrates"), ("Auftrag steht: 1-1", "Sokrates"), ("kein Auftrag nötig: schon gebaut", "Sokrates"),
+               ("Laufanforderung: Messlauf ohne Ergebnis", None), ("Notiz ohne Signalwort", None)]
+ue = rm.ue
+nrs = [str(9061 + i) for i in range(len(RUHT_FAELLE))]
+ue.atomar("x", lambda alt: (alt.rstrip("\n") + "\n" + "".join("| %s | Ruhend %s | Tom | M | ruht, beim Chef (Obergrenze B) | Sokrates | – | – | E Welt | – |\n" % (n, n) for n in nrs), None),
+          "Test 1976: ruhende Zeilen", pfad="docs/LISTE-VORGAENGE.md")
+for n in nrs:
+    ue.atomar(n, lambda alt, n=n: ("# %s · Ruhend\n\n## Rückmeldungen\n\nZustand: ruht, beim Chef seit 21.11., 19:00 (Obergrenze B: 2. „steckt fest“, 1763)\n" % n, None), "Test 1976: %s ruht" % n)
+gepruefte = 0
+for n, (text, soll_an) in zip(nrs, RUHT_FAELLE):
+    rc, out = rm_lauf("rueckmeldung", n, text, zeit="21.11., 21:00")
+    t = datei(n); gepruefte += 1
+    if soll_an:
+        soll("1976 ruht, %r → Zeile an %s" % (text[:30], soll_an), rc == 0 and "OFFEN %s-Ü1 an %s" % (n, soll_an) in out
+             and re.search(r"\| %s-Ü1 \| %s \| [^|]*ruht" % (n, soll_an), t) and "ruht schon, nur eingetragen" not in out
+             and "Zustand: ruht, beim Chef" in t and t.count("Obergrenze") == 1, (rc, out, t))
+    else:
+        soll("1976 ruht, %r → zurückgewiesen, Exit ≠ 0, keine Zeile" % text[:30], rc != 0 and "ZURÜCKGEWIESEN" in out and "-Ü" not in t, (rc, out, t))
+L = liste_origin()
+soll("1976: Liste der ruhenden Vorgänge unverändert „ruht“", all("| %s | Ruhend %s | Tom | M | ruht, beim Chef (Obergrenze B) | Sokrates |" % (n, n) in L for n in nrs),
+     [z for z in L.splitlines() if "Ruhend" in z])
+print("1976: %d Signalwörter gegen ruhenden Vorgang geprüft" % gepruefte)
+
+print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
+sys.exit(1 if fehl else 0)

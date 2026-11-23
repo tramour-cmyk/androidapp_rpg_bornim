@@ -82,6 +82,7 @@ var _fluss := {}                                 # Karte -> fließendes Wasser (
 var _leben_ms := 0.0                             # 517: nächstes kleines Leben (WildSound.life)
 var _fern_ms := 0.0                              # 517: nächster ferner Laut (WildSound.far)
 var _fern: AudioStreamPlayer                     # 517: von einer Seite, über den Bus „Fern“ mit Panner
+var _ort_k := 1.0                                # 1750: Faktor der Lage (Karte 1, Kampf 0,5) für die Dorftiere
 
 
 func _ready() -> void:
@@ -674,45 +675,71 @@ func _ort_betreten() -> void:
 
 ## Ruhig: auf der Karte, nicht im Kampf, kein Menü (WorldScreen.kt calm: Mode.Explore und kein Menü)
 func _ruhig() -> bool:
-	return _karte != null and _held != null and is_instance_valid(_held) and _held.is_visible_in_tree() \
-		and not szene in ["BATTLE", "BOSS"] and not get_tree().paused
+	return _lage() == "KARTE"
+
+
+# 1750 (D3a, Chef 20.11., 14:11: „Ortsklang, ja. Hier damit aber ein bisschen drunter gelegt“): im Kampf klingt der Ort wie seine
+# Stelle der Karte, halb so laut (−6 dB) unter der Kampfmusik; Vögel und Eule schweigen. Eine Regel für jede Schleife und jeden
+# Einzellaut des Orts (Ducking als Mischzustand wie ein Kampf-Snapshot, uhiyama-lab.com „Dynamic Music with Unity's Audio Mixer“,
+# Stand 10.10.2026). Feuer und Fluss bleiben beim Abstand der Heldkachel bei Kampfbeginn. Im Menü (Baum angehalten) bleibt alles still.
+const KAMPF_ORT := 0.5
+const KAMPF_STUMM := ["bird", "owl"]
+
+## Lage des Ortsklangs: KARTE (ruhig), KAMPF (unter der Kampfmusik) oder STILL (Menü, kein Ort, unsichtbar ohne Kampf)
+func _lage() -> String:
+	if _karte == null or _held == null or not is_instance_valid(_held) or get_tree().paused:
+		return "STILL"
+	if szene in ["BATTLE", "BOSS"]:
+		return "KAMPF"
+	return "KARTE" if _held.is_visible_in_tree() else "STILL"
+
+
+## Faktor auf den Kartenpegel eines Ortsklangs [id] in der Lage [lage]
+static func ort_faktor(lage: String, id := "") -> float:
+	match lage:
+		"KARTE": return 1.0
+		"KAMPF": return 0.0 if id in KAMPF_STUMM else KAMPF_ORT
+	return 0.0
 
 
 func _ortsklang(dt_ms: float) -> void:
 	if _karte == null or ortsart == "":
 		return
 	_ort_ms += dt_ms
-	var ruhig := _ruhig()
+	var lage := _lage()
+	var ruhig := lage == "KARTE"
+	var k := ort_faktor(lage)
+	_ort_k = k
 	var t: Vector2i = _karte.pos_kachel(_held.position) if ruhig else _feuer_bei
 	# was unter allem liegt: Wind draußen, die Halle im Tempel (PlaceSound.bed)
 	var bett: String = {"OUTSIDE": "wind", "HALL": "hall"}.get(ortsart, "")
 	if bett != "":
-		_schleife("bett", bett, BETT if ruhig else 0.0, BETT, dt_ms, BETT_FADE_MS)
+		_schleife("bett", bett, BETT * k, BETT, dt_ms, BETT_FADE_MS)
 	# das Knistern von Lagerfeuer und Herd, lauter zum Feuer hin, um Wände herum (Ambience.nearestFire)
 	if ruhig and t != _feuer_bei:
 		_feuer_bei = t
 		_feuer_weit = feuer_weit(_karte, t)
-	var feuer := _schleife("feuer", "crackle", ziel(_feuer_weit, FEUER_WEIT, FEUER_NAH, FEUER_MAX) if ruhig else 0.0, FEUER_MAX, dt_ms, FADE_MS)
+	var feuer := _schleife("feuer", "crackle", ziel(_feuer_weit, FEUER_WEIT, FEUER_NAH, FEUER_MAX) * k, FEUER_MAX, dt_ms, FADE_MS)
 	# fließendes Wasser rauscht, am lautesten am Ufer und auf der Brücke (RiverSound)
 	if ortsart == "OUTSIDE":
 		if ruhig and t != _fluss_bei:
 			_fluss_bei = t
 			_fluss_weit = fluss_weit(_karte, t)
-		_schleife("fluss", "river", ziel(_fluss_weit, FLUSS_WEIT, FLUSS_NAH, FLUSS_MAX) if ruhig else 0.0, FLUSS_MAX, dt_ms, FADE_MS)
+		_schleife("fluss", "river", ziel(_fluss_weit, FLUSS_WEIT, FLUSS_NAH, FLUSS_MAX) * k, FLUSS_MAX, dt_ms, FADE_MS)
 	# Tropfen in der Höhle, von selbst, der erste gleich
 	if ortsart == "CAVE" and _ort_ms >= _tropfen_ms:
-		if ruhig:
-			effekt("drip", tropfen_pegel(feuer))
+		if k > 0.0:
+			effekt("drip", tropfen_pegel(minf(feuer / k, FEUER_MAX)) * k)     # Tropfen nach dem Feuer auf Kartenpegel
 		_tropfen_ms = _ort_ms + TROPFEN_MS[0] + _zufall.randf_range(0.0, TROPFEN_MS[1])
-	if ortsart == "OUTSIDE" and ruhig:
+	if ortsart == "OUTSIDE" and k > 0.0:
 		_tierlaute(dt_ms)
-	_wildlaute(ruhig)
+	_wildlaute(lage)
 	# Einzelklänge: Knarren im Holz der Häuser, ein Gast hustet (PlaceSound.events, gapMs 12–30 s)
 	if _ort_ms >= _ereignis_ms:
-		if ruhig:
+		if k > 0.0:
 			var e := waehle_ereignis(ereignisse(ortsart, _anwesend()), _letztes, _zufall)
 			if e != "":
-				effekt(e, EREIGNIS)
+				effekt(e, EREIGNIS * k)
 				_letztes = e
 		_ereignis_ms = _ort_ms + 12000.0 + _zufall.randf_range(0.0, 18000.0)
 
@@ -781,20 +808,19 @@ func _nachts() -> bool:
 	return l != null and float(l.get("nacht")) > NACHT_AB
 
 
-func _wildlaute(ruhig: bool) -> void:
+func _wildlaute(lage: String) -> void:
 	if wild == "NONE":
 		return
-	var nachts := _nachts() if ruhig else false
+	var nachts := _nachts() if lage != "STILL" else false
 	if _ort_ms >= _leben_ms:
-		if ruhig:
-			var id := leben(wild, nachts, false, _zufall)     # Regen gibt es in Godot noch nicht
-			if id != "":
-				effekt(id, LEBEN)
+		var id := leben(wild, nachts, false, _zufall) if lage != "STILL" else ""     # Regen gibt es in Godot noch nicht
+		if id != "":
+			effekt(id, LEBEN * ort_faktor(lage, id))     # 1750: im Kampf Vögel und Eule 0, Grillen halb
 		_leben_ms = _ort_ms + LEBEN_MS[0] + _zufall.randf_range(0.0, LEBEN_MS[1])
 	if _ort_ms >= _fern_ms:
 		var id := fern(wild)
-		if ruhig and id != "":
-			fern_effekt(id, fern_pegel(id, _zufall), seite(_zufall))
+		if id != "" and ort_faktor(lage, id) > 0.0:
+			fern_effekt(id, fern_pegel(id, _zufall) * ort_faktor(lage, id), seite(_zufall))
 		_fern_ms = _ort_ms + fern_pause_ms(wild, nachts, _zufall)
 
 
@@ -864,7 +890,7 @@ func _tierlaute(dt_ms: float) -> void:
 					"ruf_ms": _zufall.randf_range(3000.0, 30000.0)})
 		_tiere = neu
 	for n in _tiere:
-		if not is_instance_valid(n) or not n.is_visible_in_tree():
+		if not is_instance_valid(n) or not (n.visible if _ort_k < 1.0 else n.is_visible_in_tree()):     # 1750: im Kampf ruht die Welt unsichtbar, das Tier bleibt da
 			continue
 		var st: Dictionary = _tiere[n]
 		var art: Dictionary = TIERLAUT[String(n.daten["tier"])]
@@ -874,8 +900,8 @@ func _tierlaute(dt_ms: float) -> void:
 		if nah and not st.nah:
 			for l in art.held:
 				var nach: float = float(l[3]) if l.size() > 3 else 0.0
-				if nach > 0.0: get_tree().create_timer(nach).timeout.connect(effekt.bind(l[0], tier_pegel(d, l[1]), float(l[2])))
-				else: effekt(l[0], tier_pegel(d, l[1]), float(l[2]) if l.size() > 2 else 1.0)
+				if nach > 0.0: get_tree().create_timer(nach).timeout.connect(effekt.bind(l[0], tier_pegel(d, l[1]) * _ort_k, float(l[2])))
+				else: effekt(l[0], tier_pegel(d, l[1]) * _ort_k, float(l[2]) if l.size() > 2 else 1.0)
 		st.nah = nah
 		var pause := String(n.pause)
 		if pause != st.pause:
@@ -883,19 +909,19 @@ func _tierlaute(dt_ms: float) -> void:
 			if pause == "Fressen":
 				st.fressen_ms = 300.0
 				if art.has("anfang") and _zufall.randf() < 0.5:     # HenSound: jeder zweite Anfang mit Glucksen
-					effekt(art.anfang[0], tier_pegel(d, art.anfang[1]))
+					effekt(art.anfang[0], tier_pegel(d, art.anfang[1]) * _ort_k)
 		if pause == "Fressen" and n.get("ziel") is Vector2i and n.ziel.x < 0:
 			st.fressen_ms -= dt_ms
 			if st.fressen_ms <= 0.0:
 				var f: Array = art.fressen
-				effekt(f[0], tier_pegel(d, f[1]))
+				effekt(f[0], tier_pegel(d, f[1]) * _ort_k)
 				st.fressen_ms = _zufall.randf_range(f[2], f[3])
 		if art.has("ruf"):
 			st.ruf_ms -= dt_ms
 			if st.ruf_ms <= 0.0:
 				var r: Array = art.ruf
 				if pause != "Fressen" or r[0] != art.get("anfang", [""])[0]:
-					effekt(r[0], tier_pegel(d, r[1]))
+					effekt(r[0], tier_pegel(d, r[1]) * _ort_k)
 				st.ruf_ms = _zufall.randf_range(r[2], r[3])
 
 

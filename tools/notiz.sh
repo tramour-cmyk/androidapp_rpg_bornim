@@ -18,7 +18,7 @@ mark="$(git rev-parse --git-common-dir)/notiz-zuletzt"
 name="unbekannt"
 if [ -n "$CLAUDE_CODE_ACCOUNT_UUID" ]; then
     zeile=$(cat "$wt/docs/ROLLE-BETRIEB.md" docs/ROLLE-BETRIEB.md CLAUDE.md 2>/dev/null | grep -oE "(Tom|Jerry)[^,]{0,20}\`$CLAUDE_CODE_ACCOUNT_UUID" | head -1)
-    case "$zeile" in *Tom*) name="Zentrale (Tom, Jerry, Ford, Perikles, Homer, Sokrates oder Diogenes; Rolle aus der ersten Nachricht, auch wenn sie als Systemmeldung von Ford kommt, 853)" ;; *Jerry*) name="Niederlassung (ruht; Rolle aus der ersten Nachricht, 853)" ;; esac
+    case "$zeile" in *Tom*) name="am Hauptkonto (Rolle aus der ersten Nachricht, auch wenn sie als Systemmeldung kommt, 853; 1986)" ;; *Jerry*) name="Niederlassung (ruht; Rolle aus der ersten Nachricht, 853)" ;; esac
 fi
 
 git fetch -q origin main 2>/dev/null || echo "Bornim: main ließ sich nicht holen (Netz?)."
@@ -26,7 +26,7 @@ git fetch -q origin main 2>/dev/null || echo "Bornim: main ließ sich nicht hole
 # Arbeitskopie zeigt veraltete Dateien als „ungesichert“ (ein Commit davon löscht fremde Einträge).
 if [ "$(git symbolic-ref -q --short HEAD)" = "main" ] && [ "$repo" != "$wt" ]; then
     if [ -z "$(git status --porcelain)" ]; then git checkout -q --detach
-    else echo "Bornim (222.2): Arbeitskopie steht auf main und hat Änderungen; nicht committen, prüfen (veraltet → git stash), dann git checkout --detach."; fi
+    else echo "Bornim (222.2, 1963): Arbeitskopie steht auf main und hat Änderungen; nicht committen, eigene auf einen claude/-Zweig (git switch -c claude/<name>), unklar → Frage per vorgang.py rueckmeldung."; fi
 fi
 if [ ! -d "$wt/.git" ] && [ ! -f "$wt/.git" ]; then
     git worktree prune
@@ -38,10 +38,26 @@ if ! git -C "$wt" merge-base HEAD origin/main >/dev/null 2>&1 \
    && [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
     git fetch -q --unshallow origin main 2>/dev/null || echo "Bornim: Verlauf ließ sich nicht nachladen (Netz?)."
 fi
+# 1963: veralteter vorgemerkter Stand (git checkout -B main in der Arbeitskopie, 1776) → sichern und auf HEAD zurück; junge Änderungen bleiben
+nk="$wt/tools/notizkopie.py"; [ -f "$nk" ] || nk="$repo/tools/notizkopie.py"
+[ -f "$nk" ] && python3 "$nk" "$wt"
+# 1701 (Sokrates 18.11., 20:29: Notizkopie mit 60 eigenen, 341 fehlenden Commits, Stand 03:39): ein neuer Container kann eine alte
+# Notizkopie mitbringen (gesicherter Stand der Umgebung). Eigene Commits werden vor jeder Pause gepusht (CLAUDE.md); sind alle nicht
+# gepushten Commits älter als 2 Stunden, ist es eine alte Kopie: sichern (Zweig backup-alt-<Zeit>) und auf origin/main setzen,
+# statt sie hineinzumischen (das Mischen brachte gestrichenen Text zurück).
+if [ -z "$(git -C "$wt" status --porcelain)" ] && [ -n "$(git -C "$wt" rev-list -1 origin/main..HEAD 2>/dev/null)" ]; then
+    juengst=$(git -C "$wt" log -1 --format=%ct origin/main..HEAD 2>/dev/null)
+    if [ -n "$juengst" ] && [ $(( $(date +%s) - juengst )) -gt 7200 ]; then
+        b="backup-alt-$(TZ=Europe/Berlin date +%m%d-%H%M)"
+        n=$(git -C "$wt" rev-list --count origin/main..HEAD)
+        git -C "$wt" branch -f "$b" HEAD && git -C "$wt" reset -q --hard origin/main \
+            && echo "Bornim (1701): alte Notizkopie ($n nicht gepushte Commits, jüngster $(TZ=Europe/Berlin date -d @"$juengst" '+%d.%m., %H:%M')) gesichert als Zweig $b und auf origin/main gesetzt; nur prüfen, falls dort Eigenes fehlt."
+    fi
+fi
 # Arbeitskopie auf den neuesten Stand; eigene, noch nicht gepushte Commits bleiben (Zusammenführen, kein Rebase).
 if [ -z "$(git -C "$wt" status --porcelain)" ]; then
     git -C "$wt" merge -q --ff-only origin/main 2>/dev/null || git -C "$wt" merge -q --no-edit origin/main 2>/dev/null \
-        || { git -C "$wt" merge --abort 2>/dev/null; echo "Bornim (236): Notizkopie $wt ließ sich nicht mit main zusammenführen, abgebrochen. Sicherung und Reset: git -C $wt branch -f backup-lokal-main main && git -C $wt reset --hard origin/main"; }
+        || { git -C "$wt" merge --abort 2>/dev/null; echo "Bornim (236, 1963): Notizkopie $wt ließ sich nicht mit main zusammenführen, abgebrochen. Eigene ungepushte Commits: git -C $wt rebase origin/main, Konflikte lösen, pushen; unklar → Frage per vorgang.py rueckmeldung."; }
 fi
 
 neu=$(git rev-parse origin/main)
@@ -69,18 +85,20 @@ else
     echo "Notizen auf main, neu seit dem letzten Aufruf:"
     TZ=Europe/Berlin git log --format='  %ad  %s' --date=format-local:'%d.%m. %H:%M' "$alt..$neu" -- CLAUDE.md CHANGELOG.md docs
 fi
-# 1642: Startwarnungen fortschreiben (nach 6 h Vorgang beim Besitzer, gelöste schließen) bei jedem Start; Rollenspiegel ab Mittwoch
-# nach dem Tagesbericht als Zeile „Spiegel“ (1461; darum ein zweiter Lauf, sobald der Tagesbericht des Tages steht);
+# 1642: Startwarnungen fortschreiben (nach 6 h Vorgang beim Besitzer, gelöste schließen) bei jedem Start;
 # im Hintergrund, eigener Commit auf origin/main ohne Arbeitskopie
 [ -f "$wt/tools/startwarnung.py" ] && (python3 "$wt/tools/startwarnung.py" --pflegen >/dev/null 2>&1 &)
-pm="$HOME/.bornim-pflege-$(TZ=Europe/Berlin date +%Y%m%d)$(grep -qF "**Stand $(TZ=Europe/Berlin date +%d.%m.), " "$wt/docs/ARBEIT-TAGESBERICHT.md" 2>/dev/null && echo b)"
-if [ -f "$wt/tools/pflegehinweis.py" ] && [ ! -f "$pm" ]; then touch "$pm"; (python3 "$wt/tools/pflegehinweis.py" >/dev/null 2>&1 &); fi
 # Commit-Prüfung (192.1): pre-commit-Haken, gilt für Notizkopie und Arbeitskopie (gemeinsames Verzeichnis); fehlt das Skript im Zweig, tut er nichts
 hk="$(git rev-parse --git-common-dir)/hooks/pre-commit"
 # D55.4: immer die Fassung von main (Notizkopie), auch in Arbeitszweigen ohne neue Fassung; alter Haken wird ersetzt
 if [ ! -f "$hk" ] || ! grep -q "commit-pruefung (D55.4)" "$hk" 2>/dev/null; then
     mkdir -p "$(dirname "$hk")"
     printf '#!/bin/sh\n# commit-pruefung (D55.4)\nf=/home/user/bornim-main/tools/commit-pruefung.py; [ -f "$f" ] || f=tools/commit-pruefung.py\nif [ -f "$f" ]; then python3 "$f" || exit 1; fi\nexit 0\n' > "$hk" && chmod +x "$hk"
+fi
+# 1937: pre-push-Haken mit den Push-Prüfungen aus probelauf.py (647, 464, 748, 1719), ebenso immer die Fassung von main
+hp="$(git rev-parse --git-common-dir)/hooks/pre-push"
+if [ ! -f "$hp" ] || ! grep -q "vorpush (1937)" "$hp" 2>/dev/null; then
+    printf '#!/bin/sh\n# vorpush (1937)\nf=/home/user/bornim-main/tools/vorpush.py; [ -f "$f" ] || f=tools/vorpush.py\nif [ -f "$f" ]; then python3 "$f" "$@" || exit 1; fi\nexit 0\n' > "$hp" && chmod +x "$hp"
 fi
 echo "$neu" > "$mark"
 # 658: Reaktionen und Nachrichten des Chefs auf Telegram (👍 gebilligt, 👎 falsch, ✅ erledigt; Prüfpunkte t<n>.<k> je Build eine Zeile, 1217), letzte 120 Minuten; nur Text, still ohne Schlüssel

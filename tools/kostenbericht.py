@@ -9,6 +9,13 @@ sein Datum ist der Tag des Commits (Berliner Zeit). Bereich = Feld der Zeile in 
 in die feste Liste (`tools/bereiche.py`); Commit ohne Nummer oder mit unbekannter: Bereich nach Rolle (Ford → B Steuerung …).
 Sitzungen, deren Commits meist von Ford sind, gehen ganz auf Vorgang „Betrieb“ (wie in der Liste). Sitzungen ohne Commit stehen gesondert. Die Spalte „Kosten“ der Liste (von Ford beim Neustart gebucht) läuft zum Vergleich mit.
 
+1739 (1727, Archiv „Qualität eigener Kostenteil“ 20.11., 09:45; Gesamtbild 6d Nr. 6): Wochen und Tage zusätzlich in drei Teilen
+nach Bereich: Spiel (E, G), Qualität (Q), Verwaltung (B, M); dazu Qualitätskosten Prüfen gegen Nacharbeit. Nacharbeit = Commits
+nach einem „nein“ in docs/vorgang/<Nr>.md (Rückmeldung, 1763), Commits zu einem Erstfund des Chefs (Titel „Von Chef …“ bzw. „Chef
+TT.MM.“ mit „Fund“) oder zu einem Rückläufer (Titel oder Stand), Commits „Rückläufer“, „Revert“ und Testpunkte „t82.3 …“; Prüfen =
+übrige Kosten im Bereich Q. Nacharbeit zählt in ihrem Bereich weiter (Spiel, Qualität oder Verwaltung), die Qualitätskosten sind
+ein Querschnitt, keine vierte Summe.
+
 Aufruf: python3 tools/kostenbericht.py [--ohne-holen] [--schreiben]   (holt vorher alle Zweige claude/*; Ausgabe Markdown,
         mit --schreiben nach docs/LISTE-KOSTEN.md wie gegenstaende.py; danach committen und pushen)
 """
@@ -22,6 +29,7 @@ import zoneinfo
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bereiche  # noqa: E402
+import chef_fund  # noqa: E402
 import startbar  # noqa: E402
 
 REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
@@ -33,6 +41,8 @@ ROLLE_BEREICH = {"Ford": "B Steuerung", "Perikles": "B Abläufe", "Sokrates": "M
                  "Chefsache": "B Abläufe", "Lauf": "B Steuerung", "Betrieb": "B Steuerung", "Kosten": "B Steuerung",
                  "Werkzeug": "B Werkzeuge", "Build": "Q QS", "Rückläufer": "Q QS", "Revert": "Q QS", "Prüfung": "Q QM",
                  "Messung": "E Technik", "Godot": "E Technik", "Bestand": "E Technik", "Behebung": "E Technik", "Restrunde": "E Figuren"}
+TEILE = (("Spiel", "EG"), ("Qualität", "Q"), ("Verwaltung", "BM"))  # 1739, Archiv 20.11., 09:45
+NACHARBEIT_BETREFF = re.compile(r"\b(?:Rückläufer|Revert)\b|^\s*(?:\w+:\s*)?t\d+(?:\.\d+)*\b")
 TESTPUNKT = re.compile(r"\bt\d+(?:\.\d+)*\b")  # „t82.3 Rückläufer“: Test des Chefs → Q QS
 
 
@@ -53,14 +63,16 @@ def gebucht():
 
 
 def vorgaenge():
-    """Nr → (Bereich fest, Kosten laut Liste oder None, Titel)."""
+    """Nr → (Bereich fest, Kosten laut Liste oder None, Titel, Nacharbeit: Erstfund des Chefs oder Rückläufer)."""
     aus = {}
     for dat in ("LISTE-VORGAENGE-ARCHIV.md", "LISTE-VORGAENGE.md"):  # offene Liste gilt vor dem Archiv
         for t in startbar.tafel_zeilen(open(os.path.join(DOCS, dat), encoding="utf-8").read()):
             if t.get("nr") in startbar.SONDER:
                 continue
             zahlen = [float(z.replace(",", ".")) for z in re.findall(r"(\d+(?:,\d+)?)\s*\$?", t.get("kosten", "") or "")]
-            aus[t["nr"]] = (bereiche.einordnen(t.get("bereich")), sum(zahlen) if zahlen else None, t.get("titel", ""))
+            titel = t.get("titel", "")
+            nach = (chef_fund.vom_chef(titel) and bool(re.search(r"\bFund", titel))) or "Rückläufer" in titel + " " + (t.get("stand") or "")
+            aus[t["nr"]] = (bereiche.einordnen(t.get("bereich")), sum(zahlen) if zahlen else None, titel, nach)
     return aus
 
 
@@ -81,18 +93,57 @@ def nummer(betreff, bekannt):
 
 
 def commits():
-    """[(Sitzung, Tag, Rolle, Betreff)] aller Commits mit Sitzungszeile."""
+    """[(Sitzung, Tag, Rolle, Betreff, Zeitpunkt)] aller Commits mit Sitzungszeile."""
     roh = git("log", "--all", "--no-merges", "--format=%H%x1f%aI%x1f%s%x1f%(trailers:key=Claude-Session,valueonly,separator=;)%x1e")
     aus = []
     for satz in roh.split("\x1e"):
         t = satz.strip().split("\x1f")
         if len(t) < 4 or not t[3]:
             continue
-        tag = datetime.datetime.fromisoformat(t[1]).astimezone(BERLIN).date()
+        zp = datetime.datetime.fromisoformat(t[1]).astimezone(BERLIN)
+        tag = zp.date()
         rolle = (re.match(r"\s*([\wÄÖÜäöü]+)", t[2]) or [None, ""])[1]
         for s in set(re.findall(r"session_\w+", t[3])):
-            aus.append((s, tag, rolle, t[2]))
+            aus.append((s, tag, rolle, t[2], zp))
     return aus
+
+
+def erstes_nein(heute):
+    """Nr → Zeitpunkt des ersten „nein“ (auch „nein, Auftrag“, „wirkt nein“) in docs/vorgang/<Nr>.md (Rückmeldungen, 1763).
+    Zeit dort ohne Jahr („21.11., 20:41“): Jahr des Berichts, liegt sie dann in der Zukunft, das Vorjahr."""
+    import rueckmeldung as rm
+    import uebergabe as ue
+    aus, ordner = {}, os.path.join(REPO, "docs", "vorgang")
+    for f in sorted(os.listdir(ordner)) if os.path.isdir(ordner) else []:
+        if not f.endswith(".md"):
+            continue
+        text = open(os.path.join(ordner, f), encoding="utf-8").read()
+        for m in rm.BLOCK.finditer(ue.abschnitt(text, "Rückmeldungen")):
+            if not {"nein", "nein, Auftrag", "wirkt nein"} & rm.worte(m.group("text")):
+                continue
+            z = re.match(r"\s*(\d\d?)\.(\d\d?)\.(?:(\d{4}))?,?\s*(\d\d?):(\d\d)", m.group("zeit"))
+            if not z:
+                continue
+            j = int(z[3] or heute.year)
+            zp = datetime.datetime(j, int(z[2]), int(z[1]), int(z[4]), int(z[5]), tzinfo=BERLIN)
+            if not z[3] and zp > heute:
+                zp = zp.replace(year=j - 1)
+            aus[f[:-3]] = min(zp, aus.get(f[:-3], zp))
+    return aus
+
+
+def ist_nacharbeit(nr, betreff, zp, vg, nein):
+    """1739: Nacharbeit (Qualitätskosten) statt erster Arbeit oder Prüfen."""
+    if NACHARBEIT_BETREFF.search(betreff):
+        return True
+    if nr and nr in vg and vg[nr][3]:
+        return True
+    return bool(nr and nr in nein and zp > nein[nr])
+
+
+def teil_von(d):
+    """Bereichsbuchstabe → Kosten je Teil (Spiel, Qualität, Verwaltung); unbekannte Buchstaben in keinem Teil."""
+    return {name: sum(d.get(b, 0) for b in bs) for name, bs in TEILE}
 
 
 def ford_sitzungen():
@@ -131,11 +182,14 @@ def main():
     vorgang_k = collections.defaultdict(float)
     tag_k = collections.defaultdict(lambda: collections.defaultdict(float))
     ohne_nr = 0.0
+    heute = datetime.datetime.now(BERLIN)
+    nein = erstes_nein(heute)
+    qk = collections.defaultdict(lambda: collections.defaultdict(float))  # Montag → {"Prüfen", "Nacharbeit"}
     for s, cs in je_sitzung.items():
         teil = kosten[s] / len(cs)
         rollen = collections.Counter(c[2] for c in cs)
         ford = rollen.most_common(1)[0][0] in ("Ford", "Betrieb", "Lauf")  # Fords Läufe auf Vorgang „Betrieb“ (FIRMA.md, Preis je Vorgang)
-        for _, tag, rolle, betreff in cs:
+        for _, tag, rolle, betreff, zp in cs:
             nr = ("Betrieb" if "Betrieb" in vg else None) if ford else nummer(betreff, vg)
             b = vg[nr][0] if nr else ("Q QS" if TESTPUNKT.match(betreff.strip()) else ROLLE_BEREICH.get(rolle, "? unbekannt"))
             if b.startswith("?"):
@@ -146,6 +200,11 @@ def main():
                 ohne_nr += teil
             bereich_k[b] += teil
             tag_k[tag][b[:1]] += teil
+            mo = tag - datetime.timedelta(days=tag.weekday())
+            if ist_nacharbeit(nr, betreff, zp, vg, nein):
+                qk[mo]["Nacharbeit"] += teil
+            elif b[:1] == "Q":
+                qk[mo]["Prüfen"] += teil
     ford_ohne = {s: t for s, t in ford_sitzungen().items() if s in kosten and s not in je_sitzung}
     for s, tag in ford_ohne.items():  # 685: Ford-Sitzung ohne Commit mit Sitzungszeile → Betrieb, Tag = Start der Sitzung
         if "Betrieb" in vg:
@@ -157,11 +216,10 @@ def main():
     zugeordnet = sum(bereich_k.values())
     ohne_commit = [s for s in kosten if s not in je_sitzung]
     liste_k = collections.defaultdict(float)
-    for nr, (b, k, _) in vg.items():
+    for nr, (b, k, _, _) in vg.items():
         if k:
             liste_k[b] += k
     liste_summe = sum(liste_k.values())
-    heute = datetime.datetime.now(BERLIN)
     themen = list(bereiche.BEREICHE)
     out = [f"# Kosten je Bereich, Tag und Woche (651)", "",
            f"Erzeugt {heute:%d.%m., %H:%M} mit `python3 tools/kostenbericht.py` (nicht von Hand ändern; neu erzeugen). "
@@ -194,14 +252,24 @@ def main():
         mo = tag - datetime.timedelta(days=tag.weekday())
         for b, v in d.items():
             wochen[mo][b] += v
-    kopf = ["Woche"] + [f"{b} {bereiche.BEREICHE[b][0]}" for b in themen] + ["zusammen", "Anteil Spiel (E+G)"]
+    kopf = ["Woche"] + [f"{b} {bereiche.BEREICHE[b][0]}" for b in themen] + ["zusammen"] + [f"{n} ({', '.join(bs)})" for n, bs in TEILE]
 
     def zeile(titel, d):
         ges = sum(d.values())
-        return [titel] + [geld(d.get(b, 0)) for b in themen] + [f"**{geld(ges)}**",
-                                                                 f"{round(100 * (d.get('E', 0) + d.get('G', 0)) / ges) if ges else 0} %"]
+        return [titel] + [geld(d.get(b, 0)) for b in themen] + [f"**{geld(ges)}**"] + [
+            f"{geld(v)} ({round(100 * v / ges) if ges else 0} %)" for v in teil_von(d).values()]
     out += ["## Je Woche (Montag bis Sonntag)", "",
             tabelle(kopf, [zeile(f"{mo:%d.%m.}–{mo + datetime.timedelta(days=6):%d.%m.}", wochen[mo]) for mo in sorted(wochen, reverse=True)]), ""]
+    qzeilen = []
+    for mo in sorted(set(wochen) | set(qk), reverse=True):
+        q, ges = qk[mo], sum(wochen[mo].values())
+        qs = q["Prüfen"] + q["Nacharbeit"]
+        qzeilen.append([f"{mo:%d.%m.}–{mo + datetime.timedelta(days=6):%d.%m.}", geld(q["Prüfen"]), geld(q["Nacharbeit"]), f"**{geld(qs)}**",
+                        f"{round(100 * q['Nacharbeit'] / qs) if qs else 0} %", f"{round(100 * qs / ges) if ges else 0} %"])
+    out += ["## Qualitätskosten je Woche: Prüfen gegen Nacharbeit (1739)", "",
+            "Prüfen = Kosten im Bereich Q ohne Nacharbeit; Nacharbeit = Commits nach einem „nein“ der Rückmeldungen (`docs/vorgang/`), "
+            "zu Erstfunden des Chefs und Rückläufern, „Revert“ und Testpunkte, in jedem Bereich. Querschnitt, keine vierte Summe.", "",
+            tabelle(["Woche", "Prüfen", "Nacharbeit", "zusammen", "Anteil Nacharbeit", "Anteil an der Woche"], qzeilen), ""]
     kopf[0] = "Tag"
     out += ["## Je Tag", "", tabelle(kopf, [zeile(f"{['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'][t.weekday()]} {t:%d.%m.}", tag_k[t])
                                             for t in sorted(tag_k, reverse=True)]), ""]

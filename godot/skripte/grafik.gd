@@ -36,7 +36,7 @@ const EINMESSEN_TEXT := ["Das Spiel misst die Grafik einmalig auf dein Gerät ei
 const EINMESSEN_WAHL := ["Ändern kannst du sie jederzeit im Systemmenü unter „Grafik“.",
 	"You can change this at any time under “Graphics” in the system menu."]   # [1365.einmessen.wahl]
 
-const ZIEL_MS := 1000.0 / 60.0                 # ein Bild bei 60 Hz
+const ZIEL_MS := 1000.0 / 60.0                 # ein Bild bei 60 Hz (ohne Takt)
 const LUFT := 0.8                              # Anfangsmessung: die Stufe muss mit 20 % Luft reichen (der erste Ort ist oft ein Raum)
 const RUCKEL_SEK := 10                         # so viele Sekunden am Stueck ueber ZIEL_MS, dann eine Stufe herunter
 const MESS_VOR := 8                            # Anfangsmessung: Bilder nach dem Umschalten, die nicht zaehlen
@@ -61,6 +61,8 @@ static func lade() -> void:
 	wahl = String(c.get_value("grafik", "wahl", "auto")) if ok else "auto"
 	if not wahl in WAHL: wahl = "auto"
 	auto_stufe = clampi(int(c.get_value("grafik", "auto", -1)), -1, HOCH) if ok else -1
+	# 1270.6: eine Messung mit dem alten Ziel (60 Hz, vor dem Takt 30) gilt nicht; einmal neu einmessen am naechsten Ort
+	if auto_stufe >= 0 and int(c.get_value("grafik", "takt", 0)) != int(Testmodus.TAKTE[Testmodus.TAKT_SPIEL]): auto_stufe = -1
 	aktiv = stufe()
 
 static func speichere() -> void:
@@ -69,6 +71,7 @@ static func speichere() -> void:
 	c.load(DATEI)
 	c.set_value("grafik", "wahl", wahl)
 	c.set_value("grafik", "auto", auto_stufe)
+	c.set_value("grafik", "takt", int(Testmodus.TAKTE[Testmodus.TAKT_SPIEL]))   # 1270.6: Ziel, mit dem gemessen wurde
 	c.save(DATEI)
 
 ## Laeufe mit Argumenten: Hoch wie bisher, oder die Stufe aus --grafik=
@@ -98,8 +101,11 @@ static func name_stufe(s: int, de: bool) -> String: return NAMEN[STUFE_NAME[s]][
 
 ## Systemmenue: Antippen wechselt Automatisch, Hoch, Mittel, Niedrig; gilt sofort fuer Schatten und Schaerfe, Gras und Effekte der
 ## Kits ab dem naechsten Ort
+static var neu_laden := false                  # 1670a A: nach einer Wahl im Menue den Ort beim Schliessen neu aufbauen
+
 static func weiter(tree: SceneTree) -> void:
 	lade()
+	neu_laden = true
 	wahl = WAHL[(WAHL.find(wahl) + 1) % WAHL.size()]
 	gesenkt = false
 	speichere()
@@ -111,6 +117,7 @@ static func innen_schatten() -> bool: return aktiv >= MITTEL
 static func tusche_lampen() -> bool: return aktiv >= MITTEL
 static func kits() -> bool: return aktiv >= MITTEL
 static func gluehen() -> bool: return aktiv >= HOCH       # 1270.4 (Chef 16.11., 17:32)
+static func sonne_px() -> int: return SONNE_PX[aktiv]     # 1645: Kampfort liest sie beim Betreten und Verlassen
 
 # ---------------------------------------------------------------- Ladepunkte
 
@@ -132,7 +139,7 @@ static func setze(tree: SceneTree, s: int) -> void:
 	RenderingServer.directional_shadow_atlas_set_size(SONNE_PX[aktiv], true)
 	RenderingServer.directional_soft_shadow_filter_set_quality(SONNE_WEICH[aktiv])
 	if tree == null: return
-	tree.root.scaling_3d_scale = SCHAERFE[aktiv]
+	tree.root.scaling_3d_scale = 0.5 if Testmodus.aufl_50 else SCHAERFE[aktiv]   # 1270.6 Messbuild „3D halb“
 	for n in tree.get_nodes_in_group("grafik_schatten"):
 		if n is Light3D: (n as Light3D).shadow_enabled = innen_schatten()
 	for n in tree.get_nodes_in_group("grafik_gluehen"):
@@ -141,11 +148,19 @@ static func setze(tree: SceneTree, s: int) -> void:
 ## Automatisch, erste Ladung: unter der Blende kurz je Stufe messen, von Hoch abwaerts, die hoechste mit Luft nehmen
 static func braucht_messung() -> bool: return automatisch() and auto_stufe < 0
 
+## 1270.6: das Ziel je Bild folgt dem Takt des Spiels (fest 30, Testmodus.TAKT_SPIEL): ein Bild bei 30 Bildern je Sekunde statt bei
+## 60 Hz; vorher waehlte das Einmessen am A56 Niedrig, obwohl die Welt dort 59 Bilder/s lief (Chef 18.11., 14:22, Build 298)
+static func ziel_ms() -> float:
+	return 1000.0 / Engine.max_fps if Engine.max_fps > 0 else ZIEL_MS
+
 static func messen(tree: SceneTree) -> void:
 	var vp := tree.root.get_viewport_rid()
 	RenderingServer.viewport_set_measure_render_time(vp, true)
 	_gemessen = true
 	var wahl_ := NIEDRIG
+	var ziel := ziel_ms()
+	var takt := Engine.max_fps
+	Engine.max_fps = 0                         # frei messen; mit Takt waere die Zeit von Bild zu Bild immer ein Takt
 	var bis := Time.get_ticks_msec() + 4000
 	for s in [HOCH, MITTEL]:
 		setze(tree, s)
@@ -161,7 +176,8 @@ static func messen(tree: SceneTree) -> void:
 			t = jetzt
 		var ms := summe / maxi(n, 1)
 		print("GRAFIK698 Anfang %s: %.1f ms (%d Bilder)" % [STUFE_NAME[s], ms, n])
-		if n > 0 and ms <= ZIEL_MS * LUFT: wahl_ = s; break
+		if n > 0 and ms <= ziel * LUFT: wahl_ = s; break
+	Engine.max_fps = takt
 	auto_stufe = wahl_
 	speichere()
 	setze(tree, wahl_)
@@ -178,11 +194,13 @@ static func bild(tree: SceneTree, dt: float) -> void:
 	if not _gemessen:
 		RenderingServer.viewport_set_measure_render_time(vp, true)
 		_gemessen = true
-	_sek_ms += zeit_ms(vp, dt * 1000.0)
+	var g := RenderingServer.viewport_get_measured_render_time_gpu(vp)
+	# ohne Zeitstempel die Zeit von Bild zu Bild; mit Takt liegt die immer knapp ueber einem Takt, daher 10 % Spiel (1270.6)
+	_sek_ms += g if g > 0.0 else dt * 1000.0 / 1.1
 	_sek_bilder += 1
 	_sek_dauer += dt
 	if _sek_dauer < 1.0: return
-	_ruckel = _ruckel + 1 if _sek_ms / _sek_bilder > ZIEL_MS else 0
+	_ruckel = _ruckel + 1 if _sek_ms / _sek_bilder > ziel_ms() else 0
 	_sek_ms = 0.0; _sek_bilder = 0; _sek_dauer = 0.0
 	if _ruckel >= RUCKEL_SEK:
 		auto_stufe = aktiv - 1

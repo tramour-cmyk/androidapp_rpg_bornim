@@ -2,7 +2,7 @@
 
 Vorgang 623, Sokrates, angelegt 07.11. (Chef 07.11., 17:2x: „Wir bräuchten einerseits eine Ressourcenseite und andererseits eine Zuordnungsseite. Dieses Schema sollten wir auf bisher geprüfte Internetseiten … und kommende Internetseiten anwenden.“). Hier steht **jede geprüfte Quelle** mit Link und Urteil nach dem Prüfschema. Was wir besitzen, steht in `LISTE-BESTAND.md`; wofür wir es im Spiel nehmen, in `LISTE-EFFEKTE.md` (Zuordnung). Modelle und Bewegungen der Umzugszeit stehen noch in `LISTE-CC0-MODELLE.md` und ziehen nach und nach hierher (623.1).
 
-**Lizenzregel:** `CLAUDE.md` „Technik und Sicherheit“: kommerziell, in jeder Engine, unbefristet, ohne Pflicht zur Nennung, ohne Umsatzgrenze; gekaufte Rohdateien nur im privaten Repo `bornim-kaufmodelle`, nie im öffentlichen (dieses Repo ist öffentlich).
+**Lizenzregel:** `CLAUDE.md` „Technik und Sicherheit“: frei (offene Lizenz) reicht kommerzielle Nutzung, verlangte Nennung im Hauptmenü; gekauft: kommerziell, in jeder Engine, unbefristet, ohne Pflicht zur Nennung, ohne Umsatzgrenze (1727b, Chef 21.11., 21:31); gekaufte Rohdateien nur im privaten Repo `bornim-kaufmodelle`, nie im öffentlichen (dieses Repo ist öffentlich).
 
 ## Prüfschema (für jede Quelle, jedes Paket)
 
@@ -81,7 +81,7 @@ Eine Zeile je Quelle, die wir nutzen oder gekauft haben; was wir davon haben, st
 
 **Lücken und Widersprüche (zur Klärung):**
 1. **Unity Asset Store:** unten „Ausrüstung genau“, „Lizenzrahmen“ sagt „Unity Asset Store nein“ (2.2.1 verbietet Assets als Eingabe für KI-Programme), unten „Gegen Geld“ nennt ihn zulässig; gekauft wurden danach Protofactor-Animsets und Janpec unter dieser EULA. Ob unsere Arbeitsweise (KI-Sitzungen bearbeiten die Dateien mit Skripten) darunter fällt, ist eine Rechtsfrage für den Chef; Weg: Zustimmung der Händler einholen (780 A, Brief `tun/780`). **Protofactor (alle sechs Animsets) 10.11., 04:48**, Antwort an info@bornwire.de auf die Anfrage vom 09.11. (beschrieben: KI-Assistenten führen Skripte auf den Dateien aus, Übertragen, Vorschaubilder, Import; kein Training, keine Weitergabe): „Looks like the license already covers that usage.“ Das ist die schriftliche Aussage des Anbieters, dass unsere Nutzung erlaubt ist; E-Mail bewahrt der Chef auf (nicht ins Repo). Janpec offen.
-2. **MIT-Teil in REEBOO** (David Hoskins, Hashfunktionen in Grass, Water, Surface): MIT verlangt den Lizenzhinweis; die Lizenzregel sagt „ohne Pflicht zur Nennung“. Lösung: Hinweis in „Über das Spiel“ wie bei Godot (497).
+2. **MIT-Teil in REEBOO** (David Hoskins, Hashfunktionen in Grass, Water, Surface), **geschlossen (1727b; Hinweis im Hauptmenü steht, 781):** MIT verlangt den Lizenzhinweis; die Lizenzregel fordert bei freien Lizenzen die verlangte Nennung im Hauptmenü, „ohne Pflicht zur Nennung“ gilt nur für Gekauftes (1727b). Lösung: Hinweis in „Über das Spiel“ wie bei Godot (497).
 3. Links, Preise, Daten nachgetragen 09.11. aus Chefsache-Dateien in Git und den Seiten. Noch offen: Store-Nummer Bow & Arrow und Injured; bezahlter Betrag bei Nachlässen (Ratte, Protofactor 03.11., RenderHub 03.11.) steht nur in den Belegen des Chefs; Preis UAL Source; Lizenz Medieval Market auf der Seite. `reebo0.itch.io` in `LISTE-BESTAND.md` ist der alte Name des Händlers und leitet auf `reeboolabs.itch.io` um (geprüft 09.11.); `LISTE-EFFEKTE.md` steht noch auf „Vorschlag“ und nennt nicht gekaufte R3–R7.
 4. Schriften: Kopf von `tools/schrift/QUELLEN.md` sagt „kein Reserved Font Name“, die Zeile Fondamento nennt einen (OFL erlaubt Nutzung, verbietet nur geänderte Fassungen unter dem Namen).
 
