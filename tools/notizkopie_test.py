@@ -80,12 +80,13 @@ def kopie_test():
     ok(g(wt, "status", "--porcelain", "--untracked-files=no").strip() == "M docs/b.md", "nur die junge Änderung bleibt: " + g(wt, "status", "--short"))
     ok(open(os.path.join(wt, "docs/b.md")).read() == "meins\n", "junge Änderung erhalten")
     ok("rueckmeldung" in aus and "Chef" not in aus, "Ausgabe zur jungen Änderung: Frage per Rückmeldung: " + aus)
-    # Fall 3: alte Datei (älter als 2 h) mit neuem Inhalt gilt als alt
+    # Fall 3 (Sokrates 22.11., 20:06, 1963-Ü8): eigene Änderung, älter als 2 h, ohne Altstand des Index bleibt; Meldung, kein Reset
     d = tempfile.mkdtemp(); home = os.path.join(d, "h"); os.makedirs(home)
     o, q, a = aufbau(d); wt = os.path.join(d, "bornim-main"); notiz(a, home)
     p = os.path.join(wt, "docs/b.md"); schreib(p, "liegengeblieben\n"); t = time.time() - 3 * 3600; os.utime(p, (t, t))
-    notiz(a, home)
-    ok(g(wt, "status", "--porcelain", "--untracked-files=no") == "", "Datei älter als 2 h zurückgesetzt")
+    aus = zeile(notiz(a, home))
+    ok(open(p).read() == "liegengeblieben\n" and "rueckmeldung" in aus and "Chef" not in aus, "Datei älter als 2 h bleibt: " + aus)
+    g(wt, "checkout", "-q", "--", "docs/b.md")
     # Fall 4: Altstand entsteht mitten in der Sitzung → Stop-Haken räumt auf und hält nicht an
     weiter(q, a)
     r = subprocess.run([sys.executable, os.path.join(HIER, "gepusht-haken.py")], input="{}", capture_output=True, text=True,
@@ -118,6 +119,18 @@ def kopie_test():
     schreib(os.path.join(wt, "docs/b.md"), "meins\n"); g(wt, "add", "docs/b.md"); schreib(os.path.join(wt, "docs/b.md"), "b\n")
     aus = zeile(notiz(a, home))
     ok(g(wt, "show", ":docs/b.md") == "meins\n", "junge Änderung im Index bleibt: " + aus)
+    # Fall 8 (Ingo 20:00, 1963-Ü8): junge Löschung und Umbenennung einer auf main neuen Datei bleiben (allgemeiner Fall)
+    d = tempfile.mkdtemp(); home = os.path.join(d, "h"); os.makedirs(home)
+    o, q, a = aufbau(d); wt = os.path.join(d, "bornim-main"); notiz(a, home); weiter(q, a); notiz(a, home)
+    ok(g(wt, "status", "--porcelain", "--untracked-files=no") == "", "Kopie sauber auf main mit docs/neu.md")
+    g(wt, "rm", "-q", "docs/neu.md")
+    aus = zeile(notiz(a, home))
+    ok(g(wt, "status", "--porcelain", "--untracked-files=no").strip() == "D  docs/neu.md", "junge Löschung neuer Datei bleibt: " + aus)
+    g(wt, "reset", "-q", "--hard"); g(wt, "mv", "docs/neu.md", "docs/archiv/neu.md")
+    aus = zeile(notiz(a, home))
+    ok(not os.path.exists(os.path.join(wt, "docs/neu.md")) and os.path.exists(os.path.join(wt, "docs/archiv/neu.md")),
+       "junge Umbenennung neuer Datei bleibt, nicht doppelt: %s | %s" % (g(wt, "status", "--short"), aus))
+    ok(not [x for x in g(wt, "branch", "--list", "backup-notiz-*").split() if x.strip()], "keine Sicherung bei jungen Änderungen")
 
 
 def lade(n):
