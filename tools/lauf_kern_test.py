@@ -13,7 +13,7 @@ def pruefe(ok, was):
         fehler += 1
         print("FEHLER", was)
 
-for rolle, anfang, extra in [("Spike", "Du bist **Spike**", "Prüfstelle jeder APK"), ("Sokrates", "Du bist **Sokrates**", "### A ")]:
+for rolle, anfang, extra in [("Spike", "Du bist **Spike**", "Prüfstelle jeder APK")]:  # Sokrates seit 1986 unten
     l = lauf.mit_kern("START %s | opus | env | repo | main | Titel | Weiter mit 1667." % rolle)
     msg = l.split(" | ", 6)[6]
     pruefe(msg.startswith(anfang), "%s: Nachricht beginnt nicht mit dem Kern" % rolle)
@@ -82,5 +82,33 @@ try:
 finally:
     lauf.NEU_LISTE = False
     del lauf.STARTBLOCK_FEHLT[:]
+# 1986 (Chef 23.11., 08:26 A): jede START- und WEITER-Zeile für Sokrates trägt Kern Leitung (wortgleich Gesamtbild 2.1, über
+# docs/profile/Kern Leitung.md) und das Gedächtnis ganz (ohne Kopfzeile und Leerzeile), nichts aus ROLLE-BERATUNG-START.md, keinen
+# Auftrag aus der Vorgangsdatei; an alter und neuer Liste gleich
+import ladesumme
+_kern = ladesumme.entwurf_text("Kern Leitung")
+_ged = lauf.lesen(os.path.join(lauf.DOCS, "leitung", "gedaechtnis.md")).split("\n", 2)[2].strip()
+_alt = [z for z in lauf.lesen(os.path.join(lauf.DOCS, "ROLLE-BERATUNG-START.md")).split("\n") if len(z.strip()) >= 40]
+_soll = "**Kern Leitung**\n%s\n\n**Gedächtnis**\n%s\n\nAuftrag: " % (_kern, _ged)
+for neu in (False, True):
+    lauf.NEU_LISTE = neu
+    try:
+        del lauf.STARTBLOCK_FEHLT[:]
+        for z in ("START Sokrates | opus | env | repo | main | Sokrates – 1986: Stellungnahme (23.11., 08:40) | Sokrates\\n\\nStellungnahme: x; zuerst Start nach deiner Rollendatei.",
+                  "START Sokrates | opus | env | repo | main | Sokrates – 1986: offene Zeilen (1763 C, 23.11.) | Sokrates\\n\\nZeile. Zuerst Start nach deiner Rollendatei.",
+                  "WEITER s1 | Sokrates | 1763 C | Zeile 1986-Ü1",
+                  "WEITER s1 | Sokrates | Stellungnahme | Stellungnahme: x; wird send_message abgelehnt, stattdessen START wie sonst"):
+            l = lauf.mit_kern(z)
+            msg = (l.split(" | ", 6)[6] if z.startswith("START") else l.split(" | ", 3)[3]).replace("\\n", "\n")
+            pruefe("\n" not in l, "1986: echter Zeilenumbruch (%s)" % z[:30])
+            pruefe(msg.startswith(_soll), "1986 (neu=%s): %s ohne Kern Leitung und Gedächtnis am Anfang: %r" % (neu, z[:40], msg[:120]))
+            pruefe(not [a for a in _alt if a in msg], "1986: Text aus ROLLE-BERATUNG-START.md in der Nachricht (%s)" % z[:30])
+            pruefe("Rollendatei" not in msg and "**Ziel:**" not in msg, "1986: Rollendatei oder Auftrag der Vorgangsdatei in %s" % z[:30])
+        pruefe(not lauf.STARTBLOCK_FEHLT, "1986: Fehlteile gemeldet: %s" % lauf.STARTBLOCK_FEHLT)
+    finally:
+        lauf.NEU_LISTE = False
+        del lauf.STARTBLOCK_FEHLT[:]
+pruefe(lauf.ladetext("Kern Leitung") == _kern, "1986: docs/profile/Kern Leitung.md fehlt oder weicht vom Gesamtbild 2.1 ab")
+pruefe("Zentrale (Tom" not in open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "notiz.sh"), encoding="utf-8").read(), "1986: Start-Haken nennt „Zentrale (Tom, Jerry, Ford …)“")
 print("lauf_kern_test: %s" % ("gut" if not fehler else "%d Fehler" % fehler))
 sys.exit(1 if fehler else 0)
