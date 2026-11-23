@@ -2,9 +2,10 @@ extends SceneTree
 # 1570: Prüfbild Umhang in der Spielkamera (Handy 540x1170, Spielshader, Tusche, Schatten wie im Spiel), je Aufruf ein Stand:
 #   welt:  Wachsoldat geht im Dorf mit Zweihänder (Gehen_axt), Kamera des Spiels nah, rechte Seite zur Kamera; Stelle: rechter Unterarm
 #   kampf: Kämpfer (Wachsoldat) im Probekampf mit Handaxt und Schild, Rücken zur Kampfkamera, Kampfhaltung; Stelle: linke Flanke
+#   kloster: Klosterschülerin geht im Dorf ohne Waffe, Rücken zur Kamera (Auftrag 1570, 23.11.); Stelle: linkes Schulterblatt
 # Gibt je Bild die Bildstelle aus (STELLE1570 <fall> x y), das Markieren und Zusammensetzen alt gegen neu macht der Aufrufer.
 # Aufruf: PROBE=1570 xvfb-run -a godot --path godot --rendering-driver opengl3 --resolution 540x1170 --fixed-fps 30
-#   -s res://tests/umhang_bild_1570.gd -- --bild=1570 --fall=welt|kampf --aus=<datei.png>
+#   -s res://tests/umhang_bild_1570.gd -- --bild=1570 --fall=welt|kampf|kloster --aus=<datei.png>
 const Probe = preload("res://kampf/probe.gd")
 const Signatur = preload("res://kampf/signatur.gd")
 
@@ -15,7 +16,7 @@ func _initialize() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--fall="): fall = a.substr(7)
 		if a.begins_with("--aus="): aus = a.substr(6)
-	(_welt if fall == "welt" else _kampf).call_deferred()
+	(_kampf if fall == "kampf" else _welt).call_deferred()
 
 func _bilder(n: int) -> void:
 	for i in n: await process_frame
@@ -38,9 +39,12 @@ func _welt() -> void:
 	spiel.zustand.minuten = 12 * 60
 	spiel.licht.ziel = 0.0
 	spiel.licht.stelle(0.0)
-	var w := BrsHeld.fuer_spiel("Test", "Mensch", "Wachsoldat")
+	var kl := fall == "kloster"
+	var w := BrsHeld.fuer_spiel("Test", "Mensch", "Klosterschüler" if kl else "Wachsoldat")
 	spiel.werte = w
-	w.ausruestung["MAIN_HAND"] = {"base": "greatsword"}
+	if kl: spiel.zustand.aussehen = HeldFigur.vorgabe("Klosterschüler", "w")
+	if kl: w.ausruestung.erase("MAIN_HAND")
+	else: w.ausruestung["MAIN_HAND"] = {"base": "greatsword"}
 	w.ausruestung["CLOAK"] = {"base": "cloak"}
 	w.ausruestung.erase("OFF_HAND")
 	spiel.held_figur_neu("")
@@ -52,7 +56,7 @@ func _welt() -> void:
 		spiel.herde.process_mode = Node.PROCESS_MODE_DISABLED
 	var h = spiel.held
 	# Zweihändergang (tragen.gd GANG_ZWEI -> „axt“); ein Zweihändermodell ist im Bau von main nicht (daten/waffen), darum der Gang allein
-	if h.waffengang == "" and h.anim and h.anim.has_animation("Gehen_axt"):
+	if not kl and h.waffengang == "" and h.anim and h.anim.has_animation("Gehen_axt"):
 		h.waffengang = "axt"; h.gang_w = HeldFigur.TAKT_GEHEN; h.renn_w = HeldFigur.TAKT_RENNEN
 	h.setze(Vector2i(19, 15), "DOWN")
 	spiel.kamera.nah = true
@@ -60,7 +64,8 @@ func _welt() -> void:
 	spiel.kamera.springe()
 	await _bilder(20)
 	# nach Nordosten: Kamera blickt nach Nordwesten, die rechte Seite des Helden zeigt zu ihr
-	h.geh_zu(h.global_position + Vector3(3.0, 0.0, -3.0))
+	# kloster: nach Nordwesten, von der Kamera weg (Rücken zu ihr)
+	h.geh_zu(h.global_position + (Vector3(-3.0, 0.0, -3.0) if kl else Vector3(3.0, 0.0, -3.0)))
 	await _bilder(int(OS.get_environment("BILD1570_WELT")) if OS.get_environment("BILD1570_WELT") != "" else 26)
 	spiel.kamera.springe()
 	await _bilder(1)
@@ -71,6 +76,7 @@ func _welt() -> void:
 	var sk := Gebiet.finde(h, "Skeleton3D") as Skeleton3D
 	var cam := root.get_camera_3d()
 	var p := (_knochen(sk, "lowerarm_r") + _knochen(sk, "hand_r")) * 0.5
+	if kl: p = (_knochen(sk, "spine_03") * 2.0 + _knochen(sk, "clavicle_l") + _knochen(sk, "upperarm_l")) * 0.25   # linkes Schulterblatt
 	print("WELT1570 Bewegung %s" % (ap.current_animation if ap else "?"))
 	await _speichern(cam.unproject_position(p))
 
