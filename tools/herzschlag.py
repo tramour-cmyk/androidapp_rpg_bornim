@@ -34,7 +34,7 @@ def pruefen(text, jetzt):
     alter = int((jetzt - d).total_seconds() // 60)
     zeit = d.strftime("%d.%m., %H:%M")
     if alter < GRENZE_MIN: return 0, "HERZSCHLAG ok: lauf.py zuletzt %s (vor %d Min.)" % (zeit, alter)
-    return 2, "ALARM Herzschlag: lauf.py lief seit %s nicht mehr (%d Std. %d Min.); Ford hängt oder fehlt, keine Starts. Ford neu starten (1764)" % (zeit, alter // 60, alter % 60)
+    return 2, "ALARM Herzschlag: lauf.py lief seit %s nicht mehr (%d Std. %d Min.); Disponent hängt oder fehlt, keine Starts. Disponent neu starten (1764, 1978)" % (zeit, alter // 60, alter % 60)
 
 
 def test():
@@ -51,6 +51,9 @@ def test():
         rc, z = pruefen(text, jetzt)
         ok = rc == soll; f += not ok
         print(("ok  " if ok else "FEHL"), text, "→", rc, z)
+    a = pruefen("**Stand:** 21.11., 17:40 (lauf.py)", j)[1]  # 1978: Alarm nennt die Rolle, die lauf.py ausführt
+    b = "Disponent hängt oder fehlt" in a and "Disponent neu starten" in a and "Ford" not in a
+    f += not b; print(("ok  " if b else "FEHL"), "1978: Alarm nennt Disponent, nicht Ford →", a)
     # 1894: Kette unabhängig von Ford (herzschlag-kette.yml stößt Herzschlag und sich selbst an; herzschlag.yml startet sie neu)
     wf = os.path.join(WURZEL, ".github", "workflows")
     try: k = open(os.path.join(wf, "herzschlag-kette.yml"), encoding="utf-8").read(); h = open(os.path.join(wf, "herzschlag.yml"), encoding="utf-8").read()

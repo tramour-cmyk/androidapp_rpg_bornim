@@ -147,7 +147,7 @@ class Bremse:
             aus.append("GUTHABEN %d %% (Chef %s): Stufe %s (287)" % (self.prozent, self.zeit.strftime("%d.%m., %H:%M"), self.stufe))
         if self.sperre:
             s = self.sperre
-            aus.append("LAUFSPERRE %s (Chef %s): noch %d von %d Starts bis %s; frei: %s%s" % (
+            aus.append("LAUFSPERRE %s (Chef %s): noch %d von %d Starts bis %s; frei: %s; lauf.py jeden Takt, nur START-Zeilen ruhen (1978)%s" % (
                 s["quelle"], s["ab"].strftime("%d.%m., %H:%M"), max(self.rest, 0), s["deckel"], s["bis"].strftime("%d.%m., %H:%M"), self.frei_text(),
                 "" if s["ende"] else "; WARNUNG Ende fehlt, gilt %d h, Sokrates setzt „spätestens HH:MM“" % STANDARD_STUNDEN))
         return aus
