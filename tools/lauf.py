@@ -28,6 +28,8 @@ Ausgabe, Zeile für Zeile auszuführen:
   TAGESBERICHT TT.MM. | Perikles | [effort high] | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“);
                                                                      mit tools/1727-SCHARF statt dessen START Tagesbericht (Routine, routine-tagesbericht.md, 1871)
   NEUSTART-LEITUNG <session_id> | Sokrates | <n> Tsd. Token | …     → (1988) Disponent: Leitung neu starten (Übergabe ins Gedächtnis), im selben Takt wie STREICHEN; ab 300 Tsd. used_tokens
+  (1989) lauf.py --start ROLLE NR "Nachricht" [SEITE …] [--sperre]: Handstart außerhalb des Takts → START-Zeile mit Startblock und
+                                                                     STARTSPERRE <Protokollzeile> (mit --sperre selbst gepusht); von Hand nur so starten
   NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1739) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
   (1739) offene Übergabezeile an eine Rolle ohne Sitzung → START dieser Rolle (Titel „<Rolle> – <Nr>: offene Übergabe“) oder angehängt an ihre START-Zeile; mit --sperre gibt der Lauf abgelaufene Fristen ruhender Halter frei (Zeile „NICHTS Übergabe: …“, schon gepusht)
   HÖCHSTDAUER <session_id> | <Rolle> | <Nr> | <Text>                → (1766, erst mit tools/1727-SCHARF und Wert in HOECHSTDAUER_MIN) interrupt_session, dann `vorgang.py rueckmeldung <Nr> "<Text>" --sitzung Ford`, pushen
@@ -850,6 +852,30 @@ def startsperre_zeile(sperren, sperr_nr, jetzt=None, rufnamen=None):
     return "- %s %s: Startsperre %s Start %s (lauf.py%s)" % (j.strftime("%H:%M"), j.strftime("%d.%m."), j.strftime("%H:%M"), ", ".join(sperren), "".join(", " + x for x in mit))
 
 
+def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None):
+    """1989 (Chef 23.11., 09:04, 09:11): Handstart außerhalb des Takts wie ein Start im Takt: START-Zeile (Modell, Aufwand, Umgebung,
+    Repo, main, Titel „<Rolle> – <Nr>: Handstart (…)“) mit Kaufrepo-Satz, Startblock (mit_kern) und, scharf, Rufname; dazu
+    „STARTSPERRE <Protokollzeile>“ mit Rolle, Nummer und Rufname (startsperre_zeile), damit rufname.rolle sie zuordnet.
+    sitzungen: (Titel, created_at) der heutigen Sitzungen für den Rufnamen; ohne sie die Rufnamen der heutigen Startsperren."""
+    neue_liste()
+    mo, satz, hoch = modell(rolle, nr)
+    msg = "%s\n\n%s Zuerst Start nach deiner Rollendatei.%s" % (rolle, nachricht.strip(), satz)
+    l = "START %s | %s%s | %s | %s | %s | %s | %s" % (rolle, mo, aufwand(hoch), umgebung(rolle, hoch), REPO, REVISION,
+                                                     "%s – %s: Handstart (%s)" % (rolle, nr, berlin(JETZT)), msg.replace("\n", "\\n"))
+    aus = [mit_kern(mit_kaufrepo(l), docs)]
+    namen = {}
+    if ist_scharf():
+        if sitzungen is None:
+            import rufname
+            try: e = rufname.sperr_eintraege(lesen(os.path.join(docs or DOCS, "ARBEIT-BETRIEB.md")), JETZT.year)
+            except Exception: e = []
+            sitzungen = [("%s – x" % n, d.replace(tzinfo=BERLIN).isoformat()) for d, _, n in e if n and d.date() == JETZT.date()]
+        aus = mit_rufnamen(aus, [{"title": a, "created_at": b} for a, b in sitzungen], namen=namen)
+    aus += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
+    aus.append("STARTSPERRE " + startsperre_zeile([rolle], {rolle: nr}, rufnamen=namen))
+    return aus
+
+
 def protokoll_pushen(anhaengen, nachricht):
     """1892: ARBEIT-BETRIEB.md auf origin/main um anhaengen(alter_text) ändern, ein Commit, gepusht (uebergabe.atomar_dateien, auf den gelesenen
     Stand); die lokale Datei bleibt unverändert. True bei Erfolg, sonst False (Grund ausgegeben).
@@ -1325,6 +1351,20 @@ def main():
             print("lauf.py --kosten NR USD session_…: Kennung fehlt (384); ohne Sitzung nur mit „ohne:<Grund>“", file=sys.stderr); sys.exit(2)
         return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if a[3].startswith("session_") else None)
     if "--ohne-pull" not in a and not notizen_frisch(): sys.exit(1)
+    if a[:1] == ["--start"]:  # 1989: Handstart mit Startblock; mit --sperre schreibt und pusht lauf.py die Startsperre selbst
+        r = [x for x in a[1:] if x != "--sperre" and x != "--ohne-pull"]
+        if len(r) < 3: sys.exit('lauf.py --start ROLLE NR "Nachricht" [SEITE …] [--sperre]')
+        ss = None
+        if r[3:]:
+            import rufname as _r2; ss = []
+            for p in r[3:]: ss += _r2.lies_sitzungen(lesen(p))
+        zs = start_zeilen(r[0], r[1], r[2], ss)
+        sp = [z[len("STARTSPERRE "):] for z in zs if z.startswith("STARTSPERRE ")]
+        if "--sperre" in a and sp:
+            if protokoll_pushen(lambda alt: alt.rstrip("\n") + "\n" + sp[0] + "\n", "Startsperre %s %s (lauf.py --start, 1989)" % (r[0], r[1])):
+                zs = [z if not z.startswith("STARTSPERRE ") else "NICHTS Startsperre: geschrieben und gepusht (%s)" % sp[0] for z in zs]
+        for z in zs: print(z)
+        return
     # 1100 A (1): Ford liest die Stellung nicht mehr selbst (notiz.sh entfällt im Lauf); lauf.py nennt sie, wenn sie nicht „Pilot“ ist (81g)
     stellung = re.search(r"\*\*Ford: (aus|Co-Pilot|Pilot)\*\*", lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")))
     if stellung and stellung.group(1) == "aus":
