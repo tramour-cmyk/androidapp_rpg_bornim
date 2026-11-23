@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 09:06, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 09:14, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 
 | ↳ **12** Bedienung und Oberfläche | 6 (6) | 0 | 0 | 0 | 5 | 954a.12 (Oberfläche) Erschaffung: nicht wählbare Fertigkeiten … |
 | ↳ **13** Geschichte und Texte | 9 (9) | 0 | 0 | 0 | 3 | 1628 (Story) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 25 (25) | 13 | 0 | 1 | 8 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 115 (110) | 75 | 0 | 1 | 15 | 1961 (Werkzeug) Ford heißt Disponent: Werkzeug auf Titel „Dispone… |
+| **7** Firma: Werkzeuge und Abläufe | 116 (110) | 76 | 0 | 1 | 15 | 1988 (Werkzeug) Leitung: Aufwand im Auftrag nennen; Leitung ab 30… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Arbeitsplaner) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -46,8 +46,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 10 | 115 | 10 | 1425 |
-| neu | 13 | 128 | 13 | 1519 |
-| **netto** (erledigt − neu) | **−3** | **−13** | **−3** | **−94** |
+| neu | 14 | 128 | 14 | 1520 |
+| **netto** (erledigt − neu) | **−4** | **−13** | **−4** | **−95** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -66,7 +66,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Oberfläche | 531a Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast k… (Kür) |
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 2 weitere |
-| Werkzeug | 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 39 weitere |
+| Werkzeug | 1988 Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Tok… (Muss); dann 40 weitere |
 | Prüfer | 1716 Buildzweig gehört Spike: nur Spike pusht auf claude/build-<… (Muss); dann 2 weitere |
 | Tester | leer, weil keine offene Zeile |
 
@@ -91,11 +91,11 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 15 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
 | 16 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
 | 17 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
-| 18 | 1961 | Werkzeug | Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstellen, dann Übergabe a… | M | 7 Firma | startbar |
-| 19 | 1960 | Werkzeug | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla –… | M | 7 Firma | startbar |
-| 20 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
+| 18 | 1988 | Werkzeug | Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Token neu starten | M | 7 Firma | startbar |
+| 19 | 1971 | Werkzeug | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgäng… | M | 7 Firma | startbar |
+| 20 | 1989 | Werkzeug | Startprompts der laufenden Sitzungen gegenprüfen, Soll mit Ist; Prüfschema über… | M | 7 Firma | startbar |
 
-Danach 133 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 111.
+Danach 134 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 111.
 ## Zu entscheiden
 
 Nichts offen.
