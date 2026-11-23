@@ -26,8 +26,11 @@ Gilt ab der Umstellung.
 
 ## Offene Fäden
 
-- (beim Umschalten aus `ARBEIT-BERATUNG.md` übertragen)
+- Rundblick Mo 23.11.: 1966 KISS, bis drei Verfahren (Chef 07:31), Bilanz seit Umschalten (Starts, $, Fehler je Ursache), Testbuild nur mit mehreren Vorgängen, wann Vortrag als Test reicht (Chef 07:40, 08:07).
+- 1983 Profiltext Prüfer/Disponent vor Einbau zum Chef.
+- Laufsperre: Prozent vom Chef mittags; über 0,6 %/h eine Fachkraft.
+- Vorschlag Gedächtnis: neue Einträge 23.11. aus `ARBEIT-BERATUNG.md` („Fehler 341“ 23.11.) dem Chef mit Byte vorlegen.
 
 ## Übergabe
 
-- (beim Umschalten aus `ARBEIT-BERATUNG.md` übertragen)
+- 23.11., 08:30, `session_01Hmoj76zNZ7PGwMu3biVtHB` (401 Tsd.): Leitung umgestellt (Chef 08:26); erledigt 870, 1963, 1566 (main ohne Build), 1570 A an Figur; neu 1976, 1978, 1979, 1982, 1983. Nachfolger: Sokrates – Leitung: Rundblick und Bremse.
