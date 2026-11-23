@@ -87,7 +87,8 @@ func _lauf() -> void:
 	var w: int = bilder[0].get_width(); var h: int = bilder[0].get_height()
 	var hn := 0
 	for n in naehe: hn = maxi(hn, (n as Image).get_height())
-	var kopf := 120
+	var fs := clampi(w / 14, 10, 30)   # 1675-Ü4: bei 540 Punkten Breite lief Schrift 30 ins Bild
+	var kopf := fs * 5
 	var v := SubViewport.new()
 	v.size = Vector2i(w * 3 + 16, h + kopf + 8 + hn)
 	v.render_target_update_mode = SubViewport.UPDATE_ALWAYS
@@ -107,7 +108,7 @@ func _lauf() -> void:
 		l.position = Vector2(i * (w + 8) + 10, 8)
 		l.size = Vector2(w - 20, kopf - 12)
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD
-		l.add_theme_font_size_override("font_size", 30)
+		l.add_theme_font_size_override("font_size", fs)
 		l.add_theme_color_override("font_color", Color(1, 1, 1))
 		v.add_child(l)
 	for k in 5: await process_frame
