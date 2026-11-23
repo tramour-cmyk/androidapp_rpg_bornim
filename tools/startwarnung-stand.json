@@ -1,8 +1,14 @@
 {
+ "108:docs/chefsache/bilder/1566-hoehlenwasser-drehungen.webp": {
+  "besitzer": "Welt",
+  "seit": "2026-11-23T06:39+01:00",
+  "text": "Datei über 60 KB: docs/chefsache/bilder/1566-hoehlenwasser-drehungen.webp; verkleinern (800 px, WebP) oder über Telegram (--datei)"
+ },
  "650.2:LISTE-LEHREN.md": {
   "besitzer": "Arbeitsplaner",
   "seit": "2026-11-22T18:32+01:00",
-  "text": "Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: LISTE-LEHREN.md"
+  "text": "Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: LISTE-LEHREN.md",
+  "vorgang": "1977"
  },
  "969": {
   "besitzer": "Arbeitsplaner",
@@ -13,7 +19,7 @@
  "groesse:docs/ARBEIT-BETRIEB.md": {
   "besitzer": "Disponent",
   "seit": "2026-11-18T10:55+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 56608 Bytes (Grenze 30000), Erledigtes streichen",
+  "text": "docs/ARBEIT-BETRIEB.md hat 58488 Bytes (Grenze 30000), Erledigtes streichen",
   "vorgang": "1688"
  },
  "regel:ARBEIT-TEAM-JERRY.md:Übergabe über N Zeichen (nur Getanes und": {
