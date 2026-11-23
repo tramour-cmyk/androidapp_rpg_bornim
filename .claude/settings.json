@@ -163,6 +163,30 @@
         ]
       }
     ],
+    "PermissionDenied": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=/home/user/bornim-main/tools/neustart-haken.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/neustart-haken.py; command -v python3 >/dev/null && python3 \"$f\" abgelehnt 2>/dev/null; true",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=/home/user/bornim-main/tools/neustart-haken.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/neustart-haken.py; command -v python3 >/dev/null && python3 \"$f\" abgelehnt 2>/dev/null; true",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
     "Notification": [
       {
         "matcher": "permission_prompt",

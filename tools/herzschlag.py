@@ -5,7 +5,8 @@ Zeitmarke ist die Zeile „**Stand:** TT.MM., HH:MM (lauf.py)“ in docs/ARBEIT-
 erneuert sie am Ende und pusht sie selbst, ohne Schalter (1997). Läuft ohne Token als GitHub-Lauf (`herzschlag.yml`).
 
 Aufruf: python3 tools/herzschlag.py [--datei PFAD] [--jetzt "TT.MM.JJJJ HH:MM"] | --test
-        python3 tools/herzschlag.py --wache [--geweckt "TT.MM.JJJJ HH:MM"] [--datei PFAD] [--jetzt …]   (1997 B, für die Wache; WECKEN/NEUSTART → rohe Zeile im Lehrenbuch, 1999)
+        python3 tools/herzschlag.py --wache [--geweckt "TT.MM.JJJJ HH:MM"] [--datei PFAD] [--jetzt …] [--probe]   (1997 B, für die Wache; WECKEN/NEUSTART → rohe Zeile im Lehrenbuch, 1999)
+  --probe: gleiche Ausgabe und Exit, schreibt nichts ins Lehrenbuch (zum Nachstellen von Hand, 1999)
   WACHE ok                  Herzschlag lebt
   WACHE WECKEN Disponent    ALARM (oder Marke fehlt), nicht oder vor diesem Ausfall geweckt → Disponent wecken, Zeit merken (Exit 2)
   WACHE WARTEN Disponent    geweckt vor unter 60 Min., Marke seither gleich → nichts tun, Weckzeit behalten (Exit 2)
@@ -134,7 +135,7 @@ def haupt(a):
         if "--geweckt" in a: geweckt = dt.datetime.strptime(a[a.index("--geweckt") + 1], "%d.%m.%Y %H:%M").replace(tzinfo=BERLIN)
         rc, z = wache(text, jetzt, geweckt)
         print(z)
-        lehre_wache(z)
+        if "--probe" not in a: lehre_wache(z)
         return rc
     rc, z = pruefen(text, jetzt)
     print(z)
