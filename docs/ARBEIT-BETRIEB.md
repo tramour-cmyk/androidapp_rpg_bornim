@@ -69,3 +69,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:34 23.11.: Startsperre 09:34 Start Kampf (Disponent von Hand mit lauf.py --start, Startblock, nach Sokrates 09:33: Pia 1589.2-Ü3 Rückläufer, danach 1068-Ü2); Svea (1570 ruht bis Sa 28.11., 239 Tsd. Token) archiviert, Kosten gebucht
 - 09:38 23.11.: Startsperre 09:38 Start Prüfer (lauf.py, Prüfer 1988 Quirin)
 - 09:50 23.11.: Startsperre 09:50 Start Disponent (lauf.py, Disponent 1961 Zita; Neustart bei 582 Tsd. Token von Hand, Vorgänger session_01Hmoj7825XQzzhzppzqkXKU)
+- 09:54 23.11.: Startsperre 09:54 Start Arbeitsplaner, Kampf, Figur, Werkzeug, Arbeitsplaner, Tagesbericht, Prüfer, Welt (lauf.py, Arbeitsplaner 513 Anna, Kampf 1068 Britta, Figur 1675 Carla, Werkzeug 1964 Dana, Arbeitsplaner 1971 Elke, Tagesbericht 448, Prüfer 1589.2 Frieda, Welt 1566 Gerda)
