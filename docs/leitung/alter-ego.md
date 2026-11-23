@@ -8,6 +8,7 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Übergabe (23.11., 17:58, session_01Hmoj78XHCB3MY4JTyhNrks, Neustart-Haken 200 Tsd.):** offen: Uwe-Antwort zu 17:04 (Kampf 1589.2/Werkzeug 1964 still nicht gestartet); 2002-Zusatz „fertig weckt Disponent sofort“; 2004 (Wache doppelt laut); 2003 bis 30.11.; beim Chef nur 1068 (Votum A). Nachfolger: Alter Ego – Supervisor (Handstart Chef).
 
+- 23.11., 18:01 Uwe Takt 17:56 (Kampf 1589.2 Otto gestartet, Ursache 17:04: Lesefilter). 1694: Isolde zurückgepfiffen (15:42 nur mit Fingern am Stiel), beim Chef. Fund: Alter Ego zählt als Fachkraft, Startsperre ohne Start 20 Min. → an Sokrates als Eilt. Figur 1676 18:17.
 - 23.11., 17:57 Runde: Leerlauf (keine Fachkraft tätig), Uwe Takt außer der Reihe angewiesen; 17:04 START Kampf 1589.2/Werkzeug 1964 still nicht ausgeführt, Uwe gefragt; Wache doppelt laut 17:34 (R13/R14) an Sokrates; Vorschlag fertig → sofort WECKER Disponent. 2003: keine echte Ablehnung seit 16:13. Uhr 18:56 (trig_016u5sVewsSaL7BJudAbghn1).
 
 - 23.11., 16:57 Runde: 2001 (3. Nein, Chefsache) als Betrieb entschieden „2001 A“, letzter enger Lauf, dann Chef; 1694 Ü8 ohne Chefsache, ein Bildlauf Großaxt (anker 7,1 cm) und Stab, Bilder an den Chef. Umsetzung an Sokrates. Befund: 16:05 kein Spiel gelaufen (fertige Sitzungen hielten Plätze, 2002 behebt). Uhr 17:55 (trig_01GzAZhuGUPhsEu7pyQpvXwi).
