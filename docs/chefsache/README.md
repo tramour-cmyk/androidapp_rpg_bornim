@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 06:40, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 06:48, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -33,21 +33,21 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 
 | ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 63 (63) | 19 | 0 | 1 | 36 | 1068 (Kampf) Ring bei jedem großen Schlag der Gegner … |
 | ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 34 (34) | 21 | 0 | 2 | 9 | 1675 (Figur) Wachsoldatin im Hauptmenü, Schild schwebt neben i… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
-| ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 3 | 0 | 0 | 14 | 1566 (Welt) Höhlenwasser leuchtet hinter Wänden im Dunkeln, o… |
+| ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 32 (31) | 3 | 0 | 0 | 14 | 1566 (Welt) Höhlenwasser leuchtet hinter Wänden im Dunkeln, o… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
 | ↳ **12** Bedienung und Oberfläche | 6 (6) | 0 | 0 | 0 | 5 | 954a.12 (Oberfläche) Erschaffung: nicht wählbare Fertigkeiten … |
 | ↳ **13** Geschichte und Texte | 9 (9) | 0 | 0 | 0 | 3 | 1628 (Story) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 25 (25) | 13 | 0 | 1 | 8 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 112 (110) | 74 | 0 | 1 | 15 | 1963 (Werkzeug) Fachkräfte fragen den Chef in ihrer Sitzung nach… |
+| **7** Firma: Werkzeuge und Abläufe | 113 (110) | 75 | 0 | 1 | 15 | 1963 (Werkzeug) Fachkräfte fragen den Chef in ihrer Sitzung nach… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Arbeitsplaner) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 0 | 115 | 0 | 1415 |
-| neu | 2 | 128 | 2 | 1508 |
-| **netto** (erledigt − neu) | **−2** | **−13** | **−2** | **−93** |
+| erledigt | 2 | 115 | 2 | 1417 |
+| neu | 6 | 128 | 6 | 1512 |
+| **netto** (erledigt − neu) | **−4** | **−13** | **−4** | **−95** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -55,7 +55,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Profil | als Nächstes |
 |---|---|
-| **Chef** | [1566.md](entscheiden/1566.md) entscheiden |
+| **Chef** | nichts offen in der Chefsache |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss) |
 | Kampf | 1068 Ring bei jedem großen Schlag der Gegner … (Muss); dann 3 weitere |
@@ -66,7 +66,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Oberfläche | 531a Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast k… (Kür) |
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 2 weitere |
-| Werkzeug | 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 37 weitere |
+| Werkzeug | 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 38 weitere |
 | Prüfer | 1716 Buildzweig gehört Spike: nur Spike pusht auf claude/build-<… (Muss); dann 2 weitere |
 | Tester | leer, weil keine offene Zeile |
 
@@ -95,14 +95,10 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1961 | Werkzeug | Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstellen, dann Übergabe a… | M | 7 Firma | startbar |
 | 20 | 1960 | Werkzeug | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla –… | M | 7 Firma | startbar |
 
-Danach 131 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 112.
+Danach 133 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 112.
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1566](entscheiden/1566.md) | **Muss** | G Stil | 22.11., 22:33 | Randlinie am nie gesehenen Höhlenwasser heute noch weg (A) oder reicht so (B)? | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
