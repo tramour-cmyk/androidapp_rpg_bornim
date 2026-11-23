@@ -32,6 +32,7 @@
 - Chef ab 24.11. auf Konferenz in Spanien, wenig Zeit (14:43): Vorlagen bündeln, kurz.
 - Kopiertexte für den Chef: `docs/leitung/kopiertexte-uhren.md` (Chef 15:22, nie abtippen lassen).
 - Uhren: nur mit Chefsatz im Chat der Leitung (14:04 belegt) oder Disponent-Handstart des Chefs mit Satz; Repo und Organisations-Einstellungen wirken nicht (Proben 1–4, Plan ohne Team). Weg festgelegt (Chef 15:30): Uwe und Wache ohne Neustart, neuer Disponent nur per Handstart des Chefs mit Kopiertext.
+- 1999 erledigt 16:10; PermissionDenied nur im Test belegt (1999-Ü11), Beobachtung an Alter Ego 16:12 (Bestätigung offen). 2002 Eilt angelegt (Chef 15:48), 2001 Nachbesserung frei (15:57).
 - Laufsperre bis Sa 28.11.: drei Fachkräfte, Spiel und Eilt (Chef 14:43). Eilt: 1999, 2001 (Auftrag gegengeprüft).
 - Täglich: Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07).
 - Offen: 1068-Ü8 Rückläufer (Conrad), 1971, 1995, 1996; Altbestand Fehler 341 ins Lehrenbuch.
