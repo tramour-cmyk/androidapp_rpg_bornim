@@ -1028,7 +1028,15 @@ def plan(rolle):
     h = halt(inhalt)
     if h: zs = [z[:4] + ("Halt (Vorrat oben)",) if z[4] is None and "fuer" not in z[3] and ist_frei(z[0], h) else z for z in zs]
     if pause_ohne_datum(inhalt): zs = [z[:4] + ("Pause ohne Datum, nur Muss",) if z[4] is None and z[1] != "M" else z for z in zs]
+    zs = [z[:4] + (w,) if z[4] in (None, "nach dem Meilenstein") and (w := planer_wartet(z[0])) else z for z in zs]  # 2006
     return [z for z in zs if z[1] not in ("–", "-")]
+
+def planer_wartet(nr):
+    """2006 (Sokrates 23.11., 19:02): „wartet auf <Nr>-Ü<k> (Arbeitsplaner)“, solange in docs/vorgang/<nr>.md eine Übergabe an den
+    Arbeitsplaner nicht erledigt ist (uebergabe.planer_wartet, dieselbe Prüfung wie lauf.ruecklaeufer_offen); sonst None."""
+    if not re.match(r"B?\d", str(nr)): return None
+    import uebergabe
+    return uebergabe.planer_wartet(lesen(os.path.join("vorgang", "%s.md" % nr)))
 
 GRENZE_UNGETESTET = 6
 

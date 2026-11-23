@@ -1188,18 +1188,16 @@ def auftrag_fehlt(nr, docs=None, titel=None):
     return ("Auftrag: " + "; ".join(f[:2])) if f else None
 
 def ruecklaeufer_offen(text, jetzt=None):
-    """1964 (d, 1960-Ü7): Übergabezeile an den Arbeitsplaner, nicht erledigt, jünger als der jüngste „## Auftrag (…)“ = Rückläufer,
-    der neue Auftrag steht noch aus: Grund (kein START, Zeile „Auftrag“), sonst None."""
+    """1964 (d), 2006: Übergabezeile an den Arbeitsplaner, nicht erledigt, gleich wie alt und auch ohne Auftrag (2006: vorher nur
+    jünger als der jüngste Auftrag) → Grund „wartet auf <Nr>-Ü<k> (Arbeitsplaner)“ (uebergabe.planer_wartet), sonst None.
+    Hält jeden Fachkraft-Start: Zeilenregel und WEITER über startbar.plan, Nachfolger, ue_start (planerzeile_offen)."""
     import uebergabe as _ue
-    k = auftrag_koepfe(text, jetzt)
-    if not k: return None
-    seit = max(d for d, _ in k); j = jetzt or JETZT
-    for z in _ue.zeilen(text or ""):
-        if z["an"].strip() != "Arbeitsplaner" or z["z"].strip().startswith("erledigt"): continue
-        t, mo, h, mi = (int(x) for x in re.findall(r"\d+", z["seit"]))
-        d = datetime.datetime(j.year if (mo, t) <= (j.month, j.day) else j.year - 1, mo, t, h, mi)
-        if d > seit: return "Rückläufer: %s an Arbeitsplaner %s seit %s, neuer Auftrag fehlt" % (z["k"], z["z"].strip(), z["seit"])
-    return None
+    return _ue.planer_wartet(text)
+
+def planerzeile_offen(nr, docs=None):
+    """2006: ruecklaeufer_offen der Vorgangsdatei docs/vorgang/<nr>.md, sonst None."""
+    p = os.path.join(docs or DOCS, "vorgang", "%s.md" % nr)
+    return ruecklaeufer_offen(lesen(p)) if os.path.isfile(p) else None
 
 ARCHIV_SCHUTZ_MIN = 15
 def schutz_min(scharf=None):
@@ -1743,6 +1741,9 @@ def main():
         elif nf_nr and nf_nr.group(1) in GESPERRT.get(r, {}):
             warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ nicht startbar (%s), oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, GESPERRT[r][nf_nr.group(1)]))
             offen_nf = None
+        elif nf_nr and (pw := planerzeile_offen(nf_nr.group(1))):  # 2006
+            ausgabe.append("NICHTS %s: Nachfolger „%s“: %s %s, kein Start (2006); Zeilenregel gilt" % (r, offen_nf, nf_nr.group(1), pw))
+            offen_nf = None
         elif nf_nr and (eig := fremd_besitzer(r, nf_nr.group(1), muss)):
             # 1662 (Ford 18.11., 13:06): Nachfolger auf einer Zeile, die inzwischen einem anderen gehört (1595 an Spike), startete die alte Rolle
             warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ gehört inzwischen %s, oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, eig))
@@ -1764,6 +1765,9 @@ def main():
         if pause:
             ausgabe.append("NICHTS %s: Pause bis %s" % (r, pause)); continue
         muss = [x for x in muss if x[0] not in ausschluss]; kuer = [x for x in kuer if x[0] not in ausschluss]
+        pw = [(n, g) for n, g in GESPERRT.get(r, {}).items() if g.startswith("wartet auf ") and g.endswith("(Arbeitsplaner)")]
+        if pw:  # 2006: startbar.plan hält die Zeile (Zeilenregel und WEITER), hier steht der Grund
+            ausgabe.append("NICHTS %s: kein Start (2006): %s" % (r, "; ".join("%s %s" % x for x in pw[:5])))
         if ist_scharf():  # 1739 (7.1): kein Start ohne Feld „Zurück“ (gültiger Auftrag in docs/vorgang/<Nr>.md)
             ohne_a = [(x[0], g) for x in muss + kuer if (g := auftrag_fehlt(x[0]))]
             if ohne_a:
@@ -1928,6 +1932,8 @@ def main():
         except Exception as e: ausgabe.append("WARNUNG %s nicht geprüft: %s (1789, Spike)" % (rt, e))
     def ue_start(r, nr, teil):  # 1739 Befund 1: Empfänger ohne Sitzung starten
         if r not in START_REIHE or r in ohne_rollen or lauf_laeuft(r): return False
+        if r != PLANER and r not in startbar.BUERO and (pw := planerzeile_offen(nr)):  # 2006: Fachkraft wartet auf die Zeile an den Planer
+            ausgabe.append("NICHTS %s: offene Übergabe %s: %s, kein Start (2006)" % (r, nr, pw)); return True
         i = next((j for j, l in enumerate(ausgabe) if l.startswith("START %s |" % r)), None)
         if i is not None: ausgabe[i] += "\\n\\n" + teil; return True
         if r in marken and (JETZT - marken[r]).total_seconds() < SPERRE_MIN * 60:

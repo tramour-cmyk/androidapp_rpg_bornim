@@ -197,6 +197,12 @@ def abschnitt(text, titel):
 
 def zeilen(text): return [m.groupdict() | {"m": m} for m in ZEILE.finditer(text)]
 
+def planer_wartet(text):
+    """2006 (Sokrates 23.11., 19:02): erste Übergabezeile an den Arbeitsplaner, die nicht erledigt ist, gleich wie alt →
+    „wartet auf <Nr>-Ü<k> (Arbeitsplaner)“; sonst None. Eine Prüfung für jeden Fachkraft-Start (lauf.ruecklaeufer_offen, startbar.plan)."""
+    z = next((z for z in zeilen(text or "") if z["an"].strip() == "Arbeitsplaner" and not z["z"].strip().startswith("erledigt")), None)
+    return "wartet auf %s (Arbeitsplaner)" % z["k"] if z else None
+
 def _ersetzen(text, z, zustand):
     m = z["m"]; alt = m.group(0)
     neu = alt[:m.start("z") - m.start()] + zustand + alt[m.end("z") - m.start():]
