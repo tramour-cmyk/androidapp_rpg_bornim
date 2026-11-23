@@ -61,6 +61,16 @@ func _lauf() -> void:
 			var ax := gw.basis.y.normalized()
 			kam.global_position = gw.origin - ax * 0.45
 			kam.look_at(gw.origin, Vector3.UP if absf(ax.y) < 0.9 else Vector3.FORWARD)
+		if OS.get_environment("BLICK") != "":   # 1694 (23.11.): Blick im Rahmen der Hand (Endpose): innen (Handfläche), aussen (Handrücken), daumen, klein
+			var P := func(b: String) -> Vector3: return sk.global_transform * t.posen[sk.find_bone(b + "_r")].origin
+			var lang: Vector3 = (P.call("middle_01") - P.call("hand")).normalized()
+			var quer: Vector3 = (P.call("index_01") - P.call("pinky_01")).normalized()
+			var fl := lang.cross(quer).normalized()
+			if fl.dot(P.call("thumb_01") - P.call("hand")) < 0.0: fl = -fl
+			var mitte: Vector3 = (P.call("index_01") + P.call("pinky_01")) * 0.5 + fl * 0.02
+			var r: Vector3 = {"innen": fl, "aussen": -fl, "daumen": quer, "klein": -quer}[OS.get_environment("BLICK")]
+			kam.global_position = mitte + (r * 0.32 + lang * 0.08) * weit
+			kam.look_at(mitte, lang if absf(r.dot(lang)) < 0.9 else Vector3.UP)
 		if OS.get_environment("OHNE_KLEID") != "":   # nur zum Nachstellen: Umhang und Rock verdecken im Längsblick die Faust
 			for n in sk.find_children("Kleid_*", "MeshInstance3D", false, false): n.visible = false
 		if OS.get_environment("MARKE") != "":   # nur zum Nachstellen: Kugeln an den Knochen der Endpose (Spitzen, Grundgelenke) und auf der Schaftachse
@@ -83,14 +93,20 @@ func _lauf() -> void:
 			for q in t.waffe.find_children("*", "MeshInstance3D", true, false) + ([t.waffe] if t.waffe is MeshInstance3D else []):
 				for s in (q as MeshInstance3D).get_surface_override_material_count():
 					var sm := (q as MeshInstance3D).get_surface_override_material(s)
-					if sm is ShaderMaterial: (sm as ShaderMaterial).set_shader_parameter("toenung", Vector3(4.0, 4.0, 4.0))
+					if sm is ShaderMaterial: (sm as ShaderMaterial).set_shader_parameter("toenung", _prueffarbe())
 		if OS.get_environment("SPIELKAMERA") != "": spiel.kamera.springe()   # Chef 21:37: dieselbe Hand in Spielkamera und Handygröße
 		else: kam.make_current()
 		if OS.get_environment("LAUFEN_LASSEN") == "": spiel.held.process_mode = Node.PROCESS_MODE_DISABLED
 		for f in 4: await process_frame
 		await RenderingServer.frame_post_draw
-		var datei := "%s/%s-%s.png" % [ordner, FOLGE[i], art]
+		var datei := "%s/%s-%s%s.png" % [ordner, FOLGE[i], art, ("-" + OS.get_environment("BLICK")) if OS.get_environment("BLICK") != "" else ""]
 		root.get_viewport().get_texture().get_image().save_png(datei)
 		print("BILD1694 ", datei, " gang=", t.gang, " zweite Faust neben dem Schaft %.1f cm" % (100.0 * t.zweit_fehl))
 		spiel.held.process_mode = Node.PROCESS_MODE_INHERIT
 	quit(0)
+
+# PRUEFFARBE=1: Faktor 4 (bis 22.11.); PRUEFFARBE=r,g,b: eigener Faktor (1694, 23.11.: Faktor 4 überstrahlte den Stiel weiß im Glanz)
+static func _prueffarbe() -> Vector3:
+	var t := OS.get_environment("PRUEFFARBE").split(",")
+	if t.size() == 3: return Vector3(float(t[0]), float(t[1]), float(t[2]))
+	return Vector3(4.0, 4.0, 4.0)
