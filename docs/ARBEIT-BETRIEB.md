@@ -12,6 +12,8 @@ Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBI
 
 **Ford: Pilot** (seit Sa 17.10., 21:05; 81g; Schalter für `lauf.py`, gilt für den Disponenten)
 
+**Herzschlag (1764, seit 21.11.):** nach jedem `lauf.py --besetzung` `ARBEIT-BESETZUNG.md` committen und pushen, sonst Fehlalarm nach 2 h (lauf.py schreibt nur Tabelle und Zeitmarke, pusht nicht).
+
 **„Chefsache“ (63): `docs/chefsache/`** (Übersicht `docs/chefsache/README.md`; https://github.com/tramour-cmyk/androidapp_rpg_bornim/tree/main/docs/chefsache) · Vorgangsarchiv: `docs/VORGANGSARCHIV.md` · Prüfbericht: `docs/PRUEFBERICHT.md`
 
 **Alle Sperren aufgehoben (Chef 07.11., 20:2x):** alle Rollen startbar; Vorrang Fehler aus den Tests des Chefs (wiederholte zuerst, 620.1). Es gelten weiter: 621 A (eine Probe je Aussehen-Thema), 488 (Aussehen eingefroren bis zum Durchspielen), 287 nach dem nächsten Bild des Guthabens.
