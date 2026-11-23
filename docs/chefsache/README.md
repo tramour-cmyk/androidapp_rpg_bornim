@@ -55,7 +55,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Profil | als Nächstes |
 |---|---|
-| **Chef** | nichts offen in der Chefsache |
+| **Chef** | [1653](ansehen/1653-thessa-kragen-altneu.md) ansehen |
 | Arbeitsplaner | läuft: 2006 (Besetzung); 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | läuft: 1603 (Besetzung); 1589.2 Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwa… (Muss); dann 2 weitere |
@@ -106,7 +106,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [1653](ansehen/1653-thessa-kragen-altneu.md) | Thessa: Kragen, alt gegen neu (Spielkamera) | – |  |
 
 ## Zu tun
 
@@ -515,6 +519,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): ansehen/1653-thessa-kragen-altneu.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
