@@ -5,7 +5,7 @@ Zeitmarke ist die Zeile „**Stand:** TT.MM., HH:MM (lauf.py)“ in docs/ARBEIT-
 erneuert sie am Ende und pusht sie selbst, ohne Schalter (1997). Läuft ohne Token als GitHub-Lauf (`herzschlag.yml`).
 
 Aufruf: python3 tools/herzschlag.py [--datei PFAD] [--jetzt "TT.MM.JJJJ HH:MM"] | --test
-        python3 tools/herzschlag.py --wache [--geweckt "TT.MM.JJJJ HH:MM"] [--datei PFAD] [--jetzt …]   (1997 B, für die Wache; schreibt nichts)
+        python3 tools/herzschlag.py --wache [--geweckt "TT.MM.JJJJ HH:MM"] [--datei PFAD] [--jetzt …]   (1997 B, für die Wache; WECKEN/NEUSTART → rohe Zeile im Lehrenbuch, 1999)
   WACHE ok                  Herzschlag lebt
   WACHE WECKEN Disponent    ALARM (oder Marke fehlt), nicht oder vor diesem Ausfall geweckt → Disponent wecken, Zeit merken (Exit 2)
   WACHE WARTEN Disponent    geweckt vor unter 60 Min., Marke seither gleich → nichts tun, Weckzeit behalten (Exit 2)
@@ -56,6 +56,17 @@ def wache(text, jetzt, geweckt=None):
             return 3, "WACHE NEUSTART Disponent: geweckt %s (vor %d Min.), Marke gleich; dem Starter „Disponent-Neustart“ senden, `meldung.sh --laut` an den Chef (1997). %s" % (geweckt.strftime("%d.%m., %H:%M"), n, z)
         return 2, "WACHE WARTEN Disponent: geweckt %s (vor %d Min.), Neustart ab %s; nichts tun, Weckzeit behalten (1997)" % (geweckt.strftime("%d.%m., %H:%M"), n, (geweckt + dt.timedelta(minutes=NEUSTART_MIN)).strftime("%H:%M"))
     return 2, "WACHE WECKEN Disponent: send_message „Herzschlag-Alarm: tools/lauf.py ausführen“, Weckzeit %s merken (1997). %s" % (jetzt.strftime("%d.%m.%Y %H:%M"), z)
+
+
+def lehre_wache(z):
+    """1999 (a): WECKEN (Alarm) und NEUSTART der Wache werden je eine rohe Zeile im Lehrenbuch (Fall Betrieb, je Tag und Ursache einmal);
+    WARTEN und ok nicht. Rückgabe R-Kennung oder None."""
+    if z.startswith("WACHE WECKEN"): u = "Herzschlag-ALARM: lauf.py über 2 h ohne Lauf, Disponent hängt oder fehlt (Wache weckt)"
+    elif z.startswith("WACHE NEUSTART"): u = "Herzschlag-NEUSTART: Disponent 60 Min. nach dem Wecken ohne Lauf (Wache startet neu)"
+    else: return None
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import lehren
+    return lehren.betrieb_still(u, "herzschlag.py --wache: " + z)
 
 
 def test():
@@ -122,7 +133,9 @@ def haupt(a):
         geweckt = None
         if "--geweckt" in a: geweckt = dt.datetime.strptime(a[a.index("--geweckt") + 1], "%d.%m.%Y %H:%M").replace(tzinfo=BERLIN)
         rc, z = wache(text, jetzt, geweckt)
-        print(z); return rc
+        print(z)
+        lehre_wache(z)
+        return rc
     rc, z = pruefen(text, jetzt)
     print(z)
     return rc

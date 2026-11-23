@@ -1918,6 +1918,11 @@ def main():
     ausgabe = warnung_einmal_je_stunde(ausgabe)  # 1988 (Zusatz Chef 09:26): gleiche Warnung höchstens einmal je Stunde
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
+    if sperre:  # 1999 (d): gescheiterter Start/Neustart wird eine rohe Zeile im Lehrenbuch (je Tag und Rolle einmal)
+        try:
+            import lehren
+            lehren.aus_lauf(ausgabe)
+        except Exception as e: print("WARNUNG Lehrenbuch Betrieb nicht geschrieben: %s (1999)" % str(e)[:120])
     scharf_push = ist_scharf() and bool(sperren)  # 1892 (Lauf 3 Disponent L1): scharf setzt lauf.py die Startsperre bei START selbst und pusht
     if (sperre or scharf_push) and (sperren or neue_warnungen or wochen or morgen):
         def anhaengen(t):

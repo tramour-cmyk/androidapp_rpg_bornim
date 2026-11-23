@@ -100,6 +100,8 @@ sys.exit(1)'); then
 fi
 # 1414 (Chef 16.11., 12:09): Vorgang ohne Wort dazu (MUSTER.md 9); nur Warnung, die Meldung geht raus
 printf '%s' "$text" | python3 -c 'import sys; sys.path.insert(0, sys.argv[1]); import nummer_wort; [print("meldung: Warnung: " + w, file=sys.stderr) for w in nummer_wort.melden(sys.stdin.read().replace("\\n", "\n"))]' "$(dirname "$(realpath "$0")")" || true
+# 1999 (e): laute Meldung der Wache wird eine rohe Zeile im Lehrenbuch (lehren.py prüft, ob diese Sitzung die Wache ist; je Tag einmal)
+if [ $probe = 0 ] && [ $laut = 1 ]; then python3 "$(dirname "$(realpath "$0")")/lehren.py" wache-laut "$text" || true; fi
 if [ $probe = 0 ] && [ -z "$TELEGRAM_BOT_TOKEN" ]; then echo "meldung: TELEGRAM_BOT_TOKEN fehlt in dieser Umgebung, Meldung nicht gesendet" >&2; exit 1; fi
 # 1739 (1727 Sockel 5c, Chef 19.11., 13:58 „Mach es so.“): Telegram-Regel bei jedem Aufruf; die erste Meldung je Sitzung
 # zeigt sie vor dem Senden und geht erst beim zweiten Aufruf raus. Anhalten erst mit tools/1727-SCHARF (rückwärtsverträglich,
