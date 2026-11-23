@@ -75,8 +75,9 @@ func _lauf() -> void:
 					for e in gueltig: print("  R k=%.1f u=%d t=%.1f" % [e.kontakt, int(e.umschl), e.tief])
 				var med := NetzMess.median(gueltig)
 				var gut: bool = NetzMess.griff_gut(med)
-				print("SICHT1694 %-12s %s Spalt Handfläche %.1f cm, Umschlingung %d°, Glieder im Griff %.1f cm (Kuppen %.1f), Radius %.1f cm (Median %d Bilder)%s" % [
-					name_st, s, med.kontakt, int(med.umschl), med.tief, med.kuppe, med.radius, gueltig.size(), "" if gut else "  FEHLER"])
+				print("SICHT1694 %-12s %s Spalt Handfläche %.1f cm, Umschlingung %d°, Glieder im Griff %.1f cm (Kuppen %.1f), Radius %.1f cm (Median %d Bilder)%s%s" % [
+					name_st, s, med.kontakt, int(med.umschl), med.tief, med.kuppe, med.radius, gueltig.size(),
+					("; Glieder: " + ", ".join(NetzMess.glieder_fehler(med))) if not NetzMess.glieder_fehler(med).is_empty() else "", "" if gut else "  FEHLER"])
 				fehler_zahl += 0 if gut else 1
 	print("SICHT1694 %d Fehler" % fehler_zahl)
 	quit(1 if fehler_zahl > 0 else 0)

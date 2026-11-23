@@ -41,7 +41,7 @@ func _lauf() -> void:
 			var ap := Gebiet.finde(spiel.held.modell, "AnimationPlayer") as AnimationPlayer
 			ap.seek(float(OS.get_environment("STELLE")) if OS.get_environment("STELLE") != "" else 0.3, true)
 			ap.speed_scale = 0.0
-		for f in 40: await process_frame
+		for f in 80: await process_frame   # 1694 (23.11.): wie griff_sicht_1694 (40 zeigte im Bild die offene Hand, Übergang nach dem Anlegen)
 		var t: Tragen = null
 		for n in sk.get_children():
 			if n is Tragen: t = n
@@ -96,9 +96,22 @@ func _lauf() -> void:
 					if sm is ShaderMaterial: (sm as ShaderMaterial).set_shader_parameter("toenung", _prueffarbe())
 		if OS.get_environment("SPIELKAMERA") != "": spiel.kamera.springe()   # Chef 21:37: dieselbe Hand in Spielkamera und Handygröße
 		else: kam.make_current()
-		if OS.get_environment("LAUFEN_LASSEN") == "": spiel.held.process_mode = Node.PROCESS_MODE_DISABLED
+		# 1694 (23.11., Bild Großaxt und Stab: offene Hand, alt wie neu): angehalten aktualisiert sich das Skelett nicht mehr (skeleton_updated
+		# bleibt aus), gezeichnet wird die Pose ohne Tragen und Griff; darum läuft der Held weiter (steht still, atmet)
+		if OS.get_environment("ANHALTEN") != "": spiel.held.process_mode = Node.PROCESS_MODE_DISABLED
 		for f in 4: await process_frame
 		await RenderingServer.frame_post_draw
+		# 1694 (23.11.): Messung am gezeichneten Netz in derselben Pose wie das Bild (Prüfbild und Messung aus einem Lauf)
+		var mw := []
+		var mcb := func(): mw.append(NetzMess.griff(sk, "r", t.waffe, t.halt))
+		sk.skeleton_updated.connect(mcb)
+		for f in 3: await process_frame
+		sk.skeleton_updated.disconnect(mcb)
+		if mw.is_empty(): print("BILD1694 Messung %s: kein Bild des Skeletts" % FOLGE[i])
+		else:
+			var w: Dictionary = mw[-1]
+			print("BILD1694 Messung %s: Spalt %.1f, Umschlingung %d°, Griff %.1f cm, Glieder %s" % [FOLGE[i], w.get("kontakt", 0.0), int(w.get("umschl", 0.0)), 2.0 * float(w.get("radius", 0.0)), ", ".join(NetzMess.glieder_fehler(w)) if w.has("radius") else "nicht in der Hand"])
+		if OS.get_environment("OHNE_BILD") != "": continue
 		var datei := "%s/%s-%s%s.png" % [ordner, FOLGE[i], art, ("-" + OS.get_environment("BLICK")) if OS.get_environment("BLICK") != "" else ""]
 		root.get_viewport().get_texture().get_image().save_png(datei)
 		print("BILD1694 ", datei, " gang=", t.gang, " zweite Faust neben dem Schaft %.1f cm" % (100.0 * t.zweit_fehl))

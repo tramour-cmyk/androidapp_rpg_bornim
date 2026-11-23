@@ -139,7 +139,7 @@ static func schub(sk: Skeleton3D, s: String, o: Vector3, d: Vector3, r: float, r
 		var kf := sk.get_bone_global_pose(sk.find_bone(fi + "_01_" + s)).origin
 		var a := (o + w) + d * (kf - (o + w)).dot(d)
 		zuviel = maxf(zuviel, (a - kf).dot(lq) + (rl + hm.y - ein))
-	return w - lq * zuviel
+	return w - lq * zuviel * (0.0 if OS.get_environment("ZUVIEL1694") == "0" else 1.0)
 
 ## Stelle in der Faust im Raum des Handknochens (Leute: der Gegenstand folgt der Hand ohne Drehung um den Griff)
 static func stelle_lokal(sk: Skeleton3D, s: String, r: float) -> Vector3:
