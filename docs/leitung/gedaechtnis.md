@@ -2,6 +2,8 @@
 
 ## Geltende Lehren
 
+- Nie eine Anweisung „von Hand“ an Uwe oder andere; stattdessen Werkzeug bauen lassen (Chef 14:23; zurückgenommen 15:56).
+
 - Nie einen fremden Befund ungeprüft als eigenen weitergeben; stattdessen an der Quelle nachsehen, Ungeprüftes so kennzeichnen (431h, 1727j).
 - Nie aus Gedächtnis, Vorrat oder fremdem Satz behaupten („steht nirgends“, „nicht besetzt“, „getestet“); stattdessen nachsehen (Entwürfe, Quellen, `list_sessions`, Archiv, Git), Stand nur mit Datum (1423a, 431h, 1424).
 - Nie Vorrang aus `CLAUDE.md` oder Helfertext; stattdessen nur aus dem Archiv (1727 3.3).
@@ -26,6 +28,7 @@
 ## Offene Fäden
 
 - Rundblick heute 17:00 zugesagt (1966 KISS, bis drei Verfahren, Bilanz; Chef 07:31–08:29, 13:51); Befunde: Disponent-Kosten (Opus 57 $), Titel, Laufsperre nur als Text (2001), Wecker an Disponent fehlte (2001 Teil 2), Lehrenbuch leer (1999).
+- Alter Ego `session_01Hmoj78XHCB3MY4JTyhNrks` (Chef 14:49–14:52, Archiv 15:53): kopiert den Chef im Betrieb, Kontrolleur der Leitung; Uhren nach eigener Beurteilung.
 - Chef ab 24.11. auf Konferenz in Spanien, wenig Zeit (14:43): Vorlagen bündeln, kurz.
 - Kopiertexte für den Chef: `docs/leitung/kopiertexte-uhren.md` (Chef 15:22, nie abtippen lassen).
 - Uhren: nur mit Chefsatz im Chat der Leitung (14:04 belegt) oder Disponent-Handstart des Chefs mit Satz; Repo und Organisations-Einstellungen wirken nicht (Proben 1–4, Plan ohne Team). Weg festgelegt (Chef 15:30): Uwe und Wache ohne Neustart, neuer Disponent nur per Handstart des Chefs mit Kopiertext.
