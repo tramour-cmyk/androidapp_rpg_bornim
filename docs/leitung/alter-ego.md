@@ -12,6 +12,7 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Übergabe (23.11., 21:08, session_01Hmoj78XHCB3MY4JTyhNrks, 280 Tsd. Token):** Sokrates neu: session_01Hmoj76c6rPyFA9ocndRnpB. Offen prüfen: 2006 und 2005 (beide Eilt, Alter Ego) gestartet?; Kampf 1589.2 auf Platz 3 gestartet?; Uwe taktet mit --ohne 513/1716 und führt Planer-Starts aus (auch nachts); 2002-Zusatz (Alter Ego frei, fertig weckt Disponent) offen, bis dahin belegt Alter Ego einen Platz; 2003 bis 30.11.; beim Chef 1068 und 1694 (chefsache/entscheiden). Muster des Tages: tote Fragen im eigenen Chat, Handfilter beim Disponenten, Starts ohne Auftrag, fertige Sitzungen halten Plätze. Nachfolger: Alter Ego – Supervisor (Handstart Chef).
 
+- 23.11., 22:34 Sokrates: 2012 Eilt eingetragen. 1675/1653 liegen seit 22:31 bei Sokrates als Frage an den Chef (Votum: Leitung mischt gebilligte Zweige). Meine Vorlage beim Chef war doppelt, zurückgezogen. Lehre: vor Vorlage an den Chef Sokrates-Chat prüfen.
 - 23.11., 22:33 Sokrates: Befund → Vorgang 2012 (Werkzeug). Entscheid in Vertretung: 2012 Eilt (a aufräumen, b Auto-Schließen beim Start/Erledigt, c nur 6 Zeilen sichtbar). Chef 22:29: Push nach main nur mit Chefwort in der pushenden Sitzung; 1675/1653 auf Zweigen.
 - 23.11., 22:32 Chef: Sachen bleiben liegen. Befund an Sokrates: 43 Übergaben offen, 32 beim Disponenten, 33 über 2 h, 8 über 24 h (älteste 1675-Ü1 22.11., 16:54). Kennzahl ab 07:05 je Runde.
 - 23.11., 22:30 Chef: Nachtpause 23–7 Uhr; Uhr 23:20 auf 24.11., 07:05 verlegt (trig_011yeE88s6HGQMtrkxV5cFax).
