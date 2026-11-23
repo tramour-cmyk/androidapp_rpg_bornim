@@ -12,6 +12,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | Eilt | – | – | – | *gebaut, Geprüft an: c431b9c1d* | *–* | *0* | *1,25 $* |
+| 2006 | Kein Fachkraft-Start, solange am Vorgang eine offene Planerzeile hängt (Ü an Arbeitsplaner: nein Auftrag, Chefwort lesen); Vorgang wartet auf die Zeile (startbar.py, lauf.py) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *184,78 $* |
 | 1988 | Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Token neu starten (Chef 09:02, 1 bis 3 ja) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *52,83 $* |
 | 1971 | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Titel), Halbsatz im Kern Büro (Chef 22.11., 18:13) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *5,53 $* |
@@ -60,7 +61,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1068 | Ring bei jedem großen Schlag der Gegner … | 2 | E Kampf | M | Chef | 1048, 444 | – | *startbar* | *–* | *0* | *24,07 $* |
 | 1415 | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A) | 2 | E Kampf | M | 709, 1589.4 | 1072, 784 | claude/jerry-1415-takt | *ruht, Block 2 (1605)* | *–* | *0* | *9,72 $* |
 | 1588 | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | 2 | E Kampf | M | 1589.4 | 1556 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
-| 1589.2 | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit und Versperren, Flucht … | 2 | E Kampf | M | Sokrates | 1600, 1589.1, 444, 1589.6 | – | *startbar, steckt fest* | *–* | *0* | *17,98 $* |
+| 1589.2 | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit und Versperren, Flucht … | 2 | E Kampf | M | – | 1600, 1589.1, 444, 1589.6 | – | *startbar, steckt fest* | *–* | *0* | *17,98 $* |
 | 1589.3 | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und schräg, Seitschritt aus UAL2, einmal für … | 2 | E Kampf | M | – | 1600, 1589.1 | – | *startbar* | *–* | *0* | *–* |
 | 1589.4 | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nach Abschnitt 5 mit 1526, alte … | 2 | E Kampf | M | 1589.2, 1589.3 | 1600, 1589.1, 1526, 438, 709 | – | *startbar* | *–* | *0* | *–* |
 | 1589.5 | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Zahlen aus 444 … | 2 | E Kampf | M | 1589.4, 1589.6 | 1600, 1589.1, 444 | – | *startbar* | *–* | *0* | *–* |
@@ -429,5 +430,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2003 | PermissionDenied-Block in settings.json raus, falls nach der ersten echten Auto-Ablehnung die Zeile in LISTE-LEHREN.md fehlt (Chef 15:42, 1999-Ü11; Alter Ego prüft je Runde) | 7 | B Werkzeuge | M | 30.11. | – | – | *startbar* | *–* | *0* | *–* |
 | 2004 | meldung.sh schreibt die Lehrenbuch-Zeile der lauten Wache vor dem Senden und je Text statt je Tag einmal: R13 und R14 doppelt, eine Meldung abgewiesen (1999 e) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2005 | Von Arbeitsplaner (23.11., 19:00, zu 513): lauf.py startet für ruhenden 513 (Stand „ruht, bis nach dem Durchspielen“) heute 18-mal einen Arbeitsplaner (ARBEIT-BETRIEB.md, zuletzt 18:57 Pit); vorgang.py 513 zeigt „→ startbar“; Urteil Sokrates 10:02 kein Auftrag | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
-| 2006 | Kein Fachkraft-Start, solange am Vorgang eine offene Planerzeile hängt (Ü an Arbeitsplaner: nein Auftrag, Chefwort lesen); Vorgang wartet auf die Zeile (startbar.py, lauf.py) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2007 | Von 1971 (Prüfer Vera 19:05): Übergabezeilen in vorgang.py (LISTE-VORGAENGE.md) werden mitten im Wort abgeschnitten, ohne Wortende und ohne „…“ (Beispiel 1971-Ü10 „… Vorsatz „Vo“ (1739)“) | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
