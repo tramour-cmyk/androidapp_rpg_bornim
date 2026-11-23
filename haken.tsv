@@ -1322,3 +1322,4 @@
 2026-11-23 09:23:48	startsperre	Startblock fehlt (1989, Chef 23.11., 09:11): die erste Nachricht trägt nicht den Startblock aus lauf.py (Kopfzeile „**<Profil>**“ und „Auftrag:“). Von Hand nur mit `python3 tools/lauf.py --start ROLLE	main
 2026-11-23 09:52:08	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	HEAD
 2026-11-23 10:07:19	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/zeno-1068-ring
+2026-11-23 10:08:35	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/zeno-1068-ring
