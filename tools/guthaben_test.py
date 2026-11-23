@@ -85,7 +85,7 @@ O = ober()
 KA = {"nr": "1068", "bereich": "E Kampf", "eilt": False, "titel": "x", "stand": "startbar"}
 WZ = {"nr": "1961", "bereich": "B Werkzeuge", "eilt": False, "titel": "x", "stand": "startbar"}
 WE = dict(WZ, eilt=True)
-def sitz(r, lauf=True, ruhig=5): return {"id": "session_%s%d" % (r, ruhig), "_info": (r, lauf, ruhig, [])}
+def sitz(r, lauf=True, ruhig=5, titel=""): return {"id": "session_%s%d%s" % (r, ruhig, abs(hash(titel)) % 1000 if titel else ""), "title": titel, "_info": (r, lauf, ruhig, [])}
 
 def fall(name, f):
     try: f()
@@ -141,6 +141,25 @@ def f_d():
     soll("2001 (d): freie zählen nicht mit", b.laufend == 2, b.laufend)
     soll("2001 (d): FREI_ROLLEN der alten Form unverändert", guthaben.FREI_ROLLEN == {"Sokrates", "Rundblick", "Ideenlauf", "Wache", "Ford"})
 fall("d", f_d)
+
+# (d2) 2001-Ü10 (Prüfer 15:54): Prüfer und Tester mit Rufnamen im Titel zählen nicht, auch wenn lauf.py die Rolle aus dem Vorgang liest
+def f_d2():
+    global b
+    pa = "Paula – 1988: Prüfung 1988-Ü8, 1986-Ü9, 1971-Ü6 (23.11., 11:04)"  # echter Titel, kosten.rolle → Figur (Rufname doppelt)
+    ha = "Hanna – 1675: Prüfung (23.11., 12:04)"  # echter Titel, Rolle aus dem Vorgang 1675 → Figur
+    je = {"Figur": [sitz("Figur", titel=pa), sitz("Figur", titel=ha)], "Tester": [sitz("Tester", titel="Tom – 287: Test Build 287 (23.11., 12:00)")],
+          "Werkzeug": [sitz("Werkzeug", titel="Fenja – 2001: Handstart (23.11., 15:33)")], "Kampf": [sitz("Kampf", titel="Conrad – 1068: Handstart (23.11., 14:44)")]}
+    n = guthaben.laufende_fachkraefte(je)
+    soll("2001 (d2): Prüfer Paula, Hanna (Titel „: Prüfung“) und Tester zählen nicht, Fenja und Conrad → 2", n == 2, n)
+    soll("2001 (d2): Rolle aus dem Titel: Prüfung → Prüfer, Test → Tester, Handstart bleibt", guthaben.ober_rolle("Figur", ha) == "Prüfer" and guthaben.ober_rolle("Figur", pa) == "Prüfer"
+         and guthaben.ober_rolle("Kampf", "Tom – 287: Test Build 287 (23.11., 12:00)") == "Tester" and guthaben.ober_rolle("Werkzeug", "Fenja – 2001: Handstart (23.11., 15:33)") == "Werkzeug",
+         [guthaben.ober_rolle("Figur", t) for t in (ha, pa)])
+    nm = guthaben.laufende_namen(je)
+    soll("2001 (d2): Namen je Zählung: Conrad (Kampf), Fenja (Werkzeug)", nm == ["Conrad (Kampf)", "Fenja (Werkzeug)"], nm)
+    b = guthaben.Bremse(J, betrieb(50), archiv=ober("zwei"), protokoll=[], laufend=n); b.namen = nm
+    soll("2001 (d2): LAUFSPERRE-Zeile nennt die Laufenden", any("2 laufen (Conrad (Kampf), Fenja (Werkzeug))" in z for z in b.zeilen()), b.zeilen())
+    soll("2001 (d2): Tester frei unter der Obergrenze", b.erlaubt("Tester", "M", WZ) is None, b.erlaubt("Tester", "M", WZ))
+fall("d2", f_d2)
 
 # (e) nach Ende frei
 def f_e():
