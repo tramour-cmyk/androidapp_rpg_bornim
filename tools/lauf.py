@@ -33,7 +33,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   GUTHABEN … / LAUFSPERRE …                                         → (1804, erst mit tools/1727-SCHARF; tools/guthaben.py) Stufe nach 287 und Laufsperre aus Chefwort; lauf.py hält die Starts selbst an („NICHTS <Rolle>: Guthaben …“), Disponent startet nicht von Hand vorbei; lauf.py jeden Takt, nur START-Zeilen ruhen (1978)
   NACHHALTEN TT.MM.: …                                              → Ford führt LISTE-BETRIEB.md Schritt 8 aus (einmal am Tag ab 8 Uhr, 927)
   WARNUNG(-LAUT) Sitzung hängt / Sitzung wartet auf Freigabe (blocked ab 15 Min., 1572) / Jetzt installieren / Übergabe wartet auf Chef → wie jede Warnung melden, nachts lautlos (Schritt 9, 927)
-  TAGESBERICHT-FEHLT TT.MM.: …                                      → Ford meldet laut eine Zeile an den Chef (448); die TAGESBERICHT-Zeile (scharf: START Tagesbericht) daneben startet ihn erneut
+  TAGESBERICHT-FEHLT TT.MM.: …                                      → Disponent meldet laut eine Zeile an den Chef (448); die TAGESBERICHT-Zeile (scharf: START Tagesbericht) daneben startet ihn erneut
   WÄCHTER <Nr> | <Rollen> | <session_id|-> | <Text>                  → Ford: meldung.sh --laut Ford "<Text>" und send_message <Text> an die Sitzung (383; einmal je „jetzt“, Marke schreibt --sperre; auch 559: „wartet auf Chef“ trotz neuerer Rückmeldung, einmal je Rückmeldung)
   AUSGESCHLOSSEN NR: Grund                                          → Ford hat die Zeile mit --ohne ausgeschlossen; Ford meldet Grund lautlos (190.2)
   OHNE-ÜBERHOLT NR: Grund                                           → (1129.1 P1) der Ausschluss gilt nicht mehr (Nummer im Archiv, ruht, oder „in Arbeit“ ohne Sitzung seit 2 h): Ford streicht --ohne NR ab dem nächsten Lauf, auch in seiner Übergabe
@@ -71,7 +71,7 @@ Dateien der Chefsache und „wartet auf Chef“ halten keine Sitzung (261.4: die
 Archivregel (261.5, vier Sätze; nur Ford ausgenommen): (1) je Bereich höchstens eine Sitzung, Bereich = Rolle laut Titel; ohne Rolle im Titel bleibt die Sitzung stehen, WARNUNG einmal;
 (2) gibt es mehr als eine, archiviert Ford die ältere, also jede außer der zuletzt tätigen (späteres updated_at, nicht created_at; 261.6) (bei START im selben Lauf: ARCHIVIERE-Zeilen der alten Sitzungen direkt nach der START-Zeile), sobald die neuere läuft und die ältere nicht mehr arbeitet (261.5 Wartezeit, Chef 21.10., 16:46: keine 60 Minuten mehr; offene Frage: vorher ÜBERTRAGE; PR-Abo: Ford übergibt es vorher an die neuere Sitzung); (3) neue Arbeit geht per WEITER in die alte Sitzung,
 wenn sie unter 200 Tsd. Token liegt (383 A, Chef 09.11.; vorher 400 Tsd. nach 383.1) und unter 60 Minuten ruht, sonst START; (4) Kostenbuchung bleibt eigene Regel (--kosten, GEBUCHT). Kein Hindernis hält eine Sitzung.
-Prüfung des Ergebnisses: steht dieselbe Sitzung im nächsten Lauf wieder auf ARCHIVIERE, gibt es WARNUNG-LAUT „Ford hat … nicht ausgeführt“ (Marke „Archiv <id>“); mehr als eine Sitzung je Bereich in zwei Läufen hintereinander
+Prüfung des Ergebnisses: steht dieselbe Sitzung im nächsten Lauf wieder auf ARCHIVIERE, gibt es WARNUNG-LAUT „Disponent hat … nicht ausgeführt“ (Marke „Archiv <id>“); mehr als eine Sitzung je Bereich in zwei Läufen hintereinander
 gibt WARNUNG-LAUT (Marke „Mehrfach <Rolle>“). Marken schreibt nur --sperre.
 Startprüfung (837): gibt es 5 Minuten nach der jüngsten Startsperre einer Rolle keine Sitzung dieser Rolle (neu angelegt oder, bei WEITER, danach tätig),
 steht WARNUNG-LAUT „Start <Rolle> nicht angekommen“ (einmal, Marke „Start-fehlt <Rolle> <Zeit>“; START ausgelassen ohne --ohne oder gescheitert), und die Sperre belegt die Rolle nicht mehr.
@@ -1437,7 +1437,7 @@ def main():
             # Prüfung des Ergebnisses: dieselbe Sitzung steht im nächsten Lauf wieder auf ARCHIVIERE
             alt = [d for d in marke_zeit("Archiv " + s["id"]) if (JETZT - d).total_seconds() >= 1800]
             if alt and not marke_zeit("Archiv-Warnung " + s["id"]):  # D40.2: einmal je Sitzung
-                ausgabe.append("WARNUNG-LAUT Ford hat ARCHIVIERE %s (%s) aus dem Lauf von %s nicht ausgeführt (261.5); darf Ford es nicht, archiviert der Chef sie selbst" % (s["id"], r, alt[0].strftime("%H:%M")))
+                ausgabe.append("WARNUNG-LAUT Disponent hat ARCHIVIERE %s (%s) aus dem Lauf von %s nicht ausgeführt (261.5); darf der Disponent es nicht, archiviert der Chef sie selbst" % (s["id"], r, alt[0].strftime("%H:%M")))
                 neue_marken.append("Archiv-Warnung " + s["id"])
             elif not alt and not marke_zeit("Archiv " + s["id"]): neue_marken.append("Archiv " + s["id"])
     # Prüfung: mehr als eine Sitzung je Bereich in zwei Läufen hintereinander (Abstand 30 bis 150 Minuten)
@@ -1689,8 +1689,8 @@ def main():
         pass
     # 448 (Chef 01.11., 11:09): fehlt der Bericht um 10 Uhr (Sa, So 12 Uhr), meldet Ford dem Chef laut eine Zeile und startet Perikles erneut
     if per_start(*((12, 0) if JETZT.weekday() >= 5 else (10, 0))) and not bericht_da and "Tagesbericht fehlt %s" % heute not in marke_text:
-        wie = ("%s läuft noch, Ford erinnert ihn" if per_belegt else "%s neu gestartet") % tb_rolle  # D55.5: kein „neu gestartet“ ohne Start
-        ausgabe.append("TAGESBERICHT-FEHLT %s: Tagesbericht um %s nicht da; Ford meldet laut „448: Tagesbericht fehlt, %s“" % (heute, JETZT.strftime("%H:%M"), wie))
+        wie = ("%s läuft noch, Disponent erinnert ihn" if per_belegt else "%s neu gestartet") % tb_rolle  # D55.5: kein „neu gestartet“ ohne Start
+        ausgabe.append("TAGESBERICHT-FEHLT %s: Tagesbericht um %s nicht da; Disponent meldet laut „448: Tagesbericht fehlt, %s“" % (heute, JETZT.strftime("%H:%M"), wie))
         wochen.append("Tagesbericht fehlt %s" % heute)
         if "Tagesbericht %s" % heute in marke_text and not per_belegt:  # sonst startet ihn die Zeile oben schon
             ausgabe.append(tb_zeile(", fehlte um 10 Uhr (Sa, So 12 Uhr)" if not tb_scharf else " Fehlte um 10 Uhr (Sa, So 12 Uhr)."))
