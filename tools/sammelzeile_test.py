@@ -39,5 +39,12 @@ pruefe(sammelzeile.text([], "09:00") == "", "1971: ohne Erledigtes keine Meldung
 pruefe(sammelzeile.erledigt(d, "2026-11-23T07:00:00+01:00", "2026-11-23T08:00:00+01:00") == [], "1971: Anlage einer Zeile ist kein Erledigt")
 lang = sammelzeile.kurz("X" * 100)
 pruefe(len(lang) <= 60, "1971: Titel höchstens 60 Zeichen: %d" % len(lang))
+# 1971-Ü5 (nein Nils 09:34): Vorsatz „Von <Rolle> (…): “ überspringen, die Sache kürzen
+for tt, soll in (("Von Welt (Emil 22.11., 17:43, zu 1566; Sokrates 18:07): tools/godot/bau_am_rechner.py holt das R10-Wasserkit nicht",
+                  "tools/godot/bau_am_rechner.py holt das R10-Wasserkit nicht"),
+                 ("Von Chef (22.11., 18:39): Kennzahlen Kosten, Sitzungen; Bestand kostenbericht.py", "Kennzahlen Kosten, Sitzungen"),
+                 ("Von Sokrates: Archiv-Schutz (status X)", "Archiv-Schutz"),
+                 ("Vonnegut lesen: Kapitel", "Vonnegut lesen")):
+    pruefe(sammelzeile.kurz(tt) == soll, "1971-Ü5: %r → %r, soll %r" % (tt[:30], sammelzeile.kurz(tt), soll))
 print("sammelzeile_test: %s" % ("gut" if not fehler else "%d Fehler" % fehler))
 sys.exit(1 if fehler else 0)

@@ -39,7 +39,10 @@ def erledigt(wurzel, von, bis):
                 gesehen.add(nr); aus.append((nr, titel))
     return aus
 
+VORSATZ = re.compile(r"^Von [^:(]+(?:\([^)]*\))?:\s+")  # 1971-Ü5: „Von <Rolle> (…): “ ist der Absender, nicht die Sache
+
 def kurz(titel):
+    titel = VORSATZ.sub("", titel)
     t = re.split(r":\s|\s\(|;", titel, maxsplit=1)[0].strip()  # „01:12“ trennt nicht
     return t if len(t) <= 60 else t[:59].rstrip() + "…"
 
