@@ -56,7 +56,7 @@ var axt_griff := AXT_GRIFF        # Probe 417 Runde 3 (tragprobe.gd): Fassungen 
 var axt_haengt := true            # Blatt nach unten (Runde 3); false: Schneide oben wie Runde 2
 var zwei_winkel := 0.0            # Messung: Grad zwischen Schaft durch beide Faeuste und der Achse der rechten Hand
 
-static func art_von(base: String) -> String: return String(ARTEN.get(base, ""))
+static func art_von(base: String) -> String: return String(ARTEN.get(Staffel.art(base), ""))   # 458.3: Staffelform -> Art
 
 # 417 Runde 4 (Chef 01.11., 12:21, Axt Runde 3 „schwebt“; 348.12c): Gehen und Rennen je Waffe aus den Protofactor-Paketen
 # (waffengang.py, bewegungen.bin „Gehen_<gang>“, „Rennen_<gang>“). Die Bewegung fuehrt Arm und Hand; dieser Knoten stellt nur die Waffe
@@ -64,6 +64,7 @@ static func art_von(base: String) -> String: return String(ARTEN.get(base, ""))
 const GANG_ZWEI :=["greatsword", "greataxe", "maul", "halberd"]
 const GANG_BOGEN := ["shortbow", "longbow", "light_crossbow"]
 static func gang_von(base: String, schild: bool) -> String:
+	base = Staffel.art(base)   # 458.3
 	if base == "" or ARTEN.get(base, "") == "stab": return ""
 	if base in GANG_BOGEN: return "bogen"
 	if base in GANG_ZWEI or (base == "spear" and not schild): return "axt"
@@ -172,6 +173,7 @@ func _process_modification() -> void:
 		else: o = G * mitte + dw * 0.18 * ms                           # im Rennen unter der Mitte gefasst
 	elif art == "schulter": o = G * mitte + dw * axt_griff * ms
 	_stelle(x, dw, o)
+	_an_schaft(sk, ih)   # 1694
 
 # 653 (Chef 10.11., 14:22 „653 passt“): die Waffe an ihren Platz, Lage = Ziel · Griffrahmen⁻¹ (Halt.lage): Ziel y = Schaft [dw],
 # z = wohin Modell +X zeigt (Schneide, beim Bogen der Ruecken) [z], Ursprung am Griff [o] (Welt). Ohne Maße wie Modellregel 4
@@ -214,6 +216,11 @@ const ZWEI_HOECHST := 30.0
 # Lauf 41328184986: 0,30 m mit mehr Luft (Rennen 3,0 cm, Gehen 8,5 cm), darum 0,30
 var zwei_anteil := 1.0
 var zwei_schieben := 0.30
+# 1694 (Bild 19.11., 09:01: Zweihänder der Staffel 458.3 mit der rechten Faust hinter dem Knauf): höchstens so weit, dass beide Fäuste
+# auf dem Griff bleiben (Länge unter dem Griff aus halt, zwei Handbreiten); der Stiel der Axt ist lang genug für 0,30
+func _schieben() -> float:
+	var unten := float(halt.get("unten", 1.0)) if not halt.is_empty() else 1.0
+	return clampf(unten - 2.0 * ZWEIT_ABSTAND, 0.0, zwei_schieben)
 # Schwert mit Schild: im Rennen fuehrt die Bewegung die rechte Faust 5 cm durch den rechten Oberschenkel; der Oberarm geht dafuer
 # immer (auch im Gehen, damit beim Wechsel nichts springt) schwert_abspreiz Grad nach aussen. Lauf 41356789633 (Becken nach Beinlaenge):
 # 9 Grad liess den Knauf im Rennen in 1 von 15 Bildern 4,9 cm in den rechten Oberschenkel; Lauf 41359533716: 12 Grad frei 6,0 cm,
@@ -273,7 +280,8 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 	if waffe == null: return
 	var x := (G.basis * R.basis.x).normalized()
 	x = (x - dw * x.dot(dw)).normalized()
-	_stelle(x, dw, G * p + (dw * zwei_schieben * mass() if gang == "axt" else Vector3.ZERO))
+	_stelle(x, dw, G * p + (dw * _schieben() * mass() if gang == "axt" else Vector3.ZERO))
+	_an_schaft(sk, ih)   # 1694
 
 # Oberarm um die Vorwaertsachse der Figur nach aussen, die Faust weg vom Bein (rechts schwert_abspreiz, links schild_abspreiz)
 func _abspreizen(sk: Skeleton3D, ih: int, grad: float) -> void:
@@ -422,6 +430,83 @@ func _faust_zu(sk: Skeleton3D, ih: int, d: Vector3) -> Vector3:
 	faust_weite = (q - d * q.dot(d)).length()
 	var m := (k + summe / n) * 0.5
 	return k + (m - k) - d * (m - k).dot(d)   # nur quer zum Schaft verschoben, laengs bleibt der Griff
+
+# 1694 (Chef 18.11., 17:01 „Als Systemlösung“): nach dem Stellen der Waffe den Schaft an die Stelle in der Faust und die Finger um den
+# Schaft, für alle Figuren gleich (skripte/griff.gd); Zweihänder: die zweite Hand an den Schaft (griff2 aus halt.json, sonst eine
+# Handbreite unter dem ersten Griff) und dort ebenso geschlossen
+static var griff_1694 := OS.get_environment("GRIFF1694") != "0"   # 0: wie vorher (Vergleichsbild)
+var merk := {}
+var merk2 := {}
+func _an_schaft(sk: Skeleton3D, ih: int) -> void:
+	if waffe == null or not griff_1694 or not Griff.hat_hand(sk, seite): return
+	var m := halt.duplicate() if not halt.is_empty() else {"griff": Vector3.ZERO, "achse": Vector3.UP, "vorn": Vector3.RIGHT}
+	var G := sk.global_transform
+	var g := G.affine_inverse() * waffe.global_transform * Halt.griff_rahmen(m)
+	var griffart := "zweihand" if gang == "axt" else ("stab" if art == "stab" else "einhand")
+	var e := Griff.am_schaft(sk, seite, g, Griff.schaft(waffe, halt), griffart)
+	if not e["haelt"]: return
+	waffe.global_position += G.basis * (e["verschieben"] as Vector3)
+	Griff.schliessen(sk, seite, e["o"], e["d"], e["r"], merk, e["form"])
+	if gang == "axt": _zweite_hand(sk, e["o2"], e["d"], e["r2"], e["form"], e["r_bei2"])
+	if merken:
+		posen.resize(sk.get_bone_count())
+		for i in sk.get_bone_count(): posen[i] = sk.get_bone_global_pose(i)
+
+# 1694, 1649 (linke Faust reicht nicht an den Schaft): die andere Hand mit dem Arm an den Schaft, auf der Höhe des zweiten Griffs
+const ZWEIT_ABSTAND := 0.11        # m längs des Schafts unter dem ersten Griff, wenn halt.json keinen zweiten nennt (eine Handbreite)
+func _zweite_hand(sk: Skeleton3D, punkt: Vector3, d: Vector3, r: float, form: Callable, r_bei: Callable) -> void:
+	var s2 := "l" if seite == "r" else "r"
+	if not Griff.hat_hand(sk, s2): return
+	var iu := sk.find_bone("upperarm_" + s2); var il := sk.find_bone("lowerarm_" + s2); var ih2 := sk.find_bone("hand_" + s2)
+	if iu < 0 or il < 0: return
+	var u := Griff.einheit(sk, s2)
+	var lokal := Griff.stelle_lokal(sk, s2, r)
+	# nur, wenn die Bewegung die Hand an den Schaft führt (Gehen und Rennen mit Zweihänder: 6,5 cm, Lauf 41310719427); im Stehen hängt der
+	# Arm, die Waffe ruht in einer Hand (eine Haltung für zwei Hände im Stehen ist 1649)
+	zweit_greift = (punkt - sk.get_bone_global_pose(ih2) * lokal).length() < ZWEIT_REICHT * u
+	if not zweit_greift: return
+	# die Hand quer an den Schaft (Knöchellinie Kleinfinger → Zeigefinger längs des Schafts zur Spitze, wie die erste Hand), dann mit
+	# dem Arm an die Stelle, an der der Schaft in ihrer Faust liegt (Griff.schub wie bei der ersten Hand, die Waffe steht, die Hand geht)
+	var iz := sk.find_bone("index_01_" + s2); var ik := sk.find_bone("pinky_01_" + s2)
+	for _i in 4:
+		var hg := sk.get_bone_global_pose(ih2)
+		var kn := (sk.get_bone_global_pose(iz).origin - sk.get_bone_global_pose(ik).origin).normalized()
+		var hb := (Basis(Quaternion(kn, d)) * hg.basis.orthonormalized()).orthonormalized()
+		var hs := hg.basis.get_scale()
+		var ziel := punkt - hb.scaled_local(hs) * lokal
+		if _i > 0:   # ab dem zweiten Schritt genau nach Griff.schub (Kleinfinger, Handfläche)
+			var w := Griff.schub(sk, s2, punkt, d, r, r_bei)
+			ziel = hg.origin - w
+			hb = hg.basis.orthonormalized()
+			zweit_fehl = w.length() / u
+			if zweit_fehl < 0.002: break
+		_arm_zu(sk, iu, il, ih2, ziel, hb)
+	Griff.schliessen(sk, s2, punkt, d, r, merk2, form)
+
+# Oberarm und Unterarm so drehen, dass das Handgelenk auf [ziel] kommt (zwei Knochen, Ellbogen bleibt in seiner Ebene); die Hand
+# behält ihre Lage im Raum
+var zweit_fehl := 0.0   # m: Faust der zweiten Hand neben dem Schaft (Messung)
+var zweit_greift := false
+const ZWEIT_REICHT := 0.18   # m: so nah führt die Bewegung die zweite Faust an den Schaft, sonst greift sie nicht
+func _arm_zu(sk: Skeleton3D, iu: int, il: int, ih: int, ziel: Vector3, hb: Basis) -> void:
+	var a := sk.get_bone_global_pose(iu).origin
+	var b := sk.get_bone_global_pose(il).origin
+	var c := sk.get_bone_global_pose(ih).origin
+	var la := a.distance_to(b); var lb := b.distance_to(c)
+	var dz := clampf(a.distance_to(ziel), absf(la - lb) + 1e-4, la + lb - 1e-4)
+	var ebene := (b - a).cross(c - b)
+	if ebene.length() < 1e-6: ebene = Vector3.UP.cross(c - a)
+	ebene = ebene.normalized()
+	# Winkel am Ellbogen nach dem Kosinussatz, dann Oberarm zum Ziel ausrichten
+	var cos_a := clampf((la * la + dz * dz - lb * lb) / (2.0 * la * dz), -1.0, 1.0)
+	var zr := (ziel - a).normalized()
+	var neu_b := a + (Basis(ebene, -acos(cos_a)) * zr) * la
+	var neu_b2 := a + (Basis(ebene, acos(cos_a)) * zr) * la
+	if neu_b2.distance_to(b) < neu_b.distance_to(b): neu_b = neu_b2   # der Ellbogen bleibt auf seiner Seite
+	_zeige(sk, iu, il, neu_b)
+	_zeige(sk, il, ih, ziel)
+	var p := sk.get_bone_parent(ih)
+	sk.set_bone_pose_rotation(ih, (sk.get_bone_global_pose(p).basis.orthonormalized().inverse() * hb.orthonormalized()).get_rotation_quaternion())
 
 # 610: Richtung zur Handflaeche (Skelettraum): vom Handknochen zum Daumenansatz, quer zum Finger; ZERO ohne Daumen
 func _handflaeche(sk: Skeleton3D, ih: int, finger: int) -> Vector3:

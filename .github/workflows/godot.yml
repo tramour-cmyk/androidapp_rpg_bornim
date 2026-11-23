@@ -389,6 +389,15 @@ jobs:
               OUT=$RUNNER_TEMP/waffen WAFFE=$w bl/bin/python -I $W > $RUNNER_TEMP/waffe-$w.log 2>&1 && cp $RUNNER_TEMP/waffen/$w.glb godot/daten/waffen/$w.bin || echo "keine Waffe $w"
             done
             ls -l godot/daten/waffen
+            # 458.3 Waffenstaffel (Chef 01.11./02.11.): je Waffenart 2-4 Formen aus den Kaufpaketen (Omie, Anker, Avramania), Form nach
+            # Stufe (Katalog, Spalte formen), Griff im Ursprung wie waffen.py; gekauft, also verschluesselt. staffel.json (Formen je Art,
+            # toenung je Seltenheit) ist unser Text, offen
+            KAUF=$KAUF SPIEL=1 ZIEL=$RUNNER_TEMP/staffel KATALOG=tools/gegenstaende/gegenstaende.json timeout 900 bl/bin/python -I tools/blender348/waffen_staffel.py > $RUNNER_TEMP/staffel.log 2>&1 \
+              || { tail -30 $RUNNER_TEMP/staffel.log; exit 1; }
+            grep -E '^FEHLT|^VEREINFACHT|^STAFFEL' $RUNNER_TEMP/staffel.log || true
+            grep -q '^STAFFEL OK' $RUNNER_TEMP/staffel.log || { echo "458.3: Staffel nicht gebaut"; exit 1; }
+            for f in $RUNNER_TEMP/staffel/*.glb; do w=$(basename $f .glb); cp $f godot/daten/waffen/$w.bin; echo daten/waffen/$w.bin >> godot/daten/kauf.txt; done
+            cp $RUNNER_TEMP/staffel/staffel.json godot/daten/waffen/staffel.json
           fi
           python3 tools/godot/kauf_cache.py merke leute
           mkdir -p godot/daten/leute && cp tools/blender348/v3/leute.json godot/daten/leute/   # 134.3 Ruf: Mann, Frau, Kind (ruf.gd stimme); immer, auch bei Treffer
@@ -1031,6 +1040,15 @@ jobs:
           path: ${{ env.APK_DATEI }}
       # 1268.5 (1268 A, Chef 15.11., 10:51): Bildrate und Ladezeit je Ort (Dorf, Wald, Hoehle, Wolfskampf) in jedem Lauf, im Renderer des
       # Handys (mobile, Lavapipe); Vergleich mit godot/tests/bildrate_grundwert.json, Warnung beim Abfall (Tabelle in der Zusammenfassung)
+      # 1694/1711 (Sokrates 18.11., 22:13: „Messung meldet passt, Bild zeigt Fehler“): Griff am gezeichneten Netz (Haut, nicht Knochen):
+      # Schaft an der Handfläche, umschlungen, Finger nicht tief im Schaft; braucht einen Bildschirm (bake ohne Fenster leer), sperrend
+      - name: Griff am gezeichneten Netz (1694)
+        run: |
+          sudo apt-get install -y -q libgl1-mesa-dri xvfb > /dev/null
+          cd godot
+          # Renderer des Projekts (Compatibility): unter Vulkan in Software las bake je Bild ein anderes, teils leeres Netz (Spike 23:33)
+          set -o pipefail; timeout 400 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --resolution 540x1170 -s res://tests/griff_sicht_1694.gd 2>&1 | grep -E "SICHT1694|SCRIPT ERROR"
       - name: Bildrate je Ort (1268.5)
         if: ${{ !cancelled() }}
         continue-on-error: true

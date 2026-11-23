@@ -234,6 +234,11 @@ static func atem_an(modell: Node3D, anim: AnimationPlayer, seed: int) -> Node:
 	atem.name = "Atem"
 	atem.eigen(seed)
 	sk.add_child(atem)
+	# 1694 (Bild 20:43: Stiel an den Fingerspitzen, Faust hohl, Messung „360° Umschlingung“): der Atem hob nach Tragen Brust und
+	# Schlüsselbein und schob die Faust 1,5-2 cm vom Schaft weg, die Waffe blieb, wo Tragen sie hingestellt hatte. Darum atmet die
+	# Figur vor Tragen; Tragen stellt Arm, Faust und Waffe auf die geatmete Pose
+	for n in sk.get_children():
+		if n is Tragen and n.get_index() < atem.get_index(): sk.move_child(atem, n.get_index())
 	return atem
 
 # 1167 (Archivprüfung Sokrates, 453.1 Chef 01.11.: „als ob die Leute halt wirklich leben“; 453a B 02.11.: „gilt für alle Vierbeiner“):
@@ -472,6 +477,7 @@ static func male(n: Node, g: Gebiet = null, mark := 0, aus: Array = []) -> void:
 			mi.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 			g.himmel.append(sm)
 	for c in n.get_children(): male(c, g, mark, aus)
+	if n.has_meta("staffel"): Staffel.faerbe(n)   # 458.3: Waffenstaffel, Farbe der Seltenheit
 
 var nacht_jetzt := 0.0
 func nacht(k: float) -> void:

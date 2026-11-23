@@ -90,6 +90,13 @@ func baue_figur() -> void:
 		modell = Gebiet.lade_glb("res://daten/held.bin")
 		Gebiet.male(modell, null, 2, mats)
 	add_child(modell)
+	# 1694 (Sokrates 23:41: „Waffe farbig, nicht schwarz“): Waffe, Schild, Köcher, Dolch zeichnet heldfigur.gd mit eigener leerer Liste
+	# (male(d, null, 2, [])); ohne Aufhellung im Schatten (fill) war der Stiel im Schatten tiefschwarz, die Hand daneben hell: alles
+	# unter dem Modell bekommt dieselbe Aufhellung wie der Körper
+	for mi in modell.find_children("*", "MeshInstance3D", true, false):
+		for i in (mi as MeshInstance3D).get_surface_override_material_count():
+			var sm := (mi as MeshInstance3D).get_surface_override_material(i)
+			if sm is ShaderMaterial and not mats.has(sm): mats.append(sm)
 	for m in mats: (m as ShaderMaterial).set_shader_parameter("metall", 1.0)   # 348.6 Glanz an Kette und Helm (toon.gdshader)
 	if "--teilfarbe" in OS.get_cmdline_user_args():   # nur zum Messen: Teile in Falschfarben (toon.gdshader teil, rig.py TEILMASKE)
 		for m in mats: (m as ShaderMaterial).set_shader_parameter("teil", 1.0)

@@ -1,0 +1,493 @@
+# 458.3 Waffenformen gestaffelt (Chef 01.11., 19:5x, Archiv 458.3: „Staffel nach Stufe, Seltenheit über Material und Zeichen“; Zu 458.3:
+# „wir können schon das gleiche Modell nehmen und dann eben wird es seltener oder verzaubert durch andere Effekte oder Texturen“):
+# je Waffenart 2-4 Formen aus dem Bestand (Omie, Anker, Avramania; LISTE-BESTAND „Waffen und Schilde“), welche Form ab welcher Stufe gilt,
+# steht nur in der Datendatei (tools/gegenstaende/gegenstaende.json, Spalte formen). Alles in unsere Farben (Fremdes fliegt raus):
+# jede Flaeche bekommt eine Klasse (metall, beschlag, holz, leder, akzent) nach ihrer Farbe im Paket; je Klasse und Seltenheit eine
+# Farbe aus unserer Palette (PALETTE unten), die Zeichnung des Pakets (Maserung, Kratzer) bleibt als Helligkeit. So wird es gebaut:
+# ein Gegenstand = Netz x Bild je Klasse und Seltenheit (wie 455.1: Godot tauscht nur das Bild).
+# Aufruf: KAUF=<kaufpakete> KATALOG=<gegenstaende.json> ZIEL=<ordner> bl/bin/python -I waffen_staffel.py
+#   -> <ZIEL>/<kennung>.glb (Flaechen je Klasse, Material „<klasse>.<n>“), <ZIEL>/<kennung>__<material>__<SELTENHEIT>.png, staffel.json
+# Ohne Kaufpakete: TESTPAKETE=1 baut drei kleine Probenetze (obj mit Bild, fbx mit Grundfarben, glb mit Palette) zum Pruefen des Wegs.
+import bpy, os, sys, json, glob, re, colorsys
+import numpy as np
+from mathutils import Vector, Matrix
+
+KAUF = os.environ.get('KAUF', os.path.expanduser('~/kauf'))
+ZIEL = os.environ.get('ZIEL', os.path.expanduser('~/staffel'))
+KATALOG = os.environ.get('KATALOG', os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'gegenstaende', 'gegenstaende.json'))
+GROSS = int(os.environ.get('GROSS', '256'))   # Bildkante: im Film und auf dem Handy ist eine Waffe selten hoeher als 300 Bildpunkte
+os.makedirs(ZIEL, exist_ok=True)
+PAKETE = [('Omie', 'Medieval.Weapon.Pack.Godot', '.obj'), ('Anker', 'Low.Poly.Medieval.Weapons', '.fbx'),
+          ('Avramania', 'Weapons_Shields_Free', '.glb')]
+SELTENHEITEN = ['COMMON', 'UNCOMMON', 'RARE', 'VERY_RARE', 'EPIC', 'DIVINE']   # wie Rarity in Gear.kt
+KLASSEN = ['metall', 'beschlag', 'holz', 'leder', 'akzent']
+
+
+def h(x):
+    return tuple(((x >> s) & 255) / 255.0 for s in (16, 8, 0))
+
+
+# Unsere Farben (sRGB) je Seltenheit und Klasse. Ausgang: waffen.py (Stahl 868E98, Eisen 4A4C50, Leder 3A2A20, Messing A8884A,
+# Holz 6A4A2E), Baukasten 455.1 (Krapprot, Nachtblau), Gold B8904A (Signatur: Gold einziger Glanz, erst ab „episch“).
+# Material und Zeichen je Seltenheit in Worten: Datendatei, Block „seltenheit“.
+PALETTE = {
+    # Probelauf 1 (Pruefer 06:3x): göttlich Klingen reinweiss übersteuert, Omie-Stiele hell ocker, dunkle Hölzer auf Schwarz unsichtbar
+    'COMMON':    {'metall': h(0x5E6168), 'beschlag': h(0x4A4C50), 'holz': h(0x5C3F27), 'leder': h(0x3A2A20), 'akzent': h(0x4A3A30)},
+    'UNCOMMON':  {'metall': h(0x7C838C), 'beschlag': h(0x3A3C42), 'holz': h(0x553723), 'leder': h(0x6E2E24), 'akzent': h(0x6E2E24)},
+    'RARE':      {'metall': h(0x848A92), 'beschlag': h(0xA8884A), 'holz': h(0x48301F), 'leder': h(0x2E2622), 'akzent': h(0x2A3450)},
+    'VERY_RARE': {'metall': h(0x4E5660), 'beschlag': h(0xA8884A), 'holz': h(0x3A2A22), 'leder': h(0x2E2A34), 'akzent': h(0x5A3A8A)},
+    'EPIC':      {'metall': h(0x353840), 'beschlag': h(0xB8904A), 'holz': h(0x36281F), 'leder': h(0x4A1A16), 'akzent': h(0xB0601A)},
+    'DIVINE':    {'metall': h(0x868C94), 'beschlag': h(0xB8904A), 'holz': h(0x3A2A20), 'leder': h(0x3A2A20), 'akzent': h(0xD8B040)},
+}
+# Glimmen (Godot: glow je Flaeche in glow_col): verzaubert ab „sehr selten“, schwach, in der Farbe der Seltenheit (Gear.kt), Klinge
+# leiser als Stein und Schmuck (akzent); bleibt hier, damit Film und Spiel dieselben Zahlen lesen (staffel.json)
+# Probelauf 1: 0,10-0,16 an der Klinge nicht zu sehen
+GLIMMEN = {'VERY_RARE': (h(0x9A4FE0), {'metall': 0.22, 'akzent': 0.6}), 'EPIC': (h(0xE8841A), {'metall': 0.26, 'akzent': 0.7}),
+           'DIVINE': (h(0xE8C030), {'metall': 0.24, 'beschlag': 0.15, 'akzent': 0.8})}
+
+
+def klasse(rgb):
+    # Klasse einer Paketfarbe (sRGB 0-1): grau = Metall, gelb-hell = Beschlag (Messing, Gold), braun = Holz oder Leder, sonst Akzent
+    r, g, b = [float(x) for x in rgb[:3]]
+    hu, s, v = colorsys.rgb_to_hsv(r, g, b)
+    hu *= 360
+    if v < 0.10: return 'leder'
+    if s < 0.18: return 'metall'
+    if 18 <= hu <= 65:
+        # Probelauf 1 (Lauf 41393670942): Anker-Stiele (hautfarben, s um 0,4) liefen als Beschlag; Messing A8884A hat s 0,56, Ton 41
+        if 32 <= hu <= 60 and v > 0.5 and s > 0.45: return 'beschlag'
+        return 'leder' if v < 0.26 else 'holz'
+    if hu < 18 or hu > 330:
+        if 8 <= hu < 18 and s < 0.85: return 'leder' if v < 0.26 else 'holz'   # rotbraune Stiele (Omie) sind Holz, kein Stein
+        return 'leder' if (s < 0.6 and v < 0.45) else 'akzent'
+    return 'akzent'
+
+
+# Name des Materials vor der Farbe (Anker: Grundfarben ohne Bild, Namen wie „Wood“, „Metal“), erste passende Regel
+NAMEN = [('akzent', r'gem|crystal|jewel|ruby|sapphire|emerald|stone|kristall|orb'), ('beschlag', r'gold|brass|bronze|copper|messing'),
+         ('leder', r'leather|grip|wrap|strap|cloth|rope|string|leder'), ('holz', r'wood|handle|shaft|stick|bow|haft|holz|limb'),
+         ('metall', r'metal|steel|iron|blade|silver|edge|eisen|stahl')]
+
+
+def name_klasse(m):
+    n = (m.name if m else '').lower()
+    for k, muster in NAMEN:
+        if re.search(muster, n): return k
+    return None
+
+
+def slug(s):
+    return re.sub(r'[^a-z0-9]+', '_', s.lower()).strip('_')
+
+
+def hat_bild(im):
+    # has_data ist bei Bildern aus glb (gepackt) falsch, bis jemand die Pixel liest
+    try:
+        return im is not None and im.size[0] > 0 and len(im.pixels) > 0
+    except Exception:
+        return False
+
+
+def basisbild(m):
+    if not m or not m.node_tree: return None
+    bsdf = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None)
+    n = bsdf.inputs['Base Color'].links[0].from_node if bsdf and bsdf.inputs['Base Color'].links else None
+    while n is not None and n.type != 'TEX_IMAGE':
+        n = next((i.links[0].from_node for i in n.inputs if i.links), None)
+    if n is not None and hat_bild(n.image): return n.image
+    return next((x.image for x in m.node_tree.nodes if x.type == 'TEX_IMAGE' and hat_bild(x.image)), None)
+
+
+def grundfarbe(m):
+    if m is None: return (0.6, 0.6, 0.6)
+    bsdf = next((n for n in m.node_tree.nodes if n.type == 'BSDF_PRINCIPLED'), None) if m.node_tree else None
+    c = bsdf.inputs['Base Color'].default_value if bsdf else m.diffuse_color
+    # Grundfarbe ist linear, Klasse und Palette in sRGB
+    return tuple((1.055 * x ** (1 / 2.4) - 0.055) if x > 0.0031308 else 12.92 * x for x in c[:3])
+
+
+def omie_bild(p, m):
+    # Omie: obj, die mtl nennt kein Bild (waffen_bestand.py); TGA mit dem Namen der Waffe daneben
+    stamm = re.sub(r'^sm_', '', os.path.splitext(os.path.basename(p))[0].lower())
+    kand = sorted(glob.glob(os.path.join(os.path.dirname(p), '**', '*.tga'), recursive=True) +
+                  glob.glob(os.path.join(os.path.dirname(p), '**', '*.png'), recursive=True))
+    farbe = [k for k in kand if re.search(r'base.?color|albedo|diffuse', os.path.basename(k), re.I)] or kand
+    genau = [k for k in farbe if stamm.replace('_', '') in os.path.basename(k).lower().replace('_', '')]
+    wahl = (genau or farbe or [None])[0]
+    return bpy.data.images.load(wahl) if wahl else None
+
+
+def pixel(im):
+    W, H = im.size
+    px = np.empty(W * H * 4, dtype=np.float32)
+    im.pixels.foreach_get(px)
+    return px.reshape(H, W, 4)[:, :, :3].copy()
+
+
+def verkleinert(a):
+    H, W = a.shape[:2]
+    f = max(1, int(np.ceil(max(H, W) / GROSS)))
+    if f == 1: return a
+    H2, W2 = H // f, W // f
+    return a[:H2 * f, :W2 * f].reshape(H2, f, W2, f, 3).mean((1, 3))
+
+
+def bild_klassen(a):
+    # Klasse je Bildpunkt (gleiche Regel wie klasse(), vektorisiert)
+    mx, mn = a.max(2), a.min(2)
+    s = np.where(mx > 1e-6, (mx - mn) / np.maximum(mx, 1e-6), 0)
+    r, g, b = a[:, :, 0], a[:, :, 1], a[:, :, 2]
+    d = np.maximum(mx - mn, 1e-6)
+    hu = np.where(mx == r, (g - b) / d % 6, np.where(mx == g, (b - r) / d + 2, (r - g) / d + 4)) * 60
+    k = np.full(a.shape[:2], 4, np.int8)   # akzent
+    rotbraun = (hu < 18) | (hu > 330)
+    k = np.where(rotbraun & (s < 0.6) & (mx < 0.45), 3, k)
+    k = np.where((hu >= 8) & (hu < 18) & (s < 0.85), np.where(mx < 0.26, 3, 2), k)
+    gelb = (hu >= 18) & (hu <= 65)
+    k = np.where(gelb, np.where((hu >= 32) & (hu <= 60) & (mx > 0.5) & (s > 0.45), 1, np.where(mx < 0.26, 3, 2)), k)
+    k = np.where(s < 0.18, 0, k)
+    k = np.where(mx < 0.10, 3, k)
+    return k
+
+
+S_MAX = 1.3   # groesste Zeichnung (Helligkeit gegen den Median); im Spielbild S / S_MAX, die toenung traegt den Rest
+
+
+def zeichnung(a, kl):
+    # Zeichnung der Klasse kl als Helligkeit gegen den Median der Bildpunkte dieser Klasse (0,55 bis S_MAX)
+    lum = a @ np.array([0.2126, 0.7152, 0.0722], dtype=np.float32)
+    k = bild_klassen(a)
+    eigen = lum[k == KLASSEN.index(kl)]
+    med = float(np.median(eigen)) if eigen.size > 16 else float(np.median(lum))
+    return (np.clip(lum / max(med, 0.02), 0.55, S_MAX) ** (0.7 if kl == 'metall' else 0.85)).astype(np.float32)
+
+
+def umfaerben(a, kl, sel):
+    # ganzes Bild in der Farbe der Klasse kl (Film: ein Bild je Seltenheit)
+    out = np.array(PALETTE[sel][kl], dtype=np.float32)[None, None, :] * zeichnung(a, kl)[:, :, None]
+    return np.clip(out, 0, 1)
+
+
+def speichern(a, pfad):
+    H, W = a.shape[:2]
+    im = bpy.data.images.new(os.path.basename(pfad), W, H, alpha=False)
+    rgba = np.concatenate([a, np.ones((H, W, 1), np.float32)], 2)
+    im.pixels.foreach_set(rgba.ravel())
+    im.filepath_raw = pfad
+    im.file_format = 'PNG'
+    im.save()
+    return im
+
+
+def testpakete(wo):
+    # drei kleine Probenetze, je Paketart eines, damit der Weg ohne Kaufdateien am Rechner geprueft werden kann
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    os.makedirs(os.path.join(wo, 'Medieval.Weapon.Pack.Godot', 'Mace'), exist_ok=True)
+    os.makedirs(os.path.join(wo, 'Low.Poly.Medieval.Weapons'), exist_ok=True)
+    os.makedirs(os.path.join(wo, 'Weapons_Shields_Free'), exist_ok=True)
+    # Omie: Stiel (Holz, unten) und Kopf (Stahl, oben) in einem Netz, Farbe nur im Bild (links braun, rechts grau)
+    bpy.ops.mesh.primitive_cylinder_add(radius=0.02, depth=0.5, location=(0, 0, 0))
+    stiel = bpy.context.active_object
+    bpy.ops.mesh.primitive_cube_add(size=0.12, location=(0, 0, 0.3))
+    kopf = bpy.context.active_object
+    for o, u in ((stiel, 0.25), (kopf, 0.75)):
+        for l in o.data.uv_layers.active.data: l.uv = (u + (l.uv[0] - 0.5) * 0.2, l.uv[1])
+    bpy.ops.object.select_all(action='SELECT'); bpy.ops.object.join()
+    img = bpy.data.images.new('t', 64, 64)
+    px = np.zeros((64, 64, 4), np.float32); px[:, :, 3] = 1
+    px[:, :32, :3] = (0.45, 0.30, 0.16); px[:, 32:, :3] = (0.55, 0.56, 0.58); px[::7, 32:, :3] = 0.35
+    img.pixels.foreach_set(px.ravel())
+    d = os.path.join(wo, 'Medieval.Weapon.Pack.Godot', 'Mace')
+    img.filepath_raw = os.path.join(d, 'sm_mace_Mat_Mace_BaseColor.png'); img.file_format = 'PNG'; img.save()
+    bpy.ops.wm.obj_export(filepath=os.path.join(d, 'sm_mace.obj'), export_materials=False)
+    # Anker: Grundfarben je Material, ohne Bild; Klinge liegt (laengste Achse x), Griff rechts
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 0, 0))
+    o = bpy.context.active_object
+    o.scale = (1.2, 0.06, 0.01); bpy.ops.object.transform_apply(scale=True)
+    bpy.ops.mesh.primitive_cube_add(size=1, location=(0.75, 0, 0))
+    g = bpy.context.active_object
+    g.scale = (0.3, 0.03, 0.03); bpy.ops.object.transform_apply(scale=True)
+    for ob, nm, c in ((o, 'Metal', (0.6, 0.6, 0.62, 1)), (g, 'Handle', (0.12, 0.05, 0.02, 1))):
+        m = bpy.data.materials.new(nm); m.use_nodes = True
+        m.node_tree.nodes['Principled BSDF'].inputs['Base Color'].default_value = c
+        ob.data.materials.append(m)
+    bpy.ops.object.select_all(action='SELECT'); bpy.ops.object.join()
+    bpy.ops.export_scene.fbx(filepath=os.path.join(wo, 'Low.Poly.Medieval.Weapons', 'Sword.fbx'))
+    # Avramania: glb mit Palettenbild
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    bpy.ops.mesh.primitive_cone_add(radius1=0.05, depth=0.8)
+    o = bpy.context.active_object
+    pal = bpy.data.images.new('pal', 16, 16)
+    px = np.zeros((16, 16, 4), np.float32); px[:, :, 3] = 1; px[:, :8, :3] = (0.75, 0.6, 0.2); px[:, 8:, :3] = (0.2, 0.2, 0.7)
+    pal.pixels.foreach_set(px.ravel()); pal.pack()
+    m = bpy.data.materials.new('pal'); m.use_nodes = True
+    t = m.node_tree.nodes.new('ShaderNodeTexImage'); t.image = pal
+    m.node_tree.links.new(t.outputs['Color'], m.node_tree.nodes['Principled BSDF'].inputs['Base Color'])
+    o.data.materials.append(m)
+    for l in o.data.uv_layers.active.data: l.uv = (0.2, 0.5)
+    bpy.ops.export_scene.gltf(filepath=os.path.join(wo, 'Weapons_Shields_Free', 'mdvl_weapons_spear_01.glb'), export_format='GLB')
+
+
+# SPIEL=1 (458.3 Schritt 1): fuers Spiel wie waffen.py (Modellregel 4): Griff (Mitte der Faust) im Ursprung, Klinge und Schaft
+# nach +Y (Blender +Z), Schneide quer nach +X, echte Laenge; ein graues Bild je Material, Farbe je Seltenheit als toenung;
+# Datei <waffenart>_<form>.glb. Ohne SPIEL wie bisher fuer den Film (1 m, ein Bild je Seltenheit).
+SPIEL = bool(os.environ.get('SPIEL'))
+DREIECKE = 800
+# Masse in cm aus Dress.kt (reach: vor der Faust; GRIP_BACK: dahinter; runde Waffen buttPart · reach), Boegen aus waffen.py
+VORN = {'dagger': 28, 'shortsword': 47, 'scimitar': 65, 'rapier': 80, 'longsword': 75, 'greatsword': 103, 'handaxe': 36,
+        'battleaxe': 64, 'greataxe': 96, 'mace': 54, 'morningstar': 66, 'warhammer': 53, 'maul': 85, 'spear': 148, 'halberd': 131,
+        'staff': 70}
+HINTEN = {'dagger': 7, 'shortsword': 8.5, 'scimitar': 8, 'rapier': 8.5, 'longsword': 12.5, 'greatsword': 25.5, 'handaxe': 9,
+          'battleaxe': 12, 'greataxe': 35, 'mace': 11.5, 'morningstar': 11.5, 'warhammer': 9, 'maul': 30, 'halberd': 45,
+          'spear': 148 * 0.42, 'staff': 70 * 1.45}
+BOEGEN = {'shortbow': 101, 'longbow': 140}
+ARMBRUST = {'light_crossbow': (70, 25)}   # Laenge, Griff ab Kolbenende (Dress.kt baut sie rund, ohne Mass); geschaetzt
+SCHWERTER = {'dagger', 'shortsword', 'scimitar', 'rapier', 'longsword', 'greatsword'}
+
+
+def punkte(me):
+    return np.array([v.co[:] for v in me.vertices])
+
+
+def drehe_z(me, winkel):
+    me.transform(Matrix.Rotation(winkel, 4, 'Z'))
+
+
+def lage_spiel(me, fl_kl, art):
+    # Eingang: Mitte im Ursprung, laengste Achse z, schweres Ende oben (wie fuer den Film)
+    kl = np.array(fl_kl)
+    if art in ARMBRUST:
+        # Armbrust: der Schaft (Holz) laeuft nach +Z, nicht der Bogen; Bogen (Metall) oben
+        hz = np.array([pg.center[:] for pg, k in zip(me.polygons, kl) if k in ('holz', 'leder')] or [[0, 0, 1]])
+        ausd = hz.max(0) - hz.min(0)
+        if ausd[0] > ausd[2] * 1.1: me.transform(Matrix.Rotation(1.5708, 4, 'Y'))
+        elif ausd[1] > ausd[2] * 1.1: me.transform(Matrix.Rotation(1.5708, 4, 'X'))
+        me.update()
+        zs = np.array([pg.center.z for pg in me.polygons]); fl = np.array([pg.area for pg in me.polygons])
+        mt = np.isin(kl, ['metall', 'beschlag'])
+        if (fl * mt * (zs < 0)).sum() > (fl * mt * (zs > 0)).sum(): me.transform(Matrix.Rotation(3.14159, 4, 'X'))
+    v = punkte(me); lo, hi = v.min(0), v.max(0)
+    if (hi - lo)[1] > (hi - lo)[0]: drehe_z(me, 1.5708)   # breitere waagrechte Seite nach X (Schneide, Blatt, Bogenkruemmung)
+    v = punkte(me); lo, hi = v.min(0), v.max(0); L = float(hi[2] - lo[2])
+    if art in BOEGEN:
+        s = BOEGEN[art] / 100.0 / L
+        me.transform(Matrix.Scale(s, 4)); v = punkte(me); L *= s
+        mitte = v[np.abs(v[:, 2]) < 0.06 * L]; enden = v[np.abs(v[:, 2]) > 0.42 * L]
+        if len(mitte) and len(enden) and mitte[:, 0].mean() < enden[:, 0].mean(): drehe_z(me, 3.14159)   # Ruecken +X, Spitzen −X
+        v = punkte(me); mitte = v[np.abs(v[:, 2]) < 0.06 * L]
+        g = Vector((float(mitte[:, 0].max()) - 0.012, float(mitte[:, 1].mean()), 0.0))   # Griff eine halbe Faust hinter dem Ruecken
+        me.transform(Matrix.Translation(-g)); me.update()
+        return {'laenge_cm': round(L * 100, 1), 'griff_ab_unten_cm': round(L * 50, 1)}
+    if art in ARMBRUST:
+        ges, hinten = ARMBRUST[art]
+    else:
+        ges, hinten = VORN[art] + HINTEN[art], HINTEN[art]
+    s = ges / 100.0 / L
+    me.transform(Matrix.Scale(s, 4)); v = punkte(me); lo, hi = v.min(0), v.max(0); L = float(hi[2] - lo[2])
+    zg = float(lo[2]) + hinten / 100.0
+    wie = 'Dress'
+    if art in SCHWERTER:
+        # Parierstange: breiteste Scheibe (2 cm) im unteren Teil; die Faust endet 5,6 cm darunter (waffen.py longsword: Griff 5 cm vor
+        # der Faust, Parierstange bei 5,6)
+        sch = np.arange(float(lo[2]), float(lo[2]) + 0.5 * L, 0.02)
+        breit = [float(np.ptp(v[(v[:, 2] >= a) & (v[:, 2] < a + 0.02), 0])) if ((v[:, 2] >= a) & (v[:, 2] < a + 0.02)).sum() > 2 else 0.0
+                 for a in sch]
+        if breit:
+            i = int(np.argmax(breit)); unten = [b for b in breit[:max(i, 1)] if b > 0]
+            if unten and breit[i] > 1.6 * float(np.median(unten)) and sch[i] - lo[2] > 0.05:
+                zg = float(sch[i]) - 0.056 + 0.01; wie = 'Parierstange'
+    # Mitte des Querschnitts in Griffhoehe: Kanten, die die Ebene schneiden (lange Stiele haben nur oben und unten Ecken)
+    sp = []
+    for e in me.edges:
+        a, b = v[e.vertices[0]], v[e.vertices[1]]
+        if (a[2] - zg) * (b[2] - zg) <= 0 and a[2] != b[2]:
+            t = (zg - a[2]) / (b[2] - a[2]); sp.append(a + t * (b - a))
+    if sp:
+        sp = np.array(sp); mx = np.median(sp[:, 0]); sp = sp[np.abs(sp[:, 0] - mx) < 0.04]   # nur der Stiel, nicht ein Blatt daneben
+    g = Vector((float(sp[:, 0].mean()), float(sp[:, 1].mean()), zg)) if len(sp) else Vector((0.0, 0.0, zg))
+    me.transform(Matrix.Translation(-g)); me.update()
+    # Schneide nach +X: Metall weit vor der Achse (Axtblatt, Hammerkopf, Hellebarde); Klingen sind gleich, dann bleibt es
+    v = punkte(me); fz = np.array([pg.center[:] for pg in me.polygons]); fl = np.array([pg.area for pg in me.polygons])
+    mt = np.isin(kl, ['metall', 'beschlag', 'akzent']) & (fz[:, 2] > 0.5 * float(v[:, 2].max()))
+    if (fl * mt * fz[:, 0]).sum() < -0.002 * fl.sum(): drehe_z(me, 3.14159)
+    me.update()
+    return {'laenge_cm': round(L * 100, 1), 'griff_ab_unten_cm': round((zg - float(lo[2])) * 100, 1), 'griff': wie}
+
+
+if os.environ.get('TESTPAKETE'):
+    testpakete(KAUF)
+
+# Formen aus der Datendatei: jede Kennung, die eine Waffe in „formen“ nennt
+katalog = json.load(open(KATALOG, encoding='utf-8'))
+gesucht = {}
+for g in katalog['gegenstaende']:
+    for f in g.get('formen') or []:
+        gesucht.setdefault(f['netz'], []).append(g['id'])
+print('FORMEN', len(gesucht), 'aus', KATALOG)
+
+dateien = {}
+for paket, ordner, endung in PAKETE:
+    wurzeln = [d for d in glob.glob(os.path.join(KAUF, '**', ordner + '*'), recursive=True) if os.path.isdir(d)]
+    for f in sorted({f for w in wurzeln for f in glob.glob(os.path.join(w, '**', '*' + endung), recursive=True)}):
+        dateien.setdefault('%s_%s' % (paket.lower(), slug(os.path.splitext(os.path.basename(f))[0])), (paket, f))
+print('DATEIEN', len(dateien))
+
+info = {}
+for kennung in sorted(gesucht):
+    if kennung not in dateien:
+        print('FEHLT Datei', kennung); continue
+    paket, p = dateien[kennung]
+    bpy.ops.wm.read_factory_settings(use_empty=True)
+    try:
+        if p.endswith('.obj'): bpy.ops.wm.obj_import(filepath=p)
+        elif p.endswith('.fbx'): bpy.ops.import_scene.fbx(filepath=p)
+        else: bpy.ops.import_scene.gltf(filepath=p)
+    except Exception as e:
+        print('FEHLT Import', kennung, e); continue
+    netze = [o for o in bpy.data.objects if o.type == 'MESH']
+    if not netze: print('FEHLT Netz', kennung); continue
+    for o in [o for o in bpy.data.objects if o.type != 'MESH']: bpy.data.objects.remove(o)
+    bpy.ops.object.select_all(action='DESELECT')
+    for o in netze: o.select_set(True)
+    bpy.context.view_layer.objects.active = netze[0]
+    if len(netze) > 1: bpy.ops.object.join()
+    o = bpy.context.view_layer.objects.active
+    bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+    me = o.data
+    if not me.materials: me.materials.append(None)
+    # Quelle je altem Material: Bild (Omie: Datei daneben) oder Grundfarbe
+    quellen = []
+    for m in me.materials:
+        im = basisbild(m)
+        if im is None and paket == 'Omie': im = omie_bild(p, m)
+        quellen.append(('bild', verkleinert(pixel(im))) if im is not None else ('farbe', grundfarbe(m)))
+        if im is None:
+            print('MATERIAL', kennung, m.name if m else '-', 'Farbe', tuple(round(x, 2) for x in quellen[-1][1]), 'Name', name_klasse(m),
+                  'Farbe->', klasse(quellen[-1][1]))
+    # Eckfarben (Probelauf 1: Avramania Armbrust und Kurzbogen, 80 Dreiecke, ohne Bild ganz als Metall; im alten Film farbig)
+    ecken = None
+    ca = me.color_attributes.active_color if me.color_attributes else None
+    if ca is not None and len(ca.data):
+        try: werte = [tuple(d.color_srgb[:3]) for d in ca.data]
+        except AttributeError: werte = [tuple((1.055 * x ** (1 / 2.4) - 0.055) if x > 0.0031308 else 12.92 * x for x in d.color[:3]) for d in ca.data]
+        if np.array(werte).std(0).max() > 0.02: ecken = (ca.domain, werte)   # einheitlich weiss (fbx) sagt nichts
+        print('ECKFARBEN', kennung, ca.domain, len(werte), 'genutzt' if ecken else 'einheitlich')
+    if not me.uv_layers: me.uv_layers.new(name='UV')
+    uv = np.empty(len(me.loops) * 2); me.uv_layers.active.data.foreach_get('uv', uv); uv = uv.reshape(-1, 2)
+    # Klasse je Flaeche: Bild an Schwerpunkt und Ecken der UV (Mehrheit), sonst Grundfarbe des Materials
+    fl_kl, fl_q = [], []
+    for pg in me.polygons:
+        qi = min(pg.material_index, len(quellen) - 1)
+        art, q = quellen[qi]
+        nk = name_klasse(me.materials[qi]) if art == 'farbe' else None
+        if nk:
+            fl_kl.append(nk)
+        elif art == 'farbe' and ecken is not None:
+            idx = list(pg.loop_indices) if ecken[0] == 'CORNER' else list(pg.vertices)
+            c = np.array([ecken[1][i] for i in idx]).mean(0)
+            fl_kl.append(klasse(c))
+        elif art == 'farbe':
+            fl_kl.append(klasse(q))
+        else:
+            H, W = q.shape[:2]
+            pts = uv[list(pg.loop_indices)]
+            pts = np.vstack([pts.mean(0, keepdims=True)] * 2 + [pts * 0.7 + pts.mean(0) * 0.3])
+            xs = np.clip((pts[:, 0] % 1.0) * W, 0, W - 1).astype(int); ys = np.clip((pts[:, 1] % 1.0) * H, 0, H - 1).astype(int)
+            ks = bild_klassen(q[ys, xs][None, :, :])[0]
+            fl_kl.append(KLASSEN[int(np.bincount(ks, minlength=5).argmax())])
+        fl_q.append(qi)
+    # Beschlag ist klein (Parierstange, Ringe, Nieten); ueber ein Viertel der Flaeche ist es hellgelbes Holz (Probelauf 2, Pruefer:
+    # Avramania Speer 60 %, Handbeil 40 % Beschlag, Stiel dadurch grau)
+    fl_a = np.array([pg.area for pg in me.polygons])
+    if fl_a[np.array(fl_kl) == 'beschlag'].sum() > 0.25 * fl_a.sum():
+        fl_kl = ['holz' if k == 'beschlag' else k for k in fl_kl]
+        print('BESCHLAG ALS HOLZ', kennung)
+    # neue Materialien je (Quelle, Klasse)
+    paare = sorted({(q, k) for q, k in zip(fl_q, fl_kl)}, key=lambda x: (KLASSEN.index(x[1]), x[0]))
+    neu = []
+    for i, (qi, kl) in enumerate(paare):
+        name = '%s.%d' % (kl, i)
+        art, q = quellen[qi]
+        if SPIEL:
+            # Spiel: ein graues Bild je Material (Zeichnung S / S_MAX), die Farbe je Seltenheit setzt Godot als toenung (staffel.json)
+            a = np.repeat((zeichnung(q, kl) / S_MAX)[:, :, None], 3, 2) if art == 'bild' else np.full((4, 4, 3), 1.0 / S_MAX, np.float32)
+            bild = speichern(a, os.path.join(ZIEL, '%s__%s.png' % (kennung, name)))
+        else:
+            bilder = {}
+            for sel in SELTENHEITEN:
+                a = umfaerben(q, kl, sel) if art == 'bild' else np.tile(np.array(PALETTE[sel][kl], np.float32), (4, 4, 1))
+                bilder[sel] = speichern(a, os.path.join(ZIEL, '%s__%s__%s.png' % (kennung, name, sel)))
+            bild = bilder['COMMON']
+        m = bpy.data.materials.new(name); m.use_nodes = True
+        t = m.node_tree.nodes.new('ShaderNodeTexImage'); t.image = bild
+        m.node_tree.links.new(t.outputs['Color'], m.node_tree.nodes['Principled BSDF'].inputs['Base Color'])
+        neu.append(m)
+    idx = {pk: i for i, pk in enumerate(paare)}
+    zuordnung = [idx[(q, k)] for q, k in zip(fl_q, fl_kl)]
+    me.materials.clear()
+    for m in neu: me.materials.append(m)
+    for pg, i in zip(me.polygons, zuordnung): pg.material_index = i
+    for a in list(me.color_attributes): me.color_attributes.remove(a)   # Eckfarben faerbten im toon.gdshader mit (COLOR.rgb)
+    # Lage: Mitte in den Ursprung, laengste Achse senkrecht; Metall nach oben (Klinge, Kopf), Griff nach unten
+    vs = np.array([v.co[:] for v in me.vertices])
+    lo, hi = vs.min(0), vs.max(0)
+    lang = int(np.argmax(hi - lo))
+    R = Matrix.Identity(4)
+    if lang == 0: R = Matrix.Rotation(1.5708, 4, 'Y')
+    elif lang == 1: R = Matrix.Rotation(1.5708, 4, 'X')
+    me.transform(R @ Matrix.Translation(Vector(-(lo + hi) / 2)))
+    laenge = float((hi - lo).max())
+    zs = np.array([(o.matrix_world @ pg.center).z for pg in me.polygons])
+    fl = np.array([pg.area for pg in me.polygons])
+    # schweres Ende nach oben: Klinge, Kopf, Stein (Probelauf 1: Avramania-Stab mit Kristall stand auf dem Kopf, Metallkappe unten)
+    metall = np.array([{'metall': 1.0, 'beschlag': 1.0, 'akzent': 4.0}.get(k, 0.0) for k in fl_kl])
+    oben = float((fl * metall * (zs > laenge * 0.25)).sum()); unten = float((fl * metall * (zs < -laenge * 0.25)).sum())
+    gedreht = unten > oben * 1.15 and float((fl * (metall > 0)).sum()) < 0.9 * float(fl.sum())   # ganz aus Metall: Lage lassen
+    # zuerst der Griff: Holz und Leder im aeusseren Fuenftel gehoeren nach unten (Probelauf 2: Anker-Schwerter kopfueber, weil
+    # Parierstange und Knauf unten mehr Metallflaeche haben als die schmale Klingenspitze oben); nur wenn das nicht entscheidet, das Gewicht
+    griff = np.array([k in ('holz', 'leder') for k in fl_kl])
+    g_oben = float((fl * griff * (zs > laenge * 0.3)).sum()); g_unten = float((fl * griff * (zs < -laenge * 0.3)).sum())
+    if g_oben > g_unten * 1.3: gedreht = True
+    elif g_unten > g_oben * 1.3: gedreht = False
+    # 458.3 Spiel (Blatt 17.11.): bei Kopfwaffen entscheidet ein klar einseitiger Kopf vor dem Griff (Bardiche, Stachelkeule, Omie-
+    # Kriegshammer standen kopfueber: der Kopf verdeckt den Stiel unten, oben bleibt mehr Holz sichtbar)
+    if SPIEL and gesucht[kennung][0] not in SCHWERTER | set(BOEGEN) | set(ARMBRUST):
+        mz = float((fl * metall * zs).sum() / max((fl * metall).sum(), 1e-9))   # Schwerpunkt des Kopfs (Metall, Stein)
+        if mz < -0.08 * laenge: gedreht = True
+        elif mz > 0.08 * laenge: gedreht = False
+    if gedreht: me.transform(Matrix.Rotation(3.14159, 4, 'X'))
+    art = gesucht[kennung][0]
+    if SPIEL:
+        lage = lage_spiel(me, fl_kl, art)
+    else:
+        me.transform(Matrix.Scale(1.0 / max(laenge, 1e-6), 4))   # 1 m zum Ansehen (Film)
+        lage = {}
+    dr = sum(len(pg.vertices) - 2 for pg in me.polygons)
+    if SPIEL and dr > DREIECKE:
+        # Modellregel 7 (LISTE-UMZUG-348.md): hoechstens 800 Dreiecke je Waffe; Omie hat bis 1764
+        bpy.ops.object.select_all(action='DESELECT'); o.select_set(True); bpy.context.view_layer.objects.active = o
+        mo = o.modifiers.new('weniger', 'DECIMATE'); mo.ratio = (DREIECKE - 20) / dr
+        bpy.ops.object.modifier_apply(modifier=mo.name)
+        me = o.data
+        print('VEREINFACHT', kennung, dr, '->', sum(len(pg.vertices) - 2 for pg in me.polygons))
+        dr = sum(len(pg.vertices) - 2 for pg in me.polygons)
+    datei = '%s_%s' % (art, kennung) if SPIEL else kennung
+    o.name = datei
+    bpy.ops.object.select_all(action='DESELECT'); o.select_set(True)
+    bpy.ops.export_scene.gltf(filepath=os.path.join(ZIEL, datei + '.glb'), export_format='GLB', use_selection=True)
+    anteil = {k: round(float(fl[np.array(fl_kl) == k].sum() / max(fl.sum(), 1e-9)), 3) for k in KLASSEN}
+    info[kennung] = {'paket': paket, 'datei': os.path.relpath(p, KAUF), 'dreiecke': dr, 'laenge_roh': round(laenge, 3),
+                     'gedreht': gedreht, 'materialien': [m.name for m in neu], 'anteil': anteil, 'fuer': gesucht[kennung],
+                     'spiel': datei, **lage}
+    print('FORM', datei, dr, 'Dreiecke', 'Materialien', ','.join(m.name for m in neu), 'Anteil', anteil,
+          'gedreht' if info[kennung]['gedreht'] else '', ' '.join('%s=%s' % kv for kv in lage.items()))
+aus = {'formen': info, 'seltenheiten': SELTENHEITEN, 'glimmen': {s: {'farbe': c, 'klassen': k} for s, (c, k) in GLIMMEN.items()}}
+if SPIEL:
+    # Godot (staffel.gd): je Waffenart die Formen nach Stufe (ab), je Seltenheit und Klasse die toenung (linear, mal S_MAX^2,2,
+    # weil das Bild S / S_MAX traegt; sRGB als Potenz 2,2 genaehert)
+    aus['waffen'] = {g['id']: [{'ab': f['ab'], 'datei': info[f['netz']]['spiel']} for f in g['formen'] if f['netz'] in info]
+                     for g in katalog['gegenstaende'] if g.get('formen')}
+    aus['toenung'] = {sel: {kl: [round((c ** 2.2) * S_MAX ** 2.2, 4) for c in PALETTE[sel][kl]] for kl in KLASSEN} for sel in SELTENHEITEN}
+json.dump(aus, open(os.path.join(ZIEL, 'staffel.json'), 'w'), indent=1, ensure_ascii=False)
+print('STAFFEL OK', len(info), 'von', len(gesucht))
