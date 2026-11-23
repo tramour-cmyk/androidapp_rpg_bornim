@@ -1,7 +1,8 @@
 # 1589.2 Beleglauf (kein Logiktest): Wolfsrudel (Leitwolf mit Jungwölfen, aufruf.gd rudel) und Goblins (zwei Goblins, Späher,
 # Schamane), Gruppe Held vorn links, Söldner vorn rechts, Magierin hinten (wenig Leben). Je Gegnerzug das angesagte Ziel, einmal
 # mit der alten Wahl (arena_an false: dice.pick aus der vorderen Reihe) und einmal über die Arena; die Gruppe schlägt je Runde den
-# vordersten Gegner mit festem Schaden, damit Flucht und Fall vorkommen.
+# vordersten Gegner mit festem Schaden (im Zug des Helden), danach enden die Züge von Held, Söldner, Magierin, damit Flucht und Fall
+# vorkommen und eine angesagte Flucht erst nach dem Zug der Gruppe gilt (Prüfer 22.11., 19:42).
 # Run: godot --headless --path godot -s res://tests/beleg_15892.gd
 extends SceneTree
 
@@ -67,15 +68,21 @@ func _lauf(art: String, saat: int, arena: bool) -> Array:
 			var wen := "" if p == null or p[1].is_empty() else String(p[1][0])
 			zeilen.append("R%d %s: %s %s" % [runde + 1, f.id, was, wen])
 			m._foe_turn(f, Callable())
+			if was == "flee" and f.standing():
+				zeilen.append("   %s bleibt (Gruppe seit Ansage noch nicht am Zug)" % f.id)
 		if m.outcome != "ONGOING":
 			break
 		var vorn = null
 		for f in m.all.filter(func(x): return x.side == "FOES" and x.standing() and x.angreifbar()):
 			if vorn == null or (f.place.x < vorn.place.x):
 				vorn = f
+		m.turn = m.order.find(m.by_id("hero"))
 		if vorn != null:
 			m._hurt(vorn, 14, "hero", "")
 			zeilen.append("R%d Gruppe trifft %s (%s)" % [runde + 1, vorn.id, "fällt" if vorn.hp <= 0 else "%d Leben" % vorn.hp])
+		for p in ["hero", "merc", "mage"]:     # die Züge der Gruppe enden (Held zuerst, in dessen Zug der Treffer fiel)
+			m.turn = m.order.find(m.by_id(p))
+			m._next_turn()
 	for f in m.all.filter(func(x): return x.side == "FOES" and x.fled):
 		zeilen.append("geflohen: %s%s" % [f.id, " (von selbst)" if f.von_selbst else ""])
 	zeilen.append("Ausgang " + m.outcome)
