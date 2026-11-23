@@ -25,13 +25,13 @@
 
 ## Offene Fäden
 
-- Rundblick 23.11. offen: 1966 KISS, bis drei Verfahren, Bilanz (Chef 07:31–08:29).
+- Rundblick heute 17:00 zugesagt (1966 KISS, bis drei Verfahren, Bilanz; Chef 07:31–08:29, 13:51); Befunde: Disponent-Kosten (Opus 57 $), Titel, Laufsperre nur als Text (2001), Wecker an Disponent fehlte (2001 Teil 2), Lehrenbuch leer (1999).
 - Chef ab 24.11. auf Konferenz in Spanien, wenig Zeit (14:43): Vorlagen bündeln, kurz.
-- Täglich: Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07); Raster Startprompts `docs/leitung/startpruefung.md` (1989) je Art einmal.
-- Laufsperre bis Sa 28.11.: zwei Fachkräfte, beide ans Spiel (Chef 11:13); Werkzeug nur, wenn Betrieb steht.
-- Offen: 1068 Leitwolf-Ring messen (11:27), 1589.2 nach grünem Lauf auf main, 1971 Rückläufer, 1995, 1996.
-- Fehler 341 vom 23.11. (`ARBEIT-BERATUNG.md`) als Lehren mit Byte vorlegen.
+- Uhren: nur mit Chefsatz im Chat der Leitung (14:04 belegt) oder Disponent-Handstart des Chefs mit Satz; Repo und Organisations-Einstellungen wirken nicht (Proben 1–4, Plan ohne Team). Offen beim Chef: Weg festlegen und Wache ohne Neustart (Vorlage 15:20/15:22). Uwe und Wache vorläufig ohne Neustart.
+- Laufsperre bis Sa 28.11.: drei Fachkräfte, Spiel und Eilt (Chef 14:43). Eilt: 1999, 2001 (Auftrag gegengeprüft).
+- Täglich: Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07).
+- Offen: 1068-Ü8 Rückläufer (Conrad), 1971, 1995, 1996; Altbestand Fehler 341 ins Lehrenbuch.
 
 ## Übergabe
 
-- 23.11., 11:28, `session_01Hmoj789UmXhift5nSYbgBF` (408 Tsd.): 1988, 1989, 1992, 1688 erledigt; Disponent Fritz von Hand (Ebene 0) mit Starter; 1570 ruht. Nachfolger: Sokrates – Leitung.
+- 23.11., 15:22, `session_01Hmoj76v3qfGY8UGYcLqL1A` (435 Tsd.): Entscheide 1068 Leibwache, 1657 in 1694, 1997/1999/2001 Eilt, drei Fachkräfte, Uhr für Uwe, Zurückdrehen Sockel/Profil; 1997 erledigt; Uwe Disponent (Uhr trig_01JyUFnFGzKzNd1KdsU583gN). Letzte Antwort: Zurückdrehen umgesetzt, Weg für Uhren offen. Nachfolger: Sokrates – Leitung.
