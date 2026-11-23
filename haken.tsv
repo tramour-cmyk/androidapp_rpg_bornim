@@ -1323,3 +1323,4 @@
 2026-11-23 09:52:08	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	HEAD
 2026-11-23 10:07:19	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/zeno-1068-ring
 2026-11-23 10:08:35	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/zeno-1068-ring
+2026-11-23 11:23:44	probelauf	1702: Bild oder Film an den Chef nur aus dem gepushten Stand; nicht committet: godot/shader/toon.gdshader, godot/skripte/hauptmenue_helden.gd, godot/tests/schild_bild_1417.gd, godot/tests/schild_menue	claude/figur-1675-schild
