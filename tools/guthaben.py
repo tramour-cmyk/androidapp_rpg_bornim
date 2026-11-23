@@ -20,7 +20,7 @@ Laufsperre als Obergrenze (2001, Chef 23.11., 14:37; Archiv 287): höchstens N F
 (Zahl als Ziffer oder Wort; Bereiche durch Komma oder „und“ wie bereiche.py, „Spiel“ = G Regeln, E Kampf, E Figuren, E Welt;
 Eilt darf auch außerhalb der Bereiche, zählt aber unter N mit (287 Filter, 1997); nachts startet keine Fachkraft, auch nicht Eilt).
 Läuft = lauf.py „Laufend“ (working/blocked, updated_at unter 60 Minuten, Kopf von lauf.py), nie ARBEIT-BESETZUNG.md; jeder START
-dieses Laufs zählt dazu. Frei, zählt nicht (eigene Menge FREI_OBER): Arbeitsplaner, Prüfer, Wache, Sokrates, Tagesbericht (und
+dieses Laufs zählt dazu. Frei, zählt nicht (eigene Menge FREI_OBER): Arbeitsplaner, Prüfer, Tester, Wache, Sokrates, Tagesbericht (und
 Routinen Sokrates', Disponent, Ford). Ohne „spätestens“ STANDARD_STUNDEN mit Warnung; ohne „Chef“ in der Klammer keine. Beispiel 287:
 „→ **Laufsperre: höchstens drei Fachkräfte zugleich, nur Spiel, nachts 23–07 keine, spätestens 28.11., 20:00**“.
 
@@ -40,7 +40,7 @@ STUFEN = ((100, "Stillstand"), (95, "nur Rückläufer"), (80, "nur Muss"))
 FREI_ROLLEN = {"Sokrates", "Rundblick", "Ideenlauf", "Wache", "Ford"}  # 1907: Ideenlauf ist Sokrates
 STANDARD_STUNDEN = 24
 FREI_OBER = {"Arbeitsplaner", "Planer", "Perikles", "Prüfer", "Diogenes", "Wache", "Sokrates", "Rundblick", "Ideenlauf", "Tagesbericht",
-             "Disponent", "Ford"}  # 2001: frei unter der Obergrenze; FREI_ROLLEN der alten Form bleibt
+             "Disponent", "Ford", "Tester"}  # 2001; Tester: 2001-Ü10: frei unter der Obergrenze; FREI_ROLLEN der alten Form bleibt
 SPIEL = ("G Regeln", "E Kampf", "E Figuren", "E Welt")  # 2001 (Archiv 287, 22.11., 19:57: „nur Spiel (Regeln, Kampf, Figur, Welt)“)
 ZAHLWORT = dict(nachtstarts.ZAHLWORT, keine=0, null=0, keinen=0)
 
@@ -165,9 +165,28 @@ def fachkraft(rolle):
     return re.sub(r" \d+$", "", rolle or "") not in FREI_OBER and rolle != "Sonstige"
 
 
+TITEL_ROLLE = re.compile(r" – \d[0-9a-zA-Z.]*: (Prüfung|Test(?:er)?)\b")
+
+
+def ober_rolle(rolle, titel):
+    """2001-Ü10 (Prüfer 23.11., 15:54): Titel „<Rufname> – <Nr>: Prüfung …“ → Prüfer, „…: Test …“ → Tester, vor der Rolle aus dem
+    Vorgang oder einer doppelten Rufnamen-Sperre (kosten.rolle gab für „Hanna – 1675: Prüfung“ Figur); sonst die Rolle."""
+    m = TITEL_ROLLE.search(titel or "")
+    return rolle if not m else "Prüfer" if m.group(1) == "Prüfung" else "Tester"
+
+
+def _laufend(je_rolle, archiviert):
+    return [(ober_rolle(r, s.get("title", "")), s) for r, ss in je_rolle.items() for s in ss if s["id"] not in archiviert and s["_info"][1]]
+
+
 def laufende_fachkraefte(je_rolle, archiviert=()):
     """2001: Zahl laufender Fachkraft-Sitzungen aus der Sitzungsliste von lauf.py (s["_info"] = (Rolle, Laufend, …), Kopf von lauf.py)."""
-    return sum(1 for r, ss in je_rolle.items() if fachkraft(r) for s in ss if s["id"] not in archiviert and s["_info"][1])
+    return sum(1 for r, s in _laufend(je_rolle, archiviert) if fachkraft(r))
+
+
+def laufende_namen(je_rolle, archiviert=()):
+    """2001-Ü10: „<Rufname> (<Rolle>)“ je gezählter Fachkraft, sortiert, für die Zeile LAUFSPERRE."""
+    return sorted("%s (%s)" % (re.split(r" – |, | \(", s.get("title", "") or s["id"])[0], r) for r, s in _laufend(je_rolle, archiviert) if fachkraft(r))
 
 
 def eilt(zeile):
@@ -214,6 +233,7 @@ class Bremse:
         self.sperre = laufsperre(jetzt, archiv)
         self.ober = obergrenze(jetzt, archiv)  # 2001
         self.laufend = laufend  # 2001: laufende Fachkräfte (lauf.py setzt es nach der Sitzungsliste); None = unbekannt
+        self.namen = None  # 2001-Ü10: wer gezählt ist (lauf.py), für die Zeile LAUFSPERRE
         self.rest = None
         if self.sperre:
             self.rest = self.sperre["deckel"] - gezaehlt(self.sperre, jetzt, protokoll, rueck)
@@ -231,8 +251,8 @@ class Bremse:
                 "" if s["ende"] else "; WARNUNG Ende fehlt, gilt %d h, Sokrates setzt „spätestens HH:MM“" % STANDARD_STUNDEN))
         if self.ober:
             o = self.ober
-            aus.append("LAUFSPERRE %s (Chef %s): höchstens %d Fachkräfte zugleich, %s laufen%s%s, bis %s; frei: Arbeitsplaner, Prüfer, Wache, Sokrates, Tagesbericht (2001)%s" % (
-                o["quelle"], o["ab"].strftime("%d.%m., %H:%M"), o["n"], "?" if self.laufend is None else self.laufend,
+            aus.append("LAUFSPERRE %s (Chef %s): höchstens %d Fachkräfte zugleich, %s%s%s, bis %s; frei: Arbeitsplaner, Prüfer, Tester, Wache, Sokrates, Tagesbericht (2001)%s" % (
+                o["quelle"], o["ab"].strftime("%d.%m., %H:%M"), o["n"], "? laufen" if self.laufend is None else "%d laufen%s" % (self.laufend, " (%s)" % ", ".join(self.namen) if self.namen else ""),
                 ", nur %s und Eilt" % self.ber_text() if o["bereiche"] else "", ", nachts %02d–%02d keine" % o["nacht"] if o["nacht"] else "",
                 o["bis"].strftime("%d.%m., %H:%M"), "" if o["ende"] else "; WARNUNG Ende fehlt, gilt %d h, Sokrates setzt „spätestens TT.MM., HH:MM“" % STANDARD_STUNDEN))
         return aus

@@ -1608,9 +1608,10 @@ def main():
         neue_marken.append(schl)
     for name in nicht_da: marken.pop(name, None)  # (2) zählt nicht als Belegung
     if bremse and bremse.ober:  # 2001: laufende Fachkräfte aus der Sitzungsliste („Laufend“, Kopf), dazu Startsperren unter SPERRE_MIN ohne Sitzung seither
-        bremse.laufend = guthaben.laufende_fachkraefte(je_rolle, archiviert) + sum(
-            1 for r, d in marken.items() if guthaben.fachkraft(r) and (JETZT - d).total_seconds() < SPERRE_MIN * 60
-            and not any(z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN) for s in je_rolle.get(r, [])))
+        gesperrt_ = ["Startsperre %s %s" % (r, d.strftime("%H:%M")) for r, d in sorted(marken.items()) if guthaben.fachkraft(r) and (JETZT - d).total_seconds() < SPERRE_MIN * 60
+            and not any(z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN) for s in je_rolle.get(r, []))]
+        bremse.laufend = guthaben.laufende_fachkraefte(je_rolle, archiviert) + len(gesperrt_)
+        bremse.namen = guthaben.laufende_namen(je_rolle, archiviert) + gesperrt_  # 2001-Ü10: wer gezählt ist
         neu_ = [l for l in bremse.zeilen() if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l]
         ausgabe[:] = [neu_[0] if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l and neu_ else l for l in ausgabe]
     # Starten
