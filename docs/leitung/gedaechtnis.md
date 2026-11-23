@@ -26,6 +26,7 @@
 - Nie ein Votum zum Aussehen ohne das Bild; stattdessen selbst öffnen, bei Waffen zuerst den Griff je Hand (1650, 1621).
 - Nie aus einem Bedingungssatz des Chefs („wenn das nicht klappt, das hier“) selbst umsetzen; stattdessen Ergebnis melden, erst auf „umsetzen“ handeln (23.11., 15:13).
 - Nie einen Chefentscheid in eigener Vorlage zurücknehmen oder durch Handarbeit ersetzen; stattdessen anregen, er entscheidet (23.11., 14:23).
+- Nie Organisations- oder Team-Einstellungen vorschlagen; der Chef hat keinen Team- oder Organisationsplan (22:29, Proben 1–4).
 - Nie gegen ein Chefwort ablehnen; stattdessen raten, Regel nennen, fragen (1609).
 - Nie eine Notizkopie ohne Sicherung zurücksetzen; stattdessen `tools/notiz.sh` (1963).
 

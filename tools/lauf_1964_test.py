@@ -74,7 +74,8 @@ try:
     open(p, "w", encoding="utf-8").write(alt.replace("| 1960-Ü7 | Arbeitsplaner |", "| 1960-Ü7 | Werkzeug |"))
     soll("d: offene Übergabe an andere Rolle hält den Auftrag nicht", lauf.auftrag_fehlt("1960", docs=d, titel="x") is None)
     open(p, "w", encoding="utf-8").write(alt.replace("| 22.11., 17:22 | offen |", "| 22.11., 16:22 | offen |"))
-    soll("d: Übergabe an den Planer älter als der Auftrag hält ihn nicht", lauf.auftrag_fehlt("1960", docs=d, titel="x") is None)
+    g = lauf.auftrag_fehlt("1960", docs=d, titel="x")  # 2006: jede offene Ü an den Planer hält, gleich wie alt (vorher: hält nicht)
+    soll("d: Übergabe an den Planer älter als der Auftrag hält ihn auch (2006)", g and "1960-Ü7" in g, g)
 finally:
     shutil.rmtree(d, ignore_errors=True)
 
