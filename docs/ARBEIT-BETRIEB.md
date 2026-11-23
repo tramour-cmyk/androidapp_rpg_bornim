@@ -131,3 +131,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:43 23.11.: 2006 Prüfer ja (Hugo), fertig gebucht; Erna, Hugo, Fritz archiviert, Kosten 2006 gebucht; Planer für 1068-Ü13, 1694-Ü12/Ü13 nach Gustav (2005) durch lauf.py
 - 23:03 23.11.: Startsperre 23:03 Start Prüfer (lauf.py, Prüfer 1675 Ingo)
 - 23:07 23.11.: Takt 23:03 (--ohne 513, 887, 1716, 1961): START Prüfer Ingo (1675-Ü9, 1653-Ü8, beide auf main) ausgeführt; NACHRICHT Arbeitsplaner an Gustav; NACHRICHT Kampf an Dana nicht gesendet (Dana soll enden); WÄCHTER 1653: Stand nachgezogen (warte –, startbar), 1694 schon startbar; Nachtruhe Fachkräfte ab 23 Uhr (Werkzeug-Start gehalten); 513 angehalten bis 7 Uhr
+- 23:06 23.11.: Startsperre 23:06 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1694 Ilse)
