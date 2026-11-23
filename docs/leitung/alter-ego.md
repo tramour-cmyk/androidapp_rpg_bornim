@@ -8,6 +8,7 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Übergabe (23.11., 17:58, session_01Hmoj78XHCB3MY4JTyhNrks, Neustart-Haken 200 Tsd.):** offen: Uwe-Antwort zu 17:04 (Kampf 1589.2/Werkzeug 1964 still nicht gestartet); 2002-Zusatz „fertig weckt Disponent sofort“; 2004 (Wache doppelt laut); 2003 bis 30.11.; beim Chef nur 1068 (Votum A). Nachfolger: Alter Ego – Supervisor (Handstart Chef).
 
+- 23.11., 21:05 Engpass Aufträge: Welt 0 Vorgänge mit Auftrag (Rest ruht/G Stil/Chef-Test); Sokrates: Planer nachts je 3 Aufträge Welt/Kampf/Figur (Planer frei). Alter Ego zählt weiter als Fachkraft bis 2002-Zusatz. Laufend: Silke 1675, Arne 1603.
 - 23.11., 21:01 Runde: kein Spiel seit 19:45; Volker 1589.2 tote Frage seit 20:06 → Sokrates neu (session_01Hmoj76c6rPyFA9ocndRnpB); 2006 Eilt 20:04 nicht im Plan → Sokrates; Uwe Takt außer der Reihe.
 - 23.11., 19:58 Runde: 19:58 Leerlauf bis Takt 20:03 (nicht eingegriffen); 1676 ruht bis 28.11. (Hedwig-Start war unnötig); 513 heute 18× gestartet (2005); 2006 Eilt angelegt; 2003 noch kein Beleg.
 - 23.11., 18:58 Runde: Stau gefunden, Uwe verwarf Planer-Starts seit 16:05 von Hand (Planer frei nach 2001 d); angewiesen ausführen; Hedwig 1676 blockiert ohne Auftrag; an Sokrates (Profilsatz). Isolde archiviert 18:10. Uhr 19:58 (trig_01HxqWEFLKRehbCgZLiZGWTH).
