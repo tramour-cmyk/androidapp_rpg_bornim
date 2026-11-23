@@ -23,7 +23,6 @@
   },
   "autoMode": {
     "environment": [
-      "The Disponent session (title contains 'Disponent') may create and rebind the hourly clocks (scheduled tasks) for itself and for the Wache with mcp__claude-code-remote__create_trigger without asking again; the project owner granted this on 23.11.2026, 14:46 and added this sentence himself.",
       "$defaults",
       "Project workflow (Chroniken von Bornim): sessions routinely fetch origin/main and merge it into their own claude/* working branches, and check for conflicts with git merge-tree or git diff; these are expected and not merges without review. A pull request into main is merged by the build maker (session title contains 'Build-Macher') only after the project owner has tested the build; that approval is recorded in docs/VORGANGSARCHIV.md or in the Vorgangsdatei docs/vorgang/<Nr>.md on main. Notes (CLAUDE.md, CHANGELOG.md, docs/) are committed and pushed directly to main by design.",
       "The Disponent (operations session that replaced Ford; its session title contains 'Disponent') archives old sessions of this account every hour with archive_session when tools/lauf.py prints an ARCHIVIERE line; this is intended by the project owner (decision 273) and is not interference with other work.",
