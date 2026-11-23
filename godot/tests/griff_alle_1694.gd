@@ -22,6 +22,7 @@ func _lauf() -> void:
 	for f in DirAccess.get_files_at("res://daten/waffen/"):
 		if f.ends_with(".bin") and not f.begins_with("quiver") and not f.contains("shield"): dinge.append(f.get_basename())
 	var paare := 0; var fehler := 0; var ohne := []
+	var je_ding := {}; var je_koerper := {}
 	# 1694 (23.11.): Prüfung nach dem Bild (NetzMess.sicht) in einem kleinen Bild derselben Welt, neben der Netzmessung
 	var sv := SubViewport.new()
 	sv.size = Vector2i(200, 200); sv.render_target_update_mode = SubViewport.UPDATE_ALWAYS
@@ -68,18 +69,22 @@ func _lauf() -> void:
 			else:
 				var w: Dictionary = NetzMess.median(gueltig)
 				var netz_gut: bool = not gueltig[0].has("leer") and NetzMess.griff_gut(w)
-				var sicht_gut: bool = not si.is_empty() and NetzMess.sicht_gut(si)
+				var sicht_gut: bool = not si.is_empty() and NetzMess.sicht_gut(si, NetzMess.dick(w))
 				var gut := netz_gut and sicht_gut
 				if not gut or OS.get_environment("ALLE") != "":
-					print("ALLE1694 %s %-28s %s Spalt %.1f, Umschlingung %d°, Glieder %.1f, Kuppen %.1f cm; sichtbar innen %d%%, außen %d%%%s" % [kf.get_file(), id, GriffHand.art_von(id),
-						w.get("kontakt", 0.0), int(w.get("umschl", 0.0)), w.get("tief", 0.0), w.get("kuppe", 0.0),
+					print("ALLE1694 %s %-28s %s Spalt %.1f, Umschlingung %d°, Glieder %.1f, Kuppen %.1f cm, Griff %.1f cm%s; sichtbar innen %d%%, außen %d%%%s%s" % [kf.get_file(), id, GriffHand.art_von(id),
+						w.get("kontakt", 0.0), int(w.get("umschl", 0.0)), w.get("tief", 0.0), w.get("kuppe", 0.0), 2.0 * float(w.get("radius", 0.0)), " dick" if NetzMess.dick(w) else "",
 						int(100.0 * float(si.get("innen", 1.0))), int(100.0 * float(si.get("aussen", 1.0))),
+						("; Glieder: " + ", ".join(NetzMess.glieder_fehler(w))) if not NetzMess.glieder_fehler(w).is_empty() else "",
 						"" if gut else ("  FEHLER" + (" (nicht in der Hand)" if gueltig[0].has("leer") else "") + ("" if netz_gut else " Netz") + ("" if sicht_gut else " Bild"))])
 				fehler += 0 if gut else 1
+				if not gut: je_ding[id] = int(je_ding.get(id, 0)) + 1; je_koerper[kf.get_file()] = int(je_koerper.get(kf.get_file(), 0)) + 1
 			g.free()
 			for n in sk.get_children(): if String(n.name) == "Gehalten1694": n.free()
 		m.queue_free()
 		await process_frame
 	print("ALLE1694 ohne Finger oder fremdes Gerüst, nicht geprüft: %s" % ", ".join(ohne))
+	for k in je_koerper: print("ALLE1694 Körper %s: %d Fehler" % [k, je_koerper[k]])
+	for k in je_ding: print("ALLE1694 Gegenstand %s: %d Fehler" % [k, je_ding[k]])
 	print("ALLE1694 %d Paare, %d Fehler" % [paare, fehler])
 	quit(1 if fehler > 0 else 0)

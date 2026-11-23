@@ -28,6 +28,7 @@ const KETTE_ANTEIL := [1.0, 1.2, 0.8]   # Grund-, Mittel-, Endglied je Schritt (
 const KETTE_GRENZE := [90.0, 110.0, 80.0]   # Grad: Anschlag je Glied
 static var NUR_GLIED := OS.get_environment("GLIED1694") != "0"   # 1694: Haut je Glied erst ab einem Viertel seiner Länge
 static var DAUMEN_UM := OS.get_environment("DAUMEN1694") != "0"   # 1694: Daumen im Grundgelenk um den Schaft
+static var DAUMEN_RAUS := OS.get_environment("RAUS1694") != "0"   # 1694: Daumen im Schaft: an den Schaft legen wie die Finger (0: wie bis 23.11., 15:5x)
 const DAUMEN_GRENZEN := [40.0, 60.0, 80.0]   # Grad: Anschlag Grund-, Mittel-, Endglied des Daumens
 static var DEBUG := OS.get_environment("GRIFFKETTE") != ""
 static var KONV := float(OS.get_environment("KONV1694")) if OS.get_environment("KONV1694") != "" else -16.0   # Grad je Finger (Versuch Handbeil 23.11.: -14: 11 %, -18: 9 % sichtbar, Kuppen stoßen zusammen)
@@ -468,6 +469,22 @@ static func schliessen(sk: Skeleton3D, s: String, o: Vector3, d: Vector3, r: flo
 						if float(nahe.call()) < NETZ_DRUCK * u or _spitze(sk, dk[-1]).distance_to(ziel) >= sp.distance_to(ziel):
 							_beuge(sk, dkette[j], achse.normalized(), -2.0); w1 -= 2.0; break
 					if DEBUG: print("GRIFFKETTE %s %.0f° Spitze am Zeigefinger %.1f cm" % [sk.get_bone_name(dkette[j]), w1, 100.0 * _spitze(sk, dk[-1]).distance_to(ziel) / u])
+				# 1694 (23.11., griff_alle je Glied: Daumen am dicken Griff 0,6 bis 2,4 cm im Holz, Großaxt): am dicken Griff reicht der Daumen
+				# nicht an den Zeigefinger, sein Weg dorthin (und teils schon die Ruhelage) liegt im Schaft; dann wie die Finger Glied für Glied
+				# an den Schaft, zuletzt keins im Holz
+				if DAUMEN_RAUS and float(nahe.call()) < NETZ_DRUCK * u:
+					for i in dkette: sk.set_bone_pose_rotation(i, sk.get_bone_rest(i).basis.get_rotation_quaternion())
+					# erst das Grundglied (Mittelhand des Daumens) um die Schaftachse vom Schaft weg, bis der Daumen frei ist (Ruhelage bis
+					# 1,5 cm im Schaft, die Glieder allein kamen nicht heraus)
+					var a1: float = nahe.call()
+					_beuge(sk, d1, d, 2.0)
+					var vz1 := 1.0 if float(nahe.call()) > a1 else -1.0
+					_beuge(sk, d1, d, -2.0)
+					var n := 0
+					while float(nahe.call()) < NETZ_HAUT * u and n < 25:
+						_beuge(sk, d1, d, vz1 * 2.0); n += 1
+					if DEBUG: print("GRIFFKETTE thumb_01_r %.0f° auf, Haut %.1f cm" % [2.0 * n, 100.0 * float(nahe.call()) / u])
+					_kette_netz(sk, dk, ne, abst, d, vz, u)
 			else:
 				_kette_netz(sk, dk, ne, abst, d, vz, u)
 		else: _daumen(sk, s, abst, d, u)

@@ -90,6 +90,10 @@ static func griff(skel: Skeleton3D, s: String, ding: Node3D, halt: Dictionary) -
 	var n_hand := 0
 	var rsum := 0.0
 	var dbg := {}
+	var glied := {}   # 1694 (Chef 23.11., 15:42): je Fingerglied nächste Haut zum Griff (m), INF: kein Teil am freien Griff
+	for fi in Griff.FINGER + ["thumb"]:
+		for g in (["_02_", "_03_"] if fi == "thumb" else ["_01_", "_02_", "_03_"]):
+			if skel.find_bone(fi + g + s) >= 0: glied[fi + g + s] = INF
 	for e in nm.ecken():
 		var q: Vector3 = Wi * (e[0] as Vector3)
 		if absf(q.y - qf.y) > 0.06: continue
@@ -99,8 +103,9 @@ static func griff(skel: Skeleton3D, s: String, ding: Node3D, halt: Dictionary) -
 		var fl := Griff.oberflaeche(sch, sc, v)   # Umriss, wie gezeichnet (eckige und ovale Griffe)
 		var d: float = (v.length() - (fl if fl > 0.0 else float(sch.profil[sc]))) * k
 		n_hand += 1
-		rsum += float(sch.profil[sc]) * k
 		var bname := skel.get_bone_name(e[1])
+		rsum += float(sch.profil[sc]) * k
+		if glied.has(bname): glied[bname] = minf(glied[bname], d)
 		if e[1] == hb: spalt = minf(spalt, d)
 		elif bname.contains("_03_") or bname.contains("_04_"): kuppe = minf(kuppe, d)
 		else: tief = minf(tief, d)
@@ -112,15 +117,39 @@ static func griff(skel: Skeleton3D, s: String, ding: Node3D, halt: Dictionary) -
 		var z := ""
 		for fk in 36: z += (dbg[fk] if dbg.has(fk) else "-----") + " "
 		print("GRIFFDEBUG ", z)
-	return {"kontakt": 100.0 * spalt, "umschl": felder.size() * FELD, "tief": 100.0 * tief, "kuppe": 100.0 * kuppe,
+	var aus := {"kontakt": 100.0 * spalt, "umschl": felder.size() * FELD, "tief": 100.0 * tief, "kuppe": 100.0 * kuppe,
 		"radius": 100.0 * rsum / maxf(1, n_hand), "ecken": n_hand}
+	for b in glied: aus["g:" + b] = 100.0 * minf(glied[b], 0.99)   # 99 cm: Glied nicht am freien Griff
+	return aus
 
 ## Prüfung (1694): Handfläche am Griff (Spalt höchstens 0,3 cm; hinein höchstens 1,2 cm: die Handfläche ist 2,5 cm dick, gebeugte Finger
 ## ziehen die Haut am Grundgelenk nach innen), umschlossen (mindestens 300°), Grund- und Mittelglieder nicht tiefer als 0,6 cm im Griff
 ## (das war der Fehler: Grundglieder 1,4 cm im Stiel, der Stiel sichtbar über den Fingern), Fingerkuppen (weich, dem Griff zugewandt)
 ## bis 1,2 cm
 static func griff_gut(w: Dictionary) -> bool:
-	return w.kontakt <= 0.3 and w.kontakt >= -1.2 and w.umschl >= 300.0 and w.tief >= -0.6 and w.kuppe >= -1.2
+	return w.kontakt <= 0.3 and w.kontakt >= -1.2 and w.tief >= -0.6 and w.kuppe >= -1.2 and glieder_fehler(w).is_empty() \
+		and (dick(w) or w.umschl >= 300.0)
+
+## 1694 (Chef 23.11., 15:39/15:42: „Dann schließt sich halt die Hand nicht komplett“; dicke Griffe bleiben): Griff ab DICK cm Durchmesser
+## muss die Faust nicht schließen (Umschlingung, Sicht von der Handfläche); geprüft wird dann jeder Finger Glied für Glied am Schaft
+const DICK := 4.2
+const GLIED_LUFT := 0.5     # cm: Haut des Glieds weiter vom Griff: in der Luft
+const GLIED_HOLZ := -0.6    # cm: tiefer: im Holz (Endglied wie kuppe -1,2)
+static func dick(w: Dictionary) -> bool:
+	return 2.0 * float(w.get("radius", 0.0)) >= DICK
+
+## Glieder, die nicht am Schaft liegen: [„index_02_r Luft 1,3“, …]. Am dünnen Griff (geschlossene Faust) darf das Endglied auf Ballen
+## oder Daumen liegen statt am Schaft (Umfang 3 cm Griff 9,7 cm: der Finger reicht um ihn herum)
+static func glieder_fehler(w: Dictionary) -> Array:
+	var f := []
+	var faust := not dick(w) and float(w.get("umschl", 0.0)) >= 300.0
+	for k in w:
+		if not String(k).begins_with("g:"): continue
+		var d := float(w[k]); var holz := GLIED_HOLZ * (2.0 if String(k).contains("_03_") else 1.0)
+		if d > GLIED_LUFT and faust and String(k).contains("_03_"): continue
+		if d > GLIED_LUFT: f.append("%s Luft %.1f" % [String(k).substr(2), d] if d < 90.0 else "%s fern" % String(k).substr(2))
+		elif d < holz: f.append("%s Holz %.1f" % [String(k).substr(2), d])
+	return f
 
 ## 1694 (23.11., roter Test griff_bild_1694: Netz meldete 330° Umschlingung, im Bild lag der Stiel offen zwischen den Fingern): Prüfung
 ## nach dem Bild. [pk]: Punkte der Hand in Welt (hand_punkte, im Signal skeleton_updated genommen); [sv]: SubViewport derselben Welt mit
@@ -210,8 +239,8 @@ static func sicht(pk: Dictionary, ding: Node3D, halt: Dictionary, sv: SubViewpor
 		aus[bl + "_n"] = ohne
 	return aus
 
-static func sicht_gut(w: Dictionary) -> bool:
-	return int(w.innen_n) >= 30 and int(w.aussen_n) >= 30 and float(w.innen) <= SICHT_HOECHST and float(w.aussen) <= SICHT_HOECHST
+static func sicht_gut(w: Dictionary, ist_dick := false) -> bool:
+	return int(w.innen_n) >= 30 and int(w.aussen_n) >= 30 and (ist_dick or float(w.innen) <= SICHT_HOECHST) and float(w.aussen) <= SICHT_HOECHST
 
 static func _pruefpunkte(sv: SubViewport, bild := "") -> int:
 	for f in 2: await sv.get_tree().process_frame
