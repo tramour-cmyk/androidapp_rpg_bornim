@@ -26,8 +26,9 @@ const ECHT_EP := ["{0} EP", "{0} XP"]
 const ECHT_GOLD := ["{0} Gold", "{0} gold"]
 ## 915 (Homer [915.lohn.vertrieben], 705a B): jedes Mal, wenn das Feuer das Rudel verjagt hat und danach kein Gegner mehr stand
 const VERTRIEBEN := ["Vor dem Feuer geflohen: keine Beute, keine Erfahrung.", "Fled from the fire: no loot, no experience."]
-## 1589.2 Lohn A (DESIGN-GEGNER.md 6, Chef 17.11., 22:33): floh ein Gegner von selbst, volle Erfahrung und halbe Beute: Gold halb,
-## jedes Ding mit halber Chance; neben VERTRIEBEN, nie statt ihm ([1601.lohn.geflohen])
+## 1589.2 Lohn A (DESIGN-GEGNER.md 6, Chef 17.11., 22:33): floh ein Gegner von selbst, volle Erfahrung und halbe Beute, nur für das, was
+## er bringt: die Beute kommt vom stärksten Gegner, also Gold halb und jedes Ding mit halber Chance nur, wenn er selbst floh; neben
+## VERTRIEBEN, nie statt ihm ([1601.lohn.geflohen])
 const GEFLOHEN := ["Von selbst geflohen: halbe Beute, volle Erfahrung.", "Fled on their own: half the loot, full experience."]
 const RESTORED := ["Leben und Mana von {0} sind wieder voll.", "{0}'s life and mana are full again."]     # [870.14.lohn.voll]
 
@@ -83,13 +84,14 @@ static func reward(mars, stand: Dictionary, dice, gebiet := "", gear := [], prob
 	var foes: Array = mars.all.filter(func(f): return f.side == "FOES" and f.monster != null and not f.called_in and not f.get("verjagt") and not f.get("vor_feuer"))     # 915
 	var gold := 0
 	var items: Array = []
-	var geflohen: bool = mars.all.any(func(f): return f.side == "FOES" and f.get("von_selbst"))     # 1589.2 Lohn A
+	var geflohen := false     # 1589.2 Lohn A: der, dessen Beute zählt, floh von selbst
 	if not foes.is_empty() and not kein_lohn:
 		var leader = foes[0]
 		for f in foes:
 			if Brs.erfahrung(vorher, String(f.monster.get("id", ""))) > Brs.erfahrung(vorher, String(leader.monster.get("id", ""))):
 				leader = f
 		var m: Dictionary = leader.monster
+		geflohen = bool(leader.get("von_selbst"))
 		var halb := 0.5 if geflohen else 1.0
 		gold = int(int(dice.roll_expr(m.gold)) * halb) if m.has("gold") else 0
 		for e in m.get("loot", []):

@@ -132,12 +132,12 @@ static func ziel(mars, f, vorher := ""):
 	var reach := erreichbar(mars, f)
 	if reach.is_empty():
 		return null
-	var m := float(w().get("traegheit_m", 1.0))
 	var neu = null
 	match dw:
 		"Instinkt":
+			# „bei gleichem Abstand“ wörtlich (nur Rechengenauigkeit); eine Spanne für „gleich“ hat keine Quelle (Frage 1589.2)
 			var n = _naechster(mars, f, reach)
-			var gleich := reach.filter(func(t): return luecke(mars, f, t) < luecke(mars, f, n) + m)
+			var gleich := reach.filter(func(t): return luecke(mars, f, t) < luecke(mars, f, n) + GLEICH)
 			neu = n
 			for t in gleich:
 				if _wunde(t) < _wunde(neu) - GLEICH:
@@ -167,11 +167,17 @@ static func _deutlich_besser(mars, f, dw: String, neu, alt) -> bool:
 	return false
 
 
-## Abschnitt 4 Rollenwechsel: wer zwei Rollen hat, nimmt die zweite, sobald sein Ziel nah ist oder im Netz hängt
+## Abschnitt 4 Rollenwechsel: wer zwei Rollen hat, nimmt die zweite, sobald sein Ziel nah ist oder im Netz hängt; mit „rudel_ab“
+## (Riesenratte, Tabelle 9 „Nahkampf, zu dritt Rudel“) nach der Zahl seiner Art, die steht
 static func rolle_jetzt(mars, f, t) -> String:
 	var r := rollen(f)
 	if r.is_empty():
 		return ""
+	var ab := int(_art(f).get("rudel_ab", 0))
+	if ab > 0 and r.size() > 1:
+		var id := String(f.monster.get("id", ""))
+		var art: Array = mars.all.filter(func(x): return x.side == f.side and x.standing() and x.monster != null and String(x.monster.get("id", "")) == id)
+		return String(r[1]) if art.size() >= ab else String(r[0])
 	if r.size() > 1 and t != null and (t.held or abstand(mars, f, t) == "nah"):
 		return String(r[1])
 	return String(r[0])

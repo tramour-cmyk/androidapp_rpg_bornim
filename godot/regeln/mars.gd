@@ -455,6 +455,10 @@ var arena_an := true
 var arena_punkte := {}
 var arena_ziel := {}
 var flucht_grund := {}
+## 1589.2 (Prüfer 22.11., 19:42; DESIGN-GEGNER.md 6 „einen Zug vorher“): je Fliehendem der Zählerstand der Ansage und wer der Gruppe
+## seither noch nicht am Zug war; fort erst, wenn jeder Stehende der Gruppe nach der Ansage einen Zug hatte (zuege zählt jedes Zugende)
+var flucht_offen := {}
+var zuege := 0
 ## [1601.flucht.ansage], [1601.flucht.fort], [1601.flucht.rudel], [1601.flucht.grak] (STORY-BRS-KAMPF.md, Homer 1601)
 const MSG1601_ANSAGE := ["{0} weicht zurück und sucht einen Ausweg.", "{0} backs away, looking for a way out."]
 const MSG1601_FORT := ["{0} ist fort.", "{0} is gone."]
@@ -863,6 +867,11 @@ static func fmt(t: Array, lang_i: int, args: Array) -> String:
 
 
 func _next_turn() -> void:
+	if order[turn].side == "PARTY":     # 1589.2: ein Zug der Gruppe nach der Ansage einer Flucht
+		for k in flucht_offen:
+			if zuege > int(flucht_offen[k][0]):
+				flucht_offen[k][1].erase(order[turn].id)
+	zuege += 1
 	order[turn].moved = false
 	order[turn].ticked = false
 	turn = (turn + 1) % order.size()
@@ -1928,8 +1937,11 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 	foe.hidden = false
 	if _test_zug(foe):     # 1020.2 C
 		return
-	if intent.effect == "FLEE":     # 1589.2
-		_fort(foe)
+	if intent.effect == "FLEE":     # 1589.2: fort erst, wenn die Gruppe seit der Ansage gehandelt hat; bis dahin bleibt die Ansage
+		if _flucht_bereit(foe):
+			_fort(foe)
+		else:
+			intents[foe.id] = plan
 		return
 	if intent.effect == "GROWL":     # 399.2b: knurrt nur (Homer [399.2b.knurrt])
 		_say(fmt(pick("MSG399_GROWLS"), lang, [foe.name(lang)]), foe.id, null, 0, null, false, false, "GROWLS")
@@ -2539,6 +2551,7 @@ func _flucht_ansagen(foe: Fighter) -> bool:
 	if grund == "":
 		return false
 	flucht_grund[foe.id] = grund
+	flucht_offen[foe.id] = [zuege, standing_of("PARTY").map(func(x): return x.id)]
 	intents[foe.id] = [I_FLEE, []]
 	retargeted.erase(foe.id)
 	_say(fmt(X.MSG72_ANNOUNCES, lang, [foe.name(lang), I_FLEE.name[lang]]), foe.id)
@@ -2547,12 +2560,17 @@ func _flucht_ansagen(foe: Fighter) -> bool:
 	return true
 
 
-## 1589.2: nach seinem Zug ist er fort; wer aus demselben Grund (Rudel, Grak) angesagt hat, läuft mit, eine Zeile für alle
+## 1589.2: hatte jeder Stehende der Gruppe seit der Ansage von [foe] einen Zug?
+func _flucht_bereit(foe: Fighter) -> bool:
+	return not flucht_offen.has(foe.id) or not flucht_offen[foe.id][1].any(func(id): return find(id) != null and find(id).standing())
+
+
+## 1589.2: nach seinem Zug ist er fort; wer aus demselben Grund (Rudel, Grak) angesagt hat und bereit ist, läuft mit, eine Zeile für alle
 func _fort(foe: Fighter) -> void:
 	var grund := String(flucht_grund.get(foe.id, ""))
 	var mit := [foe]
 	if grund == "rudel" or grund == "grak":
-		mit = all.filter(func(x): return x.side == "FOES" and x.standing() and _flieht(x) and String(flucht_grund.get(x.id, "")) == grund)
+		mit = all.filter(func(x): return x.side == "FOES" and x.standing() and _flieht(x) and _flucht_bereit(x) and String(flucht_grund.get(x.id, "")) == grund)
 		if not foe in mit:
 			mit.append(foe)
 	var zeile := fmt(MSG1601_RUDEL if grund == "rudel" else (MSG1601_GRAK if grund == "grak" else MSG1601_FORT), lang, [foe.name(lang)])
