@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 
-**Nächste freie Vorgangsnummer: 1987** (zuletzt 1986 Werkzeug 23.11. 08:27:12 448a) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 1988** (zuletzt 1987 Werkzeug 23.11. 08:50:02 d5f8) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -56,3 +56,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:30 23.11.: Startsperre 08:30 Start Werkzeug (Disponent von Hand nach Sokrates 08:33: Tilda 1986 Leitung umstellen, Eilt); Rosa archiviert, Kosten gebucht
 - 08:42 23.11.: Startsperre 08:42 Start Prüfer (Disponent von Hand: Uta 1986-Ü3, 0 von 3)
 - 08:43 23.11.: Startsperre 08:43 Start Werkzeug (Disponent von Hand nach Sokrates 08:53: Viola 1688-Ü1, ARBEIT-BETRIEB auf 30 KB); Tilda (1986 fertig, aa49e9404) archiviert, Kosten gebucht
+- 08:50 23.11.: Startsperre 08:50 Start Arbeitsplaner, Kampf, Figur, Arbeitsplaner, Tagesbericht, Sokrates, Welt (lauf.py, Arbeitsplaner 513 Jonas, Kampf 1068 Karla, Figur 1570 Lutz, Arbeitsplaner 1716 Marta, Tagesbericht 448, Welt 1566 Nils)
+- 08:51 23.11.: Startsperre 08:51 Start Sokrates (Disponent von Hand nach Sokrates 08:30/Chef 08:26 A: neuer Sokrates 'Rundblick und Bremse' mit Kern Leitung + Gedächtnis; Uta 1986 ja, 3,0 $ nicht gezählt); alter Sokrates (401 Tsd. Token, 23,03 $) archiviert, Kosten auf 1986; Uta archiviert (0 von 3 aber keine Zeilen mehr)
