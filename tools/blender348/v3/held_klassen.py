@@ -1052,6 +1052,69 @@ UMHANG_HINTEN = 0.5   # m: so weit hinter der Ecke darf der Umhang liegen, dann 
 UMHANG_AUF = 0.006    # m: ueber der Haut
 
 
+# 1570 A (Chef 23.11., 07:08, Votum Sokrates: „neuer Weg je Tracht, Kleidung unter dem Umhang haengt am Umhang“): unter_CLOAK legt die
+# Kleidung nur in der Ruhelage hinter den Umhang; in Bewegung folgt sie ihren eigenen Gewichten (Kutte, Schulterstueck, Kapuze, Hemd), der
+# Umhang seinen (kauf_kleid.py UMHANG AM RUECKEN), und sie stach am Schulterblatt und Kragen bei 1,3-1,5 m durch (Rueckmeldung 22.11.,
+# 22:14). Darum je Kleidungsnetz eine Kopie <Netz>_uC: ihre Ecken unter dem Umhang nehmen die Gewichte des Umhangs an der naechsten
+# Stelle, so weit ihre eigenen am Rumpf haengen (UMHANG_RUMPF; Arm und Bein bleiben, sonst steht die Hose still), zwei Ringe Uebergang.
+# Godot zeigt die Kopie statt des Netzes, wenn ein fremder Umhang haengt (heldfigur.gd kleide); ohne Umhang bleibt das Netz wie vorher
+UMHANG_RUMPF = ('pelvis', 'spine', 'neck', 'clavicle', 'head')
+
+
+def _gewichte(o):
+    gr = {vg.index: vg.name for vg in o.vertex_groups}
+    return [{gr[g.group]: g.weight for g in v.groups if g.group in gr and g.weight > 0} for v in o.data.vertices]
+
+
+def am_umhang(o, unter, um):
+    if not unter.any(): return None
+    G = _gewichte(o)
+    f = np.zeros(len(G))
+    for i in np.where(unter)[0]:
+        s_ = sum(G[i].values())
+        if s_ > 0: f[i] = sum(w for b, w in G[i].items() if b.lower().startswith(UMHANG_RUMPF)) / s_
+    if f.max() < 0.01: return None
+    nb = [[] for _ in G]
+    for e in o.data.edges:
+        a, b = e.vertices; nb[a].append(b); nb[b].append(a)
+    for r in (2.0 / 3.0, 1.0 / 3.0):   # Uebergang: zwei Ringe um die Ecken unter dem Umhang
+        f2 = f.copy()
+        for i in np.where(f == 0)[0]:
+            m_ = max((f[j] for j in nb[i] if unter[j] or f[j] > 0), default=0.0)
+            if m_ > 0: f2[i] = m_ * r
+        unter = unter | (f2 > 0); f = f2
+    from mathutils.bvhtree import BVHTree
+    V, F, UG = [], [], []
+    for c in um:
+        a0 = len(V); V += [Vector(w) for w in KO._welt(c)]; UG += _gewichte(c)
+        F += [tuple(a0 + i for i in p_.vertices) for p_ in c.data.polygons]
+    if not F: return None
+    bu = BVHTree.FromPolygons(V, F)
+    W = KO._welt(o)
+    o2 = o.copy(); o2.data = o.data.copy(); o2.name = o.name + '_uC'
+    for c in o.users_collection: c.objects.link(o2)
+    vgs = {vg.name: vg for vg in o2.vertex_groups}
+    n = 0
+    for i in np.where(f > 0)[0]:
+        h = bu.find_nearest(Vector(W[i]))
+        if h[2] is None: continue
+        ecken = F[h[2]]; d = np.array([(V[j] - h[0]).length for j in ecken]); g_ = 1.0 / np.maximum(d, 1e-4); g_ /= g_.sum()
+        neu = {b: (1 - f[i]) * w for b, w in G[i].items()}
+        for j, gj in zip(ecken, g_):
+            for b, w in UG[j].items(): neu[b] = neu.get(b, 0.0) + f[i] * gj * w
+        s_ = sum(neu.values())
+        if s_ <= 0: continue
+        for b, w in neu.items():
+            if w / s_ <= 1e-6:
+                if b in G[i]: vgs[b].remove([int(i)])
+                continue
+            if b not in vgs: vgs[b] = o2.vertex_groups.new(name=b)
+            vgs[b].add([int(i)], w / s_, 'REPLACE')
+        n += 1
+    print('UMHANG HAENGT', o2.name, n, 'Ecken mit Gewichten des Umhangs (Rumpfanteil im Mittel %.2f)' % float(f[f > 0].mean()))
+    return o2
+
+
 def umhang_unter(arm, netze, k, plaetze, leiber=()):
     # 1569 (Chef 17.11., 16:12, t297.18): Trachten ohne eigenen Umhang tragen das Schrankteil UMHANG der Wachtracht; ihre Kleidung
     # (Guertel, Schulterstueck, Robe) stach hinten durch (Probebild 1569). Formschluessel unter_CLOAK an jedem Kleidungsnetz: Ecken unter
@@ -1075,13 +1138,15 @@ def umhang_unter(arm, netze, k, plaetze, leiber=()):
         if bv is None or o.name not in kleid or o.type != 'MESH': continue
         W, N = _normalen(o)
         D = np.zeros_like(W); n = 0
+        U = np.zeros(len(W), bool)   # 1570 A: Ecken unter dem Umhang (am_umhang)
         for i in range(len(W)):
             w = Vector(W[i]); nv = Vector(N[i])
             h = bv.ray_cast(w + nv * 0.0005, nv, UMHANG_SUCH)   # Umhang ueber der Ecke: um den Abstand bis kurz davor zurueck
+            if h[0] is not None: U[i] = True
             if h[0] is not None and h[3] < UMHANG_LUFT: D[i] = -N[i] * (UMHANG_LUFT - h[3]); n += 1; continue
             if h[0] is not None: continue
             h = bv.ray_cast(w - nv * 0.0005, -nv, UMHANG_DURCH)   # Ecke vor dem Umhang: hinter ihn
-            if h[0] is not None: D[i] = -N[i] * (h[3] + UMHANG_LUFT); n += 1
+            if h[0] is not None: D[i] = -N[i] * (h[3] + UMHANG_LUFT); n += 1; U[i] = True
         n_auf = 0
         if bl is not None:
             for i in range(len(W)):
@@ -1089,18 +1154,21 @@ def umhang_unter(arm, netze, k, plaetze, leiber=()):
                 if (W[i, 1] - mitte_y) * hinten <= 0: continue   # Vorderseite
                 if bv.ray_cast(w, Vector((0, hinten, 0)), UMHANG_HINTEN)[0] is None and bv.ray_cast(w, Vector((0, -hinten, 0)), UMHANG_HINTEN)[0] is None:
                     continue   # weder dahinter noch davor ein Umhang (Messung: 145 von 270 Durchstechern lagen schon in Ruhe hinter dem Umhang)
+                U[i] = True
                 h = bl.find_nearest(w)
                 if h[0] is None: continue
                 ziel = np.array(h[0] + h[1].normalized() * UMHANG_AUF)
                 if np.linalg.norm(ziel - W[i]) > np.linalg.norm(D[i]): D[i] = ziel - W[i]; n_auf += 1
         n += n_auf
-        if not n: continue
-        if not o.data.shape_keys: o.shape_key_add(name='Basis', from_mix=False)
-        B = np.empty(len(W) * 3); o.data.shape_keys.key_blocks['Basis'].data.foreach_get('co', B)
-        Mi = np.array(o.matrix_world.inverted())
-        sk = o.shape_key_add(name='unter_CLOAK', from_mix=False)
-        sk.data.foreach_set('co', (B.reshape(-1, 3) + D @ Mi[:3, :3].T).ravel())
-        print('UMHANG UNTER', k, o.name, n, 'Ecken, davon auf den Koerper', n_auf)
+        if n:
+            if not o.data.shape_keys: o.shape_key_add(name='Basis', from_mix=False)
+            B = np.empty(len(W) * 3); o.data.shape_keys.key_blocks['Basis'].data.foreach_get('co', B)
+            Mi = np.array(o.matrix_world.inverted())
+            sk = o.shape_key_add(name='unter_CLOAK', from_mix=False)
+            sk.data.foreach_set('co', (B.reshape(-1, 3) + D @ Mi[:3, :3].T).ravel())
+            print('UMHANG UNTER', k, o.name, n, 'Ecken, davon auf den Koerper', n_auf)
+        neu = am_umhang(o, U | (np.linalg.norm(D, axis=1) > 0), um)   # nach dem Schluessel: die Kopie traegt ihn mit
+        if neu: netze.append(neu)
     for o in netze_import: bpy.data.objects.remove(o)   # das Geruest des Imports entfernt an_geruest
 
 
@@ -1190,7 +1258,7 @@ def teil_ablegen(k, netze, arm):
     for kenn, (quelle, _, platz) in SCHRANK_TEILE.items():
         if quelle != t: continue
         # Kleid_CHEST mit dem Teil unter dem Umhang (Kleid_CHEST_unter_CLOAK); Kleid_CLOAK ohne fremde Teile darunter
-        ms = [o for o in netze if o.name.split('.')[0].startswith('Kleid_' + platz)]
+        ms = [o for o in netze if o.name.split('.')[0].startswith('Kleid_' + platz) and not o.name.endswith('_uC')]   # 1570 A: ohne Kopien
         if not ms: print('TEIL FEHLT', k, 'Kleid_' + platz); continue
         exportiere(os.path.join(ZIEL, 'teil_%s_%s.glb' % (kenn, g)), [arm] + ms, farbe=True)
         print('TEIL ABGELEGT', kenn, g, sum(len(o.data.polygons) for o in ms), 'Flaechen')

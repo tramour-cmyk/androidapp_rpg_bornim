@@ -385,7 +385,9 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 	# „kleid“: Plaetze, nach denen sich die Kleidung richtet, wenn „ausruestung“ etwas anderes traegt (Kampfort: Waffe in der Hand statt
 	# auf dem Ruecken)
 	var aus = w.get("kleid", w.get("ausruestung", {}))
-	if teile.is_empty() or String(w.get("modell", "")) != "" or not (aus is Dictionary): return {}
+	if teile.is_empty() or String(w.get("modell", "")) != "" or not (aus is Dictionary):
+		umhang_kopien(m, false)
+		return {}
 	var zeig := {}
 	# 431h Stufe 2 (Chef 17.11., 09:45, „431h A“): ein Stueck, das die Tracht nicht selbst traegt („eigen“: Startstuecke ihrer Herkuenfte
 	# und Stuecke aus ihren Teilen), zeigt sein Teil aus dem Kleiderschrank des Geschlechts (schrank_<G>.bin, Feld „teil“ der
@@ -440,7 +442,17 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 			for i in me.get_blend_shape_count():
 				var bn := String(me.get_blend_shape_name(i))
 				if bn.begins_with("unter_"): x.set_blend_shape_value(i, 1.0 if fremd_platz.has(bn.substr(6)) else 0.0)
+	umhang_kopien(m, fremd_platz.has("CLOAK"))
 	return {"kapuze": kap}
+
+# 1570 A (Chef 23.11., 07:08): unter einem fremden Umhang zeigt die Tracht statt eines Kleidungsnetzes seine Kopie „<Netz>_uC“, deren Ecken
+# unter dem Umhang an dessen Gewichten haengen (held_klassen.py am_umhang); sonst das Netz, die Kopie nie
+static func umhang_kopien(m: Node3D, umhang: bool) -> void:
+	for mi in m.find_children("*_uC", "MeshInstance3D", true, false):
+		var o := mi.get_parent().get_node_or_null(NodePath(String(mi.name).trim_suffix("_uC"))) as MeshInstance3D
+		var mit := umhang and o != null and o.visible
+		(mi as MeshInstance3D).visible = mit
+		if mit: o.visible = false
 
 # 431h Stufe 2: Teile eines Stuecks (Grundform; Einzelstuecke ueber ihre Grundform); leer (Mantel, Umhang): kleide zeigt das Teil der
 # eigenen Tracht (1569)

@@ -313,7 +313,10 @@ UMHANG_LUFT = 0.02    # m hinter dem Rücken, wo die Kante zurückgeht
 UMHANG_BLATT = 0.02   # m mehr Luft über den Schulterblättern (sie gehen mit dem Schlüsselbein nach hinten)
 UMHANG_SCHULTER = 0.05   # m innerhalb des Schultergelenks endet der Umhang oben (Schulterstücke daneben)
 _KNARM = [k for k, nm in enumerate(Q_KN) if nm.startswith(('upperarm', 'lowerarm', 'hand', 'thumb', 'index', 'middle', 'ring', 'pinky'))]
-if 'cloak' in TEILNAMEN and 'upperarm_l' in QP_MAT:
+# 1570 A (Chef 23.11., 07:08: Weg je Tracht): die Leute behalten ihren Umhang wie vor 1570 (Form, FOLGT, 656), ihre Kleidung darunter
+# ist eine andere als die der Helden (Robe breiter als die Beine: die Form klemmte den Saum bis 24 cm ein, durchstich_1631 12 Fehler)
+LEUTE = bool(os.environ.get('KLEID_MEHR', ''))
+if 'cloak' in TEILNAMEN and 'upperarm_l' in QP_MAT and not LEUTE:
     _ic = TEILNAMEN.index('cloak'); _cl = np.where(_lt == _ic)[0]
     _kv = QV[WQ[:, _KNARM].sum(1) < 0.2]   # Rumpf, Beine, Kopf ohne Arme
     _band = np.floor(_kv[:, 2] / UMHANG_BAND).astype(int)
@@ -457,6 +460,9 @@ WKq[:, iHals] += WKq[:, iKopf]; WKq[:, iKopf] = 0.0
 # darum der Lage darunter (deren Gewichte an der Stelle, die der Strahl nach innen trifft), darunter gleitend die eigenen (Saum frei)
 FOLGT_AB = float(os.environ.get('FOLGT_AB', '0.05')); FOLGT_BREIT = float(os.environ.get('FOLGT_BREIT', '0.17'))
 FOLGT = [('tabard', ('chain', 'sleeves')), ('robe', ('chain', 'sleeves'))]   # 1570: der Umhang folgt der Wirbelkette (UMHANG AM RUECKEN)
+if LEUTE:   # 1570 A: Leute wie vor 1570 (376.1: Umhang folgt der Kleidung darunter, bis UMHANG_FOLGT_AB unter der Huefte)
+    FOLGT.append(('cloak', ('tabard', 'robe', 'chain', 'belt', 'buckle', 'sleeves', 'clasp') + tuple(t for t in os.environ.get('UMHANG_FOLGT', 'pants').split(',') if t)))
+FOLGT_AB_U = float(os.environ.get('UMHANG_FOLGT_AB', '0.15'))
 LTk = tl[ist_kleid]; TID = {n: i for i, n in enumerate(TEILNAMEN)}
 kme.vertices.foreach_set('co', VK2.ravel()); kme.update()
 NK2 = np.empty(len(VK2) * 3); kme.vertices.foreach_get('normal', NK2); NK2 = NK2.reshape(-1, 3)
@@ -469,7 +475,7 @@ for a_teil, unter in FOLGT:
     bv = BVHTree.FromPolygons([Vector(v) for v in VK2], [KF[j] for j in fl])
     n_ok = 0
     for i in np.where(LTk == TID[a_teil])[0]:
-        a = float(np.clip((VK2[i, 2] - (hz - FOLGT_AB)) / FOLGT_BREIT, 0, 1)); a = a * a * (3 - 2 * a)
+        a = float(np.clip((VK2[i, 2] - (hz - (FOLGT_AB_U if a_teil == 'cloak' else FOLGT_AB))) / FOLGT_BREIT, 0, 1)); a = a * a * (3 - 2 * a)
         if a <= 0: continue
         n = Vector(NK2[i])
         h = bv.ray_cast(Vector(VK2[i]) - n * 0.001, -n, 0.06)
@@ -502,7 +508,7 @@ if (HUELLE & _GEW).any():
 # nicht: 1676 rechter Unterarm), Bein an das Becken (Seitenbahnen schwingen nicht mit dem Oberschenkel), Kopf an den Hals; das
 # Schlüsselbein nur über der Achsel, darunter (bis UMHANG_ACHSEL) an spine_03 (861: die Flanke hob sich mit dem Schildarm)
 UMHANG_ACHSEL = (0.20, 0.08)   # m unter dem Schultergelenk: Schlüsselbein aus – voll
-if 'cloak' in TID and all(n in Q_KN for n in ('pelvis', 'spine_03', 'clavicle_l', 'clavicle_r', 'upperarm_l')):
+if 'cloak' in TID and not LEUTE and all(n in Q_KN for n in ('pelvis', 'spine_03', 'clavicle_l', 'clavicle_r', 'upperarm_l')):
     _za = QP_MAT['upperarm_l'].translation.z
     _zu = np.arange(len(Q_KN)); iBe = Q_KN.index('pelvis'); iS3 = Q_KN.index('spine_03')
     for k, nm in enumerate(Q_KN):
@@ -529,6 +535,24 @@ if 'cloak' in TID and all(n in Q_KN for n in ('pelvis', 'spine_03', 'clavicle_l'
     for i in _cl: _W[i] = WKq[[k for _, k, _ in _kd.find_range(Vector(VK2[i]), SCHALE_R)]].mean(0)
     WKq = _W / _W.sum(1, keepdims=True)
     print('UMHANG AM RUECKEN Gewichte', len(_cl), 'Ecken (Umhang, Spange) wie der Rumpf darunter, ohne Arm und Bein')
+# 656 (Chef 08.11., 14:52, Beulen unter dem Schlagarm), nur noch fuer die Leute (1570 A): Armgewichte am Umhang an das Schluesselbein
+# derselben Seite, auf der Schulterhoehe (bis UMHANG_ARM_BIS unter dem Schultergelenk) bleibt ein Rest; UMHANG_ARM=1: wie vor 656
+if LEUTE and 'cloak' in TID and os.environ.get('UMHANG_ARM', '') != '1':
+    _ic = TID['cloak']; _bis = float(os.environ.get('UMHANG_ARM_BIS', '0.04'))
+    _finger = ('thumb', 'index', 'middle', 'ring', 'pinky')
+    _n_arm = 0
+    for _seite in ('l', 'r'):
+        _arm = [k for k, nm in enumerate(Q_KN) if nm.endswith('_' + _seite) and nm.startswith(('upperarm', 'lowerarm', 'hand') + _finger)]
+        _sch = 'clavicle_' + _seite
+        if _sch not in Q_KN or not _arm or 'upperarm_' + _seite not in QP_MAT: continue
+        _js = Q_KN.index(_sch); _sz = QP_MAT['upperarm_' + _seite].translation.z
+        for i in np.where(LTk == _ic)[0]:
+            w_arm = float(WKq[i, _arm].sum())
+            if w_arm < 1e-4: continue
+            k_ = float(np.clip((_sz - VK2[i, 2]) / max(_bis, 1e-3), 0.0, 1.0))   # 0 auf der Schulter, 1 ab _bis darunter
+            WKq[i, _js] += w_arm * k_; WKq[i, _arm] *= (1.0 - k_); _n_arm += 1
+    WKq = WKq / WKq.sum(1, keepdims=True)
+    print('UMHANG OHNE ARM', _n_arm, 'Ecken (Armgewichte an das Schluesselbein)')
 VK3 = np.empty_like(VK2)
 for i, v in enumerate(VK2):
     A = np.tensordot(WKq[i], SA, axes=1)
