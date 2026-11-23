@@ -12,7 +12,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
-| 1988 | Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Token neu starten (Chef 09:02, 1 bis 3 ja) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *3,54 $* |
+| 1988 | Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Token neu starten (Chef 09:02, 1 bis 3 ja) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *6,19 $* |
 | 1971 | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Titel), Halbsatz im Kern Büro (Chef 22.11., 18:13) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1989 | Startprompts der laufenden Sitzungen gegenprüfen, Soll mit Ist; Prüfschema über den Tag, alle Bereiche und Profile (Chef 09:04) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *–* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer, 23.11. | – | – | *gebaut, Geprüft an: c315ec551* | *–* | *0* | *6,50 $* |
@@ -60,7 +60,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1068 | Ring bei jedem großen Schlag der Gegner … | 2 | E Kampf | M | – | 1048, 444 | – | *startbar* | *–* | *0* | *8,88 $* |
 | 1415 | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A) | 2 | E Kampf | M | 709, 1589.4 | 1072, 784 | claude/jerry-1415-takt | *ruht, Block 2 (1605)* | *–* | *0* | *9,72 $* |
 | 1588 | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | 2 | E Kampf | M | 1589.4 | 1556 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
-| 1589.2 | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit und Versperren, Flucht … | 2 | E Kampf | M | – | 1600, 1589.1, 444, 1589.6 | – | *startbar* | *–* | *0* | *8,73 $* |
+| 1589.2 | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit und Versperren, Flucht … | 2 | E Kampf | M | – | 1600, 1589.1, 444, 1589.6 | – | *startbar* | *–* | *0* | *12,67 $* |
 | 1589.3 | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und schräg, Seitschritt aus UAL2, einmal für … | 2 | E Kampf | M | – | 1600, 1589.1 | – | *startbar* | *–* | *0* | *–* |
 | 1589.4 | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nach Abschnitt 5 mit 1526, alte … | 2 | E Kampf | M | 1589.2, 1589.3 | 1600, 1589.1, 1526, 438, 709 | – | *startbar* | *–* | *0* | *–* |
 | 1589.5 | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Zahlen aus 444 … | 2 | E Kampf | M | 1589.4, 1589.6 | 1600, 1589.1, 444 | – | *startbar* | *–* | *0* | *–* |
