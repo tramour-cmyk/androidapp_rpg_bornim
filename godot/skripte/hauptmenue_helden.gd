@@ -365,13 +365,13 @@ class SchwertStuetzen extends Tragen:
 
 ## 1675: der Stoff (alle Netze der Figur, mats aus HeldFigur.baue), der in der Flaeche des gehaltenen Schilds liegt, im Ecken-Shader
 ## hinter dessen Rueckseite (toon.gdshader schild_schieben). Feld im Raum des Schilds je ZELLE: Rueckseite (kleinstes z), Vorderseite,
-## belegt; je Zelle nach dem Umkreis (UMKREIS), damit Dreiecke des Rocks nicht durch den gebogenen Rand reichen. Die Lage des Schilds nach jedem
+## belegt, aus der ganzen Flaeche jedes Dreiecks (nicht nur den Ecken); je Zelle nach dem Umkreis (UMKREIS), damit Dreiecke des Rocks nicht durch den gebogenen Rand reichen. Die Lage des Schilds nach jedem
 ## Stellen des Skeletts (skeleton_updated, nach Tragen), sonst hinkte sie ein Bild nach
 class StoffHinterSchild extends Node:
 	const ZELLE := 0.02
 	const RAND := 0.012
 	const UMKREIS := 2
-	const VORN := 0.3        # m: auch Stoff so weit vor der Vorderseite (1675 Bild: eine Rockspitze 5 cm davor stach durch)
+	const VORN := 0.05       # m: auch Stoff so weit vor der Vorderseite (1675-Ü4: 0,3 aus bab336c9a ohne messbare Wirkung, zurueck)
 	var schild: Node3D
 	var mats: Array = []
 	var feld := {}            # Vector2i -> Vector2(Rueckseite, Vorderseite)
@@ -388,12 +388,24 @@ class StoffHinterSchild extends Node:
 		for mi in s.find_children("*", "MeshInstance3D", true, false) + ([s] if s is MeshInstance3D else []):
 			var t := inv * (mi as MeshInstance3D).global_transform
 			var me := (mi as MeshInstance3D).mesh
+			# 1675-Ü4 (Pruefer 23.11., 12:11; schild_menue_1417 _sicht): nicht nur die Ecken, die ganze Flaeche jedes Dreiecks, je
+			# halbe Zelle ein Punkt; aus den Ecken allein blieben Zellen grosser Flaechen leer, der Stoff dort unverschoben (graue Spitze)
 			for i in me.get_surface_count():
-				for v in me.surface_get_arrays(i)[Mesh.ARRAY_VERTEX]:
-					var q: Vector3 = t * v
-					var k := Vector2i(floori(q.x / ZELLE), floori(q.y / ZELLE))
-					var e: Vector2 = roh.get(k, Vector2(INF, -INF))
-					roh[k] = Vector2(minf(e.x, q.z), maxf(e.y, q.z))
+				var ar := me.surface_get_arrays(i)
+				var vs: PackedVector3Array = ar[Mesh.ARRAY_VERTEX]
+				var idx = ar[Mesh.ARRAY_INDEX]
+				var n: int = (idx.size() if idx != null else vs.size()) / 3
+				for d in n:
+					var a: Vector3 = t * vs[idx[d * 3] if idx != null else d * 3]
+					var b: Vector3 = t * vs[idx[d * 3 + 1] if idx != null else d * 3 + 1]
+					var c: Vector3 = t * vs[idx[d * 3 + 2] if idx != null else d * 3 + 2]
+					var st := maxi(1, ceili(maxf(a.distance_to(b), maxf(b.distance_to(c), c.distance_to(a))) / (ZELLE * 0.5)))
+					for u in st + 1:
+						for w in st + 1 - u:
+							var q: Vector3 = a + (b - a) * (float(u) / st) + (c - a) * (float(w) / st)
+							var k := Vector2i(floori(q.x / ZELLE), floori(q.y / ZELLE))
+							var e: Vector2 = roh.get(k, Vector2(INF, -INF))
+							roh[k] = Vector2(minf(e.x, q.z), maxf(e.y, q.z))
 		# je Zelle die tiefste Rueckseite und hoechste Vorderseite im Umkreis von UMKREIS Zellen (auch daneben): der Rand des Schilds
 		# biegt sich zum Koerper, Dreiecke des Rocks (4 bis 5 cm) ueberspannen ihn sonst
 		feld = {}

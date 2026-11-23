@@ -63,7 +63,7 @@ uniform mat4 schild_welt = mat4(1.0);   // Welt -> Schild
 uniform sampler2D schild_feld : filter_nearest;   // je Zelle r Rueckseite, g Vorderseite (Schild z), b belegt
 uniform vec3 schild_raster = vec3(0.0, 0.0, 0.02);   // Ursprung x, y und Zelle (Schild)
 uniform float schild_rand = 0.012;  // so weit hinter die Rueckseite (Schild)
-uniform float schild_vorn = 0.3;    // auch Stoff bis so weit vor der Vorderseite (1675 Bild: Rockspitze 5 cm davor stach durch)
+uniform float schild_vorn = 0.05;   // auch Stoff bis so weit vor der Vorderseite (StoffHinterSchild VORN)
 vec3 schild_schieben(vec3 v, mat4 mm) {
 	vec3 q = (schild_welt * (mm * vec4(v, 1.0))).xyz;
 	ivec2 n = textureSize(schild_feld, 0);

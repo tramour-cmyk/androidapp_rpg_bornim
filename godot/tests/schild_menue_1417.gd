@@ -6,17 +6,23 @@
 # (Abspreizen des Arms, Drehung der Schildhand) nebeneinander.
 # 1675 (Chef 18.11., 15:57): Arm wieder am Bein (Abspreizen 0), der Stoff in der Schildflaeche hinter den Schild (HauptmenueHelden
 # StoffHinterSchild, im Ecken-Shader): gemessen wie gezeichnet, also nach dessen Verschiebung (schiebe); Abspreizen ueber 0 ist ein Fehler.
+# 1675-Ü4 (Pruefer 23.11., 12:11): dazu _sicht, was die Menuekamera zeigt: Zellen, in denen die Figur vor der Schildflaeche liegt
+# (rot an 738306c3d und bab336c9a: 1652 Zellen Kleid_LEGS bis 7,5 cm davor, die graue Spitze; das Feld aus den Ecken des Schilds liess
+# Zellen grosser Flaechen leer). SICHTKARTE=1 druckt die Karte.
 # Run: godot --headless --path godot -s res://tests/schild_menue_1417.gd   (ohne Kaufdateien „ohne Kauf“, 0)
 extends SceneTree
 
 const BARY := [Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), Vector3(0.5, 0.5, 0), Vector3(0, 0.5, 0.5), Vector3(0.5, 0, 0.5),
 		Vector3(1, 1, 1) / 3.0, Vector3(4, 1, 1) / 6.0, Vector3(1, 4, 1) / 6.0, Vector3(1, 1, 4) / 6.0]
 const GRENZE := 0.01          # erlaubt: 1 cm (Kleidung liegt locker, die Häutung ist linear)
-const VOR := 0.3              # 1675: auch Stoff so weit vor dem Schild zaehlt (Bild: Rockspitze 5 cm davor stach durch; vorher 0,05)
+const VOR := 0.05             # Stoff bis so weit vor dem Schild zaehlt (1675-Ü4: 0,3 aus bab336c9a aenderte nichts Messbares, zurueck)
 var fehler := 0
 var _haut := []               # [MeshInstance3D, Skin, Ecken, Knochen, Gewichte, nb, frei]
 var _posen := []
 var _sk: Skeleton3D
+const SICHT_PX := 0.002       # 1675-Ü4: Raster der Sichtmessung, Meter in der Schildebene (Handy: etwa 3,5 mm je Bildpunkt)
+const SICHT_ERLAUBT := 0      # Bildpunkte, in denen die Figur vor der Schildflaeche gezeichnet wird
+var _vor_alle := {}
 var _stoff = null             # 1675 HauptmenueHelden.StoffHinterSchild der Figur
 var _gepruefte := 0
 
@@ -59,6 +65,7 @@ func _lauf() -> void:
 			if hd: hd.set("grad", float(f[1]))
 			# ueber die ganze Bewegung (das Bild steht nach wenigen Bildern, wo, haengt vom Start ab): fuenf Stellen, die schlechteste
 			var r := [-INF, "", 0, {}]
+			var sicht := [0, 0.0, "", {}]
 			var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 			var bew := String(trg.get_meta("haltung", ""))
 			for st in 5:
@@ -70,10 +77,18 @@ func _lauf() -> void:
 				if _posen.is_empty(): continue
 				var r1 := _messen(tr.waffe)
 				if float(r1[0]) > float(r[0]): r = r1
+				if erste:
+					var s1 := _sicht(m, tr.waffe, hm._v.get_camera_3d())
+					if int(s1[0]) > int(sicht[0]): sicht = s1
 			print("SCHILD1417 %s abspreiz %.0f dreh %.0f: tiefste %.1f cm (%s), Felder (2 cm) ueber 1 cm %d %s" % [trg.get_meta("haltung", ""), f[0], f[1], r[0] * 100.0, r[1], r[2], r[3]])
 			if erste and float(r[0]) > GRENZE:
 				print("FEHLER %s: Koerper oder Kleidung %.1f cm durch den Schild (%s)" % [trg.get_meta("haltung", ""), r[0] * 100.0, r[1]])
 				fehler += 1
+			if erste:
+				print("SCHILD1675 Sicht der Menuekamera: %d Bildpunkte (je %.1f mm) Figur vor der Schildflaeche, bis %.1f cm davor (%s) %s" % [sicht[0], SICHT_PX * 1000.0, sicht[1] * 100.0, sicht[2], sicht[3]])
+				if int(sicht[0]) > SICHT_ERLAUBT:
+					print("FEHLER %s: Figur vor dem Schild sichtbar, %d Bildpunkte (%s)" % [trg.get_meta("haltung", ""), sicht[0], sicht[2]])
+					fehler += 1
 			erste = false
 	print("SCHILD1417 %d Figuren geprueft, Stoff hinter dem Schild: %s" % [_gepruefte, "ja" if _stoff else "nein"])
 	if OS.get_environment("MESS") == "1675": await _andere(hm)
@@ -236,3 +251,116 @@ func _andere(hm: HauptmenueHelden) -> void:
 			print("SCHILD1675 %s %s: ohne %.1f cm (%s), mit Stoff hinter dem Schild %.1f cm" % [volk, g, erg[0][0] * 100.0, erg[0][1], erg[1][0] * 100.0])
 			trg.queue_free()
 			await process_frame
+
+## 1675-Ü4 (Pruefer 23.11., 12:11: graue Spitze im Bild links unten im Schild, die _messen nicht sieht; Feld nur aus den Ecken des
+## Schilds, Zellen ohne Ecke zaehlen nicht, Hand und Unterarm ausgenommen): gemessen, was die Menuekamera zeigt. Schild und Figur
+## (alle sichtbaren Netze ausser dem Schild, auch Hand und Unterarm, gehaeutet und wie im Ecken-Shader verschoben) als Dreiecke in ein
+## Tiefenraster der Kamera (Zelle SICHT_PX in der Schildebene); gezaehlt die Zellen, in denen die Figur naeher als die Schildflaeche
+## liegt. [Zellen, tiefste m davor, Netz und Knochen der tiefsten, je Netz Zellen]
+func _sicht(m: Node3D, schild: Node3D, kam: Camera3D) -> Array:
+	var ci := kam.global_transform.affine_inverse()
+	var mitte: Vector3 = ci * schild.global_position
+	var px := SICHT_PX / -mitte.z           # Zelle im Bild (tan)
+	var zb := {}                            # Vector2i -> naechste Schildtiefe
+	for mi in schild.find_children("*", "MeshInstance3D", true, false) + ([schild] if schild is MeshInstance3D else []):
+		var me := (mi as MeshInstance3D).mesh
+		var t := ci * (mi as MeshInstance3D).global_transform
+		for s in me.get_surface_count():
+			var ar := me.surface_get_arrays(s)
+			var vs: PackedVector3Array = ar[Mesh.ARRAY_VERTEX]
+			var cs := PackedVector3Array(); cs.resize(vs.size())
+			for v in vs.size(): cs[v] = t * vs[v]
+			_raster(cs, ar[Mesh.ARRAY_INDEX], px, zb, null, -1)
+	var best := [0, -INF, "", {}]
+	if zb.is_empty(): return [0, 0.0, "kein Schild", {}]
+	var g := _sk.global_transform
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var mm := mi as MeshInstance3D
+		if not mm.is_visible_in_tree() or mm == schild or schild.is_ancestor_of(mm) or mm.mesh == null: continue
+		var nm := String(mm.name)
+		for s in mm.mesh.get_surface_count():
+			var ar := mm.mesh.surface_get_arrays(s)
+			var vs: PackedVector3Array = ar[Mesh.ARRAY_VERTEX]
+			var cs := PackedVector3Array(); cs.resize(vs.size())
+			var mt := mm.get_active_material(s)
+			var geschoben := _stoff != null and mt is ShaderMaterial and (mt as ShaderMaterial).get_shader_parameter("schild_an") != null and float((mt as ShaderMaterial).get_shader_parameter("schild_an")) > 0.0
+			var gehaeutet := mm.skin != null and ar[Mesh.ARRAY_BONES] != null and not (mm.get_parent() is BoneAttachment3D)
+			var trs := []
+			var nb := 0
+			if gehaeutet:
+				nb = ar[Mesh.ARRAY_BONES].size() / vs.size()
+				for i in mm.skin.get_bind_count():
+					var bb := mm.skin.get_bind_bone(i)
+					if bb < 0: bb = _sk.find_bone(mm.skin.get_bind_name(i))
+					trs.append(g * (_posen[bb] as Transform3D) * mm.skin.get_bind_pose(i))
+			for v in vs.size():
+				var p := Vector3.ZERO
+				if gehaeutet:
+					for j in nb:
+						var w: float = ar[Mesh.ARRAY_WEIGHTS][v * nb + j]
+						if w > 0.0: p += (trs[ar[Mesh.ARRAY_BONES][v * nb + j]] as Transform3D) * vs[v] * w
+				else:
+					p = mm.global_transform * vs[v]
+				if geschoben: p = _stoff.schiebe(p)
+				cs[v] = ci * p
+			var vor := {}
+			_raster(cs, ar[Mesh.ARRAY_INDEX], px, zb, vor, 0)
+			if vor.is_empty(): continue
+			for k in vor: _vor_alle[k] = nm.substr(5, 1)
+			best[3][nm] = int(best[3].get(nm, 0)) + vor.size()
+			best[0] += vor.size()
+			for k in vor:
+				var e: Array = vor[k]
+				if float(e[0]) > float(best[1]):
+					best[1] = e[0]
+					var q := schild.global_transform.affine_inverse() * (kam.global_transform * (Vector3((k.x + 0.5) * px, (k.y + 0.5) * px, -1.0) * float(e[2])))
+					var kn := _knochen([mm, mm.skin, null, ar[Mesh.ARRAY_BONES], ar[Mesh.ARRAY_WEIGHTS], nb], int(e[1])) if gehaeutet else String(mm.get_parent().name)
+					best[2] = "%s %s, Ecke %d, Schild x %.0f y %.0f cm" % [nm, kn, e[1], q.x * 100.0, q.y * 100.0]
+	if best[0] == 0: best[1] = 0.0
+	if OS.get_environment("SICHTKARTE") != "":   # zur eigenen Pruefung: Karte je 4 mm, . Schild, _ Figur davor
+		var alle := {}
+		for k in zb: alle[k] = "."
+		for k in _vor_alle: alle[k] = _vor_alle[k]
+		var lo := Vector2i(1 << 30, 1 << 30); var hi := -lo
+		for k in alle: lo = Vector2i(mini(lo.x, k.x), mini(lo.y, k.y)); hi = Vector2i(maxi(hi.x, k.x), maxi(hi.y, k.y))
+		for y in range(hi.y, lo.y - 1, -4):
+			var z := ""
+			for x in range(lo.x, hi.x + 1, 2): z += String(alle.get(Vector2i(x, y), " "))
+			print("KARTE ", z)
+	_vor_alle = {}
+	return best
+
+## Dreiecke (Kameraraum) ins Raster: ohne vor die naechste Tiefe in zb, mit vor je Zelle, in der das Dreieck mehr als 1 mm vor zb
+## liegt, [m davor, Ecke, Tiefe]
+func _raster(cs: PackedVector3Array, idx, px: float, zb: Dictionary, vor, _x: int) -> void:
+	var n: int = (idx.size() if idx != null else cs.size()) / 3
+	for d in n:
+		var ia: int = idx[d * 3] if idx != null else d * 3
+		var ib: int = idx[d * 3 + 1] if idx != null else d * 3 + 1
+		var ic: int = idx[d * 3 + 2] if idx != null else d * 3 + 2
+		var a := cs[ia]; var b := cs[ib]; var c := cs[ic]
+		if a.z > -0.1 or b.z > -0.1 or c.z > -0.1: continue
+		var sa := Vector2(a.x, a.y) / -a.z / px
+		var sb := Vector2(b.x, b.y) / -b.z / px
+		var sc := Vector2(c.x, c.y) / -c.z / px
+		var lo := sa.min(sb).min(sc); var hi := sa.max(sb).max(sc)
+		var fl := (sb.x - sa.x) * (sc.y - sa.y) - (sb.y - sa.y) * (sc.x - sa.x)
+		if absf(fl) < 1e-9: continue
+		for y in range(ceili(lo.y - 0.5), floori(hi.y - 0.5) + 1):
+			for x in range(ceili(lo.x - 0.5), floori(hi.x - 0.5) + 1):
+				var k := Vector2i(x, y)
+				if vor != null and not zb.has(k): continue
+				var pp := Vector2(x + 0.5, y + 0.5)
+				var w1 := ((sc.x - sb.x) * (pp.y - sb.y) - (sc.y - sb.y) * (pp.x - sb.x)) / fl
+				var w2 := ((sa.x - sc.x) * (pp.y - sc.y) - (sa.y - sc.y) * (pp.x - sc.x)) / fl
+				var w3 := 1.0 - w1 - w2
+				if w1 < 0.0 or w2 < 0.0 or w3 < 0.0: continue
+				var iz := w1 / -a.z + w2 / -b.z + w3 / -c.z   # 1/Tiefe linear im Bild
+				var z := 1.0 / iz
+				if vor == null:
+					zb[k] = minf(float(zb.get(k, INF)), z)
+				elif z < float(zb[k]) - 0.001:
+					var dz: float = float(zb[k]) - z
+					var e = vor.get(k)
+					if e == null or dz > float(e[0]):
+						vor[k] = [dz, ia if w1 >= w2 and w1 >= w3 else (ib if w2 >= w3 else ic), z]
