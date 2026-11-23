@@ -49,6 +49,7 @@ jobs:
           python3 tools/herzschlag.py --test    # 1788 (1764) Herzschlag
           python3 tools/ladesumme_test.py       # 1739 Größen und Ladesumme
           python3 tools/lauf_kern_test.py       # 1923 Startblock, 1986 Sokrates mit Kern Leitung und Gedächtnis
+          python3 tools/leitung_test.py         # 1988 Aufwand im Start der Leitung, Neustart ab 300 Tsd. Token
           python3 tools/projektplan_test.py     # 1860 Themenblöcke statt Wochenziel
           python3 tools/rundblick_test.py       # 1789 Rundblick-Start ohne Kern, Ausnahme „Zurück“
           python3 tools/nachtstarts_test.py     # 1792 Nachtstopp mit Ausnahme aus Chefentscheid

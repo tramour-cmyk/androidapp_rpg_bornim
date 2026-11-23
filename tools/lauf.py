@@ -27,6 +27,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   (WOCHENSTART entfällt seit 719: Wochentermine legt --sperre als Muss-Vorgänge an, Zeile „NICHTS <Rolle>: Wochentermin <Nr> angelegt …“; Ford pusht die Notizen, gestartet wird per START)
   TAGESBERICHT TT.MM. | Perikles | [effort high] | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“);
                                                                      mit tools/1727-SCHARF statt dessen START Tagesbericht (Routine, routine-tagesbericht.md, 1871)
+  NEUSTART-LEITUNG <session_id> | Sokrates | <n> Tsd. Token | …     → (1988) Disponent: Leitung neu starten (Übergabe ins Gedächtnis), im selben Takt wie STREICHEN; ab 300 Tsd. used_tokens
   NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1739) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
   (1739) offene Übergabezeile an eine Rolle ohne Sitzung → START dieser Rolle (Titel „<Rolle> – <Nr>: offene Übergabe“) oder angehängt an ihre START-Zeile; mit --sperre gibt der Lauf abgelaufene Fristen ruhender Halter frei (Zeile „NICHTS Übergabe: …“, schon gepusht)
   HÖCHSTDAUER <session_id> | <Rolle> | <Nr> | <Text>                → (1766, erst mit tools/1727-SCHARF und Wert in HOECHSTDAUER_MIN) interrupt_session, dann `vorgang.py rueckmeldung <Nr> "<Text>" --sitzung Ford`, pushen
@@ -239,8 +240,31 @@ def mit_kern(l, docs=None):
         msg += "\\n\\nMeldung: `vorgang.py rueckmeldung %s \"Befunde: n …\" --sitzung Tester` (1795)." % (m.group(1) if m else "<Nr>")
     if auftrag: msg = "%s\n\n%s" % (auftrag, msg.replace("\\n", "\n"))  # 1923: Auftrag wörtlich vor der bisherigen Nachricht
     msg = msg.replace("\n", "\\n")
+    if rolle == "Sokrates":  # 1988 (Chef 23.11., 09:02): Aufwand wie gestartet, get_session zeigt ihn nicht
+        msg += "\\n\\nAufwand: %s" % aufwand_wert(kopf)
     if not k: return "%s | %s" % (kopf, ("Auftrag: " + msg) if auftrag else msg)
     return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
+
+def aufwand_wert(kopf):
+    """1988: Wert des Feldes „effort …“ der START-Zeile (drittes Feld), ohne Feld „Standard (ohne effort-Feld)“."""
+    f = kopf.split(" | ")
+    return f[2][7:].strip() if len(f) > 2 and f[2].startswith("effort ") else "Standard (ohne effort-Feld)"
+
+LEITUNG_NEUSTART_TOKEN = 300000  # 1988 (Chef 23.11., 09:02): Leitung mit 430 Tsd. Token stempelte 20 Min. vor
+def leitung_neustart(je_rolle, archiviert):
+    """1988: je nicht archivierte Leitungssitzung (Sokrates) mit used_tokens (context_usage, get_session) ab 300.000 eine Zeile
+    an den Disponenten; ohne Wert keine Zeile."""
+    aus = []
+    for s in je_rolle.get("Sokrates", []):
+        tok = s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens")
+        if s["id"] not in archiviert and tok and tok >= LEITUNG_NEUSTART_TOKEN:
+            aus.append("NEUSTART-LEITUNG %s | Sokrates | %d Tsd. Token | Leitung neu starten (Übergabe ins Gedächtnis) (1988, ab %d Tsd.)" % (s["id"], tok // 1000, LEITUNG_NEUSTART_TOKEN // 1000))
+    return aus
+
+def vorn(zeilen):
+    """1688, 1988: STREICHEN-Zeilen zuerst, dann NEUSTART-LEITUNG, sonst Reihenfolge unverändert."""
+    return [l for l in zeilen if l.startswith("STREICHEN ")] + [l for l in zeilen if l.startswith("NEUSTART-LEITUNG ")] + \
+        [l for l in zeilen if not l.startswith(("STREICHEN ", "NEUSTART-LEITUNG "))]
 
 
 def mit_rufnamen(ausgabe, sitzungen, jetzt=None, namen=None):
@@ -1823,6 +1847,7 @@ def main():
         ausgabe = streichen.zuerst(streichen.lauf_zeilen(DOCS) + ausgabe)
     except Exception as e:
         ausgabe.insert(0, "WARNUNG Streichzeilen nicht gelesen: %s (1688)" % str(e)[:120])
+    ausgabe = vorn(leitung_neustart(je_rolle, archiviert) + ausgabe)  # 1988: im selben Takt wie STREICHEN
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
     scharf_push = ist_scharf() and bool(sperren)  # 1892 (Lauf 3 Disponent L1): scharf setzt lauf.py die Startsperre bei START selbst und pusht
