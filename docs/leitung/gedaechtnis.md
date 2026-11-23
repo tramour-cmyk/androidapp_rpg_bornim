@@ -34,7 +34,7 @@
 
 - Rundblick heute 17:00 zugesagt (1966 KISS, bis drei Verfahren, Bilanz; Chef 07:31–08:29, 13:51); Befunde: Disponent-Kosten (Opus 57 $), Titel, Laufsperre nur als Text (2001), Wecker an Disponent fehlte (2001 Teil 2), Lehrenbuch leer (1999).
 - Alter Ego `session_01Hmoj78XHCB3MY4JTyhNrks` (Chef 14:49–14:52, Archiv 15:53): kopiert den Chef im Betrieb, Kontrolleur der Leitung; Uhren nach eigener Beurteilung.
-- Main nur über Sokrates (Chef 23:00): Probe Dauerwort „Was ich per 👍 billige, mischst du nach main“ mit nächstem gebilligten Zweig; scheitert sie, Chefwort je Zweig. 1603 Maß offen (Rechnung Dana 22:11).
+- Main nur über Sokrates (Chef 23:00); Dauerwort Chef 23:10 im Chat der Leitung: „Spielcode nach Main … Das machst du.“ Erster gebilligter Zweig = Probe; scheitert sie, Chefwort je Zweig. Neue Sokrates-Sitzung: Wortlaut zitieren. 1603 Maß offen (Rechnung Dana 22:11).
 - 24.11. Chef ganztags Konferenz (23:08): nichts von ihm erwarten; Vorgänge laufen lassen, nur Unaufschiebbares per Telegram, gebündelt. 1603 Maß (Sokrates entscheidet früh), 2012 Eilt zuerst.
 - Chef ab 24.11. auf Konferenz in Spanien, wenig Zeit (14:43): Vorlagen bündeln, kurz.
 - Kopiertexte für den Chef: `docs/leitung/kopiertexte-uhren.md` (Chef 15:22, nie abtippen lassen).
