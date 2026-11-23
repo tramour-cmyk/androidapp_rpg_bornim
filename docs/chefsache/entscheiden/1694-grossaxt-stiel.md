@@ -1,4 +1,7 @@
 # 1694 · Großaxt: Stiel dünner auf echtes Maß, schräg in die Hand oder so lassen?
+
+[Bild von 23.11., 17:58](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/23-1758-1694-Sokrates.webp) (eingetragen von meldung.sh, Sokrates)
+
 Sokrates · 23.11., 17:59 · E Figuren · Bildlauf Isolde 17:27, Frage 1694 Ü10
 Kurz: Im Bild hält der Held die Großaxt nicht, der Stiel (7,1 cm) liegt zwischen Daumen und Zeigefinger; echte Stiele 3,4 bis 3,9 cm; Votum: Stiel dünner.
 Beim Chef, weil: Aussehen
