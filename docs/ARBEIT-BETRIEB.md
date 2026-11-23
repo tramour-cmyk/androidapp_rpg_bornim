@@ -92,3 +92,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:22 23.11.: Startsperre 15:22 Start Sokrates (lauf.py, Leitung; Neustart bei 435 Tsd. Token, Vorgänger session_01Hmoj76v3qfGY8UGYcLqL1A, Titel „Sokrates – Leitung (23.11., 15:22)“)
 - 15:33 23.11.: Startsperre 15:33 Start Werkzeug (lauf.py, Werkzeug 2001 Fenja; Eilt, Sokrates 15:33)
 - 15:39 23.11.: alter Sokrates (session_01Hmoj76v3qfGY8UGYcLqL1A, 452 Tsd. Token, 28,43 $) archiviert, Kosten auf 1988; Nachfolger session_01Hmoj78wagZZvirW9ecr5Pc
+- 15:43 23.11.: Startsperre 15:43 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1999 Greta; auch 1694, Chefworte 15:42)
