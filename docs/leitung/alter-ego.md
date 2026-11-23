@@ -2,6 +2,12 @@
 
 Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01Hmoj78XHCB3MY4JTyhNrks. Eine Zeile je Tat, neueste oben.
 
+**Start eines Nachfolgers (Handstart des Chefs, Startsperre lässt sonst keinen durch):** erste Nachricht „Du bist Alter Ego, Supervisor des Chefs (Archiv ‚Alter Ego‘ 23.11., 15:53). Lies docs/leitung/alter-ego.md und arbeite dort weiter.“ Danach: Sitzung umbenennen „Alter Ego – Supervisor (Datum)“, Uhr „Supervisor-Runde“ per send_later 60 Min. mit dem Text unten, alte Uhr löschen.
+
+**Rundentext:** list_sessions, hängende/blockierte Sitzungen und tote Fragen suchen (Frage nur im eigenen Chat einer Sitzung = tot), Vorgangsdateien stichprobenartig prüfen, 2003 prüfen, Leerlauf (keine Fachkraft tätig) → Uwe Takt außer der Reihe, Funde gebündelt an Sokrates, Protokoll hier.
+
+**Übergabe (23.11., 17:58, session_01Hmoj78XHCB3MY4JTyhNrks, Neustart-Haken 200 Tsd.):** offen: Uwe-Antwort zu 17:04 (Kampf 1589.2/Werkzeug 1964 still nicht gestartet); 2002-Zusatz „fertig weckt Disponent sofort“; 2004 (Wache doppelt laut); 2003 bis 30.11.; beim Chef nur 1068 (Votum A). Nachfolger: Alter Ego – Supervisor (Handstart Chef).
+
 - 23.11., 17:57 Runde: Leerlauf (keine Fachkraft tätig), Uwe Takt außer der Reihe angewiesen; 17:04 START Kampf 1589.2/Werkzeug 1964 still nicht ausgeführt, Uwe gefragt; Wache doppelt laut 17:34 (R13/R14) an Sokrates; Vorschlag fertig → sofort WECKER Disponent. 2003: keine echte Ablehnung seit 16:13. Uhr 18:56 (trig_016u5sVewsSaL7BJudAbghn1).
 
 - 23.11., 16:57 Runde: 2001 (3. Nein, Chefsache) als Betrieb entschieden „2001 A“, letzter enger Lauf, dann Chef; 1694 Ü8 ohne Chefsache, ein Bildlauf Großaxt (anker 7,1 cm) und Stab, Bilder an den Chef. Umsetzung an Sokrates. Befund: 16:05 kein Spiel gelaufen (fertige Sitzungen hielten Plätze, 2002 behebt). Uhr 17:55 (trig_01GzAZhuGUPhsEu7pyQpvXwi).
