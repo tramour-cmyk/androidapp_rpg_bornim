@@ -18,7 +18,10 @@ Pfeil, die Sokrates nur bei diesem Chefwort setzt: „→ **Laufsperre: höchste
 Laufsperre als Obergrenze (2001, Chef 23.11., 14:37; Archiv 287): höchstens N Fachkräfte laufen zugleich, neben der Startzahl:
 „→ **Laufsperre: höchstens <Zahl> Fachkräfte zugleich[, nur <Bereiche>][, nachts HH–HH keine][, spätestens TT.MM., HH:MM]**“
 (Zahl als Ziffer oder Wort; Bereiche durch Komma oder „und“ wie bereiche.py, „Spiel“ = G Regeln, E Kampf, E Figuren, E Welt;
-Eilt darf auch außerhalb der Bereiche, zählt aber unter N mit (287 Filter, 1997); nachts startet keine Fachkraft, auch nicht Eilt).
+Eilt darf auch außerhalb der Bereiche und, 2002 (B, Chef 23.11., 15:48), bei N Laufenden noch starten, höchstens N+1; nachts startet
+keine Fachkraft, auch nicht Eilt). 2002 (A): eine Fachkraft, deren jüngste Rückmeldung „fertig“ ist und an die kein Rückläufer („nein“
+danach in derselben Vorgangsdatei) ging, zählt nicht (fertige_sitzungen). Takt, offene Übergaben und Handstart (lauf.py --start) prüfen
+dieselbe Bremse.
 Läuft = lauf.py „Laufend“ (working/blocked, updated_at unter 60 Minuten, Kopf von lauf.py), nie ARBEIT-BESETZUNG.md; jeder START
 dieses Laufs zählt dazu. Frei, zählt nicht (eigene Menge FREI_OBER): Arbeitsplaner, Prüfer, Tester, Wache, Sokrates, Tagesbericht (und
 Routinen Sokrates', Disponent, Ford). Ohne „spätestens“ STANDARD_STUNDEN mit Warnung; ohne „Chef“ in der Klammer keine. Beispiel 287:
@@ -175,18 +178,46 @@ def ober_rolle(rolle, titel):
     return rolle if not m else "Prüfer" if m.group(1) == "Prüfung" else "Tester"
 
 
-def _laufend(je_rolle, archiviert):
-    return [(ober_rolle(r, s.get("title", "")), s) for r, ss in je_rolle.items() for s in ss if s["id"] not in archiviert and s["_info"][1]]
+def ist_laufend(s, jetzt):
+    """lauf.py „Laufend“ (Kopf): working/blocked (oder RUNNING) und updated_at unter 60 Minuten. 2002: eine fertige Sitzung mit Frage
+    steht auf blocked und zählte so bis 60 Minuten weiter (Zora 23.11., fertig 14:57)."""
+    b = s.get("status_bucket", "")
+    u = datetime.datetime.fromisoformat(s["updated_at"].replace("Z", "+00:00"))
+    return ("WORKING" in b or "BLOCKED" in b or s.get("session_status") == "SESSION_STATUS_RUNNING") and (jetzt - u).total_seconds() < 3600
 
 
-def laufende_fachkraefte(je_rolle, archiviert=()):
-    """2001: Zahl laufender Fachkraft-Sitzungen aus der Sitzungsliste von lauf.py (s["_info"] = (Rolle, Laufend, …), Kopf von lauf.py)."""
-    return sum(1 for r, s in _laufend(je_rolle, archiviert) if fachkraft(r))
+RUECK = re.compile(r"(?m)^- \*\*(\d\d)\.(\d\d)\., (\d\d):(\d\d)\*\*, [^\n]*?(?: \(`(session_[^`]*)`\))?:\n> (\S+)")
 
 
-def laufende_namen(je_rolle, archiviert=()):
+def fertige_sitzungen(texte):
+    """2002 (A): Sitzungen, deren jüngste Rückmeldung (über alle Vorgangsdateien) „fertig“ ist, ohne Rückläufer an sie: kein „nein“
+    in derselben Datei danach (1739: das Nein des Prüfers geht an dieselbe Fachkraft zurück). Nie aus ARBEIT-BESETZUNG.md."""
+    letzte = {}
+    for i, t in enumerate(texte):
+        for m in RUECK.finditer(t or ""):
+            k = (int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4)))
+            if m.group(5) and (m.group(5) not in letzte or k >= letzte[m.group(5)][0]): letzte[m.group(5)] = (k, i, m.group(6).strip(":,.").lower())
+    aus = set()
+    for sid, (k, i, w) in letzte.items():
+        if w != "fertig": continue
+        if any((int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4))) > k and m.group(6).strip(":,.").lower() == "nein" for m in RUECK.finditer(texte[i])): continue
+        aus.add(sid)
+    return aus
+
+
+def _laufend(je_rolle, archiviert, fertig=()):
+    return [(ober_rolle(r, s.get("title", "")), s) for r, ss in je_rolle.items() for s in ss if s["id"] not in archiviert and s["id"] not in fertig and s["_info"][1]]
+
+
+def laufende_fachkraefte(je_rolle, archiviert=(), fertig=()):
+    """2001: Zahl laufender Fachkraft-Sitzungen aus der Sitzungsliste von lauf.py (s["_info"] = (Rolle, Laufend, …), Kopf von lauf.py);
+    2002 (A): ohne fertige (fertige_sitzungen)."""
+    return sum(1 for r, s in _laufend(je_rolle, archiviert, fertig) if fachkraft(r))
+
+
+def laufende_namen(je_rolle, archiviert=(), fertig=()):
     """2001-Ü10: „<Rufname> (<Rolle>)“ je gezählter Fachkraft, sortiert, für die Zeile LAUFSPERRE."""
-    return sorted("%s (%s)" % (re.split(r" – |, | \(", s.get("title", "") or s["id"])[0], r) for r, s in _laufend(je_rolle, archiviert) if fachkraft(r))
+    return sorted("%s (%s)" % (re.split(r" – |, | \(", s.get("title", "") or s["id"])[0], r) for r, s in _laufend(je_rolle, archiviert, fertig) if fachkraft(r))
 
 
 def eilt(zeile):
@@ -277,7 +308,8 @@ class Bremse:
         if o["bereiche"] and not eilt(zeile) and (not isinstance(zeile, dict) or zeile.get("bereich") not in o["bereiche"]):
             return "%s: nur %s und Eilt, Zeile %s" % (q, self.ber_text(), zeile.get("bereich") or "ohne Bereich" if isinstance(zeile, dict) else "fehlt")
         if self.laufend is None: return "%s: Zahl laufender Fachkräfte unbekannt, kein Start" % q
-        if self.laufend >= o["n"]: return "%s: höchstens %d Fachkräfte zugleich, %d laufen" % (q, o["n"], self.laufend)
+        if self.laufend >= o["n"] + (1 if eilt(zeile) else 0):  # 2002 (B): Eilt bis N+1
+            return "%s: höchstens %d Fachkräfte zugleich%s, %d laufen" % (q, o["n"], ", Eilt eine mehr" if eilt(zeile) else "", self.laufend)
         return None
 
     def frei_text(self):

@@ -886,11 +886,46 @@ def startsperre_zeile(sperren, sperr_nr, jetzt=None, rufnamen=None):
     return "- %s %s: Startsperre %s Start %s (lauf.py%s)" % (j.strftime("%H:%M"), j.strftime("%d.%m."), j.strftime("%H:%M"), ", ".join(sperren), "".join(", " + x for x in mit))
 
 
-def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None):
+def vorgang_texte(docs=None):
+    """2002: Texte aller Vorgangsdateien (docs/vorgang/*.md) für guthaben.fertige_sitzungen."""
+    d = os.path.join(docs or DOCS, "vorgang")
+    try: return [lesen(os.path.join(d, f)) for f in sorted(os.listdir(d)) if f.endswith(".md")]
+    except OSError: return []
+
+
+def sitzungen_lesen(seiten):
+    """2002: lebende Sitzungen aus gespeicherten Seiten von list_sessions oder der Kurzform (wie der Takt)."""
+    alle = {}; offen = []
+    for p in seiten:
+        for s in kosten.sitzungen(p, offen): alle[s["id"]] = s
+    return [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
+
+
+def laufend_setzen(bremse, sitz, marken, fertig=None, archiviert=()):
+    """2001/2002: bremse.laufend und bremse.namen: laufende Fachkräfte („Laufend“, Kopf; ohne fertige ohne Rückläufer, 2002 A), dazu
+    Startsperren unter SPERRE_MIN ohne Sitzung seither. sitz: je_rolle des Takts oder eine Liste lebender Sitzungen (Handstart)."""
+    import guthaben
+    if isinstance(sitz, list):
+        je = {}
+        for s in sitz:
+            s.setdefault("_info", (kosten.rolle(s.get("title", ""), s.get("created_at")), guthaben.ist_laufend(s, JETZT), 0, []))
+            je.setdefault(s["_info"][0], []).append(s)
+        sitz = je
+    if fertig is None: fertig = guthaben.fertige_sitzungen(vorgang_texte())
+    gesperrt = ["Startsperre %s %s" % (r, d.strftime("%H:%M")) for r, d in sorted(marken.items()) if guthaben.fachkraft(r) and (JETZT - d).total_seconds() < SPERRE_MIN * 60
+                and not any(z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN) for s in sitz.get(r, []))]
+    bremse.laufend = guthaben.laufende_fachkraefte(sitz, archiviert, fertig) + len(gesperrt)
+    bremse.namen = guthaben.laufende_namen(sitz, archiviert, fertig) + gesperrt  # 2001-Ü10: wer gezählt ist
+
+
+def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None, bremse=None, zeile=None):
     """1989 (Chef 23.11., 09:04, 09:11): Handstart außerhalb des Takts wie ein Start im Takt: START-Zeile (Modell, Aufwand, Umgebung,
     Repo, main, Titel „<Rolle> – <Nr>: Handstart (…)“) mit Kaufrepo-Satz, Startblock (mit_kern) und, scharf, Rufname; dazu
     „STARTSPERRE <Protokollzeile>“ mit Rolle, Nummer und Rufname (startsperre_zeile), damit rufname.rolle sie zuordnet.
-    sitzungen: (Titel, created_at) der heutigen Sitzungen für den Rufnamen; ohne sie die Rufnamen der heutigen Startsperren."""
+    sitzungen: (Titel, created_at) der heutigen Sitzungen für den Rufnamen; ohne sie die Rufnamen der heutigen Startsperren.
+    2002 (e): bremse (guthaben.Bremse mit laufend) und zeile (Vorgangszeile): hält die Obergrenze den Start an, nur „NICHTS“."""
+    if bremse is not None and (g := bremse.ober_grund(rolle, zeile)):
+        return ["NICHTS %s: Handstart %s angehalten: %s (2002)" % (rolle, nr, g)]
     neue_liste()
     mo, satz, hoch = modell(rolle, nr)
     msg = "%s\n\n%s Zuerst Start nach deiner Rollendatei.%s" % (rolle, nachricht.strip(), satz)
@@ -1392,7 +1427,15 @@ def main():
         if r[3:]:
             import rufname as _r2; ss = []
             for p in r[3:]: ss += _r2.lies_sitzungen(lesen(p))
-        zs = start_zeilen(r[0], r[1], r[2], ss)
+        br = None
+        if ist_scharf():  # 2002 (e): Handstart prüft die Obergrenze wie der Takt; Laufende aus den übergebenen Seiten (Kurzform), sonst unbekannt → kein Start
+            import guthaben
+            br = guthaben.Bremse(JETZT, lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")))
+            if br.ober and guthaben.fachkraft(r[0]):
+                if r[3:]: laufend_setzen(br, sitzungen_lesen(r[3:]), startmarken())
+                else: print("WARNUNG Handstart ohne Sitzungsliste: Laufende unbekannt, Fachkraft startet nicht; Seiten von list_sessions oder Kurzform anhängen (2002)")
+                for x in br.zeilen(): print(x)
+        zs = start_zeilen(r[0], r[1], r[2], ss, bremse=br, zeile=next((d for d in startbar.zeilen_liste() if d["nr"] == r[1]), None) if br else None)
         sp = [x[len("STARTSPERRE "):] for x in zs if x.startswith("STARTSPERRE ")]
         if "--sperre" in a and sp:
             if protokoll_pushen(lambda alt: alt.rstrip("\n") + "\n" + sp[0] + "\n", "Startsperre %s %s (lauf.py --start, 1989)" % (r[0], r[1])):
@@ -1608,10 +1651,7 @@ def main():
         neue_marken.append(schl)
     for name in nicht_da: marken.pop(name, None)  # (2) zählt nicht als Belegung
     if bremse and bremse.ober:  # 2001: laufende Fachkräfte aus der Sitzungsliste („Laufend“, Kopf), dazu Startsperren unter SPERRE_MIN ohne Sitzung seither
-        gesperrt_ = ["Startsperre %s %s" % (r, d.strftime("%H:%M")) for r, d in sorted(marken.items()) if guthaben.fachkraft(r) and (JETZT - d).total_seconds() < SPERRE_MIN * 60
-            and not any(z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN) for s in je_rolle.get(r, []))]
-        bremse.laufend = guthaben.laufende_fachkraefte(je_rolle, archiviert) + len(gesperrt_)
-        bremse.namen = guthaben.laufende_namen(je_rolle, archiviert) + gesperrt_  # 2001-Ü10: wer gezählt ist
+        laufend_setzen(bremse, je_rolle, marken, archiviert=archiviert)
         neu_ = [l for l in bremse.zeilen() if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l]
         ausgabe[:] = [neu_[0] if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l and neu_ else l for l in ausgabe]
     # Starten
