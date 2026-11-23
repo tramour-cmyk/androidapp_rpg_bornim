@@ -284,3 +284,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:29 23.11.: Startsperre 08:29 Start Figur (Disponent von Hand nach Sokrates 08:13: Svea 1570 A, Zweig claude/dana-1570-umhang ab 9bc78331a); Rosa (Planer, 154 Tsd. Token) bekommt 1986-Ü1 (Eilt, Sokrates 08:33); 1570 Auftrag steht seit 08:20
 - 08:30 23.11.: Startsperre 08:30 Start Werkzeug (Disponent von Hand nach Sokrates 08:33: Tilda 1986 Leitung umstellen, Eilt); Rosa archiviert, Kosten gebucht
 - 08:42 23.11.: Startsperre 08:42 Start Prüfer (Disponent von Hand: Uta 1986-Ü3, 0 von 3)
+- 08:43 23.11.: Startsperre 08:43 Start Werkzeug (Disponent von Hand nach Sokrates 08:53: Viola 1688-Ü1, ARBEIT-BETRIEB auf 30 KB); Tilda (1986 fertig, aa49e9404) archiviert, Kosten gebucht
