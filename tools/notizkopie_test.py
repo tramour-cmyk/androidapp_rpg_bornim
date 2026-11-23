@@ -56,7 +56,29 @@ def weiter(q, a):
     g(a, "fetch", "-q", "origin"); g(a, "checkout", "-q", "-B", "main", "origin/main"); g(a, "checkout", "-q", "--detach")
 
 
+def neues_git(d):
+    """1963-Ü12: git ab 2.44 (CI-Runner: 2.56.1, Lauf 45126240216) lehnt `checkout -B`/`switch -C` auf einen Zweig ab, den eine
+    andere Arbeitskopie hält; lokal (2.43) geht es durch. Nachbildung als git vor dem echten im PATH, damit der Test überall gleich läuft."""
+    echt = shutil.which("git"); w = os.path.join(d, "git")
+    schreib(w, '''#!%s
+import os, subprocess, sys
+a, wo, i = sys.argv[1:], ".", 0
+while i < len(a) and a[i] == "-C": wo, i = a[i + 1], i + 2
+z = a[i + 1:]
+for cmd, opt in (("checkout", "-B"), ("switch", "-C")):
+    if a[i:i + 1] == [cmd] and opt in z and z.index(opt) + 1 < len(z):
+        ich = subprocess.run([%r, "-C", wo, "rev-parse", "--show-toplevel"], capture_output=True, text=True).stdout.strip()
+        wl = subprocess.run([%r, "-C", wo, "worktree", "list", "--porcelain"], capture_output=True, text=True).stdout.split("\\n\\n")
+        if any("branch refs/heads/" + z[z.index(opt) + 1] in b.split("\\n") and b.split("\\n")[0] != "worktree " + ich for b in wl):
+            sys.exit("fatal: Zweig wird von anderer Arbeitskopie benutzt (Nachbildung git >= 2.44)")
+os.execv(%r, [%r] + a)
+''' % (sys.executable, echt, echt, echt, echt))
+    os.chmod(w, 0o755)
+    os.environ["PATH"] = d + os.pathsep + os.environ["PATH"]
+
+
 def kopie_test():
+    neues_git(tempfile.mkdtemp())
     # Fall 1: nur veralteter Stand → nach notiz.sh sauber, Sicherung vorhanden
     d = tempfile.mkdtemp(); home = os.path.join(d, "h"); os.makedirs(home)
     o, q, a = aufbau(d); wt = os.path.join(d, "bornim-main")
