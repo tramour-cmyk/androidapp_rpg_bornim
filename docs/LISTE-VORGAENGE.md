@@ -34,7 +34,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1621 | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffen_staffel.py VORN/HINTEN) | 3 | E Figuren | M | 1694 | – | claude/spike-1621-griff | *startbar, Rückläufer 👎 16:50: rechte Faust umfasst Griff nicht* | *–* | *0* | *10,74 $* |
 | 1665 | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu sehen (Fackel links sichtbar) | 3 | E Figuren | M | 458.3 | 522 | – | *wartet* | *–* | *0* | *1,29 $* |
 | 1674 | Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 Minuten an der Bank fest, kommt nicht vorbei, erst Wegschubsen … | 3 | E Figuren | M | – | – | claude/tom-1674-bank | *gebaut, Geprüft an: afe4a4329 (bank_1674 grün)* | *–* | *0* | *3,72 $* |
-| 1675 | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *6,21 $* |
+| 1675 | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *18,85 $* |
 | 1676 | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *0,95 $* |
 | 1694 | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finger schließen um den Schaft | 3 | E Figuren | M | – | 1621, 1657 | – | *ruht, beim Chef (Obergrenze B)* | *–* | *0* | *50,26 $* |
 | 1709 | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535), Ziel vorher fest | 3 | E Figuren | M | 28.11. | 1535 | – | *ruht, Chef nicht am PC (22.11., 19:29), frühestens 28.11.* | *–* | *0* | *0,67 $* |
@@ -57,7 +57,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 931 | Wolf vorn – „Anspringen!“ steht, während er sich duckt (keine eigene Pause), Sprung bis Biss 0,6 s, Absetzen 0,8 s … | 2 | E Kampf | M | 760, 1589.4 | 784, 863 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1032 | nach dem eigenen Angriff taumelt ein Wachsoldat getroffen, im Bericht steht ein Angriff, aber der Angreifer macht keine … | 2 | E Kampf | M | 760, 1589.4 | – | claude/jerry-1032-treffer | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1043 | MARS-Probekampf Wölfe, Klosterschüler, „Ausweichen“ erzwungen: „davon hab ich nix gesehen. Da weicht nichts“ | 2 | E Kampf | M | 760, 1589.4 | – | claude/jerry-1043-sprung | *ruht, Block 2 (1605)* | *–* | *0* | *29,65 $* |
-| 1068 | Ring bei jedem großen Schlag der Gegner … | 2 | E Kampf | M | Chef | 1048, 444 | – | *startbar* | *–* | *0* | *19,80 $* |
+| 1068 | Ring bei jedem großen Schlag der Gegner … | 2 | E Kampf | M | Chef | 1048, 444 | – | *startbar* | *–* | *0* | *24,07 $* |
 | 1415 | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A) | 2 | E Kampf | M | 709, 1589.4 | 1072, 784 | claude/jerry-1415-takt | *ruht, Block 2 (1605)* | *–* | *0* | *9,72 $* |
 | 1588 | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | 2 | E Kampf | M | 1589.4 | 1556 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1589.2 | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit und Versperren, Flucht … | 2 | E Kampf | M | – | 1600, 1589.1, 444, 1589.6 | – | *startbar* | *–* | *0* | *12,67 $* |
