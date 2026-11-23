@@ -11,7 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1988 | Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Token neu starten (Chef 09:02, 1 bis 3 ja) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *6,19 $* |
 | 1971 | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Titel), Halbsatz im Kern Büro (Chef 22.11., 18:13) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1989 | Startprompts der laufenden Sitzungen gegenprüfen, Soll mit Ist; Prüfschema über den Tag, alle Bereiche und Profile (Chef 09:04) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *–* |
