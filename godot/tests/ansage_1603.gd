@@ -79,7 +79,7 @@ func _initialize() -> void:
 		"Prankenhieb stark, Ring, nicht brechbar, Zusatz [2, 6, 0]")
 	var T: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://daten/werte.json")).get("absichten", {}).get("je_art", {})
 	faelle += 1
-	_soll(T.get("bugbear", []) == [["morningstar", 2], ["paw", 1]], "Krogg Los Morgenstern 2 : Prankenhieb 1, Ist %s" % [T.get("bugbear")])
+	_soll((T.get("bugbear", []) as Array).map(func(x): return [String(x[0]), int(x[1])]) == [["morningstar", 2], ["paw", 1]], "Krogg Los Morgenstern 2 : Prankenhieb 1, Ist %s" % [T.get("bugbear")])
 	faelle += 1
 	_soll((T.get("_sonst", []) as Array).is_empty(), "_sonst leer, Ist %s" % [T.get("_sonst")])
 	print("ANSAGE1603 %d Fälle, %d Fehler" % [faelle, fehler])

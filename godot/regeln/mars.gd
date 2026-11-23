@@ -76,6 +76,8 @@ const EINGEBUNG := {"pounce": ["Er will springen. Stehe ich nicht mehr dort, woh
 		"He is catching his breath. Press now, or he regains his strength."],
 	"breakthrough": ["Er will durch die Reihe. Tritt der Bedrohte vorher selbst nach vorn, bleibt Grak nur ein einfacher Schlag.",     # [986.breakthrough]
 		"He means to break the line. If the threatened one steps forward first, Grak is left with a plain blow."],
+	"paw": ["Er holt mit der Pranke aus. Treffe ich den Ring, fange ich den Hieb ab.",     # [1069.prankenhieb] (1603)
+		"He draws back his paw. If I meet the ring, I catch the blow."],
 	"venom": ["Gegen den Giftbiss hilft kein Ring. Treffe ich sie vorher hart, versiegt das Gift.",     # [986.venom]
 		"No ring helps against the venom bite. If I hit her hard first, the venom dries up."],
 	"aim": ["Er legt an. Geht der Anvisierte in Abwehr, duckt er sich, und der Pfeil geht vorbei.",     # [986.aim]
@@ -266,6 +268,14 @@ var I_SLASH := _intent("slash", "Hieb", "Slash", "STRIKE", null, false, false)
 var I_BITE := _intent("bite", "Biss", "Bite", "STRIKE", null, false, false)
 ## 506 (STORY-BLENDE.md „Wiedergänger“: Angriff Klauen / Claws; „Grabhund“: Biss / Bite)
 var I_CLAW := _intent("claw", "Klauen", "Claws", "STRIKE", null, false, false)
+## 1603 (Homer [1057.ansage.*], STORY-BRS-KAMPF.md): Grundangriff je Art statt „Stich“, einfacher Schlag ohne Ring; Wirkung wie bisher in _foe_wounds
+var I_MORNINGSTAR := _intent("morningstar", "Morgenstern", "Morningstar", "STRIKE", null, false, false)
+var I_TUSKS := _intent("tusks", "Hauer", "Tusks", "STRIKE", null, false, false)
+var I_POISON_CLAWS := _intent("poison_claws", "Giftklauen", "Poison claws", "STRIKE", null, false, false)
+var I_SUCKER := _intent("sucker", "Saugmaul", "Sucker", "STRIKE", null, false, false)
+var I_TONGUE := _intent("tongue", "Zunge", "Tongue", "STRIKE", null, false, false)
+## 1603 (Homer [1069.ansage.prankenhieb], Hauptfassung ohne Bruchschwelle): Kroggs großer Schlag wie der Schwere Hieb, stark, mit Ring, nicht brechbar
+var I_PAW := _intent("paw", "Prankenhieb", "Paw swipe", "STRIKE", [2, 6, 0], true, true, false)
 var I_POUNCE := _intent("pounce", "Anspringen", "Pounce", "STRIKE", null, false, false, false, "POUNCE")
 ## 399.2b: ein Jungwolf knurrt nur, kein Angriff (Homer [210T.growl])
 var I_GROWL := _intent("growl", "Knurren", "Growl", "WAIT", null, false, false, false, "GROWL")
