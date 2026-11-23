@@ -35,7 +35,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1694 | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finger schließen um den Schaft | 3 | E Figuren | M | – | 1621, 1657 | – | *startbar, Ruhe bis 21.11. abgelaufen* | *–* | *0* | *34,17 $* |
 | 1709 | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535), Ziel vorher fest | 3 | E Figuren | M | 28.11. | 1535 | – | *ruht, Chef nicht am PC (22.11., 19:29), frühestens 28.11.* | *–* | *0* | *0,67 $* |
 | 1205b | in Grafik Niedrig nur die Blumen des Kits, Kleckse überall weg, Gras in Niedrig unser altes | 5 | E Welt | M | 1535 | 698a | claude/tom-1205-wiese | *gebaut, Geprüft an: fdbacd715 (Bild 👍 17:12)* | *–* | *0* | *1,64 $* |
-| 1566 | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht | 5 | G Stil | M | – | – | claude/emil-1566-hoehlenwasser | *startbar, Chef 19:05 A, Lauf beim Prüfer (1566-Ü13)* | *–* | *0* | *31,78 $* |
+| 1566 | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht | 5 | G Stil | M | – | – | claude/emil-1566-hoehlenwasser | *erledigt* | *–* | *0* | *31,78 $* |
 | 1398 | Prüfliste mischt wieder Bild/Film mit APK-Wegen | 6 | Q QS | M | – | 1128, 1217 | – | *gebaut, Geprüft an: 68b53e087* | *–* | *0* | *2,25 $* |
 | 1710 | Bildvergleich-Wächter in meldung.sh: Meldung alt gegen neu ohne messbaren Unterschied im markierten Ausschnitt hält an | 6 | E Technik | M | – | – | – | *gebaut, Geprüft an: 46922ae71* | *–* | *0* | *6,23 $* |
 | 1414 | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | 7 | B Werkzeuge | M | 23.11. | – | – | *gebaut, Geprüft an: 5307f68d3* | *–* | *0* | *2,44 $* |
@@ -116,7 +116,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1762 | Haken D trägt Chefwort aus fremder Sitzung in die Vorgangsdatei (Freigabe, Antwort auf Frage) | 7 | B Werkzeuge | M | – | 1727 | – | *gebaut, Geprüft an: 34de71832* | *–* | *0* | *3,15 $* |
 | 1763 | lauf.py startet Sokrates bei „steckt fest“, „Frage“, „wirkt nein“ (C) | 7 | B Werkzeuge | M | – | 1727 | – | *gebaut, Geprüft an: 17623dce7* | *–* | *0* | *3,15 $* |
 | 1764 | Herzschlag und Wache des Disponenten (Ausfall, Nachfolger ohne Vorräte) | 7 | B Werkzeuge | M | 1894 | 1727 | – | *gebaut, Geprüft an: c526199e2* | *–* | *0* | *2,27 $* |
-| 1765 | Build-Werkzeug … | 7 | B Werkzeuge | M | 1566, 1739 | 1727, 1566, 1739 | – | *wartet* | *–* | *0* | *5,72 $* |
+| 1765 | Build-Werkzeug … | 7 | B Werkzeuge | M | 1739 | 1727, 1566, 1739 | – | *wartet* | *–* | *0* | *5,72 $* |
 | 1766 | Laufbremse und Höchstdauer je Auftrag in lauf.py, auch bei working (prozesspruefung-21-11.md Nr. 4) | 7 | B Werkzeuge | M | 1774 | 1727 | – | *gebaut, Geprüft an: 19bf8c8d4* | *–* | *0* | *2,01 $* |
 | 1767 | Profile Büro 3.2 (Disponent, Release, Kosten), Routinen Tagesbericht, Wache, Wochenzählung 6d | 7 | B Abläufe | M | Sokrates | 1727 | – | *gebaut, Geprüft an: c32f3fe84* | *–* | *0* | *9,25 $* |
 | 1773 | Nachträge zu 1767 F3: Disponent „Fertig“ ohne Ausnahme 1311, Werkzeugfehler-Satz nur Kern Büro, Rundblick in … | 7 | B Steuerung | M | – | 1727, 1767, 1311 | – | *startbar* | *–* | *0* | *–* |
