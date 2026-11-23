@@ -53,7 +53,9 @@ def aufbau(d):
 def weiter(q, a):
     schreib(os.path.join(q, "docs/a.md"), "neu\n"); schreib(os.path.join(q, "docs/neu.md"), "neu\n"); g(q, "rm", "-q", "docs/weg.md")
     g(q, "add", "-A"); g(q, "commit", "-qm", "2"); g(q, "push", "-q", "origin", "main")
-    g(a, "fetch", "-q", "origin"); g(a, "checkout", "-q", "-B", "main", "origin/main"); g(a, "checkout", "-q", "--detach")
+    # Vorfall: `checkout -B main origin/main` in der Arbeitskopie setzte refs/heads/main um (git 2.43); ab 2.44 abgelehnt (1963-Ü12),
+    # daher dieselbe Wirkung auf den Zweig mit update-ref (samt Reflog-Eintrag), unabhängig von der git-Version
+    g(a, "fetch", "-q", "origin"); g(a, "update-ref", "-m", "checkout: moving from main to main", "refs/heads/main", "origin/main")
 
 
 def neues_git(d):
