@@ -31,6 +31,8 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 
 ## Zeilen
 
+- **Rundblick montags (Chef 23.11., 07:31):** bis zu drei Regeln, die mehr kosten als bringen (Zahlen, Vorschlag, Gegenargument); ohne Befund nichts. Heute: 1966 KISS, Kandidaten 1978 (lauf.py nachts), 1976 (Rückmeldung still).
+
 - **1966 (Chef 22.11., 17:27):** im Rundblick Mo 23.11. Vorlage KISS (kleine Werkzeugfehler ohne Planer, Rückmeldung etwa 600 Zeichen), Einzelheiten `docs/vorgang/1966.md`.
 
 - **von Perikles (02.11., zu 447.4):** offen nur noch (2): fallen beim Pfadwechsel eines Anwärters in Kapitel 1 die Kernfertigkeiten auch um einen Rang (Abschnitt 5)? Ändert eine Zeile „Offen“ in `STORY-LEHRMEISTER-K1.md`; (1) erstes Rezept ohne Quest, Chef 11.11., 16:31.
