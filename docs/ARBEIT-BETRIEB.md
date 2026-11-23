@@ -67,3 +67,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:29 23.11.: Startsperre 09:29 Start Prüfer (Disponent von Hand mit lauf.py --start, Startblock: Nils 1988-Ü2/Ü3, 1971-Ü2, 1989-Ü2, 0 von 3); Yvonne (1988, 1971, 1989 auf main, 204 Tsd. Token) archiviert, Kosten gebucht; 1988 Zusatz 09:26 (Punkte 4/5) noch offen, Zeile fehlt (Sokrates)
 - 09:30 23.11.: Startsperre 09:30 Start Werkzeug (Disponent von Hand mit lauf.py --start, Startblock: Ottilie 1988-Ü5 Zusatz 09:26 Punkte 4/5)
 - 09:34 23.11.: Startsperre 09:34 Start Kampf (Disponent von Hand mit lauf.py --start, Startblock, nach Sokrates 09:33: Pia 1589.2-Ü3 Rückläufer, danach 1068-Ü2); Svea (1570 ruht bis Sa 28.11., 239 Tsd. Token) archiviert, Kosten gebucht
+- 09:38 23.11.: Startsperre 09:38 Start Prüfer (lauf.py, Prüfer 1988 Nils)
