@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 23.11., 23:03 (lauf.py)
+**Stand:** 23.11., 23:06 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -11,4 +11,4 @@
 | Sokrates | [Sokrates – Leitung (23.11., 20:07)](https://claude.ai/code/session_01Hmoj76c6rPyFA9ocndRnpB) | Betrieb | – | 23.11., 20:07 |
 | Figur | [Doris – 1675: Wachsoldatin im Hauptmenü, Schild schwebt neben … (23.11., 22:03)](https://claude.ai/code/session_01Hmoj79KCgd8RKkwFeNA79x) | 1675 | – | 23.11., 22:06 |
 | Kampf | [Dana – 1603: Besonderheiten fehlen im MARS ohne Kerben (23.11., 22:03)](https://claude.ai/code/session_01Hmoj79qHwN7HZzzdDuRuqG) | 1603 | – | 23.11., 22:06 |
-| Arbeitsplaner | [Gustav – Auftrag 2005: lauf.py startet für ruhenden … (23.11., 22:31)](https://claude.ai/code/session_01Hmoj79jrkwvPJXW5kHZmiz) | 2005 | – | 23.11., 22:33 |
+| Prüfer | [Ingo – 1675: offene Übergabe (23.11., 23:03)](https://claude.ai/code/session_01Hmoj77aqicrhzHU1sve4Yu) | 1675 | – | 23.11., 23:05 |
