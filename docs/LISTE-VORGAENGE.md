@@ -11,6 +11,9 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
+| 1988 | Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Token neu starten (Chef 09:02, 1 bis 3 ja) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1971 | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Titel), Halbsatz im Kern Büro (Chef 22.11., 18:13) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1989 | Startprompts der laufenden Sitzungen gegenprüfen, Soll mit Ist; Prüfschema über den Tag, alle Bereiche und Profile (Chef 09:04) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer, 23.11. | – | – | *gebaut, Geprüft an: c315ec551* | *–* | *0* | *6,50 $* |
 | 1727 | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts, Pflichtlast je Sitzung ultrakompakt | 7 | B Abläufe | Eilt | – | 1625, 1725 | – | *erledigt* | *–* | *0* | *604,91 $* |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | 7 | B Werkzeuge | Eilt | 23.11. | – | – | *ruht, 887a zurückgestellt (Chef 16:53)* | *–* | *0* | *–* |
@@ -410,7 +413,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1985 | tools/notiz.sh Z. 33: checkout -B main origin/main wird ab git 2.44 (CI 2.56.1) abgelehnt, wenn die Arbeitskopie main hält; Notizkopie stünde losgelöst (Hinweis Sabine, 1963-Ü16; im Container git 2.43 nicht betroffen) | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1986 | Leitung umstellen (Chef 23.11., 08:26 A): Kern Leitung als ladbare Datei wörtlich aus 1727-gesamtbild 2.1, lauf.py KERN_VON Sokrates = Sockel + Kern Leitung + Gedächtnis, Startnachricht ohne ROLLE-BERATUNG-START, Start-Haken ohne „Zentrale (Tom, Jerry, Ford …)“ | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *25,48 $* |
 | 1987 | tools/zug-haken.py 145 nennt weiter ROLLE-BERATUNG-START.md (stumm, da tools/1727-SCHARF vorliegt, kein Startweg); Fund Uta 1986-Ü5 | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 1988 | Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Token neu starten (Chef 09:02, 1 bis 3 ja) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
-| 1971 | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Titel), Halbsatz im Kern Büro (Chef 22.11., 18:13) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
-| 1989 | Startprompts der laufenden Sitzungen gegenprüfen, Soll mit Ist; Prüfschema über den Tag, alle Bereiche und Profile (Chef 09:04) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1990 | vorgang.py uebergabe nennt als WECKER eine archivierte Sitzung (Besetzung veraltet), Weckrufe gehen verloren (Fund Wanda 1688-Ü5, Disponent 21:31) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
