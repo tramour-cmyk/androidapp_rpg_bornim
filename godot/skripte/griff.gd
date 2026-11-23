@@ -31,6 +31,7 @@ static var DAUMEN_UM := OS.get_environment("DAUMEN1694") != "0"   # 1694: Daumen
 const DAUMEN_GRENZEN := [40.0, 60.0, 80.0]   # Grad: Anschlag Grund-, Mittel-, Endglied des Daumens
 static var DEBUG := OS.get_environment("GRIFFKETTE") != ""
 static var KONV := float(OS.get_environment("KONV1694")) if OS.get_environment("KONV1694") != "" else -16.0   # Grad je Finger (Versuch Handbeil 23.11.: -14: 11 %, -18: 9 % sichtbar, Kuppen stoßen zusammen)
+static var STRECKEN := OS.get_environment("STRECKEN1694") != "0"   # 1694: Finger vor dem Schließen strecken
 static var GELENK := OS.get_environment("GELENK1694") != "0"   # 1694: Beugen um das Gelenk (0: um die Schaftachse, wie bis 22.11.)
 const NEU_AB := 0.002              # m bzw. rad*m: so weit darf der Schaft in der Hand wandern, bevor die Finger neu schließen
 
@@ -278,6 +279,7 @@ static func radius(ding: Node3D, halt: Dictionary) -> float:
 ## „zweihand“ (Faust oben am Griff, Platz für die zweite darunter), „stab“ (wo die Bewegung ihn fasst). Ergebnis: verschieben (um so viel
 ## den Gegenstand verschieben), o und d (Schaftachse an der Faust), r (Radius), o2 und r2 (zweite Hand); leer, wenn die Hand nicht hält
 const HAND_HALB := 0.045           # m: halbe Breite der Faust längs des Schafts
+const RAND := 0.012                # m: Abstand der Faust zu Knauf und Parierstange über die halbe Faustbreite hinaus
 const ZWEIT := 2.2                 # halbe Faustbreiten von Faust zu Faust bei zwei Händen
 static func am_schaft(sk: Skeleton3D, s: String, g: Transform3D, sch: Dictionary, griffart: String, bewegen := true) -> Dictionary:
 	var d := g.basis.y.normalized()
@@ -288,8 +290,11 @@ static func am_schaft(sk: Skeleton3D, s: String, g: Transform3D, sch: Dictionary
 	var t := (faust - g.origin).dot(d) / k
 	var lo: float = sch["lo"]; var hi: float = sch["hi"]
 	var y := t
-	if griffart == "einhand": y = (lo + hi) * 0.5 if hi - lo < 2.0 * halb else clampf(t, lo + halb, hi - halb)
-	elif griffart == "zweihand": y = clampf(t, minf(lo + (ZWEIT + 1.0) * halb, hi - halb), hi - halb)
+	# 1694 (23.11., held_WACHE_W mit Langschwert: Mittelglied des Zeigefingers 3 cm in der Parierstange, der Finger blieb gestreckt): die
+	# Faust hält RAND Abstand zu Knauf und Parierstange (der Zeigefinger reicht über die halbe Faustbreite hinaus)
+	var rand := RAND * u / k
+	if griffart == "einhand": y = (lo + hi) * 0.5 if hi - lo < 2.0 * (halb + rand) else clampf(t, lo + halb + rand, hi - halb - rand)
+	elif griffart == "zweihand": y = clampf(t, minf(lo + (ZWEIT + 1.0) * halb, hi - halb - rand), hi - halb - rand)
 	var laengs := d * (t - y) * k if bewegen else Vector3.ZERO
 	var c := mitte_bei(sch, y - halb, y + halb)
 	var o := g * Vector3(c.x, y, c.y) + laengs
@@ -378,6 +383,18 @@ static func schliessen(sk: Skeleton3D, s: String, o: Vector3, d: Vector3, r: flo
 				_beuge(sk, kette[0], fl, rad_to_deg(fq.signed_angle_to(ziel, fl)) * ANLEGEN)
 				fr = (sk.get_bone_global_pose(kette[1]).origin - sk.get_bone_global_pose(kette[0]).origin).normalized()
 			ax = fr.cross(fl).normalized()
+			# erst gestreckt (Ruhelage einiger Körper mit gebeugtem Zeigefinger: Mittelglied schon 2,2 cm im Griff, der Finger blieb
+			# gerade abstehen, held_WACHE_W): jedes Glied in die Richtung des vorigen, das Grundglied in die Richtung der Hand
+			if STRECKEN:
+				var vorher_dir: Vector3 = f[1]
+				for j in kette.size():
+					var a0 := sk.get_bone_global_pose(kette[j]).origin
+					var a1 := sk.get_bone_global_pose(kette[j + 1]).origin if j + 1 < kette.size() else _spitze(sk, kette[j])
+					var gd := (a1 - a0); gd = (gd - ax * gd.dot(ax)).normalized()
+					var vd := (vorher_dir - ax * vorher_dir.dot(ax)).normalized()
+					if gd.length() > 0.5 and vd.length() > 0.5:
+						_beuge(sk, kette[j], ax, rad_to_deg(gd.signed_angle_to(vd, ax)))
+					vorher_dir = vd
 		# Beugerichtung: die, in der die Spitze zur Handinnenseite geht (fest aus der Hand, kein Springen von Bild zu Bild, 610)
 		var vor := _spitze(sk, kette[-1])
 		_beuge(sk, kette[0], ax, 10.0)

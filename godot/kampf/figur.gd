@@ -983,6 +983,10 @@ func _hold(sk: Skeleton3D, side: String, what: String, grip := GRIP_CM * CM, pal
 	# 999: der Bogen des Helden links ist seine Waffe (cast_point: der Pfeil geht vom Bogen aus); beim Späher bleibt es, wie es war
 	w.name = "Waffe" if side == "R" or (fighter.monster == null and what.contains("bow")) else "Schild"
 	w.set_meta("stab", what in STAFFS or what in ["staff-schamane", "wand"])     # 348.7b: Zauber ab der Stabspitze (cast_point); 1587 Zauberstab
+	# 1694 (Chef 18.11., 17:01 „Als Systemlösung“): derselbe Griff wie am Helden (skripte/griff.gd): Gegenstand in die Faust, Finger um den
+	# Schaft; nur Gerüste mit Fingern (hand_r, index_01_r …) und Haut an den Fingern, sonst bleibt alles wie oben gestellt
+	if not what.contains("shield") and not what.contains("bow") and Griff.hat_hand(sk, side.to_lower()) and not Griff.netz_finger(sk, side.to_lower()).is_empty():
+		GriffHand.an(sk, w, side.to_lower(), Halt.gegenstand(what), GriffHand.art_von(what))
 	if what in ["staff", "wand"]:     # 1587: Kristall und Kugel glimmen (waffen.py, Eckfarbe mit Alpha 0)
 		for m: Material in mats.slice(mats.size() - _count_meshes(w)):
 			(m as ShaderMaterial).set_shader_parameter("glut", 1.6)
