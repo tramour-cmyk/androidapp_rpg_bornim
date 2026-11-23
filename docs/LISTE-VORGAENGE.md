@@ -58,7 +58,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 931 | Wolf vorn – „Anspringen!“ steht, während er sich duckt (keine eigene Pause), Sprung bis Biss 0,6 s, Absetzen 0,8 s … | 2 | E Kampf | M | 760, 1589.4 | 784, 863 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1032 | nach dem eigenen Angriff taumelt ein Wachsoldat getroffen, im Bericht steht ein Angriff, aber der Angreifer macht keine … | 2 | E Kampf | M | 760, 1589.4 | – | claude/jerry-1032-treffer | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1043 | MARS-Probekampf Wölfe, Klosterschüler, „Ausweichen“ erzwungen: „davon hab ich nix gesehen. Da weicht nichts“ | 2 | E Kampf | M | 760, 1589.4 | – | claude/jerry-1043-sprung | *ruht, Block 2 (1605)* | *–* | *0* | *29,65 $* |
-| 1068 | Ring bei jedem großen Schlag der Gegner … | 2 | E Kampf | M | Chef | 1048, 444 | – | *startbar* | *–* | *0* | *24,07 $* |
+| 1068 | Ring bei jedem großen Schlag der Gegner … | 2 | E Kampf | M | – | 1048, 444 | claude/zeno-1068-ring | *gebaut, Geprüft an: d6c9ce258* | *–* | *0* | *24,07 $* |
 | 1415 | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A) | 2 | E Kampf | M | 709, 1589.4 | 1072, 784 | claude/jerry-1415-takt | *ruht, Block 2 (1605)* | *–* | *0* | *9,72 $* |
 | 1588 | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | 2 | E Kampf | M | 1589.4 | 1556 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1589.2 | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit und Versperren, Flucht … | 2 | E Kampf | M | – | 1600, 1589.1, 444, 1589.6 | – | *startbar, steckt fest* | *–* | *0* | *19,54 $* |
@@ -314,6 +314,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften … | 8 | M Veröffentlichung | K | 23.11. | 623.1 | – | *wartet, Protofactor ja 10.11., 04:48; offen Janpec* | *–* | *0* | *–* |
 | 1629 | epische Beute (höchste Stufe) zeigt beim Fund einmal Glanz und Funken am Fundort, kurz, ohne Lichtsäule | 5 | E Welt | K | – | 1613 | – | *nach Meilenstein, episch erst ab Kap. 3 (Spike: werte.json decke_besonders, 644 C2)* | *–* | *0* | *1,03 $* |
 | 72c | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden) | 2 | E Kampf | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
+| 2009 | Kampf-Zeitmaß reißt auf main: sollbild_784 STRENG=1 17 Werte über Maß, Runde 26 s statt 14,6 s (Fund 1068, Messung 23.11.) | 2 | E Kampf | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1280 | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 668, 678, 687, 613.2, 713 … | 5 | E Welt | K | – | 1271a, 569, 570, 589, 590, 665, 668, 678, 687, 613.2, 713, 1023, 1164, 614, 637, 638, 639, 640 | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 1281 | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, 937, 938, 1002 | 5 | E Kampf | K | – | 1271a, 551, 289, 628, 634, 936, 937, 938, 1002 | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 1979 | Randlinie am Höhlenwasser außer Sicht (türkis, je Drehung, 270° hellster 58), Rest aus 1566 (Chef 23.11., 06:40 B) | 5 | G Stil | K | – | – | – | *startbar* | *–* | *0* | *–* |
