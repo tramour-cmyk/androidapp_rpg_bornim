@@ -25,7 +25,10 @@ const HELDEN := [
 	# 1417 (Chef 16.11., 12:37/12:38: Schild „an mehreren Stellen eingekerbt … als ob der Stoff, der dahinter liegt, einen Teil des
 	# Schildes überdeckt“): der Arm hing in „Stehen“ am Bein, Rock über dem linken Oberschenkel bis 6,2 cm durch den Schild
 	# (tests/schild_menue_1417.gd); der Schildarm 25 Grad abgespreizt, Fläche weiter schräg zum Spieler (60 Grad): 1,9 cm frei
-	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.40, "dreh": 35.0, "haltung": "", "kopf": 0.4, "senken": true, "schild_abspreiz": 25.0},
+	# 1675 (Chef 18.11., 15:57: „sieht halt jetzt aus, als würde … das Schild irgendwie neben ihr schweben … wieder so in die Grundhaltung
+	# vor den Körper … dass das Schild sichtbar ist und nichts durchscheint“): Arm wieder am Bein wie vor 1417 (Abspreizen 0), der Stoff
+	# in der Schildfläche hinter den Schild (stoff_hinter_schild, StoffHinterSchild, toon.gdshader schild_schieben)
+	{"herkunft": "Wachsoldat", "volk": "Mensch", "geschlecht": "w", "x": -1.40, "dreh": 35.0, "haltung": "", "kopf": 0.4, "senken": true, "stoff_hinter_schild": true},
 	{"herkunft": "Zauberlehrling", "volk": "Mensch", "geschlecht": "m", "x": -0.44, "dreh": 25.0, "haltung": "zauberer", "kopf": 0.6, "arm": 22.0},
 	{"herkunft": "Jägerkind", "volk": "Zwerg", "geschlecht": "m", "x": 0.44, "dreh": -25.0, "haltung": "bogen", "kopf": 0.6},
 	{"herkunft": "Klosterschüler", "volk": "Elf", "geschlecht": "w", "x": 1.32, "dreh": -35.0, "haltung": "", "kopf": 0.4},
@@ -128,6 +131,12 @@ func _init(breite_dp := 330.0) -> void:
 			hd.name = "SchildDrehen"; hd.seite = "l"; hd.um_unterarm = true; hd.grad = float(h.get("schild_dreh", 60.0))
 			sk.add_child(hd)
 			waffen_in_die_hand(m, sk, anim, w.get("ausruestung", {}), hl, "r", float(h.get("schild_abspreiz", 0.0)))
+			if bool(h.get("stoff_hinter_schild", false)):
+				for tc in sk.get_children():
+					if tc is Tragen and (tc as Tragen).gang == "schildarm" and (tc as Tragen).waffe:
+						var shs := StoffHinterSchild.new(sk, (tc as Tragen).waffe, mats)
+						shs.name = "StoffHinterSchild"
+						m.add_child(shs)
 		if sk and stuetzt:
 			var st := schwert_stuetzen(m, sk, w.get("ausruestung", {}))
 			st.kamera = kam.position   # die Welt des Bilds beginnt am Ursprung
@@ -353,6 +362,74 @@ class SchwertStuetzen extends Tragen:
 			fl = fl.normalized() if fl.length() > 1e-3 else vorn_w
 			var ziel := Transform3D(Basis(auf.cross(fl), auf, fl).scaled(Vector3.ONE * ms), mitte)
 			schild.global_transform = ziel * (Halt.griff_rahmen(schild_halt).affine_inverse() if not schild_halt.is_empty() else Transform3D.IDENTITY)
+
+## 1675: der Stoff (alle Netze der Figur, mats aus HeldFigur.baue), der in der Flaeche des gehaltenen Schilds liegt, im Ecken-Shader
+## hinter dessen Rueckseite (toon.gdshader schild_schieben). Feld im Raum des Schilds je ZELLE: Rueckseite (kleinstes z), Vorderseite,
+## belegt; je Zelle nach dem Umkreis (UMKREIS), damit Dreiecke des Rocks nicht durch den gebogenen Rand reichen. Die Lage des Schilds nach jedem
+## Stellen des Skeletts (skeleton_updated, nach Tragen), sonst hinkte sie ein Bild nach
+class StoffHinterSchild extends Node:
+	const ZELLE := 0.02
+	const RAND := 0.012
+	const UMKREIS := 2
+	var schild: Node3D
+	var mats: Array = []
+	var feld := {}            # Vector2i -> Vector2(Rueckseite, Vorderseite)
+	var ursprung := Vector2i.ZERO
+	var _sk: Skeleton3D
+	func _init(sk: Skeleton3D, s: Node3D, ms: Array) -> void:
+		_sk = sk
+		schild = s
+		mats = ms
+	func _ready() -> void:   # erst im Baum: das Hauptmenue baut die Figuren, bevor es selbst im Baum haengt
+		var s := schild
+		var inv := s.global_transform.affine_inverse()
+		var roh := {}
+		for mi in s.find_children("*", "MeshInstance3D", true, false) + ([s] if s is MeshInstance3D else []):
+			var t := inv * (mi as MeshInstance3D).global_transform
+			var me := (mi as MeshInstance3D).mesh
+			for i in me.get_surface_count():
+				for v in me.surface_get_arrays(i)[Mesh.ARRAY_VERTEX]:
+					var q: Vector3 = t * v
+					var k := Vector2i(floori(q.x / ZELLE), floori(q.y / ZELLE))
+					var e: Vector2 = roh.get(k, Vector2(INF, -INF))
+					roh[k] = Vector2(minf(e.x, q.z), maxf(e.y, q.z))
+		# je Zelle die tiefste Rueckseite und hoechste Vorderseite im Umkreis von UMKREIS Zellen (auch daneben): der Rand des Schilds
+		# biegt sich zum Koerper, Dreiecke des Rocks (4 bis 5 cm) ueberspannen ihn sonst
+		feld = {}
+		for k in roh:
+			for dx in range(-UMKREIS, UMKREIS + 1):
+				for dy in range(-UMKREIS, UMKREIS + 1):
+					var e: Vector2 = feld.get(k + Vector2i(dx, dy), Vector2(INF, -INF))
+					feld[k + Vector2i(dx, dy)] = Vector2(minf(e.x, roh[k].x), maxf(e.y, roh[k].y))
+		if feld.is_empty(): return
+		var lo := Vector2i(1 << 30, 1 << 30); var hi := -lo
+		for k in feld:
+			lo = Vector2i(mini(lo.x, k.x), mini(lo.y, k.y)); hi = Vector2i(maxi(hi.x, k.x), maxi(hi.y, k.y))
+		ursprung = lo
+		var img := Image.create(hi.x - lo.x + 1, hi.y - lo.y + 1, false, Image.FORMAT_RGBAF)
+		img.fill(Color(0, 0, 0, 0))
+		for k in feld: img.set_pixel(k.x - lo.x, k.y - lo.y, Color(feld[k].x, feld[k].y, 1.0, 1.0))
+		var tex := ImageTexture.create_from_image(img)
+		for mt in mats:
+			(mt as ShaderMaterial).set_shader_parameter("schild_an", 1.0)
+			(mt as ShaderMaterial).set_shader_parameter("schild_feld", tex)
+			(mt as ShaderMaterial).set_shader_parameter("schild_raster", Vector3(lo.x * ZELLE, lo.y * ZELLE, ZELLE))
+			(mt as ShaderMaterial).set_shader_parameter("schild_rand", RAND)
+		_sk.skeleton_updated.connect(_lage)
+		_lage()
+	func _lage() -> void:
+		var t := Projection(schild.global_transform.affine_inverse())
+		for mt in mats: (mt as ShaderMaterial).set_shader_parameter("schild_welt", t)
+	## wie toon.gdshader schild_schieben: p (Welt) -> gezeichnete Lage (Welt); fuer die Messung (tests/schild_menue_1417.gd)
+	func schiebe(p: Vector3) -> Vector3:
+		var g := schild.global_transform
+		var q := g.affine_inverse() * p
+		var k := Vector2i(floori(q.x / ZELLE), floori(q.y / ZELLE))
+		if not feld.has(k): return p
+		var f: Vector2 = feld[k]
+		if q.z <= f.x - RAND or q.z > f.y + 0.05: return p
+		q.z = f.x - RAND
+		return g * q
 
 ## 867: Waffe und Schild wie in der Haltung gehalten: was bewaffne() auf den Ruecken oder als Wanderstab gestellt hat, weg; die Waffe in
 ## die Hand, die in der Haltung hoeher steht (Stab des Zauberers), der Bogen links, der Schild an den linken Arm

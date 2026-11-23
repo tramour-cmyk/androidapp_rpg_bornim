@@ -4,6 +4,8 @@
 # gemessen wird, wie weit Körper und Kleidung (ohne linke Hand und Unterarm, die den Schild halten) durch die Schildfläche ragen
 # (tests/schild_406.gd _netz_tiefe), je Netz die tiefste Ecke und die Zahl der Ecken über 1 cm. MESS=1417: dazu Fassungen
 # (Abspreizen des Arms, Drehung der Schildhand) nebeneinander.
+# 1675 (Chef 18.11., 15:57): Arm wieder am Bein (Abspreizen 0), der Stoff in der Schildflaeche hinter den Schild (HauptmenueHelden
+# StoffHinterSchild, im Ecken-Shader): gemessen wie gezeichnet, also nach dessen Verschiebung (schiebe); Abspreizen ueber 0 ist ein Fehler.
 # Run: godot --headless --path godot -s res://tests/schild_menue_1417.gd   (ohne Kaufdateien „ohne Kauf“, 0)
 extends SceneTree
 
@@ -14,6 +16,8 @@ var fehler := 0
 var _haut := []               # [MeshInstance3D, Skin, Ecken, Knochen, Gewichte, nb, frei]
 var _posen := []
 var _sk: Skeleton3D
+var _stoff = null             # 1675 HauptmenueHelden.StoffHinterSchild der Figur
+var _gepruefte := 0
 
 func _initialize() -> void:
 	_lauf.call_deferred()
@@ -32,8 +36,15 @@ func _lauf() -> void:
 		var tr: Tragen = null
 		for c in sk.get_children():
 			if c is Tragen and (c as Tragen).gang == "schildarm": tr = c
-		if tr == null: continue
+		_gepruefte += 1
+		if tr == null:
+			print("SCHILD1417 %s ohne Schild" % trg.get_meta("haltung", ""))
+			continue
 		_sk = sk
+		_stoff = m.get_node_or_null("StoffHinterSchild")
+		if absf(tr.schild_abspreiz) > 0.01:
+			print("FEHLER Schildarm %.0f Grad abgespreizt (1675: Grundhaltung vor dem Koerper, Abspreizen 0)" % tr.schild_abspreiz)
+			fehler += 1
 		_haut_lesen(sk)
 		var fassungen := [[tr.schild_abspreiz, _dreh(sk)]]
 		if OS.get_environment("MESS") == "1417":
@@ -63,6 +74,7 @@ func _lauf() -> void:
 				print("FEHLER %s: Koerper oder Kleidung %.1f cm durch den Schild (%s)" % [trg.get_meta("haltung", ""), r[0] * 100.0, r[1]])
 				fehler += 1
 			erste = false
+	print("SCHILD1417 %d Figuren geprueft, Stoff hinter dem Schild: %s" % [_gepruefte, "ja" if _stoff else "nein"])
 	print("SCHILD1417 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
 
@@ -99,7 +111,9 @@ func _haut_lesen(sk: Skeleton3D) -> void:
 					if bb < 0: bb = sk.find_bone(m.skin.get_bind_name(ar[Mesh.ARRAY_BONES][v * nb + j]))
 					if bb in hand: w += ar[Mesh.ARRAY_WEIGHTS][v * nb + j]
 				frei[v] = 1 if w < 0.3 else 0
-			_haut.append([m, m.skin, ar[Mesh.ARRAY_VERTEX], ar[Mesh.ARRAY_BONES], ar[Mesh.ARRAY_WEIGHTS], nb, frei, ar[Mesh.ARRAY_INDEX]])
+			var mt := m.get_active_material(s)
+			var geschoben := mt is ShaderMaterial and float((mt as ShaderMaterial).get_shader_parameter("schild_an") if (mt as ShaderMaterial).get_shader_parameter("schild_an") != null else 0.0) > 0.0
+			_haut.append([m, m.skin, ar[Mesh.ARRAY_VERTEX], ar[Mesh.ARRAY_BONES], ar[Mesh.ARRAY_WEIGHTS], nb, frei, ar[Mesh.ARRAY_INDEX], geschoben])
 
 ## [tiefste m, Netz und Knochen, Ecken ueber 1 cm, je Netz]
 func _messen(schild: Node3D) -> Array:
@@ -133,7 +147,7 @@ func _messen(schild: Node3D) -> Array:
 			for j in nb:
 				var w: float = h[4][v * nb + j]
 				if w > 0.0: p += (trs[h[3][v * nb + j]] as Transform3D) * vs[v] * w
-			welt[v] = p
+			welt[v] = _stoff.schiebe(p) if h[8] and _stoff else p
 		# Ecken und Flaechen: je Dreieck ohne Handecke 10 Punkte (Ecken, Kantenmitten, Mitte, Drittel), sonst kreuzt eine grosse
 		# Flaeche des Umhangs den Schild, ohne dass eine Ecke darin liegt
 		var idx = h[7]

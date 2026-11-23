@@ -58,12 +58,31 @@ vec3 rand_boden(vec3 w, vec3 blick) {
 	return w + blick * (w.y / -blick.y);
 }
 uniform float schnitt = 0.0;       // 831 Blattkarten der Bausatz-Baeume (glTF MASK): Bildpunkte unter dieser Deckkraft des Bildes weg, auch im Schatten
+uniform float schild_an = 0.0;      // 1675: Stoff hinter den gehaltenen Schild (nur Hauptmenue, Wachsoldatin)
+uniform mat4 schild_welt = mat4(1.0);   // Welt -> Schild
+uniform sampler2D schild_feld : filter_nearest;   // je Zelle r Rueckseite, g Vorderseite (Schild z), b belegt
+uniform vec3 schild_raster = vec3(0.0, 0.0, 0.02);   // Ursprung x, y und Zelle (Schild)
+uniform float schild_rand = 0.012;  // so weit hinter die Rueckseite (Schild)
+vec3 schild_schieben(vec3 v, mat4 mm) {
+	vec3 q = (schild_welt * (mm * vec4(v, 1.0))).xyz;
+	ivec2 n = textureSize(schild_feld, 0);
+	ivec2 k = ivec2(floor((q.xy - schild_raster.xy) / schild_raster.z));
+	if (k.x < 0 || k.y < 0 || k.x >= n.x || k.y >= n.y) return v;
+	vec4 f = texelFetch(schild_feld, k, 0);
+	if (f.b < 0.5 || q.z <= f.r - schild_rand || q.z > f.g + 0.05) return v;
+	q.z = f.r - schild_rand;
+	return (inverse(mm) * (inverse(schild_welt) * vec4(q, 1.0))).xyz;
+}
 varying vec3 wpos;
 varying float v_eisen;
 varying float v_kette;
 varying float v_hinten;
 void vertex() {
 	if (kette_aus > 0.0 && COLOR.a >= 0.25 && COLOR.a < 0.7) VERTEX += NORMAL * kette_aus;
+	// 1675 (Chef 18.11., 15:57: Schild vor dem Koerper, nichts scheint durch; Quelle godotshaders.com „Depth adjustment for Clipping
+	// protection“, 03.01.2024: Stoff im Ecken-Shader gegen das Durchstossen verschoben): Stoff, der in der Flaeche des gehaltenen Schilds
+	// liegt, hinter dessen Rueckseite (Feld je 2 cm: Rueckseite, Vorderseite, belegt; hauptmenue_helden.gd StoffHinterSchild)
+	if (schild_an > 0.0) VERTEX = schild_schieben(VERTEX, MODEL_MATRIX);
 	wpos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
 	if (sway > 0.0) {
 		float h = clamp((wpos.y - 1.6) / 2.5, 0.0, 1.0);
