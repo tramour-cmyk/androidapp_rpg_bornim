@@ -126,11 +126,11 @@ def kopie_test():
     g(wt, "rm", "-q", "docs/neu.md")
     aus = zeile(notiz(a, home))
     ok(g(wt, "status", "--porcelain", "--untracked-files=no").strip() == "D  docs/neu.md", "junge Löschung neuer Datei bleibt: " + aus)
-    g(wt, "reset", "-q", "--hard"); g(wt, "mv", "docs/neu.md", "docs/archiv/neu.md")
+    g(wt, "reset", "-q", "--hard"); os.makedirs(os.path.join(wt, "docs/archiv")); g(wt, "mv", "docs/neu.md", "docs/archiv/neu.md")
     aus = zeile(notiz(a, home))
     ok(not os.path.exists(os.path.join(wt, "docs/neu.md")) and os.path.exists(os.path.join(wt, "docs/archiv/neu.md")),
        "junge Umbenennung neuer Datei bleibt, nicht doppelt: %s | %s" % (g(wt, "status", "--short"), aus))
-    ok(not [x for x in g(wt, "branch", "--list", "backup-notiz-*").split() if x.strip()], "keine Sicherung bei jungen Änderungen")
+    ok(len(g(wt, "branch", "--list", "backup-notiz-*").split()) == 1, "nur die Sicherung des Altstands, keine für junge Änderungen")
 
 
 def lade(n):
