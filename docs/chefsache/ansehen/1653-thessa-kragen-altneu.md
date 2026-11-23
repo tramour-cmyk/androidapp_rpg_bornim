@@ -1,5 +1,7 @@
 # 1653 · Thessa: Kragen, alt gegen neu (Spielkamera)
 
+[Bild von 23.11., 20:29](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/23-2029-1653-Uwe.webp) (eingetragen von meldung.sh, Uwe)
+
 ![links alt, rechts neu](../bilder/1653-thessa-kragen-altneu.webp)
 
 Silke · 23.11., 19:48 · E Figuren · gemeinsam mit 1654 (Rowena)
