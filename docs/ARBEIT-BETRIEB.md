@@ -84,3 +84,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:06 23.11.: Tamara (1068, 4,78 $) und Anna (1997-Planer, 1,24 $) archiviert, Kosten gebucht; Bettina (Werkzeug 1997 Eilt) läuft seit 14:05
 - 14:24 23.11.: Startsperre 14:24 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1999 Werner)
 - 14:38 23.11.: Startsperre 14:38 Start Werkzeug (lauf.py, Werkzeug 1999 Zora)
+- 14:43 23.11.: Startsperre 14:43 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2001 Alma)
