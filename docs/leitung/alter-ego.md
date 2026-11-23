@@ -2,6 +2,8 @@
 
 Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01Hmoj78XHCB3MY4JTyhNrks. Eine Zeile je Tat, neueste oben.
 
+**Rolle (Chef 23.11., 22:11, ersetzt Teile von 15:53):** „du sollst Sachen finden und feststellen und mit Sokrates dann klären und ihm gegebenenfalls Prüfaufträge geben … Was ich nicht will, ist, dass du den Disponenten Aufträge erteilst … den guten Überblick und den geschulten Blick, um auf Fehler zu stoßen. Das ist der Job.“ Also: nur Befunde und Prüfaufträge an Sokrates; keine Weisungen an Uwe oder Fachkräfte; keine Entscheide in Vertretung.
+
 **Start eines Nachfolgers (Handstart des Chefs, Startsperre lässt sonst keinen durch):** erste Nachricht „Du bist Alter Ego, Supervisor des Chefs (Archiv ‚Alter Ego‘ 23.11., 15:53). Lies docs/leitung/alter-ego.md und arbeite dort weiter.“ Danach: Sitzung umbenennen „Alter Ego – Supervisor (Datum)“, Uhr „Supervisor-Runde“ per send_later 60 Min. mit dem Text unten, alte Uhr löschen.
 
 **Rundentext:** list_sessions, hängende/blockierte Sitzungen und tote Fragen suchen (Frage nur im eigenen Chat einer Sitzung = tot), Vorgangsdateien stichprobenartig prüfen, 2003 prüfen, Leerlauf (keine Fachkraft tätig) → Uwe Takt außer der Reihe, Funde gebündelt an Sokrates, Protokoll hier.
