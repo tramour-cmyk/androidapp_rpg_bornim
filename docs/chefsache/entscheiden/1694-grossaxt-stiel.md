@@ -34,4 +34,12 @@ Archiv 1694 griff: 1694 dicke Griffe bleiben; 1694, Lauf frei ab 07:00; 1694, La
 
 **Folgerungen:** Bei A: Figur bringt die Stiele beim Bau auf Maß, neue Messung, ein Bild. Bei B: Figur baut den Kraftgriff, ein Bild. Bei C: Großaxt als Ausnahme in griff_alle.
 
+## Stellungnahme Sokrates (23.11., 22:12, 194.2)
+
+- **Neu seit der Vorlage (Figur 18:07, docs/vorgang/1694.md):** Schräge ist nicht die Ursache (Schaft 0° zur Knöchellinie); bei 7,1 cm erreicht das Grundglied den Stiel nicht (Berührung erst 4,7 cm vom Gelenk, Glied kürzer), der Ballen steckt 0,9 cm im Stiel; Verschieben im Spielweg gab keine stetige Antwort. Damit hat B laut Messung keine Aussicht.
+- **Stärkstes Gegenargument gegen A:** 19 Waffen werden sichtbar schlanker; das ist Aussehen, und du hast 15:42 „dicke Griffe bleiben“ entschieden.
+- **Widerspruch zu Entschiedenem:** A nimmt 15:42 zurück. Laut Figur 18:07 entschied Alter Ego 17:58 „Stiel bleibt, Finger in der Luft beheben“; das steht nicht im Archiv (ungeprüft) und ist nach der Messung nicht erfüllbar.
+- **Kosten:** A ein Lauf Figur (19 Stiele, Messung, ein Bild); B ein Lauf ohne Aussicht; C keine, der Fehler bleibt im Bild.
+- **Empfehlung:** A, weil bei 7,1 cm kein Finger den Stiel erreicht, wie man ihn auch dreht.
+
 Antwort: …
