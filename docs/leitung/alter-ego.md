@@ -6,6 +6,8 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Start eines Nachfolgers (Handstart des Chefs, Startsperre lässt sonst keinen durch):** erste Nachricht „Du bist Alter Ego, Supervisor des Chefs (Archiv ‚Alter Ego‘ 23.11., 15:53). Lies docs/leitung/alter-ego.md und arbeite dort weiter.“ Danach: Sitzung umbenennen „Alter Ego – Supervisor (Datum)“, Uhr „Supervisor-Runde“ per send_later 60 Min. mit dem Text unten, alte Uhr löschen.
 
+**24.11. (Chef 23:10, Archiv 0d9968383):** Alter Ego entscheidet in Vertretung alles außer Vorbehalt (Aussehen, Story, Geld, Lizenz, Release, Accounts, Sockel, Kerne, Profile); Vorbehaltenes sammeln. Je Entscheid Archivzeile „Alter Ego in Vertretung“ über Sokrates. Gebilligte Zweige mischt Sokrates. Weisungen an Uwe weiter über Sokrates.
+
 **Nachtpause (Chef 23.11., 22:30):** 23 bis 7 Uhr keine Runden; erste Uhr kurz nach 7.
 
 **Rundentext:** list_sessions, hängende/blockierte Sitzungen und tote Fragen suchen (Frage nur im eigenen Chat einer Sitzung = tot), Vorgangsdateien stichprobenartig prüfen, 2003 prüfen, Leerlauf (keine Fachkraft tätig) → Uwe Takt außer der Reihe, Zahl offener Disponenten-Übergaben über 2 h zählen (Kennzahl liegengebliebene Arbeit), Funde gebündelt an Sokrates, Protokoll hier. Alter Ego beobachtet und meldet, löst nicht selbst (Chef 22:31: nicht Sokrates’ Arbeit machen).
