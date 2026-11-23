@@ -30,8 +30,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (8) | 0 | 0 | 0 | 5 | 1487 (Regeln) Heiler wächst in Kapitel 1 nie im Willen |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 63 (63) | 19 | 1 | 1 | 36 | 1589.2 (Kampf) Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.… |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 34 (34) | 21 | 1 | 2 | 11 | 1675 (Figur) Wachsoldatin im Hauptmenü, Schild schwebt neben i… |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 63 (63) | 19 | 0 | 1 | 36 | 1589.2 (Kampf) Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.… |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 34 (34) | 21 | 0 | 2 | 11 | 1675 (Figur) Wachsoldatin im Hauptmenü, Schild schwebt neben i… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 2 | 0 | 0 | 14 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
@@ -58,8 +58,8 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | **Chef** | [1694](entscheiden/1694-grossaxt-stiel.md) entscheiden, hält 3 Zeilen; dann 2 weitere |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
-| Kampf | läuft: 1603 (Besetzung); 1589.2 Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwa… (Muss); dann 2 weitere |
-| Figur | läuft: 1653 (Besetzung); 513 Ein Figurenstand für alle Zweige (Muss); dann 5 weitere |
+| Kampf | 1589.2 Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwa… (Muss); dann 2 weitere |
+| Figur | 513 Ein Figurenstand für alle Zweige (Muss); dann 5 weitere |
 | Kataloge | 644.2 Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pfli… (Kür) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
@@ -76,7 +76,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 |---|---|---|---|---|---|---|
 | 1 | 1589.2 | Kampf | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit… | M | 2 Kampf | startbar |
 | 2 | 1589.3 | Kampf | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und… | M | 2 Kampf | startbar |
-| 3 | 1603 | Kampf | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf | in Arbeit |
+| 3 | 1603 | Kampf | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf | startbar |
 | 4 | 1675 | Figur | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | M | 3 Figuren und Kleidung | startbar |
 | 5 | 431 | Figur | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Figuren und Kleidung | startbar |
 | 6 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
