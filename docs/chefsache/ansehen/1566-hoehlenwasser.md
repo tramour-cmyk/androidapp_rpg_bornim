@@ -1,4 +1,7 @@
 # 1566 · Ist das Höhlenwasser jetzt dunkel wie der Boden und hinter Wänden schwarz?
+
+[Bild von 23.11., 07:10](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/23-0710-1566-Disponent.webp) (eingetragen von meldung.sh, Disponent)
+
 Disponent · 23.11., 07:12 · E Welt · Testbitte nach „ja“ der Prüferin Gerda 07:09 (Chef 06:40 „1566 B“: Randlinie reicht, Kür 1979)
 Kurz: Teich ohne Licht bei 0° und 270° bis auf eine dünne Randlinie schwarz wie der Boden, außer Sicht hinter der Wand verschwunden; Pilzlicht am Helden unverändert.
 
