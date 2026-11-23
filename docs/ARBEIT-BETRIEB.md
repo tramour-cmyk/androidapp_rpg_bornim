@@ -63,3 +63,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:55 23.11.: Startsperre 08:55 Start Prüfer (Disponent von Hand: Wanda 1688-Ü2, Gegenprüfung ‚fehlt Geltendes?‘, 0 von 3)
 - 09:01 23.11.: Startsperre 09:01 Start Prüfer (Disponent von Hand: Xenia 1688-Ü6, zweite Gegenprüfung, 0 von 3); Viola (1688-Ü4 45d94ae69) und Wanda (1 von 3, kein Vorgang zweimal) archiviert, Kosten gebucht
 - 09:04 23.11.: Startsperre 09:04 Start Arbeitsplaner, Kampf, Figur, Werkzeug, Arbeitsplaner, Tagesbericht, Welt (lauf.py, Arbeitsplaner 513 Nils, Kampf 1068 Otto, Figur 1570 Paula, Werkzeug 1964 Rita, Arbeitsplaner 1716 Sven, Tagesbericht 448, Welt 1566 Tanja)
+- 09:05 23.11.: Startsperre 09:05 Start Werkzeug (Disponent von Hand nach Sokrates 09:04: Yvonne 1988 Aufwand und Leitungs-Neustart); die lauf.py-Starts von 09:04 (Planer 513/1716, Kampf 1068, Figur 1570 doppelt zu Svea, Welt 1566, Werkzeug 1964) nicht ausgeführt (zwei Fachkräfte: Svea, Yvonne)
