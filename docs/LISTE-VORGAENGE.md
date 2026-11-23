@@ -379,7 +379,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1188 | Wächter gegen still veraltete Zeilen: ruhende oder alte Kür ohne Bewegung einmal dem Besitzer zum Urteil gilt/schließen … | 7 | B Abläufe | K | 23.11. | 1186 | – | *gebaut, Geprüft an: 24b01a1d5* | *–* | *0* | *6,25 $* |
 | 1469 | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB seit 04.11. | 7 | B Abläufe | K | – | 1463, 108, 415 | – | *startbar* | *–* | *0* | *–* |
 | 1666 | bau_am_rechner.py --cache bricht ohne Blender ab, sobald nur Block klassen fehlt (Leute brauchen ihn) | 7 | B Werkzeuge | K | t301 | 1652 | claude/spike-1666-ohne-blender | *gebaut, Geprüft an: 542827cdb* | *–* | *0* | *–* |
-| 1688 | docs/ARBEIT-BETRIEB.md hat 36708 Bytes (Grenze 30000), Erledigtes streichen | 7 | B Abläufe | Eilt | – | 1642 | – | *startbar* | *–* | *0* | *6,26 $* |
+| 1688 | docs/ARBEIT-BETRIEB.md hat 36708 Bytes (Grenze 30000), Erledigtes streichen | 7 | B Abläufe | Eilt | – | 1642 | – | *erledigt* | *–* | *0* | *6,26 $* |
 | 1690 | ARBEIT-TEAM-TOM.md: 5 „Zu“ zu Erledigtem (1569, 1569, 1515, 1515, 1515), beim Übergeben streichen | 7 | B Abläufe | K | – | 1425, 1642, 1569, 1515 | – | *startbar* | *–* | *0* | *–* |
 | 1729 | docs/LISTE-REGELWERTE.md veraltet | 7 | B Abläufe | K | – | 969, 1642 | – | *startbar* | *–* | *0* | *–* |
 | 1741 | Block 4 Kataloge Zeilen nachziehen: 649.2 Titel nennt tools/figuren/figuren.json (gilt nicht, 649b keine eigene Datei) … | 7 | B Abläufe | K | – | 1727, 649.2, 649b, 644.5, 649 | – | *startbar* | *–* | *0* | *–* |
