@@ -138,6 +138,7 @@ void vertex() { wp = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }
 void fragment() {
 	float t = dot(wp - a, d);
 	if (t < t0 || t > t1) discard;
+	if (length(wp - a - d * t) > 0.05) discard;   // nur am Schaft (gebogene Klinge des Messers lief zurück durch die Ebenen)
 	ALBEDO = vec3(1.0, 0.0, 1.0);
 }
 """

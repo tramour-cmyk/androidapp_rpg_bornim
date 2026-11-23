@@ -293,7 +293,9 @@ static func am_schaft(sk: Skeleton3D, s: String, g: Transform3D, sch: Dictionary
 	# 1694 (23.11., held_WACHE_W mit Langschwert: Mittelglied des Zeigefingers 3 cm in der Parierstange, der Finger blieb gestreckt): die
 	# Faust hält RAND Abstand zu Knauf und Parierstange (der Zeigefinger reicht über die halbe Faustbreite hinaus)
 	var rand := RAND * u / k
-	if griffart == "einhand": y = (lo + hi) * 0.5 if hi - lo < 2.0 * (halb + rand) else clampf(t, lo + halb + rand, hi - halb - rand)
+	# kurzer Griff (Dolch, Kurzschwert): die Faust an die Parierstange, der Kleinfinger darf über den Knauf (mittig lag der Zeigefinger
+	# auf der Parierstange und blieb gestreckt)
+	if griffart == "einhand": y = hi - halb - rand if hi - lo < 2.0 * (halb + rand) else clampf(t, lo + halb + rand, hi - halb - rand)
 	elif griffart == "zweihand": y = clampf(t, minf(lo + (ZWEIT + 1.0) * halb, hi - halb - rand), hi - halb - rand)
 	var laengs := d * (t - y) * k if bewegen else Vector3.ZERO
 	var c := mitte_bei(sch, y - halb, y + halb)
