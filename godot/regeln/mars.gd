@@ -289,6 +289,17 @@ func _ringe() -> void:
 			a.ring = R.has(String(a.id))
 			a.ring_schaden = float(R.get(String(a.id), 1.0))
 
+## 1068 (Chef 23.11., 11:27): sagt [foe] die Absicht als Tier eines Rudels aus werte.json „absichten“ „ring_ohne“ an (Jungwolf beim
+## Anspringen), dann ohne Ring und ohne Faktor, wie vor 1068
+func _ohne_ring(foe: Fighter, intent: Dictionary) -> Dictionary:
+	var O: Dictionary = BrsKampf.w().get("absichten", {}).get("ring_ohne", {})
+	if not intent.get("ring", false) or not foe.monster.has("rudel") or not String(foe.monster.rudel) in O.get(String(intent.id), []):
+		return intent
+	var a := intent.duplicate()
+	a.ring = false
+	a.ring_schaden = 1.0
+	return a
+
 ## 1068 D (1048 D, Chef 12.11., 20:05): Ring beim eigenen Schlag, Schuss und Zauber mit Schaden oder Heilung, nur für Figuren, die der
 ## Spieler steuert (_selbst_gesteuert; die Automatik fragt keinen, nie perfekt). Nur perfekt zählt: Wirkung × werte.json „absichten“
 ## „ring_eigen“ (_eigen_faktor); gut und verfehlt wie ohne Ring. Kampfhandlungen (Regelseite 930) und Wurfmittel ohne Ring
@@ -2245,7 +2256,7 @@ func announce(foe: Fighter) -> void:
 		intents[foe.id] = [I_GROWL, []]
 		retargeted.erase(foe.id)
 		return
-	var intent := _pick_intent(foe)
+	var intent := _ohne_ring(foe, _pick_intent(foe))
 	var r := _covered() if intent.effect == "BREAKTHROUGH" or intent.effect == "FLANK" else targets(foe)
 	var aimed := []
 	if not ((intent.kind != "STRIKE" and intent.effect != "CIRCLE") or r.is_empty()):

@@ -487,6 +487,8 @@
     "_bedingungen": "rudel: zwei Woelfe stehen, keiner kreist schon, der Held hat gewaehlt, angreifbar; reihe: ein Gegner deckt einen anderen; nicht_versteckt: der Spaeher steht nicht im Schatten; ruf: Grak hat noch keinen gerufen und es ist ein Platz frei; halbes_leben: unter der Haelfte des Lebens",
     "_ring": "1068 (1048 A, H, Chef 12.11., 20:05): jeder grosse Schlag hat den Ring; je Absicht der Schadensfaktor, mit dem sie trifft, wenn der Ring nicht perfekt ist (gut = halber, verfehlt = ganzer); neu Anspringen und Gift sammeln mit 2, damit gut = heutiger Schaden; fehlt eine Absicht hier, hat sie keinen Ring; Kroggs Prankenhieb (1603) traegt sich hier ein",
     "ring": {"heavy": 1, "web": 1, "breakthrough": 1, "pounce": 2, "venom": 2},
+    "_ring_ohne": "1068 (Chef 23.11., 11:27): je Absicht die Rudel (merkmale.rudel), deren Tiere sie ohne Ring und ohne Faktor ansagen, wie vor 1068; Anspringen mit Ring nur beim Leitwolf, Jungwoelfe automatisch",
+    "ring_ohne": {"pounce": ["Jungwolf"]},
     "_ring_eigen": "1068 D (1048 D, Chef 12.11., 20:05): Ring beim eigenen Schlag, Schuss, Zauber mit Schaden oder Heilung einer Figur, die der Spieler steuert; nur perfekt zaehlt: Wirkung mal diesen Faktor; gut und verfehlt wie ohne Ring; die Automatik fragt keinen (nie perfekt); Rechnung ring_1068.gd TEIL=D",
     "ring_eigen": 1.5,
     "je_art": {
