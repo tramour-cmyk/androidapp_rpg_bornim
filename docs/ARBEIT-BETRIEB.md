@@ -269,3 +269,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 05:35 23.11.: Startsperre 05:35 Start Wache (Disponent von Hand, Wache-Neustart bei 203 Tsd. Token; Nachfolger Ella)
 - 06:40 23.11.: Startsperre 06:40 Start Arbeitsplaner, Kampf, Figur, Welt, Werkzeug, Arbeitsplaner, Regeln (lauf.py, Arbeitsplaner 513 Anna, Kampf 1068 Britta, Figur 1675 Carla, Welt 1566 Dana, Werkzeug 1964 Elke, Arbeitsplaner 1716 Frieda, Regeln 870 Gerda)
 - 07:03 23.11.: Startsperre 07:03 Start Arbeitsplaner, Kampf, Figur, Welt, Werkzeug, Arbeitsplaner, Sokrates, Prüfer, Regeln (lauf.py, Arbeitsplaner 513 Anna, Kampf 1068 Britta, Figur 1675 Carla, Welt 1566 Dana, Werkzeug 1964 Elke, Arbeitsplaner 1716 Frieda, Sokrates 1570, Prüfer 1566 Gerda, Regeln 870 Heike)
+- 07:04 23.11.: Startsperre 07:04 Start Sokrates (lauf.py, 1570)
