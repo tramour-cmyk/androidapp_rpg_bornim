@@ -56,3 +56,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:30 23.11.: Startsperre 08:30 Start Werkzeug (Disponent von Hand nach Sokrates 08:33: Tilda 1986 Leitung umstellen, Eilt); Rosa archiviert, Kosten gebucht
 - 08:42 23.11.: Startsperre 08:42 Start Prüfer (Disponent von Hand: Uta 1986-Ü3, 0 von 3)
 - 08:43 23.11.: Startsperre 08:43 Start Werkzeug (Disponent von Hand nach Sokrates 08:53: Viola 1688-Ü1, ARBEIT-BETRIEB auf 30 KB); Tilda (1986 fertig, aa49e9404) archiviert, Kosten gebucht
+- 08:50 23.11.: Startsperre 08:50 Start Arbeitsplaner, Kampf, Figur, Arbeitsplaner, Tagesbericht, Sokrates, Welt (lauf.py, Arbeitsplaner 513 Jonas, Kampf 1068 Karla, Figur 1570 Lutz, Arbeitsplaner 1716 Marta, Tagesbericht 448, Welt 1566 Nils)
