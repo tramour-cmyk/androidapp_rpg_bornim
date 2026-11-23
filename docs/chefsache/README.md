@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 10:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 10:08, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -91,8 +91,8 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 15 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
 | 16 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
 | 17 | 1992 | Werkzeug | lauf.py stürzt ab: Schleifenvariable z in main überdeckt Funktion z | M | 7 Firma | startbar |
-| 18 | 1971 | Werkzeug | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgäng… | M | 7 Firma | startbar |
-| 19 | 1961 | Werkzeug | Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstellen, dann Übergabe a… | M | 7 Firma | startbar |
+| 18 | 1961 | Werkzeug | Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstellen, dann Übergabe a… | M | 7 Firma | startbar |
+| 19 | 1971 | Werkzeug | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgäng… | M | 7 Firma | startbar |
 | 20 | 1960 | Werkzeug | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla –… | M | 7 Firma | startbar |
 
 Danach 134 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 112.
