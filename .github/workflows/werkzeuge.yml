@@ -23,6 +23,7 @@ jobs:
         run: |
           git config --global user.email "ci@bornim" && git config --global user.name "ci"
           python3 tools/uebergabe_test.py
+          python3 tools/streichen_test.py
           python3 tools/chefwort_test.py
           python3 tools/rueckmeldung_test.py
           python3 tools/liste_neu_test.py
@@ -47,9 +48,15 @@ jobs:
           python3 tools/tagesbericht_test.py    # 1739 Tagesbericht: Wo stehen wir, Fristen
           python3 tools/herzschlag.py --test    # 1788 (1764) Herzschlag
           python3 tools/ladesumme_test.py       # 1739 Größen und Ladesumme
+          python3 tools/lauf_kern_test.py       # 1923 Startblock, 1986 Sokrates mit Kern Leitung und Gedächtnis
+          python3 tools/leitung_test.py         # 1988 Neustart Leitung und Disponent ab 300 Tsd. Token, Warnung einmal je Stunde
+          python3 tools/sammelzeile_test.py     # 1971 stündliche Sammelzeile erledigter Vorgänge
+          python3 tools/handstart_test.py       # 1989 lauf.py --start mit Startblock, Werkzeugsperre im Startsperre-Haken
           python3 tools/projektplan_test.py     # 1860 Themenblöcke statt Wochenziel
           python3 tools/rundblick_test.py       # 1789 Rundblick-Start ohne Kern, Ausnahme „Zurück“
           python3 tools/nachtstarts_test.py     # 1792 Nachtstopp mit Ausnahme aus Chefentscheid
           python3 tools/liegt_test.py           # 1799 LIEGT nach Grobablauf 14.2
           python3 tools/guthaben_test.py        # 1804 Guthabenstufe und Laufsperre
+          python3 tools/takt_test.py            # 1978 lauf.py jeden Takt, nur START ruht; Alarm nennt Disponent
           python3 tools/umstellung1727_test.py  # 1739 Umstellung Vorgangsliste (an Kopie)
+          python3 tools/regelcheck_namen_test.py  # 870 Namenswächter liest Quellen der Kopien nach godot/

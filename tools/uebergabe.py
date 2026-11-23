@@ -258,12 +258,22 @@ def empfaenger(an, scharf=None):
 def uebergabe(nr, an, was):
     an, was = _rein(an), _rein(was)
     if not an or not was: raise Fehler("AN und „was“ nötig")
+    m = re.match(r"(?i)chefwort\b\s*(\d\d\.\d\d\.,\s*\d\d:\d\d|\d\d:\d\d)?", was)
+    vp, lp = _pfad(nr), "docs/LISTE-VORGAENGE.md"
     def f(alt):
-        t = _mit_abschnitt(alt, nr)
+        t = _mit_abschnitt(alt[vp], nr)
+        aus = {}
+        if m:  # 1976-Ü5 (1566-Ü11): Übergabe „Chefwort …“ hebt „ruht, beim Chef“ in NR.md und Liste im selben Commit auf wie chefwort.py
+            import chefwort
+            zeit = m.group(1) or fmt(jetzt())
+            t = chefwort.aufheben(t, zeit)
+            L = chefwort.liste_aufheben(alt[lp], nr, zeit)
+            if L is not None: aus[lp] = L
         ks = [int(z["k"].rsplit("Ü", 1)[1]) for z in zeilen(t)]
         k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
-        return t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, an, was, fmt(jetzt())), k
-    k = atomar(nr, f, "Übergabe %s an %s (1760)" % (nr, an))
+        aus[vp] = t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, an, was, fmt(jetzt()))
+        return aus, k
+    k = atomar_dateien([vp] + ([lp] if m else []), f, "Übergabe %s an %s (1760)" % (nr, an))
     print("OFFEN %s an %s: %s" % (k, an, was))
     wecker(nr, k, an)
     return k
@@ -370,8 +380,9 @@ def _status(dateien):
 FUND = re.compile(r"fund des chefs|\bchefwort\b|\bnein des chefs\b", re.I)
 
 def buero_rang(docs=None):
-    """1796 (Archiv 21.11., 20:51/20:54 „Eilt zuerst“): Schlüssel der Büro-Folge für eine Zeile (Nr, was, seit): Eilt, dann Fund des
-    Chefs, dann Themenblock (Folge in `chefsache/themenbloecke.md`), dann Eingangszeit. Eilt: Klasse „Eilt“ (Liste nach 1727) oder „jetzt“
+    """1796 (Archiv 21.11., 20:51/20:54 „Eilt zuerst“): Schlüssel der Büro-Folge für eine Zeile (Nr, was, seit): Klasse (1967, Chef 22.11.,
+    17:46: Eilt, Fund des Chefs, Muss, Kür, nach dem Meilenstein), dann Themenblock (Folge in `chefsache/themenbloecke.md`), dann
+    Eingangszeit; Zeile ohne Klasse zählt wie Muss. Eilt: Klasse „Eilt“ (Liste nach 1727) oder „jetzt“
     im Titel (Liste vor 1727, 383) oder „Eilt“ im Text; Fund: Titel „Von Chef“, Zeile aus `chefwort.py` („Chefwort … lesen“) oder „Fund
     des Chefs“ im Text. Liest Liste und Themenblöcke einmal; fehlt etwas, zählt die Zeile als „Übriges“."""
     docs = docs or os.path.join(WURZEL, "docs")
@@ -403,7 +414,8 @@ def buero_rang(docs=None):
         fund = fund or bool(FUND.search(was or ""))
         try: z = _zeit(seit, jahr)
         except (ValueError, TypeError): z = datetime.datetime.max
-        return (0 if eilt else 1, 0 if fund else 1, folge.index(block) if block in folge else len(folge), z)
+        klasse = 0 if eilt else 1 if fund else {"K": 3, "N": 4}.get(kl, 2)
+        return (klasse, folge.index(block) if block in folge else len(folge), z)
     return schluessel
 
 def offen(an=None, sitzungen_dateien=(), still=False):

@@ -117,6 +117,40 @@ def nacht(rolle, eingabe):
             "Ford: Zeile „- HH:MM TT.MM.: Morgen 1643: %s %s nach zwei Neustarts in der Nacht angehalten, Ursache ansehen“ ins Protokoll, pushen." % (rolle, nr, rolle, nr))
 
 
+ROUTINEN = ("Rundblick", "Ideenlauf", "Tagesbericht")  # lauf.ROUTINE_ROLLEN: Start ohne Kern und ohne Startblock (1789)
+
+
+def _melden(nr, text):
+    """1989: Notstart an Sokrates als Übergabe (vorgang.py uebergabe, im Hintergrund, damit der Haken nicht wartet)."""
+    try:
+        subprocess.Popen([sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "vorgang.py"), "uebergabe", nr, "Sokrates", text],
+                         cwd=MAIN if os.path.isdir(MAIN) else None, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+    except Exception:
+        pass
+MELDEN = _melden
+
+
+def startblock_fehlt(eingabe):
+    """1989 (Chef 23.11., 09:11 „1 bis 3 ja“): Werkzeugsperre. Ein create_session ohne den Startblock aus lauf.py (Kopfzeile
+    „**<Profil>**“ einer Datei docs/profile/<Profil>.md und „Auftrag:“ darunter) wird abgewiesen (Meldung), Routinen ausgenommen.
+    „Notstart: <Grund>“ in der Nachricht: durch, Sokrates bekommt eine Übergabe (Nummer aus dem Titel, sonst 1989). Erst scharf."""
+    w = os.path.dirname(os.path.abspath(__file__))
+    if not os.path.exists(os.path.join(w, "1727-SCHARF")): return None
+    titel = eingabe.get("title") or ""; p = (eingabe.get("prompt") or "").replace("\\n", "\n")
+    if re.match(r"\W*(%s)\b" % "|".join(ROUTINEN), titel) or re.match(r"\W*(%s)\b" % "|".join(ROUTINEN), p): return None
+    m = re.search(r"Notstart:\s*([^\n]+)", p)
+    if m:
+        nr = re.search(r"–\s*(\d{3,4}(?:\.\d+)?)\b", titel)
+        MELDEN(nr.group(1) if nr else "1989", "Notstart ohne Startblock (1989): „%s“, Grund: %s" % (titel[:80], m.group(1).strip()[:160]))
+        return None
+    d = os.path.join(MAIN if os.path.isdir(MAIN) else os.path.join(w, ".."), "docs", "profile")
+    kopf = [k for k in re.findall(r"(?m)^\*\*([^*\n]+)\*\*$", p) if os.path.isfile(os.path.join(d, k + ".md"))]
+    if kopf and "\n\nAuftrag: " in p: return None
+    return ("Startblock fehlt (1989, Chef 23.11., 09:11): die erste Nachricht trägt nicht den Startblock aus lauf.py (Kopfzeile "
+            "„**<Profil>**“ und „Auftrag:“). Von Hand nur mit `python3 tools/lauf.py --start ROLLE NR \"Nachricht\" --sperre` starten "
+            "und dessen START-Zeile übernehmen. Notfall: „Notstart: <Grund>“ in die Nachricht, dann geht der Start durch und Sokrates bekommt eine Meldung.")
+
+
 def main():
     if "--rolle" in sys.argv:
         r = sys.argv[sys.argv.index("--rolle") + 1]
@@ -125,17 +159,22 @@ def main():
     try: daten = json.load(sys.stdin)
     except Exception: sys.exit(0)
     if not str(daten.get("tool_name", "")).endswith("create_session"): sys.exit(0)
+    f = startblock_fehlt(daten.get("tool_input") or {})  # 1989: vor der Rolle, gilt auch für Profile außerhalb ROLLEN
+    if f: _halt(f)
     rolle = rolle_aus(daten.get("tool_input") or {})
     if not rolle: sys.exit(0)
     f = aufwand(rolle, (daten.get("tool_input") or {}).get("effort")) or pruefen(rolle)
     f = f or nacht(rolle, daten.get("tool_input") or {})
-    if f:
-        print(f, file=sys.stderr)
-        try:  # 1129.1 P3: jeder Halt wird gezählt (Zweig „haken“)
-            sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import hakenzahl; hakenzahl.vermerk("startsperre", f)
-        except Exception:
-            pass
-        sys.exit(2)
+    if f: _halt(f)
+
+
+def _halt(f):
+    print(f, file=sys.stderr)
+    try:  # 1129.1 P3: jeder Halt wird gezählt (Zweig „haken“)
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__))); import hakenzahl; hakenzahl.vermerk("startsperre", f)
+    except Exception:
+        pass
+    sys.exit(2)
 
 
 if __name__ == "__main__":

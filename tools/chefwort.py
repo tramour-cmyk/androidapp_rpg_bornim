@@ -6,6 +6,8 @@ trägt der Haken es wörtlich mit Zeit und Sitzung in docs/vorgang/NR.md ein (Ab
 eine offene Übergabezeile an den Arbeitsplaner an (1760, `uebergabe.py`); keine Fachkraft baut es am Prüfer vorbei. Bei Freigabe
 des Builds („gut“, „passt“, „freigegeben“) oder Ergebnis nach Checkliste 11, 12 geht die Zeile an den Disponenten, der den
 Build-Macher startet (3.3 Nr. 7, L-U15, 1782).
+1976 (1566): ruht der Vorgang („Zustand: ruht, beim Chef“ in NR.md, Stand „ruht“ in der Liste), hebt das Chefwort beides im
+selben Commit auf („Zustand: aufgehoben …“, Liste „startbar, Chefwort ZEIT“); gelingt das nicht, Fehler, nichts geschrieben.
 
   vorgang.py chefwort NR "Wortlaut" [--zeit "TT.MM., HH:MM"] [--sitzung ROLLE] [--an ROLLE]   von Hand (verpasstes Chefwort,
                                                Rückfrage im Chat); --an setzt den Empfänger (1876)
@@ -240,6 +242,30 @@ def eigen(nr, d, wer, sid):
     return bool(sid) and any((ue.ANG.match(z["z"]) or {}) and ue.ANG.match(z["z"]).group("sid") == sid for z in ue.zeilen(t))
 
 
+def aufheben(t, zeit):
+    """1976 (1566): Zeile „Zustand: ruht, beim Chef …“ der Vorgangsdatei → „Zustand: aufgehoben JETZT durch Chefwort ZEIT (war: …)“
+    (Form wie Sokrates 22.11., 21:51); ohne solche Zeile unverändert. Bleibt sie, Fehler (nichts geschrieben)."""
+    import rueckmeldung as rm
+    jetzt = ue.fmt(ue.jetzt())
+    t2 = re.sub(r"(?m)^Zustand: (" + re.escape(rm.RUHT) + r".*)$", lambda m: "Zustand: aufgehoben %s durch Chefwort %s (war: %s; 1976)" % (jetzt, zeit, m.group(1)), t)
+    if rm.ruht(t2): raise ue.Fehler("Zustand „%s“ in der Vorgangsdatei nicht aufgehoben (1976)" % rm.RUHT)
+    return t2
+
+
+def liste_aufheben(L, nr, zeit):
+    """1976: Stand „ruht …“ der Zeile nr in der Vorgangsliste → „startbar, Chefwort ZEIT“; neuer Listentext oder None (keine Zeile,
+    Stand ruht nicht). Bleibt „ruht“, Fehler."""
+    import startbar
+    if not (L or "").strip(): return None
+    d = next((x for x in startbar.vorgangsliste(L) if x["nr"] == nr), None)
+    if not d or d.get("wort") != "ruht": return None
+    n = dict(d, stand="startbar, Chefwort %s" % zeit)
+    Z = L.split("\n"); Z[d["i"]] = startbar.zeile_text(n); L2 = "\n".join(Z)
+    d2 = next((x for x in startbar.vorgangsliste(L2) if x["nr"] == nr), None)
+    if not d2 or d2.get("wort") == "ruht": raise ue.Fehler("Stand „ruht“ von %s in der Vorgangsliste nicht aufgehoben (1976)" % nr)
+    return L2
+
+
 def eintragen(nr, wort, zeit, wer, sid="", an=None):
     """Chefwort und offene Zeile an an (Vorgabe empfaenger(): Arbeitsplaner, bei Freigabe oder Ergebnis Disponent) in einem Commit.
     Rückgabe: Kennung der Zeile oder None (schon eingetragen)."""
@@ -250,25 +276,32 @@ def eintragen(nr, wort, zeit, wer, sid="", an=None):
     zitat = "\n".join("> " + z for z in wort.splitlines()) or "> (leer)"
     kopf = "- **%s**, Chef in Sitzung %s%s:" % (zeit, wer or "unbekannt", (" (`%s`)" % sid) if sid else "")
     block = kopf + "\n" + zitat + "\n"
+    import startbar
+    vp, lp = ue._pfad(nr), "docs/" + startbar.LISTE
     def f(alt):
-        t = ue._mit_abschnitt(alt, nr)
+        t = ue._mit_abschnitt(alt[vp], nr)
         if block in t:
-            return alt, None
+            return {}, None
         import rueckmeldung as rm
         schon = rm.ruht(ue.abschnitt(t, "Rückmeldungen"))
         t = ue.anhaengen(t, "Chefworte", "Wörtlich, mit Zeit; trägt `chefwort.py` ein (Haken D, 1762).", block)
         ks = [int(z["k"].rsplit("Ü", 1)[1]) for z in ue.zeilen(t)]
         k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
         n = rm.zaehlen(t)["nein"]
+        aus = {}
         if chef_nein(wort) and not schon and n >= rm.MAX_NEIN:  # 1872: „Prüfer ja, Chef nein“ stoppt an Obergrenze A wie drei „nein“ des Prüfers
             grund = "Obergrenze A: %d. abgelehnter Auftrag, zuletzt Chefwort" % n
             t = rm.zustand_ruht(t, zeit, grund)
             a2, was = rm.SOKRATES, ue._rein("an den Chef: Chefsache anlegen, nicht selbst lösen (%s; Chefwort %s aus Sitzung %s)" % (grund, zeit, wer or "unbekannt"))
         else:
+            t = aufheben(t, zeit)  # 1976 (1566): das Chefwort hebt „ruht, beim Chef“ in NR.md und Liste im selben Commit auf
+            L = liste_aufheben(alt[lp], nr, zeit)
+            if L is not None: aus[lp] = L
             a2, was = an, ue._rein("Chefwort %s aus Sitzung %s lesen (Abschnitt Chefworte)%s" % (zeit, wer or "unbekannt",
                            "; Freigabe oder Ergebnis des Builds: Build-Macher starten (3.3 Nr. 7, 1782)" if an == DISPONENT else ""))
-        return t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, a2, was, ue.fmt(ue.jetzt())), k
-    return ue.atomar(nr, f, "Chefwort %s aus Sitzung %s (Haken D, 1762)" % (nr, wer or "unbekannt"))
+        aus[vp] = t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, a2, was, ue.fmt(ue.jetzt()))
+        return aus, k
+    return ue.atomar_dateien([vp, lp], f, "Chefwort %s aus Sitzung %s (Haken D, 1762)" % (nr, wer or "unbekannt"))
 
 
 def melden(nr, k, an=AN):

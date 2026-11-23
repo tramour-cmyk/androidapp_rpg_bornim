@@ -152,6 +152,7 @@ func _ready() -> void:
 	mat.set_shader_parameter("hoehle", 1.0 if String(karte.daten.get("art", "")) == "CAVE" else 0.0)
 	mat.set_shader_parameter("licht_gang", hoehlen_ausgang())
 	flaeche.material_override = mat
+	wasser_nebel()
 	flaeche.position = Vector3(0, 0, -0.9)
 	spiel.kamera.add_child(flaeche)
 	dorf = String(karte.daten.get("art", "")) == "TOWN"
@@ -159,6 +160,20 @@ func _ready() -> void:
 	if String(karte.daten.get("art", "")) in ["FOREST", "TOWN"]: boden_suchen()
 	haeuser_werten()
 	dinge_sammeln()
+
+## 1566 (Chef 17.11., 14:50; Messlauf 22.11., 21:05: unter Mobile deckt der Nebel das Kit-Wasser nicht, auch rot gefärbt und mit dem
+## Wasser vor dem Nebel sortiert): in der Höhle bekommt das Kit-Wasser die Nebelkarte und schwärzt sich selbst (wasser_kit kit_sicht)
+var _wasser_ohne := false
+func wasser_nebel() -> void:
+	_wasser_ohne = Testmodus.alles_sichtbar
+	var g = spiel.get("gebiet")
+	if g == null or not an or not g.info.get("hoehle", false): return   # Karten mit „hoehle“ (Systemfrage 1566)
+	for mi in (g as Node).find_children("*Wasser*", "MeshInstance3D", true, false):
+		for s in (mi as MeshInstance3D).mesh.get_surface_count():
+			var m := (mi as MeshInstance3D).get_surface_override_material(s) as ShaderMaterial
+			if m == null or not m.shader.code.contains("kit_sicht"): continue
+			m.set_shader_parameter("kit_nebel", tex)
+			m.set_shader_parameter("kit_nebel_groesse", Vector2.ZERO if _wasser_ohne else Vector2(breite, hoehe) * Karte.TS)
 
 ## 505 Lauf 2 (Pruefer 16:01: „Lichtscheine … auch Rauch und Glut eines Feuers“ im Unbekannten, „rötlicher und türkiser Schein“
 ## der Nachbarraeume; Chef 16:12 (1): nichts scheint durch): Rauch steigt ueber Gesehenes, ein Licht leuchtet ueber die Wand in
@@ -428,6 +443,7 @@ func schritt(dt: float) -> void:
 	if not an or spiel.held == null: return
 	# 555 Testmenue „Sichtlinie aus“ (alt Game.seeAll): kein Nebel auf der Karte, erkundet wird wie sonst
 	if mat: mat.set_shader_parameter("ohne", 1.0 if Testmodus.alles_sichtbar else 0.0)
+	if _wasser_ohne != Testmodus.alles_sichtbar: wasser_nebel()
 	if neu_sehen(spiel.held.kachel, spiel.held.rotation.y) or neu:
 		# je Kachel 1 nie gesehen, sonst 0,5; die Teile dazwischen weich aus den vier naechsten Kachelmitten (drawFog: weiche Kanten,
 		# Lauf 1 zeigte harte Rautenkanten), in Sicht 0 mit der Kegelkante als Linie (13e)

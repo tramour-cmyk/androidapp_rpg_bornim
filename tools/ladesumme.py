@@ -28,7 +28,7 @@ G = "docs/entwurf/1727-gesamtbild.md"
 # Teil: (Quelle Entwurf, Profilname nach der Umstellung oder None, Grenze in Byte oder None)
 TEILE = {
     "Sockel": (G + "|## 1 Sockel", None, 1200),
-    "Kern Leitung": (G + "|### 2.1 Kern Leitung|2", None, 3000),
+    "Kern Leitung": (G + "|### 2.1 Kern Leitung|2", "Kern Leitung", 3000),  # 1986: lauf.KERN_VON Sokrates
     "Kern Büro": (M + "kern-buero.md", "Kern Büro", None),
     "Kern Arbeitsplaner": (M + "kern-arbeitsplaner.md", "Arbeitsplaner", 3000),
     "Kern Abnahme": (M + "kern-abnahme.md", "Kern Abnahme", None),

@@ -339,7 +339,8 @@ static func kit_wasser() -> Shader:
 	var rm := c.find("render_mode")
 	var ende := c.find(";", rm)
 	c = c.substr(0, ende + 1) + "\nstencil_mode write, compare_always, 1;" + c.substr(ende + 1)
-	c = c.replace("ALPHA = 1.0;", "float kit_rl = kit_rand(v_world, INV_VIEW_MATRIX);\n\tALBEDO *= mix(1.0, 0.5, night) * kit_rl;\n\tEMISSION = (EMISSION + ALBEDO * kit_selbst + kit_nacht(v_world, INV_VIEW_MATRIX, t)) * kit_rl;\n\tSPECULAR *= kit_rl;\n\tALPHA = 1.0;")
+	# 1566: kit_sicht (Nebelkarte, nur Höhle) schwärzt Farbe, Licht und Glanz außer Sicht; rau, damit kein Spitzlicht bleibt
+	c = c.replace("ALPHA = 1.0;", "float kit_rl = kit_rand(v_world, INV_VIEW_MATRIX) * kit_sicht(v_world);\n\tALBEDO *= mix(1.0, 0.5, night) * kit_rl;\n\tEMISSION = (EMISSION + ALBEDO * kit_selbst + kit_nacht(v_world, INV_VIEW_MATRIX, t)) * kit_rl;\n\tSPECULAR *= kit_rl;\n\tROUGHNESS = mix(1.0, ROUGHNESS, kit_rl);\n\tALPHA = 1.0;")
 	_kit = Shader.new()
 	_kit.code = c
 	return _kit
