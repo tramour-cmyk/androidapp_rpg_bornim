@@ -163,8 +163,8 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | 10 | G Balance | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 59e | Händler: Vorrat je Laden | 10 | G Balance | K | 23.11. | – | claude/jerry-59e-haendlervorrat | *ruht* | *–* | *0* | *–* |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | 10 | G Balance | K | – | – | – | *Idee* | *–* | *0* | *–* |
-| 870.12 | Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen | 10 | B Abläufe | K | 870 | 870, 212, 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 | – | *wartet, 2.3 neu; Schließen nach Abnahme 870* | *–* | *0* | *2,44 $* |
-| 954a.11 | Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Aufträge Thessa und Borin nehmen es ab | 10 | G Balance | K | 870 | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
+| 870.12 | Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen | 10 | B Abläufe | K | – | 870, 212, 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 | – | *erledigt* | *–* | *0* | *2,44 $* |
+| 954a.11 | Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Aufträge Thessa und Borin nehmen es ab | 10 | G Balance | K | – | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1486 | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Begegnungen bis Grak, Grak 92–100 % außer … | 10 | G Balance | K | Sokrates | 1411.1, 1403 | claude/jerry-1486-bosse | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1487 | Heiler wächst in Kapitel 1 nie im Willen (Heilmagie 12/13 am Kapitelende, übt Stumpfe Waffen) | 10 | G Balance | K | – | 1411.1 | – | *startbar, gelöst 21.11.: 21.11. 20:00* | *–* | *0* | *–* |
 | 39 | Schwierigkeitsgrad im Menü | 2 | E Kampf | K | 23.11. | – | claude/jerry-39-schwierigkeit | *ruht* | *–* | *0* | *3,80 $* |
@@ -187,10 +187,10 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | 2 | E Kampf | K | – | 211.14 | – | *Idee* | *–* | *0* | *–* |
 | 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln … | 2 | E Kampf | K | 930.3, 1589.4 | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *41,19 $* |
 | 930.3 | Rechnung (fertig, handgemenge_930.md) und Film zur Regelseite Handgemenge: eine Runde Rudel gegen F9, erst mit dem Takt … | 2 | E Kampf | K | 931, 1589.4 | 930, 931 | – | *ruht, Block 2 (1605)* | *–* | *0* | *8,58 $* |
-| 954a.6 | Hinterhalt aus dem Schleichen: unbemerkt bis zum Angriff, Kampf beginnt HERO_FIRST mit Ring R3 (930), Bosse wachsam | 2 | E Kampf | K | 870, 954a.5, 930 | 930 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
-| 954a.8 | Wurfwaffen: Grundform Wurfmesser (auch für die Elstern, Truhe cave_3, aus 935), als Bündel bei Thessa, Jägerkind … | 2 | E Kampf | K | 870 | 935, 444, 447.4 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
-| 954a.10 | Tiere beruhigen vor dem Kampf: Wolf, Wildschwein, Riesenfledermaus | 2 | E Kampf | K | 870 | 841 | – | *ruht* | *–* | *0* | *–* |
-| 954a.13 | Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf klassisch.gd, der entfällt (870a 2) | 2 | E Kampf | K | 870 | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
+| 954a.6 | Hinterhalt aus dem Schleichen: unbemerkt bis zum Angriff, Kampf beginnt HERO_FIRST mit Ring R3 (930), Bosse wachsam | 2 | E Kampf | K | 954a.5, 930 | 930 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
+| 954a.8 | Wurfwaffen: Grundform Wurfmesser (auch für die Elstern, Truhe cave_3, aus 935), als Bündel bei Thessa, Jägerkind … | 2 | E Kampf | K | – | 935, 444, 447.4 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
+| 954a.10 | Tiere beruhigen vor dem Kampf: Wolf, Wildschwein, Riesenfledermaus | 2 | E Kampf | K | – | 841 | – | *ruht* | *–* | *0* | *–* |
+| 954a.13 | Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf klassisch.gd, der entfällt (870a 2) | 2 | E Kampf | K | – | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 999.2 | Armbrust als Waffenmodell im Kampf (Ersatzwaffe der Probehelden, light_crossbow) | 2 | E Kampf | K | 23.11. | 999 | – | *ruht, Kaufrepo da (818)* | *–* | *0* | *–* |
 | 1165 | Prüferbefunde Kampforte in Godot nachprüfen: Baum fast schwarz ohne Moos, Felsen ohne Schatten, Waldrand ungleich … | 2 | E Kampf | K | 496 | 490, 493 | – | *ruht* | *–* | *0* | *–* |
 | 1224 | Berührungsprüfung beim Platztausch (Netze beider Figuren von oben) sperrend machen, sobald 1072 die Bahnen trennt | 2 | E Kampf | K | 1589.4 | 1041, 1072 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
@@ -228,15 +228,15 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 344 | Fackel: brennt überall außer in hellen Grundrissen | 5 | E Welt | K | 23.11. | – | – | *ruht, ohne Vorratszeile, Liste „entschieden“ (275.2)* | *–* | *0* | *–* |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | 5 | G Stil | K | – | 447.4 | – | *startbar* | *–* | *0* | *–* |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot … | 5 | E Welt | K | 23.11. | – | claude/jerry-509-teich | *ruht* | *–* | *0* | *–* |
-| 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | 5 | E Welt | K | 870, 23.11. | – | – | *ruht* | *–* | *0* | *–* |
+| 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | 5 | E Welt | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
 | 688 | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: Truhen, Kräuter, Verstecktes) … | 5 | E Welt | K | 23.11. | 491, 675 | – | *ruht, nach dem Durchspielen (688 A, Chef 18:30)* | *–* | *0* | *–* |
 | 689 | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Laternenpfahl am Steg … | 5 | E Welt | K | 23.11. | 348.6, 675 | – | *ruht, nach dem Durchspielen (488)* | *–* | *0* | *–* |
 | 816 | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s nie schlechter als heute, an … | 5 | E Welt | K | 23.11. | 623.8, 698 | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |
 | 852 | Aschgeborene bauen: Modell Mensch mit aschgrauer Strähne und goldenem Iris-Ring (nie leuchtend), sechstes Volk in der … | 5 | E Welt | K | 23.11. | 432a, 432.2, 423, 432.3, 444 | – | *ruht, bis Kapitel 1 fertig (432a A)* | *–* | *0* | *–* |
-| 954a.5 | Schleichen auf der Gebietskarte: Schleichtaste, geduckt und langsamer, Jäger bemerken später (werte.json bemerken_*) … | 5 | E Welt | K | 870 | 870.14 | – | *startbar* | *–* | *0* | *–* |
-| 954a.7 | Spähen durch Verweilen: Ring zeigt Heilkräuter abseits der Wiesen, Fallen an Truhen und halb versteckte Truhen (515) … | 5 | E Welt | K | 870 | 515, 423 | – | *startbar* | *–* | *0* | *–* |
-| 954a.9 | Schmiedelehrling flickt selbst an Borins Amboss mit dem Ring wie beim Knacken (515), dazu Auftrag Griffschalen … | 5 | E Welt | K | 870, 515 | 515 | – | *startbar* | *–* | *0* | *–* |
-| 966.2 | Kochen und Alchemie mit Ring wie Knacken (DESIGN-BRS 8): Held brät selbst am Lagerfeuer, braut selbst am Kessel … | 5 | E Welt | K | 870 | 966 | – | *startbar* | *–* | *0* | *8,55 $* |
+| 954a.5 | Schleichen auf der Gebietskarte: Schleichtaste, geduckt und langsamer, Jäger bemerken später (werte.json bemerken_*) … | 5 | E Welt | K | – | 870.14 | – | *startbar* | *–* | *0* | *–* |
+| 954a.7 | Spähen durch Verweilen: Ring zeigt Heilkräuter abseits der Wiesen, Fallen an Truhen und halb versteckte Truhen (515) … | 5 | E Welt | K | – | 515, 423 | – | *startbar* | *–* | *0* | *–* |
+| 954a.9 | Schmiedelehrling flickt selbst an Borins Amboss mit dem Ring wie beim Knacken (515), dazu Auftrag Griffschalen … | 5 | E Welt | K | 515 | 515 | – | *startbar* | *–* | *0* | *–* |
+| 966.2 | Kochen und Alchemie mit Ring wie Knacken (DESIGN-BRS 8): Held brät selbst am Lagerfeuer, braut selbst am Kessel … | 5 | E Welt | K | – | 966 | – | *startbar* | *–* | *0* | *8,55 $* |
 | 976 | Rezeptbuch für alle Handwerke (Rezeptliste DESIGN-BRS Herstellen, drei Zustände) und Rezeptwege bei Morwen … | 5 | E Welt | K | 966.2 | 966.2 | – | *startbar* | *–* | *0* | *4,04 $* |
 | 1036.1 | neue Vorlage Zustände, jeder Zustand des Codes mit allen passenden Effekten aller Kaufpakete, Brennen in drei Größen | 5 | G Stil | K | – | 1036 | claude/jerry-1036-1-zustaende | *startbar, gelöst 21.11.: 20.11.* | *–* | *0* | *22,47 $* |
 | 1157 | Verband herstellen mit dem Rezeptbuch (Heilkräuter und Leinen, Spinnseide stärker; DESIGN-BRS.md 254) | 5 | E Welt | K | 976 | 1038, 254, 976 | – | *wartet, braucht das Rezeptbuch (976, nach dem Umzug); Leinen fehlt im Katalog* | *–* | *0* | *–* |
@@ -254,7 +254,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | 12 | E Oberfläche | K | 458.3, 23.11. | – | – | *ruht, bis 458.3 auf main (Modelle fehlen dort, kein Neues 10.11.)* | *–* | *0* | *–* |
 | 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | 12 | E Oberfläche | K | 23.11. | – | – | *ruht, ohne Vorratszeile, Liste „wartet“ (275.2)* | *–* | *0* | *–* |
 | 568 | Ernten als Handlung statt Einsaugen | 12 | E Oberfläche | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
-| 954a.12 | Erschaffung: nicht wählbare Fertigkeiten … | 12 | E Oberfläche | K | 870 | – | – | *startbar* | *–* | *0* | *–* |
+| 954a.12 | Erschaffung: nicht wählbare Fertigkeiten … | 12 | E Oberfläche | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | 13 | G Story | K | 1235 | – | – | *wartet* | *–* | *0* | *–* |
 | 447.4.1 | Bau Lehrmeister, Meisterschaften, Ruf Kapitel 1 (447.4) | 13 | G Story | K | 508 | 447.4 | – | *wartet* | *–* | *0* | *–* |
 | 839 | Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY-MENUE.md [817.…] | 13 | G Story | K | 23.11. | 817 | – | *ruht, bis Test 825 (620, Perikles)* | *–* | *0* | *–* |
