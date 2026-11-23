@@ -36,7 +36,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1674 | Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 Minuten an der Bank fest, kommt nicht vorbei, erst Wegschubsen … | 3 | E Figuren | M | – | – | claude/tom-1674-bank | *gebaut, Geprüft an: afe4a4329 (bank_1674 grün)* | *–* | *0* | *3,72 $* |
 | 1675 | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *6,21 $* |
 | 1676 | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *0,95 $* |
-| 1694 | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finger schließen um den Schaft | 3 | E Figuren | M | – | 1621, 1657 | – | *startbar, Ruhe bis 21.11. abgelaufen* | *–* | *0* | *34,17 $* |
+| 1694 | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finger schließen um den Schaft | 3 | E Figuren | M | – | 1621, 1657 | – | *startbar, Ruhe bis 21.11. abgelaufen* | *–* | *0* | *50,26 $* |
 | 1709 | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535), Ziel vorher fest | 3 | E Figuren | M | 28.11. | 1535 | – | *ruht, Chef nicht am PC (22.11., 19:29), frühestens 28.11.* | *–* | *0* | *0,67 $* |
 | 1205b | in Grafik Niedrig nur die Blumen des Kits, Kleckse überall weg, Gras in Niedrig unser altes | 5 | E Welt | M | 1535 | 698a | claude/tom-1205-wiese | *gebaut, Geprüft an: fdbacd715 (Bild 👍 17:12)* | *–* | *0* | *1,64 $* |
 | 1566 | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht | 5 | G Stil | M | – | – | claude/emil-1566-hoehlenwasser | *erledigt* | *–* | *0* | *31,78 $* |
