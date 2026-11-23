@@ -52,4 +52,6 @@ jobs:
           python3 tools/nachtstarts_test.py     # 1792 Nachtstopp mit Ausnahme aus Chefentscheid
           python3 tools/liegt_test.py           # 1799 LIEGT nach Grobablauf 14.2
           python3 tools/guthaben_test.py        # 1804 Guthabenstufe und Laufsperre
+          python3 tools/takt_test.py            # 1978 lauf.py jeden Takt, nur START ruht; Alarm nennt Disponent
           python3 tools/umstellung1727_test.py  # 1739 Umstellung Vorgangsliste (an Kopie)
+          python3 tools/regelcheck_namen_test.py  # 870 Namenswächter liest Quellen der Kopien nach godot/

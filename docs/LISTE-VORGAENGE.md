@@ -35,7 +35,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1694 | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finger schließen um den Schaft | 3 | E Figuren | M | – | 1621, 1657 | – | *startbar, Ruhe bis 21.11. abgelaufen* | *–* | *0* | *34,17 $* |
 | 1709 | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535), Ziel vorher fest | 3 | E Figuren | M | 28.11. | 1535 | – | *ruht, Chef nicht am PC (22.11., 19:29), frühestens 28.11.* | *–* | *0* | *0,67 $* |
 | 1205b | in Grafik Niedrig nur die Blumen des Kits, Kleckse überall weg, Gras in Niedrig unser altes | 5 | E Welt | M | 1535 | 698a | claude/tom-1205-wiese | *gebaut, Geprüft an: fdbacd715 (Bild 👍 17:12)* | *–* | *0* | *1,64 $* |
-| 1566 | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht | 5 | G Stil | M | – | – | claude/emil-1566-hoehlenwasser | *startbar, Chef 19:05 A, Lauf beim Prüfer (1566-Ü13)* | *–* | *0* | *28,53 $* |
+| 1566 | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht | 5 | G Stil | M | – | – | claude/emil-1566-hoehlenwasser | *startbar, Chef 19:05 A, Lauf beim Prüfer (1566-Ü13)* | *–* | *0* | *30,26 $* |
 | 1398 | Prüfliste mischt wieder Bild/Film mit APK-Wegen | 6 | Q QS | M | – | 1128, 1217 | – | *gebaut, Geprüft an: 68b53e087* | *–* | *0* | *2,25 $* |
 | 1710 | Bildvergleich-Wächter in meldung.sh: Meldung alt gegen neu ohne messbaren Unterschied im markierten Ausschnitt hält an | 6 | E Technik | M | – | – | – | *gebaut, Geprüft an: 46922ae71* | *–* | *0* | *6,23 $* |
 | 1414 | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | 7 | B Werkzeuge | M | 23.11. | – | – | *gebaut, Geprüft an: 5307f68d3* | *–* | *0* | *2,44 $* |
@@ -45,7 +45,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1725 | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *1,21 $* |
 | 1933 | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halbwegs auf, fehlt etwas, das Fehler … | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1954 | Chefsache-README als kurzes Dashboard: laufende Sitzungen, wer woran, als Nächstes, Quoten netto Vorgänge und Aufträge … | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
-| 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht … | 10 | E Kampf | M | – | – | – | *startbar, Weg Sokrates 20:13* | *–* | *0* | *106,82 $* |
+| 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht … | 10 | E Kampf | M | – | – | – | *erledigt* | *–* | *0* | *106,82 $* |
 | 506.2 | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, 506; Chef 10.11., 19:26) | 2 | E Kampf | M | 709.1, 1589.4 | 506 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen … | 2 | E Kampf | M | 1589.4 | – | claude/jerry-709-treffen | *ruht, Block 2 (1605)* | *–* | *0* | *64,31 $* |
 | 709.1 | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar … | 2 | E Kampf | M | 1589.4 | 709 | claude/jerry-709-1-wolfsbiss-c | *ruht, Block 2 (1605)* | *–* | *0* | *83,22 $* |
@@ -64,7 +64,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1603 | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in kerbe.gd | 2 | E Kampf | M | – | 1600 | – | *startbar* | *–* | *0* | *1,57 $* |
 | 1708 | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_ui.gd _draw_blood) | 2 | E Kampf | M | 1589.4 | 760 | – | *ruht, nach Arena (Chef 22:17)* | *–* | *0* | *–* |
 | 1750 | Kampfort klingt wie seine Stelle der Karte, etwa halb so laut unter der Kampfmusik, Vögel und Frösche verstummen (D3a) | 2 | E Kampf | M | – | – | – | *erledigt* | *–* | *0* | *6,99 $* |
-| 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk … | 3 | E Figuren | M | 870 | 408 | claude/tom-431-ausruestung | *startbar, gelöst 17.11.: 431h, t297* | *–* | *0* | *125,77 $* |
+| 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk … | 3 | E Figuren | M | – | 408 | claude/tom-431-ausruestung | *startbar, gelöst 17.11.: 431h, t297* | *–* | *0* | *125,77 $* |
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | 3 | E Figuren | M | – | 455 | claude/jerry-455-2-groesse | *erledigt* | *–* | *0* | *4,68 $* |
 | 1297 | Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | 3 | E Figuren | M | 431 | 431 | – | *wartet, Schildlage in bewaffne ist auf Menschenmaß gemessen (499, 406); Größe je Körper erst mit den Volkskörpern im Spiel* | *–* | *0* | *–* |
 | 1649 | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den Schaft | 3 | E Figuren | M | 1694 | 1621 | – | *startbar* | *–* | *0* | *0,84 $* |
@@ -163,8 +163,8 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | 10 | G Balance | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 59e | Händler: Vorrat je Laden | 10 | G Balance | K | 23.11. | – | claude/jerry-59e-haendlervorrat | *ruht* | *–* | *0* | *–* |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | 10 | G Balance | K | – | – | – | *Idee* | *–* | *0* | *–* |
-| 870.12 | Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen | 10 | B Abläufe | K | 870 | 870, 212, 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 | – | *wartet, 2.3 neu; Schließen nach Abnahme 870* | *–* | *0* | *2,44 $* |
-| 954a.11 | Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Aufträge Thessa und Borin nehmen es ab | 10 | G Balance | K | 870 | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
+| 870.12 | Projektplan 2.3 (212 weg, Pechsträhne als Prozent) und 2.17 neu fassen | 10 | B Abläufe | K | – | 870, 212, 868, 534, 467, 469, 644.1, 644.2, 644.4, 649.1, 811, 296, 344 | – | *erledigt* | *–* | *0* | *2,44 $* |
+| 954a.11 | Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Aufträge Thessa und Borin nehmen es ab | 10 | G Balance | K | – | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1486 | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Begegnungen bis Grak, Grak 92–100 % außer … | 10 | G Balance | K | Sokrates | 1411.1, 1403 | claude/jerry-1486-bosse | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1487 | Heiler wächst in Kapitel 1 nie im Willen (Heilmagie 12/13 am Kapitelende, übt Stumpfe Waffen) | 10 | G Balance | K | – | 1411.1 | – | *startbar, gelöst 21.11.: 21.11. 20:00* | *–* | *0* | *–* |
 | 39 | Schwierigkeitsgrad im Menü | 2 | E Kampf | K | 23.11. | – | claude/jerry-39-schwierigkeit | *ruht* | *–* | *0* | *3,80 $* |
@@ -187,10 +187,10 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 803 | Rest 211.14 (Kür, Tuffy): Gegner durch Antippen der Figur als Ziel wählen | 2 | E Kampf | K | – | 211.14 | – | *Idee* | *–* | *0* | *–* |
 | 930 | Handgemenge und Abstand im Kampf, Prüfauftrag: Regelseite nach BRS, Rechnung und Film Jerry, Ideen Homer, Regeln … | 2 | E Kampf | K | 930.3, 1589.4 | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *41,19 $* |
 | 930.3 | Rechnung (fertig, handgemenge_930.md) und Film zur Regelseite Handgemenge: eine Runde Rudel gegen F9, erst mit dem Takt … | 2 | E Kampf | K | 931, 1589.4 | 930, 931 | – | *ruht, Block 2 (1605)* | *–* | *0* | *8,58 $* |
-| 954a.6 | Hinterhalt aus dem Schleichen: unbemerkt bis zum Angriff, Kampf beginnt HERO_FIRST mit Ring R3 (930), Bosse wachsam | 2 | E Kampf | K | 870, 954a.5, 930 | 930 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
-| 954a.8 | Wurfwaffen: Grundform Wurfmesser (auch für die Elstern, Truhe cave_3, aus 935), als Bündel bei Thessa, Jägerkind … | 2 | E Kampf | K | 870 | 935, 444, 447.4 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
-| 954a.10 | Tiere beruhigen vor dem Kampf: Wolf, Wildschwein, Riesenfledermaus | 2 | E Kampf | K | 870 | 841 | – | *ruht* | *–* | *0* | *–* |
-| 954a.13 | Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf klassisch.gd, der entfällt (870a 2) | 2 | E Kampf | K | 870 | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
+| 954a.6 | Hinterhalt aus dem Schleichen: unbemerkt bis zum Angriff, Kampf beginnt HERO_FIRST mit Ring R3 (930), Bosse wachsam | 2 | E Kampf | K | 954a.5, 930 | 930 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
+| 954a.8 | Wurfwaffen: Grundform Wurfmesser (auch für die Elstern, Truhe cave_3, aus 935), als Bündel bei Thessa, Jägerkind … | 2 | E Kampf | K | – | 935, 444, 447.4 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
+| 954a.10 | Tiere beruhigen vor dem Kampf: Wolf, Wildschwein, Riesenfledermaus | 2 | E Kampf | K | – | 841 | – | *ruht* | *–* | *0* | *–* |
+| 954a.13 | Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf klassisch.gd, der entfällt (870a 2) | 2 | E Kampf | K | – | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 999.2 | Armbrust als Waffenmodell im Kampf (Ersatzwaffe der Probehelden, light_crossbow) | 2 | E Kampf | K | 23.11. | 999 | – | *ruht, Kaufrepo da (818)* | *–* | *0* | *–* |
 | 1165 | Prüferbefunde Kampforte in Godot nachprüfen: Baum fast schwarz ohne Moos, Felsen ohne Schatten, Waldrand ungleich … | 2 | E Kampf | K | 496 | 490, 493 | – | *ruht* | *–* | *0* | *–* |
 | 1224 | Berührungsprüfung beim Platztausch (Netze beider Figuren von oben) sperrend machen, sobald 1072 die Bahnen trennt | 2 | E Kampf | K | 1589.4 | 1041, 1072 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
@@ -228,15 +228,15 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 344 | Fackel: brennt überall außer in hellen Grundrissen | 5 | E Welt | K | 23.11. | – | – | *ruht, ohne Vorratszeile, Liste „entschieden“ (275.2)* | *–* | *0* | *–* |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | 5 | G Stil | K | – | 447.4 | – | *startbar* | *–* | *0* | *–* |
 | 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot … | 5 | E Welt | K | 23.11. | – | claude/jerry-509-teich | *ruht* | *–* | *0* | *–* |
-| 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | 5 | E Welt | K | 870, 23.11. | – | – | *ruht* | *–* | *0* | *–* |
+| 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | 5 | E Welt | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
 | 688 | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: Truhen, Kräuter, Verstecktes) … | 5 | E Welt | K | 23.11. | 491, 675 | – | *ruht, nach dem Durchspielen (688 A, Chef 18:30)* | *–* | *0* | *–* |
 | 689 | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Laternenpfahl am Steg … | 5 | E Welt | K | 23.11. | 348.6, 675 | – | *ruht, nach dem Durchspielen (488)* | *–* | *0* | *–* |
 | 816 | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s nie schlechter als heute, an … | 5 | E Welt | K | 23.11. | 623.8, 698 | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |
 | 852 | Aschgeborene bauen: Modell Mensch mit aschgrauer Strähne und goldenem Iris-Ring (nie leuchtend), sechstes Volk in der … | 5 | E Welt | K | 23.11. | 432a, 432.2, 423, 432.3, 444 | – | *ruht, bis Kapitel 1 fertig (432a A)* | *–* | *0* | *–* |
-| 954a.5 | Schleichen auf der Gebietskarte: Schleichtaste, geduckt und langsamer, Jäger bemerken später (werte.json bemerken_*) … | 5 | E Welt | K | 870 | 870.14 | – | *startbar* | *–* | *0* | *–* |
-| 954a.7 | Spähen durch Verweilen: Ring zeigt Heilkräuter abseits der Wiesen, Fallen an Truhen und halb versteckte Truhen (515) … | 5 | E Welt | K | 870 | 515, 423 | – | *startbar* | *–* | *0* | *–* |
-| 954a.9 | Schmiedelehrling flickt selbst an Borins Amboss mit dem Ring wie beim Knacken (515), dazu Auftrag Griffschalen … | 5 | E Welt | K | 870, 515 | 515 | – | *startbar* | *–* | *0* | *–* |
-| 966.2 | Kochen und Alchemie mit Ring wie Knacken (DESIGN-BRS 8): Held brät selbst am Lagerfeuer, braut selbst am Kessel … | 5 | E Welt | K | 870 | 966 | – | *startbar* | *–* | *0* | *8,55 $* |
+| 954a.5 | Schleichen auf der Gebietskarte: Schleichtaste, geduckt und langsamer, Jäger bemerken später (werte.json bemerken_*) … | 5 | E Welt | K | – | 870.14 | – | *startbar* | *–* | *0* | *–* |
+| 954a.7 | Spähen durch Verweilen: Ring zeigt Heilkräuter abseits der Wiesen, Fallen an Truhen und halb versteckte Truhen (515) … | 5 | E Welt | K | – | 515, 423 | – | *startbar* | *–* | *0* | *–* |
+| 954a.9 | Schmiedelehrling flickt selbst an Borins Amboss mit dem Ring wie beim Knacken (515), dazu Auftrag Griffschalen … | 5 | E Welt | K | 515 | 515 | – | *startbar* | *–* | *0* | *–* |
+| 966.2 | Kochen und Alchemie mit Ring wie Knacken (DESIGN-BRS 8): Held brät selbst am Lagerfeuer, braut selbst am Kessel … | 5 | E Welt | K | – | 966 | – | *startbar* | *–* | *0* | *8,55 $* |
 | 976 | Rezeptbuch für alle Handwerke (Rezeptliste DESIGN-BRS Herstellen, drei Zustände) und Rezeptwege bei Morwen … | 5 | E Welt | K | 966.2 | 966.2 | – | *startbar* | *–* | *0* | *4,04 $* |
 | 1036.1 | neue Vorlage Zustände, jeder Zustand des Codes mit allen passenden Effekten aller Kaufpakete, Brennen in drei Größen | 5 | G Stil | K | – | 1036 | claude/jerry-1036-1-zustaende | *startbar, gelöst 21.11.: 20.11.* | *–* | *0* | *22,47 $* |
 | 1157 | Verband herstellen mit dem Rezeptbuch (Heilkräuter und Leinen, Spinnseide stärker; DESIGN-BRS.md 254) | 5 | E Welt | K | 976 | 1038, 254, 976 | – | *wartet, braucht das Rezeptbuch (976, nach dem Umzug); Leinen fehlt im Katalog* | *–* | *0* | *–* |
@@ -254,7 +254,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | 12 | E Oberfläche | K | 458.3, 23.11. | – | – | *ruht, bis 458.3 auf main (Modelle fehlen dort, kein Neues 10.11.)* | *–* | *0* | *–* |
 | 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | 12 | E Oberfläche | K | 23.11. | – | – | *ruht, ohne Vorratszeile, Liste „wartet“ (275.2)* | *–* | *0* | *–* |
 | 568 | Ernten als Handlung statt Einsaugen | 12 | E Oberfläche | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
-| 954a.12 | Erschaffung: nicht wählbare Fertigkeiten … | 12 | E Oberfläche | K | 870 | – | – | *startbar* | *–* | *0* | *–* |
+| 954a.12 | Erschaffung: nicht wählbare Fertigkeiten … | 12 | E Oberfläche | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | 13 | G Story | K | 1235 | – | – | *wartet* | *–* | *0* | *–* |
 | 447.4.1 | Bau Lehrmeister, Meisterschaften, Ruf Kapitel 1 (447.4) | 13 | G Story | K | 508 | 447.4 | – | *wartet* | *–* | *0* | *–* |
 | 839 | Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY-MENUE.md [817.…] | 13 | G Story | K | 23.11. | 817 | – | *ruht, bis Test 825 (620, Perikles)* | *–* | *0* | *–* |
@@ -402,8 +402,8 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1972 | Von Chef (22.11., 18:39): Kennzahlen Kosten, Sitzungen, Vorgänge, Aufträge je Stunde, Tag, gestern, Woche, Monat und je Vorgang (Sitzungen, Aufträge, Kosten); Bestand kostenbericht.py, KOSTEN-GEBUCHT.tsv, tagesbericht.py | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1974 | Von Sokrates (22.11., 18:56): Archiv-Schutz – keine Sitzung archivieren, die auf eine Freigabe wartet (status SESSION_STATUS_REQUIRES_ACTION, „Waiting on permission“), Schutz wie die 15 Minuten nach Chefnachricht; Fall Dana 1570 18:52, Übergabe fehlt | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1975 | Von Sokrates (22.11., 18:57): Verweis bl → ~/bl aus bau_am_rechner.py (Zeile 5) im Repo; rm -f bl braucht Freigabe des Chefs (Ziel außerhalb des Arbeitsordners, Dana 18:49). Blender-Umgebung im Repo-Ordner, gitignoriert | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
-| 1976 | Von Sokrates (22.11., 20:02): vorgang.py legt bei einer Laufanforderung nach „ruht schon, nur eingetragen“ keine Übergabezeile an den Prüfer an (1566, Silke 19:23 und 20:00; Ü12/Ü13 vom Disponenten von Hand) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1976 | Von Sokrates (22.11., 20:02): vorgang.py legt bei einer Laufanforderung nach „ruht schon, nur eingetragen“ keine Übergabezeile an den Prüfer an (1566, Silke 19:23 und 20:00; Ü12/Ü13 vom Disponenten von Hand) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *2,13 $* |
 | 1977 | Von Werkzeug (Startwarnung 650.2, 1642, seit 22.11., 18:32): Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: LISTE-LEHREN.md | 7 | B Abläufe | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 1978 | Herzschlag-Alarm 23.11., 01:28: Disponent taktete ab 00:03 ohne lauf.py; Profil Disponent: lauf.py jeden Takt, START nur nach Sperre; Alarmtext nennt noch Ford statt Disponent (Chef 06:38) | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1978 | Herzschlag-Alarm 23.11., 01:28: Disponent taktete ab 00:03 ohne lauf.py; Profil Disponent: lauf.py jeden Takt, START nur nach Sperre; Alarmtext nennt noch Ford statt Disponent (Chef 06:38) | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *1,32 $* |
 | 1982 | Telegram-Nachrichten des Chefs ohne Bezug liest keiner (Chef 23.11., 06:47; „1566 B“ 06:40 erst auf Nachfrage gesehen): jede Nachricht sofort als Wecker an Sokrates | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1983 | Prüfer nimmt bis drei Aufträge (Chef 23.11., 07:27 A): Profil Prüfer und Disponent (Muster 1727, ladesumme), lauf.py gibt freiem Prüfer WEITER statt neuem Start | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *–* |
