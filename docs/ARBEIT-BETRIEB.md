@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 
-**Nächste freie Vorgangsnummer: 2009** (zuletzt 2008 Werkzeug 23.11. 21:04:58 bd18) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 2010** (zuletzt 2009 Kampf 23.11. 22:13:50 74ea) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -121,3 +121,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:06 23.11.: Startsperre 21:06 Start Arbeitsplaner, Werkzeug, Arbeitsplaner (lauf.py, Arbeitsplaner 513 Clara, Werkzeug 1961 Dana, Arbeitsplaner 2006 Dirk)
 - 21:08 23.11.: Takt 21:06 (mit --ohne 513, 1716): START Arbeitsplaner Dirk 2006 ausgeführt (session_01Hmoj7794guYDJvxySgKGQE); START Werkzeug Dana 1961 von der Auto-Prüfung abgelehnt (nicht umgangen); START Arbeitsplaner Clara 513 nicht ausgeführt (513 ruht, Alter Ego/Sokrates, --ohne griff nicht); Kampf 1589.2 nicht startbar, Arne belegt Kampf (1603); LIEGT Laufsperre
 - 22:03 23.11.: Startsperre 22:03 Start Arbeitsplaner, Kampf, Figur, Werkzeug, Arbeitsplaner, Sokrates (lauf.py, Arbeitsplaner 513 Clara, Kampf 1603 Dana, Figur 1675 Doris, Werkzeug 1961 Erna, Arbeitsplaner 2006 Fritz, Sokrates 1589.2)
+- 22:08 23.11.: Takt 22:03 (--ohne 513, 1716): START Fritz (Planer 2006), Dana (Kampf 1603), Doris (Figur 1675 + 1653-Ü6), Sokrates neu ausgeführt; START Erna (Werkzeug 1961) von Auto-Prüfung abgelehnt (zweiter Fall, Fund Sokrates); Clara (Planer 513) nicht gestartet (ruht, Fund 2005); archiviert Arne, Silke, Dirk, Kosten 1603 2,87, 1653 5,26, 2006 1,20; alter Sokrates (76c6) wartet auf Meldung des Nachfolgers; 1653 Chef 👍 22:02 → Archiv, Chefsache gelöscht, Übergabe Figur nach main
+- 22:15 23.11.: Sokrates (76c6) 22:13: laufende Leitung bleibt; doppelte Sitzung „Sokrates – 1589.2“ (76owyigkE5s4qkYQGi) archiviert, 1589.2-Ü10 und 1603-Ü2 erledigt; keine Weisungen mehr von Alter Ego (Chef 22:11 laut Sokrates); 1961 kein START bis Sokrates entscheidet
