@@ -23,13 +23,12 @@
 
 ## Offene Fäden
 
-- Rundblick 23.11.: 1966 KISS, bis drei Verfahren, Bilanz seit Umschalten (Wiederholung in einer Woche fragen), Testbuild und Vortrag als Test (Chef 07:31–08:29).
-- 1688: ARBEIT-BETRIEB auf 30 KB, Liste an den Chef; befristete Anweisungen streicht nur der Disponent (Chef 08:37–08:39).
-- 1983 Profiltext Prüfer/Disponent vor Einbau zum Chef.
-- Laufsperre: Prozent vom Chef mittags; über 0,6 %/h eine Fachkraft.
-- Täglich: Modell, Umgebung, Aufwand aller Sitzungen prüfen (Chef 09:07); 1988: Leitung ab 300 Tsd. neu.
+- Rundblick 23.11. offen: 1966 KISS, bis drei Verfahren, Bilanz (Chef 07:31–08:29).
+- Täglich: Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07); Raster Startprompts `docs/leitung/startpruefung.md` (1989) je Art einmal.
+- Laufsperre bis Sa 28.11.: zwei Fachkräfte, beide ans Spiel (Chef 11:13); Werkzeug nur, wenn Betrieb steht.
+- Offen: 1068 Leitwolf-Ring messen (11:27), 1589.2 nach grünem Lauf auf main, 1971 Rückläufer, 1995, 1996.
 - Fehler 341 vom 23.11. (`ARBEIT-BERATUNG.md`) als Lehren mit Byte vorlegen.
 
 ## Übergabe
 
-- 23.11., 08:30, `session_01Hmoj76zNZ7PGwMu3biVtHB` (401 Tsd.): erledigt 870, 1963, 1566, 1570 A an Figur. Nachfolger: Sokrates.
+- 23.11., 11:28, `session_01Hmoj789UmXhift5nSYbgBF` (408 Tsd.): 1988, 1989, 1992, 1688 erledigt; Disponent Fritz von Hand (Ebene 0) mit Starter; 1570 ruht. Nachfolger: Sokrates – Leitung.
