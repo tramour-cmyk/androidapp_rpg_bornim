@@ -139,3 +139,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:08 24.11.: Startsperre 00:08 Start Prüfer (lauf.py, Prüfer 2001 Anna)
 - 00:11 24.11.: Neuer Sokrates (78KsbZ…) gemeldet 00:08: alter Sokrates (76c6) archiviert, Kosten 16,02 $ auf Betrieb; START Prüfer Anna (2001-Ü14) ausgeführt; Kampf 1589.2 gehalten (Auftrag 2104 Byte > 2048, Fund 2011), 1603-Ü4 ab 07:00
 - 00:17 24.11.: Startsperre 00:17 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2013 Britta)
+- 00:20 24.11.: 2001 erledigt (Anna ja, 193 Tests grün), Anna archiviert, Kosten 1,58 $ auf 2001; START Planer Britta (2013-Ü1, Eilt) ausgeführt; Hinweis Anna: Alter Ego/Starter zählen als Fachkraft (Rolle Sonstige) – Entscheid Chef, liegt bei Sokrates
