@@ -28,5 +28,6 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: |
           gh workflow run herzschlag.yml --ref main
+          gh workflow run sammelzeile.yml --ref main || echo "Sammelzeile nicht angestoßen (1971)"
           sleep 3300
           gh workflow run herzschlag-kette.yml --ref main

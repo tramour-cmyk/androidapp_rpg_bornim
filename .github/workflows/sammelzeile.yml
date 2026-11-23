@@ -1,0 +1,64 @@
+name: Sammelzeile
+
+# 1971 (Chef 22.11., 18:27/18:28; Eilt 23.11., 09:11): lautlose Telegram-Sammelzeile je Stunde mit den Vorgängen, die seit der
+# letzten Sammelzeile auf „erledigt“ gingen (tools/sammelzeile.py, git-Verlauf von docs/LISTE-VORGAENGE.md); nichts Erledigtes,
+# keine Meldung. Kostet keine Token. Auslöser: herzschlag-kette.yml (stündlich), Zeitplan als Ersatz (ohne Gewähr, 1191).
+# Einmal je Stunde: Cache-Schlüssel je Fensterende; der jüngste Schlüssel trägt das letzte Fensterende (Lücken werden nachgeholt).
+on:
+  schedule:
+    - cron: "7 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: write
+
+concurrency:
+  group: sammelzeile
+  cancel-in-progress: false
+
+jobs:
+  senden:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+      - name: Letztes Fensterende
+        uses: actions/cache/restore@v4
+        with:
+          path: .sammel
+          key: sammelzeile-bis-keiner
+          restore-keys: sammelzeile-bis-
+      - name: Fenster und Text
+        id: s
+        run: |
+          letztes=$(cat .sammel/bis 2>/dev/null || true)
+          read von bis <<< "$(python3 tools/sammelzeile.py --fenster "$letztes")"
+          echo "Fenster $von bis $bis (letztes: ${letztes:-keins})"
+          echo "bis=$bis" >> "$GITHUB_OUTPUT"
+          echo "marke=$(echo "$bis" | tr -dc 0-9)" >> "$GITHUB_OUTPUT"
+          if [ "$von" = "$bis" ] || [ "$letztes" = "$bis" ]; then echo "neu=nein" >> "$GITHUB_OUTPUT"; exit 0; fi
+          echo "neu=ja" >> "$GITHUB_OUTPUT"
+          text=$(python3 tools/sammelzeile.py "$von" "$bis")
+          echo "$text"
+          { echo "text<<ENDE"; echo "$text"; echo "ENDE"; } >> "$GITHUB_OUTPUT"
+      - name: Telegram (lautlos)
+        if: steps.s.outputs.neu == 'ja' && steps.s.outputs.text != ''
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TEXT: ${{ steps.s.outputs.text }}
+        run: |
+          if [ -z "$TELEGRAM_BOT_TOKEN" ]; then echo "::warning::Secret TELEGRAM_BOT_TOKEN fehlt, Sammelzeile nicht gesendet"; exit 0; fi
+          antwort=$(curl -sS "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            --data-urlencode "chat_id=8965432899" --data-urlencode "disable_notification=true" --data-urlencode "text=$TEXT")
+          echo "$antwort" | grep -q '"ok":true' || { echo "::error::Telegram lehnt ab: $(echo "$antwort" | head -c 200)"; exit 1; }
+      - name: Fensterende merken
+        if: steps.s.outputs.neu == 'ja'
+        run: mkdir -p .sammel && echo "${{ steps.s.outputs.bis }}" > .sammel/bis
+      - if: steps.s.outputs.neu == 'ja'
+        uses: actions/cache/save@v4
+        with:
+          path: .sammel
+          key: sammelzeile-bis-${{ steps.s.outputs.marke }}
