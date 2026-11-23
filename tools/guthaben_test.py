@@ -162,6 +162,23 @@ def f_d2():
     soll("2001 (d2): Tester frei unter der Obergrenze", b.erlaubt("Tester", "M", WZ) is None, b.erlaubt("Tester", "M", WZ))
 fall("d2", f_d2)
 
+# (d3) 2001-Ü12 (Entscheid 16:57): unbekannter Name zählt nie als frei; Vorgangsnummer im Titel → Bereich des Vorgangs
+def f_d3():
+    guthaben.ZEILEN = [{"nr": "1694", "besitzer": "Figur"}, {"nr": "2001", "besitzer": "Werkzeug"}]
+    try:
+        iso = "Isolde – 1694: Handstart (23.11., 15:51)"  # echter Titel, Rufname außerhalb der Liste, kosten.rolle → Sonstige
+        soll("2001 (d3): Isolde (Name außerhalb der Liste) → Rolle aus Vorgang 1694: Figur", guthaben.ober_rolle("Sonstige", iso) == "Figur", guthaben.ober_rolle("Sonstige", iso))
+        je = {"Sonstige": [sitz("Sonstige", titel=iso), sitz("Sonstige", titel="Xaver räumt auf"), sitz("Sonstige", titel="Yvo – 9999: Handstart (23.11., 16:00)"),
+                           sitz("Sonstige", titel="Zeno – 1694: Prüfung (23.11., 16:10)")],
+              "Werkzeug": [sitz("Werkzeug", titel="Fenja – 2001: Handstart (23.11., 15:33)")]}
+        n = guthaben.laufende_fachkraefte(je)
+        soll("2001 (d3): Isolde, unbekannt ohne Nummer, unbekannte Nummer zählen, Prüfung frei, Fenja → 4", n == 4, n)
+        nm = guthaben.laufende_namen(je)
+        soll("2001 (d3): Namen je Zählung", nm == ["Fenja (Werkzeug)", "Isolde (Figur)", "Xaver räumt auf (Sonstige)", "Yvo (Sonstige)"], nm)
+    finally:
+        guthaben.ZEILEN = None
+fall("d3", f_d3)
+
 # (e) nach Ende frei
 def f_e():
     global b
