@@ -1,8 +1,0 @@
-Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
-
-WARNING: Screen-space AA is only available when using the Forward+ or Mobile renderer.
-     at: viewport_set_screen_space_aa (servers/rendering/renderer_viewport.cpp:1435)
-gut   Antippen: Tat und ein Klick zu 35 % ([["click", 0.35]])
-gut   Wischen klickt nicht (1)
-gut   abgeschalteter Knopf klickt nicht (1)
-KLICK78520 0 Fehler

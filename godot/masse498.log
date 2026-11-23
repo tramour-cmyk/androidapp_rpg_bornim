@@ -1,9 +1,0 @@
-Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
-
-WARNING: Screen-space AA is only available when using the Forward+ or Mobile renderer.
-     at: viewport_set_screen_space_aa (servers/rendering/renderer_viewport.cpp:1435)
-gut   am Rechner Faktor 1 (kein Handy)
-gut   Text 16 sp: Godot 42 px, alt 41.5 px
-gut   Zeile: Godot 58.0 px (1.38 x), alt 56.1 px (1,35 x)
-Sperrung: Godot 1 px, alt 0.53 px
-MASSE498 0 Fehler
