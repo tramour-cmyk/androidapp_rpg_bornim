@@ -28,6 +28,8 @@ Ausgabe, Zeile für Zeile auszuführen:
   TAGESBERICHT TT.MM. | Perikles | [effort high] | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“);
                                                                      mit tools/1727-SCHARF statt dessen START Tagesbericht (Routine, routine-tagesbericht.md, 1871)
   NEUSTART-LEITUNG <session_id> | Sokrates | <n> Tsd. Token | …     → (1988) Disponent: Leitung neu starten (Übergabe ins Gedächtnis), im selben Takt wie STREICHEN; ab 300 Tsd. used_tokens
+  NEUSTART-DISPONENT <session_id> | Disponent | <n> Tsd. Token | … → (1988 Zusatz 09:26) Disponent: Übergabe zuerst, dann send_message an die Wache „Disponent neu starten“; ab 300 Tsd.
+  (1988 Zusatz 09:26) dieselbe WARNUNG-Zeile (gleicher Wortlaut, auch -LAUT) höchstens einmal je Stunde; Stand in BORNIM_WARN_STAND (Vorgabe /tmp/bornim-lauf-warnungen.json)
   (1989) lauf.py --start ROLLE NR "Nachricht" [SEITE …] [--sperre]: Handstart außerhalb des Takts → START-Zeile mit Startblock und
                                                                      STARTSPERRE <Protokollzeile> (mit --sperre selbst gepusht); von Hand nur so starten
   NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1739) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
@@ -245,21 +247,52 @@ def mit_kern(l, docs=None):
     if not k: return "%s | %s" % (kopf, ("Auftrag: " + msg) if auftrag else msg)
     return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
 
-LEITUNG_NEUSTART_TOKEN = 300000  # 1988 (Chef 23.11., 09:02): Leitung mit 430 Tsd. Token stempelte 20 Min. vor
-def leitung_neustart(je_rolle, archiviert):
-    """1988: je nicht archivierte Leitungssitzung (Sokrates) mit used_tokens (context_usage, get_session) ab 300.000 eine Zeile
-    an den Disponenten; ohne Wert keine Zeile."""
+LEITUNG_NEUSTART_TOKEN = 300000  # 1988 (Chef 23.11., 09:02): Leitung mit 430 Tsd. Token stempelte 20 Min. vor; Zusatz 09:26: auch Disponent
+NEUSTART_ZEILE = {"Sokrates": ("NEUSTART-LEITUNG", "Leitung neu starten (Übergabe ins Gedächtnis)"),
+                  "Disponent": ("NEUSTART-DISPONENT", "Übergabe zuerst (ARBEIT-BETRIEB.md pushen), dann send_message an die Wache %s „Disponent neu starten“; die Wache startet ihn neu")}
+
+def wache_id():
+    """1988 (4): Kennung der Wache aus ARBEIT-BETRIEB.md („**Wache (aktuell)** `session_…`“), sonst „-“."""
+    m = re.search(r"\*\*Wache \(aktuell\)\*\* `(session_\w+)`", lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")))
+    return m.group(1) if m else "-"
+
+def leitung_neustart(je_rolle, archiviert, wache=None):
+    """1988: je nicht archivierte Sitzung der Leitung (Sokrates) und, Zusatz 09:26, des Disponenten mit used_tokens
+    (context_usage, get_session) ab 300.000 eine Zeile an den Disponenten; ohne Wert keine Zeile."""
     aus = []
-    for s in je_rolle.get("Sokrates", []):
-        tok = s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens")
-        if s["id"] not in archiviert and tok and tok >= LEITUNG_NEUSTART_TOKEN:
-            aus.append("NEUSTART-LEITUNG %s | Sokrates | %d Tsd. Token | Leitung neu starten (Übergabe ins Gedächtnis) (1988, ab %d Tsd.)" % (s["id"], tok // 1000, LEITUNG_NEUSTART_TOKEN // 1000))
+    for rolle, (art, text) in NEUSTART_ZEILE.items():
+        for s in je_rolle.get(rolle, []):
+            tok = s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens")
+            if s["id"] not in archiviert and tok and tok >= LEITUNG_NEUSTART_TOKEN:
+                if "%s" in text: text = text % (wache or wache_id())
+                aus.append("%s %s | %s | %d Tsd. Token | %s (1988, ab %d Tsd.)" % (art, s["id"], rolle, tok // 1000, text, LEITUNG_NEUSTART_TOKEN // 1000))
     return aus
 
+NEUSTART_ARTEN = ("NEUSTART-LEITUNG ", "NEUSTART-DISPONENT ")
 def vorn(zeilen):
-    """1688, 1988: STREICHEN-Zeilen zuerst, dann NEUSTART-LEITUNG, sonst Reihenfolge unverändert."""
-    return [l for l in zeilen if l.startswith("STREICHEN ")] + [l for l in zeilen if l.startswith("NEUSTART-LEITUNG ")] + \
-        [l for l in zeilen if not l.startswith(("STREICHEN ", "NEUSTART-LEITUNG "))]
+    """1688, 1988: STREICHEN-Zeilen zuerst, dann NEUSTART-LEITUNG, NEUSTART-DISPONENT, sonst Reihenfolge unverändert."""
+    return [l for l in zeilen if l.startswith("STREICHEN ")] + [l for a in NEUSTART_ARTEN for l in zeilen if l.startswith(a)] + \
+        [l for l in zeilen if not l.startswith(("STREICHEN ",) + NEUSTART_ARTEN)]
+
+WARN_STAND = os.environ.get("BORNIM_WARN_STAND", "/tmp/bornim-lauf-warnungen.json")
+def warnung_einmal_je_stunde(zeilen, pfad=None, jetzt=None):
+    """1988 (Zusatz Chef 09:26): dieselbe WARNUNG-Zeile (gleicher Wortlaut, auch WARNUNG-LAUT) höchstens einmal je Stunde.
+    Stand (Zeile → Zeit) in pfad; ist er nicht les- oder schreibbar, bleiben alle Warnungen stehen (lieber doppelt als verschluckt)."""
+    import json
+    pfad, t = pfad or WARN_STAND, (jetzt or JETZT).timestamp()
+    try: stand = json.load(open(pfad, encoding="utf-8"))
+    except Exception: stand = {}
+    neu, aus = dict(stand), []
+    for l in zeilen:
+        if l.startswith("WARNUNG"):
+            if l in stand and 0 <= t - stand[l] < 3600: continue
+            neu[l] = t
+        aus.append(l)
+    try:
+        with open(pfad, "w", encoding="utf-8") as f: json.dump({k: v for k, v in neu.items() if t - v < 3600}, f, ensure_ascii=False)
+    except Exception:
+        return zeilen
+    return aus
 
 
 def mit_rufnamen(ausgabe, sitzungen, jetzt=None, namen=None):
@@ -1881,6 +1914,7 @@ def main():
     except Exception as e:
         ausgabe.insert(0, "WARNUNG Streichzeilen nicht gelesen: %s (1688)" % str(e)[:120])
     ausgabe = vorn(leitung_neustart(je_rolle, archiviert) + ausgabe)  # 1988: im selben Takt wie STREICHEN
+    ausgabe = warnung_einmal_je_stunde(ausgabe)  # 1988 (Zusatz Chef 09:26): gleiche Warnung höchstens einmal je Stunde
     for l in ausgabe: print(l)
     if not ausgabe: print("NICHTS: nichts zu tun")
     scharf_push = ist_scharf() and bool(sperren)  # 1892 (Lauf 3 Disponent L1): scharf setzt lauf.py die Startsperre bei START selbst und pusht
