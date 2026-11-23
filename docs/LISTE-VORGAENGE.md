@@ -11,10 +11,10 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | Eilt | – | – | – | *gebaut, Geprüft an: c431b9c1d* | *–* | *0* | *–* |
-| 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *179,10 $* |
-| 1988 | Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Token neu starten (Chef 09:02, 1 bis 3 ja) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *23,14 $* |
-| 1971 | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Titel), Halbsatz im Kern Büro (Chef 22.11., 18:13) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, steckt fest* | *–* | *0* | *–* |
+| 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | Eilt | – | – | – | *gebaut, Geprüft an: c431b9c1d* | *–* | *0* | *1,25 $* |
+| 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *179,96 $* |
+| 1988 | Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Token neu starten (Chef 09:02, 1 bis 3 ja) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *24,40 $* |
+| 1971 | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Titel), Halbsatz im Kern Büro (Chef 22.11., 18:13) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, steckt fest* | *–* | *0* | *3,88 $* |
 | 1989 | Startprompts der laufenden Sitzungen gegenprüfen, Soll mit Ist; Prüfschema über den Tag, alle Bereiche und Profile (Chef 09:04) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *–* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer, 23.11. | – | – | *gebaut, Geprüft an: c315ec551* | *–* | *0* | *6,50 $* |
 | 1727 | Neustrukturierung frei gedacht: Grobablauf als Flussdiagramm, winzige Prompts, Pflichtlast je Sitzung ultrakompakt | 7 | B Abläufe | Eilt | – | 1625, 1725 | – | *erledigt* | *–* | *0* | *606,65 $* |
@@ -34,7 +34,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1621 | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffen_staffel.py VORN/HINTEN) | 3 | E Figuren | M | 1694 | – | claude/spike-1621-griff | *startbar, Rückläufer 👎 16:50: rechte Faust umfasst Griff nicht* | *–* | *0* | *10,74 $* |
 | 1665 | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu sehen (Fackel links sichtbar) | 3 | E Figuren | M | 458.3 | 522 | – | *wartet* | *–* | *0* | *1,29 $* |
 | 1674 | Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 Minuten an der Bank fest, kommt nicht vorbei, erst Wegschubsen … | 3 | E Figuren | M | – | – | claude/tom-1674-bank | *gebaut, Geprüft an: afe4a4329 (bank_1674 grün)* | *–* | *0* | *3,72 $* |
-| 1675 | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *1,83 $* |
+| 1675 | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *6,21 $* |
 | 1676 | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *0,95 $* |
 | 1694 | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finger schließen um den Schaft | 3 | E Figuren | M | – | 1621, 1657 | – | *startbar, Ruhe bis 21.11. abgelaufen* | *–* | *0* | *34,17 $* |
 | 1709 | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535), Ziel vorher fest | 3 | E Figuren | M | 28.11. | 1535 | – | *ruht, Chef nicht am PC (22.11., 19:29), frühestens 28.11.* | *–* | *0* | *0,67 $* |
