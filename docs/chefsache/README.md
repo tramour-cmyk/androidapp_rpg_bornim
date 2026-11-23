@@ -55,7 +55,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Profil | als Nächstes |
 |---|---|
-| **Chef** | [1570.md](entscheiden/1570.md) entscheiden |
+| **Chef** | [1570.md](entscheiden/1570.md) entscheiden; dann 1 weitere |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 870 Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste… (Muss) |
 | Kampf | 1068 Ring bei jedem großen Schlag der Gegner … (Muss); dann 3 weitere |
@@ -110,7 +110,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [1566](ansehen/1566-hoehlenwasser.md) | Ist das Höhlenwasser jetzt dunkel wie der Boden und hinter Wänden schwarz? | – | 23.11., 07:10 |
 
 ## Zu tun
 
@@ -507,6 +511,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): ansehen/1566-hoehlenwasser.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
