@@ -1,0 +1,927 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Screen-space AA is only available when using the Forward+ or Mobile renderer.
+     at: viewport_set_screen_space_aa (servers/rendering/renderer_viewport.cpp:1435)
+ERROR: Parse JSON failed. Error at line 0: Unknown error getting token
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://skripte/gebiet.gd:86)
+       [1] betrete (res://skripte/spiel.gd:236)
+       [2] _ready (res://skripte/spiel.gd:124)
+       [3] _lauf (res://tests/huhnflucht_814.gd:31)
+SCRIPT ERROR: Trying to assign value of type 'Nil' to a variable of type 'Dictionary'.
+          at: Gebiet._ready (res://skripte/gebiet.gd:86)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://skripte/gebiet.gd:86)
+              [1] betrete (res://skripte/spiel.gd:236)
+              [2] _ready (res://skripte/spiel.gd:124)
+              [3] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _ready (res://skripte/spiel.gd:124)
+       [5] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _ready (res://skripte/spiel.gd:124)
+       [5] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _ready (res://skripte/spiel.gd:124)
+       [5] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _ready (res://skripte/spiel.gd:124)
+       [5] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _ready (res://skripte/spiel.gd:124)
+       [5] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _ready (res://skripte/spiel.gd:124)
+       [5] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF res://daten/held.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _ready (res://skripte/spiel.gd:124)
+       [5] _lauf (res://tests/huhnflucht_814.gd:31)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] baue_figur (res://skripte/held.gd:90)
+         [2] _ready (res://skripte/held.gd:67)
+         [3] betrete (res://skripte/spiel.gd:238)
+         [4] _ready (res://skripte/spiel.gd:124)
+         [5] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parse JSON failed. Error at line 0: Unknown error getting token
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] baue_figur (res://skripte/held.gd:100)
+       [1] _ready (res://skripte/held.gd:67)
+       [2] betrete (res://skripte/spiel.gd:238)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+SCRIPT ERROR: Trying to assign value of type 'Nil' to a variable of type 'Dictionary'.
+          at: Held.baue_figur (res://skripte/held.gd:100)
+          GDScript backtrace (most recent call first):
+              [0] baue_figur (res://skripte/held.gd:100)
+              [1] _ready (res://skripte/held.gd:67)
+              [2] betrete (res://skripte/spiel.gd:238)
+              [3] _ready (res://skripte/spiel.gd:124)
+              [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF res://daten/dorftiere/kauf_huhn-test.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] _ready (res://skripte/leute.gd:324)
+         [2] betrete (res://skripte/spiel.gd:247)
+         [3] _ready (res://skripte/spiel.gd:124)
+         [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF res://daten/dorftiere/kauf_huhn-test.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] _ready (res://skripte/leute.gd:324)
+         [2] betrete (res://skripte/spiel.gd:247)
+         [3] _ready (res://skripte/spiel.gd:124)
+         [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF res://daten/dorftiere/kauf_huhn-test.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] _ready (res://skripte/leute.gd:324)
+         [2] betrete (res://skripte/spiel.gd:247)
+         [3] _ready (res://skripte/spiel.gd:124)
+         [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF res://daten/dorftiere/kauf_huhn-test.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] _ready (res://skripte/leute.gd:324)
+         [2] betrete (res://skripte/spiel.gd:247)
+         [3] _ready (res://skripte/spiel.gd:124)
+         [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF res://daten/dorftiere/kauf_huhn-test.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] _ready (res://skripte/leute.gd:324)
+         [2] betrete (res://skripte/spiel.gd:247)
+         [3] _ready (res://skripte/spiel.gd:124)
+         [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: glTF res://daten/dorftiere/kauf_huhn-test.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _ready (res://skripte/spiel.gd:124)
+       [4] _lauf (res://tests/huhnflucht_814.gd:31)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] _ready (res://skripte/leute.gd:324)
+         [2] betrete (res://skripte/spiel.gd:247)
+         [3] _ready (res://skripte/spiel.gd:124)
+         [4] _lauf (res://tests/huhnflucht_814.gd:31)
+ERROR: Parse JSON failed. Error at line 0: Unknown error getting token
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://skripte/gebiet.gd:86)
+       [1] betrete (res://skripte/spiel.gd:236)
+       [2] _lauf (res://tests/huhnflucht_814.gd:34)
+SCRIPT ERROR: Trying to assign value of type 'Nil' to a variable of type 'Dictionary'.
+          at: Gebiet._ready (res://skripte/gebiet.gd:86)
+          GDScript backtrace (most recent call first):
+              [0] _ready (res://skripte/gebiet.gd:86)
+              [1] betrete (res://skripte/spiel.gd:236)
+              [2] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF res://daten/held.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] baue_figur (res://skripte/held.gd:90)
+       [2] _ready (res://skripte/held.gd:67)
+       [3] betrete (res://skripte/spiel.gd:238)
+       [4] _lauf (res://tests/huhnflucht_814.gd:34)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] baue_figur (res://skripte/held.gd:90)
+         [2] _ready (res://skripte/held.gd:67)
+         [3] betrete (res://skripte/spiel.gd:238)
+         [4] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parse JSON failed. Error at line 0: Unknown error getting token
+   at: parse_string (core/io/json.cpp:629)
+   GDScript backtrace (most recent call first):
+       [0] baue_figur (res://skripte/held.gd:100)
+       [1] _ready (res://skripte/held.gd:67)
+       [2] betrete (res://skripte/spiel.gd:238)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+SCRIPT ERROR: Trying to assign value of type 'Nil' to a variable of type 'Dictionary'.
+          at: Held.baue_figur (res://skripte/held.gd:100)
+          GDScript backtrace (most recent call first):
+              [0] baue_figur (res://skripte/held.gd:100)
+              [1] _ready (res://skripte/held.gd:67)
+              [2] betrete (res://skripte/spiel.gd:238)
+              [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF res://daten/dorftiere/kauf_huhn-test.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] _ready (res://skripte/leute.gd:324)
+         [2] betrete (res://skripte/spiel.gd:247)
+         [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF res://daten/dorftiere/kauf_huhn-test.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] _ready (res://skripte/leute.gd:324)
+         [2] betrete (res://skripte/spiel.gd:247)
+         [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF res://daten/dorftiere/kauf_huhn-test.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] _ready (res://skripte/leute.gd:324)
+         [2] betrete (res://skripte/spiel.gd:247)
+         [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF res://daten/dorftiere/kauf_huhn-test.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] _ready (res://skripte/leute.gd:324)
+         [2] betrete (res://skripte/spiel.gd:247)
+         [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF res://daten/dorftiere/kauf_huhn-test.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] _ready (res://skripte/leute.gd:324)
+         [2] betrete (res://skripte/spiel.gd:247)
+         [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_buffer (core/io/file_access_memory.cpp:131)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: seek (core/io/file_access_memory.cpp:100)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Parameter "data" is null.
+   at: get_length (core/io/file_access_memory.cpp:117)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF: Error parsing .gltf JSON data: Unknown error getting token at line: 0
+   at: _parse (modules/gltf/gltf_document.cpp:6696)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: Condition "err != OK" is true. Returning: err
+   at: append_from_buffer (modules/gltf/gltf_document.cpp:7327)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:182)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ERROR: glTF res://daten/dorftiere/kauf_huhn-test.bin: 43
+   at: push_error (core/variant/variant_utility.cpp:1023)
+   GDScript backtrace (most recent call first):
+       [0] lade_glb (res://skripte/gebiet.gd:183)
+       [1] _ready (res://skripte/leute.gd:324)
+       [2] betrete (res://skripte/spiel.gd:247)
+       [3] _lauf (res://tests/huhnflucht_814.gd:34)
+WARNING: glTF: This glTF file has no nodes, the generated Godot scene will be empty.
+     at: generate_scene (modules/gltf/gltf_document.cpp:7221)
+     GDScript backtrace (most recent call first):
+         [0] lade_glb (res://skripte/gebiet.gd:184)
+         [1] _ready (res://skripte/leute.gd:324)
+         [2] betrete (res://skripte/spiel.gd:247)
+         [3] _lauf (res://tests/huhnflucht_814.gd:34)
+ok      Hühner im Dorf: 6
+ok      eingeklemmtes Huhn gefunden
+HUHNFLUCHT814 eingeklemmt: Huhn (33, 30), Held (32, 30), Abstand 1.00, flucht true, Fluchtkachel (-1, -1), pause Stehen
+ok      eingeklemmt: aufgeschreckt (flucht)
+ok      eingeklemmt: läuft nicht ohne Fluchtkachel
+ok      eingeklemmt: steht wachsam (Stehen, nicht Fressen)
+ok      Held weg: nicht mehr auf der Flucht
+ok      Huhn für den Streifgang gefunden
+HUHNFLUCHT814 unterwegs: Huhn (32, 28) -> (32, 29), Held (32, 27), Abstand 1.01, flucht true, ziel (31, 28)
+ok      unterwegs: aufgeschreckt (flucht)
+HUHNFLUCHT814 0 Fehler

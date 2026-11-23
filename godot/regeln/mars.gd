@@ -87,6 +87,7 @@ const MSG219_ERSTER := ["Das Zeichen ◯ heißt: dieser Schlag kommt mit Ring; u
 	"The sign ◯ means: this blow comes with a ring; a large ring closes around your figure onto a small one; tap when it lies exactly on it: just off, you take half damage, exactly, none at all."]
 const GESEHEN_RING := "ring_erster"
 const GESEHEN_RING_JETZT := "ring_jetzt"
+const GESEHEN_RING_EIGEN := "ring_eigen"     # 1068 D: [1069.ring.erster] einmal je Spielstand (kampf_ui _ring_erster)
 const GESEHEN_EINGEBUNG := "eingebung_"     # + Ansage, Flagge im Spielstand (Zustand.flaggen über Kampfort.flaggen, 836)
 ## 836, 840: Flaggen des Spielstands (dasselbe Dictionary wie Zustand.flaggen; Proben leer, je Kampf neu)
 var gesehen := {}
@@ -287,6 +288,14 @@ func _ringe() -> void:
 			var a: Dictionary = get(n)
 			a.ring = R.has(String(a.id))
 			a.ring_schaden = float(R.get(String(a.id), 1.0))
+
+## 1068 D (1048 D, Chef 12.11., 20:05): Ring beim eigenen Schlag, Schuss und Zauber mit Schaden oder Heilung, nur für Figuren, die der
+## Spieler steuert (_selbst_gesteuert; die Automatik fragt keinen, nie perfekt). Nur perfekt zählt: Wirkung × werte.json „absichten“
+## „ring_eigen“ (_eigen_faktor); gut und verfehlt wie ohne Ring. Kampfhandlungen (Regelseite 930) und Wurfmittel ohne Ring
+const RING_EIGEN_ZAUBER := ["Z_FUNKEN", "Z_ARKAN", "Z_STRAHLEN", "Z_FAECHER", "Z_GLUT", "Z_GLEISS", "Z_WUND"]
+const EIGEN_RING := {"id": "eigen", "eigen": true, "ring": true}
+var eigen_von := ""     # wer gerade mit perfektem eigenem Ring handelt
+var ring_marke := ""     # [1069.ring.schaden] oder [1069.ring.heilung]: die nächste Meldung trägt sie (kampf_ui ring_folge)
 
 const NO_REAIM := ["BREAKTHROUGH", "FLANK", "CIRCLE", "POUNCE"]
 const AT_TARGET := ["POUNCE", "AIM", "BREAKTHROUGH", "FLANK"]
@@ -1238,12 +1247,31 @@ func act(o: Array, react: Callable = Callable()) -> Array:
 	if kerbe:     # 930.6: ["KERBE", Plan] (kerbe.gd held_zug); die Befehle des alten Kampfs übersetzt kerbe.gd plan_aus
 		gk.handeln(f, o[1] if o[0] == "KERBE" else gk.plan_aus(f, o))
 		return _take_log()
+	if _eigener_ring(f, o) and _ring(react, f, EIGEN_RING) == PERFECT:     # 1068 D
+		eigen_von = f.id
 	_perform(f, o)
+	eigen_von = ""
+	ring_marke = ""
 	if o[0] == "swap" or o[0] == "draw":
 		f.moved = true
 	else:
 		_advance(react)
 	return _take_log()
+
+
+## 1068 D: fragt dieser Befehl den eigenen Ring?
+func _eigener_ring(f: Fighter, o: Array) -> bool:
+	if f.b.is_empty() or not _selbst_gesteuert(f.id):
+		return false
+	return o[0] == "attack" or (o[0] == "use" and String(o[1]) in RING_EIGEN_ZAUBER)
+
+
+## 1068 D: Faktor der Wirkung von [f] (perfekter eigener Ring), sonst 1; setzt die Marke für die Anzeige
+func _eigen_faktor(f: Fighter, marke: String) -> float:
+	if eigen_von == "" or f.id != eigen_von:
+		return 1.0
+	ring_marke = marke
+	return float(BrsKampf.w().get("absichten", {}).get("ring_eigen", 1.0))
 
 
 func proceed(react: Callable = Callable()) -> Array:
@@ -1593,7 +1621,8 @@ func _brs_wirke(f: Fighter, s: String, t) -> void:
 			# 1478 (1411 A, Chef 16.11., 19:32): Heilung gestreut wie der Waffenschaden (kampf.streuung, 0,8–1,2)
 			var st := float(BrsKampf.w()["kampf"].get("streuung", 0.0))
 			var streu: float = (1.0 - st) + 2.0 * st * float(dice.randf()) if st > 0.0 and dice != null else 1.0
-			var n := mini(t.max_hp - t.hp, roundi((float(z.heilung) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0) * streu))
+			var n := mini(t.max_hp - t.hp, roundi(roundi((float(z.heilung) + float(f.b.werte.get("wille", 0))) * (1.0 + fert / 100.0) * streu)
+					* _eigen_faktor(f, "heilung")))     # 1068 D
 			t.hp += n
 			if f == t:
 				_say(fmt(X.MSG72_HEALSSELF, lang, [f.name(lang), n]), f.id, t.id, 0, null, false, false, "HEAL")
@@ -2520,6 +2549,9 @@ func _say(text: String, actor = null, target = null, damage := 0, roll = null, a
 	}
 	if kerbe and gk != null:     # 930.7: die Kerben der Gruppe, wie sie mit dieser Meldung stehen (kampf/kerbbild.gd)
 		e["gl"] = gk.bild()
+	if ring_marke != "":     # 1068 D: Treffer oder Heilung mit perfektem eigenem Ring
+		e["ring_eigen"] = ring_marke
+		ring_marke = ""
 	_log.append(e)
 	if not quick_run and listener.is_valid():
 		listener.call(e)
@@ -2612,6 +2644,8 @@ func _brs_waffe(f: Fighter, t: Fighter, advantage: bool, cover: bool, with_weapo
 	var schw := _schwaeche(f, t, wd.get("typ"), info)     # 870.5 (870a 8 A)
 	var n := roundi(float(e.schaden) * schw)
 	n = maxi(0, roundi(n * _schaden_faktor(f)) if schw > 0.0 else n)     # 870.6: Schwächung, Sättigung als Faktor
+	if n > 0:
+		n = roundi(n * _eigen_faktor(f, "schaden"))     # 1068 D
 	_vor_treffer(t, wd.get("typ"))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info, true)
 	_gegenwirkung(f, t, wd.get("typ"))
@@ -2645,6 +2679,8 @@ func _brs_zauber(f: Fighter, t: Fighter, z: Dictionary) -> void:
 		return
 	var schw := _schwaeche(f, t, z.get("typ"), info)     # 870.5 (870a 8 A)
 	var n := maxi(0, roundi(float(e.schaden) * schw * (_schaden_faktor(f) if schw > 0.0 else 1.0)))
+	if n > 0:
+		n = roundi(n * _eigen_faktor(f, "schaden"))     # 1068 D
 	_vor_treffer(t, z.get("typ"))
 	_hurt(t, n, f.id, fmt(wolf(f, "MSG279_WOLFHITS", "MSG72_HITS"), lang, [f.name(lang), t.name(lang), n]), info)
 	_gegenwirkung(f, t, z.get("typ"))

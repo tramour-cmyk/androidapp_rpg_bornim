@@ -1315,7 +1315,7 @@ func _answer_ring(r: String) -> void:
 	ring_answer = r
 	ui.ring_verdict(r)
 	var klang = get_node_or_null("/root/Klang")
-	if klang != null and r != Mars.NONE:
+	if klang != null and r != Mars.NONE and not ui.ring_eigen:     # 1068 D: der eigene Ring blockt nichts
 		klang.effekt("block", 0.8 if r == Mars.PERFECT else 0.5)     # 939 (alt SkirmishScreen 726): Block bei perfekt, leiser bei gut
 	elif klang != null and mars.kerbe:     # 1266 (DESIGN-GLUT.md 8): im Kerbensystem klingt der Ring daneben dumpf, sonst stumm
 		klang.effekt("ring_daneben", 0.7)

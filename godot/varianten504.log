@@ -1,0 +1,67 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Screen-space AA is only available when using the Forward+ or Mobile renderer.
+     at: viewport_set_screen_space_aa (servers/rendering/renderer_viewport.cpp:1435)
+ok     504.jorin.vor: 3 Wortlaute
+ok     504.jorin.offen: 3 Wortlaute
+ok     504.jorin.danach: 3 Wortlaute
+ok     504.pim.vor: 3 Wortlaute
+ok     504.pim.danach: 3 Wortlaute
+ok     504.bram.vor: 3 Wortlaute
+ok     504.bram.danach: 3 Wortlaute
+ok     504.liska.vor: 3 Wortlaute
+ok     504.liska.danach: 3 Wortlaute
+ok     504.gwenna.vor: 3 Wortlaute
+ok     504.gwenna.danach: 3 Wortlaute
+ok     504.rowena.vor: 3 Wortlaute
+ok     504.rowena.unterwegs: 3 Wortlaute
+ok     504.rowena.lager: 3 Wortlaute
+ok     504.rowena.held: 3 Wortlaute
+ok     504.rowena.fleisch: 3 Wortlaute
+ok     504.borin: 3 Wortlaute
+ok     504.thessa.gruss: 3 Wortlaute
+ok     504.thessa.abschied: 3 Wortlaute
+ok     504.osric.gruss: 3 Wortlaute
+ok     504.osric.gruss.danach: 3 Wortlaute
+ok     504.osric.heilung: 3 Wortlaute
+ok     504.osric.verband: 3 Wortlaute
+ok     504.osric.bitte: 3 Wortlaute
+ok     504.lyra.tempel: 3 Wortlaute
+ok     504.lyra.tempel.danach: 3 Wortlaute
+ok     504.aldric.unterwegs: 3 Wortlaute
+ok     504.aldric.ohne.lyra: 3 Wortlaute
+ok     504.aldric.ende: 3 Wortlaute
+ok     504.aldric.lager: 3 Wortlaute
+ok     504.garrick.krogg: 3 Wortlaute
+ok     504.garrick.warnung: 3 Wortlaute
+ok     504.garrick.rast: 3 Wortlaute
+ok     504.morwen.wieder: 3 Wortlaute
+ok     504.morwen.wieder.danach: 3 Wortlaute
+ok     504.morwen.kraeuter: 4 Wortlaute
+ok     504.grimmzahn: 4 Wortlaute
+ok     504.krogg: 4 Wortlaute
+ok     504.grak: 4 Wortlaute
+ok     504.gitter: 3 Wortlaute
+ok     504.tuer.edrik: 3 Wortlaute
+ok     504.tuer.edrik.ende: 3 Wortlaute
+ok     504.tuer.kael: 3 Wortlaute
+ok     504.tuer.gwenna: 3 Wortlaute
+ok     504.tuer.gwenna.nacht: 3 Wortlaute
+ok     504.tuer.dorran: 3 Wortlaute
+ok     504.tuer.dorran.nacht: 3 Wortlaute
+ok     504.tuer.pim: 3 Wortlaute
+ok     504.tuer.pim.nacht: 3 Wortlaute
+ok     504.schlagbaum: 3 Wortlaute
+ok     504.schlagbaum.quest: 3 Wortlaute
+ok     504.rast.hoehle: 3 Wortlaute
+ok     504.rast.bett: 3 Wortlaute
+ok     504.erwachen: 3 Wortlaute
+ok     alle 54 Marken im Code (fehlt: [])
+ok     Jorin zuerst Wortlaut 1
+ok     nie zweimal hintereinander derselbe (0)
+ok     in 8 Gespraechen 3 von 3 Wortlauten
+ok     Ruf bleibt bei anderem Wortlaut gleich
+ok     Krogg zuerst Wortlaut 1
+ok     Krogg (nur Wiederholung) danach nie Wortlaut 1 (0)
+ok     Wahl im Spielstand (2 Marken)
+VARIANTEN504 0 Fehler

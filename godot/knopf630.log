@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Screen-space AA is only available when using the Forward+ or Mobile renderer.
+     at: viewport_set_screen_space_aa (servers/rendering/renderer_viewport.cpp:1435)
+de 1080 px: Knöpfe [370, 563], Schrift [41, 41]
+en 1080 px: Knöpfe [464, 469], Schrift [41, 41]
+KNOPF630 0 Fehler

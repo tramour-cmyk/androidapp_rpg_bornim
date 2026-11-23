@@ -1,0 +1,7 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Screen-space AA is only available when using the Forward+ or Mobile renderer.
+     at: viewport_set_screen_space_aa (servers/rendering/renderer_viewport.cpp:1435)
+Gehen beim Wenden: 0.126 s Bewegung in 0.207 s (soll etwa 0.124, Tempo 0.60)
+gut  Gehen laeuft beim Wenden auf der Stelle mit TRITT_TEMPO, nicht gebremst (Figur steht im Traeger still)
+TRITTE560 gut

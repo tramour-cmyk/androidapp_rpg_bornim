@@ -3,10 +3,10 @@ extends RefCounted
 # MARS-Kampf sagt, wörtlich aus dem alten Spiel (MarsTips.kt: Homers Texte 204T, 210T, 223T, 259T); [de, en]. 870.5/868: nach dem
 # BRS neu von Homer ([870.14.tip.*], [870.14.ansage.*], STORY-BRS-KAMPF.md), ohne Würfel und Zahlen.
 
-const ATTACK := ["Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht, und hat von hinten an einem Freund vorbei Ungunst, außer mit Stangenwaffen. Bogen und Armbrust haben Ungunst auf die vordere Reihe, wenn du vorn stehst und ein Freund neben dir; allein vorn schießt du frei.",
-	"One blow or shot with your weapon. Melee reaches only the front row while anyone stands there, and from the back past a friend it is at disfavor, except with polearms. Bows and crossbows are at disfavor against the front row when you stand in front with a friend beside you; alone in front you shoot freely."]
-const SKILLS := ["Zauber und Kampfhandlungen, die deine Fertigkeiten dir geben. Zauber kosten Mana; manches geht nur einmal je Kampf oder erst nach dem Langen Ausruhen wieder.",
-	"Spells and combat moves your skills give you. Spells cost mana; some work only once per battle or not again until a Long Rest."]
+const ATTACK := ["Ein Schlag oder Schuss mit der Waffe. Nahkampf erreicht nur die vordere Reihe, solange dort jemand steht, und hat von hinten an einem Freund vorbei Ungunst, außer mit Stangenwaffen. Bogen und Armbrust haben Ungunst auf die vordere Reihe, wenn du vorn stehst und ein Freund neben dir; allein vorn schießt du frei. Triffst du den Ring perfekt, wirkt dein Angriff stärker.",
+	"One blow or shot with your weapon. Melee reaches only the front row while anyone stands there, and from the back past a friend it is at disfavor, except with polearms. Bows and crossbows are at disfavor against the front row when you stand in front with a friend beside you; alone in front you shoot freely. Meet the ring perfectly and your attack is stronger."]     # [1069.tip.angriff]
+const SKILLS := ["Zauber und Kampfhandlungen, die deine Fertigkeiten dir geben. Zauber kosten Mana; manches geht nur einmal je Kampf oder erst nach dem Langen Ausruhen wieder. Hat ein Zauber einen Ring und triffst du ihn perfekt, wirkt der Zauber stärker.",
+	"Spells and combat moves your skills give you. Spells cost mana; some work only once per battle or not again until a Long Rest. If a spell has a ring and you meet it perfectly, the spell is stronger."]     # [1069.tip.koennen]
 const BAG := ["Ein Heiltrank aus dem gemeinsamen Vorrat, für dich oder einen Freund. Kostet den Zug.",
 	"A healing potion from the shared stock, for you or a friend. Costs your turn."]
 const PLACE := ["In die andere Reihe gehen (steht dort ein Freund, tauscht ihr) oder die Waffe wechseln, oder beides zugleich. Hinten bist du gedeckt, solange vorn ein Freund steht. Ein halber Zug: danach bleibt noch ein Schlag.",
@@ -16,8 +16,8 @@ const DEFEND := ["Bis zu deinem nächsten Zug haben Angriffe auf dich Ungunst, d
 const COVER := ["Nur aus der vorderen Reihe: einen Zug lang ziehst du jeden angekündigten Schlag auf Freunde auf dich, jeden mit Ring. Ring perfekt: Gegenschlag.",
 	"Front row only: for one turn you draw every announced blow aimed at friends, each with a ring. Perfect ring: a counterblow."]
 const MERC := ["Auto: der Söldner kämpft selbst. Selbst: du gibst ihm jeden Befehl.", "Auto: the mercenary fights on their own. Manual: you give every order."]
-const AUTOPILOT := ["Spielt deinen Helden: Waffe, Kleinzauber, Heilung für einen schwachen Freund. Fängt den Ring immer gut, nie perfekt. Hält an unter einem Drittel des Lebens und bei einer starken Absicht; nie gegen Bosse.",
-	"Plays your hero: weapon, minor spells, healing for a weak friend. Always meets the ring well, never perfectly. Stops below a third of life and on a strong intent; never against bosses."]
+const AUTOPILOT := ["Spielt deinen Helden: Waffe, Kleinzauber, Heilung für einen schwachen Freund. Trifft jeden Ring gut, nie perfekt. Hält an unter einem Drittel des Lebens und bei einer starken Absicht; nie gegen Bosse.",
+	"Plays your hero: weapon, minor spells, healing for a weak friend. Meets every ring well, never perfectly. Stops below a third of life and on a strong intent; never against bosses."]     # [1069.tip.automatik]
 
 ## 210: langes Drücken auf die Ansage eines Gegners (210T)
 const INTENTS := {

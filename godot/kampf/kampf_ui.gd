@@ -49,6 +49,7 @@ var verdict: Label
 var verdict_antwort: Label
 var ring_ergebnis := ""     # 785.12: Ergebnis des letzten Rings, solange sein Urteil steht
 var ring_hilfe := false     # 785.12: [219T.jetzt] über dem ersten Ring je Spielstand
+var ring_eigen := false     # 1068 D: der offene Ring ist der des eigenen Angriffs
 var lines: Array = []
 var pick := "main"
 var pick_arg = null
@@ -1100,6 +1101,7 @@ func _build_orders() -> void:
 			var reach: Array = [] if matt else m.targets(f)
 			var top := [
 				_button(t("Angriff", "Attack"), not reach.is_empty(), func():
+					_ring_erster(f)
 					if reach.size() == 1:
 						_angreifen(f, reach[0].id)
 					else:
@@ -1186,6 +1188,8 @@ func _build_orders() -> void:
 					extra += " · %d/%d" % [m.wund_rest(f), Mars.wund_je_kampf()]
 				var skill: String = s
 				items.append(_button([sk.de, sk.en][lang] + extra, m.blocked(f, s) == null, func():
+					if skill in Mars.RING_EIGEN_ZAUBER:
+						_ring_erster(f)
 					var reach: Array = m.aim_at(f, skill)
 					if Mars.ziel_von(skill) == "SELF":
 						k.order(["use", skill, f.id])
@@ -1264,6 +1268,18 @@ func _build_orders() -> void:
 
 
 ## 930.7: Angriff auf [id]; im Kerbensystem mit dem Plan des Daumenmenüs (kerbbild.gd), sonst wie bisher
+## 1068 D: [1069.ring.erster] (STORY-BRS-KAMPF.md 1069) einmal je Spielstand beim ersten Druck auf Angriff oder einen Zauber mit Ring,
+## bevor das Ziel gewählt ist (der Ring hält nichts an); im Kerbensystem gibt es den eigenen Ring nicht
+const MSG1069_RING_ERSTER := ["Dein Schlag, Schuss oder Zauber hat einen Ring: ein großer zieht sich auf einen kleinen zusammen. Tippe, wenn er genau darauf liegt, dann wirkt dein Angriff stärker. Sonst bleibt alles wie immer.",
+	"Your blows, shots and spells have a ring: a large one closes onto a small one. Tap when it lies exactly on it, and your attack is stronger. Otherwise nothing changes."]
+func _ring_erster(f) -> void:
+	var m = kampfort.mars
+	if m.kerbe or m.gesehen.has(Mars.GESEHEN_RING_EIGEN) or not m._selbst_gesteuert(f.id):
+		return
+	m.gesehen[Mars.GESEHEN_RING_EIGEN] = true
+	log_line(MSG1069_RING_ERSTER[lang])
+
+
 func _angreifen(f, id: String) -> void:
 	if kampfort.mars.kerbe and kerbe != null:
 		kerbe.offen = false
@@ -1366,8 +1382,9 @@ func tip_schliessen() -> void:
 
 
 # ---------------------------------------------------------------- ring, rolls, verdict
-func ring_open(target_id: String, _intent: Dictionary) -> void:
+func ring_open(target_id: String, intent: Dictionary) -> void:
 	ring_target = target_id
+	ring_eigen = bool(intent.get("eigen", false))
 	ring_t0 = uhr.call()
 	ring_stand = -1
 	pick = "main"
@@ -1402,6 +1419,8 @@ func ring_verdict(r: String) -> void:
 	if ring_hilfe:
 		kampfort.mars.gesehen[Mars.GESEHEN_RING_JETZT] = true
 		ring_hilfe = false
+	if ring_eigen:     # 1068 D: beim eigenen Angriff kein Urteil am Ring; [1069.ring.*] erst am Ziel (ring_folge), nur perfekt und Treffer
+		return
 	ring_ergebnis = r
 	verdict.text = {"PERFECT": t("Perfekt: ausgewichen", "Perfect: dodged"), "GOOD": t("Gut: halber Schaden", "Good: half damage"),
 		"NONE": t("Verpasst", "Missed")}[r]
@@ -1425,6 +1444,21 @@ func ring_verdict(r: String) -> void:
 ## 785.12: was die Meldung nach dem Ring am Urteil ändert, solange es steht: gut, aber der Schlag verfehlt ohnehin, zeigt nur das
 ## Wort ([219.4T.gut]; der Bericht sagt „verfehlt“); die Antwort der Klasse (answer) steht darunter
 func ring_folge(e: Dictionary) -> void:
+	if e.has("ring_eigen"):     # 1068 D: [1069.ring.schaden], [1069.ring.heilung] (STORY-BRS-KAMPF.md 1069)
+		ring_ergebnis = ""
+		verdict.text = t("Perfekt: mehr Heilung", "Perfect: more healing") if String(e.ring_eigen) == "heilung" else t("Perfekt: mehr Schaden", "Perfect: more damage")
+		verdict.add_theme_color_override("font_color", URTEIL_FARBE["PERFECT"])
+		verdict.visible = true
+		verdict_antwort.visible = false
+		var vs: Vector2 = get_viewport().get_visible_rect().size
+		verdict.position = Vector2(0, kampfort.scene_rect().size.y * 0.18)
+		verdict.size = Vector2(vs.x, 40 * dp)
+		urteil_nr += 1
+		var nr := urteil_nr
+		get_tree().create_timer(2.2).timeout.connect(func():
+			if nr == urteil_nr:
+				verdict.visible = false)
+		return
 	if not verdict.visible or ring_ergebnis == "":
 		return
 	var by: Variant = kampfort.mars.find(String(e.actor)) if e.get("actor") != null else null

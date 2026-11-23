@@ -1,0 +1,24 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Screen-space AA is only available when using the Forward+ or Mobile renderer.
+     at: viewport_set_screen_space_aa (servers/rendering/renderer_viewport.cpp:1435)
+gut   hash(3, 14, 88) = 346735986 (alt 346735986)
+gut   hash(-7, 2) = 1723646771 (alt 1723646771)
+gut   hash(123456, 654321, 90) = 337126599 (alt 337126599)
+gut   in etwa zwei von fuenf Naechten: 40 von 100
+gut   die Nacht gehoert zum Tag, an dem sie begann
+village: 76 Gluehwuermchen, 0 ueber Wegen, Karte 36 x 32
+gut   village hat Gluehwuermchen: 76
+forest: 80 Gluehwuermchen, 0 ueber Wegen, Karte 20 x 32
+gut   forest hat Gluehwuermchen: 80
+gut   Wald: Mitten wie alt 7,1,13,1,4,2,3,6
+gut   Wald: 80 Fliegen in 16 Schwaermen wie alt: 80
+deep_forest: 59 Gluehwuermchen, 0 ueber Wegen, Karte 44 x 38
+inn: 0 Gluehwuermchen, 0 ueber Wegen, Karte 10 x 8
+gut   inn (Grundriss, Hoehle) ohne
+cave: 0 Gluehwuermchen, 0 ueber Wegen, Karte 22 x 20
+gut   cave (Grundriss, Hoehle) ohne
+gut   tiefer Wald duenner als der Flüsterwald
+gut   Leuchten 0..1, meist dunkel: 401 von 2400 hell
+gut   bleibt nahe der Stelle: 19.3 px (Streuung 1.02)
+GLUEH514 0 Fehler

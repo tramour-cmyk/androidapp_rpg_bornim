@@ -1,0 +1,62 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Screen-space AA is only available when using the Forward+ or Mobile renderer.
+     at: viewport_set_screen_space_aa (servers/rendering/renderer_viewport.cpp:1435)
+Rollkasten (2214.0, 1716.0), Inhalt (2214.0, 1431.0), Leiste bis 386
+gut   Seite passt in den Rollkasten (Inhalt 1431, Kasten 1716), sie rollt nicht
+gut   9 Fächer (9)
+gut   Kopf: Fach 412–610 im Rollkasten 412–2128
+gut   Kopf: kein abgeschnittener Name
+gut   Umhang: Fach 620–818 im Rollkasten 412–2128
+gut   Umhang: kein abgeschnittener Name
+gut   Oberkörper: Fach 828–1026 im Rollkasten 412–2128
+gut   Oberkörper: kein abgeschnittener Name
+gut   Arme: Fach 1036–1234 im Rollkasten 412–2128
+gut   Arme: kein abgeschnittener Name
+gut   Beine: Fach 1244–1442 im Rollkasten 412–2128
+gut   Beine: kein abgeschnittener Name
+gut   Amulett: Fach 516–714 im Rollkasten 412–2128
+gut   Amulett: kein abgeschnittener Name
+gut   Ring: Fach 724–922 im Rollkasten 412–2128
+gut   Ring: kein abgeschnittener Name
+gut   Haupthand: Fach 932–1130 im Rollkasten 412–2128
+gut   Haupthand: kein abgeschnittener Name
+gut   Nebenhand: Fach 1140–1338 im Rollkasten 412–2128
+gut   Nebenhand: kein abgeschnittener Name
+gut   Fächer 0 und 1 nicht übereinander
+gut   Fächer 0 und 2 nicht übereinander
+gut   Fächer 0 und 3 nicht übereinander
+gut   Fächer 0 und 4 nicht übereinander
+gut   Fächer 0 und 5 nicht übereinander
+gut   Fächer 0 und 6 nicht übereinander
+gut   Fächer 0 und 7 nicht übereinander
+gut   Fächer 0 und 8 nicht übereinander
+gut   Fächer 1 und 2 nicht übereinander
+gut   Fächer 1 und 3 nicht übereinander
+gut   Fächer 1 und 4 nicht übereinander
+gut   Fächer 1 und 5 nicht übereinander
+gut   Fächer 1 und 6 nicht übereinander
+gut   Fächer 1 und 7 nicht übereinander
+gut   Fächer 1 und 8 nicht übereinander
+gut   Fächer 2 und 3 nicht übereinander
+gut   Fächer 2 und 4 nicht übereinander
+gut   Fächer 2 und 5 nicht übereinander
+gut   Fächer 2 und 6 nicht übereinander
+gut   Fächer 2 und 7 nicht übereinander
+gut   Fächer 2 und 8 nicht übereinander
+gut   Fächer 3 und 4 nicht übereinander
+gut   Fächer 3 und 5 nicht übereinander
+gut   Fächer 3 und 6 nicht übereinander
+gut   Fächer 3 und 7 nicht übereinander
+gut   Fächer 3 und 8 nicht übereinander
+gut   Fächer 4 und 5 nicht übereinander
+gut   Fächer 4 und 6 nicht übereinander
+gut   Fächer 4 und 7 nicht übereinander
+gut   Fächer 4 und 8 nicht übereinander
+gut   Fächer 5 und 6 nicht übereinander
+gut   Fächer 5 und 7 nicht übereinander
+gut   Fächer 5 und 8 nicht übereinander
+gut   Fächer 6 und 7 nicht übereinander
+gut   Fächer 6 und 8 nicht übereinander
+gut   Fächer 7 und 8 nicht übereinander
+FAECHER1309 0 Fehler

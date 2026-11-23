@@ -1,0 +1,40 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Screen-space AA is only available when using the Forward+ or Mobile renderer.
+     at: viewport_set_screen_space_aa (servers/rendering/renderer_viewport.cpp:1435)
+GANG744 gut    beginnt auf der Startkachel
+GANG744 gut    endet auf der Mitte der letzten Kachel
+GANG744 gut    dauert länger als 4 Schritte (2961 ms; Anlauf und Bremsen)
+GANG744 gut    kein Sprung: höchstens 0.050 Kacheln je Bild (voll 0.050)
+GANG744 gut    dreht im Gehen, höchstens 4.13 rad/s (soll ≤ 5)
+GANG744 gut    dreht mitten im Gang nie auf der Stelle (0 Bilder)
+GANG744 gut    Kachel zählt nur vorwärts
+GANG744 gut    zählt am Ende auf der letzten Kachel
+GANG744 gut    Ecke als Bogen: 0.18 Kacheln an der Eckmitte vorbei
+GANG744 gut    läuft weich an (Tempo 0.12 nach einem Bild)
+GANG744 gut    bremst weich (Tempo 0.06 ein Bild vor dem Ende)
+GANG744 gut    bremst länger (495 ms) als es anläuft (270 ms)
+GANG744 gut    Kürzen ohne Sprung
+GANG744 gut    nach dem Kürzen ohne Sprung (0.054) und vorwärts
+GANG744 gut    gekürzt endet es auf der nächsten Kachel ((3, 1))
+GANG744 gut    kommt nach dem Kürzen bald zum Stehen (1270 ms)
+GANG744 gut    Halt auf dieser Kachel ohne Sprung (0.000)
+GANG744 gut    danach ohne Sprung und ohne Ruck im Blick (0.00 rad/s)
+GANG744 gut    steht auf der Mitte der betretenen Kachel
+GANG744 gut    bleibt im Heimradius 3 (0 außerhalb)
+GANG744 gut    geht in einem Gang nie über eigene Kacheln zurück
+GANG744 gut    nach dem ersten Schritt höchstens 45° je Kachel (0 Knicke)
+GANG744 gut    nie durch die Mauer, keine Ecke abgeschnitten (0)
+GANG744 gut    meist Gänge über 2 und mehr Schritte (1755 von 2000; Längen { 3: 617, 4: 493, 5: 381, 2: 245, 6: 264 })
+GANG744 gut    verweilt meist 3 s und länger (1797 von 2000)
+GANG744 gut    im Mittel 6348 ms, höchstens 11995 ms
+GANG744 ohne Modell (res://kampf/daten/wolf-grau.bin fehlt): Gehen und Ruhebewegung nicht geprüft
+GANG744 gut    zieht die Kachel mit ([(5, 5), (6, 5), (7, 6), (7, 7)])
+GANG744 gut    Karte: ohne Sprung (0.058 m je Bild)
+GANG744 gut    blickt danach in Richtung des letzten Schritts ((0, 1))
+GANG744 gut    steht auf der Mitte der letzten Kachel
+GANG744 0 Fehler
+WARNING: 5 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

@@ -1,0 +1,17 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Screen-space AA is only available when using the Forward+ or Mobile renderer.
+     at: viewport_set_screen_space_aa (servers/rendering/renderer_viewport.cpp:1435)
+WENDEN560 ohne Modell (res://kampf/daten/wolf-grau.bin fehlt): Tritte nicht geprüft
+WENDEN560 gut    180 Grad in 1.27 s (soll 1,0–1,6; vorher weich, nach 0,3 s zu 90 %)
+WENDEN560 gut    halb herum nach 0.63 s (feste Rate, nicht weich)
+WENDEN560 gut    bleibt beim Wenden am Platz
+WENDEN560 gut    vor dem Schritt zurück 942 ms Wende (soll etwa 940)
+WENDEN560 gut    Viertelwende vor dem Schritt 314 ms (soll höchstens 350)
+WENDEN560 gut    geht erst nach der Wende los
+WENDEN560 gut    steht danach auf der neuen Kachel
+WENDEN560 0 Fehler
+WARNING: 5 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)
+ERROR: 1 resources still in use at exit (run with --verbose for details).
+   at: clear (core/io/resource.cpp:822)

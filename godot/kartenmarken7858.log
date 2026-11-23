@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+WARNING: Screen-space AA is only available when using the Forward+ or Mobile renderer.
+     at: viewport_set_screen_space_aa (servers/rendering/renderer_viewport.cpp:1435)
+gut   Ziel Ring: Truhe cave_3 bei (4, 14)
+gut   Ziel Fetzen: Mitte des Steinkreises (14, 25)
+gut   Felle ohne festes Ziel
+gut   drei Lagerfeuer (Wald, Tiefer Wald, Höhle)
+gut   Lagerfeuer im Wald ungesehen: kein Zeichen
+gut   Lagerfeuer im Wald gesehen: Zeichen
+gut   Steinkreis ungesehen: kein Ziel
+gut   Aushang angenommen, Steinkreis gesehen: Ziel, nicht verblasst
+gut   Aushang erledigt: Ziel verblasst
+gut   Ring angenommen, Truhe gesehen: Ziel in der Höhle
+gut   Ring nicht angenommen: kein Ziel
+gut   Dienste aus: kein Feuer, Ziel bleibt
+gut   Aufträge aus: Feuer bleibt, kein Ziel
+gut   Antippen des Lagerfeuers nennt es
+KARTENMARKEN7858 0 Fehler
