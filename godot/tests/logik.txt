@@ -18,6 +18,7 @@ gegenstaende_870
 begriffe_868
 tasche_532
 absicht_1049
+ansage_1603
 merkmale_1488
 krogg_494
 erklaerung_954
