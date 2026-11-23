@@ -57,7 +57,8 @@ Ausgabe, Zeile für Zeile auszuführen:
 --aufraeumen kürzt Fords Protokoll auf die 20 neuesten Taten (plus Marken von heute, Startsperren auch von gestern, solange lauf.py sie prüft, 1187) und schiebt erledigte Zeilen von LISTE-VORGAENGE.md ins Archiv (270); --sperre tut es in jedem Lauf.
 --liegt     Lauf auf eine Meldung „Start <Rolle> <Nr>, <Commit>“ (891): ruhende Sitzungen (nicht working/blocked) unter 20 Minuten belegen die Rolle nicht;
              neue Arbeit geht per WEITER in sie (unter 200 Tsd. Token), sonst START. Startmarke und laufende Sitzungen gelten wie sonst.
---besetzung  schreibt ARBEIT-BESETZUNG.md neu (nur Tabelle und Stand); schreibt nur, wenn sich die Tabelle ändert.
+--besetzung  erlaubt, ohne Wirkung (1997): jeder vollständige Lauf schreibt am Ende Tabelle und Zeitmarke von ARBEIT-BESETZUNG.md
+             und pusht sie selbst (Zeile HERZSCHLAG gepusht; sonst HERZSCHLAG NICHT GEPUSHT: Disponent pusht).
 --kosten NR USD SESSION_ID  addiert USD auf die Kostenspalte der Zeile NR in LISTE-VORGAENGE.md oder -ARCHIV.md (Ford ruft es je ARCHIVIERE-Zeile, mit der Kennung).
   Kennung Pflicht (384: nachts gebuchte Sitzungen ohne Kennung waren nicht mehr nachweisbar); ohne Sitzung nur `ohne:<Grund>`. USD frisch aus get_session nach dem Archivieren
   (384: 3,13 statt 6,31 $ aus einer alten Abfrage gebucht).
@@ -1413,7 +1414,7 @@ def main():
         zl = {d["nr"]: d for d in startbar.zeilen_liste()}
         bremse = guthaben.Bremse(JETZT, lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")), rueck=lambda n: guthaben.ruecklaeufer(zl.get(n)))
         vorab.extend(bremse.zeilen()); nur_muss = nur_muss or bremse.nur_muss()
-    sperre = "--sperre" in a; besetz = "--besetzung" in a
+    sperre = "--sperre" in a  # 1997: --besetzung erlaubt, ohne Wirkung (jeder Lauf schreibt und pusht die Besetzung)
     liegt = "--liegt" in a  # 891: Lauf auf „Start <Rolle> <Nr>“; eine ruhende Sitzung unter 20 Minuten belegt dann nicht, sie bekommt WEITER
     ausschluss = {}; wecker = set()
     for i, x in enumerate(a):
@@ -1955,11 +1956,12 @@ def main():
                                                                                    ("an " + juengste(sitz)["id"]) if sitz else "-"))
         n = aufraeumen()
         if n: print("Aufgeräumt: %d Zeilen aus Protokoll und LISTE-VORGAENGE.md (270; Notizen pushen)" % n)
-    if besetz: besetzung_schreiben([s for s in leb if s["id"] not in archiviert])
     # 1100 A (6), Chef 13.11., 09:29: nichts zu starten, nichts zu melden und nichts zu pushen → Ford endet nach diesem Schritt (kein Telegram, kein Push)
     zahl_zeile = lambda l: l.startswith("WARNUNG Abgleich: ") and "ohne Build (ganz einmal am Tag" in l
     if all(l.startswith("NICHTS") or zahl_zeile(l) for l in ausgabe) and not geaendert() and not NOTIZ_WARNUNG:
         print("LEERLAUF: nichts zu starten, nichts zu melden, nichts zu pushen; Ford endet hier mit der Chatzeile „Ford HH:MM ok“ (1100 A 6)")
+    # 1997: zuletzt, ohne Schalter (auch --besetzung hat keine eigene Wirkung mehr): Absturz vorher = alte Marke = ALARM
+    herzschlag_pushen([s for s in leb if s["id"] not in archiviert])
 
 def geaendert():
     """1100 A (6): hat dieser Lauf Notizen geschrieben (Protokoll, Besetzung, Vorgangsliste)? Dann ist er nicht leer, Ford pusht."""
@@ -2064,8 +2066,8 @@ def ohne_ueberholt(ausschluss, leb):
             if not tätig: aus.append("OHNE-ÜBERHOLT %s: „in Arbeit“, aber keine Sitzung mit %s im Titel seit %d h" % (nr, nr, OHNE_ARBEIT_H))
     return aus
 
-def besetzung_schreiben(leb):
-    p = os.path.join(DOCS, "ARBEIT-BESETZUNG.md"); t = lesen(p)
+def besetzung_text(t, leb):
+    """Tabelle aus leb und Zeitmarke „**Stand:** … (lauf.py)“ in den Text t von ARBEIT-BESETZUNG.md; 1997: Zeitmarke immer neu."""
     zeilen = ["| Rolle | Sitzung | Vorgang | Zweig | seit |", "|---|---|---|---|---|"]
     try: vz = {d["nr"]: d.get("zweig", "–") for d in startbar.vorgangsliste(lesen(os.path.join(DOCS, "LISTE-VORGAENGE.md")))}  # 1407: Zweig aus der Vorgangszeile
     except Exception: vz = {}
@@ -2078,22 +2080,29 @@ def besetzung_schreiben(leb):
         zeilen.append("| %s | [%s](https://claude.ai/code/%s) | %s | %s | %s |" % (r, titel, s["id"], zl, zw, berlin(z(s["created_at"]))))
     tabelle = "\n".join(zeilen)
     neu = re.sub(r"\| Rolle \| Sitzung.*?(?=\n\n|\Z)", lambda m: tabelle, t, count=1, flags=re.S)
-    neu_ohne = re.sub(r"\*\*Stand:\*\*[^\n]*", "", neu)
-    alt_ohne = re.sub(r"\*\*Stand:\*\*[^\n]*", "", t)
-    if neu_ohne == alt_ohne:
-        # 1764 Herzschlag: Zeitmarke spätestens nach 60 Minuten erneuern, auch ohne geänderte Tabelle (herzschlag.py, herzschlag.yml)
-        try:
-            import herzschlag
-            d = herzschlag.marke(t, JETZT)
-            alt = d is None or (JETZT - d).total_seconds() >= 3600
-        except Exception:
-            alt = False
-        if not alt or "**Stand:**" not in t:
-            print("Besetzung unverändert."); return
-        print("Besetzung unverändert, Zeitmarke erneuert (1764 Herzschlag).")
-    neu = re.sub(r"\*\*Stand:\*\*[^\n]*", "**Stand:** %s (lauf.py)" % berlin(JETZT), neu, count=1)
-    open(p, "w", encoding="utf-8").write(neu)
-    print("Besetzung geschrieben.")
+    stand = "**Stand:** %s (lauf.py)" % berlin(JETZT)
+    if "**Stand:**" in neu: return re.sub(r"\*\*Stand:\*\*[^\n]*", lambda m: stand, neu, count=1)
+    return neu.rstrip("\n") + "\n\n" + stand + "\n"
+
+def herzschlag_pushen(leb):
+    """1997 (Chef 23.11., 13:56): Totmannschalter. Am Ende jedes vollständigen Laufs, ohne Schalter: Tabelle und Zeitmarke von
+    ARBEIT-BESETZUNG.md auf origin/main schreiben und pushen (wie protokoll_pushen, ein Commit, lokale Datei bleibt). Stürzt der Lauf
+    vorher ab, bleibt die Marke alt und herzschlag.py meldet ALARM. Hat die lokale Datei Ungepushtes oder geht der Push nicht (1918):
+    lokal schreiben, der Disponent pusht selbst."""
+    pfad = "docs/ARBEIT-BESETZUNG.md"
+    try:
+        import uebergabe as _ue
+        grund = _ue.ungepusht(pfad)
+        if grund: raise RuntimeError("lokale ARBEIT-BESETZUNG.md %s (1918)" % grund)
+        _ue.atomar_dateien([pfad], lambda alt: ({pfad: besetzung_text(alt[pfad], leb).rstrip("\n") + "\n"}, True),
+                           "Herzschlag: Zeitmarke %s (lauf.py, 1997)" % JETZT.strftime("%H:%M"))
+        print("HERZSCHLAG gepusht (1997): Zeitmarke %s und Besetzung auf origin/main; vor dem nächsten eigenen Commit `git pull --rebase`" % berlin(JETZT))
+        return True
+    except Exception as e:
+        p = os.path.join(DOCS, "ARBEIT-BESETZUNG.md")
+        protokoll_lokal(p, lambda t: besetzung_text(t, leb))
+        print("HERZSCHLAG NICHT GEPUSHT (1997): %s; Zeitmarke lokal geschrieben, ARBEIT-BESETZUNG.md jetzt committen und pushen, sonst ALARM nach 2 h" % str(e)[:160])
+        return False
 
 def warnen(ausgabe, neue, bekannt, rolle, zeit, grund):
     """WARNUNG beim ersten Mal, WARNUNG-LAUT, wenn dieselbe Übergabe schon einmal gewarnt hat (190.7)."""
