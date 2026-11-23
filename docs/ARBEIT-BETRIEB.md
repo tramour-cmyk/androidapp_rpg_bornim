@@ -280,3 +280,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:04 23.11.: Startsperre 08:04 Start Tagesbericht (lauf.py, 448)
 - 08:06 23.11.: Startsperre 08:06 Start Prüfer (Disponent von Hand: Petra B301-Ü6, zweites Gegenlesen; Prüfer-Zählung Petra 0 von 3; Nora 3 von 3 archiviert)
 - 08:15 23.11.: Startsperre 08:15 Start Arbeitsplaner (Disponent von Hand nach Sokrates 08:13: Rosa für 1570-Ü7 Auftrag und weitere Zeilen); 1566 nach main gemischt (Chef 08:09), Godot-Lauf offen; Mara, Petra archiviert, Build 301 entfällt
+- 08:20 23.11.: Startsperre 08:20 Start Prüfer (Disponent von Hand: Sabine 1963-Ü13, 1978-Ü6, 1976-Ü7, 0 von 3, frisch wegen früherer Prüfungen von Nora/Gerda); Olga archiviert (Token 193 Tsd., alle drei Werkzeug-Zeilen erledigt)
