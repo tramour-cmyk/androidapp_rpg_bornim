@@ -45,4 +45,4 @@
 
 ## Übergabe
 
-- 23.11., 15:22, `session_01Hmoj76v3qfGY8UGYcLqL1A` (435 Tsd.): Entscheide 1068 Leibwache, 1657 in 1694, 1997/1999/2001 Eilt, drei Fachkräfte, Uhr für Uwe, Zurückdrehen Sockel/Profil; 1997 erledigt; Uwe Disponent (Uhr trig_01JyUFnFGzKzNd1KdsU583gN). Letzte Antwort: Zurückdrehen umgesetzt, Weg für Uhren offen. Nachfolger: Sokrates – Leitung.
+- 23.11., 20:07, `session_01Hmoj78wagZZvirW9ecr5Pc` (365 Tsd.): Entscheide Chef: Weg für Uhren (15:30), 1694 dicke Griffe (15:42), 1999 settings.json (15:42), 2002 A/B Eilt (15:48). Alter Ego (Chef 14:49–14:52) entschied in Vertretung 2001 letzter Lauf, 1694 Bildlauf, 2006 Eilt. Angelegt 2002, 2003, 2004, 2006; Chefsachen 1068 und 1694-grossaxt-stiel; Rundblick Telegram 16:58, Nachtrag 19:21. 1999 erledigt, 1676 ruht mit 1570. Offen bei Sokrates: 2001-Ü13 (fertig an ruhendem Vorgang), 1694-Ü11 (steckt fest 18:07), 1989-Ü5 bis Ü11 (Notstarts). Letzte Antwort: Telegram-Nachtrag gesendet, jede Frage künftig auch per Telegram. Nachfolger: Sokrates – Leitung.
