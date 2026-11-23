@@ -12,6 +12,7 @@ extends SceneTree
 const BARY := [Vector3(1, 0, 0), Vector3(0, 1, 0), Vector3(0, 0, 1), Vector3(0.5, 0.5, 0), Vector3(0, 0.5, 0.5), Vector3(0.5, 0, 0.5),
 		Vector3(1, 1, 1) / 3.0, Vector3(4, 1, 1) / 6.0, Vector3(1, 4, 1) / 6.0, Vector3(1, 1, 4) / 6.0]
 const GRENZE := 0.01          # erlaubt: 1 cm (Kleidung liegt locker, die Häutung ist linear)
+const VOR := 0.3              # 1675: auch Stoff so weit vor dem Schild zaehlt (Bild: Rockspitze 5 cm davor stach durch; vorher 0,05)
 var fehler := 0
 var _haut := []               # [MeshInstance3D, Skin, Ecken, Knochen, Gewichte, nb, frei]
 var _posen := []
@@ -75,6 +76,7 @@ func _lauf() -> void:
 				fehler += 1
 			erste = false
 	print("SCHILD1417 %d Figuren geprueft, Stoff hinter dem Schild: %s" % [_gepruefte, "ja" if _stoff else "nein"])
+	if OS.get_environment("MESS") == "1675": await _andere(hm)
 	print("SCHILD1417 %d Fehler" % fehler)
 	quit(1 if fehler else 0)
 
@@ -164,7 +166,7 @@ func _messen(schild: Node3D) -> Array:
 				var k := Vector2i(floori(q.x / 0.02), floori(q.y / 0.02))
 				if not feld.has(k): continue
 				var e: Vector2 = feld[k]
-				if q.z > e.y + 0.05: continue
+				if q.z > e.y + VOR: continue
 				var tief: float = q.z - e.x
 				if tief > GRENZE and not gezaehlt.has(k):
 					gezaehlt[k] = true
@@ -184,3 +186,53 @@ func _knochen(h: Array, v: int) -> String:
 	var skin: Skin = h[1]
 	var bb := skin.get_bind_bone(bm)
 	return _sk.get_bone_name(bb) if bb >= 0 else String(skin.get_bind_name(bm))
+
+## 1675 Systemfrage (MESS=1675, nur Messung, kein Fehler): andere Figuren mit dem Schild am Arm in „Stehen“ wie die Wachsoldatin des
+## Menues (Arm am Bein, Abspreizen 0, Schildhand 60 Grad), alle Voelker und beide Geschlechter mit der Startausruestung der
+## Wachsoldatin; je Figur ohne und mit StoffHinterSchild
+func _andere(hm: HauptmenueHelden) -> void:
+	var v := hm.figuren[0].get_parent()
+	for volk in HeldFigur.VOLK_MODELL:
+		for g in ["w", "m"]:
+			var h := {"herkunft": "Wachsoldat", "volk": volk, "geschlecht": g}
+			var w := HauptmenueHelden.wahl(h)
+			var mats := []
+			var m: Node3D = HeldFigur.baue(w, mats)
+			if m == null: continue
+			var trg := Node3D.new()
+			trg.position = Vector3(5, 0, 0)
+			v.add_child(trg); trg.add_child(m)
+			var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+			var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+			Gebiet.bewegungen(ap, ["Stehen"])
+			ap.play("Stehen")
+			var hs := HauptmenueHelden.HandSenken.new(); sk.add_child(hs)
+			var hd := HauptmenueHelden.HandSenken.new(); hd.name = "SchildDrehen"; hd.seite = "l"; hd.um_unterarm = true; hd.grad = 60.0
+			sk.add_child(hd)
+			HauptmenueHelden.waffen_in_die_hand(m, sk, ap, w.get("ausruestung", {}), "Stehen", "r", 0.0)
+			var tr: Tragen = null
+			for c in sk.get_children():
+				if c is Tragen and (c as Tragen).gang == "schildarm": tr = c
+			if tr == null:
+				print("SCHILD1675 %s %s ohne Schild" % [volk, g]); trg.queue_free(); continue
+			var st := HauptmenueHelden.StoffHinterSchild.new(sk, tr.waffe, mats)
+			m.add_child(st)
+			_sk = sk
+			_haut_lesen(sk)
+			var erg := []
+			for mit in [false, true]:
+				for mt in mats: (mt as ShaderMaterial).set_shader_parameter("schild_an", 1.0 if mit else 0.0)
+				_stoff = st if mit else null
+				var r := [-INF, "", 0, {}]
+				for k in 5:
+					ap.seek(ap.get_animation("Stehen").length * k / 5.0, true); ap.pause()
+					_posen = []
+					sk.skeleton_updated.connect(_merke, CONNECT_ONE_SHOT)
+					for i in 3: await process_frame
+					if _posen.is_empty(): continue
+					var r1 := _messen(tr.waffe)
+					if float(r1[0]) > float(r[0]): r = r1
+				erg.append(r)
+			print("SCHILD1675 %s %s: ohne %.1f cm (%s), mit Stoff hinter dem Schild %.1f cm" % [volk, g, erg[0][0] * 100.0, erg[0][1], erg[1][0] * 100.0])
+			trg.queue_free()
+			await process_frame

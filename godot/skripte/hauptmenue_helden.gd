@@ -371,6 +371,7 @@ class StoffHinterSchild extends Node:
 	const ZELLE := 0.02
 	const RAND := 0.012
 	const UMKREIS := 2
+	const VORN := 0.3        # m: auch Stoff so weit vor der Vorderseite (1675 Bild: eine Rockspitze 5 cm davor stach durch)
 	var schild: Node3D
 	var mats: Array = []
 	var feld := {}            # Vector2i -> Vector2(Rueckseite, Vorderseite)
@@ -415,6 +416,7 @@ class StoffHinterSchild extends Node:
 			(mt as ShaderMaterial).set_shader_parameter("schild_feld", tex)
 			(mt as ShaderMaterial).set_shader_parameter("schild_raster", Vector3(lo.x * ZELLE, lo.y * ZELLE, ZELLE))
 			(mt as ShaderMaterial).set_shader_parameter("schild_rand", RAND)
+			(mt as ShaderMaterial).set_shader_parameter("schild_vorn", VORN)
 		_sk.skeleton_updated.connect(_lage)
 		_lage()
 	func _lage() -> void:
@@ -427,7 +429,7 @@ class StoffHinterSchild extends Node:
 		var k := Vector2i(floori(q.x / ZELLE), floori(q.y / ZELLE))
 		if not feld.has(k): return p
 		var f: Vector2 = feld[k]
-		if q.z <= f.x - RAND or q.z > f.y + 0.05: return p
+		if q.z <= f.x - RAND or q.z > f.y + VORN: return p
 		q.z = f.x - RAND
 		return g * q
 
