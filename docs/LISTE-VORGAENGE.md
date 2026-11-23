@@ -12,7 +12,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | Eilt | – | – | – | *gebaut, Geprüft an: c431b9c1d* | *–* | *0* | *1,25 $* |
-| 2006 | Kein Fachkraft-Start, solange am Vorgang eine offene Planerzeile hängt (Ü an Arbeitsplaner: nein Auftrag, Chefwort lesen); Vorgang wartet auf die Zeile (startbar.py, lauf.py) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
+| 2006 | Kein Fachkraft-Start, solange am Vorgang eine offene Planerzeile hängt (Ü an Arbeitsplaner: nein Auftrag, Chefwort lesen); Vorgang wartet auf die Zeile (startbar.py, lauf.py) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *1,20 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *184,78 $* |
 | 1988 | Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Token neu starten (Chef 09:02, 1 bis 3 ja) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *52,83 $* |
 | 1971 | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Titel), Halbsatz im Kern Büro (Chef 22.11., 18:13) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *5,53 $* |
@@ -66,7 +66,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1589.4 | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nach Abschnitt 5 mit 1526, alte … | 2 | E Kampf | M | 1589.2, 1589.3 | 1600, 1589.1, 1526, 438, 709 | – | *startbar* | *–* | *0* | *–* |
 | 1589.5 | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Zahlen aus 444 … | 2 | E Kampf | M | 1589.4, 1589.6 | 1600, 1589.1, 444 | – | *startbar* | *–* | *0* | *–* |
 | 1589.6 | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt nah, fern, weit | 2 | E Kampf | M | 1589.2 | 1589.2, 444, 1589.1, 1486 | – | *startbar* | *–* | *0* | *–* |
-| 1603 | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in kerbe.gd | 2 | E Kampf | M | – | 1600 | – | *startbar* | *–* | *0* | *1,57 $* |
+| 1603 | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in kerbe.gd | 2 | E Kampf | M | – | 1600 | – | *startbar* | *–* | *0* | *4,44 $* |
 | 1708 | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_ui.gd _draw_blood) | 2 | E Kampf | M | 1589.4 | 760 | – | *ruht, nach Arena (Chef 22:17)* | *–* | *0* | *–* |
 | 1750 | Kampfort klingt wie seine Stelle der Karte, etwa halb so laut unter der Kampfmusik, Vögel und Frösche verstummen (D3a) | 2 | E Kampf | M | – | – | – | *erledigt* | *–* | *0* | *6,99 $* |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk … | 3 | E Figuren | M | – | 408 | claude/tom-431-ausruestung | *startbar, gelöst 17.11.: 431h, t297* | *–* | *0* | *125,77 $* |
@@ -75,7 +75,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1649 | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den Schaft | 3 | E Figuren | M | 1694 | 1621 | – | *startbar* | *–* | *0* | *0,84 $* |
 | 1650 | Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin, Bram, Garrick, Jorin, Pim … | 3 | E Figuren | M | 1535 | 1631 | claude/tom-1650-stiefel | *gebaut, Geprüft an: 6ab87322b (Bild 👍 17:12)* | *–* | *0* | *17,24 $* |
 | 1652 | Durchstechprüfung: Osric innere Stücke stechen durch die Robe (1,2 m, bis 267 Ecken) | 3 | E Figuren | M | – | 1631 | – | *erledigt* | *–* | *0* | *4,87 $* |
-| 1653 | Durchstechprüfung: Thessa Kleid sticht durch den Kragen (1,4–1,5 m, bis 224 Ecken) | 3 | E Figuren | M | Chef | 1631 | – | *wartet, Bild Thessa Kragen (Telegram 20:30, Datei chefsache/ansehen/1653-thessa-kragen-altneu.md)* | *–* | *0* | *8,04 $* |
+| 1653 | Durchstechprüfung: Thessa Kleid sticht durch den Kragen (1,4–1,5 m, bis 224 Ecken) | 3 | E Figuren | M | Chef | 1631 | – | *wartet, Bild Thessa Kragen (Telegram 20:30, Datei chefsache/ansehen/1653-thessa-kragen-altneu.md)* | *–* | *0* | *13,30 $* |
 | 1654 | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m, bis 305 Ecken in Ruhe_Tresen) | 3 | E Figuren | M | – | 1631 | – | *startbar, gebilligt 18.11. 22:38, in nächsten Build* | *–* | *0* | *–* |
 | 1655 | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, bis 135 Ecken) | 3 | E Figuren | M | – | 1631 | claude/tom-1655-kapuze | *gebaut, Geprüft an: 10d4710c0 (Bild neu offen, Lauf 20:58 nur alt)* | *–* | *0* | *5,33 $* |
 | 1657 | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dreiecke | 3 | E Figuren | M | 1694 | 1631 | – | *startbar, Robe gilt; Stab durch die Knöchel (Chef 16:56)* | *–* | *0* | *–* |
