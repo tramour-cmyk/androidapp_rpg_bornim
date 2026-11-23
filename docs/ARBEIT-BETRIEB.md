@@ -282,3 +282,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:15 23.11.: Startsperre 08:15 Start Arbeitsplaner (Disponent von Hand nach Sokrates 08:13: Rosa für 1570-Ü7 Auftrag und weitere Zeilen); 1566 nach main gemischt (Chef 08:09), Godot-Lauf offen; Mara, Petra archiviert, Build 301 entfällt
 - 08:20 23.11.: Startsperre 08:20 Start Prüfer (Disponent von Hand: Sabine 1963-Ü13, 1978-Ü6, 1976-Ü7, 0 von 3, frisch wegen früherer Prüfungen von Nora/Gerda); Olga archiviert (Token 193 Tsd., alle drei Werkzeug-Zeilen erledigt)
 - 08:29 23.11.: Startsperre 08:29 Start Figur (Disponent von Hand nach Sokrates 08:13: Svea 1570 A, Zweig claude/dana-1570-umhang ab 9bc78331a); Rosa (Planer, 154 Tsd. Token) bekommt 1986-Ü1 (Eilt, Sokrates 08:33); 1570 Auftrag steht seit 08:20
+- 08:30 23.11.: Startsperre 08:30 Start Werkzeug (Disponent von Hand nach Sokrates 08:33: Tilda 1986 Leitung umstellen, Eilt); Rosa archiviert, Kosten gebucht
