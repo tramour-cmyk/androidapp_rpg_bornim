@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 10:12, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 10:47, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -366,16 +366,16 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 115, Muss 76, startbar 71
+**Werkzeug** – offen 116, Muss 77, startbar 71
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 1988 | M | Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Token neu starten (Chef 09:02, 1 b | startbar |
+| 1992 | M | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit | wartet auf Diogenes (greift?) |
+| 1961 | M | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann | startbar |
 | 1971 | M | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Ti | startbar |
 | 1716 | M | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten B | wartet auf Prüfer |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | startbar |
 | 1129 | M | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einf | wartet auf 1387 (gebaut) |
-| 1961 | M | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann | startbar |
 | 1960 | M | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla – Auftrag 16 | startbar |
 | 1148 | M | lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen Render-Lauf in der idle S | wartet auf Diogenes (greift?) |
 | 1414 | M | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | wartet auf Diogenes (greift?) |
@@ -485,6 +485,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 | 1987 | K | tools/zug-haken.py 145 nennt weiter ROLLE-BERATUNG-START.md (stumm, da tools/1727-SCHARF v | startbar |
 | 1990 | M | vorgang.py uebergabe nennt als WECKER eine archivierte Sitzung (Besetzung veraltet), Weckr | startbar |
 | 1991 | M | Rufnamen doppelt vergeben: lauf.py --start und Takt geben denselben Rufnamen an Sitzungen | startbar |
+| 1993 | M | lauf.py startet seit 06:40 fünfmal einen Planer für 513, obwohl 513 ruht (Chef 04.11., 13: | startbar |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 
