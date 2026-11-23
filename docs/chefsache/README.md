@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 11:29, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 11:35, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -366,7 +366,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 116, Muss 77, startbar 71
+**Werkzeug** – offen 119, Muss 80, startbar 74
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -486,6 +486,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 23.11.; „star
 | 1990 | M | vorgang.py uebergabe nennt als WECKER eine archivierte Sitzung (Besetzung veraltet), Weckr | startbar |
 | 1991 | M | Rufnamen doppelt vergeben: lauf.py --start und Takt geben denselben Rufnamen an Sitzungen | startbar |
 | 1993 | M | lauf.py startet seit 06:40 fünfmal einen Planer für 513, obwohl 513 ruht (Chef 04.11., 13: | startbar |
+| 1994 | M | tagesbericht.py zählt erledigte Vorgänge nicht: Stand seit 22.11., 16:26 kursiv (*erledigt | startbar |
+| 1995 | M | Kür nach Abhängigen ordnen: nach Eilt, Halt, Muss Kür mit vielen offenen wartenden Vorgäng | startbar |
+| 1996 | M | Weckruf-Sperre: Haken am Zugende prüft, dass jeder WECKER aus vorgang.py als Nachricht ver | startbar |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 
