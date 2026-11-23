@@ -211,21 +211,21 @@ def f_2002_a():
           "Figur": [sitz("Figur", titel="Isa – 1694: Handstart (23.11., 15:51)")]}
     zid = je["Werkzeug"][0]["id"]
     fe = guthaben.fertige_sitzungen([vg(("14:57", "Werkzeug", zid, "fertig (Zora, Werkzeug, 23.11., 14:57). Commits …"))])
-    soll("2002 (a): letzte Rückmeldung „fertig“ → fertig", fe == {zid}, fe)
+    soll("2002 (a): letzte Rückmeldung „fertig“ → fertig", set(fe) == {zid}, fe)
     n = guthaben.laufende_fachkraefte(je, fertig=fe)
     soll("2002 (a): drei laufen, Zora fertig → 2 gezählt", n == 2, n)
     soll("2002 (a): Namen ohne Zora", guthaben.laufende_namen(je, fertig=fe) == ["Conrad (Kampf)", "Isa (Figur)"], guthaben.laufende_namen(je, fertig=fe))
     b = guthaben.Bremse(J, betrieb(50), archiv=O, protokoll=[], laufend=n)
     soll("2002 (a): N 3, eine davon fertig → START", b.erlaubt("Welt", "M", KA) is None, b.erlaubt("Welt", "M", KA))
-    soll("2002 (a): nur „fertig“ zählt: letzte Rückmeldung „Frage“ → nicht fertig", guthaben.fertige_sitzungen([vg(("14:57", "W", zid, "fertig x"), ("15:10", "W", zid, "Frage: y"))]) == set())
-    soll("2002 (a): jüngste über alle Dateien", guthaben.fertige_sitzungen([vg(("15:20", "W", zid, "fertig x")), vg(("15:10", "W", zid, "Frage: y"))]) == {zid})
+    soll("2002 (a): nur „fertig“ zählt: letzte Rückmeldung „Frage“ → nicht fertig", set(guthaben.fertige_sitzungen([vg(("14:57", "W", zid, "fertig x"), ("15:10", "W", zid, "Frage: y"))])) == set())
+    soll("2002 (a): jüngste über alle Dateien", set(guthaben.fertige_sitzungen([vg(("15:20", "W", zid, "fertig x")), vg(("15:10", "W", zid, "Frage: y"))])) == {zid})
 fall("2002 a", f_2002_a)
 
 def f_2002_b():
     global b
     zid = "session_Zora"
     fe = guthaben.fertige_sitzungen([vg(("14:57", "Werkzeug", zid, "fertig x"), ("15:41", "Prüfer", "session_P", "nein, Auftrag …"))])
-    soll("2002 (b): Rückläufer (nein des Prüfers danach) → nicht fertig, zählt wieder", fe == set(), fe)
+    soll("2002 (b): Rückläufer (nein des Prüfers danach) → nicht fertig, zählt wieder", set(fe) == set(), fe)
     je = {"Werkzeug": [dict(sitz("Werkzeug"), id=zid)], "Kampf": [sitz("Kampf")], "Figur": [sitz("Figur")]}
     b = guthaben.Bremse(J, betrieb(50), archiv=O, protokoll=[], laufend=guthaben.laufende_fachkraefte(je, fertig=fe))
     soll("2002 (b): mit Rückläufer drei gezählt → kein START", b.laufend == 3 and b.erlaubt("Welt", "M", KA), (b.laufend, b.erlaubt("Welt", "M", KA)))

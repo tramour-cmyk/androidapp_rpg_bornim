@@ -19,8 +19,9 @@ Laufsperre als Obergrenze (2001, Chef 23.11., 14:37; Archiv 287): höchstens N F
 „→ **Laufsperre: höchstens <Zahl> Fachkräfte zugleich[, nur <Bereiche>][, nachts HH–HH keine][, spätestens TT.MM., HH:MM]**“
 (Zahl als Ziffer oder Wort; Bereiche durch Komma oder „und“ wie bereiche.py, „Spiel“ = G Regeln, E Kampf, E Figuren, E Welt;
 Eilt darf auch außerhalb der Bereiche und, 2002 (B, Chef 23.11., 15:48), bei N Laufenden noch starten, höchstens N+1; nachts startet
-keine Fachkraft, auch nicht Eilt). 2002 (A): eine Fachkraft, deren jüngste Rückmeldung „fertig“ ist und an die kein Rückläufer („nein“
-danach in derselben Vorgangsdatei) ging, zählt nicht (fertige_sitzungen). Takt, offene Übergaben und Handstart (lauf.py --start) prüfen
+keine Fachkraft, auch nicht Eilt). 2002 (A): eine Fachkraft, deren jüngste Rückmeldung „fertig“ ist und an die kein Rückläufer (Prüfwort außer
+„ja“ danach in derselben Vorgangsdatei, 2002-Ü4) ging, zählt nicht (fertige_sitzungen), außer sie arbeitet danach wieder (working,
+updated_at nach dem „fertig“, wieder_taetig). Takt, offene Übergaben und Handstart (lauf.py --start) prüfen
 dieselbe Bremse.
 Läuft = lauf.py „Laufend“ (working/blocked, updated_at unter 60 Minuten, Kopf von lauf.py), nie ARBEIT-BESETZUNG.md; jeder START
 dieses Laufs zählt dazu. Frei, zählt nicht (eigene Menge FREI_OBER): Arbeitsplaner, Prüfer, Tester, Wache, Sokrates, Tagesbericht (und
@@ -186,27 +187,43 @@ def ist_laufend(s, jetzt):
     return ("WORKING" in b or "BLOCKED" in b or s.get("session_status") == "SESSION_STATUS_RUNNING") and (jetzt - u).total_seconds() < 3600
 
 
-RUECK = re.compile(r"(?m)^- \*\*(\d\d)\.(\d\d)\., (\d\d):(\d\d)\*\*, [^\n]*?(?: \(`(session_[^`]*)`\))?:\n> (\S+)")
+RUECK = re.compile(r"(?m)^- \*\*(\d\d)\.(\d\d)\., (\d\d):(\d\d)\*\*, [^\n]*?(?: \(`(session_[^`]*)`\))?:\n> (.*)")
+RUECKLAEUFER = {"nein", "nein, Auftrag", "Beleg fehlt", "steckt fest"}  # 2002-Ü4 (Sokrates 23.11., 16:21): jedes Prüfwort außer „ja“
 
 
 def fertige_sitzungen(texte):
-    """2002 (A): Sitzungen, deren jüngste Rückmeldung (über alle Vorgangsdateien) „fertig“ ist, ohne Rückläufer an sie: kein „nein“
-    in derselben Datei danach (1739: das Nein des Prüfers geht an dieselbe Fachkraft zurück). Nie aus ARBEIT-BESETZUNG.md."""
+    """2002 (A): Sitzungen, deren jüngste Rückmeldung (über alle Vorgangsdateien) „fertig“ ist, ohne Rückläufer an sie: kein Prüfwort
+    außer „ja“ (nein, nein Auftrag, Beleg fehlt, steckt fest; Signalworte wie rueckmeldung.worte) in derselben Datei danach (1739,
+    2002-Ü4). Ergebnis {Sitzung: (Monat, Tag, Std, Min) des „fertig“} für wieder_taetig. Nie aus ARBEIT-BESETZUNG.md."""
+    import rueckmeldung
     letzte = {}
     for i, t in enumerate(texte):
         for m in RUECK.finditer(t or ""):
             k = (int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4)))
-            if m.group(5) and (m.group(5) not in letzte or k >= letzte[m.group(5)][0]): letzte[m.group(5)] = (k, i, m.group(6).strip(":,.").lower())
-    aus = set()
+            if m.group(5) and (m.group(5) not in letzte or k >= letzte[m.group(5)][0]): letzte[m.group(5)] = (k, i, rueckmeldung.worte(m.group(6)))
+    aus = {}
     for sid, (k, i, w) in letzte.items():
-        if w != "fertig": continue
-        if any((int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4))) > k and m.group(6).strip(":,.").lower() == "nein" for m in RUECK.finditer(texte[i])): continue
-        aus.add(sid)
+        if "fertig" not in w: continue
+        if any((int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4))) > k and rueckmeldung.worte(m.group(6)) & RUECKLAEUFER
+               for m in RUECK.finditer(texte[i])): continue
+        aus[sid] = k
     return aus
 
 
+def wieder_taetig(s, k):
+    """2002-Ü4 (Sokrates 16:21 (2)): fertige Sitzung arbeitet wieder: status_bucket WORKING und updated_at nach dem „fertig“ k
+    (Monat, Tag, Std, Min, Berliner Zeit; Jahr aus updated_at, über Silvester ein Jahr zurück). Ohne beides: nicht tätig."""
+    if not k or "WORKING" not in s.get("status_bucket", "") or not s.get("updated_at"): return False
+    u = datetime.datetime.fromisoformat(s["updated_at"].replace("Z", "+00:00")).astimezone(BERLIN)
+    try: f = datetime.datetime(u.year, k[0], k[1], k[2], k[3], tzinfo=BERLIN)
+    except ValueError: return False
+    if (f - u).days > 180: f = f.replace(year=u.year - 1)
+    return u > f + datetime.timedelta(minutes=1)  # Rückmeldung minutengenau: erst nach ihrer Minute
+
+
 def _laufend(je_rolle, archiviert, fertig=()):
-    return [(ober_rolle(r, s.get("title", "")), s) for r, ss in je_rolle.items() for s in ss if s["id"] not in archiviert and s["id"] not in fertig and s["_info"][1]]
+    return [(ober_rolle(r, s.get("title", "")), s) for r, ss in je_rolle.items() for s in ss if s["id"] not in archiviert
+            and (s["id"] not in fertig or wieder_taetig(s, fertig.get(s["id"]) if isinstance(fertig, dict) else None)) and s["_info"][1]]
 
 
 def laufende_fachkraefte(je_rolle, archiviert=(), fertig=()):
