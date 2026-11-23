@@ -95,3 +95,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:43 23.11.: Startsperre 15:43 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1999 Greta; auch 1694, Chefworte 15:42)
 - 15:51 23.11.: Startsperre 15:51 Start Figur, Werkzeug (lauf.py, Figur 1694 Isolde, Werkzeug 1999 Jutta; Rufname Hanna von lauf.py war doppelt)
 - 15:55 23.11.: Startsperre 15:55 Start Werkzeug (lauf.py, Werkzeug 2001 Ida; Nachfolger Fenja, Eilt)
+- 16:05 23.11.: Startsperre 16:05 Start Arbeitsplaner, Arbeitsplaner, Prüfer (lauf.py, Arbeitsplaner 513 Karla, Arbeitsplaner 1961 Lutz, Prüfer 1997 Marta)
