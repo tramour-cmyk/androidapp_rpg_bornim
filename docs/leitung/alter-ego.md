@@ -2,6 +2,8 @@
 
 Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01Hmoj78XHCB3MY4JTyhNrks. Eine Zeile je Tat, neueste oben.
 
+- 23.11., 16:13 Übernommen von Sokrates: Bedingung 1999 (Chef 15:42), PermissionDenied echt belegen, sonst Block raus; als Werkzeug-Vorgang mit Frist 30.11. erbeten, Prüfung je Runde. Uhr 17:10 Rundblick Sokrates prüfen (trig_01Pk2vw6KT2iapc767ehm7GR).
+
 - 23.11., 15:56 Sokrates: Rolle angenommen, Funde 1–5 erledigt (3 widerlegt: grün; 5 nein, Chefwort), „von Hand“ zurückgenommen. Sitzung umbenannt.
 
 - 23.11., 15:53 Uhr „Supervisor-Runde“ trig_01HTDfNwWTuKYtYM4wToPo8n (send_later, 16:54), danach stündlich neu.
