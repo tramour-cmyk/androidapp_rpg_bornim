@@ -2,6 +2,8 @@
 
 ## Geltende Lehren
 
+- Nie einen Vorgang „startbar“ nennen nach Kl. allein; stattdessen Stand prüfen (ruht?) (18:59, 513/887).
+
 - Nie eine Anweisung „von Hand“ an Uwe oder andere; stattdessen Werkzeug bauen lassen (Chef 14:23; zurückgenommen 15:56).
 
 - Nie einen fremden Befund ungeprüft als eigenen weitergeben; stattdessen an der Quelle nachsehen, Ungeprüftes so kennzeichnen (431h, 1727j).
@@ -33,8 +35,8 @@
 - Kopiertexte für den Chef: `docs/leitung/kopiertexte-uhren.md` (Chef 15:22, nie abtippen lassen).
 - Uhren: nur mit Chefsatz im Chat der Leitung (14:04 belegt) oder Disponent-Handstart des Chefs mit Satz; Repo und Organisations-Einstellungen wirken nicht (Proben 1–4, Plan ohne Team). Weg festgelegt (Chef 15:30): Uwe und Wache ohne Neustart, neuer Disponent nur per Handstart des Chefs mit Kopiertext.
 - 1999 erledigt 16:10; PermissionDenied nur im Test belegt (1999-Ü11), Beobachtung an Alter Ego 16:12 (Bestätigung offen). 2002 Eilt angelegt (Chef 15:48), 2001 Nachbesserung frei (15:57).
-- Nach Abnahme 2001: Chef vorlegen, im Profil Disponent Z. 5 „nur START-Zeilen ruhen“ zu streichen (Uwe filtert danach von Hand falsch, 513/887 Eilt verworfen 16:05–18:05).
-- Beim Chef offen: Rundblick V1/V2 (Telegram 16:58), Chefsache 1068 und 1694.
+- Profil Disponent „nur START-Zeilen ruhen“: nur vorlegen, wenn nach 2001/2005 noch Fehlfilter (513/887 ruhen zu Recht).
+- 2004, 2006 angelegt (2006 Eilt, Alter Ego). Beim Chef offen: Rundblick V1/V2 (Telegram 16:58), Chefsache 1068 und 1694.
 - Laufsperre bis Sa 28.11.: drei Fachkräfte, Spiel und Eilt (Chef 14:43). Eilt: 1999, 2001 (Auftrag gegengeprüft).
 - Täglich: Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07).
 - Offen: 1068-Ü8 Rückläufer (Conrad), 1971, 1995, 1996; Altbestand Fehler 341 ins Lehrenbuch.
