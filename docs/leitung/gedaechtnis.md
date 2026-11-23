@@ -27,6 +27,7 @@
 
 - Rundblick heute 17:00 zugesagt (1966 KISS, bis drei Verfahren, Bilanz; Chef 07:31–08:29, 13:51); Befunde: Disponent-Kosten (Opus 57 $), Titel, Laufsperre nur als Text (2001), Wecker an Disponent fehlte (2001 Teil 2), Lehrenbuch leer (1999).
 - Chef ab 24.11. auf Konferenz in Spanien, wenig Zeit (14:43): Vorlagen bündeln, kurz.
+- Kopiertexte für den Chef: `docs/leitung/kopiertexte-uhren.md` (Chef 15:22, nie abtippen lassen).
 - Uhren: nur mit Chefsatz im Chat der Leitung (14:04 belegt) oder Disponent-Handstart des Chefs mit Satz; Repo und Organisations-Einstellungen wirken nicht (Proben 1–4, Plan ohne Team). Offen beim Chef: Weg festlegen und Wache ohne Neustart (Vorlage 15:20/15:22). Uwe und Wache vorläufig ohne Neustart.
 - Laufsperre bis Sa 28.11.: drei Fachkräfte, Spiel und Eilt (Chef 14:43). Eilt: 1999, 2001 (Auftrag gegengeprüft).
 - Täglich: Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07).
