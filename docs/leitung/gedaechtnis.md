@@ -2,6 +2,10 @@
 
 ## Geltende Lehren
 
+- Nie eine Vorlage nur im Chat; stattdessen jede Frage an den Chef auch per Telegram (meldung.sh), er ist unterwegs (Chef 19:20).
+
+- Nie einen Vorgang „startbar“ nennen nach Kl. allein; stattdessen Stand prüfen (ruht?) (18:59, 513/887).
+
 - Nie eine Anweisung „von Hand“ an Uwe oder andere; stattdessen Werkzeug bauen lassen (Chef 14:23; zurückgenommen 15:56).
 
 - Nie einen fremden Befund ungeprüft als eigenen weitergeben; stattdessen an der Quelle nachsehen, Ungeprüftes so kennzeichnen (431h, 1727j).
@@ -33,12 +37,12 @@
 - Kopiertexte für den Chef: `docs/leitung/kopiertexte-uhren.md` (Chef 15:22, nie abtippen lassen).
 - Uhren: nur mit Chefsatz im Chat der Leitung (14:04 belegt) oder Disponent-Handstart des Chefs mit Satz; Repo und Organisations-Einstellungen wirken nicht (Proben 1–4, Plan ohne Team). Weg festgelegt (Chef 15:30): Uwe und Wache ohne Neustart, neuer Disponent nur per Handstart des Chefs mit Kopiertext.
 - 1999 erledigt 16:10; PermissionDenied nur im Test belegt (1999-Ü11), Beobachtung an Alter Ego 16:12 (Bestätigung offen). 2002 Eilt angelegt (Chef 15:48), 2001 Nachbesserung frei (15:57).
-- Nach Abnahme 2001: Chef vorlegen, im Profil Disponent Z. 5 „nur START-Zeilen ruhen“ zu streichen (Uwe filtert danach von Hand falsch, 513/887 Eilt verworfen 16:05–18:05).
-- Beim Chef offen: Rundblick V1/V2 (Telegram 16:58), Chefsache 1068 und 1694.
+- Profil Disponent „nur START-Zeilen ruhen“: nur vorlegen, wenn nach 2001/2005 noch Fehlfilter (513/887 ruhen zu Recht).
+- 2004, 2006 angelegt (2006 Eilt, Alter Ego). Beim Chef offen: Rundblick V1/V2 (Telegram 16:58), Chefsache 1068 und 1694.
 - Laufsperre bis Sa 28.11.: drei Fachkräfte, Spiel und Eilt (Chef 14:43). Eilt: 1999, 2001 (Auftrag gegengeprüft).
 - Täglich: Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07).
 - Offen: 1068-Ü8 Rückläufer (Conrad), 1971, 1995, 1996; Altbestand Fehler 341 ins Lehrenbuch.
 
 ## Übergabe
 
-- 23.11., 15:22, `session_01Hmoj76v3qfGY8UGYcLqL1A` (435 Tsd.): Entscheide 1068 Leibwache, 1657 in 1694, 1997/1999/2001 Eilt, drei Fachkräfte, Uhr für Uwe, Zurückdrehen Sockel/Profil; 1997 erledigt; Uwe Disponent (Uhr trig_01JyUFnFGzKzNd1KdsU583gN). Letzte Antwort: Zurückdrehen umgesetzt, Weg für Uhren offen. Nachfolger: Sokrates – Leitung.
+- 23.11., 20:07, `session_01Hmoj78wagZZvirW9ecr5Pc` (365 Tsd.): Entscheide Chef: Weg für Uhren (15:30), 1694 dicke Griffe (15:42), 1999 settings.json (15:42), 2002 A/B Eilt (15:48). Alter Ego (Chef 14:49–14:52) entschied in Vertretung 2001 letzter Lauf, 1694 Bildlauf, 2006 Eilt. Angelegt 2002, 2003, 2004, 2006; Chefsachen 1068 und 1694-grossaxt-stiel; Rundblick Telegram 16:58, Nachtrag 19:21. 1999 erledigt, 1676 ruht mit 1570. Offen bei Sokrates: 2001-Ü13 (fertig an ruhendem Vorgang), 1694-Ü11 (steckt fest 18:07), 1989-Ü5 bis Ü11 (Notstarts). Letzte Antwort: Telegram-Nachtrag gesendet, jede Frage künftig auch per Telegram. Nachfolger: Sokrates – Leitung.
