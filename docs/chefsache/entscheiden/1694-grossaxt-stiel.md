@@ -10,7 +10,7 @@ Geprüft an: Bild docs/chefsache/bilder/1694-grossaxt-stab.webp (d395dc13b), Zwe
 
 **Frage:** Du hast um 15:42 entschieden: dicke Griffe bleiben, die Faust darf offen sein, aber jeder Finger liegt am Stiel. Das Bild zeigt: Beim Stab klappt es (Stab in der Faust). Bei der Großaxt Stufe 1 (Stiel 7,1 cm) nicht: Die Hand ist offen, der Stiel liegt zwischen Daumen und Zeigefinger, drei Grundglieder 0,8 bis 2,0 cm in der Luft. Echte Stiele waren halb so dick (Pike Greenwich 34 mm; Dane Axe Stielloch 3,9 × 2 cm). Was soll mit der Großaxt geschehen?
 
-**Votum:** „1694 A“: Die Stiele der 19 dicken Waffen werden beim Bau auf echtes Maß gebracht (etwa 3,5 bis 4 cm), Klinge und Kopf bleiben; dann greift die Hand wie beim Stab.
+**Votum:** „1694 A“: Die Stiele der 19 dicken Waffen werden beim Bau auf echtes Maß gebracht (etwa 3,5 bis 4 cm), Klinge und Kopf bleiben; dann greift die Hand wie beim Stab. **Abweichung von deinem Entscheid 15:42** („Griffe 4,2–7 cm unverändert“): A nimmt ihn zurück, nur auf dein Wort.
 
 **Berührt:** 19 Waffen mit Griff 4,2 bis 7 cm (Liste in docs/vorgang/1694.md, 15:32), Staffel (staffel.json), Entscheid 15:42.
 
