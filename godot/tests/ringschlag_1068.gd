@@ -3,7 +3,9 @@
 # (1) die Absicht trägt den Ring (mars.gd I_<KENNUNG>.ring), kleine Schläge (stab, slash, bite, claw) nicht;
 # (2) gut = heutiger Schaden (Faktor × halber Schaden), verfehlt = Faktor × Schaden, perfekt = kein Schaden; heute ist der Schaden
 #     derselbe Schlag ohne Ring (Faktor 1, kein Ring), bei gleichem Würfel;
-# (3) der Ring wird im Kampf wirklich gestellt (react bekommt die Absicht), an einer Art, die sie ansagt.
+# (3) der Ring wird im Kampf wirklich gestellt (react bekommt die Absicht), an einer Art, die sie ansagt;
+# (4) Chef 23.11., 11:27: Anspringen hat den Ring nur beim Leitwolf; Jungwölfe springen ohne Ring wie vor 1068 (Faktor 1, kein
+#     Ring gestellt); werte.json „absichten“ „ring_ohne“ (Absicht: Rudelnamen), kein Zweig in mars.gd.
 # Run: godot --headless --path godot -s res://tests/ringschlag_1068.gd   (Exit 0 = grün)
 extends SceneTree
 
@@ -51,6 +53,7 @@ func _initialize() -> void:
 	for id in KLEIN:
 		if bool(m0.get("I_" + id.to_upper()).ring):
 			_fehl("%s: kleiner Schlag mit Ring" % id)
+	_jungwolf()
 	print("RINGSCHLAG1068 %s, %d Fehler" % ["grün" if fehler == 0 else "rot", fehler])
 	quit(1 if fehler > 0 else 0)
 
@@ -153,3 +156,55 @@ func _gestellt(id: String, art: String) -> void:
 	m._foe_turn(foe, react)
 	if not gestellt[0]:
 		_fehl("%s: im Zug von %s kein Ring gestellt" % [id, art])
+
+
+## (4) Wolf mit Jungwölfen (aufruf.gd rudel): Leitwolf springt mit Ring, Jungwolf ohne (Chef 23.11., 11:27)
+func _jungwolf() -> void:
+	var monsters := {}
+	for mm in tab.monsters:
+		monsters[mm.id] = mm
+	var skills := {}
+	for sk in tab.skills:
+		skills[sk.id] = sk
+	var geprueft := {"leit": false, "jung": false}
+	for s in range(1, 40):
+		var foes: Array = load("res://kampf/aufruf.gd").rudel(monsters, Wuerfel.new(s))
+		var hero = load("res://kampf/aufruf.gd").new()._kaempfer("hero", BrsHeld.fuer_spiel("Alrik", "Mensch", "Wachsoldat"), -1, Vector2i(Mars.FRONT, 0), skills)
+		var m = Mars.new([hero], foes, tab, Wuerfel.new(s), Wuerfel.new(s + 281), 0, false)
+		hero.max_hp = 9999
+		hero.hp = 9999
+		var gestellt := []
+		var react := func(_t, intent):
+			gestellt.append(intent)
+			return Mars.GOOD
+		m.start(react)
+		for f in foes:
+			var jung: bool = f.follows != ""
+			for i in 30:
+				m.announce(f)
+				if String(m.intents[f.id][0].id) == "pounce":
+					break
+			var it: Dictionary = m.intents[f.id][0]
+			if String(it.id) != "pounce":
+				continue
+			if jung and bool(it.get("ring", false)):
+				_fehl("Würfel %d: Jungwolf %s springt mit Ring" % [s, f.id])
+			if jung and float(it.get("ring_schaden", 1.0)) != 1.0:
+				_fehl("Würfel %d: Jungwolf %s springt mit Faktor %s, soll 1 (wie vor 1068)" % [s, f.id, it.ring_schaden])
+			if not jung and not bool(it.get("ring", false)):
+				_fehl("Würfel %d: Leitwolf ohne Ring" % s)
+			gestellt.clear()
+			m.aim_spot[f.id] = hero.place
+			m._foe_turn(f, react)
+			var mit: bool = gestellt.any(func(x): return String(x.id) == "pounce")
+			if jung and mit:
+				_fehl("Würfel %d: beim Jungwolf %s Ring gestellt" % [s, f.id])
+			if not jung and not mit:
+				_fehl("Würfel %d: beim Leitwolf kein Ring gestellt" % s)
+			geprueft["jung" if jung else "leit"] = true
+		if geprueft.leit and geprueft.jung:
+			break
+	if not (geprueft.leit and geprueft.jung):
+		_fehl("Jungwolf/Leitwolf: kein Anspringen gefunden %s" % [geprueft])
+	else:
+		print("  pounce Leitwolf mit Ring, Jungwolf ohne: geprüft")
