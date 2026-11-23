@@ -26,7 +26,7 @@ Gilt ab der Umstellung.
 
 ## Offene Fäden
 
-- Rundblick Mo 23.11.: 1966 KISS, bis drei Verfahren (Chef 07:31), Bilanz seit Umschalten (Starts, $, Fehler je Ursache), Testbuild nur mit mehreren Vorgängen, wann Vortrag als Test reicht (Chef 07:40, 08:07).
+- Rundblick Mo 23.11.: 1966 KISS, bis drei Verfahren (Chef 07:31), Bilanz seit Umschalten (Chef 08:29 ja: Starts, $, Fehler je Ursache, bis drei Änderungen; Wiederholung in einer Woche als Frage), Testbuild nur mit mehreren Vorgängen, wann Vortrag als Test reicht (Chef 07:40, 08:07).
 - 1983 Profiltext Prüfer/Disponent vor Einbau zum Chef.
 - Laufsperre: Prozent vom Chef mittags; über 0,6 %/h eine Fachkraft.
 - Vorschlag Gedächtnis: neue Einträge 23.11. aus `ARBEIT-BERATUNG.md` („Fehler 341“ 23.11.) dem Chef mit Byte vorlegen.
