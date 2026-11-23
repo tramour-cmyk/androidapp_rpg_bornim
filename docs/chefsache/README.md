@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 16:13, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 16:35, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -38,16 +38,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 23.11., 
 | ↳ **12** Bedienung und Oberfläche | 6 (6) | 0 | 0 | 0 | 5 | 954a.12 (Oberfläche) Erschaffung: nicht wählbare Fertigkeiten … |
 | ↳ **13** Geschichte und Texte | 9 (9) | 0 | 0 | 0 | 3 | 1628 (Story) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 25 (25) | 13 | 0 | 1 | 8 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 125 (110) | 83 | 0 | 1 | 16 | 1961 (Werkzeug) Ford heißt Disponent: Werkzeug auf Titel „Dispone… |
+| **7** Firma: Werkzeuge und Abläufe | 124 (110) | 82 | 0 | 1 | 16 | 1961 (Werkzeug) Ford heißt Disponent: Werkzeug auf Titel „Dispone… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Arbeitsplaner) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 14 | 115 | 14 | 1429 |
+| erledigt | 15 | 115 | 15 | 1430 |
 | neu | 27 | 128 | 27 | 1533 |
-| **netto** (erledigt − neu) | **−13** | **−13** | **−13** | **−104** |
+| **netto** (erledigt − neu) | **−12** | **−13** | **−12** | **−103** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -59,14 +59,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | läuft: 1068 (Besetzung); 1068 Ring bei jedem großen Schlag der Gegner … (Muss); dann 3 weitere |
-| Figur | läuft: 1675 (Besetzung); 513 Ein Figurenstand für alle Zweige (Muss); dann 8 weitere |
+| Figur | läuft: 1675 (Besetzung); 513 Ein Figurenstand für alle Zweige (Muss); dann 7 weitere |
 | Kataloge | 644.2 Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pfli… (Kür) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
 | Oberfläche | 531a Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast k… (Kür) |
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 2 weitere |
-| Werkzeug | läuft: 1999 (Besetzung); 1961 Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstel… (Muss); dann 44 weitere |
+| Werkzeug | läuft: 1999 (Besetzung); 1961 Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstel… (Muss); dann 43 weitere |
 | Prüfer | 1716 Buildzweig gehört Spike: nur Spike pusht auf claude/build-<… (Muss); dann 2 weitere |
 | Tester | leer, weil keine offene Zeile |
 
@@ -80,22 +80,22 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 4 | 1603 | Kampf | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf | startbar |
 | 5 | 1675 | Figur | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | M | 3 Figuren und Kleidung | in Arbeit |
 | 6 | 1676 | Figur | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | M | 3 Figuren und Kleidung | startbar |
-| 7 | 1694 | Figur | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je… | M | 3 Figuren und Kleidung | startbar |
-| 8 | 431 | Figur | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Figuren und Kleidung | startbar |
-| 9 | 1653 | Figur | Durchstechprüfung: Thessa Kleid sticht durch den Kragen | M | 3 Figuren und Kleidung | startbar |
-| 10 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
-| 11 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
-| 12 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
-| 13 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
-| 14 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
-| 15 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
-| 16 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
-| 17 | 1961 | Werkzeug | Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstellen, dann Übergabe a… | M | 7 Firma | startbar |
-| 18 | 1971 | Werkzeug | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgäng… | M | 7 Firma | startbar |
-| 19 | 1960 | Werkzeug | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla –… | M | 7 Firma | startbar |
-| 20 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
+| 7 | 431 | Figur | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Figuren und Kleidung | startbar |
+| 8 | 1653 | Figur | Durchstechprüfung: Thessa Kleid sticht durch den Kragen | M | 3 Figuren und Kleidung | startbar |
+| 9 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
+| 10 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
+| 11 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
+| 12 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
+| 13 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
+| 14 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
+| 15 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
+| 16 | 1961 | Werkzeug | Ford heißt Disponent: Werkzeug auf Titel „Disponent“ umstellen, dann Übergabe a… | M | 7 Firma | startbar |
+| 17 | 1971 | Werkzeug | Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgäng… | M | 7 Firma | startbar |
+| 18 | 1960 | Werkzeug | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla –… | M | 7 Firma | startbar |
+| 19 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
+| 20 | 1725 | Werkzeug | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | M | 7 Firma | startbar |
 
-Danach 140 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 31. Ruhend oder nach dem Meilenstein: 113.
+Danach 139 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 16. Werkzeug gebaut, Prüfung Diogenes: 31. Ruhend oder nach dem Meilenstein: 113.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
