@@ -139,7 +139,9 @@ def kern(rolle):
 # 1923 (1727j Startblock, Chef 22.11., 11:09 „Startblock ja, V7 genauso.“): an der neuen Liste setzt lauf.py jede Startnachricht
 # aus Kern, Fachprofil, Querprofilen (wörtlich, je docs/profile/<Name>.md nach Messregel) und Auftrag zusammen; CLAUDE.md ist dann
 # nur der Sockel und steht nie in der Nachricht (nichts doppelt). Fehlt eine Profildatei, fehlt nur dieser Teil (Zeile WARNUNG).
-KERN_VON = {"Disponent": ["Kern Büro"], "Arbeitsplaner": ["Kern Büro"], "Prüfer": ["Kern Abnahme"], "Tester": ["Kern Abnahme"]}
+KERN_VON = {"Disponent": ["Kern Büro"], "Arbeitsplaner": ["Kern Büro"], "Prüfer": ["Kern Abnahme"], "Tester": ["Kern Abnahme"],
+            "Sokrates": ["Kern Leitung"]}  # 1986 (Chef 23.11., 08:26 A): Leitung = Sockel + Kern Leitung + Gedächtnis (leitung_block)
+GEDAECHTNIS = os.path.join("leitung", "gedaechtnis.md")  # 1986: unter DOCS, ganz (ohne Kopfzeile und Leerzeile)
 # Querprofile, die der Auftrag zulädt (Kern Arbeitsplaner Feld 4 „Beachte“; Kern Abnahme „beide lädt der Auftrag zu“)
 QUER_AUS_AUFTRAG = [("Signatur und Leben", re.compile(r"Querprofil\s+(?:„)?Signatur und Leben")),
                     ("Fremde Inhalte", re.compile(r"Querprofil\s+(?:„)?Fremde Inhalte")),
@@ -180,6 +182,25 @@ def startblock(rolle, nr, docs=None):
         elif (rolle, n) not in STARTBLOCK_FEHLT: STARTBLOCK_FEHLT.append((rolle, n))
     return teile, auftrag
 
+def leitung_block(docs=None):
+    """1986: Teile [(Name, Text)] für jede START- und WEITER-Zeile an Sokrates: Kern Leitung (docs/profile/Kern Leitung.md nach
+    Messregel) und das Gedächtnis ganz, ohne seine Kopfzeile und die Leerzeile danach (alle Abschnitte); kein Fachprofil, kein
+    Auftrag aus der Vorgangsdatei, nichts aus ROLLE-BERATUNG-START.md. Fehlt eine Datei, fehlt nur dieser Teil (STARTBLOCK_FEHLT)."""
+    teile = []
+    for n in KERN_VON["Sokrates"]:
+        t = ladetext(n, docs)
+        if t: teile.append((n, t))
+        elif ("Sokrates", n) not in STARTBLOCK_FEHLT: STARTBLOCK_FEHLT.append(("Sokrates", n))
+    p = os.path.join(docs or DOCS, GEDAECHTNIS)
+    z = lesen(p).split("\n") if os.path.isfile(p) else []
+    if z and z[0].startswith("# "):
+        z = z[1:]
+        if z and not z[0].strip(): z = z[1:]
+    t = "\n".join(z).strip()
+    if t: teile.append(("Gedächtnis", t))
+    elif ("Sokrates", "Gedächtnis") not in STARTBLOCK_FEHLT: STARTBLOCK_FEHLT.append(("Sokrates", "Gedächtnis"))
+    return teile
+
 def nr_aus_titel(kopf):
     m = re.search(r"–\s*(\d{3,4}(?:\.\d+)?)\b", kopf.rpartition(" | ")[2])
     return m.group(1) if m else None
@@ -188,20 +209,29 @@ def mit_kern(l, docs=None):
     """1683: jede START-Zeile beginnt in der ersten Nachricht (letztes Feld) mit dem Kern der Rolle, darunter „Auftrag:“ und die bisherige Nachricht.
     1893: an der neuen Liste Ladetext des Profils statt Kern; „Start nach deiner Rollendatei“ heißt dort „den Ladetext oben“ (Profile ohne Rollendatei).
     1923: an der neuen Liste Startblock (startblock): Teile je mit Kopfzeile „**<Name>**“, dann „Auftrag:“ mit dem jüngsten Auftrag der
-    Vorgangsdatei wörtlich und der bisherigen Nachricht."""
+    Vorgangsdatei wörtlich und der bisherigen Nachricht.
+    1986: Sokrates an alter und neuer Liste mit leitung_block (Kern Leitung, Gedächtnis), auch in jeder WEITER-Zeile an Sokrates."""
+    if l.startswith("WEITER ") and l.count(" | ") >= 3 and l.split(" | ", 2)[1].strip() == "Sokrates":
+        kopf3, msg = l.split(" | ", 3)[:3], l.split(" | ", 3)[3]
+        k = "\n\n".join("**%s**\n%s" % (n, t) for n, t in leitung_block(docs))
+        return "%s | %s" % (" | ".join(kopf3), ("%s\n\nAuftrag: %s" % (k, msg) if k else msg).replace("\n", "\\n"))
     if not l.startswith("START "): return l
     rolle = l[6:].split(" |", 1)[0].strip()
     if rolle in ROUTINE_ROLLEN: return l  # 1789: Routine ohne Kern (Archiv 20.11., 07:37 „nicht deinen Kern“)
     kopf, _, msg = l.rpartition(" | ")
     auftrag = None
-    if NEU_LISTE and rolle != "Sokrates":
+    if rolle == "Sokrates":  # 1986
+        k = "\n\n".join("**%s**\n%s" % (n, t) for n, t in leitung_block(docs))
+    elif NEU_LISTE:
         teile, auftrag = startblock(rolle, nr_aus_titel(kopf), docs)
         k = "\n\n".join("**%s**\n%s" % (n, t) for n, t in teile)
     else:
         k = kern(rolle)
-    if NEU_LISTE and rolle != "Sokrates":
+    if NEU_LISTE or rolle == "Sokrates":
         msg = msg.replace("zuerst Start nach deiner Rollendatei, dann", "zuerst den Ladetext oben, dann" if k else "zuerst").replace(
             "Zuerst Start nach deiner Rollendatei.", "Zuerst den Ladetext oben." if k else "")
+    if rolle == "Sokrates":  # 1986: Stellungnahme (194.2) endet auf „; zuerst Start nach deiner Rollendatei.“
+        msg = msg.replace("; zuerst Start nach deiner Rollendatei.", "; zuerst den Ladetext oben." if k else ".")
     if rolle == "Tester":  # 1795 (Sokrates 22.11., 09:41): der Tester meldet als Absender „Tester“, unter der Nummer des Auftrags
         m = re.search(r"–\s*(\d{3,4}(?:\.\d+)?)\b", kopf.rpartition(" | ")[2]) or re.search(r"\bVorgang\s+(\d{3,4}(?:\.\d+)?)\b", msg)
         if not m:  # 1912 (D344.1): Zahl nach „Build“ oder „t“ (t312) ist der Build, nicht der Vorgang
