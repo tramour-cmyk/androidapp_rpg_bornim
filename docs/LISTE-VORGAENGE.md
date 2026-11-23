@@ -66,7 +66,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1589.4 | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nach Abschnitt 5 mit 1526, alte … | 2 | E Kampf | M | 1589.2, 1589.3 | 1600, 1589.1, 1526, 438, 709 | – | *startbar* | *–* | *0* | *–* |
 | 1589.5 | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Zahlen aus 444 … | 2 | E Kampf | M | 1589.4, 1589.6 | 1600, 1589.1, 444 | – | *startbar* | *–* | *0* | *–* |
 | 1589.6 | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt nah, fern, weit | 2 | E Kampf | M | 1589.2 | 1589.2, 444, 1589.1, 1486 | – | *startbar* | *–* | *0* | *–* |
-| 1603 | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in kerbe.gd | 2 | E Kampf | M | – | 1600 | – | *startbar* | *–* | *0* | *4,44 $* |
+| 1603 | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in kerbe.gd | 2 | E Kampf | M | Sokrates | 1600 | – | *startbar, steckt fest* | *–* | *0* | *4,44 $* |
 | 1708 | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_ui.gd _draw_blood) | 2 | E Kampf | M | 1589.4 | 760 | – | *ruht, nach Arena (Chef 22:17)* | *–* | *0* | *–* |
 | 1750 | Kampfort klingt wie seine Stelle der Karte, etwa halb so laut unter der Kampfmusik, Vögel und Frösche verstummen (D3a) | 2 | E Kampf | M | – | – | – | *erledigt* | *–* | *0* | *6,99 $* |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk … | 3 | E Figuren | M | – | 408 | claude/tom-431-ausruestung | *startbar, gelöst 17.11.: 431h, t297* | *–* | *0* | *125,77 $* |
