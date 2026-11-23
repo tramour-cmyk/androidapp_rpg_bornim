@@ -57,7 +57,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 931 | Wolf vorn – „Anspringen!“ steht, während er sich duckt (keine eigene Pause), Sprung bis Biss 0,6 s, Absetzen 0,8 s … | 2 | E Kampf | M | 760, 1589.4 | 784, 863 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1032 | nach dem eigenen Angriff taumelt ein Wachsoldat getroffen, im Bericht steht ein Angriff, aber der Angreifer macht keine … | 2 | E Kampf | M | 760, 1589.4 | – | claude/jerry-1032-treffer | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1043 | MARS-Probekampf Wölfe, Klosterschüler, „Ausweichen“ erzwungen: „davon hab ich nix gesehen. Da weicht nichts“ | 2 | E Kampf | M | 760, 1589.4 | – | claude/jerry-1043-sprung | *ruht, Block 2 (1605)* | *–* | *0* | *29,65 $* |
-| 1068 | Ring bei jedem großen Schlag der Gegner … | 2 | E Kampf | M | – | 1048, 444 | – | *ruht, bis Wort des Chefs zum Tempo (Film, Ring kürzer oder Maß; Chef 11:22 nicht jetzt)* | *–* | *0* | *15,02 $* |
+| 1068 | Ring bei jedem großen Schlag der Gegner … | 2 | E Kampf | M | – | 1048, 444 | – | *startbar, Chefwort 23.11., 11:27* | *–* | *0* | *15,02 $* |
 | 1415 | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A) | 2 | E Kampf | M | 709, 1589.4 | 1072, 784 | claude/jerry-1415-takt | *ruht, Block 2 (1605)* | *–* | *0* | *9,72 $* |
 | 1588 | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | 2 | E Kampf | M | 1589.4 | 1556 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1589.2 | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit und Versperren, Flucht … | 2 | E Kampf | M | – | 1600, 1589.1, 444, 1589.6 | – | *startbar* | *–* | *0* | *12,67 $* |
