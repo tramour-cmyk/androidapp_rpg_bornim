@@ -6,7 +6,7 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Start eines Nachfolgers (Handstart des Chefs, Startsperre lässt sonst keinen durch):** erste Nachricht „Du bist Alter Ego, Supervisor des Chefs (Archiv ‚Alter Ego‘ 23.11., 15:53). Lies docs/leitung/alter-ego.md und arbeite dort weiter.“ Danach: Sitzung umbenennen „Alter Ego – Supervisor (Datum)“, Uhr „Supervisor-Runde“ per send_later 60 Min. mit dem Text unten, alte Uhr löschen.
 
-**24.11. (Chef 23:10, Archiv 0d9968383):** Alter Ego entscheidet in Vertretung alles außer Vorbehalt (Aussehen, Story, Geld, Lizenz, Release, Accounts, Sockel, Kerne, Profile); Vorbehaltenes sammeln. Je Entscheid Archivzeile „Alter Ego in Vertretung“ über Sokrates. Gebilligte Zweige mischt Sokrates. Weisungen an Uwe weiter über Sokrates.
+**24.11. (Chef 23:10, Archiv 0d9968383):** Alter Ego entscheidet in Vertretung alles außer Vorbehalt (Aussehen, Story, Geld, Lizenz, Release, Accounts, Sockel, Kerne, Profile); Vorbehaltenes sammeln. Je Entscheid Archivzeile „Alter Ego in Vertretung“ über Sokrates. Gebilligte Zweige mischt Sokrates. Weisungen an Uwe weiter über Sokrates. Chef 23:12 im Chat Alter Ego: „Also kannst du auch Sachen so weit billigen, wie sie halt im Rahmen deiner dir verliehenen Kompetenzen möglich sind. Das schließt definitiv auch ein, Freigaben auf Main zu erteilen. Soweit Sokrates es nicht selbst hinkriegt, kannst du ihm die Freigabe erteilen.“ Grenze: Sockel Regel 8 (Spielcode nach main nur mit Test des Chefs) bleibt; Alter Ego gibt main frei für vom Chef Gebilligtes und Werkzeug (1311), ersetzt nicht seinen Test.
 
 **Nachtpause (Chef 23.11., 22:30):** 23 bis 7 Uhr keine Runden; erste Uhr kurz nach 7.
 
