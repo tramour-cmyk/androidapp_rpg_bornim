@@ -84,6 +84,7 @@ func _lauf() -> void:
 	var gewartet := 0
 	var letzte = null
 	var ring_seit := -1
+	var ringe := 0     # 1068: gestellte Ringe (Messung tests/mess_1068.sh)
 	var zuletzt_am_zug := ""
 	var n := 0
 	print("Filmversatz %.2f s" % (Engine.get_process_frames() / FPS))     # 949: Zeit 0 der Liste im Film (zum Schneiden)
@@ -116,6 +117,7 @@ func _lauf() -> void:
 		if kf.ring_open:
 			if ring_seit < 0:
 				ring_seit = n
+				ringe += 1
 			elif n - ring_seit >= int(kf.RING_MS / 1000.0 * FPS):
 				kf._answer_ring(Mars.PERFECT if _env("RING", "") == "PERFECT" else Mars.GOOD)
 		else:
@@ -138,6 +140,7 @@ func _lauf() -> void:
 	for id in wege.keys():
 		_weg_ende(id, zuletzt_am_zug)
 	_bericht(runden)
+	print("ENDE %.1f s, Ausgang %s, Ringe %d, Wahlen %d" % [t, kf.mars.outcome, ringe, wahlen.size()])     # 1068
 	print("SOLLBILD784 %d über dem Maß" % ueber)
 	quit(ueber if _env("STRENG", "") != "" else 0)
 
