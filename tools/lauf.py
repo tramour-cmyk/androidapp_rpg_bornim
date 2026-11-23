@@ -389,7 +389,12 @@ def vorrat_hinweis(r, nr=None):
     if r in VORRAT and not NEU_LISTE: return "die Übergabe in %s beachten" % VORRAT[r]
     return "die Vorgangsdatei `docs/vorgang/%s.md` lesen (Auftrag, Feld „Zurück“)" % (nr or "<Nr>")
 ROUTINE_ROLLEN = {"Rundblick", "Ideenlauf", "Tagesbericht"}  # 1789, 1907 (Ideenlauf, Gesamtbild 4.3 G:451): Routinen mit eigenem Start (ohne Kern, ohne Rufname, ohne Feld „Zurück“), nur mit tools/1727-SCHARF
-NIE_ARCHIV = {"Ford"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
+NIE_ARCHIV = {"Ford", "Wache"}  # Ford, Wache (1964: vorher fehlte die Wache); Sokrates und Sonstige nach eigener Regel (197)
+
+def ohne_rollen_aus(ausschluss):
+    """1148, 1964: Namen aus --ohne, die eine Rolle sind (alte Rollen, Profile, Routinen, Wache; kosten.ROLLEN), nicht Nummern."""
+    rollen = set(kosten.ROLLEN) | set(startbar.profile()) | ROUTINE_ROLLEN
+    return {n for n in ausschluss if n in rollen or re.fullmatch(startbar.ROLLEN_NAMEN, n)}
 
 def geschuetzt():
     """1531 (Chef 17.11., 08:52 zur Sitzung Sokrates: „diese Sitzung definitiv nicht archivieren oder schließen lassen“): Kennungen aus der
@@ -1172,6 +1177,7 @@ def auftrag_fehlt(nr, docs=None, titel=None):
     text = lesen(p) if os.path.isfile(p) else ""
     ab = juengster_auftrag(text)
     if not ab: return "kein Auftrag"
+    if (rl := ruecklaeufer_offen(text)): return rl  # 1964 (d)
     teil = text[ab[0]:]
     n = re.search(r"(?m)^## ", teil)
     try:
@@ -1181,6 +1187,20 @@ def auftrag_fehlt(nr, docs=None, titel=None):
         return "Auftrag nicht geprüft (%s)" % e
     return ("Auftrag: " + "; ".join(f[:2])) if f else None
 
+def ruecklaeufer_offen(text, jetzt=None):
+    """1964 (d, 1960-Ü7): Übergabezeile an den Arbeitsplaner, nicht erledigt, jünger als der jüngste „## Auftrag (…)“ = Rückläufer,
+    der neue Auftrag steht noch aus: Grund (kein START, Zeile „Auftrag“), sonst None."""
+    import uebergabe as _ue
+    k = auftrag_koepfe(text, jetzt)
+    if not k: return None
+    seit = max(d for d, _ in k); j = jetzt or JETZT
+    for z in _ue.zeilen(text or ""):
+        if z["an"].strip() != "Arbeitsplaner" or z["z"].strip().startswith("erledigt"): continue
+        t, mo, h, mi = (int(x) for x in re.findall(r"\d+", z["seit"]))
+        d = datetime.datetime(j.year if (mo, t) <= (j.month, j.day) else j.year - 1, mo, t, h, mi)
+        if d > seit: return "Rückläufer: %s an Arbeitsplaner %s seit %s, neuer Auftrag fehlt" % (z["k"], z["z"].strip(), z["seit"])
+    return None
+
 ARCHIV_SCHUTZ_MIN = 15
 def schutz_min(scharf=None):
     """1739 (7.1 „Archivieren mit Schutz 15 Minuten“; Büro-Gegenüberstellung: „nie binnen 15 Minuten nach der letzten Chefnachricht“):
@@ -1188,29 +1208,32 @@ def schutz_min(scharf=None):
     Ereignis (updated_at; enger als verlangt, nie weiter). Bis zur Umschaltung (tools/1727-SCHARF) 1 Minute (340.10 (c))."""
     return ARCHIV_SCHUTZ_MIN if (ist_scharf() if scharf is None else scharf) else 1
 
-AUFTRAG_KOPF = re.compile(r"(?m)^## Auftrag \((\d\d)\.(\d\d)\.,? (\d\d):(\d\d)\)")
+# 1964: eine Kopfregel „## Auftrag ([Name, [Rolle, ]]TT.MM., HH:MM[; Zusatz])“ (auftrag.py, Planer mit Rufname, Rückläufer mit Zusatz)
+AUFTRAG_KOPF = re.compile(r"(?m)^## Auftrag \((?:[^()\n\d,;]+, ){0,2}(\d\d)\.(\d\d)\.,? (\d\d):(\d\d)[;)][^\n]*")
+
+def auftrag_koepfe(text, jetzt=None):
+    """1964: [(Zeit ohne Zone, Ende der Kopfzeile)] aller Köpfe „## Auftrag (…)“ nach AUFTRAG_KOPF; Jahr: dieses, liegt TT.MM. nach jetzt, das vorige."""
+    j = jetzt or JETZT; aus = []
+    for m in AUFTRAG_KOPF.finditer(text or ""):
+        t, mo, h, mi = (int(x) for x in m.groups())
+        try: aus.append((datetime.datetime(j.year if (mo, t) <= (j.month, j.day) else j.year - 1, mo, t, h, mi), m.end()))
+        except ValueError: continue
+    return aus
 
 def juengster_auftrag(text, jetzt=None):
     """1798 (Kern Arbeitsplaner: Auftrag oben in die Vorgangsdatei): (Anfang nach der Kopfzeile, Ende vor dem nächsten „## “) des
-    jüngsten Abschnitts „## Auftrag (TT.MM., HH:MM)“ nach Zeit, gleich wo er steht (alte Dateien: unten); sonst None."""
-    j = jetzt or JETZT; beste = None
-    for m in AUFTRAG_KOPF.finditer(text or ""):
-        t, mo, h, mi = (int(x) for x in m.groups())
-        try: d = datetime.datetime(j.year if (mo, t) <= (j.month, j.day) else j.year - 1, mo, t, h, mi)
-        except ValueError: continue
-        if beste is None or d >= beste[0]: beste = (d, m.end())
+    jüngsten Abschnitts „## Auftrag (…)“ (AUFTRAG_KOPF) nach Zeit, gleich wo er steht (alte Dateien: unten); sonst None."""
+    beste = None
+    for d, ende in auftrag_koepfe(text, jetzt):
+        if beste is None or d >= beste[0]: beste = (d, ende)
     if not beste: return None
     n = re.search(r"(?m)^## ", text[beste[1]:])
     return beste[1], (beste[1] + n.start()) if n else len(text)
 
 def auftrag_seit(text, jetzt=None):
-    """Zeit des jüngsten Abschnitts „## Auftrag (TT.MM., HH:MM)“ der Vorgangsdatei (auftrag.py), sonst None."""
-    j = jetzt or JETZT; beste = None
-    for t, m, h, mi in AUFTRAG_KOPF.findall(text or ""):
-        try: d = datetime.datetime(j.year if (int(m), int(t)) <= (j.month, j.day) else j.year - 1, int(m), int(t), int(h), int(mi), tzinfo=BERLIN)
-        except ValueError: continue
-        beste = max(beste or d, d)
-    return beste
+    """Zeit (Berlin) des jüngsten Abschnitts „## Auftrag (…)“ der Vorgangsdatei, gleiche Kopfregel wie juengster_auftrag (1964), sonst None."""
+    k = auftrag_koepfe(text, jetzt)
+    return max(d for d, _ in k).replace(tzinfo=BERLIN) if k else None
 
 def leistungsstufe(s, text):
     """„Hoch“ bei Umgebung HOCH oder „Leistungsstufe: Hoch“ im jüngsten Auftrag (Feld 8 nach 1742), sonst „Mittel“."""
@@ -1468,7 +1491,7 @@ def main():
             else: print("WARNUNG --ohne %s ohne Grund ignoriert (190.2)" % nr)
     # 1148 (von Ford): --ohne <Rolle>:Grund nimmt die ganze Rolle aus diesem Lauf (START,
     # ARCHIVIERE und die Warnung „Start nicht angekommen“); vorher wirkte nur --ohne <Nr>, und Ford bekam weiter START Spike
-    ohne_rollen = {n for n in ausschluss if re.fullmatch(startbar.ROLLEN_NAMEN, n)}
+    ohne_rollen = ohne_rollen_aus(ausschluss)  # 1964: auch Profile, Routinen (Tagesbericht), Wache
     seiten = [x for i, x in enumerate(a) if not x.startswith("--") and not (i and a[i - 1] in ("--ohne", "--wecker"))]
     if not seiten: sys.exit(__doc__)
     offen = []; alle = {}
@@ -1836,6 +1859,8 @@ def main():
         return zl or warn
     def einmal(marke, zeile, tb=False):
         if marke in marke_text: return
+        if tb and tb_rolle in ohne_rollen:  # 1964: --ohne Tagesbericht: kein START, keine Sperre, keine Marke (nächster Lauf startet ihn)
+            ausgabe.append("NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (tb_rolle, tb_rolle, ausschluss[tb_rolle])); return
         if per_belegt and (tb or "| Perikles |" in zeile):
             ausgabe.append("NICHTS %s: %s wartet, %s läuft (149a)" % (tb_rolle, marke, tb_rolle)); return
         ausgabe.append(zeile() if callable(zeile) else zeile); wochen.append(marke)
@@ -1860,7 +1885,7 @@ def main():
         wie = ("%s läuft noch, Disponent erinnert ihn" if per_belegt else "%s neu gestartet") % tb_rolle  # D55.5: kein „neu gestartet“ ohne Start
         ausgabe.append("TAGESBERICHT-FEHLT %s: Tagesbericht um %s nicht da; Disponent meldet laut „448: Tagesbericht fehlt, %s“" % (heute, JETZT.strftime("%H:%M"), wie))
         wochen.append("Tagesbericht fehlt %s" % heute)
-        if "Tagesbericht %s" % heute in marke_text and not per_belegt:  # sonst startet ihn die Zeile oben schon
+        if "Tagesbericht %s" % heute in marke_text and not per_belegt and tb_rolle not in ohne_rollen:  # 1964; sonst startet ihn die Zeile oben schon
             ausgabe.append(tb_zeile(", fehlte um 10 Uhr (Sa, So 12 Uhr)" if not tb_scharf else " Fehlte um 10 Uhr (Sa, So 12 Uhr)."))
     # Wochenziel und Wochenzählung (früher WOCHENSTART) sind seit 719 Vorgänge aus startbar.WOCHENTERMINE, angelegt oben vor dem Plan
     # 194.2: Datei eines anderen in der Chefsache ohne „Stellungnahme Sokrates“ → Sokrates starten, höchstens zweimal am Tag (Marke im Protokoll)
@@ -1957,6 +1982,10 @@ def main():
         except Exception as e: ausgabe.append("WARNUNG LIEGT nicht geprüft: %s (1799)" % str(e)[:120])
     # 1472: Chefwort zum Kaufrepo an jede Startnachricht (START: letztes Feld), bei WEITER vor dem Hinweis auf send_message
     ausgabe = [mit_kaufrepo(l) for l in ausgabe]
+    if ohne_rollen:  # 1964: eine Regel für jede Rolle und Routine: mit --ohne <Rolle> kein START und keine Startsperre, gleich welcher Teil ihn schrieb
+        ausgabe = ["NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (r_, r_, ausschluss[r_]) if (r_ := l[6:].split(" |")[0].strip()) in ohne_rollen and l.startswith("START ") else l
+                   for l in ausgabe]
+        sperren[:] = [s_ for s_ in sperren if s_ not in ohne_rollen]
     ausgabe = [mit_kern(l) for l in ausgabe]
     ausgabe += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
     rufnamen = {}  # 1957: Rolle → Rufnamen der STARTs, für die Startsperre

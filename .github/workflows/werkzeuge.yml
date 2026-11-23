@@ -50,6 +50,7 @@ jobs:
           python3 tools/herzschlag.py --test    # 1788 (1764) Herzschlag, 1997 Wache-Fälle
           python3 tools/lauf_herzschlag_test.py # 1997 jeder Lauf ohne Schalter pusht die Zeitmarke
           python3 tools/ladesumme_test.py       # 1739 Größen und Ladesumme
+          python3 tools/lauf_1964_test.py       # 1964 Wache im Titel, --ohne jede Rolle/Routine, Kopfregel Auftrag, Rückläufer hält START
           python3 tools/lauf_kern_test.py       # 1923 Startblock, 1986 Sokrates mit Kern Leitung und Gedächtnis
           python3 tools/leitung_test.py         # 1988 Neustart Leitung und Disponent ab 300 Tsd. Token, Warnung einmal je Stunde
           python3 tools/sammelzeile_test.py     # 1971 stündliche Sammelzeile erledigter Vorgänge
