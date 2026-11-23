@@ -13,7 +13,7 @@ const Kampfort = preload("res://kampf/kampfort.gd")
 
 ## Tabelle 9 (DESIGN-GEGNER.md), Kennung im Spiel → [Denkweise, Rolle(n)]
 const TABELLE9 := {
-	"giant_rat": ["Instinkt", ["nah"]], "wolf": ["Instinkt", ["rudel"]], "dire_wolf": ["Plan", ["boss"]],
+	"giant_rat": ["Instinkt", ["nah", "rudel"]], "wolf": ["Instinkt", ["rudel"]], "dire_wolf": ["Plan", ["boss"]],
 	"boar": ["Instinkt", ["nah"]], "giant_centipede": ["Instinkt", ["nah"]], "giant_spider": ["Instinkt", ["fern", "nah"]],
 	"giant_bat": ["Instinkt", ["nah"]], "stirge": ["Instinkt", ["nah"]], "goblin": ["List", ["nah"]],
 	"goblin_archer": ["List", ["fern"]], "kobold": ["List", ["rudel"]], "goblin_shaman": ["List", ["zauber"]],
@@ -151,12 +151,15 @@ func _ziel_je_art() -> void:
 				_ok(z2 != null and z2.id == "mage", "%s: durch die Lücke zum Schwächsten, nicht %s" % [id, z2.id if z2 else null])
 			"Plan":
 				_ok(z == null, "%s: Plan wählt wie bisher (Reihenfolge des Bosses bis 1589.5)" % id)
-	# Instinkt: bei gleichem Abstand der Verwundete
+	# Instinkt: bei gleichem Abstand der Verwundete; „gleich“ heißt gleich (Toleranz ohne Quelle: Frage 1589.2), nicht traegheit_m
 	var m = _kampf(["wolf"], 5, false)
-	m.arena_punkte = {"f0": Vector2(3, 0), "hero": Vector2(0, -0.2), "merc": Vector2(0, 0.3)}
-	_ok(A.ziel(m, m.by_id("f0"), "").id == "hero", "Instinkt: der Nächste ohne Wunde")
+	m.arena_punkte = {"f0": Vector2(3, 0), "hero": Vector2(0, -0.3), "merc": Vector2(0, 0.3)}
 	m.by_id("merc").hp -= 5
 	_ok(A.ziel(m, m.by_id("f0"), "").id == "merc", "Instinkt: bei gleichem Abstand der Verwundete")
+	m.arena_punkte["merc"] = Vector2(0, 1.83)     # 0,5 m weiter (3,51 gegen 3,01 m), Weg frei: nicht gleich
+	_ok(A.ziel(m, m.by_id("f0"), "").id == "hero", "Instinkt: 0,5 m weiter ist nicht gleich, der Nächste trotz Wunde des anderen")
+	m.arena_punkte["merc"] = Vector2(-0.05, 0.3)
+	_ok(A.ziel(m, m.by_id("f0"), "").id == "hero", "Instinkt: 5 cm weiter ist nicht gleich")
 
 
 # --- Versperren: Vordere decken Hintere, List nur durch eine Lücke ------------------------------------------------------
@@ -218,6 +221,16 @@ func _spinne() -> void:
 	_ok(A.rolle_jetzt(m, s, h) == "nah", "Ziel nah: Nahkampf")
 	var w = _kampf(["wolf"], 5, false)
 	_ok(A.rolle_jetzt(w, w.by_id("f0"), w.by_id("hero")) == "rudel", "eine Rolle: bleibt")
+	# Riesenratte (Tabelle 9 „Nahkampf, zu dritt Rudel“, [428.ratte] „zu dritt dreist“): Rolle nach der Zahl, nicht nach dem Abstand
+	var r2 = _kampf(["giant_rat", "giant_rat"], 5, false)
+	var rh = r2.by_id("hero")
+	_ok(A.rolle_jetzt(r2, r2.by_id("f0"), rh) == "nah", "zwei Ratten: Nahkampf")
+	r2.arena_punkte = {"f0": Vector2(A.umriss(r2.by_id("f0")) + A.umriss(rh) + 0.3, 0), "hero": Vector2(0, 0)}
+	_ok(A.rolle_jetzt(r2, r2.by_id("f0"), rh) == "nah", "zwei Ratten, Ziel nah: Nahkampf (kein Wechsel wie die Spinne)")
+	var r3 = _kampf(["giant_rat", "giant_rat", "giant_rat"], 5, false)
+	_ok(A.rolle_jetzt(r3, r3.by_id("f0"), r3.by_id("hero")) == "rudel", "drei Ratten: Rudel")
+	r3.by_id("f2").hp = 0
+	_ok(A.rolle_jetzt(r3, r3.by_id("f0"), r3.by_id("hero")) == "nah", "eine von drei fällt: wieder Nahkampf")
 
 
 # --- Flucht nach Abschnitt 6 --------------------------------------------------------------------------------------------
@@ -287,13 +300,17 @@ func _flucht_ablauf() -> void:
 	# Rudel: Leitwolf fällt (1 von 2): Ansage sofort, fort erst nach dem nächsten Zug des Jungwolfs, eine Zeile [1601.flucht.rudel]
 	var r = _rudel(1)
 	var c = r.by_id("cub1")
-	r._hurt(r.by_id("wolf1"), 999, "hero", "")
+	_schlag(r, "wolf1")
 	_ok(c.standing() and not c.fled, "Ansage: Jungwolf noch da")
 	_ok(r.intents.has("cub1") and r.intents["cub1"][0].id == "flee", "Jungwolf hat Flucht angesagt")
 	_ok(String(r.I_FLEE.name[0]) == "Flucht" and String(r.I_FLEE.name[1]) == "Flee", "[1601.ansage.flee] wortgleich")
 	_ok(r.outcome == "ONGOING", "Kampf läuft bis zur Flucht")
 	r._foe_turn(c, Callable())
-	_ok(c.fled and c.von_selbst, "nach seinem Zug fort, von selbst")
+	_ok(c.standing() and not c.fled, "Zug des Jungwolfs vor dem Zug der Gruppe: noch da")
+	_ok(r.intents.has("cub1") and r.intents["cub1"][0].id == "flee", "Ansage bleibt, bis die Gruppe gehandelt hat")
+	_zug(r, "hero")
+	r._foe_turn(c, Callable())
+	_ok(c.fled and c.von_selbst, "nach dem Zug der Gruppe und seinem Zug fort, von selbst")
 	_ok(r.outcome == "WON", "Kampf gewonnen")
 	var txt := _texte(r)
 	_ok("Das Rudel zerstreut sich zwischen den Bäumen." in txt, "[1601.flucht.rudel] im Bericht")
@@ -301,12 +318,16 @@ func _flucht_ablauf() -> void:
 	var e = _kampf(["goblin", "goblin"], 5, false)
 	var x = e.by_id("f0")
 	x.hp = 2
-	e._hurt(e.by_id("f1"), 999, "hero", "")
+	_schlag(e, "f1")
 	_ok(e.intents.has("f0") and e.intents["f0"][0].id == "flee", "Goblin allein sagt Flucht an")
 	_ok(x.standing(), "noch da nach der Ansage")
 	_ok(_texte(e).any(func(t): return t == x.name(0) + " weicht zurück und sucht einen Ausweg."), "[1601.flucht.ansage] wortgleich")
 	e.announce(x)
 	_ok(e.intents["f0"][0].id == "flee", "Ansage bleibt bis zum Zug")
+	_zug(e, "hero")
+	e._foe_turn(x, Callable())
+	_ok(x.standing(), "Söldner hat noch nicht gehandelt: Goblin noch da")
+	_zug(e, "merc")
 	e._foe_turn(x, Callable())
 	_ok(x.fled and x.von_selbst and e.outcome == "WON", "Goblin fort")
 	_ok(_texte(e).any(func(t): return t == x.name(0) + " ist fort."), "[1601.flucht.fort] wortgleich")
@@ -322,16 +343,110 @@ func _flucht_ablauf() -> void:
 	_ok(not ("Von selbst geflohen: halbe Beute, volle Erfahrung." in l_tot.lines), "ohne Flucht keine Lohnzeile")
 	# Grak fällt: [1601.flucht.grak]
 	var g = _kampf(["hobgoblin_captain", "goblin", "goblin"], 5, false)
-	g._hurt(g.by_id("f0"), 999, "hero", "")
+	_schlag(g, "f0")
 	_ok(g.intents["f1"][0].id == "flee" and g.intents["f2"][0].id == "flee", "Grak fällt: beide sagen Flucht an")
+	g._foe_turn(g.by_id("f1"), Callable())
+	_ok(g.by_id("f1").standing() and g.by_id("f2").standing(), "Grak fällt: ohne Zug der Gruppe läuft keiner")
+	_zug(g, "hero")
+	_zug(g, "merc")
 	g._foe_turn(g.by_id("f1"), Callable())
 	_ok(g.by_id("f1").fled and g.by_id("f2").fled, "die Goblins laufen zugleich")
 	_ok("Die Goblins sehen ihren Hauptmann fallen und laufen." in _texte(g), "[1601.flucht.grak] im Bericht")
+	# Ansage mitten im Zug des Helden: dieser Zug zählt nicht, erst sein nächster
+	var h = _rudel(1)
+	h.turn = h.order.find(h.by_id("hero"))
+	h._hurt(h.by_id("wolf1"), 999, "hero", "")
+	h._next_turn()
+	h._foe_turn(h.by_id("cub1"), Callable())
+	_ok(h.by_id("cub1").standing(), "Ansage im Zug des Helden: dieser Zug zählt nicht")
+	_zug(h, "hero")
+	h._foe_turn(h.by_id("cub1"), Callable())
+	_ok(h.by_id("cub1").fled, "nach dem nächsten Zug des Helden fort")
+	_lohn_nur_geflohener()
+	_flucht_echter_ablauf()
 	# Untote fliehen nie, auch allein
 	var z = _kampf(["zombie", "zombie"], 5, false)
 	z.by_id("f0").hp = 1
 	z._hurt(z.by_id("f1"), 999, "hero", "")
 	_ok(not (z.intents.has("f0") and z.intents["f0"][0].id == "flee"), "Wiedergänger flieht nie")
+
+
+## der Held schlägt [ziel] in seinem Zug nieder, der Zug endet (dieser Zug zählt für eine Flucht, die er auslöst, nicht)
+func _schlag(m, ziel: String) -> void:
+	m.turn = m.order.find(m.by_id("hero"))
+	m._hurt(m.by_id(ziel), 999, "hero", "")
+	m._next_turn()
+
+
+## der Zug von [id] geht zu Ende (wie _skip_to_choice nach seiner Handlung)
+func _zug(m, id: String) -> void:
+	m.turn = m.order.find(m.by_id(id))
+	m._next_turn()
+
+
+## Lohn A halbiert nur, was der Fliehende bringt (Abschnitt 6): die Beute kommt vom stärksten Gegner (lohn.gd)
+func _lohn_nur_geflohener() -> void:
+	var weg = _rudel(1)
+	_schlag(weg, "wolf1")
+	_zug(weg, "hero")
+	weg._foe_turn(weg.by_id("cub1"), Callable())
+	_ok(weg.by_id("cub1").von_selbst, "Lohn: Jungwolf von selbst geflohen")
+	var tot = _rudel(1)
+	tot._hurt(tot.by_id("wolf1"), 999, "hero", "")
+	tot._hurt(tot.by_id("cub1"), 999, "hero", "")
+	for saat in [11, 12, 13, 14]:
+		var lw: Dictionary = Lohn.reward(weg, {}, Wuerfel.new(saat))
+		var lt: Dictionary = Lohn.reward(tot, {}, Wuerfel.new(saat))
+		_ok(lw.gold == lt.gold, "Leitwolf fällt, Jungwolf flieht: volles Gold des Leitwolfs (%d gegen %d, Saat %d)" % [lw.gold, lt.gold, saat])
+		_ok(lw.get("items", []) == lt.get("items", []), "Leitwolf fällt, Jungwolf flieht: volle Fundchance (Saat %d)" % saat)
+		_ok(lw.xp == lt.xp, "volle Erfahrung (Saat %d)" % saat)
+		_ok(not ("Von selbst geflohen: halbe Beute, volle Erfahrung." in lw.lines), "keine Lohnzeile, wenn nichts halbiert wird (Saat %d)" % saat)
+
+
+## im echten Ablauf (Gruppe auf Selbstlauf, Reihenfolge nach Initiative): zwischen Ansage und Fortsein handelt jeder der Gruppe
+func _flucht_echter_ablauf() -> void:
+	var gesehen := 0
+	for saat in 12:
+		var hero = _held("hero", Vector2i(Mars.FRONT, 0))
+		var merc = _held("merc", Vector2i(Mars.FRONT, 1))
+		var mage = _held("mage", Vector2i(Mars.BACK, 0))
+		var wolf := _monster("wolf")
+		var foes := [Mars.monster_fighter("wolf1", Vector2i(0, 0), wolf, 1)]
+		var j := wolf.duplicate(true)
+		j.rudel = "Jungwolf"
+		j.anfuehrer = "wolf"
+		var c = Mars.monster_fighter("cub1", Vector2i(0, 1), j, 500)
+		c.follows = "wolf1"
+		foes.append(c)
+		var m = Mars.new([hero, merc, mage], foes, tables, Wuerfel.new(100 + saat), Wuerfel.new(7))
+		m.by_id("wolf1").hp = 1     # nach dem Einrichten (brs_einrichten setzt das Leben nach werte.json)
+		c.max_hp = 500
+		c.hp = 500
+		for p in [hero, merc, mage]:
+			p.auto = true
+		m.chosen = true
+		var log: Array = m.start()
+		var n := 0
+		while m.outcome == "ONGOING" and n < 300:
+			log += m.proceed()
+			n += 1
+		var an := -1
+		var fort := -1
+		for i in log.size():
+			var e: Dictionary = log[i]
+			if an < 0 and e.intents.has("cub1") and String(e.intents["cub1"][0].id) == "flee":
+				an = i
+			if fort < 0 and e.cue == "FOE_FLEES" and e.target == "cub1":
+				fort = i
+		if an < 0 or fort < 0:
+			continue
+		gesehen += 1
+		var dazwischen := {}
+		for i in range(an + 1, fort):
+			if log[i].actor in ["hero", "merc", "mage"]:
+				dazwischen[log[i].actor] = true
+		_ok(dazwischen.size() == 3, "Saat %d: zwischen Ansage und Fortsein handeln %s, nicht alle drei" % [saat, dazwischen.keys()])
+	_ok(gesehen >= 6, "echter Ablauf: Flucht in %d von 12 Saaten gesehen" % gesehen)
 
 
 func _texte(m) -> Array:
