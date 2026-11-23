@@ -240,15 +240,8 @@ def mit_kern(l, docs=None):
         msg += "\\n\\nMeldung: `vorgang.py rueckmeldung %s \"Befunde: n …\" --sitzung Tester` (1795)." % (m.group(1) if m else "<Nr>")
     if auftrag: msg = "%s\n\n%s" % (auftrag, msg.replace("\\n", "\n"))  # 1923: Auftrag wörtlich vor der bisherigen Nachricht
     msg = msg.replace("\n", "\\n")
-    if rolle == "Sokrates":  # 1988 (Chef 23.11., 09:02): Aufwand wie gestartet, get_session zeigt ihn nicht
-        msg += "\\n\\nAufwand: %s" % aufwand_wert(kopf)
     if not k: return "%s | %s" % (kopf, ("Auftrag: " + msg) if auftrag else msg)
     return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
-
-def aufwand_wert(kopf):
-    """1988: Wert des Feldes „effort …“ der START-Zeile (drittes Feld), ohne Feld „Standard (ohne effort-Feld)“."""
-    f = kopf.split(" | ")
-    return f[2][7:].strip() if len(f) > 2 and f[2].startswith("effort ") else "Standard (ohne effort-Feld)"
 
 LEITUNG_NEUSTART_TOKEN = 300000  # 1988 (Chef 23.11., 09:02): Leitung mit 430 Tsd. Token stempelte 20 Min. vor
 def leitung_neustart(je_rolle, archiviert):

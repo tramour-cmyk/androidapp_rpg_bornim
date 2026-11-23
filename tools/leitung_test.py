@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""1988 (Chef 23.11., 09:02 „1 bis 3 ja“): (1) jeder Startauftrag der Leitung (START Sokrates) nennt „Aufwand: <Wert>“ wie gestartet;
+"""1988 (Chef 23.11., 09:02 „1 bis 3 ja“): (1) „Aufwand“ im Startauftrag der Leitung gestrichen (Chef 09:07);
 (3) eine Leitungssitzung ab 300.000 used_tokens (context_usage) ergibt die Zeile NEUSTART-LEITUNG an den Disponenten,
 vorn bei den STREICHEN-Zeilen (1688)."""
 import os, sys
@@ -14,14 +14,9 @@ def pruefe(ok, was):
         fehler += 1
         print("FEHLER", was)
 
-# (1) Aufwand im Startauftrag der Leitung
-for z, soll in [("START Sokrates | opus | env | repo | main | Sokrates – 1988: x | Weiter.", "Aufwand: Standard (ohne effort-Feld)"),
-                ("START Sokrates | opus | effort high | env | repo | main | Sokrates – 1988: x | Weiter.", "Aufwand: high")]:
-    l = lauf.mit_kern(z)
-    pruefe(l.endswith("\\n\\n" + soll), "1988: Startauftrag der Leitung ohne %r am Ende: %r" % (soll, l[-80:]))
-    pruefe("\n" not in l, "1988: echter Zeilenumbruch")
-for z in ("START Tom | opus | env | repo | main | Tom – 1: x | Weiter.", "WEITER s1 | Sokrates | 1763 C | Zeile"):
-    pruefe("Aufwand:" not in lauf.mit_kern(z), "1988: Aufwand nur im START der Leitung: %s" % z[:30])
+# (1) gestrichen (Chef 23.11., 09:07): kein Aufwand im Startauftrag der Leitung
+for z in ("START Sokrates | opus | effort high | env | repo | main | Sokrates – 1988: x | Weiter.", "START Tom | opus | env | repo | main | Tom – 1: x | Weiter."):
+    pruefe("Aufwand:" not in lauf.mit_kern(z), "1988 (09:07): kein Aufwand im Startauftrag: %s" % z[:30])
 
 # (3) Neustart der Leitung ab 300.000 Token (nachgestellter Wert)
 def s(i, tok, ext=False):
