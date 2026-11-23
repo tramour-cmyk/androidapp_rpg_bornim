@@ -19,8 +19,19 @@ const HAUT_MIN := 0.004            # m: näher: Glied im Schaft, öffnen
 const DAUMEN_HAUT := 0.014         # m: Daumen (dicker als die Finger)
 const FAUST_TIEFE := 0.011         # m: Grundgelenk bis Haut der Handinnenseite, wenn das Netz nichts liefert
 const GRUND_DICKE := 0.009         # m: Grundglied, Knochen bis Beugeseite, wenn das Netz nichts liefert
-const EINDRUCK := 0.002            # m: der Schaft drückt so weit in Haut und Finger (anliegend, kein Spalt)
+const EINDRUCK := 0.006            # m: der Schaft drückt so weit in Haut und Finger (anliegend, kein Spalt)
 const HALT_WEIT := 0.07            # m: weiter weg hält die Hand den Schaft nicht (getragen, auf dem Rücken)
+static var ANLEGEN := float(OS.get_environment("ANLEGEN1694")) if OS.get_environment("ANLEGEN1694") != "" else 1.0   # Anteil
+static var GEKOPPELT := OS.get_environment("KOPPEL1694") == "1"   # 1694: Glieder gemeinsam beugen (Versuch 23.11.: Kuppe zuerst am Stiel)
+static var ANSCHLAG := OS.get_environment("ANSCHLAG1694") != "0"   # 1694: der Reihe nach, je Glied Anschlag KETTE_GRENZE (0: 110° je Glied)
+const KETTE_ANTEIL := [1.0, 1.2, 0.8]   # Grund-, Mittel-, Endglied je Schritt (Verhältnis der Beugung beim Faustschluss)
+const KETTE_GRENZE := [90.0, 110.0, 80.0]   # Grad: Anschlag je Glied
+static var NUR_GLIED := OS.get_environment("GLIED1694") != "0"   # 1694: Haut je Glied erst ab einem Viertel seiner Länge
+static var DAUMEN_UM := OS.get_environment("DAUMEN1694") != "0"   # 1694: Daumen im Grundgelenk um den Schaft
+const DAUMEN_GRENZEN := [40.0, 60.0, 80.0]   # Grad: Anschlag Grund-, Mittel-, Endglied des Daumens
+static var DEBUG := OS.get_environment("GRIFFKETTE") != ""
+static var KONV := float(OS.get_environment("KONV1694")) if OS.get_environment("KONV1694") != "" else -16.0   # Grad je Finger (Versuch Handbeil 23.11.: -14: 11 %, -18: 9 % sichtbar, Kuppen stoßen zusammen)
+static var GELENK := OS.get_environment("GELENK1694") != "0"   # 1694: Beugen um das Gelenk (0: um die Schaftachse, wie bis 22.11.)
 const NEU_AB := 0.002              # m bzw. rad*m: so weit darf der Schaft in der Hand wandern, bevor die Finger neu schließen
 
 ## hat die Seite [s] („r“, „l“) eine Hand mit Fingern (Menschengerüst: hand_r, index_01_r …)?
@@ -335,6 +346,12 @@ static func schliessen(sk: Skeleton3D, s: String, o: Vector3, d: Vector3, r: flo
 	var fl: Vector3 = f[2]
 	var gehalten := float(quer.call(f[0])) <= HALT_WEIT * u
 	var ne := netz_finger(sk, s)
+	var mk: Array[int] = []
+	for g in ["_01_", "_02_", "_03_"]:
+		var i := sk.find_bone("middle" + g + s)
+		if i >= 0:
+			mk.append(i); sk.set_bone_pose_rotation(i, sk.get_bone_rest(i).basis.get_rotation_quaternion())
+	var mitte_dir: Vector3 = (sk.get_bone_global_pose(mk[1]).origin - sk.get_bone_global_pose(mk[0]).origin).normalized() if mk.size() > 1 else f[1]
 	for fi in FINGER:
 		var kette: Array[int] = []
 		for g in ["_01_", "_02_", "_03_"]:
@@ -342,14 +359,36 @@ static func schliessen(sk: Skeleton3D, s: String, o: Vector3, d: Vector3, r: flo
 			if i >= 0: kette.append(i)
 		if kette.size() < 2: continue
 		for i in kette: sk.set_bone_pose_rotation(i, sk.get_bone_rest(i).basis.get_rotation_quaternion())
+		# 1694 (23.11., griff_bild_1694: Finger schräg über dem Stiel, Stiel zwischen ihnen sichtbar): jedes Glied beugt um sein Gelenk
+		# (quer zum Finger in der Ebene der Hand), nicht um die Schaftachse; um die Schaftachse gedreht lief der Finger schräg seitwärts
+		var ax := d
+		if GELENK:
+			# Finger aneinander (in Ruhe gespreizt, im Bild Spalten zwischen den Fingern, durch die der Stiel zu sehen war): Grundglied um
+			# die Handnormale parallel zum Mittelfinger
+			var fr := (sk.get_bone_global_pose(kette[1]).origin - sk.get_bone_global_pose(kette[0]).origin).normalized()   # Grundglied
+			var fq := (fr - fl * fr.dot(fl)).normalized(); var mq := (mitte_dir - fl * mitte_dir.dot(fl)).normalized()
+			if fi != "middle" and fq.length() > 0.5 and mq.length() > 0.5:
+				# parallel zum Mittelfinger und KONV Grad je Finger Abstand zu ihm hin (die Glieder sind schmaler als der Abstand der
+				# Knöchel: parallel blieben 0,5 cm Spalt, in der Faust laufen die Finger zusammen)
+				var zu := (sk.get_bone_global_pose(mk[0]).origin - sk.get_bone_global_pose(kette[0]).origin)
+				zu = (zu - fl * zu.dot(fl) - mq * zu.dot(mq)).normalized()
+				var schritte := float(abs(FINGER.find(fi) - 1))
+				var ziel := mq.rotated(fl, 0.0)
+				ziel = (mq + zu * tan(deg_to_rad(KONV * schritte))).normalized()
+				_beuge(sk, kette[0], fl, rad_to_deg(fq.signed_angle_to(ziel, fl)) * ANLEGEN)
+				fr = (sk.get_bone_global_pose(kette[1]).origin - sk.get_bone_global_pose(kette[0]).origin).normalized()
+			ax = fr.cross(fl).normalized()
 		# Beugerichtung: die, in der die Spitze zur Handinnenseite geht (fest aus der Hand, kein Springen von Bild zu Bild, 610)
 		var vor := _spitze(sk, kette[-1])
-		_beuge(sk, kette[0], d, 10.0)
+		_beuge(sk, kette[0], ax, 10.0)
 		var plus := _spitze(sk, kette[-1])
-		_beuge(sk, kette[0], d, -10.0)
+		_beuge(sk, kette[0], ax, -10.0)
 		var vz := 1.0 if (plus - vor).dot(fl) > 0.0 else -1.0
+		# um ax = Finger × Handnormale dreht +Winkel den Finger zur Handnormalen: das ist Beugen, ohne Probe (Kleinfinger, in Ruhe schon
+		# gekrümmt: die Probe an der Spitze wählte Strecken, er stand gerade ab)
+		if GELENK: vz = 1.0
 		if not gehalten:   # nichts in der Hand: lockere Faust
-			for i in kette: _beuge(sk, i, d, vz * 120.0 / kette.size())
+			for i in kette: _beuge(sk, i, ax, vz * 120.0 / kette.size())
 		else:
 			var ab := func(von: int) -> float:
 				var pts: Array[Vector3] = []
@@ -363,15 +402,15 @@ static func schliessen(sk: Skeleton3D, s: String, o: Vector3, d: Vector3, r: flo
 				# 1694 (griff_alle 19.11., 10:48: Umschlingung 200–290°, Glieder bis 3 cm im Griff): am gezeichneten Netz schließen, Glied
 				# für Glied von der Hand aus: jedes Glied beugt, bis seine Haut am Griff liegt oder ein weiter vorn liegendes Glied (noch
 				# gestreckt) anstößt; so legt sich der Finger um den Griff, statt dass die Kuppe zuerst anstößt und die Glieder offen bleiben
-				_kette_netz(sk, kette, ne, abst, d, vz, u)
+				_kette_netz(sk, kette, ne, abst, ax, vz, u)
 			else:
 				for j in kette.size():
 					for st in HOECHST:
 						if float(ab.call(j)) <= HAUT * u: break
-						_beuge(sk, kette[j], d, vz * SCHRITT)
+						_beuge(sk, kette[j], ax, vz * SCHRITT)
 					var n := 0
 					while float(ab.call(j)) < HAUT_MIN * u and n < HOECHST:   # im Schaft: zurück
-						_beuge(sk, kette[j], d, -vz * SCHRITT); n += 1
+						_beuge(sk, kette[j], ax, -vz * SCHRITT); n += 1
 		for i in kette: dreh[i] = sk.get_bone_pose_rotation(i)
 	if gehalten:
 		var dk: Array[int] = []
@@ -390,7 +429,28 @@ static func schliessen(sk: Skeleton3D, s: String, o: Vector3, d: Vector3, r: flo
 			_beuge(sk, dk[0], d, 10.0)
 			var vz := 1.0 if float(nahe.call()) < a0 else -1.0
 			_beuge(sk, dk[0], d, -10.0)
-			_kette_netz(sk, dk, ne, abst, d, vz, u)
+			var d1 := sk.find_bone("thumb_01_" + s)
+			if DAUMEN_UM and d1 >= 0:
+				# 1694 (23.11., griff_bild_1694: Daumen stand am Zeigefinger vorbei nach oben, zwischen ihm und dem Zeigefinger lag der Stiel
+				# offen): Daumen Glied für Glied zur Mitte des Zeigefingers (Mittelglied, wie er in der Faust gebeugt ist), jedes Glied um die
+				# Achse, die seine Spitze dorthin dreht; hält, wenn die Spitze anliegt, er den Schaft drücken würde oder am Anschlag ist
+				var ziel := (sk.get_bone_global_pose(sk.find_bone("index_02_" + s)).origin + sk.get_bone_global_pose(sk.find_bone("index_03_" + s)).origin) * 0.5
+				var dkette: Array[int] = [d1, dk[0], dk[1]]
+				for i in dkette: sk.set_bone_pose_rotation(i, sk.get_bone_rest(i).basis.get_rotation_quaternion())
+				for j in dkette.size():
+					var w1 := 0.0
+					while w1 < float(DAUMEN_GRENZEN[j]):
+						var sp := _spitze(sk, dk[-1])
+						if sp.distance_to(ziel) <= DAUMEN_HAUT * u: break
+						var gp := sk.get_bone_global_pose(dkette[j]).origin
+						var achse := (sp - gp).cross(ziel - gp)
+						if achse.length() < 1e-6: break
+						_beuge(sk, dkette[j], achse.normalized(), 2.0); w1 += 2.0
+						if float(nahe.call()) < NETZ_DRUCK * u or _spitze(sk, dk[-1]).distance_to(ziel) >= sp.distance_to(ziel):
+							_beuge(sk, dkette[j], achse.normalized(), -2.0); w1 -= 2.0; break
+					if DEBUG: print("GRIFFKETTE %s %.0f° Spitze am Zeigefinger %.1f cm" % [sk.get_bone_name(dkette[j]), w1, 100.0 * _spitze(sk, dk[-1]).distance_to(ziel) / u])
+			else:
+				_kette_netz(sk, dk, ne, abst, d, vz, u)
 		else: _daumen(sk, s, abst, d, u)
 	for g in ["_01_", "_02_", "_03_"]:
 		var i := sk.find_bone("thumb" + g + s)
@@ -460,6 +520,14 @@ static func netz_finger(sk: Skeleton3D, s: String) -> Dictionary:
 	var aus := {}
 	for b in roh:
 		var p: PackedVector3Array = roh[b]
+		# 1694 (23.11., GRIFFKETTE: Grundglied des Kleinfingers „liegt an“ schon in Ruhe, 0° gebeugt, der Finger stand ab): Haut am
+		# Gelenk zur Hand (Ballen mit Gewicht am Grundglied) zählt nicht zum Glied; nur ab einem Viertel seiner Länge
+		var ch := sk.get_bone_children(b)
+		if NUR_GLIED and ch.size() > 0:
+			var lang := sk.get_bone_rest(ch[0]).origin
+			var nur := PackedVector3Array()
+			for q in p: if q.dot(lang) > 0.25 * lang.length_squared(): nur.append(q)
+			if nur.size() >= 8: p = nur
 		var schritt := maxi(1, p.size() / NETZ_JE)
 		var q := PackedVector3Array()
 		for i in range(0, p.size(), schritt): q.append(p[i])
@@ -482,14 +550,38 @@ static func _kette_netz(sk: Skeleton3D, kette: Array[int], ne: Dictionary, abst:
 		var P := sk.get_bone_global_pose(kette[k])
 		for q in ne.get(kette[k], PackedVector3Array()): m = minf(m, float(abst.call(P * q)))
 		return m
-	# der Reihe nach von der Hand aus, jedes Glied bis seine eigene Haut anliegt: liegt das Grundglied an, läuft der gestreckte Rest
-	# am runden Griff vorbei (nicht hinein), das nächste Glied legt sich an und so fort
-	for j in kette.size():
-		var w := 0.0
-		while float(eigen.call(j)) > NETZ_HAUT * u and w < 110.0:
-			_beuge(sk, kette[j], a, vz * 2.0); w += 2.0
-		while float(eigen.call(j)) < NETZ_DRUCK * u and w > -10.0:
-			_beuge(sk, kette[j], a, -vz * 2.0); w -= 2.0
+	if not GEKOPPELT:
+		# bis 22.11.: der Reihe nach von der Hand aus, jedes Glied bis seine eigene Haut anliegt
+		var grenze0: Array = KETTE_GRENZE if kette.size() == 3 and ANSCHLAG else [110.0, 110.0, 110.0]
+		for j in kette.size():
+			var w := 0.0
+			while float(eigen.call(j)) > NETZ_HAUT * u and w < float(grenze0[j]):
+				_beuge(sk, kette[j], a, vz * 2.0); w += 2.0
+			while float(eigen.call(j)) < NETZ_DRUCK * u and w > -10.0:
+				_beuge(sk, kette[j], a, -vz * 2.0); w -= 2.0
+			if DEBUG: print("GRIFFKETTE %s %.0f° Haut %.1f cm" % [sk.get_bone_name(kette[j]), w, 100.0 * float(eigen.call(j)) / u])
+	else:
+		# 1694 (23.11., griff_bild_1694; GRIFFKETTE: Grundglied 110° bis an den Anschlag, Mittelglied 0°, Kleinfinger mit Grund 0° und
+		# Spitze 110° in der Luft): alle Glieder beugen zugleich im Verhältnis der Hand (Grund : Mittel : End = 1 : 1,2 : 0,8, wie VR-Hände,
+		# die sich um den Griff legen), jedes bis zu seinem Anschlag; liegt ein Glied an, halten es und alle vor ihm (zur Hand hin), die
+		# weiter vorn liegenden beugen weiter, bis auch sie anliegen
+		var anteil: Array = KETTE_ANTEIL if kette.size() == 3 else [1.0, 1.0]
+		var grenze: Array = KETTE_GRENZE if kette.size() == 3 else [70.0, 80.0]
+		var w := []; w.resize(kette.size()); w.fill(0.0)
+		var fest := 0   # Glieder 0..fest-1 liegen an oder halten
+		for st in 120:
+			if fest >= kette.size(): break
+			var bewegt := false
+			for j in range(fest, kette.size()):
+				var dw: float = 2.0 * float(anteil[j])
+				if float(w[j]) + dw > float(grenze[j]): continue
+				_beuge(sk, kette[j], a, vz * dw); w[j] = float(w[j]) + dw; bewegt = true
+			for j in range(kette.size() - 1, fest - 1, -1):
+				if float(eigen.call(j)) <= NETZ_HAUT * u:
+					fest = j + 1; break
+			if not bewegt: break
+		if DEBUG:
+			for j in kette.size(): print("GRIFFKETTE %s %.0f° Haut %.1f cm" % [sk.get_bone_name(kette[j]), w[j], 100.0 * float(eigen.call(j)) / u])
 	# zuletzt: kein Glied im Griff (von vorn nach hinten öffnen)
 	for j in range(kette.size() - 1, -1, -1):
 		var n := 0

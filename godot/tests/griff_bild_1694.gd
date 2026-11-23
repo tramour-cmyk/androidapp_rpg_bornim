@@ -86,6 +86,10 @@ func _lauf() -> void:
 		var yq := (W.affine_inverse() * faust).y
 		var c := Griff.mitte_bei(sch, yq - 0.02, yq + 0.02)
 		var a := W * Vector3(c.x, yq, c.y)
+		if OS.get_environment("PUNKTE") != "":
+			var Wi := W.affine_inverse()
+			print("SCHAFT lo %.3f hi %.3f k %.3f faust %.3f" % [sch.lo, sch.hi, W.basis.y.length(), yq])
+			for b in ["index_01", "middle_01", "ring_01", "pinky_01", "pinky_03"]: print("SCHAFT %s y %.3f quer %.3f" % [b, (Wi * P.call(b)).y, Vector2((Wi * P.call(b)).x, (Wi * P.call(b)).z).length()])
 		var ti: float = (P.call("index_01") - a).dot(d); var tk: float = (P.call("pinky_01") - a).dot(d)
 		mat.set_shader_parameter("a", a); mat.set_shader_parameter("d", d)
 		mat.set_shader_parameter("t0", minf(ti, tk)); mat.set_shader_parameter("t1", maxf(ti, tk))
@@ -105,6 +109,9 @@ func _lauf() -> void:
 			kam.make_current()
 			for m in waffen_netze: (m as MeshInstance3D).material_override = mat
 			var mit := await _zaehle()
+			if OS.get_environment("PUNKTE") != "":
+				for b in ["index_03", "middle_03", "ring_03", "pinky_03", "thumb_03", "index_01", "pinky_01"]:
+					print("PUNKT %s %s %s" % [bl, b, kam.unproject_position(P.call(b))])
 			if ordner != "": root.get_viewport().get_texture().get_image().save_png("%s/%s-%s-maske.png" % [ordner, FOLGE[i], bl])
 			var sichtbar_vorher := {}
 			for m in koerper:
