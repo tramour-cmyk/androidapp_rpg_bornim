@@ -27,7 +27,7 @@
 - 1688: ARBEIT-BETRIEB auf 30 KB, Liste an den Chef; befristete Anweisungen streicht nur der Disponent (Chef 08:37–08:39).
 - 1983 Profiltext Prüfer/Disponent vor Einbau zum Chef.
 - Laufsperre: Prozent vom Chef mittags; über 0,6 %/h eine Fachkraft.
-- 1988 (Chef 09:02): Kerntext „Aufwand laut Auftrag“ nach Chef-Lesung vorlegen; Leitung ab 300 Tsd. neu.
+- Täglich: Modell, Umgebung, Aufwand aller Sitzungen prüfen (Chef 09:07); 1988: Leitung ab 300 Tsd. neu.
 - Fehler 341 vom 23.11. (`ARBEIT-BERATUNG.md`) als Lehren mit Byte vorlegen.
 
 ## Übergabe
