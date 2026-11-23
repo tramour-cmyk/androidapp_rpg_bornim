@@ -258,12 +258,22 @@ def empfaenger(an, scharf=None):
 def uebergabe(nr, an, was):
     an, was = _rein(an), _rein(was)
     if not an or not was: raise Fehler("AN und „was“ nötig")
+    m = re.match(r"(?i)chefwort\b\s*(\d\d\.\d\d\.,\s*\d\d:\d\d|\d\d:\d\d)?", was)
+    vp, lp = _pfad(nr), "docs/LISTE-VORGAENGE.md"
     def f(alt):
-        t = _mit_abschnitt(alt, nr)
+        t = _mit_abschnitt(alt[vp], nr)
+        aus = {}
+        if m:  # 1976-Ü5 (1566-Ü11): Übergabe „Chefwort …“ hebt „ruht, beim Chef“ in NR.md und Liste im selben Commit auf wie chefwort.py
+            import chefwort
+            zeit = m.group(1) or fmt(jetzt())
+            t = chefwort.aufheben(t, zeit)
+            L = chefwort.liste_aufheben(alt[lp], nr, zeit)
+            if L is not None: aus[lp] = L
         ks = [int(z["k"].rsplit("Ü", 1)[1]) for z in zeilen(t)]
         k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
-        return t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, an, was, fmt(jetzt())), k
-    k = atomar(nr, f, "Übergabe %s an %s (1760)" % (nr, an))
+        aus[vp] = t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, an, was, fmt(jetzt()))
+        return aus, k
+    k = atomar_dateien([vp] + ([lp] if m else []), f, "Übergabe %s an %s (1760)" % (nr, an))
     print("OFFEN %s an %s: %s" % (k, an, was))
     wecker(nr, k, an)
     return k
