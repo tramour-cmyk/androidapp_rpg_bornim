@@ -7,6 +7,7 @@ erzeugte Textdateien: Eingabe der Prüfliste (docs/entwurf/t<n>-….md) und Zeic
 Kommentar im Erzeuger nicht; jeder Schritt nach godot/ steht mit Herkunft in der Liste.
 Fall 2 (Fund Fenja 22.11.): frischer Checkout an 2c8ee7a4d ohne Import (ohne godot/daten/werte.json) meldet Zombie und Ghul;
 fehlt der Commit (flacher Checkout wie in werkzeuge.yml), holt der Test ihn flach nach (870-Ü3); geht das nicht: falsch.
+Fall 3 (870-Ü7): relative Ziele nach „cd godot“ und in „(cd godot && …)“; unbekannter Schreibschritt gibt Exit 1.
 Aufruf: python3 tools/regelcheck_namen_test.py   (Exit 0 = grün)
 """
 import os, subprocess, sys, tempfile
@@ -67,6 +68,29 @@ with tempfile.TemporaryDirectory() as t:
     schreibe(t, "tools/blender348/wolf.py", 'n = "Riesenegel"   # Zombie im Kommentar\n')
     rc, aus = lauf(t)
     pruefe(rc == 0 and "keine alten Namen" in aus, "Fall 1: nach Umbenennung grün (%d)" % rc)
+
+# Fall 3 (870-Ü7, Prüfer Jonas 22.11., 20:11): relative Ziele nach „cd godot“ und in „(cd godot && …)“ sind Schritte nach godot/;
+# ein neuer Schritt beginnt wieder im Repo; einen Schreibschritt, den der Wächter nicht einordnet, meldet er „unbekannt“ mit Exit 1
+with tempfile.TemporaryDirectory() as t:
+    schreibe(t, "docs/DESIGN-BRS.md", BRS)
+    schreibe(t, "tools/w/n.json", '{"monster": {"Ghul": {"leben": 1}}}')
+    schreibe(t, ".github/workflows/bau.yml", "      - run: |\n          cd godot\n          cp ../tools/w/n.json daten/\n"
+             "          cp $RUNNER_TEMP/x.glb daten/x.bin\n          timeout 60 godot --headless 2>&1 | tee lauf.log\n"
+             "      - run: |\n          cp tools/w/n.json daten/\n          (cd godot && ls kampf/daten/*.bin > kampf/daten/kauf.txt)\n")
+    rc, aus = lauf(t)
+    pruefe("Schritt bau.yml:3: tools/w/n.json -> godot/daten/ [lesbar]" in aus and "ALT Ghul: tools/w/n.json" in aus,
+           "Fall 3: nach cd godot relative Kopie als Schritt nach godot/ gelistet und gelesen")
+    pruefe("Schritt bau.yml:4: $RUNNER_TEMP/x.glb -> godot/daten/x.bin [binär]" in aus, "Fall 3: relatives Ziel nach cd godot (binär)")
+    pruefe("Schritt bau.yml:5: tee -> godot/lauf.log [Protokoll" in aus, "Fall 3: tee nach cd godot als Protokoll gelistet")
+    pruefe("bau.yml:7:" not in aus, "Fall 3: neuer Schritt beginnt im Repo (daten/ ist nicht godot/)")
+    pruefe("Schritt bau.yml:8: Umleitung -> godot/kampf/daten/kauf.txt [erzeugt" in aus, "Fall 3: Ziel in (cd godot && …) gelistet")
+    schreibe(t, "tools/w/n.json", '{"monster": {"Grabhund": {"leben": 1}}}')
+    rc, aus = lauf(t)
+    pruefe(rc == 0 and "unbekannt 0" in aus, "Fall 3: ohne alten Namen und ohne unbekannten Schritt grün (%d)" % rc)
+    schreibe(t, ".github/workflows/neu.yml", "      - run: |\n          mv $RUNNER_TEMP/z.json godot/daten/\n")
+    rc, aus = lauf(t)
+    pruefe(rc == 1 and "Schritt neu.yml:2: mv -> godot/daten/ [unbekannt" in aus and "1 Schritte unbekannt" in aus,
+           "Fall 3: nicht eingeordneter Schreibschritt „unbekannt“, Exit 1 (%d)" % rc)
 
 # Fall 2
 SHA = "2c8ee7a4dc3b2c101c97bbc64b4ecdb2d1d8b309"

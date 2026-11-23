@@ -4,7 +4,7 @@
 Aufruf: python3 tools/regelcheck.py [--kurz] [--anlass SHA] | --rueckmeldung [--um "TT.MM. HH:MM"]   (--rueckmeldung: nur Prüfung 559, ruft lauf.py stündlich; --um: Stand aus Git zu dieser Zeit; --kurz: nur Pflegefehler der Vorräte, Teil 1 und 2; ruft notiz.sh beim Start)    (Ford ruft es im Morgenlauf, Ausgabe in die Zeile „Morgen“ im Protokoll, 783 W7)
 Prüft: startbar.py (unlesbare oder ungültige Zeilen der Vorgangsliste, 275.2), Größen (Vorräte 30 KB, 1129 A 7; CLAUDE.md 15 KB),
 Zeilen über 1 500 Zeichen in Vorräten, Testbuilds am Tag (höchstens 6, 317), tote Verweise auf `Datei.md` / `tools/x` / `docs/…`, alte Dateinamen (notiz.sh), Lizenzhinweis SRD (446: Meldezeile, solange alte Namen im Spiel; Fund, wenn der Hinweis dann fehlt).
---namen [ROOT]: nur der Namenswächter (870): Godot-Spiel, Quellen der Kopien nach godot/ und Erzeuger dort erzeugter Textdateien samt Eingaben (Arbeitsabläufe); listet jeden Schritt nach godot/; Exit 1 bei alten Namen.
+--namen [ROOT]: nur der Namenswächter (870): Godot-Spiel, Quellen der Kopien nach godot/ und Erzeuger dort erzeugter Textdateien samt Eingaben (Arbeitsabläufe); listet jeden Schritt nach godot/, auch relativ nach cd godot; Exit 1 bei alten Namen oder unbekanntem Schritt.
 --anlass SHA: nennt die Regeldateien (CLAUDE.md, ROLLE-*, LISTE-BETRIEB.md, VORGANGSARCHIV.md), die seit SHA geändert wurden;
 nur dann gehört die Zeile „Widersprüche prüfen“ in ARBEIT-PRUEFUNG.md (Anlass-Lauf Diogenes, einmal im Monat voller Lauf).
 Inhaltliche Widersprüche sieht das Skript nicht. Exit 1, wenn etwas gefunden wurde.
@@ -124,35 +124,79 @@ ERZEUGER = [
     (r"(-info|held-klassen|leute-kauf|kampf-bewegungen)\.json$", ["tools/blender348/**/*.py"], ["tools/blender348/**/*.json"]),
 ]
 
-def _ziele(z):
-    """Schritte einer Zeile: [(Quelle oder Erzeuger-Aufruf, Ziel unter godot/)]."""
-    aus = []
+def _ziele(z, ing=False):
+    """Schritte einer Zeile: [(Quelle oder Erzeuger-Aufruf, Ziel unter godot/)]; ing: Arbeitsordner godot/ (870-Ü7, relative Pfade)."""
+    def g(p):   # Pfad unter godot/ oder None; „@/“ = $GITHUB_WORKSPACE/ in godot/
+        if p.startswith("@/"): return p[2:] if p[2:].startswith("godot/") else None
+        if p.startswith("godot/"): return p
+        if ing and p and not p.startswith(("/", "$", "~", "&", "..", "-")): return "godot/" + (p[2:] if p.startswith("./") else p)
+    aus, z = [], re.sub(r"\$\([^()]*\)", "$(…)", z)   # 870-Ü7: $(basename …) ist ein Wort
     for m in re.finditer(r"\bcp\s+((?:-\w+\s+)*)(.+?)(?=\s*(?:;|&&|\|\||\||\bdone\b|$))", z):
-        t = [x.strip("\"'") for x in m.group(2).split()]
-        if len(t) >= 2 and t[-1].startswith("godot/"): aus += [(q, t[-1]) for q in t[:-1]]
+        t = [x.strip("\"'") for x in re.sub(r"\d?>>?\s*\S+", "", m.group(2)).split()]   # 870-Ü7: ohne 2>/dev/null
+        if len(t) >= 2 and g(t[-1]): aus += [(g(q) or (q[3:] if ing and q.startswith("../") else q.replace("@/", "")), g(t[-1])) for q in t[:-1]]
     aus += [("gradle " + m.group(1), m.group(2)) for m in re.finditer(r"gradlew -p (\w+) \S+ -Pout=(godot/[^\s;]*)", z)]
-    aus += [("echo" if re.search(r"\becho\b[^>]*>>?\s*" + re.escape(m.group(1)), z) else "Umleitung", m.group(1))
-            for m in re.finditer(r">>?\s*(godot/[^\s;]+)", z)]
+    def woher(m):
+        v = z[:m.start()]
+        gs = re.search(r"git show (\S+:\S+)\s*$", v)
+        return "git show " + gs.group(1) if gs else "echo" if re.search(r"\becho\b[^>]*$", v) else "Umleitung"
+    aus += [(woher(m), g(m.group(1))) for m in re.finditer(r"(?<![=!<])>>?\s*([A-Za-z_.$@~/][\w./${}*@~-]*)(?=[\s;)|&]|$)", z) if g(m.group(1))]
+    aus += [("tee", g(m.group(1))) for m in re.finditer(r"\btee\s+(?:-a\s+)?([^\s;)|&]+)", z) if g(m.group(1))]   # 870-Ü7
     aus += [(m.group(1), m.group(2)) for m in re.finditer(r"python3 (tools/\S+\.py) (godot/\S+)", z)]
     return aus
+
+def _teile(z, ing):
+    """Zeile in Stücke mit Arbeitsordner: [(Text, in godot/)]; „(cd godot && …)“ läuft in godot/ (870-Ü7)."""
+    i = z.find("(cd godot")
+    if i < 0: return [(z, ing)]
+    tiefe, j = 0, len(z)
+    for j in range(i, len(z)):
+        tiefe += {"(": 1, ")": -1}.get(z[j], 0)
+        if tiefe == 0: break
+    return [(z[:i], ing), (z[i + 1:j], True)] + _teile(z[j + 1:], ing)
+
+# 870-Ü7: Schreibschritt, den der Wächter nicht einordnen kann (meldet ihn als „unbekannt“, Exit 1, statt ihn zu übergehen)
+# (cp, Umleitung und tee liest _ziele; ein Ziel mit unbekannter Variable oder ~ gilt als außerhalb von godot/). Ziel je Befehl:
+SCHREIBT = [("mv", r"\bmv\s+[^;|&]*?(\S+)\s*(?=$|[;|&}])"), ("rsync", r"\brsync\s+[^;|&]*?(\S+)\s*(?=$|[;|&}])"),
+            ("ln", r"\bln\s+[^;|&]*?(\S+)\s*(?=$|[;|&}])"), ("unzip", r"\bunzip\b[^;|&]*\s-d\s+(\S+)"), ("tar", r"\btar\b[^;|&]*\s-C\s+(\S+)"),
+            ("curl", r"\bcurl\b[^;|&]*\s-o\s+(\S+)"), ("wget", r"\bwget\b[^;|&]*\s-O\s+(\S+)"), ("dd", r"\bdd\b[^;|&]*\sof=(\S+)")]
 
 def kopierschritte(root):
     """Schritte nach godot/ in .github/workflows/*.yml: [(Datei:Zeile, Quelle, Ziel, Herkunft, zu lesen)]; zu lesen: Dateien im Repo."""
     aus = []
     for wf in sorted(glob.glob(os.path.join(root, ".github", "workflows", "*.yml"))):
-        var = {}
+        var, ing = {}, False
         for i, z in enumerate(lesen(wf).splitlines(), 1):
             z = re.sub(r"\s#\s.*$", "", z)
             if z.lstrip().startswith("#"): continue
-            for m in re.finditer(r"\b([A-Z])=([^\s;]+)", z): var[m.group(1)] = m.group(2)
-            z = z.replace("$GITHUB_WORKSPACE/", "")
+            if re.match(r"\s*(-\s|run:)", z): ing, var = False, {}            # 870-Ü7: neuer Schritt beginnt im Repo, ohne Variablen
+            if re.match(r"\s*cd godot\s*($|&&|;)", z): ing = True              # 870-Ü7: danach relative Pfade unter godot/
+            elif re.match(r"\s*cd (\.\.|\$GITHUB_WORKSPACE)\s*$", z): ing = False
+            for m in re.finditer(r"\b([A-Za-z])=([^\s;]+)", z):
+                var[m.group(1)] = "godot/" + m.group(2) if ing and not m.group(2).startswith(("/", "$", "~", ".", "godot/")) else m.group(2)
             for k, v in var.items():
-                if v.startswith("godot/"): z = re.sub(r"\$\{?%s\}?(?=/|\s|$)" % k, v, z)
-            for q, ziel in _ziele(z):
+                if v.startswith("godot/"): z = re.sub(r"\$\{?%s\}?(?=/|\s|\.|$)" % k, v, z)
+            schritte = []
+            for t, wo_g in _teile(z, ing):
+                t = t.replace("$GITHUB_WORKSPACE/", "@/" if wo_g else "")
+                schritte += _ziele(t, wo_g)
+                ohne = re.sub(r"\$\([^()]*\)", "$(…)", re.sub(r"'[^']*'", "''", t))
+                for name, muster in SCHREIBT:   # 870-Ü7: Befehl, dessen Quelle der Wächter nicht einordnet
+                    for m in re.finditer(muster, ohne):
+                        ziel = m.group(1).strip("\"'")
+                        if ziel.startswith("@/"): ziel = ziel[2:] if ziel[2:].startswith("godot/") else ""
+                        elif wo_g and ziel and not ziel.startswith(("/", "$", "~", "..", "-", "godot/")): ziel = "godot/" + ziel
+                        if ziel.startswith("godot/"): schritte.append(("?" + name, ziel))
+            for q, ziel in schritte:
                 if "export_templates" in ziel: continue
+                if q.startswith("?"):
+                    aus.append(("%s:%d" % (os.path.basename(wf), i), q[1:], ziel, "unbekannt (Schreibschritt nicht eingeordnet; Wächter nachbessern)", []))
+                    continue
                 wo, lies = "%s:%d" % (os.path.basename(wf), i), []
                 erz = [e for e in ERZEUGER if re.search(e[0], ziel) or re.search(e[0], q) or q in e[1]]
-                if q.startswith("godot/"): her = "lesbar (unter godot/)" if not q.endswith(BINAER) else "binär (unter godot/)"
+                if q.startswith("git show "):   # 870-Ü7: Datei aus einem anderen Commit; der Wächter liest dieselbe Datei im Checkout
+                    pf = q.split(":", 1)[1]
+                    her, lies = "aus Git (%s; Datei im Checkout gelesen)" % q, [pf] if os.path.exists(os.path.join(root, pf)) and pf.endswith(ENDUNGEN) else []
+                elif q.startswith("godot/"): her = "lesbar (unter godot/)" if not q.endswith(BINAER) else "binär (unter godot/)"
                 elif erz:
                     e = erz[0]
                     her = "erzeugt von %s aus %s" % (", ".join(e[1]), ", ".join(e[2]))
@@ -164,7 +208,9 @@ def kopierschritte(root):
                 elif ziel.endswith(ENDUNGEN) or ziel.endswith("/") and not q.endswith(BINAER):
                     her = "fremd (%s)" % ("core fehlt im Repo" if q.startswith("gradle") else "Kaufrepo oder Bauserver")
                 elif q.startswith("gradle"): her = "fremd (core fehlt im Repo)"
-                else: her = "binär"
+                elif ziel.endswith(".log"): her = "Protokoll (kein Spieltext; nicht im Export, include_filter in godot/export_presets.cfg)"
+                elif (q + " " + ziel).endswith(BINAER) or re.search(r"\.(glb|bin|png|jpg|bild)\b", q + " " + ziel): her = "binär"
+                else: her = "unbekannt (Schreibschritt nicht eingeordnet; Wächter nachbessern)"   # 870-Ü7
                 aus.append((wo, q, ziel, her, lies))
     return aus
 
@@ -213,14 +259,15 @@ if "--namen" in sys.argv:
     if not srd: print("DESIGN-BRS.md: Abschnitt „12. Namen“ ohne Tabelle Alt/Neu"); sys.exit(2)
     ks = kopierschritte(wurzel)
     for wo, q, z, her, _ in ks: print("Schritt %s: %s -> %s [%s]" % (wo, q, z, her))
-    print("Schritte nach godot/: %d (lesbar %d, erzeugt %d, binär %d, fremd %d); gelesen: %d Dateien unter godot/ und %d Quellen und Erzeuger" % (
-        len(ks), *[sum(1 for s in ks if s[3].startswith(h)) for h in ("lesbar", "erzeugt", "binär", "fremd")],
+    print("Schritte nach godot/: %d (lesbar %d, erzeugt %d, aus Git %d, binär %d, Protokoll %d, fremd %d, unbekannt %d); gelesen: %d Dateien unter godot/ und %d Quellen und Erzeuger" % (
+        len(ks), *[sum(1 for s in ks if s[3].startswith(h)) for h in ("lesbar", "erzeugt", "aus Git", "binär", "Protokoll", "fremd", "unbekannt")],
         sum(1 for d, _, fs in os.walk(os.path.join(wurzel, "godot")) if "tests" not in os.path.relpath(d, wurzel).split(os.sep) for f in fs if f.endswith(ENDUNGEN)),
         len(kopierquellen(wurzel))))
     tr = alte_namen(wurzel, srd)
     for n, fs in sorted(tr.items()): print("ALT %s: %s" % (n, ", ".join(sorted(fs))))
-    print("Namenswächter: %s" % ("%d alte Namen" % len(tr) if tr else "keine alten Namen"))
-    sys.exit(1 if tr else 0)
+    unb = [s for s in ks if s[3].startswith("unbekannt")]   # 870-Ü7: nicht eingeordnet heißt nicht geprüft
+    print("Namenswächter: %s%s" % ("%d alte Namen" % len(tr) if tr else "keine alten Namen", "; %d Schritte unbekannt" % len(unb) if unb else ""))
+    sys.exit(1 if tr or unb else 0)
 
 if "--rueckmeldung" in sys.argv:
     um = sys.argv[sys.argv.index("--um") + 1] if "--um" in sys.argv else None
