@@ -278,3 +278,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:55 23.11.: Startsperre 07:55 Start Werkzeug (Disponent von Hand nach Sokrates 07:55: Olga 1963-Ü12 rote Werkzeugtests, dann 1978-Ü4); Karin (1976) archiviert, Kosten gebucht; Nora Prüfer 1978-Ü3 fertig, 1976-Ü3 angewiesen (Zählung 2 von 3)
 - 08:03 23.11.: Startsperre 08:03 Start Arbeitsplaner, Kampf, Figur, Welt, Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 513 Jonas, Kampf 1068 Karla, Figur 1675 Lutz, Welt 1566 Marta, Arbeitsplaner 1716 Nils, Tagesbericht 448)
 - 08:04 23.11.: Startsperre 08:04 Start Tagesbericht (lauf.py, 448)
+- 08:06 23.11.: Startsperre 08:06 Start Prüfer (Disponent von Hand: Petra B301-Ü6, zweites Gegenlesen; Prüfer-Zählung Petra 0 von 3; Nora 3 von 3 archiviert)
