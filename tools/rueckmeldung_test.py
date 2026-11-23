@@ -153,7 +153,8 @@ import lauf
 g("pull", "-q", "origin", "main", cwd=A)
 aus = []
 z = lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
-soll("offene Zeilen an Sokrates gefunden", [k for k, _ in z] == ["9001-Ü1", "9001-Ü2", "9002-Ü2", "9003-Ü4", "9003-Ü6"], z)
+# 1976: 9001-Ü3, 9002-Ü3, 9002-Ü5 sind Rückmeldungen an die ruhenden 9001 und 9002 (früher verschluckt)
+soll("offene Zeilen an Sokrates gefunden", [k for k, _ in z] == ["9001-Ü1", "9001-Ü2", "9001-Ü3", "9002-Ü2", "9002-Ü3", "9002-Ü5", "9003-Ü4", "9003-Ü6"], z)
 soll("keine Sitzung: START Sokrates", len(aus) == 1 and aus[0].startswith("START Sokrates |") and "9001-Ü2 an den Chef" in aus[0] and "\n" not in aus[0], aus)
 soll("1801: Titel mit Vorgangsnummer der ersten Zeile", "| Sokrates – 9001: offene Zeilen (1763 C, " in aus[0], aus)
 gesperrt = []; aus = []; lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"), sperre=gesperrt.append)
@@ -162,7 +163,7 @@ so = {"id": "session_SOK", "_info": (0, True, 0), "updated_at": "2026-11-21T19:0
 aus = []; lauf.sokrates_zeilen(aus, {"Sokrates": [so]}, set(), docs=os.path.join(A, "docs"))
 soll("Sokrates läuft, klein: WEITER", len(aus) == 1 and aus[0].startswith("WEITER session_SOK | Sokrates | 1763 C | "), aus)
 aus = []; lauf.sokrates_zeilen(aus, {"Sokrates": [dict(so, context_usage={"used_tokens": 900000})]}, set(), docs=os.path.join(A, "docs"))
-soll("Sokrates läuft, groß: NICHTS", len(aus) == 1 and aus[0].startswith("NICHTS Sokrates: 5 offene"), aus)
+soll("Sokrates läuft, groß: NICHTS", len(aus) == 1 and aus[0].startswith("NICHTS Sokrates: 8 offene"), aus)
 aus = ["START Sokrates | opus | env | repo | main | Sokrates – Stellungnahme (x) | Sokrates\\n\\nStellungnahme …"]
 lauf.sokrates_zeilen(aus, {}, set(), docs=os.path.join(A, "docs"))
 soll("schon eine Sokrates-Zeile: angehängt, nie zwei", len(aus) == 1 and "1763 C" in aus[0], aus)
