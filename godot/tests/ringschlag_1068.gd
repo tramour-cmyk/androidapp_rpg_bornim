@@ -7,6 +7,9 @@
 # (4) Chef 23.11., 11:27 (Archiv: „Anspringen mit Ring nur Leitwolf und Grimmzahn“; Leibwache Sokrates 13:06): Jungwölfe und
 #     Grimmzahns Leibwache springen ohne Ring wie vor 1068 (Faktor 1, kein Ring gestellt); werte.json „absichten“ „ring_ohne“
 #     (Absicht: Rudelnamen), kein Zweig in mars.gd.
+# (5) Prüfer 23.11., 14:40 (1068-Ü8): der Tipp beim langen Drücken auf die Ansage (kampf_ui.gd scene_tip) nennt den Ring genau dann,
+#     wenn das ansagende Tier ihn hat: Leittier mit „den Ring“ / “the ring” ([1069.pounce]), wer folgt ohne ([702T.pounce]);
+#     jeder große Schlag mit, jeder kleine ohne (bite, claw haben keinen Tipp).
 # Run: godot --headless --path godot -s res://tests/ringschlag_1068.gd   (Exit 0 = grün)
 extends SceneTree
 
@@ -50,10 +53,12 @@ func _initialize() -> void:
 			_fehl("%s: ohne Ring" % id)
 		_schaden(String(id), art, float(alle[id]))
 		_gestellt(String(id), art)
+		_tipp_passt(it, art)
 	var m0 = _mars("goblin", 1)
 	for id in KLEIN:
 		if bool(m0.get("I_" + id.to_upper()).ring):
 			_fehl("%s: kleiner Schlag mit Ring" % id)
+		_tipp_passt(m0.get("I_" + id.to_upper()), "klein")
 	_jungwolf()
 	print("RINGSCHLAG1068 %s, %d Fehler" % ["grün" if fehler == 0 else "rot", fehler])
 	quit(1 if fehler > 0 else 0)
@@ -199,6 +204,7 @@ func _folger(gruppe: String) -> void:
 				_fehl("%s Würfel %d: %s (folgt) springt mit Faktor %s, soll 1 (wie vor 1068)" % [gruppe, s, f.id, it.ring_schaden])
 			if not jung and not bool(it.get("ring", false)):
 				_fehl("%s Würfel %d: Leittier %s ohne Ring" % [gruppe, s, f.id])
+			_tipp_passt(it, "%s %s Würfel %d" % [gruppe, f.id, s], m.intents)
 			gestellt.clear()
 			m.aim_spot[f.id] = hero.place
 			m._foe_turn(f, react)
@@ -214,3 +220,23 @@ func _folger(gruppe: String) -> void:
 		_fehl("%s: kein Anspringen gefunden %s" % [gruppe, geprueft])
 	else:
 		print("  pounce %s: Leittier mit Ring, wer folgt ohne: geprüft" % gruppe)
+
+
+## (5) der Tipp, den kampf_ui.gd scene_tip beim langen Drücken auf die Ansage von [intent] zeigt, nennt den Ring genau dann, wenn die
+## angesagte Absicht ihn hat (deutsch „den Ring“, englisch “the ring”)
+func _tipp_passt(intent: Dictionary, wer: String, intents := {}) -> void:
+	var ui = load("res://kampf/kampf_ui.gd").new()
+	var I := intents.duplicate()
+	I["x"] = [intent, []]
+	ui.kampfort = {"shown": {"intents": I}, "figures": {}}
+	ui.sign_of = {"x": Rect2(0, 0, 10, 10)}
+	var mit: bool = bool(intent.get("ring", false))
+	for sprache in 2:
+		ui.lang = sprache
+		var tx: String = ui.scene_tip(Vector2(5, 5))
+		var nennt := tx.contains("den Ring") if sprache == 0 else tx.contains("the ring")
+		if tx == "" and mit:
+			_fehl("%s %s: großer Schlag ohne Tipp beim langen Drücken" % [wer, intent.id])
+		elif nennt != mit:
+			_fehl("%s %s (%s): Tipp %s Ring, Absicht %s Ring: „%s…“" % [wer, intent.id, ["de", "en"][sprache], "mit" if nennt else "ohne", "mit" if mit else "ohne", tx.left(60)])
+	ui.free()
