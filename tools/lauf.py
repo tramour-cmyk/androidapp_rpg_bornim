@@ -1607,6 +1607,12 @@ def main():
         ausgabe.append("WARNUNG-LAUT Start %s nicht angekommen: Startsperre %s, keine Sitzung %s seither; Disponent: START ausführen oder mit --ohne NR:Grund ausschließen (837)" % (name, d.strftime("%d.%m., %H:%M"), name))
         neue_marken.append(schl)
     for name in nicht_da: marken.pop(name, None)  # (2) zählt nicht als Belegung
+    if bremse and bremse.ober:  # 2001: laufende Fachkräfte aus der Sitzungsliste („Laufend“, Kopf), dazu Startsperren unter SPERRE_MIN ohne Sitzung seither
+        bremse.laufend = guthaben.laufende_fachkraefte(je_rolle, archiviert) + sum(
+            1 for r, d in marken.items() if guthaben.fachkraft(r) and (JETZT - d).total_seconds() < SPERRE_MIN * 60
+            and not any(z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN) for s in je_rolle.get(r, [])))
+        neu_ = [l for l in bremse.zeilen() if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l]
+        ausgabe[:] = [neu_[0] if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l and neu_ else l for l in ausgabe]
     # Starten
     for nr, grund in sorted(ausschluss.items()): ausgabe.append("AUSGESCHLOSSEN %s: %s" % (nr, grund))
     ausgabe.extend(ohne_ueberholt(ausschluss, leb))
@@ -1861,6 +1867,11 @@ def main():
         if r in marken and (JETZT - marken[r]).total_seconds() < SPERRE_MIN * 60:
             ausgabe.append("NICHTS %s: Start unterwegs (Startsperre %s), offene Zeilen gehen im nächsten Lauf per NACHRICHT (1739)" % (r, marken[r].strftime("%H:%M"))); return True
         if nacht_halt(r, nr, ausgabe, morgen): return True
+        if bremse:  # 2001: auch der Start für offene Übergabezeilen hält Guthaben und Laufsperre ein (vorher an der Bremse vorbei)
+            zl_ = startbar_zeile(nr)
+            if (g := bremse.erlaubt(r, (zl_ or {}).get("kl", "M"), zl_)):
+                ausgabe.append("NICHTS %s: offene Übergabe %s angehalten: %s" % (r, nr, g)); return True
+            bremse.zaehle(r, zl_)
         mo, satz, hoch = modell(r, nr)
         msg = "%s\n\n%s Zuerst Start nach deiner Rollendatei.%s" % (r, teil, satz)
         ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (r, mo, aufwand(hoch), umgebung(r, hoch), REPO, REVISION,
