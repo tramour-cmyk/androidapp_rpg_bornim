@@ -58,3 +58,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:43 23.11.: Startsperre 08:43 Start Werkzeug (Disponent von Hand nach Sokrates 08:53: Viola 1688-Ü1, ARBEIT-BETRIEB auf 30 KB); Tilda (1986 fertig, aa49e9404) archiviert, Kosten gebucht
 - 08:50 23.11.: Startsperre 08:50 Start Arbeitsplaner, Kampf, Figur, Arbeitsplaner, Tagesbericht, Sokrates, Welt (lauf.py, Arbeitsplaner 513 Jonas, Kampf 1068 Karla, Figur 1570 Lutz, Arbeitsplaner 1716 Marta, Tagesbericht 448, Welt 1566 Nils)
 - 08:51 23.11.: Startsperre 08:51 Start Sokrates (Disponent von Hand nach Sokrates 08:30/Chef 08:26 A: neuer Sokrates 'Rundblick und Bremse' mit Kern Leitung + Gedächtnis; Uta 1986 ja, 3,0 $ nicht gezählt); alter Sokrates (401 Tsd. Token, 23,03 $) archiviert, Kosten auf 1986; Uta archiviert (0 von 3 aber keine Zeilen mehr)
+- 08:55 23.11.: Startsperre 08:55 Start Prüfer (Disponent von Hand: Wanda 1688-Ü2, Gegenprüfung ‚fehlt Geltendes?‘, 0 von 3)
