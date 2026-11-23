@@ -339,6 +339,11 @@ def fertig(nr, rolle=None):
     zu = [l[:60] for l in startbar.lesen(startbar.VORRAT.get(d["besitzer"], "")).splitlines() if re.match(r"- \*\*Zu " + re.escape(nr) + r"\b", l)]
     print("vorgang.py: %s erledigt (%s)%s%s" % (nr, d["besitzer"], ("; „wartet auf %s“ geleert bei: " % nr + ", ".join("%s (%s)" % (x["nr"], x["besitzer"]) for x in wer)) if wer else "",
                                             ("; Absätze noch da: " + " | ".join(zu)) if zu else ""))
+    try:  # 1688: Zeilen „Zu NR, bis erledigt“ als Übergabe „streichen: …“ an den Disponenten (nur bei Fund, sonst ohne Netz)
+        import streichen
+        if streichen.funde(nr): streichen.melden(nr)
+    except Exception as e:
+        print("WARNUNG Streichzeilen zu %s nicht gemeldet: %s (1688; von Hand: streichen.py melden %s)" % (nr, str(e)[:160], nr))
 
 def greift(nr, lauf, rolle=None):
     """755 (D101.1, 724 A): Diogenes schließt einen Vorgang im Bereich B mit seinem „greift“ selbst ab, im Commit des Laufs;

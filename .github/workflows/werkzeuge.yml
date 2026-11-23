@@ -23,6 +23,7 @@ jobs:
         run: |
           git config --global user.email "ci@bornim" && git config --global user.name "ci"
           python3 tools/uebergabe_test.py
+          python3 tools/streichen_test.py
           python3 tools/chefwort_test.py
           python3 tools/rueckmeldung_test.py
           python3 tools/liste_neu_test.py
