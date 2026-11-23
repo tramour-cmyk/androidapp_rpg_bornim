@@ -8,6 +8,8 @@
 # Sonderregeln Unerbittlich und Unsterblich, die Rechnung ist darum für A+H leicht zu streng).
 # Stand vor dem Bau (main 625b69fe3): seit dem Bau A+H (werte.json „absichten“ „ring“) gilt die Nachbildung doppelt; zum Nachrechnen
 # dort „ring“ auf den Stand vor 1068 setzen.
+# Nach dem Bau (Prüfer 23.11., 14:40: Tabelle je Herkunft und Gegner): HEUTE=1 rechnet nur die Zeile „heute“ mit Automatik, also die
+# Regeln des Stands, an dem es läuft; an main und am Zweig gerechnet ist das der Vergleich (tests/mess_1068.sh).
 # Run: godot --headless --path godot -s res://tests/ring_1068.gd   (Tabelle, Exit 0; braucht daten/held.json; N=… in der Umgebung)
 extends SceneTree
 
@@ -43,7 +45,8 @@ func _initialize() -> void:
 		for k in ["Wachsoldat", "Zauberlehrling", "Herumtreiber", "Klosterschüler"]:
 			if nur != "" and not (k + gegner).contains(nur):
 				continue
-			for v in [["heute", Mars.GOOD], ["A+H", Mars.GOOD], ["A+H", Mars.NONE], ["A+H", Mars.PERFECT]]:
+			var varianten := [["heute", Mars.GOOD]] if OS.get_environment("HEUTE") != "" else [["heute", Mars.GOOD], ["A+H", Mars.GOOD], ["A+H", Mars.NONE], ["A+H", Mars.PERFECT]]
+			for v in varianten:
 				var z := _messe(a, tab, skills, monsters, String(v[0]) == "A+H", String(v[1]), k, gegner, n_k)
 				print("%-6s %-10s %-15s %-7s %4d%%  %8.1f  %8.1f  %8.2f  %10.0f%%  %4d" % [v[0],
 					{"GOOD": "Automatik", "NONE": "verfehlt", "PERFECT": "perfekt"}[v[1]], k, gegner, z.siege * 100 / n_k,

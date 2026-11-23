@@ -1496,7 +1496,7 @@ func scene_tip(p: Vector2) -> String:
 		return _status_tip(p)
 	for id in sign_of:
 		if (sign_of[id] as Rect2).grow(6 * dp).has_point(p) and k.shown.intents.has(id):
-			var tx = Tips.INTENTS.get(String(k.shown.intents[id][0].id))
+			var tx = Tips.ansage(k.shown.intents[id][0])     # 1068: ohne Ring der Tipp ohne Ring
 			if tx != null:
 				return str(tx[lang])
 	for id in k.figures:

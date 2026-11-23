@@ -108,7 +108,7 @@ func _lauf() -> void:
 		_touch(r.get_center(), false)
 		for i in 3:
 			await process_frame
-		var soll: String = Tips.INTENTS[kennung][0] if Tips.INTENTS.has(kennung) else ""
+		var soll: String = Tips.ansage(kf.shown.intents[ziel][0])[0] if Tips.ansage(kf.shown.intents[ziel][0]) != null else ""
 		_soll(ui.tip.visible and ui.tip.text == soll, "lang auf die Ansage %s von %s: „%s…“" % [kennung, ziel, ui.tip.text.left(40)])
 	print("TIPS_536 %d Fehler" % fehler)
 	quit(1 if fehler else 0)

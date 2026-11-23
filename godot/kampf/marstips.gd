@@ -46,3 +46,17 @@ const INTENTS := {
 	"shadow": ["In den Schatten: er verschwindet; bis zu seinem nächsten Zug haben Angriffe auf ihn Ungunst. Hilft: jeder Treffer vorher, auch ein leichter, hält ihn im Licht.",
 		"Into the shadows: he vanishes; until his next turn, attacks on him are at disfavor. Counter: any hit beforehand, however light, keeps him in the light."],
 }
+
+## 1068 (Prüfer 23.11., 14:40): sagt ein Tier die Absicht ohne Ring an (werte.json „absichten“ „ring_ohne“, Jungwolf und Leibwache
+## beim Anspringen), gilt der Tipp ohne Ring wie vor 1068 (STORY-SPIEL.md)
+const INTENTS_OHNE_RING := {
+	"pounce": ["Anspringen: trifft er, macht er Schaden und bringt die Figur aus dem Gleichgewicht: in ihrem nächsten Zug handelt sie, kann aber weder die Reihe wechseln noch eine Waffe ziehen. Hilft: die Figur wechselt vorher die Reihe, dann springt er ins Leere; ein Wechsel kostet nur einen halben Zug.",     # [702T.pounce]
+		"Pounce: if the wolf hits, it deals damage and knocks the figure off balance: on its next turn the figure acts, but can neither switch rows nor draw a weapon. Counter: the figure switches rows first and the wolf leaps at nothing; a switch costs only half a turn."],
+}
+
+## Tipp beim langen Drücken auf die Ansage [intent] (Absicht wie angesagt, mit „ring“), [de, en] oder null
+static func ansage(intent: Dictionary) -> Variant:
+	var id := String(intent.id)
+	if not bool(intent.get("ring", false)) and INTENTS_OHNE_RING.has(id):
+		return INTENTS_OHNE_RING[id]
+	return INTENTS.get(id)
