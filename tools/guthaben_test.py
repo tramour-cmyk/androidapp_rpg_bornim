@@ -241,4 +241,31 @@ def f_2002_cdf():
     soll("2002 (f): nachts Eilt → nein", b.erlaubt("Werkzeug", "M", WE) and "nachts" in b.erlaubt("Werkzeug", "M", WE), b.erlaubt("Werkzeug", "M", WE))
 fall("2002 c d f", f_2002_cdf)
 
+def f_2002_b2():
+    # 2002-Ü4 (Prüfer 16:18, Sokrates 16:21 (1)): jedes Prüfwort außer „ja“ nach dem „fertig“ ist Rückläufer
+    zid = "session_Zora"
+    for w in ("Beleg fehlt: Ausgabe zu (d)", "nein … steckt fest", "steckt fest: x", "nein, Auftrag unklar"):
+        fe = guthaben.fertige_sitzungen([vg(("14:57", "Werkzeug", zid, "fertig x"), ("15:41", "Figur", "session_P", w))])
+        soll("2002 (b2): „%s“ nach fertig → Rückläufer, nicht fertig" % w, zid not in fe, fe)
+    fe = guthaben.fertige_sitzungen([vg(("14:57", "Werkzeug", zid, "fertig x"), ("15:41", "Prüfer", "session_P", "ja (Hanna): alles belegt"))])
+    soll("2002 (b2): „ja“ nach fertig → bleibt fertig", zid in fe, fe)
+    fe = guthaben.fertige_sitzungen([vg(("15:41", "Prüfer", "session_P", "Beleg fehlt: y"), ("15:50", "Werkzeug", zid, "fertig z"))])
+    soll("2002 (b2): „Beleg fehlt“ vor dem fertig zählt nicht", zid in fe, fe)
+fall("2002 b2", f_2002_b2)
+
+def f_2002_taetig():
+    # 2002-Ü4 (Sokrates 16:21 (2)): arbeitet eine fertige Sitzung danach wieder (working, updated_at nach dem „fertig“), zählt sie
+    zid = "session_Zora"
+    fe = guthaben.fertige_sitzungen([vg(("14:57", "Werkzeug", zid, "fertig x"))])
+    def je(bucket, upd): return {"Werkzeug": [dict(sitz("Werkzeug"), id=zid, status_bucket=bucket, updated_at=upd)], "Kampf": [sitz("Kampf")], "Figur": [sitz("Figur")]}
+    n = guthaben.laufende_fachkraefte(je("SESSION_STATUS_BUCKET_WORKING", "2026-11-23T14:10:00Z"), fertig=fe)
+    soll("2002 Tätigkeit: fertig 14:57, danach working (15:10) → zählt, 3", n == 3, n)
+    n = guthaben.laufende_fachkraefte(je("SESSION_STATUS_BUCKET_BLOCKED", "2026-11-23T14:10:00Z"), fertig=fe)
+    soll("2002 Tätigkeit: fertig 14:57, danach blocked (Frage) → zählt nicht, 2", n == 2, n)
+    n = guthaben.laufende_fachkraefte(je("WORKING", "2026-11-23T13:50:00Z"), fertig=fe)
+    soll("2002 Tätigkeit: working, updated_at 14:50 vor dem fertig → zählt nicht, 2", n == 2, n)
+    soll("2002 Tätigkeit: Namen mit Zora", "session_Zora (Werkzeug)" in guthaben.laufende_namen(je("WORKING", "2026-11-23T14:10:00Z"), fertig=fe),
+         guthaben.laufende_namen(je("WORKING", "2026-11-23T14:10:00Z"), fertig=fe))
+fall("2002 Tätigkeit", f_2002_taetig)
+
 print("%d Fehler" % fehl); sys.exit(1 if fehl else 0)
