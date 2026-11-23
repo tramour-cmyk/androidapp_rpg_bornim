@@ -166,7 +166,8 @@ def obergrenze(jetzt, archiv=None):
 
 
 def fachkraft(rolle):
-    return re.sub(r" \d+$", "", rolle or "") not in FREI_OBER and rolle != "Sonstige"
+    """2001-Ü12 (Entscheid 16:57): unbekannt („Sonstige“) zählt nie als frei."""
+    return re.sub(r" \d+$", "", rolle or "") not in FREI_OBER
 
 
 TITEL_ROLLE = re.compile(r" – \d[0-9a-zA-Z.]*: (Prüfung|Test(?:er)?)\b")
@@ -176,7 +177,26 @@ def ober_rolle(rolle, titel):
     """2001-Ü10 (Prüfer 23.11., 15:54): Titel „<Rufname> – <Nr>: Prüfung …“ → Prüfer, „…: Test …“ → Tester, vor der Rolle aus dem
     Vorgang oder einer doppelten Rufnamen-Sperre (kosten.rolle gab für „Hanna – 1675: Prüfung“ Figur); sonst die Rolle."""
     m = TITEL_ROLLE.search(titel or "")
-    return rolle if not m else "Prüfer" if m.group(1) == "Prüfung" else "Tester"
+    if m: return "Prüfer" if m.group(1) == "Prüfung" else "Tester"
+    return vorgang_rolle(titel) or rolle if rolle in (None, "", "Sonstige") else rolle
+
+
+ZEILEN = None  # Vorgangsliste (startbar.vorgangsliste); None: aus docs/ gelesen. Tests setzen sie.
+TITEL_NR = re.compile(r" – (\d{2,4}[a-zA-Z]?(?:\.\d+[a-z]?)*)\b")
+
+
+def vorgang_rolle(titel):
+    """2001-Ü12 (Entscheid 16:57): Besitzer des Vorgangs aus „<Name> – <Nr>…“, auch bei Rufnamen außerhalb der Liste (Isolde); sonst None."""
+    global ZEILEN
+    m = TITEL_NR.search(titel or "")
+    if not m: return None
+    if ZEILEN is None:
+        try:
+            import startbar
+            ZEILEN = startbar.vorgangsliste(startbar.lesen(startbar.LISTE))
+        except Exception:
+            return None  # ohne Liste bleibt die Rolle „Sonstige“ und zählt (nie frei)
+    return next((d.get("besitzer") for d in ZEILEN if d.get("nr") == m.group(1)), None)
 
 
 def ist_laufend(s, jetzt):
