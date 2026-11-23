@@ -8,6 +8,7 @@ Ideen, die noch **nicht umgesetzt** sind, nach Bereichen (124). Hierher gehört 
 
 ## Reif (Übersicht für Perikles)
 
+- **Kür nach Abhängigen ordnen** (Chef 23.11., 11:14: „Sachen, wo viele andere dran hängen“; nach Sofort, Halt, Muss): Kür mit vielen wartenden Vorgängen zuerst; Bestand: Engpass-Regel 1129 A 4 (Kopf `LISTE-VORGAENGE.md`, nur Muss, ab 10) steht nur im Text, kein Werkzeug rechnet sie (grep `tools/` 23.11., 11:15). Votum Sokrates: in `vorgang.py ordnen` umsetzen.
 - **Funken für verzauberte Klingen** (Chef 18.11., 13:09): Funken aus 1613 nur für Statuseffekte auf der Waffe, je Art eigene Farbe und Form (vergiftet, unter Strom, Wasser …); hängt an Verzauberung (Runenkunde, Runenmeister) und Giften (Alchemie) im Regelwerk, beide „später auf deiner Reise“ (954a.12) → nach dem Meilenstein, Spike (Effekt), Homer (Arten).
 
 - **Effekte wie andere sie bauen** (1270.5, Spike 18.11.: Bildfolgen auf wenigen Flächen für Feuer, Treffer, Rauch; Zauber und Hiebe als bewegte Netze; gemeinsamer Effekt-Shader mit Atlas) → Jerry, Homer; kein Engpass belegt, jedes neue Effektbild ist Aussehen (Chef).
