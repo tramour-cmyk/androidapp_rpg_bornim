@@ -127,7 +127,8 @@ def f_c():
     global b
     b = guthaben.Bremse(J, betrieb(50), archiv=ober("zwei"), protokoll=[], laufend=1)
     soll("2001 (c): Eilt, eine läuft → START", b.erlaubt("Werkzeug", "M", WE) is None); b.zaehle("Werkzeug", WE)
-    soll("2001 (c): Eilt, zwei laufen → nein", b.erlaubt("Werkzeug", "M", dict(WE, nr="1960")) and "höchstens 2" in b.erlaubt("Werkzeug", "M", dict(WE, nr="1960")), b.erlaubt("Werkzeug", "M", WE))
+    soll("2001 (c), seit 2002 (B): Eilt, zwei laufen (N) → START", b.erlaubt("Werkzeug", "M", dict(WE, nr="1960")) is None, b.erlaubt("Werkzeug", "M", WE)); b.zaehle("Werkzeug", WE)
+    soll("2001 (c), seit 2002 (B): Eilt, drei laufen (N+1) → nein", b.erlaubt("Werkzeug", "M", dict(WE, nr="1959")) and "höchstens 2" in b.erlaubt("Werkzeug", "M", dict(WE, nr="1959")), b.erlaubt("Werkzeug", "M", WE))
     soll("2001 (c): Eilt der alten Liste („jetzt“) zählt als Eilt", guthaben.Bremse(J, betrieb(50), archiv=O, protokoll=[], laufend=0).erlaubt("Werkzeug", "M", {"bereich": "B Werkzeuge", "titel": "x · „jetzt“ 23.11.", "stand": ""}) is None)
 fall("c", f_c)
 
@@ -192,5 +193,52 @@ def f_h():
     soll("2001 (h): 06:59 nein, 07:00 ja", guthaben.Bremse(J.replace(hour=6, minute=59) + datetime.timedelta(days=1), betrieb(50), archiv=O, protokoll=[], laufend=0).erlaubt("Kampf", "M", KA)
          and guthaben.Bremse(J.replace(hour=7, minute=0) + datetime.timedelta(days=1), betrieb(50), archiv=O, protokoll=[], laufend=0).erlaubt("Kampf", "M", KA) is None)
 fall("h", f_h)
+
+# 2002 (Chef 23.11., 15:48): (A) fertige Fachkraft ohne Rückläufer belegt keinen Platz; (B) Eilt bis N+1
+def vg(*bl): return "# x\n\n## Rückmeldungen\n\nWörtlich.\n\n" + "".join("- **23.11., %s**, %s (`%s`):\n> %s\n\n" % b for b in bl) + "## Übergaben\n"
+ZORA = "session_01Hmoj76qSnDZrRVq4uHy98n"
+def f_2002_ursache():
+    # Ursache Zora 14:58–15:34: fertig 14:57 mit Frage („Freigabe dafür?“) → status_bucket BLOCKED, updated_at 14:57; lauf.py „Laufend“ = working/blocked und unter 60 Min.
+    z = {"id": ZORA, "title": "Zora – 1999: Handstart (23.11., 14:38)", "status_bucket": "SESSION_STATUS_BUCKET_BLOCKED", "session_status": "SESSION_STATUS_IDLE",
+         "updated_at": "2026-11-23T13:57:26Z"}
+    soll("2002 Ursache: Zora (fertig, blocked, 14:57) zählt um 15:30 als laufend, um 15:58 nicht mehr", guthaben.ist_laufend(z, datetime.datetime(2026, 11, 23, 15, 30, tzinfo=B))
+         and not guthaben.ist_laufend(z, datetime.datetime(2026, 11, 23, 15, 58, tzinfo=B)))
+fall("2002 Ursache", f_2002_ursache)
+
+def f_2002_a():
+    global b
+    je = {"Werkzeug": [sitz("Werkzeug", titel="Zora – 1999: Handstart (23.11., 14:38)")], "Kampf": [sitz("Kampf", titel="Conrad – 1068: Handstart (23.11., 14:44)")],
+          "Figur": [sitz("Figur", titel="Isa – 1694: Handstart (23.11., 15:51)")]}
+    zid = je["Werkzeug"][0]["id"]
+    fe = guthaben.fertige_sitzungen([vg(("14:57", "Werkzeug", zid, "fertig (Zora, Werkzeug, 23.11., 14:57). Commits …"))])
+    soll("2002 (a): letzte Rückmeldung „fertig“ → fertig", fe == {zid}, fe)
+    n = guthaben.laufende_fachkraefte(je, fertig=fe)
+    soll("2002 (a): drei laufen, Zora fertig → 2 gezählt", n == 2, n)
+    soll("2002 (a): Namen ohne Zora", guthaben.laufende_namen(je, fertig=fe) == ["Conrad (Kampf)", "Isa (Figur)"], guthaben.laufende_namen(je, fertig=fe))
+    b = guthaben.Bremse(J, betrieb(50), archiv=O, protokoll=[], laufend=n)
+    soll("2002 (a): N 3, eine davon fertig → START", b.erlaubt("Welt", "M", KA) is None, b.erlaubt("Welt", "M", KA))
+    soll("2002 (a): nur „fertig“ zählt: letzte Rückmeldung „Frage“ → nicht fertig", guthaben.fertige_sitzungen([vg(("14:57", "W", zid, "fertig x"), ("15:10", "W", zid, "Frage: y"))]) == set())
+    soll("2002 (a): jüngste über alle Dateien", guthaben.fertige_sitzungen([vg(("15:20", "W", zid, "fertig x")), vg(("15:10", "W", zid, "Frage: y"))]) == {zid})
+fall("2002 a", f_2002_a)
+
+def f_2002_b():
+    global b
+    zid = "session_Zora"
+    fe = guthaben.fertige_sitzungen([vg(("14:57", "Werkzeug", zid, "fertig x"), ("15:41", "Prüfer", "session_P", "nein, Auftrag …"))])
+    soll("2002 (b): Rückläufer (nein des Prüfers danach) → nicht fertig, zählt wieder", fe == set(), fe)
+    je = {"Werkzeug": [dict(sitz("Werkzeug"), id=zid)], "Kampf": [sitz("Kampf")], "Figur": [sitz("Figur")]}
+    b = guthaben.Bremse(J, betrieb(50), archiv=O, protokoll=[], laufend=guthaben.laufende_fachkraefte(je, fertig=fe))
+    soll("2002 (b): mit Rückläufer drei gezählt → kein START", b.laufend == 3 and b.erlaubt("Welt", "M", KA), (b.laufend, b.erlaubt("Welt", "M", KA)))
+fall("2002 b", f_2002_b)
+
+def f_2002_cdf():
+    global b
+    b = guthaben.Bremse(J, betrieb(50), archiv=O, protokoll=[], laufend=3)
+    soll("2002 (c): N laufen, Eilt → START", b.erlaubt("Werkzeug", "M", WE) is None, b.erlaubt("Werkzeug", "M", WE))
+    soll("2002 (c): N laufen, Spiel ohne Eilt → nein", b.erlaubt("Kampf", "M", KA), b.erlaubt("Kampf", "M", KA)); b.zaehle("Werkzeug", WE)
+    soll("2002 (d): N+1 laufen, Eilt → nein", b.laufend == 4 and b.erlaubt("Werkzeug", "M", dict(WE, nr="1960")), (b.laufend, b.erlaubt("Werkzeug", "M", WE)))
+    b = guthaben.Bremse(J.replace(hour=23, minute=30), betrieb(50), archiv=O, protokoll=[], laufend=0)
+    soll("2002 (f): nachts Eilt → nein", b.erlaubt("Werkzeug", "M", WE) and "nachts" in b.erlaubt("Werkzeug", "M", WE), b.erlaubt("Werkzeug", "M", WE))
+fall("2002 c d f", f_2002_cdf)
 
 print("%d Fehler" % fehl); sys.exit(1 if fehl else 0)
