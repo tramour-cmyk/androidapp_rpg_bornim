@@ -82,7 +82,11 @@ soll("Zeile sagt: an den Chef, nicht selbst lösen", "| 9001-Ü2 | Sokrates | an
 soll("Liste: ruht, beim Chef", "| 9001 | Zwerg auf dem Tisch | Tom | M | ruht, beim Chef (Obergrenze B) |" in open(os.path.join(A, "docs", "LISTE-VORGAENGE.md")).read())
 soll("1800: ruht gepusht", "| 9001 | Zwerg auf dem Tisch | Tom | M | ruht, beim Chef (Obergrenze B) | Sokrates |" in liste_origin(), out)
 rc, out = lauf("rueckmeldung", "9001", "steckt fest: noch mal", zeit="21.11., 21:10")
-soll("danach nur eingetragen", "EINGETRAGEN 9001: ruht schon, nur eingetragen" in out and datei("9001").count("| 9001-Ü") == 2, out)
+# 1976: früher „ruht schon, nur eingetragen“ ohne Zeile (1566); jetzt Zeile an Sokrates, keine zweite Obergrenze, Liste bleibt „ruht“
+t = datei("9001")
+soll("1976: danach Zeile an Sokrates, keine zweite Obergrenze", "OFFEN 9001-Ü3 an Sokrates" in out and "ruht schon, nur eingetragen" not in out
+     and t.count("| 9001-Ü") == 3 and t.count("Obergrenze B") == 2, (out, t))
+soll("1976: Liste bleibt „ruht, beim Chef“", "| 9001 | Zwerg auf dem Tisch | Tom | M | ruht, beim Chef (Obergrenze B) | Sokrates |" in liste_origin(), liste_origin())
 
 # 3 A: zweites „nein, Auftrag“
 rc, out = lauf("rueckmeldung", "9002", "nein, Auftrag: Prüffrage fragt am Ziel vorbei")
@@ -430,6 +434,37 @@ soll("1797 kein Auftrag nötig → Disponent", "OFFEN 9008-Ü2 an Disponent" in 
 rc, out = rm_lauf("rueckmeldung", "9009", "fertig 1a2b3c4d. Hinweis: Prüffrage 3 fehlt", zeit="21.11., 20:44")
 soll("1797 fertig mit Hinweis: Prüfer und zweite Zeile an Disponent", "OFFEN 9009-Ü1 an Prüfer" in out
      and "| 9009-Ü2 | Disponent | Hinweis (Rückmeldung 21.11., 20:44" in datei("9009") and "Prüffrage 3 fehlt" in datei("9009"), datei("9009"))
+
+# 1976 (1566, Silke 22.11., 19:23, 20:00, 21:50): jedes Signalwort an einen ruhenden Vorgang („Zustand: ruht, beim Chef“ in NR.md)
+# legt eine Zeile an: Laufanforderung mit Commit an den Prüfer, alles andere an Sokrates; ohne Signalwort oder Laufanforderung ohne
+# Commit zurückgewiesen (Exit ≠ 0). Die Liste bleibt „ruht“.
+RUHT_FAELLE = [("nein, Auftrag: Prüffrage am Ziel vorbei", "Sokrates"), ("Beleg fehlt: kein Bild", "Sokrates"),
+               ("wirkt nein: Chef 21:00", "Sokrates"), ("nein: Tür schief", "Sokrates"), ("steckt fest: Licht", "Sokrates"),
+               ("Frage: Linie als Rest beheben oder so an den Chef?", "Sokrates"), ("fertig, Commit 1a2b3c4d", "Sokrates"),
+               ("fertig ohne Commit", "Sokrates"), ("ja", "Sokrates"), ("ja, Lauf frei", "Sokrates"), ("Hinweis: Geländer fehlt", "Sokrates"),
+               ("Laufanforderung: Messlauf ohne Ergebnis, Ursache Nebel, behoben in 50beafaa3", "Prüfer"),
+               ("Befunde: 1\n- Tür klemmt", "Sokrates"), ("Auftrag steht: 1-1", "Sokrates"), ("kein Auftrag nötig: schon gebaut", "Sokrates"),
+               ("Laufanforderung: Messlauf ohne Ergebnis", None), ("Notiz ohne Signalwort", None)]
+ue = rm.ue
+nrs = [str(9061 + i) for i in range(len(RUHT_FAELLE))]
+ue.atomar("x", lambda alt: (alt.rstrip("\n") + "\n" + "".join("| %s | Ruhend %s | Tom | M | ruht, beim Chef (Obergrenze B) | Sokrates | – | – | E Welt | – |\n" % (n, n) for n in nrs), None),
+          "Test 1976: ruhende Zeilen", pfad="docs/LISTE-VORGAENGE.md")
+for n in nrs:
+    ue.atomar(n, lambda alt, n=n: ("# %s · Ruhend\n\n## Rückmeldungen\n\nZustand: ruht, beim Chef seit 21.11., 19:00 (Obergrenze B: 2. „steckt fest“, 1763)\n" % n, None), "Test 1976: %s ruht" % n)
+gepruefte = 0
+for n, (text, soll_an) in zip(nrs, RUHT_FAELLE):
+    rc, out = rm_lauf("rueckmeldung", n, text, zeit="21.11., 21:00")
+    t = datei(n); gepruefte += 1
+    if soll_an:
+        soll("1976 ruht, %r → Zeile an %s" % (text[:30], soll_an), rc == 0 and "OFFEN %s-Ü1 an %s" % (n, soll_an) in out
+             and re.search(r"\| %s-Ü1 \| %s \| [^|]*ruht" % (n, soll_an), t) and "ruht schon, nur eingetragen" not in out
+             and "Zustand: ruht, beim Chef" in t and t.count("Obergrenze") == 1, (rc, out, t))
+    else:
+        soll("1976 ruht, %r → zurückgewiesen, Exit ≠ 0, keine Zeile" % text[:30], rc != 0 and "ZURÜCKGEWIESEN" in out and "-Ü" not in t, (rc, out, t))
+L = liste_origin()
+soll("1976: Liste der ruhenden Vorgänge unverändert „ruht“", all("| %s | Ruhend %s | Tom | M | ruht, beim Chef (Obergrenze B) | Sokrates |" % (n, n) in L for n in nrs),
+     [z for z in L.splitlines() if "Ruhend" in z])
+print("1976: %d Signalwörter gegen ruhenden Vorgang geprüft" % gepruefte)
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

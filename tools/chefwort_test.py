@@ -17,6 +17,9 @@ open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "| 9002 | Schatten im Wald | Spike | M | startbar | – | – | – | T Technik | – |\n"
     "| 9003.2 | Höhlenklang | Jerry | M | gebaut | – | – | 301 | K Klang | – |\n"
     "| 9004 | Tür im Turm | Tom | M | gebaut | – | – | – | E Welt | – |\n"
+    "| 9005 | Teich in der Höhle | Tom | M | ruht, beim Chef (Obergrenze B) | Sokrates | – | – | G Stil | – |\n"
+    "| 9006 | Teich im Hof | Tom | M | ruht, beim Chef (Obergrenze B) | – | – | – | G Stil | – |\n"
+    "| 9007 | Teich im Turm | Tom | M | startbar | – | – | – | G Stil | – |\n"
     + "".join("| %s | Fall 1962 | Tom | M | startbar | – | – | – | B Werkzeuge | – |\n" % n for n in ("1520", "1871", "1959", "1961")))
 open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "w").write(
     "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Arbeitsplaner | [AP](https://claude.ai/code/session_AP1) | – | – | 21.11. |\n"
@@ -178,6 +181,34 @@ soll("drittes Chef-Nein: Obergrenze A, Zeile an Sokrates, ruht", "Zustand: ruht,
      and "| Sokrates | an den Chef: Chefsache anlegen, nicht selbst lösen (Obergrenze A: 3." in t and "OFFEN 9004-Ü4 an Sokrates" in out, (out, t))
 rc, out = lauf("chefwort", "9004", "Nein, immer noch", "--zeit", "21.11., 21:40")
 soll("ruht schon: Zeile wieder an den Arbeitsplaner, keine zweite Obergrenze", datei("9004").count("Obergrenze A") == 2 and "an Arbeitsplaner" in out, (out, datei("9004")))
+# 1976 (1566: Chefwort 19:05 eingetragen, „ruht“ blieb, Rückmeldungen danach verschluckt): das Chefwort hebt den Zustand auf
+t = datei("9004")
+soll("1976: Chefwort hebt „Zustand: ruht“ in NR.md auf", rc == 0 and not rm.ruht(t)
+     and "Zustand: aufgehoben 21.11., 20:30 durch Chefwort 21.11., 21:40 (war: ruht, beim Chef seit 21.11., 21:30" in t, (rc, out, t))
+def liste_o():
+    g("fetch", "-q", "origin", cwd=A); return g("show", "origin/main:docs/LISTE-VORGAENGE.md", cwd=A)
+for nr in ("9005", "9007"):
+    vorher = "# %s · Teich\n\n## Rückmeldungen\n\nZustand: ruht, beim Chef seit 22.11., 18:31 (Obergrenze B: 2. „steckt fest“, 1763)\n" % nr
+    g("pull", "-q", "--ff-only", cwd=A); os.makedirs(os.path.join(A, "docs", "vorgang"), exist_ok=True)
+    open(os.path.join(A, "docs", "vorgang", nr + ".md"), "w").write(vorher)
+    g("add", "-A", cwd=A); g("commit", "-q", "-m", "ruht " + nr, cwd=A); g("push", "-q", "origin", "main", cwd=A)
+rc, out = lauf("chefwort", "9005", "👍 A", "--zeit", "22.11., 19:05")
+t = datei("9005"); L = liste_o()
+soll("1976: Chefwort hebt NR.md und Liste auf", rc == 0 and not rm.ruht(t) and "Zustand: aufgehoben" in t and "OFFEN 9005-Ü1 an Arbeitsplaner" in out
+     and "| 9005 | Teich in der Höhle | Tom | M | startbar, Chefwort 22.11., 19:05 | Sokrates |" in L, (rc, out, t, [z for z in L.splitlines() if "9005" in z]))
+soll("1976: beides im selben Commit", set(g("show", "--name-only", "--format=", "origin/main", cwd=A).split()) == {"docs/vorgang/9005.md", "docs/LISTE-VORGAENGE.md"},
+     g("show", "--stat", "origin/main", cwd=A))
+rc, out = lauf("chefwort", "9006", "so machen", "--zeit", "22.11., 19:06")
+L = liste_o()
+soll("1976: nur die Liste ruht: Liste aufgehoben", rc == 0 and "| 9006 | Teich im Hof | Tom | M | startbar, Chefwort 22.11., 19:06 |" in L, (rc, out, [z for z in L.splitlines() if "9006" in z]))
+rc, out = lauf("chefwort", "9007", "so machen", "--zeit", "22.11., 19:07")
+t = datei("9007"); L = liste_o()
+soll("1976: nur NR.md ruht: NR.md aufgehoben, Liste unverändert", rc == 0 and not rm.ruht(t) and "| 9007 | Teich im Turm | Tom | M | startbar | – |" in L, (rc, out, t))
+g("pull", "-q", "--ff-only", cwd=A); open(os.path.join(A, "docs", "vorgang", "9007.md"), "w").write("# 9007 · Teich\n\n## Rückmeldungen\n\nZustand: ruht, beim Chef seit 22.11., 20:00 (Obergrenze B: 2. „steckt fest“, 1763)\n")
+g("add", "-A", cwd=A); g("commit", "-q", "-m", "ruht 9007 neu", cwd=A); g("push", "-q", "origin", "main", cwd=A)
+p = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py"), "chefwort", "9007", "so machen", "--zeit", "22.11., 20:05"],
+                   env=dict(ENV, BORNIM_OHNE_PUSH="1"), capture_output=True, text=True, cwd=A)
+soll("1976: Aufheben scheitert → Fehler, Exit ≠ 0, nichts geschrieben", p.returncode != 0 and rm.ruht(datei("9007")) and "20:05" not in datei("9007"), (p.returncode, p.stdout + p.stderr))
 
 # 12 1962: Startnachrichten (Disponent, Wache, Routine) sind nie Chefwort, auch wenn das Protokoll beim Haken leer oder frisch ist.
 # Beleg 22.11., 18:15 (Protokoll dieser Sitzung): beim Haken steht dort zuerst nur „queue-operation“ (enqueue, Inhalt ohne origin);
