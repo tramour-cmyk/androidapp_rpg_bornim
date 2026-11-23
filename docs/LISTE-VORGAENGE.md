@@ -45,7 +45,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1725 | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *1,21 $* |
 | 1933 | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halbwegs auf, fehlt etwas, das Fehler … | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1954 | Chefsache-README als kurzes Dashboard: laufende Sitzungen, wer woran, als Nächstes, Quoten netto Vorgänge und Aufträge … | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
-| 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht … | 10 | E Kampf | M | – | – | – | *startbar, Weg Sokrates 20:13* | *–* | *0* | *106,82 $* |
+| 870 | Umstellung ganz auf BRS, SRD-Parallelbetrieb beenden: Liste, offene Regelfragen, Bau Tom und Jerry, Rest ruht … | 10 | E Kampf | M | – | – | – | *erledigt* | *–* | *0* | *106,82 $* |
 | 506.2 | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, 506; Chef 10.11., 19:26) | 2 | E Kampf | M | 709.1, 1589.4 | 506 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen … | 2 | E Kampf | M | 1589.4 | – | claude/jerry-709-treffen | *ruht, Block 2 (1605)* | *–* | *0* | *64,31 $* |
 | 709.1 | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar … | 2 | E Kampf | M | 1589.4 | 709 | claude/jerry-709-1-wolfsbiss-c | *ruht, Block 2 (1605)* | *–* | *0* | *83,22 $* |
@@ -64,7 +64,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1603 | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in kerbe.gd | 2 | E Kampf | M | – | 1600 | – | *startbar* | *–* | *0* | *1,57 $* |
 | 1708 | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_ui.gd _draw_blood) | 2 | E Kampf | M | 1589.4 | 760 | – | *ruht, nach Arena (Chef 22:17)* | *–* | *0* | *–* |
 | 1750 | Kampfort klingt wie seine Stelle der Karte, etwa halb so laut unter der Kampfmusik, Vögel und Frösche verstummen (D3a) | 2 | E Kampf | M | – | – | – | *erledigt* | *–* | *0* | *6,99 $* |
-| 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk … | 3 | E Figuren | M | 870 | 408 | claude/tom-431-ausruestung | *startbar, gelöst 17.11.: 431h, t297* | *–* | *0* | *125,77 $* |
+| 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk … | 3 | E Figuren | M | – | 408 | claude/tom-431-ausruestung | *startbar, gelöst 17.11.: 431h, t297* | *–* | *0* | *125,77 $* |
 | 455.2 | Netzliste je sichtbarem Platz, Eigenbau geschätzt, Größenfilm der Völker (Chef 01.11., 11:27, 455 ja) | 3 | E Figuren | M | – | 455 | claude/jerry-455-2-groesse | *erledigt* | *–* | *0* | *4,68 $* |
 | 1297 | Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | 3 | E Figuren | M | 431 | 431 | – | *wartet, Schildlage in bewaffne ist auf Menschenmaß gemessen (499, 406); Größe je Körper erst mit den Volkskörpern im Spiel* | *–* | *0* | *–* |
 | 1649 | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den Schaft | 3 | E Figuren | M | 1694 | 1621 | – | *startbar* | *–* | *0* | *0,84 $* |
