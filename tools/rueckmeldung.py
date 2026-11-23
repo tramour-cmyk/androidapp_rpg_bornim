@@ -35,7 +35,9 @@ Obergrenzen je Vorgang, über alle Aufträge gezählt (Rückmeldungen der Datei)
   A  zweites „nein, Auftrag“ oder drittes „nein“ (abgelehnter Auftrag = Runde, auch Chef-Nein; „nein, Auftrag“ zählt nicht, „Beleg fehlt“ erst jedes dritte je Auftrag, 1926)
   B  zweites „steckt fest“ (1927: dazu „Kosten bisher“ aus der Kostenspalte der Liste in den Kopf der Vorgangsdatei)
 → Zustand „ruht, beim Chef“ in der Vorgangsdatei, Stand in der Vorgangsliste (solange sie Stände trägt), Zeile an Sokrates
-  „an den Chef: Chefsache anlegen, nicht selbst lösen“ statt der normalen Weitergabe. Weitere Rückmeldungen danach: nur eingetragen.
+  „an den Chef: Chefsache anlegen, nicht selbst lösen“ statt der normalen Weitergabe. 1976 (1566): weitere Rückmeldungen danach gehen
+  nie still unter: Laufanforderung mit Commit → Prüfer, jedes andere Signalwort → Sokrates; ohne Signalwort zurückgewiesen.
+  Das Chefwort (`vorgang.py chefwort`) hebt „ruht“ in der Vorgangsdatei und in der Liste auf.
 
 Muster (erst nachsehen, wie andere es lösen): Wiederholgrenze mit Ablage (Dead-Letter-Queue: maxReceiveCount in Amazon SQS,
 Celery max_retries): nach n Fehlversuchen geht die Nachricht nicht in die nächste Runde, sondern in eine Ablage, die ein Mensch sieht.
@@ -47,6 +49,7 @@ import uebergabe as ue
 SOKRATES = "Sokrates"
 PLANER = os.environ.get("BORNIM_CHEFWORT_AN", "Arbeitsplaner")
 RUHT = "ruht, beim Chef"
+RUHT_SCHON = "Vorgang ruht schon, beim Chef: Zeile trotzdem"  # 1976
 MAX_NEIN_AUFTRAG, MAX_NEIN, MAX_FEST = 2, 3, 2
 LAUFBREMSE_NEIN = 2  # 1766 (Archiv 19.11., 13:02 Laufbremse): zweites „nein“ des Prüfers → „steckt fest“ an Sokrates; drittes ist Obergrenze A
 SIGNAL = {"nein", "ja", "fertig", "frage", "hinweis", "laufanforderung"}
@@ -422,6 +425,10 @@ def eintragen(nr, text, wer, sid=""):
             t = zustand_ruht(t, zeit, grund)
             if grund.startswith("Obergrenze B"): t = kopf_kosten(t, nr, zeit)  # 1927
             an, was = SOKRATES, "an den Chef: Chefsache anlegen, nicht selbst lösen (%s; Rückmeldung %s von %s)" % (grund, zeit, wer or "unbekannt")
+        elif schon and lauf_ok:  # 1976 (1566): Laufanforderung mit Commit an ruhenden Vorgang → Prüfer, nie still
+            an, was = PRUEFER, "Laufanforderung prüfen, Vorgang ruht, beim Chef (Rückmeldung %s von %s): „%s“; Ursache und Commit der Behebung ansehen: „ja“ gibt den erneuten Lauf frei, „nein“ mit Satz zurück an die Fachkraft (1952, 1976)" % (zeit, wer or "unbekannt", ue._rein(text)[:160])
+        elif schon and w and not unbekannt(text, wer):  # 1976: jedes andere Signalwort an ruhenden Vorgang → mindestens Sokrates
+            an, was = SOKRATES, "%s an ruhenden Vorgang (ruht, beim Chef): Rückmeldung %s von %s lesen; Chefsache ergänzen oder Zustand aufheben (1976)" % (" und ".join(sorted(w)), zeit, wer or "unbekannt")
         elif schon:
             an = was = None
         elif w & {"steckt fest", "Frage", "wirkt nein"}:
@@ -449,7 +456,7 @@ def eintragen(nr, text, wer, sid=""):
             if "fertig" in w and an == PRUEFER and ist_werkzeug(nr):  # 1950: Werkzeug sofort auf main prüfen, nicht beim nächsten Wecker
                 z2 = nicht_auf_main(text, nr, zeit, wer)
                 if z2: aus = [(an, was), z2]
-        if not an: return t, (None, "ruht schon, nur eingetragen" if schon else "eingetragen, zurückgewiesen (1952)"
+        if not an: return t, (None, "eingetragen, zurückgewiesen (1952; Vorgang ruht)" if schon else "eingetragen, zurückgewiesen (1952)"
                               if unbekannt(text, wer) else "eingetragen, kein Signalwort zum Weitergeben")
         ks = [int(x["k"].rsplit("Ü", 1)[1]) for x in ue.zeilen(t)]
         start = max(ks, default=0) + 1
@@ -457,10 +464,10 @@ def eintragen(nr, text, wer, sid=""):
         t = t.rstrip("\n") + "\n"
         for j, (a2, w2) in enumerate(aus or [(an, was)]):
             t += "| %s-Ü%d | %s | %s | %s | offen |\n" % (nr, start + j, a2, ue._rein(w2), zeit)
-        if "Hinweis im Text" in w and not grund:  # 1797: Hinweis hinter einem anderen Signalwort → zweite Zeile an den Disponenten
+        if "Hinweis im Text" in w and not grund:  # (schon: grund ist hier noch None, Zeile auch an ruhenden Vorgang)  # 1797: Hinweis hinter einem anderen Signalwort → zweite Zeile an den Disponenten
             h = re.search(r"hinweis:\s*(.*)", text, re.I | re.S)
             t += "| %s-Ü%d | %s | %s | %s | offen |\n" % (nr, start + len(aus or [1]), DISPONENT, ue._rein("Hinweis (Rückmeldung %s von %s): „%s“; wie einen Eingang behandeln (1797)" % (zeit, wer or "unbekannt", ue._rein(h.group(1))[:160] if h else "")), zeit)
-        return t, (k, grund or "")
+        return t, (k, grund or (RUHT_SCHON if schon else ""))
     return ue.atomar(nr, f, "Rückmeldung %s von %s (1763)" % (nr, wer or "unbekannt"))
 
 
@@ -589,8 +596,12 @@ def haupt(a):
         return
     zeile = [x for x in ue.zeilen(_datei(a[0])) if x["k"] == k]
     an = zeile[0]["an"] if zeile else "?"
-    print("EINGETRAGEN %s, OFFEN %s an %s%s" % (a[0], k, an, (" (%s → %s)" % (grund, RUHT)) if grund else ""))
-    if grund: liste_ruht(a[0], grund)
+    if grund == RUHT_SCHON:  # 1976: Liste bleibt „ruht“ (kein liste_fest), keine zweite Obergrenze
+        print("EINGETRAGEN %s, OFFEN %s an %s (%s, 1976)" % (a[0], k, an, RUHT_SCHON))
+    else:
+        print("EINGETRAGEN %s, OFFEN %s an %s%s" % (a[0], k, an, (" (%s → %s)" % (grund, RUHT)) if grund else ""))
+    if grund == RUHT_SCHON: pass
+    elif grund: liste_ruht(a[0], grund)
     elif an == SOKRATES and worte(a[1]) & {"steckt fest", "Laufanforderung"}: liste_fest(a[0])  # 1800, 1952
     nein_waechter(a[0], a[1])
     alt = {"Prüfer": "Diogenes", "Disponent": "Ford", PLANER: "Ford"}.get(an, "")  # 1739: bis zur Umschaltung (lauf.ALT_EMPFAENGER)

@@ -11,6 +11,11 @@ uniform vec3 insel_farbe : source_color = vec3(1.0, 0.66, 0.3);
 uniform vec3 mond : source_color = vec3(0.847, 0.894, 0.957);
 uniform vec3 rand_karte = vec3(0.0);
 uniform float kit_selbst = 0.0;   // 1155 Hoehle: so viel leuchtet das Wasser selbst (unser Teich war unbeleuchtet; die Hoehle hat kaum Licht)
+// 1566 (Chef 17.11., 14:50 „Warum sehe ich da das Wasser durch, obwohl das ja nicht in meiner Sichtlinie ist?“; Messlauf 22.11., 21:05
+// unter Mobile: der Teich funkelt unter dem Nebel, auch rot gefärbt und mit Wasser vor dem Nebel sortiert): in der Höhle liest das Wasser
+// die Nebelkarte (nebel.gd) selbst und wird, wo sie schwarz ist (nie gesehen, gesehen außer Sicht), schwarz und ohne Glanz
+uniform sampler2D kit_nebel : filter_linear, repeat_disable;
+uniform vec2 kit_nebel_groesse = vec2(0.0);   // Karte in Metern; 0: aus (draußen, Testmenü „Sichtlinie aus“)
 const float KIT_RAND_HELL = 1.5;
 const float KIT_RAND_WEICH = 4.0;
 
@@ -20,6 +25,11 @@ float kit_rand(vec3 w, mat4 iv) {
 	float oz = max(max(-w.z, w.z - rand_karte.y), 0.0) * length(vec2(iv[0].z, iv[1].z));
 	float u = clamp(1.0 - (length(vec2(ox, oz)) / 1.16 - KIT_RAND_HELL) / KIT_RAND_WEICH, 0.0, 1.0);
 	return pow(u * u * (3.0 - 2.0 * u), 2.2);
+}
+
+float kit_sicht(vec3 w) {
+	if (kit_nebel_groesse.x <= 0.0) return 1.0;
+	return 1.0 - texture(kit_nebel, clamp(w.xz / kit_nebel_groesse, vec2(0.0), vec2(1.0))).r;
 }
 
 float kit_h21(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }

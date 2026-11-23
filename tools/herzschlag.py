@@ -1,10 +1,16 @@
 #!/usr/bin/env python3
 """1764 Herzschlag (Lücke L-T1, ablauf.md A18): lief `lauf.py` in den letzten 2 Stunden?
 
-Zeitmarke ist die Zeile „**Stand:** TT.MM., HH:MM (lauf.py)“ in docs/ARBEIT-BESETZUNG.md; `lauf.py --besetzung` erneuert sie
-spätestens nach 60 Minuten, auch wenn sich die Tabelle nicht ändert. Läuft ohne Token als GitHub-Lauf (`herzschlag.yml`).
+Zeitmarke ist die Zeile „**Stand:** TT.MM., HH:MM (lauf.py)“ in docs/ARBEIT-BESETZUNG.md; jeder vollständige Lauf von `lauf.py`
+erneuert sie am Ende und pusht sie selbst, ohne Schalter (1997). Läuft ohne Token als GitHub-Lauf (`herzschlag.yml`).
 
 Aufruf: python3 tools/herzschlag.py [--datei PFAD] [--jetzt "TT.MM.JJJJ HH:MM"] | --test
+        python3 tools/herzschlag.py --wache [--geweckt "TT.MM.JJJJ HH:MM"] [--datei PFAD] [--jetzt …] [--probe]   (1997 B, für die Wache; WECKEN/NEUSTART → rohe Zeile im Lehrenbuch, 1999)
+  --probe: gleiche Ausgabe und Exit, schreibt nichts ins Lehrenbuch (zum Nachstellen von Hand, 1999)
+  WACHE ok                  Herzschlag lebt
+  WACHE WECKEN Disponent    ALARM (oder Marke fehlt), nicht oder vor diesem Ausfall geweckt → Disponent wecken, Zeit merken (Exit 2)
+  WACHE WARTEN Disponent    geweckt vor unter 60 Min., Marke seither gleich → nichts tun, Weckzeit behalten (Exit 2)
+  WACHE NEUSTART Disponent  geweckt vor 60 Min. oder mehr, Marke seither gleich → Starter „Disponent-Neustart“, laut an den Chef (Exit 3)
 Ausgabe eine Zeile; Exit 0 = lebt, 2 = ALARM (über 2 h; einmal je Ausfall meldet herzschlag.yml über den Cache-Schlüssel
 `--marke`), 1 = Zeitmarke fehlt."""
 import datetime as dt, os, re, sys
@@ -34,7 +40,34 @@ def pruefen(text, jetzt):
     alter = int((jetzt - d).total_seconds() // 60)
     zeit = d.strftime("%d.%m., %H:%M")
     if alter < GRENZE_MIN: return 0, "HERZSCHLAG ok: lauf.py zuletzt %s (vor %d Min.)" % (zeit, alter)
-    return 2, "ALARM Herzschlag: lauf.py lief seit %s nicht mehr (%d Std. %d Min.); Ford hängt oder fehlt, keine Starts. Ford neu starten (1764)" % (zeit, alter // 60, alter % 60)
+    return 2, "ALARM Herzschlag: lauf.py lief seit %s nicht mehr (%d Std. %d Min.); Disponent hängt oder fehlt, keine Starts. Disponent neu starten (1764, 1978)" % (zeit, alter // 60, alter % 60)
+
+
+NEUSTART_MIN = 60  # 1997 B: ein Wachtakt (Uhr „Wache“ stündlich :33)
+
+
+def wache(text, jetzt, geweckt=None):
+    """1997 B: (Exit, Zeile) für die Wache; geweckt = Zeit, zu der die Wache den Disponenten wegen dieses Ausfalls geweckt hat."""
+    rc, z = pruefen(text, jetzt)
+    if rc == 0: return 0, "WACHE ok: " + z
+    d = marke(text, jetzt)
+    if geweckt is not None and (d is None or d <= geweckt):  # seit dem Wecken kein Lauf
+        n = int((jetzt - geweckt).total_seconds() // 60)
+        if n >= NEUSTART_MIN:
+            return 3, "WACHE NEUSTART Disponent: geweckt %s (vor %d Min.), Marke gleich; dem Starter „Disponent-Neustart“ senden, `meldung.sh --laut` an den Chef (1997). %s" % (geweckt.strftime("%d.%m., %H:%M"), n, z)
+        return 2, "WACHE WARTEN Disponent: geweckt %s (vor %d Min.), Neustart ab %s; nichts tun, Weckzeit behalten (1997)" % (geweckt.strftime("%d.%m., %H:%M"), n, (geweckt + dt.timedelta(minutes=NEUSTART_MIN)).strftime("%H:%M"))
+    return 2, "WACHE WECKEN Disponent: send_message „Herzschlag-Alarm: tools/lauf.py ausführen“, Weckzeit %s merken (1997). %s" % (jetzt.strftime("%d.%m.%Y %H:%M"), z)
+
+
+def lehre_wache(z):
+    """1999 (a): WECKEN (Alarm) und NEUSTART der Wache werden je eine rohe Zeile im Lehrenbuch (Fall Betrieb, je Tag und Ursache einmal);
+    WARTEN und ok nicht. Rückgabe R-Kennung oder None."""
+    if z.startswith("WACHE WECKEN"): u = "Herzschlag-ALARM: lauf.py über 2 h ohne Lauf, Disponent hängt oder fehlt (Wache weckt)"
+    elif z.startswith("WACHE NEUSTART"): u = "Herzschlag-NEUSTART: Disponent 60 Min. nach dem Wecken ohne Lauf (Wache startet neu)"
+    else: return None
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import lehren
+    return lehren.betrieb_still(u, "herzschlag.py --wache: " + z)
 
 
 def test():
@@ -51,6 +84,9 @@ def test():
         rc, z = pruefen(text, jetzt)
         ok = rc == soll; f += not ok
         print(("ok  " if ok else "FEHL"), text, "→", rc, z)
+    a = pruefen("**Stand:** 21.11., 17:40 (lauf.py)", j)[1]  # 1978: Alarm nennt die Rolle, die lauf.py ausführt
+    b = "Disponent hängt oder fehlt" in a and "Disponent neu starten" in a and "Ford" not in a
+    f += not b; print(("ok  " if b else "FEHL"), "1978: Alarm nennt Disponent, nicht Ford →", a)
     # 1894: Kette unabhängig von Ford (herzschlag-kette.yml stößt Herzschlag und sich selbst an; herzschlag.yml startet sie neu)
     wf = os.path.join(WURZEL, ".github", "workflows")
     try: k = open(os.path.join(wf, "herzschlag-kette.yml"), encoding="utf-8").read(); h = open(os.path.join(wf, "herzschlag.yml"), encoding="utf-8").read()
@@ -61,6 +97,23 @@ def test():
                    ("1894: Kette nur mit workflow_dispatch, eigene Gruppe ohne Abbruch", "workflow_dispatch" in k and "group: herzschlag-kette" in k and "cancel-in-progress: false" in k and "actions: write" in k),
                    ("1894: herzschlag.yml startet fehlende Kette", "gh workflow run herzschlag-kette.yml" in h and "--workflow herzschlag-kette.yml" in h)]:
         f += not b; print(("ok  " if b else "FEHL"), was)
+    # 1997 B: Wache-Fälle (ok, WECKEN, NEUSTART); Marke über 2 h ist kein ok
+    W = dt.datetime(2026, 11, 23, 14, 0, tzinfo=BERLIN)
+    g = lambda s: dt.datetime.strptime(s, "%d.%m.%Y %H:%M").replace(tzinfo=BERLIN)
+    for text, geweckt, soll in [
+        ("**Stand:** 23.11., 13:50 (lauf.py)", None, "WACHE ok"),
+        ("**Stand:** 23.11., 11:50 (lauf.py)", None, "WACHE WECKEN Disponent"),  # Marke 2 h 10 alt: erst rot
+        ("**Stand:** 23.11., 10:12 (lauf.py)", None, "WACHE WECKEN Disponent"),
+        ("kein Stand", None, "WACHE WECKEN Disponent"),
+        ("**Stand:** 23.11., 10:12 (lauf.py)", g("23.11.2026 12:59"), "WACHE NEUSTART Disponent"),  # geweckt vor 61 Min., Marke gleich
+        ("**Stand:** 23.11., 10:12 (lauf.py)", g("23.11.2026 13:00"), "WACHE NEUSTART Disponent"),  # genau 60 Min.
+        ("**Stand:** 23.11., 10:12 (lauf.py)", g("23.11.2026 13:34"), "WACHE WARTEN Disponent"),  # geweckt vor 26 Min.: nicht nochmal wecken
+        ("**Stand:** 23.11., 11:30 (lauf.py)", g("23.11.2026 09:00"), "WACHE WECKEN Disponent"),  # Wecken vom früheren Ausfall zählt nicht
+        ("**Stand:** 23.11., 13:10 (lauf.py)", g("23.11.2026 12:30"), "WACHE ok"),  # nach dem Wecken lief lauf.py
+    ]:
+        rc, z = wache(text, W, geweckt)
+        ok = z.startswith(soll); f += not ok
+        print(("ok  " if ok else "FEHL"), "1997 Wache:", text, geweckt and geweckt.strftime("%H:%M"), "→", rc, z)
     print("herzschlag --test: %s" % ("alles grün" if not f else "%d FEHL" % f))
     return 1 if f else 0
 
@@ -77,6 +130,13 @@ def haupt(a):
     if "--jetzt" in a: jetzt = dt.datetime.strptime(a[a.index("--jetzt") + 1], "%d.%m.%Y %H:%M").replace(tzinfo=BERLIN)
     try: text = open(p, encoding="utf-8").read()
     except OSError: text = ""
+    if "--wache" in a:
+        geweckt = None
+        if "--geweckt" in a: geweckt = dt.datetime.strptime(a[a.index("--geweckt") + 1], "%d.%m.%Y %H:%M").replace(tzinfo=BERLIN)
+        rc, z = wache(text, jetzt, geweckt)
+        print(z)
+        if "--probe" not in a: lehre_wache(z)
+        return rc
     rc, z = pruefen(text, jetzt)
     print(z)
     return rc

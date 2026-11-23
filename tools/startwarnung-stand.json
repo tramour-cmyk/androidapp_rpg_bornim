@@ -1,25 +1,15 @@
 {
+ "108:docs/chefsache/bilder/1566-hoehlenwasser-drehungen.webp": {
+  "besitzer": "Welt",
+  "seit": "2026-11-23T06:39+01:00",
+  "text": "Datei über 60 KB: docs/chefsache/bilder/1566-hoehlenwasser-drehungen.webp; verkleinern (800 px, WebP) oder über Telegram (--datei)",
+  "vorgang": "1998"
+ },
  "650.2:LISTE-LEHREN.md": {
   "besitzer": "Arbeitsplaner",
   "seit": "2026-11-22T18:32+01:00",
-  "text": "Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: LISTE-LEHREN.md"
- },
- "969": {
-  "besitzer": "Arbeitsplaner",
-  "seit": "2026-11-19T08:17+01:00",
-  "text": "docs/LISTE-REGELWERTE.md veraltet; python3 tools/regelwerte.py, committen",
-  "vorgang": "1729"
- },
- "groesse:docs/ARBEIT-BETRIEB.md": {
-  "besitzer": "Disponent",
-  "seit": "2026-11-18T10:55+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 53845 Bytes (Grenze 30000), Erledigtes streichen",
-  "vorgang": "1688"
- },
- "regel:ARBEIT-BERATUNG.md:Übergabe über N Zeichen (nur Getanes und": {
-  "besitzer": "Arbeitsplaner",
-  "seit": "2026-11-22T18:32+01:00",
-  "text": "ARBEIT-BERATUNG.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2)"
+  "text": "Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: LISTE-LEHREN.md",
+  "vorgang": "1977"
  },
  "regel:ARBEIT-TEAM-JERRY.md:Übergabe über N Zeichen (nur Getanes und": {
   "besitzer": "Arbeitsplaner",

@@ -7,6 +7,8 @@ und die GitHub-Schreibwerkzeuge. Hält an (Exit 2):
   2. Löschen eines Zweigs auf GitHub: --delete, -d, --prune, `:zweig` (CLAUDE.md „Keine Verlaufsänderung, kein Force-Push“).
   4. Umgehen der git-Haken (1937): `git push --no-verify`, `git commit --no-verify` oder `-n` (pre-commit commit-pruefung.py,
      pre-push vorpush.py mit den Prüfungen aus probelauf.py).
+  5. main außerhalb der Notizkopie umsetzen (1963, Ursache wie 1776): `git checkout -B main`, `git switch -C main`, `git branch -f main`
+     setzen bei git 2.43 den Zweig um, den die Notizkopie hält; deren Index zeigt dann den alten Stand als vorgemerkt.
   3. Keystore und Zugangsdaten ins Repo (CLAUDE.md „Nie committen: Keystore, Signatur-Passwort, local.properties, SDK-Pfad“):
      `git add` mit so einem Pfad, `git commit` mit so einer Datei im Index (bei -a auch geänderte), GitHub-Schreibwerkzeug mit
      so einem Pfad. Muster in GEHEIM.
@@ -28,6 +30,11 @@ LANG_FORCE = ("--force", "--force-with-lease", "--force-if-includes", "--mirror"
 LANG_LOESCH = ("--delete", "--prune")
 GIT = re.compile(r"(?:^|[;&|(`\n])\s*" + bz.VORSATZ + r"git\b((?:\s+-C\s+\S+|\s+-c\s+\S+)*)\s+(add|commit)\b([^;&|`)\n]*)")
 MCP_SCHREIBEN = ("push_files", "create_or_update_file", "delete_file")
+MAIN_UM = re.compile(r"(?:^|[;&|(`\n])\s*" + bz.VORSATZ + r"git\b((?:\s+-C\s+\S+|\s+-c\s+\S+)*)\s+(?:checkout\s+(?:-q\s+)?-B|switch\s+(?:-q\s+)?-C|branch\s+(?:-q\s+)?-f)\s+main\b")
+NOTIZKOPIE = "bornim-main"
+MELDUNG = ("Sperre (1739, Gesamtbild 7; CLAUDE.md „Technik und Sicherheit“): %s ist verboten. Keine Verlaufsänderung, kein Force-Push, "
+           "kein Löschen von Zweigen, kein Umgehen der git-Haken (Grund beheben, den der Haken nennt); Keystore, Signatur-Passwort, local.properties nie ins Repo (nur GitHub-Secrets). Anders lösen; "
+           "geht es nicht ohne: Frage per `vorgang.py rueckmeldung <Nr> \"Frage …\"`.")
 
 
 def push_grund(args):
@@ -82,6 +89,10 @@ def grund_bash(befehl, cwd):
     for m in bz.PUSH.finditer(roh):
         g = push_grund(m.group(2))
         if g: return g
+    for m in MAIN_UM.finditer(roh):
+        if os.path.basename(os.path.normpath(_wo(roh, m, cwd, m.group(1)))) != NOTIZKOPIE:
+            return ("main in der Arbeitskopie umsetzen (1963: verdirbt den Index der Notizkopie; Notizen in ../bornim-main, "
+                    "Code auf einen claude/-Zweig: git switch -c claude/<name> origin/main)")
     p = geheim_bash(roh, cwd)
     if p == "--no-verify": return "Commit ohne git-Haken (--no-verify, -n)"
     return "Keystore oder Zugangsdaten ins Repo (%s)" % p if p else None
@@ -102,9 +113,7 @@ def main():
     try:
         g = grund(json.load(sys.stdin))
         if not g: return 0
-        print("Sperre (1739, Gesamtbild 7; CLAUDE.md „Technik und Sicherheit“): %s ist verboten. Keine Verlaufsänderung, kein Force-Push, "
-              "kein Löschen von Zweigen, kein Umgehen der git-Haken (Grund beheben, den der Haken nennt); Keystore, Signatur-Passwort, local.properties nie ins Repo (nur GitHub-Secrets). Anders lösen; "
-              "geht es nicht ohne, an den Chef." % g, file=sys.stderr)
+        print(MELDUNG % g, file=sys.stderr)
         return 2
     except Exception:
         return 0

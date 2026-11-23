@@ -258,12 +258,22 @@ def empfaenger(an, scharf=None):
 def uebergabe(nr, an, was):
     an, was = _rein(an), _rein(was)
     if not an or not was: raise Fehler("AN und „was“ nötig")
+    m = re.match(r"(?i)chefwort\b\s*(\d\d\.\d\d\.,\s*\d\d:\d\d|\d\d:\d\d)?", was)
+    vp, lp = _pfad(nr), "docs/LISTE-VORGAENGE.md"
     def f(alt):
-        t = _mit_abschnitt(alt, nr)
+        t = _mit_abschnitt(alt[vp], nr)
+        aus = {}
+        if m:  # 1976-Ü5 (1566-Ü11): Übergabe „Chefwort …“ hebt „ruht, beim Chef“ in NR.md und Liste im selben Commit auf wie chefwort.py
+            import chefwort
+            zeit = m.group(1) or fmt(jetzt())
+            t = chefwort.aufheben(t, zeit)
+            L = chefwort.liste_aufheben(alt[lp], nr, zeit)
+            if L is not None: aus[lp] = L
         ks = [int(z["k"].rsplit("Ü", 1)[1]) for z in zeilen(t)]
         k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
-        return t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, an, was, fmt(jetzt())), k
-    k = atomar(nr, f, "Übergabe %s an %s (1760)" % (nr, an))
+        aus[vp] = t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, an, was, fmt(jetzt()))
+        return aus, k
+    k = atomar_dateien([vp] + ([lp] if m else []), f, "Übergabe %s an %s (1760)" % (nr, an))
     print("OFFEN %s an %s: %s" % (k, an, was))
     wecker(nr, k, an)
     return k
@@ -271,15 +281,31 @@ def uebergabe(nr, an, was):
 DISPONENT_ALT = "Ford"  # 1739: bis zur Umschaltung (lauf.ALT_EMPFAENGER)
 ALT = {"Prüfer": "Diogenes", "Disponent": DISPONENT_ALT, "Arbeitsplaner": DISPONENT_ALT}
 
-def wecker(nr, k, an, alt=None):
+def disponent_aktuell():
+    """2001 (Prüfer 23.11., 14:43): Kennung aus „**Disponent (aktuell)** <Name> `session_…`“ in ARBEIT-BETRIEB.md (bei jedem Neustart
+    gesetzt; ARBEIT-BESETZUNG.md hinkt bis zu einer Stunde nach), sonst None."""
+    try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BETRIEB.md"), encoding="utf-8").read()
+    except OSError: return None
+    m = re.search(r"\*\*Disponent \(aktuell\)\*\*[^`\n]*`(session_\w+)`", t)
+    return m.group(1) if m else None
+
+def disponent():
+    """2001: der laufende Disponent, „Disponent (aktuell)“ vor der Tabelle."""
+    d = disponent_aktuell()
+    return [d] if d else besetzung("Disponent")
+
+def wecker(nr, k, an, alt=None, scharf=None):
     """WECKER an die laufenden Sitzungen von AN (sonst der alten Rolle ALT); läuft keine, WECKER an den Disponenten, der den Start
-    ausgibt (1760, Sokrates 22.11., 07:08). Gibt die geweckten Kennungen zurück."""
-    alt = ALT.get(an, "") if alt is None else alt
-    ss = besetzung(an) or (besetzung(alt) if alt else [])
+    ausgibt (1760, Sokrates 22.11., 07:08). Gibt die geweckten Kennungen zurück. 2001 (Chef 23.11., 14:38): mit tools/1727-SCHARF
+    kein Ford-Ersatz mehr (auch nicht, wenn rueckmeldung.py oder chefwort.py ALT mitgeben); Disponent über disponent()."""
+    scharf = _scharf() if scharf is None else scharf
+    alt = "" if scharf else ALT.get(an, "") if alt is None else alt
+    ss = (disponent() if an == "Disponent" and scharf else besetzung(an)) or (besetzung(alt) if alt else [])
     for s in ss: print("WECKER %s | sieh in %s (%s)" % (s, nr, k))
     if ss: return ss
     print("KEINE SITZUNG %s läuft (ARBEIT-BESETZUNG.md): die Zeile wartet; Start über den Disponenten, die neue Sitzung liest `vorgang.py offen %s`" % (an, an))
-    ds = [] if DISPONENT_ALT in (an, alt) or an == "Disponent" else (besetzung("Disponent") or besetzung(DISPONENT_ALT))
+    if scharf: ds = [] if an == "Disponent" else disponent()
+    else: ds = [] if DISPONENT_ALT in (an, alt) or an == "Disponent" else (besetzung("Disponent") or besetzung(DISPONENT_ALT))
     for s in ds: print("WECKER %s | sieh in %s (%s): keine Sitzung %s, Start ausgeben" % (s, nr, k, an))
     if not ds: print("KEIN DISPONENT läuft: Wache bzw. Herzschlag meldet (1764)")
     return ds
@@ -370,8 +396,9 @@ def _status(dateien):
 FUND = re.compile(r"fund des chefs|\bchefwort\b|\bnein des chefs\b", re.I)
 
 def buero_rang(docs=None):
-    """1796 (Archiv 21.11., 20:51/20:54 „Eilt zuerst“): Schlüssel der Büro-Folge für eine Zeile (Nr, was, seit): Eilt, dann Fund des
-    Chefs, dann Themenblock (Folge in `chefsache/themenbloecke.md`), dann Eingangszeit. Eilt: Klasse „Eilt“ (Liste nach 1727) oder „jetzt“
+    """1796 (Archiv 21.11., 20:51/20:54 „Eilt zuerst“): Schlüssel der Büro-Folge für eine Zeile (Nr, was, seit): Klasse (1967, Chef 22.11.,
+    17:46: Eilt, Fund des Chefs, Muss, Kür, nach dem Meilenstein), dann Themenblock (Folge in `chefsache/themenbloecke.md`), dann
+    Eingangszeit; Zeile ohne Klasse zählt wie Muss. Eilt: Klasse „Eilt“ (Liste nach 1727) oder „jetzt“
     im Titel (Liste vor 1727, 383) oder „Eilt“ im Text; Fund: Titel „Von Chef“, Zeile aus `chefwort.py` („Chefwort … lesen“) oder „Fund
     des Chefs“ im Text. Liest Liste und Themenblöcke einmal; fehlt etwas, zählt die Zeile als „Übriges“."""
     docs = docs or os.path.join(WURZEL, "docs")
@@ -403,7 +430,8 @@ def buero_rang(docs=None):
         fund = fund or bool(FUND.search(was or ""))
         try: z = _zeit(seit, jahr)
         except (ValueError, TypeError): z = datetime.datetime.max
-        return (0 if eilt else 1, 0 if fund else 1, folge.index(block) if block in folge else len(folge), z)
+        klasse = 0 if eilt else 1 if fund else {"K": 3, "N": 4}.get(kl, 2)
+        return (klasse, folge.index(block) if block in folge else len(folge), z)
     return schluessel
 
 def offen(an=None, sitzungen_dateien=(), still=False):

@@ -18,7 +18,7 @@ mark="$(git rev-parse --git-common-dir)/notiz-zuletzt"
 name="unbekannt"
 if [ -n "$CLAUDE_CODE_ACCOUNT_UUID" ]; then
     zeile=$(cat "$wt/docs/ROLLE-BETRIEB.md" docs/ROLLE-BETRIEB.md CLAUDE.md 2>/dev/null | grep -oE "(Tom|Jerry)[^,]{0,20}\`$CLAUDE_CODE_ACCOUNT_UUID" | head -1)
-    case "$zeile" in *Tom*) name="Zentrale (Tom, Jerry, Ford, Perikles, Homer, Sokrates oder Diogenes; Rolle aus der ersten Nachricht, auch wenn sie als Systemmeldung von Ford kommt, 853)" ;; *Jerry*) name="Niederlassung (ruht; Rolle aus der ersten Nachricht, 853)" ;; esac
+    case "$zeile" in *Tom*) name="am Hauptkonto (Rolle aus der ersten Nachricht, auch wenn sie als Systemmeldung kommt, 853; 1986)" ;; *Jerry*) name="Niederlassung (ruht; Rolle aus der ersten Nachricht, 853)" ;; esac
 fi
 
 git fetch -q origin main 2>/dev/null || echo "Bornim: main ließ sich nicht holen (Netz?)."
@@ -26,7 +26,7 @@ git fetch -q origin main 2>/dev/null || echo "Bornim: main ließ sich nicht hole
 # Arbeitskopie zeigt veraltete Dateien als „ungesichert“ (ein Commit davon löscht fremde Einträge).
 if [ "$(git symbolic-ref -q --short HEAD)" = "main" ] && [ "$repo" != "$wt" ]; then
     if [ -z "$(git status --porcelain)" ]; then git checkout -q --detach
-    else echo "Bornim (222.2): Arbeitskopie steht auf main und hat Änderungen; nicht committen, prüfen (veraltet → git stash), dann git checkout --detach."; fi
+    else echo "Bornim (222.2, 1963): Arbeitskopie steht auf main und hat Änderungen; nicht committen, eigene auf einen claude/-Zweig (git switch -c claude/<name>), unklar → Frage per vorgang.py rueckmeldung."; fi
 fi
 if [ ! -d "$wt/.git" ] && [ ! -f "$wt/.git" ]; then
     git worktree prune
@@ -38,6 +38,9 @@ if ! git -C "$wt" merge-base HEAD origin/main >/dev/null 2>&1 \
    && [ "$(git rev-parse --is-shallow-repository)" = "true" ]; then
     git fetch -q --unshallow origin main 2>/dev/null || echo "Bornim: Verlauf ließ sich nicht nachladen (Netz?)."
 fi
+# 1963: veralteter vorgemerkter Stand (git checkout -B main in der Arbeitskopie, 1776) → sichern und auf HEAD zurück; junge Änderungen bleiben
+nk="$wt/tools/notizkopie.py"; [ -f "$nk" ] || nk="$repo/tools/notizkopie.py"
+[ -f "$nk" ] && python3 "$nk" "$wt"
 # 1701 (Sokrates 18.11., 20:29: Notizkopie mit 60 eigenen, 341 fehlenden Commits, Stand 03:39): ein neuer Container kann eine alte
 # Notizkopie mitbringen (gesicherter Stand der Umgebung). Eigene Commits werden vor jeder Pause gepusht (CLAUDE.md); sind alle nicht
 # gepushten Commits älter als 2 Stunden, ist es eine alte Kopie: sichern (Zweig backup-alt-<Zeit>) und auf origin/main setzen,
@@ -54,7 +57,7 @@ fi
 # Arbeitskopie auf den neuesten Stand; eigene, noch nicht gepushte Commits bleiben (Zusammenführen, kein Rebase).
 if [ -z "$(git -C "$wt" status --porcelain)" ]; then
     git -C "$wt" merge -q --ff-only origin/main 2>/dev/null || git -C "$wt" merge -q --no-edit origin/main 2>/dev/null \
-        || { git -C "$wt" merge --abort 2>/dev/null; echo "Bornim (236): Notizkopie $wt ließ sich nicht mit main zusammenführen, abgebrochen. Sicherung und Reset: git -C $wt branch -f backup-lokal-main main && git -C $wt reset --hard origin/main"; }
+        || { git -C "$wt" merge --abort 2>/dev/null; echo "Bornim (236, 1963): Notizkopie $wt ließ sich nicht mit main zusammenführen, abgebrochen. Eigene ungepushte Commits: git -C $wt rebase origin/main, Konflikte lösen, pushen; unklar → Frage per vorgang.py rueckmeldung."; }
 fi
 
 neu=$(git rev-parse origin/main)

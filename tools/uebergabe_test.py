@@ -90,14 +90,31 @@ soll("6 gleichzeitige Quittungen: genau eine ANGENOMMEN, Rest BELEGT", len(an) =
 rc, t = lauf(A, "session_ABS", "21.11., 22:06", "uebergabe", "9002", "Kampf", "Auftrag 9002-1 bauen")
 soll("ohne Sitzung und ohne Disponent: KEIN DISPONENT", rc == 0 and "KEINE SITZUNG Kampf" in t and "KEIN DISPONENT" in t and "WECKER" not in t, t)
 g("pull", "-q", "--no-rebase", "origin", "main", cwd=A)
-with open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "a") as f: f.write("| Ford | [Ford](https://claude.ai/code/session_FORD1) | – | – | 21.11. |\n")
-g("commit", "-qam", "Ford", cwd=A); g("push", "-q", "origin", "main", cwd=A)
+# 2001 (Chef 23.11., 14:38): mit tools/1727-SCHARF kein Ford-Ersatz; Disponent aus der Besetzung, „Disponent (aktuell)“ in ARBEIT-BETRIEB.md zuerst
+soll("2001: tools/1727-SCHARF liegt (Fälle g, i gelten scharf)", os.path.isfile(os.path.join(os.path.dirname(WZ), "1727-SCHARF")))
+with open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "a") as f: f.write("| Disponent | [Disponent – Betrieb](https://claude.ai/code/session_DISP1) | Betrieb | – | 21.11. |\n")
+g("commit", "-qam", "Disponent", cwd=A); g("push", "-q", "origin", "main", cwd=A)
 rc, t = lauf(B, "session_ABS", "21.11., 22:07", "uebergabe", "9002", "Kampf", "Auftrag 9002-2 bauen")
-soll("ohne Sitzung: WECKER an den Disponenten (Ford bis zur Umschaltung)", rc == 0 and "WECKER session_FORD1 | sieh in 9002 (9002-Ü2): keine Sitzung Kampf, Start ausgeben" in t, t)
+soll("ohne Sitzung: WECKER an den Disponenten", rc == 0 and "WECKER session_DISP1 | sieh in 9002 (9002-Ü2): keine Sitzung Kampf, Start ausgeben" in t, t)
 rc, t = lauf(B, "session_ABS", "21.11., 22:08", "uebergabe", "9002", "Figur", "Auftrag 9002-3 bauen")
-soll("mit Sitzung: kein Wecker an den Disponenten", "WECKER session_TOM1 | sieh in 9002 (9002-Ü3)" in t and "FORD1" not in t, t)
+soll("mit Sitzung: kein Wecker an den Disponenten", "WECKER session_TOM1 | sieh in 9002 (9002-Ü3)" in t and "DISP1" not in t, t)
 rc, t = lauf(B, "session_ABS", "21.11., 22:08", "uebergabe", "9002", "Disponent", "Auftrag 9002-4")
-soll("an den Disponenten: Wecker an Ford, kein zweiter", t.count("WECKER session_FORD1") == 1, t)
+soll("an den Disponenten: ein Wecker, kein zweiter", t.count("WECKER session_DISP1") == 1, t)
+rc, t = lauf(B, "session_ABS", "21.11., 22:08", "uebergabe", "9002", "Arbeitsplaner", "Auftrag 9002-5 schreiben")
+soll("2001 (g): Zeile an Arbeitsplaner ohne Sitzung → WECKER Disponent, kein „KEIN DISPONENT“",
+     "WECKER session_DISP1 | sieh in 9002 (9002-Ü5): keine Sitzung Arbeitsplaner, Start ausgeben" in t and "KEIN DISPONENT" not in t, t)
+sys.path.insert(0, os.path.dirname(WZ)); os.environ.update(BORNIM_WURZEL=B)
+import io, contextlib, importlib, uebergabe as ue_g; importlib.reload(ue_g)
+g("pull", "-q", "--no-rebase", "origin", "main", cwd=B)
+with contextlib.redirect_stdout(io.StringIO()) as o_g: ue_g.wecker("9002", "9002-Ü5", "Arbeitsplaner", "Ford")
+soll("2001 (g): alter Empfänger „Ford“ aus rueckmeldung.py/chefwort.py ersetzt nicht (scharf)", "WECKER session_DISP1" in o_g.getvalue() and "KEIN DISPONENT" not in o_g.getvalue(), o_g.getvalue())
+# (i) Tabelle alt (Fritz DISP1), ARBEIT-BETRIEB.md „Disponent (aktuell)“ neu (Uwe DISP2) → Wecker an den neuen
+open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md"), "w").write("# Betrieb\n\n- **Disponent (aktuell)** Uwe `session_DISP2` „Disponent – Betrieb (21.11., 22:00)“, Modell sonnet (Vorgänger Fritz archiviert).\n")
+g("pull", "-q", "--no-rebase", "origin", "main", cwd=A); g("add", "-A", cwd=A); g("commit", "-qm", "Betrieb", cwd=A); g("push", "-q", "origin", "main", cwd=A)
+rc, t = lauf(B, "session_ABS", "21.11., 22:09", "uebergabe", "9002", "Arbeitsplaner", "Auftrag 9002-6 schreiben")
+soll("2001 (i): Disponent aus ARBEIT-BETRIEB.md „Disponent (aktuell)“ vor der alten Tabelle", "WECKER session_DISP2 | sieh in 9002 (9002-Ü6)" in t and "DISP1" not in t, t)
+rc, t = lauf(B, "session_ABS", "21.11., 22:09", "uebergabe", "9002", "Disponent", "Auftrag 9002-7")
+soll("2001 (i): Zeile an den Disponenten geht an den neuen, nicht an den alten", "WECKER session_DISP2" in t and "DISP1" not in t, t)
 
 # Nachfolger: freigeben macht eigene Zeilen sofort wieder offen
 rc, t = lauf(B, "session_BAU", "21.11., 22:10", "freigeben")
@@ -105,7 +122,7 @@ soll("freigeben vor Nachfolger", "FREIGEGEBEN: 1" in t and "| 9001-Ü3 | Figur |
 rc, t = lauf(A, "session_DISP", "21.11., 22:11", "offen")
 reihen = [l.split(" | ")[0] for l in t.splitlines() if l.startswith("9001-Ü")]
 soll("Büro-Liste nach Eingangszeit", reihen[:2] == ["9001-Ü2", "9001-Ü3"] and "9001-Ü3 | an Figur | Auftrag 9001-2 bauen | seit 21.11., 21:00 | offen" in t, t)
-soll("Commits tragen nur die Vorgangsdatei", set(g("log", "--format=", "--name-only", "origin/main", "-n", "25", cwd=A).split()) <= {"docs/vorgang/9001.md", "docs/vorgang/9002.md", "docs/ARBEIT-BESETZUNG.md"})
+soll("Commits tragen nur die Vorgangsdatei", set(g("log", "--format=", "--name-only", "origin/main", "-n", "25", cwd=A).split()) <= {"docs/vorgang/9001.md", "docs/vorgang/9002.md", "docs/ARBEIT-BESETZUNG.md", "docs/ARBEIT-BETRIEB.md"})
 # 3b 1782 (3.3 Nr. 3): zweites Mal ohne Ergebnis → „steckt fest“, kein weiterer Neustart
 lauf(A, "session_ABS", "21.11., 23:00", "uebergabe", "9001", "Prüfer", "Auftrag 9001-9 prüfen")
 k2 = re.findall(r"\| (9001-Ü\d+) \| Prüfer \| Auftrag 9001-9 prüfen", datei())[0]
@@ -141,7 +158,9 @@ for neu_liste in (False, True):
         "| Nr. | Themenblock | Fachprofil | Kapitel 1 | ruht bis | Bereiche | Vorgänge |\n|---|---|---|---|---|---|---|\n"
         "| 2 | Kampf | Kampf | ja | – | E Kampf | – |\n| 7 | Firma | Werkzeug | nein | – | B Werkzeuge | – |\n")
     alt_z = {"1": ("Von Sokrates: Werkzeug", "M", "B Werkzeuge"), "2": ("Von Sokrates: Kampf", "M", "E Kampf"),
-             "3": ("Von Chef (21.11.): Werkzeug", "M", "B Werkzeuge"), "4": ("Von Sokrates: Werkzeug · „jetzt“ 21.11., 20:00", "M", "B Werkzeuge")}
+             "3": ("Von Chef (21.11.): Werkzeug", "M", "B Werkzeuge"), "4": ("Von Sokrates: Werkzeug · „jetzt“ 21.11., 20:00", "M", "B Werkzeuge"),
+             "6": ("Von Sokrates: Kampf · „jetzt“ 21.11., 20:00", "M", "E Kampf"), "7": ("Von Sokrates: Kampf", "K", "E Kampf"),
+             "8": ("Von Chef (21.11.): Werkzeug · „jetzt“ 21.11., 20:00", "M", "B Werkzeuge")}
     if neu_liste:
         kopf = "| Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |\n|---|---|---|---|---|---|---|---|---|---|---|---|\n"
         zs = "".join("| %s | %s | – | %s | %s | – | – | – | *startbar* | *–* | *0* | *–* |\n" % (n, ti.split(": ", 1)[1], b, "Eilt" if "jetzt" in ti else k) for n, (ti, k, b) in alt_z.items())
@@ -153,10 +172,12 @@ for neu_liste in (False, True):
     r = UE.buero_rang(D)
     zeilen_ = [("1", "Auftrag bauen", "21.11., 20:00"), ("2", "Auftrag bauen", "21.11., 21:00"), ("3", "Auftrag bauen", "21.11., 22:00"),
                ("4", "Auftrag bauen", "21.11., 23:00"), ("5", "Chefwort 21.11., 20:00 aus Sitzung x lesen (Abschnitt Chefworte)", "21.11., 23:30"),
-               ("1", "frühere Zeile", "21.11., 19:00")]
+               ("1", "frühere Zeile", "21.11., 19:00"), ("6", "Auftrag bauen", "21.11., 23:50"), ("7", "Auftrag bauen", "21.11., 18:00"),
+               ("8", "Auftrag bauen", "21.11., 17:00")]
     folge = [z[0] + " " + z[2][-5:] for z in sorted(zeilen_, key=lambda z: r(*z))]
-    soll("1796 Büro-Folge Eilt, Fund, Block, Eingang (%s Liste)" % ("neue" if neu_liste else "alte"),
-         folge == ["4 23:00", "3 22:00", "5 23:30", "2 21:00", "1 19:00", "1 20:00"], folge)
+    # 1967 (Chef 22.11., 17:46): Klasse (Eilt, Fund, Muss, Kür), dann Block, dann Eingang: Eilt aus Block 2 vor Eilt-Fund aus Block 7, Muss vor Kür
+    soll("1796/1967 Büro-Folge Klasse, Block, Eingang (%s Liste)" % ("neue" if neu_liste else "alte"),
+         folge == ["6 23:50", "8 17:00", "4 23:00", "3 22:00", "5 23:30", "2 21:00", "1 19:00", "1 20:00", "7 18:00"], folge)
 lauf_txt = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "lauf.py"), encoding="utf-8").read()
 soll("1796 lauf.py ordnet offene Zeilen nach buero_rang", "_ue.buero_rang(" in lauf_txt)
 
