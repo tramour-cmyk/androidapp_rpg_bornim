@@ -413,3 +413,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1987 | tools/zug-haken.py 145 nennt weiter ROLLE-BERATUNG-START.md (stumm, da tools/1727-SCHARF vorliegt, kein Startweg); Fund Uta 1986-Ü5 | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1988 | Leitung: Aufwand im Auftrag nennen; Leitung ab 300 Tsd. Token neu starten (Chef 09:02, 1 bis 3 ja) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1989 | Startprompts der laufenden Sitzungen gegenprüfen, Soll mit Ist; Prüfschema über den Tag, alle Bereiche und Profile (Chef 09:04) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1990 | vorgang.py uebergabe nennt als WECKER eine archivierte Sitzung (Besetzung veraltet), Weckrufe gehen verloren (Fund Wanda 1688-Ü5, Disponent 21:31) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
