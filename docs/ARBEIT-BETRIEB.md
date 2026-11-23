@@ -136,3 +136,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:24 23.11.: Prüfer Ingo „ja“ 1675 und 1653, beide schon auf main (12c3fd0f4, 2f4a105e4), Chef-Freigabe 👍 (4941, 4943) belegt; keine Testbitte nötig; 1675 und 1653 fertig, Ü10/Ü9 erledigt
 - 00:03 24.11.: Startsperre 00:03 Start Sokrates (lauf.py, 1603)
 - 00:06 24.11.: Takt 00:03 (--ohne 513, 887, 1716, 1961): START Sokrates neu (Vorgänger 76c6 mit 394 Tsd. Token, Gedächtnis aktuell) ausgeführt, session_01Hmoj78KsbZtxD4EU46NDFA; ARCHIVIERE alter Sokrates erst nach Meldung des Nachfolgers und 15 Min. nach letzter Chefnachricht; sonst keine START-Zeile (Nachtruhe Fachkräfte); WÄCHTER 1694 schon startbar
+- 00:08 24.11.: Startsperre 00:08 Start Prüfer (lauf.py, Prüfer 2001 Anna)
