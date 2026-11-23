@@ -25,9 +25,9 @@ Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBI
 **Jetzt installieren:** Release 0.1.867 (18.10., 20:09; https://github.com/tramour-cmyk/androidapp_rpg_bornim/releases/tag/v0.1.867).
 
 - **Starter (aktuell)** `session_01Hmoj79aK2ZM5TMgz3YQoPo` „Disponent-Starter (23.11., 10:13)“, Umgebung WireStorm Mittel, Modell sonnet, ohne Repo (Chef 23.11., 10:09); legt nur auf „Disponent-Neustart“ eine Sitzung an; niemand archiviert ihn.
-- **Disponent (aktuell)** Fritz `session_01Hmoj7A1LRkD1KGfM636THN` „Disponent – Betrieb (23.11., 10:13)“, Modell sonnet (Handstart des Chefs 23.11., 10:09; Vorgängerin Zita archiviert 10:14). Neustart ab 300 Tsd. Token nur über den Starter mit der START-Zeile aus `lauf.py --start Disponent <Nr>`. **Eigene Uhr** „Disponent-Lauf“ `trig_01Uw9cHdh3REEELJpFBTq8L2` (`3 * * * *`, an diese Sitzung).
+- **Disponent (aktuell)** Uwe `session_01Hmoj75wHERahcfNJhym3bB` „Disponent – Betrieb (23.11., 13:53)“, Modell sonnet (Neustart bei 303 Tsd. Token über den Starter 13:53; Vorgänger Fritz `session_01Hmoj7A1LRkD1KGfM636THN`). Neustart ab 300 Tsd. Token nur über den Starter mit der START-Zeile aus `lauf.py --start Disponent <Nr>`. **Eigene Uhr:** noch keine (Anlegen von „Disponent-Lauf“ vom Rechteprüfer 13:55 abgelehnt, Chef gefragt); die Uhr `trig_01Uw9cHdh3REEELJpFBTq8L2` (`3 * * * *`) läuft noch an Fritz.
 - **Zu 287, bis erledigt (Sa 28.11., 20:00), streicht: Disponent.** **Laufsperre ab 23.11., 07:00 (Sokrates, Guthaben 38 % Chef 06:43):** höchstens zwei Fachkräfte zugleich, nur Spiel (Regeln, Kampf, Figur, Welt) und Eilt; Werkzeug nur Eilt; Kür ruht; Prüfer und Planer dazu; frei: Wache, Sokrates, Rückläufer des Chefs; 23–7 keine Fachkräfte, lauf.py aber jeden Takt; Laufende beenden ihren Schritt, danach archivieren statt nachstarten. Folge: 1589.2-Ü3 (Kampf, Rückläufer), 1068-Ü2 (Kampf, Nachfolger Zeno ab 20b158641), 1694 (Figur), 1603 (Kampf), 1961/1964/1965/1960/1520 (Werkzeug, nur Eilt).
-- **Zu 1961, bis erledigt, streicht: Disponent.** Marke für `neustart-haken.py` (sucht „Ford (aktuell)“): **Ford (aktuell)** `session_01Hmoj7A1LRkD1KGfM636THN`.
+- **Zu 1961, bis erledigt, streicht: Disponent.** Marke für `neustart-haken.py` (sucht „Ford (aktuell)“): **Ford (aktuell)** `session_01Hmoj75wHERahcfNJhym3bB`.
 - **Wache (aktuell)** `session_01Hmoj78CoScvkasiYmBbPTG` „Wache – Disponent (23.11., 13:35)“, Modell sonnet (Neustart bei 201 Tsd. Token, Disponent Fritz 13:35, Vorgängerin `session_01Hmoj77Y2Jo6nDTdSSdi9P6` archiviert); Uhr „Wache“ `trig_01QuKEpvSi5e9AXBWWDgTvqd` (:33). Stand 13:34: ohne Befund, kein roter Lauf seit 12:30. Meldungen: keine.
 
 ## Eingang
@@ -75,4 +75,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:05 23.11.: Startsperre 10:05 Start Werkzeug (lauf.py, Werkzeug 1992 Emil)
 - 10:12 23.11.: Startsperre 10:12 Start Arbeitsplaner, Figur, Arbeitsplaner, Tagesbericht, Welt (lauf.py, Arbeitsplaner 513 Carla, Figur 1675 Dana, Arbeitsplaner 1961 Elke, Tagesbericht 448, Welt 1566 Frieda)
 - 10:45 23.11.: Startsperre 10:45 Start Figur, Werkzeug, Arbeitsplaner, Tagesbericht, Sokrates, Prüfer (lauf.py, Figur 1675 Tanja, Werkzeug 1964 Ulla, Arbeitsplaner 513 Vera, Tagesbericht 448, Sokrates 1989, Prüfer 1971 Wiebke)
+- 11:28 23.11.: Startsperre 11:28 Start Kampf, Sokrates (Handstart ohne lauf.py, nachgetragen 13:59: Tamara 1068, Sokrates Leitung)
+- 12:04 23.11.: Startsperre 12:04 Start Prüfer (Handstart ohne lauf.py, nachgetragen 13:59: Hanna 1675)
+- 13:06 23.11.: Startsperre 13:06 Start Figur (Handstart ohne lauf.py, nachgetragen 13:59: Ulrike 1694)
 - 13:52 23.11.: Startsperre 13:52 Start Arbeitsplaner, Kampf, Figur, Werkzeug, Arbeitsplaner, Prüfer (lauf.py, Arbeitsplaner 513 Arne, Kampf 1068 Benno, Figur 1675 Carla, Werkzeug 1964 Dana, Arbeitsplaner 1961 Erna, Prüfer 1675 Fritz)
