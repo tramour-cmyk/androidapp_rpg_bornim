@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 
-**Nächste freie Vorgangsnummer: 2010** (zuletzt 2009 Kampf 23.11. 22:13:50 74ea) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 2012** (zuletzt 2011 Werkzeug 23.11. 22:20:39 375f) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -123,3 +123,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:03 23.11.: Startsperre 22:03 Start Arbeitsplaner, Kampf, Figur, Werkzeug, Arbeitsplaner, Sokrates (lauf.py, Arbeitsplaner 513 Clara, Kampf 1603 Dana, Figur 1675 Doris, Werkzeug 1961 Erna, Arbeitsplaner 2006 Fritz, Sokrates 1589.2)
 - 22:08 23.11.: Takt 22:03 (--ohne 513, 1716): START Fritz (Planer 2006), Dana (Kampf 1603), Doris (Figur 1675 + 1653-Ü6), Sokrates neu ausgeführt; START Erna (Werkzeug 1961) von Auto-Prüfung abgelehnt (zweiter Fall, Fund Sokrates); Clara (Planer 513) nicht gestartet (ruht, Fund 2005); archiviert Arne, Silke, Dirk, Kosten 1603 2,87, 1653 5,26, 2006 1,20; alter Sokrates (76c6) wartet auf Meldung des Nachfolgers; 1653 Chef 👍 22:02 → Archiv, Chefsache gelöscht, Übergabe Figur nach main
 - 22:15 23.11.: Sokrates (76c6) 22:13: laufende Leitung bleibt; doppelte Sitzung „Sokrates – 1589.2“ (76owyigkE5s4qkYQGi) archiviert, 1589.2-Ü10 und 1603-Ü2 erledigt; keine Weisungen mehr von Alter Ego (Chef 22:11 laut Sokrates); 1961 kein START bis Sokrates entscheidet
+- 22:19 23.11.: Startsperre 22:19 Start Werkzeug, Arbeitsplaner (lauf.py, Werkzeug 2006 Erna, Arbeitsplaner 887 Gustav)
+- 22:21 23.11.: Takt 22:19 (--ohne 513, 1716, 1961): START Werkzeug Erna 2006 ausgeführt; START Planer Gustav 887 nicht ausgeführt (887 ruht, Fund 2005); NACHRICHT Arbeitsplaner an Fritz (1068-Ü13), Figur an Doris (1653-Ü6); NACHRICHT Kampf an Dana (1068-Ü8) nicht gesendet (Dana soll enden, 1068 wartet auf Chef); LIEGT Laufsperre
+- 22:24 23.11.: Sokrates 22:22: 2002-Ü1 (Leiche), 2006-Ü1/Ü2 (Duplikat, Erna 2006 läuft) erledigt; Alter-Ego-Archivierung (78XH…) erst nach Meldung der neuen Sitzung, Kosten auf 2010; 1589.2-Ü9 Kampf im nächsten Takt wenn lauf.py START nennt; Fritz fertig, 1068-Ü13 braucht frischen Planer (lauf.py)
