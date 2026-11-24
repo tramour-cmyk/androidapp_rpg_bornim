@@ -246,3 +246,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:08 24.11.: Takt 19:04: keine neuen Starts; Nils (1589.4, Kampf) Schritt 1 fertig, Frage F1–F5 an Sokrates (1589.4-Ü3), Nils wartet am Leben (3,87 $); Moritz (Figur 1654) läuft; nicht ausgeführt: Planer 887 (ruht), 1728 (Abläufe, Chef 12:48)
 - 19:10 24.11.: Sokrates 19:10: 1589.4-Ü3 beantwortet, Schritt 2 (20–26 $) wartet auf Deckel des Chefs ab Sa, 1589.4 ruht; Nils läuft noch (Abschluss), danach archivieren + Kosten buchen (3,87 $ um 19:06)
 - 19:21 24.11.: Nils (1589.4) archiviert, Kosten 4,03 $ (1589.4 gesamt 5,55 $); 1589.4 ruht bis Deckel des Chefs ab Sa (Sokrates 19:10)
+- 19:39 24.11.: Startsperre 19:39 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Margit, Arbeitsplaner 1773 Nadine)
