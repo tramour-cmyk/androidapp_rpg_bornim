@@ -347,6 +347,11 @@ def schliessen_nr(nr, arten=None, grund="", bis=None):
         return schliessen_text(alt, nr, arten, grund, bis)
     return atomar(nr, f, "Übergaben %s geschlossen: %s (2012)" % (nr, _rein(grund)[:100]))
 
+def kurz(paare, n=6):
+    """2012 (5): „Kennung was; …“ für die ersten N (Rangfolge des Aufrufers), dahinter „+M weitere: Kennung, …“ statt sie wegzulassen."""
+    s = "; ".join("%s %s" % (k, w) for k, w in paare[:n])
+    return s + ("; +%d weitere: %s" % (len(paare) - n, ", ".join(k for k, _ in paare[n:])) if len(paare) > n else "")
+
 def _finde(t, kennung):
     z = [z for z in zeilen(t) if z["k"] == kennung]
     if not z: raise Fehler("%s steht nicht in %s" % (kennung, _pfad(nr_aus(kennung))))
