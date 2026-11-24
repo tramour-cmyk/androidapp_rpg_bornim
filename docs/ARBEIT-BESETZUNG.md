@@ -2,10 +2,11 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 24.11., 06:03 (lauf.py)
+**Stand:** 24.11., 07:02 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
 | Wache | [Wache – Disponent (23.11., 13:35)](https://claude.ai/code/session_01Hmoj78CoScvkasiYmBbPTG) | Betrieb | – | 23.11., 13:34 |
 | Disponent | [Disponent – Betrieb (23.11., 13:53)](https://claude.ai/code/session_01Hmoj75wHERahcfNJhym3bB) | Betrieb | – | 23.11., 13:53 |
 | Sokrates | [Sokrates – 1603: offene Zeilen (1763 C, 24.11., 00:03)](https://claude.ai/code/session_01Hmoj78KsbZtxD4EU46NDFA) | 1603 | – | 24.11., 00:05 |
+| Wache | [Wache Profil und Trigger-Migration](https://claude.ai/code/session_01Hmoj77JCMhf2hwMABWtXB4) | Betrieb | – | 24.11., 07:01 |
