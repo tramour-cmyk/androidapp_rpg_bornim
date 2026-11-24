@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj78XiynF45gfuVmiNc8 (seit 24.11., 13:27; Vorgänger session_01Hmoj76DxaY8henyxgura1G). Sokrates session_01Hmoj77ZdYKh1YXq5iPdhgN (seit 24.11., 12:51). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session_01Hmoj78XiynF45gfuVmiNc8). Sokrates session_01Hmoj77ZdYKh1YXq5iPdhgN (seit 24.11., 12:51). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78XiynF45gfuVmiNc8 (seit 24.11., 13:27; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 18:42 Nachfolger übernommen, umbenannt; Uhr trig_01UMZkwiFPFr6JeC8bo8fmA1 (19:43); alte trig_01TZud4pmfQVwZwysYLue1EF abgeschaltet (Löschen sperrt Rechteprüfer); Kennung an Sokrates.
 - 24.11., 18:40 Sokrates 18:40: 1589.4 wird geplant (Leerlauf behoben), 887 Werkzeug ruht. Übergabe (248 Tsd.), Startfelder an Sokrates.
 - 24.11., 18:38 Runde: Leerlauf (keine Fachkraft, drei Takte ohne Start, 1694/1603/431 beim Chef) trotz „Spiel vor“; 887 stets vorgeschlagen, nicht ruht in Liste. An Sokrates. Uhr 19:38.
 - 24.11., 18:14 Prüfung chefsache 431, drei Bilder angesehen: Zahlen stimmen; Einwände Merkmale nicht vollständig gegen LISTE-FIGUREN (Zwergin Zöpfe Z. 178, Ohren, Hauer), Zwerg-Haltung fast Hocke unerwähnt; Teilantworten erlauben. An Sokrates.
