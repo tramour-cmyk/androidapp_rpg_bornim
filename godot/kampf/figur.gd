@@ -1859,7 +1859,8 @@ func _gasse(von: Vector3, nach: Vector3, skip) -> float:
 		var c := Vector2(o.position.x, o.position.z)
 		if Arena.strecke_frei(a, b, umriss_r(), [[c, o.umriss_r()]]):
 			continue
-		var p := Arena.beiseite(a, b, c, umriss_r() + o.umriss_r(), o.umriss_r(), o._kreise(self))
+		var p := Arena.beiseite(a, b, c, umriss_r() + o.umriss_r(), o.umriss_r(), o._kreise(self), \
+				String(o.fighter.monster.get("id", "")) if o.fighter.monster != null else "")
 		if p == c:
 			continue
 		var ziel := Vector3(p.x, o.position.y, p.y)
@@ -4117,13 +4118,14 @@ func bahn_punkte() -> Array:
 
 
 ## Eigener Rand quer zum Weg: die Heldin HERO_R, ein Tier die halbe Breite seines Umrisses (399.2: Wölfe weichen jetzt auch aus)
-## 1589.4 (Sokrates 24.11., 20:47 zu F2, DESIGN-GEGNER 1 „Umriss als Kreis“): der größte Halbmesser des Umrisses am Boden (Kasten
-## der Netze in Ruhe), beim langen Tier die halbe Länge (gemessen 24.11.: Wolf 0,99, Grimmzahn 1,73, Ratte 0,85 m; werte.json „arena“)
+## 1589.4 (Sokrates 24.11., 20:47 zu F2 und 21:08, DESIGN-GEGNER 1 „Umriss als Kreis“): Kreis um den Kasten der Netze in Ruhe am
+## Boden, Halbmesser = halbe Diagonale (der Kasten liegt ganz im Kreis; gemessen 24.11.: Wolf 1,09, Grimmzahn 1,91, Ratte 0,90 m;
+## werte.json „arena“)
 func umriss_r() -> float:
 	if fighter.monster == null:
 		return HERO_R
 	var box := footprint()
-	return maxf(0.5 * maxf(box.size.x, box.size.z), 0.1)
+	return maxf(0.5 * Vector2(box.size.x, box.size.z).length(), 0.1)
 
 
 func own_r() -> float:

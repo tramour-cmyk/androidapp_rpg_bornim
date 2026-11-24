@@ -304,19 +304,21 @@ static func seitlich(von: Vector2, nach: Vector2, r: float, andere: Array) -> Ve
 
 
 ## F1 „der Vordere macht Platz“: wohin ein Stehender mit Mitte [c] beiseite tritt, damit die Strecke [a] → [b] an ihm vorbeigeht
-## ([abstand]: Umriss des Gehenden plus der eigene): quer zur Strecke auf die Seite, auf der er schon steht, bis [abstand] von ihr;
-## frei gegen [andere] (wie strecke_frei, Umriss [r]); sonst [c]
-static func beiseite(a: Vector2, b: Vector2, c: Vector2, abstand: float, r: float, andere: Array) -> Vector2:
+## ([abstand]: Umriss des Gehenden plus der eigene): quer zur Strecke auf die Seite, auf der er schon steht, nur so weit, bis die
+## Strecke frei ist (Sokrates 24.11., 21:08: höchstens bis zum nächsten freien Platz; nie auf die andere Seite, alt bis 5,2 m);
+## frei gegen [andere] (wie strecke_frei, Umriss [r]); sonst [c] (der Gehende wartet). Untote und Krogg treten nicht beiseite
+## ([id], Abschnitt 5: sie weichen nicht)
+static func beiseite(a: Vector2, b: Vector2, c: Vector2, abstand: float, r: float, andere: Array, id := "") -> Vector2:
 	var q := Geometry2D.get_closest_point_to_segment(c, a, b)
 	var w := b - a
-	if w.length() < GLEICH:
+	if w.length() < GLEICH or not setzt_ab(id):
 		return c
 	var quer := Vector2(-w.y, w.x).normalized()
-	var sg := 1.0 if (c - q).dot(quer) >= 0.0 else -1.0
-	for s: float in [sg, -sg]:
-		var p := q + quer * s * (abstand + GLEICH)
-		if strecke_frei(c, p, r, andere):
-			return p
+	var ab := (c - q).dot(quer)
+	var sg := 1.0 if ab >= 0.0 else -1.0
+	var p := c + quer * sg * maxf(0.0, abstand + GLEICH - absf(ab))
+	if p != c and strecke_frei(c, p, r, andere):
+		return p
 	return c
 
 
