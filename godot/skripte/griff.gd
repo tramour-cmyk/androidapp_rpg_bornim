@@ -25,7 +25,7 @@ static var ANLEGEN := float(OS.get_environment("ANLEGEN1694")) if OS.get_environ
 static var GEKOPPELT := OS.get_environment("KOPPEL1694") == "1"   # 1694: Glieder gemeinsam beugen (Versuch 23.11.: Kuppe zuerst am Stiel)
 static var ANSCHLAG := OS.get_environment("ANSCHLAG1694") != "0"   # 1694: der Reihe nach, je Glied Anschlag KETTE_GRENZE (0: 110° je Glied)
 const KETTE_ANTEIL := [1.0, 1.2, 0.8]   # Grund-, Mittel-, Endglied je Schritt (Verhältnis der Beugung beim Faustschluss)
-const KETTE_GRENZE := [90.0, 110.0, 80.0]   # Grad: Anschlag je Glied
+static var KETTE_GRENZE := [float(OS.get_environment("GRUND1694")) if OS.get_environment("GRUND1694") != "" else 90.0, 110.0, 80.0]   # Grad: Anschlag je Glied (GRUND1694: Grundglied, Versuch 24.11.)
 static var NUR_GLIED := OS.get_environment("GLIED1694") != "0"   # 1694: Haut je Glied erst ab einem Viertel seiner Länge
 static var DAUMEN_UM := OS.get_environment("DAUMEN1694") != "0"   # 1694: Daumen im Grundgelenk um den Schaft
 static var DAUMEN_RAUS := OS.get_environment("RAUS1694") != "0"   # 1694: Daumen im Schaft: an den Schaft legen wie die Finger (0: wie bis 23.11., 15:5x)
@@ -34,6 +34,7 @@ static var DEBUG := OS.get_environment("GRIFFKETTE") != ""
 static var KONV := float(OS.get_environment("KONV1694")) if OS.get_environment("KONV1694") != "" else -16.0   # Grad je Finger (Versuch Handbeil 23.11.: -14: 11 %, -18: 9 % sichtbar, Kuppen stoßen zusammen)
 static var STRECKEN := OS.get_environment("STRECKEN1694") != "0"   # 1694: Finger vor dem Schließen strecken
 static var GELENK := OS.get_environment("GELENK1694") != "0"   # 1694: Beugen um das Gelenk (0: um die Schaftachse, wie bis 22.11.)
+static var ZUVIEL_FREI := float(OS.get_environment("FREI1694")) if OS.get_environment("FREI1694") != "" else 0.0   # m: Kleinfinger darf so weit in den Schaft (Versuch 24.11.)
 const NEU_AB := 0.002              # m bzw. rad*m: so weit darf der Schaft in der Hand wandern, bevor die Finger neu schließen
 
 ## hat die Seite [s] („r“, „l“) eine Hand mit Fingern (Menschengerüst: hand_r, index_01_r …)?
@@ -139,7 +140,11 @@ static func schub(sk: Skeleton3D, s: String, o: Vector3, d: Vector3, r: float, r
 		var kf := sk.get_bone_global_pose(sk.find_bone(fi + "_01_" + s)).origin
 		var a := (o + w) + d * (kf - (o + w)).dot(d)
 		zuviel = maxf(zuviel, (a - kf).dot(lq) + (rl + hm.y - ein))
-	return w - lq * zuviel * (0.0 if OS.get_environment("ZUVIEL1694") == "0" else 1.0)
+	if DEBUG:
+		var kl := sk.get_bone_global_pose(sk.find_bone("index_01_" + s)).origin - sk.get_bone_global_pose(sk.find_bone("pinky_01_" + s)).origin
+		print("GRIFFWINKEL %s Schaft zur Knöchellinie %.0f°, zu den Fingern %.0f°, zur Handfläche %.0f°, zuviel %.1f cm" % [s, rad_to_deg(d.angle_to(kl)), rad_to_deg(d.angle_to(lang)), rad_to_deg(d.angle_to(fl)), 100.0 * zuviel / u])
+	zuviel = maxf(0.0, zuviel - ZUVIEL_FREI * u)
+	return w - lq * zuviel * (float(OS.get_environment("ZUVIEL1694")) if OS.get_environment("ZUVIEL1694") != "" else 1.0)
 
 ## Stelle in der Faust im Raum des Handknochens (Leute: der Gegenstand folgt der Hand ohne Drehung um den Griff)
 static func stelle_lokal(sk: Skeleton3D, s: String, r: float) -> Vector3:

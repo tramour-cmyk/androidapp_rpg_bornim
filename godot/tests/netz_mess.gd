@@ -146,11 +146,11 @@ static func dick(w: Dictionary) -> bool:
 static func zu_dick(w: Dictionary) -> bool:
 	return 2.0 * float(w.get("radius", 0.0)) >= DICK
 
-## Glieder, die nicht am Schaft liegen: [„index_02_r Luft 1,3“, …]. Am dünnen Griff (geschlossene Faust) darf das Endglied auf Ballen
-## oder Daumen liegen statt am Schaft (Umfang 3 cm Griff 9,7 cm: der Finger reicht um ihn herum)
+## Glieder, die nicht am Schaft liegen: [„index_02_r Luft 1,3“, …]. In der geschlossenen Faust (Umschlingung ab 300°) darf das Endglied
+## auf Ballen oder Daumen liegen statt am Schaft (Umfang 3 cm Griff 9,7 cm, 3,8 cm Griff 11,9 cm: der Finger reicht um ihn herum)
 static func glieder_fehler(w: Dictionary) -> Array:
 	var f := []
-	var faust := not dick(w) and float(w.get("umschl", 0.0)) >= 300.0
+	var faust := float(w.get("umschl", 0.0)) >= 300.0
 	for k in w:
 		if not String(k).begins_with("g:"): continue
 		var d := float(w[k]); var holz := GLIED_HOLZ * (2.0 if String(k).contains("_03_") else 1.0)
