@@ -263,3 +263,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:08 24.11.: Takt 21:03: Moritz 1654 fertig (1654-Ü5, e677b8b4e) an Prüfer Jonas; Oda 1589.4 Frage an Sokrates (Deckel erhöhen oder schneiden; 11,59 $, 403 Tsd. Token); keine Starts; nicht ausgeführt: Planer 887, 1983 (Werkzeug)
 - 21:07 24.11.: Startsperre 21:07 Start Kampf, Figur (lauf.py, Kampf 1589.4 Pit, Figur 1694 Rudi)
 - 21:11 24.11.: Oda (1589.4, 12,00 $, gesamt 17,55 $) und Moritz (1654, 2,94 $) archiviert; Kampf Pit 1589.4 (session_01Hmoj79jA6NkWUNot73ShrC, Schritt 2 weiter, bis 20 $ gesamt, Sokrates 21:08) und Figur Rudi 1694 (session_01Hmoj76mepXSCA2Jw3bwyPP, Messung, Deckel 15 $, Halt 12 $) gestartet; 1654 wartet auf Planer (Prüfer nein, Auftrag 21:05), Planer 21:13; nicht ausgeführt: Planer 887, 1983
+- 21:14 24.11.: Startsperre 21:14 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Sven, Arbeitsplaner 2010 Tanja)
