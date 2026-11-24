@@ -1,5 +1,7 @@
 # 1603 · Ansage je Art und Kroggs Prankenhieb
 
+[Film von 24.11., 11:33](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261124-113329-1603/2026-11/24-1132-1603-Carla.mp4) (eingetragen von meldung.sh, Carla)
+
 ![Ansage alt gegen neu, Teil 1](../bilder/1603-ansage-1.webp)
 ![Ansage alt gegen neu, Teil 2](../bilder/1603-ansage-2.webp)
 
