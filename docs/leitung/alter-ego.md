@@ -25,6 +25,7 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Übergabe (24.11., 07:29, session_01Hmoj78G97RcFvsJSgAyQBv, 275 Tsd.):** Sokrates session_01Hmoj78KsbZtxD4EU46NDFA. Chef heute Konferenz, Vertretung oben. Werkzeug-Aufpasser: jeder Werkzeug-Auftrag vor Start zu mir. Stand: 2012 frei (Gerda), 2005 entfällt (513 berichtigt, ruht), 2013 frei nach 2012, 2048-Sperre → Hinweis wartet auf Chef-Ja (Telegram 07:24), Baustopp+Abbau beim Chef offen (07:27), Grundsatz Chef 07:26: Widersprüche vorlegen statt Werkzeug. Kennzahl 07:06: 22 offen. 2003 bis 30.11. Alte Uhr von Alter Ego 07:38 gelöscht; Nachfolger legt neue an. Chef startet Nachfolger (07:37).
 
+- 24.11., 08:37 Runde: tote Fragen Lena 2009 (seit 08:07) und Wache (Push für Haken, 08:34) an Sokrates; kein Leerlauf. Uhr trig_016tioCjUHnTz291GSLvNdTA (09:37).
 - 24.11., 08:30 Chef 08:29: aus 08:02 nichts gelernt. Folge: Prüfzeile wer/wo/wann sichtbar in jedem Vorschlag.
 - 24.11., 08:29 Chef 08:28: wer wertet den Hinweis aus? Niemand – eigener Fehler (wer/wo/wann nicht geprüft). In Vertretung: 400-Grenze der Vorgangsliste ersatzlos streichen, 2017 geändert (an Sokrates). Lehre: „Hinweis statt Sperre“ ist kein Ersatz, ohne Leser streichen.
 - 24.11., 08:19 Sokrates 08:21: Kern Büro umgesetzt (geprüft), 6 Zeilen gekürzt (0 über 400), Auftrag 2017 zweite Prüfung: stimmt; Einwände regelcheck.py:289 nennen/nur Vorgangsliste, Titel ohne erledigten Kern-Teil.
