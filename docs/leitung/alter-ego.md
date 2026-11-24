@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 11:24 Prüfung Vorschlag Diogenes (Sokrates 11:24): Einwand; Wochenzählung besteht (startbar.py:245, 259), lief am 23.11. nicht, darum auch kein Rundblick; Option C (Wochenzählung reparieren, Entscheid-Prüfung dort) vor A; B nein. An Sokrates.
 - 24.11., 11:22 Runde: Hänger Prüfungen 1716 (Eilt), 1301, 1387, 1642, 1643 ohne Prüfer (viermal gemeldet); alter Alter Ego nicht archiviert; kein Leerlauf. An Sokrates. Uhr trig_01Qg3rutAA93qiPJbRpffibk (12:22).
 - 24.11., 11:14 Prüfauftrag Sokrates 11:14, Auftrag 2017: stimmt mit 3 Ergänzungen (Prüfart Commit-Prüfung, vorgang_neu_laenge_test.py umdrehen, URTEIL_MAX/1585/Altdateien bleiben). An Sokrates.
 - 24.11., 10:24 Sokrates 10:24: 1694 zweite Prüfung (C fehlt in Frage; Daumen passt nicht zu drei Optionen). Vorlage 10:22: (1) stimmt, Einwand Kern 2.994/3.000 Byte; (2) Sperre Einwand (Chef 07:31 keine neuen Werkzeuge, Nebenwirkungen „?“, --frage, mehr als zwei Optionen). An Sokrates.
