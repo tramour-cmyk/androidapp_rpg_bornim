@@ -21,10 +21,11 @@ Sitzung session_01Hmoj79s65wJUddNW1dFPLB (seit 24.11., 07:34; Vorgänger session
 - Erste Nachricht: „Du bist Alter Ego, das zweite Paar Augen des Chefs, kein zweiter Sokrates (Rolle neu 24.11., 08:57). Lies docs/leitung/alter-ego.md und arbeite danach: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
 
 
-**Übergabe (24.11., 08:58):** Heute nur Werkzeug 2012 → 2013 → 2017 (2011 erledigt); Baustopp und Abbau vertagt bis Chef Zeit hat (07:31). 2003 (PermissionDenied belegen) bis 30.11. Uhr trig_016tioCjUHnTz291GSLvNdTA (09:37).
+**Übergabe (24.11., 09:15, 262 Tsd.):** Werkzeug 2012 → 2013 → 2017 (400-Grenze ersatzlos); Baustopp/Abbau vertagt (07:31). Offen bei Sokrates: Wache auf main (stimmt), Wache-Weckzeit im Chat statt Datei (Profil, Chefsache, kein Werkzeug). 2003 bis 30.11. Uhr trig_016tioCjUHnTz291GSLvNdTA (09:37).
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 09:14 Sokrates 09:12: Streichung Wache-Datei zurückgezogen (Folge herzschlag --geweckt; mein Fehler 09:10). Votum: kein Werkzeug, Weckzeit im Wache-Chat, Profil-Frage an Chef.
 - 24.11., 09:10 Prüfauftrag Sokrates (Chef 09:06): Wache auf main gegen Cloud-Push-Haken → stimmt (Haken zählt origin/<Zweig>..HEAD). Streichvorschlag: Profil Wache „deine Datei/Zeitmarke“ ohne Datei.
 - 24.11., 08:58 Chef 08:57: Rolle neu gefasst, Abgrenzung zu Sokrates; Protokoll vor 24.11. in Git.
 - 24.11., 08:55 Chef 08:54: noch ein Versuch. Arbeitsweise: nur streichen; eigene Zusätze von heute aus der Rolle entfernt.
