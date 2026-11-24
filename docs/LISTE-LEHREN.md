@@ -42,3 +42,4 @@ Nie geladen, nur durchsucht (`vorgang.py lehre suche <Wort>`); schreiben nur mit
 | R29 | B Werkzeuge | 2007 | geschlossen | Werkzeug-Schnitt 24.11. (Chefwort 07:07, geprüft Alter Ego 07:12): Kür, hält kein Spiel auf; bei erneutem Fehler wieder öffnen | 24.11., 07:14 | offen |
 | R30 | B Werkzeuge | 1993 | geschlossen | enthalten in 2005 (Fall a, d; Werkzeug-Schnitt 24.11., Alter Ego 07:18); Chefwort 04.11., 13:18: 513 ruht bis nach dem Durchspielen | 24.11., 07:17 | offen |
 | R31 | B Werkzeuge | 1956 | Werkzeugfehler 24.11., 07:08 (Sokrates, 2 Min.) | 400-Zeichen-Zeile hält Stand-Schreiben; Dreimal-Regel Strich 1 | 24.11., 08:02 | offen |
+| R32 | B Werkzeuge | 1965 | Werkzeugfehler 24.11., 07:15 (Sokrates, 5 Min.) | 400-Zeichen-Zeile hält Stand-Schreiben (1965, 1956); Dreimal-Regel Strich 2 | 24.11., 08:02 | offen |
