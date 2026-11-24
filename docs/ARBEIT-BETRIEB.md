@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 
-**Nächste freie Vorgangsnummer: 2022** (zuletzt 2021 Werkzeug 24.11. 12:48:44 5a58) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 2023** (zuletzt 2022 Figur 24.11. 14:36:57 f0ff) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
