@@ -172,3 +172,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:46 24.11.: Startsperre 08:46 Start Arbeitsplaner, Prüfer (lauf.py, Arbeitsplaner 1785 Paula, Prüfer 2012 Rita)
 - 08:50 24.11.: Takt 08:46: START Prüfer Rita (2012, Nora fertig, auf main 1cb09ac30) und Planerin Paula (1785) ausgeführt; Olga (431) archiviert, Kosten 1,45 $
 - 08:51 24.11.: Nora (2012) archiviert, Kosten 6,27 $; Nora fragt (Haken-Ausnahme: fertiges Thema ohne Nachfolger beenden) → Sokrates
+- 08:53 24.11.: Paula: Auftrag 1785 steht (1785-Ü1), Hinweis 1785-Ü2: 4fd7055c8 liegt nur auf claude/tom-1535-gruss, nicht auf main; archiviert, Kosten 0,95 $
