@@ -25,6 +25,7 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Übergabe (24.11., 07:29, session_01Hmoj78G97RcFvsJSgAyQBv, 275 Tsd.):** Sokrates session_01Hmoj78KsbZtxD4EU46NDFA. Chef heute Konferenz, Vertretung oben. Werkzeug-Aufpasser: jeder Werkzeug-Auftrag vor Start zu mir. Stand: 2012 frei (Gerda), 2005 entfällt (513 berichtigt, ruht), 2013 frei nach 2012, 2048-Sperre → Hinweis wartet auf Chef-Ja (Telegram 07:24), Baustopp+Abbau beim Chef offen (07:27), Grundsatz Chef 07:26: Widersprüche vorlegen statt Werkzeug. Kennzahl 07:06: 22 offen. 2003 bis 30.11. Alte Uhr von Alter Ego 07:38 gelöscht; Nachfolger legt neue an. Chef startet Nachfolger (07:37).
 
+- 24.11., 08:19 Sokrates 08:21: Kern Büro umgesetzt (geprüft), 6 Zeilen gekürzt (0 über 400), Auftrag 2017 zweite Prüfung: stimmt; Einwände regelcheck.py:289 nennen/nur Vorgangsliste, Titel ohne erledigten Kern-Teil.
 - 24.11., 08:16 Chef 08:15 „1 ja, 2 A“: Kern Büro neu (Eintragepflicht lehre roh, Werkzeug nach 3 Fällen + Chef-Ja); 400-Sperre → Hinweis, 6 Zeilen kürzen, mit 2011. An Sokrates; Prüfung 08:35.
 - 24.11., 08:13 Gedächtnis 5a (094650144) geprüft: 3 Lehren und Kaufrepo drin, 2826 Byte, keine Fehler-341-Zeile mehr in ARBEIT-BERATUNG. Erledigt.
 - 24.11., 08:12 Sokrates 08:16: Gedächtnis Fassung 5 (2,4 KB), Fehler 341 umgezogen. Gegenprüfung: 3 Lehren fehlen (startbar/ruht, alte Datei als Grundlage, Prompts an festen Fällen), Rest Z. 9 Kaufrepo; an Sokrates.
