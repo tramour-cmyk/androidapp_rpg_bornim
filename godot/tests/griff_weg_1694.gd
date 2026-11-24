@@ -74,12 +74,14 @@ func _lauf() -> void:
 	var fehler := 0
 	for gl in GLIEDER:
 		var x: Dictionary = a.glied.get(gl, {}); var y: Dictionary = b.glied.get(gl, {})
-		var ab := absf(float(x.get("netz", 99.0)) - float(y.get("netz", 99.0)))
-		var schlecht: bool = ab > GRENZE and (float(x.get("netz", 99.0)) < 90.0 or float(y.get("netz", 99.0)) < 90.0)
+		var nx := float(x.get("netz", 99.0)); var ny := float(y.get("netz", 99.0))
+		var fehlt := (nx > 90.0) != (ny > 90.0)   # ein Glied ohne Netzwert am freien Griff: fehlend melden, nicht als Abstand
+		var ab := 0.0 if nx > 90.0 or ny > 90.0 else absf(nx - ny)
+		var schlecht: bool = ab > GRENZE
 		fehler += 1 if schlecht else 0
 		print("WEG1694 %-12s | %8.1f %8.1f | %8s %8s | %8s %8s | %8s %8s%s" % [gl, x.get("beug", 0.0), y.get("beug", 0.0),
 			_z(x.get("intern")), _z(y.get("intern")), _z(x.get("netz")), _z(y.get("netz")),
-			_z(_diff(x)), _z(_diff(y)), "  ABWEICHUNG %.1f cm" % ab if schlecht else ""])
+			_z(_diff(x)), _z(_diff(y)), ("  ABWEICHUNG %.1f cm" % ab if schlecht else ("  FEHLT (Netzwert nur in einem Weg)" if fehlt else ""))])
 	print("WEG1694 %d von %d Gliedern weichen über %.1f cm ab" % [fehler, GLIEDER.size(), GRENZE])
 	g.free()
 	quit(1 if fehler > 0 else 0)
