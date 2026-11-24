@@ -271,3 +271,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:06 24.11.: Takt Uwe: Vera (1654) archiviert, Kosten 0,54 $; Figur 1654 wartet (Rudi/Figur läuft, eine Figur zugleich); 887 ruht, kein Start; alter Sokrates bleibt bis Meldung des neuen; Seite abgeschnitten (has_more).
 - 23:04 24.11.: Startsperre 23:04 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1603 Tanja)
 - 23:05 24.11.: Takt Uwe: 0 Fachkräfte laufen (Nacht ab 23); Prüfer 1694-Ü26 weitergereicht; START Tanja 1603-Ü19 (Testbuild) nicht ausgeführt, Testbuild erst Fr abends nach Rückfrage Sokrates; alter Sokrates bleibt; Seite abgeschnitten.
+- 23:07 24.11.: Uwe: 1694-Ü28 erledigt (Systemlösung? Axt angelegt, K Sokrates); 1694-Ü27 liegt bei Sokrates.
