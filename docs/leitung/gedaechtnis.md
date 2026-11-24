@@ -34,7 +34,7 @@
 
 ## Offene Fäden
 
-- Dreimal-Regel (Chef 07:36 „super“ im Chat Alter Ego, Ja offen): Fehler von Hand beheben oder vorlegen; Werkzeug erst nach dreimal belegtem Zeitverlust und Chef-Ja. Bis dahin so verfahren.
+- Dreimal-Regel gilt (Chef 07:37, Archiv); Kern Büro „Werkzeugfehler: Vorgang mit Profil Werkzeug“ widerspricht, Änderung beim Chef.
 - Alter Ego jetzt session_01Hmoj79s65wJUddNW1dFPLB (Handstart Chef 07:35); Notstart über Uwe mit Nr 2013 (Chef 07:16, Trockenprobe 07:22 ok, Prompt alter-ego.md). Werkzeug-Schnitt: docs/leitung/werkzeug-schnitt.md, Reihenfolge A, je Auftrag Prüfung Alter Ego.
 - Rundblick heute 17:00 zugesagt (1966 KISS, bis drei Verfahren, Bilanz; Chef 07:31–08:29, 13:51); Befunde: Disponent-Kosten (Opus 57 $), Titel, Laufsperre nur als Text (2001), Wecker an Disponent fehlte (2001 Teil 2), Lehrenbuch leer (1999).
 - Alter Ego (früher `session_01Hmoj78XHCB3MY4JTyhNrks`) (Chef 14:49–14:52, Archiv 15:53): kopiert den Chef im Betrieb, Kontrolleur der Leitung; Uhren nach eigener Beurteilung.
