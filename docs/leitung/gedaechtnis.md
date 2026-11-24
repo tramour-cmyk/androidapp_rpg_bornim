@@ -34,6 +34,7 @@
 
 ## Offene Fäden
 
+- Alter Ego Nachfolger (Chef 24.11., 07:16): bei 280 Tsd. Telegram an Chef; ohne Chefstart bis 295 Tsd. gibt Sokrates Uwe den Startprompt (alter-ego.md „Startprompt Nachfolger“), Start mit Nr 2013 (Alter Ego → Uwe sperrt der Rechteprüfer). Werkzeug-Schnitt: docs/leitung/werkzeug-schnitt.md, Reihenfolge A, je Auftrag Prüfung Alter Ego.
 - Rundblick heute 17:00 zugesagt (1966 KISS, bis drei Verfahren, Bilanz; Chef 07:31–08:29, 13:51); Befunde: Disponent-Kosten (Opus 57 $), Titel, Laufsperre nur als Text (2001), Wecker an Disponent fehlte (2001 Teil 2), Lehrenbuch leer (1999).
 - Alter Ego `session_01Hmoj78XHCB3MY4JTyhNrks` (Chef 14:49–14:52, Archiv 15:53): kopiert den Chef im Betrieb, Kontrolleur der Leitung; Uhren nach eigener Beurteilung.
 - Main nur über Sokrates (Chef 23:00); Dauerwort Chef 23:10 im Chat der Leitung: „Spielcode nach Main … Das machst du.“ Erster gebilligter Zweig = Probe; scheitert sie, Chefwort je Zweig. Neue Sokrates-Sitzung: Wortlaut zitieren. 1603 Maß entschieden (C, 24.11., 00:07).
