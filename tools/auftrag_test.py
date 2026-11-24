@@ -61,6 +61,9 @@ soll("gültiger Auftrag ohne Fehler", au.pruefen(GUT) == [], au.pruefen(GUT))
 soll("ohne „Zurück“ hält an", any("Zurück" in x for x in au.pruefen(GUT.split("7. ")[0])), au.pruefen(GUT.split("7. ")[0]))
 soll("„Zurück“ zu knapp", any("knapp" in x for x in au.pruefen(GUT.replace("an das Büro, erstes Wort „fertig“, mit Commit und Bild.", "Büro"))))
 soll("über 2 KB hält an", any("Byte" in x for x in au.pruefen(GUT + "x" * 2100)))
+# 2011 (Chef 24.11., 07:27): keine Längenprüfung mehr
+lang = GUT.rstrip() + " " + "Wort " * 600
+soll("2011: 3000 Byte ohne Fehler", len(lang.encode()) >= 3000 and au.pruefen(lang) == [], au.pruefen(lang))
 # 1878 (Lauf 3 Arbeitsplaner L4): wörtliche Zitate unter „Bisher“ zählen nicht zur Grenze, eigene Grenze
 nein = "„" + "der Stiel liegt nicht in der geschlossenen Hand, also fail " * 30 + "“"
 mit_zitat = GUT.replace("3. **Bisher:**", "3. **Bisher:** Chef 17:38: " + nein + " ·", 1)
