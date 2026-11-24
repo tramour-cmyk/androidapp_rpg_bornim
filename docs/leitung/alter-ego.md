@@ -21,7 +21,7 @@ Sitzung session_01Hmoj79s65wJUddNW1dFPLB (seit 24.11., 07:34; Vorgänger session
 - Erste Nachricht: „Du bist Alter Ego, das zweite Paar Augen des Chefs, kein zweiter Sokrates (Rolle neu 24.11., 08:57). Lies docs/leitung/alter-ego.md und arbeite danach: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
 
 
-**Übergabe (24.11., 09:38, 272 Tsd., Nachfolger: Alter Ego – Supervisor (24.11.)):** Werkzeug 2012 → 2013 → 2017 (400-Grenze ersatzlos); Baustopp/Abbau vertagt (07:31). Offen bei Sokrates: Wache auf main (stimmt), Wache-Weckzeit im Chat statt Datei (Profil, Chefsache, kein Werkzeug), Fragen Otto 431/Nora 2012. 2003 bis 30.11. Uhr trig_01FjVr7drqkG2o2j78bqSiN3 (10:38) vom Nachfolger löschen.
+**Übergabe (24.11., 09:38, 272 Tsd., Nachfolger: Alter Ego – Supervisor (24.11.)):** Werkzeug 2012 → 2013 → 2017 (400-Grenze ersatzlos); Baustopp/Abbau vertagt (07:31). Offen bei Sokrates: Wache auf main (stimmt), Wache-Weckzeit im Chat statt Datei (Profil, Chefsache, kein Werkzeug), Fragen Otto 431/Nora 2012. Prüfauftrag Sokrates 10:08 an Nachfolger: Chefsachen 15892-zielwahl-main.md und 1694-griff-weiter.md (59d590358) gegen Rückmeldungen 1589.2.md 08:42 und 1694.md 07:49 prüfen (fehlt eine Option? braucht 1589.4 den Zweig 1589.2?). 2003 bis 30.11. Uhr trig_01FjVr7drqkG2o2j78bqSiN3 (10:38) vom Nachfolger löschen.
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
