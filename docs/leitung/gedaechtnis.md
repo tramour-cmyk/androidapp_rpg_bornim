@@ -28,4 +28,4 @@
 
 ## Übergabe
 
-- 24.11., 08:15, `session_01Hmoj78KsbZtxD4EU46NDFA`: siehe Fäden; Nachfolger: Sokrates – Leitung.
+- 24.11., 08:40, `session_01Hmoj78KsbZtxD4EU46NDFA` (402 Tsd.): Getan: 1603 C, 2001 erledigt, 2009 Doppel 1415, 1993/2005 durch Datenfix 513, Werkzeug-Schnitt (13 Kür zu), 2011 erledigt, Kern Büro neu (2017 Teil 1), Gedächtnis Fassung 5, neue Wache und Alter Ego eingetragen. Läuft: Werkzeug 2012 (Nora) → 2013 → 2017 (400-Grenze ersatzlos), Kampf 1589.2 (Lutz), 1603 (Dana), 1694 (Elke). Letzte Antwort: 2017 Grenze ersatzlos, Lehre „Hinweis braucht Empfänger“. Nachfolger: Sokrates – Leitung.
