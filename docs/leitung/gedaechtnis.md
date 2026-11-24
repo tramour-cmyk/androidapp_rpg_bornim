@@ -22,7 +22,7 @@
 - Konferenz: Alter Ego `session_01Hmoj76MLqXxxrREpwoxksZ` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
 - Spielcode nach main nur Sokrates nach Chef-👍 (Dauerwort 23.11., 23:10).
 - Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt; Guthaben 50 % (06:53), über 0,6 %/h zwei
-- Chef 12:48: kein neues Werkzeug (2020, 2021 ruhen), Spiel vor, keine Meldung bis Sa; 1716, 1725 ruhen; 1694 A: Messung 15 $; 1589.4 A, 431 A. Offen: Vorlage --sperre-Teile; 1301/1387/1642/1643 mit Alter Ego entscheiden; 1603 A: Testbuild, 2024.
+- Chef 12:48: kein neues Werkzeug (2020, 2021 ruhen), Spiel vor, keine Meldung bis Sa; 1716, 1725 ruhen; 1694 A: Messung 15 $; 1589.4 A, 431 A. Offen: Vorlage --sperre-Teile; 1301/1387/1642/1643 mit Alter Ego entscheiden; 1603 A: Testbuild Sa (Technik Fr), 2024.
 - Täglich Modell, Umgebung, Aufwand aller Sitzungen. Kopiertexte: `kopiertexte-uhren.md`
 
 ## Übergabe
