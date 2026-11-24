@@ -222,7 +222,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1752 | Feld jaeger in werte.json kennungen setzen bei Bugbear, Schreckenswolf, Hobgoblin-Hauptmann | 3 | E Figuren | K | – | 120 | – | *startbar* | *–* | *0* | *–* |
 | 1973 | Von Figur (Dana 22.11., 18:49, zu 1570): kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Zwischenstände der Rechnerbauten liegen im Kaufrepo (Zweige bau/teil/klassen-…) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2022 | Systemlösung? Griff: 5 frühere Vorgänge (954a.9, 524, 653, 872, 643), neu 1694; einmal grundsätzlich lösen? (654) | 3 | E Figuren | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 2024 | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schwebt heute daneben) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 2024 | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schwebt heute daneben) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *1,01 $* |
 | 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel … | 4 | E Kataloge | K | 644.1, 644.2, 644.4 | 458 | – | *wartet, entschieden A B C (Chef 14:28)* | *–* | *0* | *32,25 $* |
 | 644.1 | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit 649.2 | 4 | E Kataloge | K | 649.2 | 644, 649.2 | – | *wartet, Build 3 nach 649b A* | *–* | *0* | *–* |
 | 644.2 | Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 Seltenheitsdecke je Kapitel in … | 4 | E Kataloge | K | 23.11. | 644, 644a | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |
