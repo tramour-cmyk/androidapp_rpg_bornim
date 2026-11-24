@@ -24,7 +24,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   STILLSTAND-LÖSEN (1246): …                                         → (1871) Disponent löst je Ursache (Zeile freigeben, Fachkraft starten; an einer Entscheidung: Zeile an Sokrates), höchstens alle 3 Stunden
   KLASSE <Nr (Besitzer)>, …: …                                      → (1871) Disponent setzt Muss oder Kür mit einem Satz Grund (vorgang.py klasse), startet dafür keine Sitzung
   VORRAT-LEER: …                                                    → Ford meldet es einmal am Tag (Schritt 9, 192.2)
-  (WOCHENSTART entfällt seit 719: Wochentermine legt --sperre als Muss-Vorgänge an, Zeile „NICHTS <Rolle>: Wochentermin <Nr> angelegt …“; Ford pusht die Notizen, gestartet wird per START)
+  (WOCHENSTART entfällt seit 719: Wochentermine legt jeder Lauf als Muss-Vorgänge an (2019: auch ohne --sperre), Zeile „NICHTS <Rolle>: Wochentermin <Nr> angelegt …“; Ford pusht die Notizen, gestartet wird per START)
   TAGESBERICHT TT.MM. | Perikles | [effort high] | Titel | erste Nachricht                → dasselbe für den Tagesbericht ab 7:30, Sa, So 9:30 (247.1, Marke „Tagesbericht TT.MM.“);
                                                                      mit tools/1727-SCHARF statt dessen START Tagesbericht (Routine, routine-tagesbericht.md, 1871)
   NEUSTART-LEITUNG <session_id> | Sokrates | <n> Tsd. Token | …     → (1988) Disponent: Leitung neu starten (Übergabe ins Gedächtnis), im selben Takt wie STREICHEN; ab 300 Tsd. used_tokens
@@ -388,7 +388,7 @@ def vorrat_hinweis(r, nr=None):
     """Satzende der Startnachricht: alte Liste „die Übergabe in <Vorrat> beachten“, neue Liste die Vorgangsdatei (1893)."""
     if r in VORRAT and not NEU_LISTE: return "die Übergabe in %s beachten" % VORRAT[r]
     return "die Vorgangsdatei `docs/vorgang/%s.md` lesen (Auftrag, Feld „Zurück“)" % (nr or "<Nr>")
-ROUTINE_ROLLEN = {"Rundblick", "Ideenlauf", "Tagesbericht"}  # 1789, 1907 (Ideenlauf, Gesamtbild 4.3 G:451): Routinen mit eigenem Start (ohne Kern, ohne Rufname, ohne Feld „Zurück“), nur mit tools/1727-SCHARF
+ROUTINE_ROLLEN = {"Rundblick", "Ideenlauf", "Tagesbericht", "Wochenzählung"}  # 2019: Wochenzählung; 1789, 1907 (Ideenlauf, Gesamtbild 4.3 G:451): Routinen mit eigenem Start (ohne Kern, ohne Rufname, ohne Feld „Zurück“), nur mit tools/1727-SCHARF
 NIE_ARCHIV = {"Ford", "Wache"}  # Ford, Wache (1964: vorher fehlte die Wache); Sokrates und Sonstige nach eigener Regel (197)
 
 def ohne_rollen_aus(ausschluss):
@@ -507,6 +507,56 @@ def start_angekommen(rolle, d, alle):
         if z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN): return True  # Ford schrieb die Sperre auch schon nach dem Start (Jerry 10.11., 10:29/10:32)
         if s.get("session_status") != "SESSION_STATUS_ARCHIVED" and s.get("updated_at") and z(s["updated_at"]) >= d: return True
     return False
+
+NR_TEIL = re.compile(r"B?\d+(?:\.\d+)?[a-z]?")
+
+def start_eintraege(text, jahr):
+    """2012 (2): (Zeitpunkt naiv, Rolle, Nr, Rufname oder None) je START aus „- HH:MM TT.MM.: Startsperre HH:MM Start <Rollen> (lauf.py,
+    <Rolle> <Nr> <Rufname>, …)“ (startsperre_zeile); bei einer Rolle steht die Nummer auch allein („(lauf.py, 2012)“)."""
+    import rufname
+    aus = []
+    for l in text.splitlines():
+        m = re.search(r"Startsperre (\d\d):(\d\d) Start (\w+(?:, \w+)*) \(lauf\.py((?:, [^,)]+)*)\)", l)
+        k = re.match(r"- \d\d:\d\d (\d\d)\.(\d\d)\.:", l)
+        if not m or not k: continue
+        try: d = datetime.datetime(jahr, int(k.group(2)), int(k.group(1)), int(m.group(1)), int(m.group(2)))
+        except ValueError: continue
+        rollen = m.group(3).split(", ")
+        for teil in m.group(4).split(",")[1:]:
+            w = teil.split()
+            r = next((x for x in w if x in rollen), rollen[0] if len(rollen) == 1 else None)
+            nr = next((x for x in w if NR_TEIL.fullmatch(x)), None)
+            if r and nr: aus.append((d, r, nr, next((x for x in w if x in rufname.ALLE), None)))
+    return aus
+
+def angekommen_nr(rolle, ruf, d, alle):
+    """2012 (2): die Sitzung dieses STARTs ist da: mit Rufname eine Sitzung mit dem Rufnamen im Titel, angelegt ab der Sperre (−5 Min.);
+    ohne Rufname start_angekommen der Rolle."""
+    if not ruf: return start_angekommen(rolle, d, alle)
+    import rufname
+    return any(rufname.aus_titel(s.get("title", "")) == ruf and z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN) for s in alle.values())
+
+def start_zeilen_schliessen(alle, text=None, schliessen=None, docs=None):
+    """2012 (2) (Bauliste Sokrates 23.11., 23:01): je START einer Fachkraft (uebergabe.FACHPROFILE) aus den Startsperren, deren Sitzung
+    angekommen ist, „Auftrag steht“ und „Nachfolger“ der Nummer (exakt) schließen, nur Zeilen bis zur Sperre; Hinweise nie (erst
+    vorgang.py fertig). Vorher lokal nachsehen, ob es etwas zu schließen gibt (kein Netz je Lauf). Rückgabe: Ausgabezeilen."""
+    import uebergabe as _ue
+    schliessen = schliessen or _ue.schliessen_nr
+    text = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")) if text is None else text
+    aus = []; fertig = set()
+    for d, rolle, nr, ruf in sorted(start_eintraege(text, JETZT.year), key=lambda x: x[0], reverse=True):  # jüngste Sperre je Nummer zuerst
+        if rolle not in _ue.FACHPROFILE or nr in fertig: continue
+        try: lokal = open(os.path.join(docs or DOCS, "vorgang", nr + ".md"), encoding="utf-8").read()
+        except OSError: continue
+        if not _ue.schliessen_text(lokal, nr, _ue.START_ARTEN, "", d)[1]: continue
+        if not angekommen_nr(rolle, ruf, d.replace(tzinfo=BERLIN), alle): continue
+        fertig.add(nr)
+        grund = "Start %s %s%s %s angekommen (lauf.py, 2012)" % (rolle, nr, (" " + ruf) if ruf else "", d.strftime("%d.%m., %H:%M"))
+        try: ks = schliessen(nr, _ue.START_ARTEN, grund, bis=d)
+        except Exception as e:
+            aus.append("WARNUNG Übergaben %s nicht geschlossen: %s (2012; von Hand: uebergabe.schliessen_nr)" % (nr, str(e)[:160])); continue
+        if ks: aus.append("NICHTS Übergabe: %s geschlossen, %s (2012)" % (", ".join(ks), grund))
+    return aus
 
 def start_noetig(rolle, st, ausschluss, nur_muss=False, nf_offen=False):
     """1586 (Ford 17.11., 18:38): eine fehlende Sitzung nach der Startsperre zählt nur, wenn die Rolle jetzt etwas zu starten hätte
@@ -1014,7 +1064,7 @@ def sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger=lambda r: None, do
     except Exception:
         so_z = []
     if so_z:
-        teil = "Offene Zeilen an dich (1763 C): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; „an den Chef“: Chefsache-Datei nach Muster, nicht selbst lösen; fertig: `vorgang.py erledigt <Kennung>`." % "; ".join("%s %s" % (k, w) for k, w in so_z[:6])
+        teil = "Offene Zeilen an dich (1763 C): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; „an den Chef“: Chefsache-Datei nach Muster, nicht selbst lösen; fertig: `vorgang.py erledigt <Kennung>`." % _ue.kurz(so_z)
         i = next((j for j, z in enumerate(ausgabe) if z.startswith("START Sokrates |") or (z.startswith("WEITER ") and " | Sokrates | " in z)), None)
         if i is not None:
             if ausgabe[i].startswith("WEITER "):
@@ -1046,11 +1096,13 @@ def rundblick_zeilen(ausgabe, je_rolle, archiviert, marken, zeilen=None, scharf=
     Auftrag, ohne Kern der Leitung (mit_kern), ohne Arbeitsplaner, ohne Feld „Zurück“ (auftrag.routine), ohne Rufname.
     Rolle in der START-Zeile „Rundblick“ (Startsperre, kosten.rolle, Archivregel). Nur mit tools/1727-SCHARF.
     1907: ebenso NAME „Ideenlauf“ (Wochentermin „Ideenlauf (Routine, …)“, Gesamtbild 4.3 G:451, L-O15; Rolle „Ideenlauf“).
+    2019: ebenso NAME „Wochenzählung“ (Besitzer der Zeile ist die Routine, startbar.ROUTINE_BESITZER); Auftrag ist das Profil
+    docs/profile/Wochenzählung.md (ROUTINE_PROFIL, wie Wache), dazu die Woche vor dem Termintag im Titel.
     Rückgabe: Vorgangsnummer, wenn eine START-Zeile steht, sonst None."""
     if not (ist_scharf() if scharf is None else scharf): return None
     import auftrag as _a
     zs = [d for d in (startbar.zeilen_liste() if zeilen is None else zeilen) if (name + " (Routine") in d.get("titel", "")
-          and d.get("besitzer") == "Sokrates" and str(d.get("stand", "")).startswith("startbar") and not d.get("warte")]
+          and d.get("besitzer") in ("Sokrates", name) and str(d.get("stand", "")).startswith("startbar") and not d.get("warte")]
     if not zs: return None
     d = zs[0]; nr = d["nr"]
     ss = [s for s in je_rolle.get(name, []) if s["id"] not in archiviert]
@@ -1060,15 +1112,50 @@ def rundblick_zeilen(ausgabe, je_rolle, archiviert, marken, zeilen=None, scharf=
         ausgabe.append("NICHTS %s: Lauf zu %s ist zu Ende, wartet auf das Büro (Vorschläge anlegen, Vorgang schließen; 1789)" % (name, nr)); return None
     if name in marken and (JETZT - marken[name]).total_seconds() < SPERRE_MIN * 60:
         ausgabe.append("NICHTS %s: Startmarke %s jünger als %d Minuten" % (name, marken[name].strftime("%H:%M"), SPERRE_MIN)); return None
-    text = _a.routine_text(d["titel"], wurzel or os.path.normpath(os.path.join(DOCS, "..")))
+    if name in ROUTINE_PROFIL:  # 2019
+        text = ladetext(name, os.path.join(wurzel, "docs") if wurzel else None)
+        if not text:
+            ausgabe.append("WARNUNG %s %s nicht gestartet: docs/profile/%s.md fehlt (2019)" % (name, nr, name)); return None
+        woche = woche_vor(d["titel"])
+        if not woche:
+            ausgabe.append("WARNUNG %s %s nicht gestartet: Termintag im Titel nicht lesbar (2019)" % (name, nr)); return None
+        text = "Zähle die Woche %s (Mo 0 Uhr bis So 24 Uhr).\n\n%s" % (woche, text)
+    else:
+        text = _a.routine_text(d["titel"], wurzel or os.path.normpath(os.path.join(DOCS, "..")))
     if not text:
         ausgabe.append("WARNUNG %s %s nicht gestartet: Teil A nicht lesbar (%s; 1789, Spike)" % (name, nr, (_a.routine(d["titel"]) or ("?",))[0])); return None
-    msg = "Routine %s, Vorgang %s (Wochentermin; ohne Kern, Teil A ist dein Auftrag, 1789).\n\n%s\n\n<Nr> ist %s." % (name, nr, text, nr)
+    msg = "Routine %s, Vorgang %s (Wochentermin; ohne Kern, %s ist dein Auftrag, 1789).\n\n%s\n\n<Nr> ist %s." % (
+        name, nr, "der Text" if name in ROUTINE_PROFIL else "Teil A", text, nr)
     ausgabe.append("START %s | %s%s | %s | %s | %s | %s – %s: Routine (%s) | %s" % (name, MODELL["Sokrates"], aufwand(), umgebung(name), REPO, REVISION, name, nr, berlin(JETZT), msg.replace("\n", "\\n")))
     return nr
 
 
+ROUTINE_PROFIL = {"Wochenzählung"}  # 2019: Routinen, deren Auftrag docs/profile/<Name>.md ist (ladesumme.py --anlegen, wie Wache)
+
+def woche_vor(titel):
+    """2019: „Wochentermin TT.MM.: …“ → „Mo TT.MM. bis So TT.MM.“ (die sieben Tage vor dem Termintag), sonst None."""
+    m = re.search(r"Wochentermin (\d\d)\.(\d\d)\.", titel or "")
+    if not m: return None
+    j = JETZT.replace(tzinfo=None)
+    try: t = datetime.datetime(j.year, int(m.group(2)), int(m.group(1)))
+    except ValueError: return None
+    if t > j + datetime.timedelta(days=1): t = t.replace(year=t.year - 1)  # Termin Ende Dezember, Lauf im Januar
+    return "Mo %s bis So %s" % ((t - datetime.timedelta(days=7)).strftime("%d.%m."), (t - datetime.timedelta(days=1)).strftime("%d.%m."))
+
+
 TAGESBERICHT_AUFTRAG = "docs/entwurf/1727-muster/routine-tagesbericht.md"
+def wochentermine_anlegen(ausgabe, scharf=None):
+    """719 A: fällige Wochentermine als Vorgang anlegen (vorgang.neu). 2019 (Ausfall Mo 23.11.: der Takt läuft ohne --sperre, kein
+    Termin): in jedem Lauf, nicht nur mit --sperre; sonst ist der Lauf unverändert."""
+    for t, ber, wer in startbar.wochentermine_faellig(JETZT, scharf):
+        try:
+            import vorgang, io, contextlib
+            with contextlib.redirect_stdout(io.StringIO()): nr = vorgang.neu(t, ber, "M", wer)  # Ford liest nur Befehlszeilen
+            ausgabe.append("NICHTS %s: Wochentermin %s angelegt, „%s“ (719; Notizen pushen)" % (wer, nr, t))
+        except SystemExit as e:
+            ausgabe.append("WARNUNG Wochentermin „%s“ nicht angelegt: %s (719, Perikles)" % (t, e))
+
+
 def tagesbericht_start(heute, zusatz="", wurzel=None):
     """1871 (werkzeuge.md Stilllegung C: „TAGESBERICHT an Perikles“ fällt mit der Rolle; G:486 „an Routine“;
     routine-tagesbericht.md: Sockel und Auftrag, ohne Kern, Start täglich 7:30, Sa/So 9:30 wie bisher): mit tools/1727-SCHARF
@@ -1171,7 +1258,7 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
         ausgabe.append("WARNUNG offene Übergabezeilen nicht gelesen: %s (1739)" % e); return {}
     for an, zs in sorted(je.items()):
         r = "Ford" if an == "Disponent" else an if scharf else ALT_EMPFAENGER.get(an, an)  # 1893: Disponent ist Fords Sitzung
-        teil = "Offene Zeilen an %s (1739): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; fertig: `vorgang.py erledigt <Kennung>`." % (an, "; ".join("%s %s" % (k, w) for k, w in zs[:6]))
+        teil = "Offene Zeilen an %s (1739): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; fertig: `vorgang.py erledigt <Kennung>`." % (an, _ue.kurz(zs))
         sitz = [s for s in je_rolle.get(r, []) if s["id"] not in archiviert] if r != "Ford" else []
         if sitz: ausgabe.append("NACHRICHT %s | %s | %s" % (r, juengste(sitz)["id"], teil))
         elif r != "Ford" and start and start(r, zs[0][0].split("-Ü")[0], teil): pass
@@ -1522,15 +1609,7 @@ def main():
     leb = [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
     for name, tg, nach in startbar.nach_ausgefallen(JETZT):  # 1793: Routine mit „nach“ in der Nachholfrist nicht angelegt
         ausgabe.append("WARNUNG Wochentermin %s „%s“ ausgefallen: „%s“ war bis zum Folgetag nicht erledigt (1793; Sokrates, von Hand anlegen oder auslassen)" % (tg, name[:60], nach))
-    for t, ber, wer in startbar.wochentermine_faellig(JETZT):  # 719 A: vor dem Plan, damit der neue Vorgang im selben Lauf startet
-        if not sperre:
-            ausgabe.append("NICHTS %s: Wochentermin „%s“ fällig, der Lauf mit --sperre legt ihn an (719)" % (wer, t)); continue
-        try:
-            import vorgang, io, contextlib
-            with contextlib.redirect_stdout(io.StringIO()): nr = vorgang.neu(t, ber, "M", wer)  # Ford liest nur Befehlszeilen
-            ausgabe.append("NICHTS %s: Wochentermin %s angelegt, „%s“ (719; Notizen pushen)" % (wer, nr, t))
-        except SystemExit as e:
-            ausgabe.append("WARNUNG Wochentermin „%s“ nicht angelegt: %s (719, Perikles)" % (t, e))
+    wochentermine_anlegen(ausgabe)  # 719 A: vor dem Plan, damit der neue Vorgang im selben Lauf startet; 2019: auch ohne --sperre
     sb = startbar.sammelbuild_faellig()  # 774: gemeinsamer Build nie verwaist
     if sb and not sperre:
         ausgabe.append("NICHTS %s: Sammelbuild fällig, der Lauf mit --sperre legt ihn an (774)" % sb[2])
@@ -1692,6 +1771,7 @@ def main():
         ausgabe.append("WARNUNG-LAUT Start %s nicht angekommen: Startsperre %s, keine Sitzung %s seither; Disponent: START ausführen oder mit --ohne NR:Grund ausschließen (837)" % (name, d.strftime("%d.%m., %H:%M"), name))
         neue_marken.append(schl)
     for name in nicht_da: marken.pop(name, None)  # (2) zählt nicht als Belegung
+    if sperre: ausgabe.extend(start_zeilen_schliessen(alle))  # 2012 (2): Auftrag steht/Nachfolger zu, sobald die Fachkraft angekommen ist
     if bremse and bremse.ober:  # 2001: laufende Fachkräfte aus der Sitzungsliste („Laufend“, Kopf), dazu Startsperren unter SPERRE_MIN ohne Sitzung seither
         laufend_setzen(bremse, je_rolle, marken, archiviert=archiviert)
         neu_ = [l for l in bremse.zeilen() if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l]
@@ -1947,7 +2027,7 @@ def main():
         sperr_nr["Sokrates"] = nr
     if sperre: fristen_runde(ausgabe, seiten)  # 1739 Befund 1: abgelaufene Fristen je Lauf; 1782: vor Sokrates, damit „steckt fest“ im selben Lauf ankommt
     sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger, sperre=_so_sperre)  # 1763 C
-    for rt in ("Rundblick", "Ideenlauf"):  # 1907: Ideenlauf wie Rundblick
+    for rt in ("Rundblick", "Ideenlauf", "Wochenzählung"):  # 1907: Ideenlauf wie Rundblick; 2019: Wochenzählung
         try:
             if (rb := rundblick_zeilen(ausgabe, je_rolle, archiviert, marken, name=rt)): sperren.append(rt); sperr_nr[rt] = rb
         except Exception as e: ausgabe.append("WARNUNG %s nicht geprüft: %s (1789, Spike)" % (rt, e))

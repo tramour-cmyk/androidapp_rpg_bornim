@@ -456,6 +456,11 @@ def eintragen(nr, text, wer, sid=""):
             if "fertig" in w and an == PRUEFER and ist_werkzeug(nr):  # 1950: Werkzeug sofort auf main prüfen, nicht beim nächsten Wecker
                 z2 = nicht_auf_main(text, nr, zeit, wer)
                 if z2: aus = [(an, was), z2]
+        # 2012 (3): „fertig“, Laufanforderung mit Commit, „steckt fest“ → die Fachkraft hat gearbeitet: „Auftrag steht“ und „Nachfolger“
+        # der Nummer zu (Fall 1068 Ü10/Ü11), vor den neuen Zeilen; Hinweise und Rückläufer bleiben bis vorgang.py fertig (4)
+        abschluss = [x for x in ("fertig", "Laufanforderung", "steckt fest") if x in w and (x != "Laufanforderung" or lauf_ok)]
+        if abschluss:
+            t, _ = ue.schliessen_text(t, nr, ue.START_ARTEN, "%s, Rückmeldung %s von %s" % (abschluss[0], zeit, wer or "unbekannt"))
         if not an: return t, (None, "eingetragen, zurückgewiesen (1952; Vorgang ruht)" if schon else "eingetragen, zurückgewiesen (1952)"
                               if unbekannt(text, wer) else "eingetragen, kein Signalwort zum Weitergeben")
         ks = [int(x["k"].rsplit("Ü", 1)[1]) for x in ue.zeilen(t)]

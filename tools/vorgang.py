@@ -85,14 +85,6 @@ def finden(nr, rolle=None):
 def fehler_oder(d, alt=None):
     alle = set(startbar.VORG) | {x["nr"] for x in startbar.zeilen_liste()}
     f = startbar.pruefen_zeile(dict(d, zeile=startbar.zeile_text(d), spalten=len(startbar.SPALTEN_NEU if startbar.NEU else startbar.SPALTEN)), alle)
-    # 1492 (D281.3): Stand und „wartet auf“ setzen geht auch, wenn die Zeile schon zu lang ist; die Länge zählt nur, wenn der Titel sich ändert.
-    # 1919: nur wenn sie vorher schon über 400 lag (alter Fehler, die Commit-Prüfung hält nur neue an); wird sie erst durch Stand oder
-    # „wartet auf“ zu lang, hält vorgang.py an, statt dass der Commit danach scheitert
-    if alt is not None and d.get("titel") == alt.get("titel"):
-        if len(startbar.zeile_text(alt)) > 400:
-            f = [x for x in f if not x.startswith("Zeile über 400 Zeichen")]
-        else:
-            f = [(x + "; Titel kürzen: vorgang.py setze %s titel=… (1919)" % d["nr"]) if x.startswith("Zeile über 400 Zeichen") else x for x in f]
     # Chef nur mit Datei (275.2): beim Schreiben streng, beim Lesen erfüllt sie sich (Datei weg)
     for t in d["warte"]:
         if startbar.art(t) == "chef" and (alt is None or t not in alt["warte"]):
@@ -167,6 +159,7 @@ def stand_setzen(nr, stand, rolle=None):
     n["stand"] = stand
     ersetzen(d, n)
     print("vorgang.py: %s (%s) Stand „%s“%s" % (nr, d["besitzer"], stand, (", wartet auf " + ", ".join(n["warte"])) if n["warte"] else ""))
+    if stand_pruefen(stand, nr) == "erledigt": uebergaben_schliessen(nr, "Vorgang %s erledigt (vorgang.py stand)" % nr)  # 2012 (4)
 
 def warte_setzen(nr, feld, rolle=None):
     d = finden(nr, rolle)
@@ -196,6 +189,7 @@ def setzen(nr, paare, rolle=None):
     else:
         ersetzen(d, n)
     print("vorgang.py: %s gesetzt: %s" % (nr, ", ".join(paare)))
+    if n["stand"] != d["stand"] and stand_pruefen(n["stand"], nr) == "erledigt": uebergaben_schliessen(nr, "Vorgang %s erledigt (vorgang.py setze)" % nr)  # 2012 (4)
 
 def klasse(nr, kl, rolle=None):
     if kl not in ("M", "K"): sys.exit("vorgang.py: Klasse M oder K")
@@ -325,6 +319,19 @@ def rest_sperre(nr, d=None):
     return ("%s nicht erledigt (1143): Rest ohne Folgevorgang – %s. Erst `vorgang.py neu \"… (aus %s)\" …` anlegen "
             "oder einen Commit „%s: Kein Folgevorgang, weil: …“ schreiben (deckt auch alle älteren, 1240)." % (nr, "; ".join("%s: „%s“" % f for f in rest), nr, nr))
 
+def uebergaben_schliessen(nr, grund):
+    """2012 (4): ein erledigter Vorgang schließt alle offenen Übergabezeilen genau seiner Nummer (uebergabe.schliessen_nr; erst nach der
+    rest_sperre aufrufen). Lokal nachsehen, ob es etwas gibt (sonst ohne Netz); Schreibfehler: laute Warnung mit dem Befehl, kein Abbruch."""
+    try: lokal = open(os.path.join(DOCS, "vorgang", nr + ".md"), encoding="utf-8").read()
+    except OSError: lokal = ""
+    if lokal and not uebergabe.schliessen_text(lokal, nr)[1]: return []
+    try: ks = uebergabe.schliessen_nr(nr, None, grund)
+    except uebergabe.Fehler as e:
+        print("WARNUNG Übergaben %s nicht geschlossen: %s (2012; von Hand: python3 -c \"import sys; sys.path.insert(0, 'tools'); import uebergabe; "
+              "print(uebergabe.schliessen_nr('%s', None, 'Vorgang erledigt'))\")" % (nr, e, nr)); return []
+    if ks: print("vorgang.py: Übergaben geschlossen: %s (2012)" % ", ".join(ks))
+    return ks
+
 def fertig(nr, rolle=None):
     d = finden(nr, rolle)
     sperre = rest_sperre(nr, d)
@@ -339,6 +346,7 @@ def fertig(nr, rolle=None):
     zu = [l[:60] for l in startbar.lesen(startbar.VORRAT.get(d["besitzer"], "")).splitlines() if re.match(r"- \*\*Zu " + re.escape(nr) + r"\b", l)]
     print("vorgang.py: %s erledigt (%s)%s%s" % (nr, d["besitzer"], ("; „wartet auf %s“ geleert bei: " % nr + ", ".join("%s (%s)" % (x["nr"], x["besitzer"]) for x in wer)) if wer else "",
                                             ("; Absätze noch da: " + " | ".join(zu)) if zu else ""))
+    uebergaben_schliessen(nr, "Vorgang %s erledigt (vorgang.py fertig)" % nr)
     try:  # 1688: Zeilen „Zu NR, bis erledigt“ als Übergabe „streichen: …“ an den Disponenten (nur bei Fund, sonst ohne Netz)
         import streichen
         if streichen.funde(nr): streichen.melden(nr)
@@ -506,9 +514,6 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
         d["block"] = startbar.block_von(d["nr"], d["bereich"]); d["besitzer"] = startbar.themenbloecke()[0].get(d["block"], "Arbeitsplaner")
         d["runde"] = "0"; d["sitzung"] = "–"; besitzer = d["besitzer"]
     d["wort"] = "startbar"; d["zusatz"] = ""
-    if not nr:  # 1916 (D346.1): Länge mit einer Nummer so lang wie die echte prüfen (Zähler), nicht mit „?“
-        mz = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*", startbar.lesen("ARBEIT-BETRIEB.md") or "")
-        d["nr"] = str(max([int(mz.group(1)) if mz else 9999] + fern_zaehler())) if mz else "9999"
     fehler_oder(d)
     if not nr:
         b = startbar.lesen("ARBEIT-BETRIEB.md")
