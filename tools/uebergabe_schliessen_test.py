@@ -32,9 +32,13 @@ for nr, zs in (("9004", [(1, "Disponent", "Auftrag steht (Rückmeldung 23.11., 1
                ("9005", [(1, "Disponent", "Nachfolger: Kampf für 9005 auf Zweig y")]),
                ("9006", [(1, "Disponent", "Auftrag steht (Rückmeldung 23.11., 10:00 von Arbeitsplaner): starten (1797)")])):
     open(os.path.join(A, "docs", "vorgang", nr + ".md"), "w").write("# %s · Test\n\n" % nr + KOPF + "".join(zeile(nr, k, an, w, "23.11., 10:0%d" % k) for k, an, w in zs))
+HW = "Hinweis (Rückmeldung 23.11., 10:01 von Sokrates): wie einen Eingang behandeln (1739)"
+for nr in ("9007", "9007.2", "9008", "9009"):
+    open(os.path.join(A, "docs", "vorgang", nr + ".md"), "w").write("# %s · Test\n\n" % nr + KOPF + zeile(nr, 1, "Disponent", HW, "23.11., 10:01")
+        + zeile(nr, 2, "Kampf", "Rückläufer (nein des Prüfers): „Satz“ (1739)", "23.11., 10:02") + zeile(nr, 3, "Prüfer", "prüfen: „fertig“ (1739)", "23.11., 10:03", "angenommen session_P bis 23.11., 10:33"))
 open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "# Vorgangsliste\n\n| Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |\n|---|---|---|---|---|---|---|---|---|---|\n"
-    + "".join("| %s | Test %s | Tom | M | startbar | – | – | – | E Welt | – |\n" % (n, n) for n in ("9001", "9004", "9004.2", "9005", "9006", "9007")))
+    + "".join("| %s | Test %s | Tom | M | startbar | – | – | – | E Welt | – |\n" % (n, n) for n in ("9001", "9004", "9004.2", "9005", "9006", "9007", "9007.2", "9008", "9009")))
 open(os.path.join(A, "docs", "vorgang", "9002.md"), "w").write("# 9002 · Schatten\n\n" + KOPF + "".join(
     zeile("9002", k, "Disponent", "Auftrag steht (Rückmeldung 23.11., 10:0%d von Arbeitsplaner): starten (1797)" % k, "23.11., 10:0%d" % k) for k in range(1, 7)))
 g("add", "-A", cwd=A); g("commit", "-q", "-m", "start", cwd=A); g("push", "-q", "origin", "main", cwd=A)
@@ -110,6 +114,23 @@ rm.eintragen("9006", "Laufanforderung: Sitzung brach ab, Ursache Speicher", "Kam
 soll("Laufanforderung ohne Commit (zurückgewiesen): nichts zu", zu("9006", 1) == "offen", datei("9006"))
 rm.eintragen("9006", "Laufanforderung: Sitzung brach ab, Ursache Speicher, behoben in 1a2b3c4d", "Kampf")
 soll("Laufanforderung mit Commit: Auftrag steht zu, Zeile an den Prüfer offen", zu("9006", 1).startswith("erledigt") and "| 9006-Ü2 | Prüfer |" in datei("9006") and zu("9006", 2) == "offen", datei("9006"))
+
+# (4) vorgang.py fertig und vorgang.py schliessen schließen alle offenen Zeilen der Nummer (auch Hinweis, Rückläufer, angenommene);
+# nicht bei rest_sperre (Rest ohne Folgevorgang); 9007.2 bleibt bei fertig 9007
+def vg(*a):
+    p = subprocess.run([sys.executable, os.path.join(A, "tools", "vorgang.py")] + list(a), cwd=A, env=ENV, capture_output=True, text=True)
+    return p.returncode, p.stdout + p.stderr
+def alle_zu(nr): return all(z["z"].startswith("erledigt") for z in ue.zeilen(datei(nr)))
+c, out = vg("fertig", "9007")
+soll("fertig: alle Zeilen zu (Hinweis 2012-Ü1/Ü2-Fall, Rückläufer, angenommen)", c == 0 and alle_zu("9007") and "(Vorgang 9007 erledigt" in zu("9007", 1), (out, datei("9007")))
+soll("fertig 9007: 9007.2 bleibt offen", not alle_zu("9007.2") and zu("9007.2", 1) == "offen", datei("9007.2"))
+soll("fertig: Ausgabe nennt geschlossene Zeilen", "9007-Ü1" in out and "9007-Ü3" in out, out)
+g("pull", "-q", "--rebase", "origin", "main", cwd=B); open(os.path.join(B, "code9008.txt"), "w").write("x\n")
+g("add", "code9008.txt", cwd=B); g("commit", "-q", "-m", "9008: Teil gebaut\n\nRest: Kamera braucht noch Licht", cwd=B); g("push", "-q", "origin", "main", cwd=B); g("fetch", "-q", "origin", cwd=A)
+c, out = vg("fertig", "9008")
+soll("rest_sperre: fertig hält an, keine Zeile zu", c != 0 and "1143" in out and not [z for z in ue.zeilen(datei("9008")) if z["z"].startswith("erledigt")], (out, datei("9008")))
+c, out = vg("schliessen", "9009", "doppelt zu 9001, dort gebaut")
+soll("schliessen: alle Zeilen zu, Grund in der Datei", c == 0 and alle_zu("9009") and "Geschlossen (23.11., 13:00): doppelt zu 9001" in datei("9009"), (out, datei("9009")))
 
 print("uebergabe_schliessen_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
