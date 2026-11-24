@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 19:43 Runde: kein Hänger. Chef 19:37–19:40 A zu 1603, 1694, 431, 1589.4; Olga 2024 und Moritz 1654 laufen, Takt 19:41 schlägt Kampf 1589.4 vor. Nichts an Sokrates. Uhr trig_01WKS8CpUHNptGmhuEQ51BBi (20:44): 1589.4 gestartet? 431/1694 nicht vorgeschlagen?
 - 24.11., 19:42 Chef 19:42: Sokrates soll ihm bis Sa nichts vorlegen, nur abarbeiten, damit es weitergeht; „End of Communication“. Wörtlich an Sokrates.
 - 24.11., 19:09 Zweite Prüfung 15894 (de086de9f): stimmt, nichts Neues. An Sokrates.
 - 24.11., 19:10 Prüfung chefsache 15894 (69a9464cf) und F1–F5: Zahlen stimmen; F1–3, F5 stimmen. Einwände: 9 statt 3 wartende Kampfvorgänge, Gegenargument >220 $ in ruhenden Bewegungsvorgängen, B 15 $ ohne Beleg, Schritt 1 5 $ vs. <4 $, F4 1284a (Bildgrund) gegen DESIGN-GEGNER Z. 61 → Chefzeile. An Sokrates.
