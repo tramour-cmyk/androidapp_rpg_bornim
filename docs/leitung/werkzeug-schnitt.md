@@ -2,6 +2,8 @@
 
 Maß: gebaut wird nur, was Spielarbeit aufhält oder den Chef Zeit kostet. Alter Ego prüft je Zeile: stimmt / Einwand mit Grund. Erst danach schreibt Sokrates Aufträge (Profil Werkzeug), Reihenfolge wie unten, je einer zur Zeit.
 
+**Stand 07:28:** bis Chefantwort auf Baustopp-Vorschlag Alter Ego (07:27) nur 2012 und, nach Ja, 2048-Lockerung; 2005 ruht (513 berichtigt); 2013, 1990, 1982 warten.
+
 ## Ergebnis nach Prüfung Alter Ego (07:12, alle Einwände angenommen)
 
 **A · Bauen, Reihenfolge:** 2012 · 2005 + 1993 · 2013 · 1990 · 1982 (mit Ergänzung 08:12: Daumen wecken keinen) · 1960 (Rückläufer von Sokrates 17:22, Chefwort 16:52). Je Auftrag zweite Prüfung Alter Ego vor dem Start.
