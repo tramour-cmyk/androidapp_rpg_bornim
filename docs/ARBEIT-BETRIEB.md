@@ -230,3 +230,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:05 24.11.: Startsperre 17:05 Start Arbeitsplaner, Figur, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Knut, Figur 431 Moritz, Arbeitsplaner 1137 Margit)
 - 17:08 24.11.: Takt 17:04: keine Starts: Lotte (431) wartet auf Beleglauf (prüft 17:24), Kosten 10,00 $ (431 Deckel 90 $ ok); START Figur Moritz/ARCHIVIERE Lotte nicht; Planer 887 (ruht), 1137 nicht
 - 18:04 24.11.: Startsperre 18:04 Start Arbeitsplaner, Figur, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Knut, Figur 431 Moritz, Arbeitsplaner 1172 Margit)
+- 18:07 24.11.: 431 fertig (Lotte, Beleglauf 45422069657 grün, 5df25b2af): 431-Ü7 an Prüfer Jonas (Nachricht), 431 wartet auf Prüfer; nicht ausgeführt: Figur Moritz 431/ARCHIVIERE Lotte (erst nach Prüfer), Planer 887, 1172 (Werkzeug/QM, ruht)
