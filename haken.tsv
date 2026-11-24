@@ -1350,3 +1350,4 @@
 2026-11-24 11:07:26	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	arne/1603-ansagen
 2026-11-24 11:07:30	probelauf	1702: Bild oder Film an den Chef nur aus dem gepushten Stand; nicht committet: godot/tests/bild_1603.gd. Erst committen und pushen; eigene Messläufe ohne Bild mit `MESS=`.	arne/1603-ansagen
 2026-11-24 11:07:42	probelauf	Laufbremse (1766, Chef 19.11., 13:02: je Runde ein Bild- oder Filmlauf): für 1603 schon 1 Lauf seit der Freigabe 2026-11-24 00:07:00. Den nächsten gibt der Prüfer frei: seine Rückmeldung („ja“, „nein“	arne/1603-ansagen
+2026-11-24 12:09:17	commit-pruefung	LISTE-VORGAENGE.md: 2017: Zeile über 400 Zeichen (Einzelheiten als „Zu 2017“ in den Vorrat) (Form 275.2; vorgang.py schreibt nur Gültiges)	HEAD
