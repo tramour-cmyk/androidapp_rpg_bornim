@@ -310,7 +310,7 @@ jobs:
           KAUF=$KAUF ZIEL=$U OUT=$RUNNER_TEMP/gang BL=$GITHUB_WORKSPACE/bl/bin/python bl/bin/python -I tools/blender348/v3/waffengang.py > gang.log 2>&1 || { tail -30 gang.log; exit 1; }
           grep -E "^(GANG|FEHLT|WAFFENGANG)" gang.log | sed "s|$KAUF/||g" | cut -c1-200
           GANG=$RUNNER_TEMP/gang OUT=$RUNNER_TEMP/out ZIEL=$RUNNER_TEMP/klassen Q=~/cc0 bl/bin/python -I tools/blender348/v3/held_klassen.py > klassen.log 2>&1 || { tail -40 klassen.log; exit 1; }
-          grep -E "^TRACHT|^STATUR|HELD TRACHTEN|FEHLT|^UAL531|^SCHRANK" klassen.log
+          grep -E "^TRACHT|^STATUR|HELD TRACHTEN|FEHLT|^UAL531|^SCHRANK|^HELDVOLK|^ORK KOERPER" klassen.log | cut -c1-300   # 431: Held je Volk (held_voelker.py)
           D=godot/daten
           for f in $RUNNER_TEMP/klassen/held_*.glb; do n=$(basename $f .glb); cp $f $D/$n.bin; echo daten/$n.bin >> $D/kauf.txt; done
           cp $RUNNER_TEMP/klassen/haare.glb $D/haare.bin && cp $RUNNER_TEMP/klassen/bewegungen.glb $D/bewegungen.bin && cp $RUNNER_TEMP/klassen/held-klassen.json $D/
@@ -729,6 +729,7 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/kleid_431.gd 2>&1 | grep -E "^(FEHLER|KLEID431)|SCRIPT ERROR"   # 431h A der Held trägt, was in den Plätzen steht (Tom)
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/kleid_stufe2_431.gd 2>&1 | grep -E "^(FEHLER|KLEID2)|SCRIPT ERROR"   # 431h Stufe 2 fremde Rüstung sichtbar (Tom)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/umhang_1569.gd 2>&1 | grep -E "^(FEHLER|UMHANG1569)|SCRIPT ERROR"   # 1569 Umhang ohne Schrankteil zeigt das Teil der Tracht (Tom)
+          set -o pipefail; timeout 900 ~/godot/godot --headless --path . -s res://tests/voelker_431.gd 2>&1 | grep -E "^(FALSCH|BEZUG|VOELKER431)|SCRIPT ERROR" | cut -c1-220   # 431 Held auf dem Volkskörper: 80 Fälle Erschaffung, Platte, Umhang (Wiebke)
           timeout 120 ~/godot/godot --headless --path . -s res://tests/menuehelden_867.gd 2>&1 | tee menue867.log | grep -E "FEHLER|MENUEHELDEN867|SCRIPT ERROR"; grep -q "^MENUEHELDEN867 0 Fehler" menue867.log   # 867 Haarfarben der Vorgaben, Haltungen (Tom)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/schild_menue_1417.gd 2>&1 | tee schild1417.log | grep -E "FEHLER|SCHILD1417|SCRIPT ERROR"; grep -q "^SCHILD1417 0 Fehler" schild1417.log   # 1417 Schild der Wachsoldatin im Hauptmenue nicht im Rock (Tom)
           timeout 300 ~/godot/godot --headless --path . -s res://tests/achsel_1515.gd 2>&1 | tee achsel1515.log | grep -E "FEHLER|ACHSEL1515|SCRIPT ERROR"; grep -q "^ACHSEL1515 0 Fehler" achsel1515.log   # 1515 Kleidung an der Achsel nicht am Unterarm (Tom)
@@ -1189,6 +1190,25 @@ jobs:
           ALPHA_AUS=$B/gl timeout 600 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver opengl3 --resolution 540x1170 -s res://tests/alpha_held_697.gd 2>&1 | grep -E "SCRIPT ERROR|^ALPHAHELD697" | cut -c1-400 | tee $B/gl.log || true
           ls -l $B/*
+      # 431 (Auftrag 24.11., 08:31, Schritt 3; Deckel Chef 10:26 „1a“, App-Größe als Prüfpunkt): Held auf dem Volkskörper. Erschaffung je
+      # Volk Mann und Frau alt (Menschenkörper wie main) gegen neu, Reihen in wahrer Größe vorn, Seite, hinten in Platte ohne Umhang
+      # (Sokrates 09:39), Prüfung aller Fälle, Größe der Volksmodelle und der APK; nur mit bilder=431
+      - name: Völker 431 (Beleglauf, bilder=431)
+        if: ${{ !cancelled() && contains(github.event.inputs.bilder, '431') }}
+        continue-on-error: true
+        run: |
+          B=$GITHUB_WORKSPACE/bilder/voelker431; mkdir -p $B/roh
+          sudo apt-get install -y -qq mesa-vulkan-drivers xvfb > /dev/null || true
+          C=$(git rev-parse --short=9 HEAD); M="wie main"
+          cd godot
+          AUS=$B/roh VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
+            ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/voelker_bild_431.gd 2>&1 | grep -E "SCRIPT ERROR|^BILD|VOELKERBILD" | cut -c1-200 || true
+          timeout 900 ~/godot/godot --headless --path . -s res://tests/voelker_431.gd 2>&1 | grep -E "^(FALL|FALSCH|BEZUG|VOELKER431)|SCRIPT ERROR" > $B/pruefung.txt || true
+          grep -E "^(FALSCH|BEZUG|VOELKER431)" $B/pruefung.txt | cut -c1-200 || true
+          { echo "431 Volksmodelle: $(ls daten/held_{ELF,DWARF,HALFLING,HALF_ORC}_*.bin 2>/dev/null | wc -l) Dateien, $(du -cb daten/held_{ELF,DWARF,HALFLING,HALF_ORC}_*.bin 2>/dev/null | tail -1 | cut -f1) Byte"
+            echo "431 APK: $(stat -c %s $GITHUB_WORKSPACE/bornim-godot.apk 2>/dev/null || echo fehlt) Byte"; } | tee $B/groesse.txt
+          bash $GITHUB_WORKSPACE/tools/godot/voelker_bild_431.sh $B/roh $B $C $M || true
+          ls -l $B
       # 348.13b Tusche nach Laterne, Fenster, Fackel: nachts je Ort mit und ohne, Kosten je Bild (Renderer wie am Handy), nur bei „348.13b“
       - name: Tusche nachts (348.13b)
         if: contains(github.event.head_commit.message, '348.13b')
