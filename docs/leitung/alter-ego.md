@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78XiynF45gfuVmiNc8 (seit 24.11., 13:27; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 15:45 Prüfung chefsache 1603 (0392196bc), Bilder angesehen: Texte/Zahlen stimmen; Einwände Kosten 41,74 $, schwarzes Rechteck über Kroggs Kopf in Bild 1, Schwierigkeit −25/+24 statt Grundlage −17,5/+22 offenlegen. An Sokrates.
 - 24.11., 15:32 Runde: Mirja archiviert, 1725 ruht. Hänger an Sokrates: 431-Ü3 bei ihm seit 15:09 (Lotte blockiert); 1716 in Liste nicht ruht, Takt schlägt es stets vor; Karla wartet auf Lauf 593 ohne Wecker. Uhr trig_019PK28Fq4NWXDi9gkMfXbu1 (16:33).
 - 24.11., 15:11 Zweite Prüfung 1694 (2700a4acf): stimmt; Einwand Kosten zurückgezogen (Jana 6,65 $ gebucht, 5c7cf1a58).
 - 24.11., 15:10 Prüfung chefsache 1694 (992def54a): Belege stimmen (Bild abgelesen); Einwände: C „dick zurück“ fehlt, Kosten ~84 $ statt 71,86 und erster Deckel ohne Ergebnis verbraucht, Halt 12 $ ohne Prüfer, „alle Träger/Wurzel“ unbelegt. An Sokrates.
