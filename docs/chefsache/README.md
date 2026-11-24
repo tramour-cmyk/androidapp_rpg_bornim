@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 12:50, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 13:08, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -31,7 +31,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 5 | 1487 (Regeln) Heiler wächst in Kapitel 1 nie im Willen |
 | ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 62 (64) | 18 | 1 | 1 | 37 | 1603 (Kampf) Besonderheiten fehlen im MARS ohne Kerben: Krogg… |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 32 (32) | 19 | 0 | 2 | 10 | 1694 (Figur) Griff einmal für alle gehaltenen Dinge: fester Gr… |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 32 (32) | 19 | 1 | 2 | 10 | 1694 (Figur) Griff einmal für alle gehaltenen Dinge: fester Gr… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 2 | 0 | 0 | 14 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
@@ -59,14 +59,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | läuft: 1603 (Besetzung); 1603 Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhie… (Muss) |
-| Figur | 1694 Griff einmal für alle gehaltenen Dinge: fester Griffpunkt i… (Muss); dann 4 weitere |
+| Figur | läuft: 1694 (Besetzung); 1694 Griff einmal für alle gehaltenen Dinge: fester Griffpunkt i… (Muss); dann 4 weitere |
 | Kataloge | 644.2 Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pfli… (Kür) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
 | Oberfläche | 531a Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast k… (Kür) |
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 2 weitere |
-| Werkzeug | läuft: 2019 (Besetzung); 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 15 weitere |
+| Werkzeug | 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 15 weitere |
 | Prüfer | läuft: 2017 (Besetzung); 1716 Buildzweig gehört Spike: nur Spike pusht auf claude/build-<… (Muss); dann 2 weitere |
 | Tester | leer, weil keine offene Zeile |
 
@@ -75,7 +75,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 1603 | Kampf | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf | in Arbeit |
-| 2 | 1694 | Figur | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je… | M | 3 Figuren und Kleidung | startbar |
+| 2 | 1694 | Figur | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je… | M | 3 Figuren und Kleidung | in Arbeit |
 | 3 | 431 | Figur | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Figuren und Kleidung | startbar |
 | 4 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
 | 5 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
@@ -142,7 +142,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1486 | K | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Begegnungen bi | wartet auf Sokrates |
 | 1487 | K | Heiler wächst in Kapitel 1 nie im Willen (Heilmagie 12/13 am Kapitelende, übt Stumpfe Waff | startbar |
 
-**Kampf** – offen 63, Muss 19, startbar 25
+**Kampf** – offen 62, Muss 18, startbar 24
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -159,7 +159,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1415 | M | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A) | wartet auf 709 (ruht) |
 | 1588 | M | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | wartet auf 1589.4 (startbar) |
 | 1589.2 | M | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit un | ruht |
-| 1589.3 | M | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und schräg, Sei | startbar |
 | 1589.4 | M | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nac | wartet auf 1589.2 (ruht) |
 | 1589.5 | M | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Za | wartet auf 1589.4 (startbar) |
 | 1589.6 | M | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt n | wartet auf 1589.2 (ruht) |
@@ -218,7 +217,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1535 | M | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand | wartet auf Test/Build (gebaut) |
 | 1570 | M | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge (1006, 1052, 10 | ruht bis 28.11. |
 | 1619 | M | Held stakst im Film 458.3, sieht nicht nach Gehen aus („vielleicht Tempo“) | wartet auf Test t301 (Chef) |
-| 1621 | M | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffe | wartet auf 1694 (ruht) |
+| 1621 | M | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffe | wartet auf 1694 (startbar) |
 | 1665 | M | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu sehen (Fackel | wartet auf 458.3 (gebaut) |
 | 1674 | M | Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 Minuten an der Bank fest, kommt nicht | wartet auf Test/Build (gebaut) |
 | 1676 | M | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | ruht bis 28.11. |
@@ -226,11 +225,11 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1709 | M | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535 | ruht bis 28.11. |
 | 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | startbar |
 | 1297 | M | Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | wartet auf 431 (startbar) |
-| 1649 | M | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den | wartet auf 1694 (ruht) |
+| 1649 | M | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den | wartet auf 1694 (startbar) |
 | 1650 | M | Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin, | wartet auf 1535 (gebaut) |
 | 1654 | M | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m, bis 305 Ecken in Ruhe_Tr | startbar |
 | 1655 | M | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, bis 135 Ecken) | wartet auf Test/Build (gebaut) |
-| 1657 | M | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dre | wartet auf 1694 (ruht) |
+| 1657 | M | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dre | wartet auf 1694 (startbar) |
 | 1785 | M | Weg aus 4fd7055c8 … | startbar |
 | 1632 | K | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtempo, je Waff | wartet auf Test t301 (Chef) |
 | 134 | K | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | aufgeteilt |
@@ -364,7 +363,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 113, Muss 82, startbar 36
+**Werkzeug** – offen 114, Muss 83, startbar 34
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -479,8 +478,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 2010 | M | Alter Ego (Supervisor): Kosten der Sitzungen; Werkzeug kennt die Rolle nicht (zählt als Fa | startbar |
 | 2014 | K | Sitzungstitel: 8 Themen bleiben ein Wort wegen Zahlenschnitt (aus 1960) | ruht |
 | 2016 | K | Von Tagesbericht (24.11., 07:55): tagesbericht.py Zeile 2 zählt erledigt 24 h 0 und abgeno | startbar |
-| 2017 | M | 400-Zeichen-Grenze der Vorgangsliste ersatzlos streichen (Chef 08:28) | startbar |
-| 2018 | M | Wochentermin 23.11.: Wochenzählung (Routine, Auftrag docs/entwurf/1727-muster/routine-woch | startbar |
+| 2019 | M | Wochenzählung in Betrieb bis Mo 30.11.: Profil anlegen, Wochentermin ohne --sperre anlegen | ruht |
+| 2020 | M | Gebilligtes geht über GitHub nach main: Ablauf führt Zweig nach main bei 👍 des Chefs, Ja d | ruht |
+| 2021 | M | Rundblick und Ideenlauf starten nie: rundblick_zeilen verlangt Besitzer Sokrates, neue Lis | ruht |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 
