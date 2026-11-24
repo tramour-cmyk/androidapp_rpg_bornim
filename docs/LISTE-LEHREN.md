@@ -48,3 +48,4 @@ Nie geladen, nur durchsucht (`vorgang.py lehre suche <Wort>`); schreiben nur mit
 | R35 | B Werkzeuge | 2005 | Werkzeugfehler 24.11., 07:24 (Alter Ego, 2 Min.) | chefwort erzeugt Startzeile an Planer (2005-Ü4 von Hand geschlossen); Dreimal-Regel Strich 2 | 24.11., 08:02 | offen |
 | R36 | E Kampf | 1589.2 | Werkzeugfehler 23.11., 19:02 (Kampf, Start verhindert) | 2048-Byte-Sperre hält Start (2104 Byte); wird mit 2011 gestrichen | 24.11., 08:02 | offen |
 | R37 | B Abläufe | 2012 | Werkzeugfehler 24.11., 07:15 (Sokrates, 5 Min.) | 2048-Byte-Sperre hält Start; wird mit 2011 gestrichen | 24.11., 08:02 | offen |
+| R38 | E Kampf | 2009 | geschlossen | Doppel zu 1415 (Kampftakt, ruht bis 1589.4); Messung 23.11. dort nachgetragen; Entscheid Sokrates 24.11., 08:08 auf Frage Arbeitsplaner (a) | 24.11., 08:07 | offen |
