@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 00:20, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 07:08, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 
 | ↳ **12** Bedienung und Oberfläche | 6 (6) | 0 | 0 | 0 | 5 | 954a.12 (Oberfläche) Erschaffung: nicht wählbare Fertigkeiten … |
 | ↳ **13** Geschichte und Texte | 9 (9) | 0 | 0 | 0 | 3 | 1628 (Story) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 25 (25) | 13 | 0 | 1 | 8 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 128 (128) | 85 | 0 | 1 | 15 | 1960 (Werkzeug) Sitzungstitel ohne Thema: Rufnamen-Sitzungen heiß… |
+| **7** Firma: Werkzeuge und Abläufe | 128 (128) | 85 | 0 | 1 | 15 | 1520 (Werkzeug) An den Läufen sparen |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Arbeitsplaner) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -66,7 +66,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Oberfläche | 531a Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast k… (Kür) |
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 2 weitere |
-| Werkzeug | 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 46 weitere |
+| Werkzeug | 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 16 weitere |
 | Prüfer | 1716 Buildzweig gehört Spike: nur Spike pusht auf claude/build-<… (Muss); dann 2 weitere |
 | Tester | leer, weil keine offene Zeile |
 
@@ -87,13 +87,13 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 11 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
 | 12 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
 | 13 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
-| 14 | 1960 | Werkzeug | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla –… | M | 7 Firma | startbar |
-| 15 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
-| 16 | 1725 | Werkzeug | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | M | 7 Firma | startbar |
-| 17 | 1933 | Werkzeug | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halb… | M | 7 Firma | startbar |
-| 18 | 1954 | Werkzeug | Chefsache-README als kurzes Dashboard: laufende Sitzungen, wer woran, als Nächs… | M | 7 Firma | startbar |
-| 19 | 1128.3 | Werkzeug | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | 7 Firma | startbar |
-| 20 | 1172 | Werkzeug | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | 7 Firma | startbar |
+| 14 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
+| 15 | 1725 | Werkzeug | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | M | 7 Firma | startbar |
+| 16 | 1933 | Werkzeug | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halb… | M | 7 Firma | startbar |
+| 17 | 1128.3 | Werkzeug | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | 7 Firma | startbar |
+| 18 | 1172 | Werkzeug | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | 7 Firma | startbar |
+| 19 | 1388 | Werkzeug | D257.1 von Diogenes: rote Godot-Läufe 09.–15.11. 93 von 159 gegen 52 von 185 de… | M | 7 Firma | startbar |
+| 20 | 1507 | Werkzeug | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Firma | startbar |
 
 Danach 141 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 31. Ruhend oder nach dem Meilenstein: 113.
 ## Zu entscheiden
@@ -369,7 +369,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 127, Muss 85, startbar 80
+**Werkzeug** – offen 127, Muss 85, startbar 34
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -378,7 +378,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1716 | M | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten B | wartet auf Prüfer |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | startbar |
 | 1129 | M | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einf | wartet auf 1387 (gebaut) |
-| 1960 | M | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla – Auftrag 16 | startbar |
+| 1960 | M | Sitzungstitel ohne Thema: Rufnamen-Sitzungen heißen nur „Dirk – 1957“, „Carla – Auftrag 16 | wartet auf Sokrates |
 | 1148 | M | lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen Render-Lauf in der idle S | wartet auf Diogenes (greift?) |
 | 1414 | M | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | wartet auf Diogenes (greift?) |
 | 1520 | M | An den Läufen sparen | startbar |
@@ -386,7 +386,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1715 | M | Laufzahl täglich im Tagesbericht Perikles: Läufe der Build-Zweige grün, rot, abgebrochen m | wartet auf Diogenes (greift?) |
 | 1725 | M | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | startbar |
 | 1933 | M | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halbwegs auf, f | startbar |
-| 1954 | M | Chefsache-README als kurzes Dashboard: laufende Sitzungen, wer woran, als Nächstes, Quoten | startbar |
+| 1954 | M | Chefsache-README als kurzes Dashboard: laufende Sitzungen, wer woran, als Nächstes, Quoten | wartet auf Sokrates |
 | D75 | M | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1) | Dauerzeile |
 | 464 | M | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählu | wartet auf 1388 (wartet) |
 | 1125 | M | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie | wartet auf Diogenes (greift?) |
@@ -408,7 +408,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1643 | M | Änderung 3 Rollenspiegel, Rest neben 1624: derselbe Vorgang nach zwei Neustarts in einer N | Termin 25.11. |
 | 1662 | M | lauf.py startete Jerry für Nachfolger 1595 (Schlussbuild 299), obwohl die Zeile seit 1633 | wartet auf Diogenes (greift?) |
 | 1728 | M | Teilprojekte im Projektplan durch Verweis auf chefsache/themenbloecke.md ersetzen (eine Qu | startbar |
-| 1739 | M | Werkzeuge der Bauliste ab 21.11., 20:00 bauen … | startbar |
+| 1739 | M | Werkzeuge der Bauliste ab 21.11., 20:00 bauen … | wartet auf Sokrates |
 | 1762 | M | Haken D trägt Chefwort aus fremder Sitzung in die Vorgangsdatei (Freigabe, Antwort auf Fra | wartet auf Diogenes (greift?) |
 | 1763 | M | lauf.py startet Sokrates bei „steckt fest“, „Frage“, „wirkt nein“ (C) | wartet auf Diogenes (greift?) |
 | 1764 | M | Herzschlag und Wache des Disponenten (Ausfall, Nachfolger ohne Vorräte) | wartet auf 1894 (gebaut) |
@@ -417,32 +417,32 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1767 | M | Profile Büro 3.2 (Disponent, Release, Kosten), Routinen Tagesbericht, Wache, Wochenzählung | wartet auf Sokrates |
 | 1773 | M | Nachträge zu 1767 F3: Disponent „Fertig“ ohne Ausnahme 1311, Werkzeugfehler-Satz nur Kern | startbar |
 | 1774 | M | Werte für Höchstdauer je Auftrag (auch bei working) und Laufbremse (Läufe je Auftrag) fest | startbar |
-| 1781 | M | nach der Umstellung trägt jeder Start (Fachkraft, Build-Macher, Tester, auch aus auftrag.p | startbar |
+| 1781 | M | nach der Umstellung trägt jeder Start (Fachkraft, Build-Macher, Tester, auch aus auftrag.p | wartet auf Sokrates |
 | 1790 | M | rueckmeldung.py:89 gibt „ja“ des Prüfers bei einem Werkzeug als Testbitte an den Chef weit | wartet auf Diogenes (greift?) |
 | 1793 | M | startbar.py:196–198 Feld „nach“ legt den Rundblick nur an, wenn die Wochenzählung am selbe | wartet auf Diogenes (greift?) |
 | 1794 | M | Profil Disponent :20 und Kern Büro „fertig ohne Commit nimmst du nicht an“: Ausnahmen fehl | startbar |
-| 1858 | M | Testbitte-Schreiber: Testbitte aus dem Build-Auftrag als chefsache/ansehen/t<n>.md und Tel | wartet auf 1864 (startbar) |
+| 1858 | M | Testbitte-Schreiber: Testbitte aus dem Build-Auftrag als chefsache/ansehen/t<n>.md und Tel | wartet auf Sokrates |
 | 1859 | M | .claude/settings.json: Haken weiter-haken, zug-haken, autoMode-Sätze (ARBEIT-*, Ford archi | wartet auf 1871 (gebaut) |
 | 1871 | M | Umschalt-Commit (werkzeuge.md Schritt 8) samt Umzug „Zu <Nr>“ in Vorgangsdateien (aus 1865 | wartet auf Diogenes (greift?) |
 | 1894 | M | herzschlag.yml prüft nur bei Push auf docs/ (nachts fast nur von Ford) und per Zeitplan (s | wartet auf 1871 (gebaut) |
 | 1937 | M | Probelauf-Haken bleibt | wartet auf 1871 (gebaut) |
-| 1851 | M | neustart-haken.py umbauen: Bremse nur Sperre ohne Erinnerungstext, auch Folgeaufträge, Fac | startbar |
-| 1852 | M | Quelle Protokoll ARBEIT-BETRIEB.md ersetzen in startsperre-haken.py, startwarnung.py (auch | startbar |
-| 1853 | M | tagesbericht.py nach routine-tagesbericht.md F3 (:22–28): „Wo stehen wir“ statt „Rest gesc | startbar |
-| 1856 | M | Ende-Haken statt weiter-haken.py: meldet am Ende jeder Fachkraft-, Prüfer-, Arbeitsplaner- | startbar |
-| 1857 | M | zug-index.yml Auslöser docs/ARBEIT-*.md (:18) und „Offen je Rolle“ auf Vorgangsdateien ums | startbar |
-| 1863 | M | werkzeuge.yml Rest: alle tools/*_test.py statt Auswahl, Auslöser auch Unterordner tools/ | startbar |
-| 1864 | M | Build-Auftrag B<n> aus der Warteschlange: Auftrag mit Commit je Vorgang (Einfrieren), Ausl | startbar |
-| 1868 | M | Kennzahlen Wochenzählung: Liegezeit (Median je Übergabe, Fälle über 6 h) aus den Übergabez | startbar |
+| 1851 | M | neustart-haken.py umbauen: Bremse nur Sperre ohne Erinnerungstext, auch Folgeaufträge, Fac | wartet auf Sokrates |
+| 1852 | M | Quelle Protokoll ARBEIT-BETRIEB.md ersetzen in startsperre-haken.py, startwarnung.py (auch | wartet auf Sokrates |
+| 1853 | M | tagesbericht.py nach routine-tagesbericht.md F3 (:22–28): „Wo stehen wir“ statt „Rest gesc | wartet auf Sokrates |
+| 1856 | M | Ende-Haken statt weiter-haken.py: meldet am Ende jeder Fachkraft-, Prüfer-, Arbeitsplaner- | wartet auf Sokrates |
+| 1857 | M | zug-index.yml Auslöser docs/ARBEIT-*.md (:18) und „Offen je Rolle“ auf Vorgangsdateien ums | wartet auf Sokrates |
+| 1863 | M | werkzeuge.yml Rest: alle tools/*_test.py statt Auswahl, Auslöser auch Unterordner tools/ | wartet auf Sokrates |
+| 1864 | M | Build-Auftrag B<n> aus der Warteschlange: Auftrag mit Commit je Vorgang (Einfrieren), Ausl | wartet auf Sokrates |
+| 1868 | M | Kennzahlen Wochenzählung: Liegezeit (Median je Übergabe, Fälle über 6 h) aus den Übergabez | wartet auf Sokrates |
 | 1956 | M | Von Ford (22.11., 16:18): lauf.py pusht scharf die Startsperre schon ohne --sperre; ein zw | startbar |
 | 1958 | M | Von Chef (20.11., 15:52; Rest aus 1727): Leistungsstufe je Auftrag, nach Ergebnis 1742 Fas | wartet auf 1742 (startbar) |
-| 1965 | M | WEITER nach Plan 1727: neue Arbeit nie per WEITER an Arbeitsplaner, Prüfer, Tester (frisch | startbar |
+| 1965 | M | WEITER nach Plan 1727: neue Arbeit nie per WEITER an Arbeitsplaner, Prüfer, Tester (frisch | wartet auf Sokrates |
 | 1966 | M | Vorlage KISS im neuen Ablauf: kleiner Werkzeugfehler mit klarem Befund ohne Planer direkt | startbar |
-| 1969 | M | Von Tagesbericht (22.11., 17:43): Tabelle je Rolle im Tagesbericht zeigt nach der Umstellu | startbar |
-| 1867 | K | Lehrenbuch docs/LISTE-LEHREN.md anlegen, Funktionen in vorgang.py, Suche nach Bereich (VA | startbar |
-| 1862 | K | Wache Schicht 2 als dauerhafte Sitzung mit eigener Zeitmarke | startbar |
-| 1854 | K | regelcheck.py: Vorratsprüfung --kurz entfällt, stattdessen Vorgangsdatei prüfen (G:484) | startbar |
-| 1850 | K | Workflows godot-kampf.yml, tom-probe.yml, spike-probe-4552.yml lösen nur auf Teamzweigen a | startbar |
+| 1969 | M | Von Tagesbericht (22.11., 17:43): Tabelle je Rolle im Tagesbericht zeigt nach der Umstellu | wartet auf Sokrates |
+| 1867 | K | Lehrenbuch docs/LISTE-LEHREN.md anlegen, Funktionen in vorgang.py, Suche nach Bereich (VA | wartet auf Sokrates |
+| 1862 | K | Wache Schicht 2 als dauerhafte Sitzung mit eigener Zeitmarke | wartet auf Sokrates |
+| 1854 | K | regelcheck.py: Vorratsprüfung --kurz entfällt, stattdessen Vorgangsdatei prüfen (G:484) | wartet auf Sokrates |
+| 1850 | K | Workflows godot-kampf.yml, tom-probe.yml, spike-probe-4552.yml lösen nur auf Teamzweigen a | wartet auf Sokrates |
 | 1625 | K | feste Startprompts je Rolle statt Startlektüre | ruht bis 25.11. |
 | 1734 | K | Forschung und Entwicklung bei Sokrates, wöchentlich oder auf Bedarf: wie arbeiten andere … | startbar |
 | 102 | K | Dokumente BornWire TCS nachziehen | Idee |
@@ -462,44 +462,44 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1690 | K | ARBEIT-TEAM-TOM.md: 5 „Zu“ zu Erledigtem (1569, 1569, 1515, 1515, 1515), beim Übergeben st | startbar |
 | 1729 | K | docs/LISTE-REGELWERTE.md veraltet | startbar |
 | 1741 | K | Block 4 Kataloge Zeilen nachziehen: 649.2 Titel nennt tools/figuren/figuren.json (gilt nic | startbar |
-| 1742 | K | notiz.sh gibt beim Start Modell und Aufwand aus | startbar |
-| 1749 | K | Präfix je Katalog für die Wortschlüssel ja oder nein | startbar |
-| 1751 | K | vorgang.py neu meldet beim Querschnitt-Stichwort „keine neue Zeile“ und legt sie trotzdem | startbar |
+| 1742 | K | notiz.sh gibt beim Start Modell und Aufwand aus | wartet auf Sokrates |
+| 1749 | K | Präfix je Katalog für die Wortschlüssel ja oder nein | wartet auf Sokrates |
+| 1751 | K | vorgang.py neu meldet beim Querschnitt-Stichwort „keine neue Zeile“ und legt sie trotzdem | wartet auf Sokrates |
 | 1770 | K | Profil Release als Auftrag schreiben, sobald 622 (Godot-AAB) steht | wartet auf 622 (nach Meilenstein) |
 | 1802 | K | ARBEIT-TEAM-JERRY.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört | startbar |
-| 1861 | K | Rollennamen in Ausgabetexten: figurenpruefung.py --homer, vorlage_pruefen.py STATT, gegens | startbar |
-| 1869 | K | Stop-Haken „alles gepusht?“ hält Sitzungsende mit Ungepushtem an | startbar |
-| 1870 | K | PreToolUse-Sperre Keystore, Zugangsdaten, Force-Push, Spielcode auf main | startbar |
-| 1924 | K | Restsperre 1143 (vorgang.rest_offen) liest den Übergabesatz des Besitzers, aber „Kein Folg | startbar |
+| 1861 | K | Rollennamen in Ausgabetexten: figurenpruefung.py --homer, vorlage_pruefen.py STATT, gegens | wartet auf Sokrates |
+| 1869 | K | Stop-Haken „alles gepusht?“ hält Sitzungsende mit Ungepushtem an | wartet auf Sokrates |
+| 1870 | K | PreToolUse-Sperre Keystore, Zugangsdaten, Force-Push, Spielcode auf main | wartet auf Sokrates |
+| 1924 | K | Restsperre 1143 (vorgang.rest_offen) liest den Übergabesatz des Besitzers, aber „Kein Folg | wartet auf Sokrates |
 | 1939 | K | ARBEIT-TEAM-JERRY.md: 1 „Zu“ zu Erledigtem (1776), beim Übergeben streichen | startbar |
 | 1940 | K | ARBEIT-PROJEKT.md: 2 „Zu“ zu Erledigtem (1624, 1605), beim Übergeben streichen | startbar |
 | 246.1 | K | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | nach dem Meilenstein |
-| 1970 | M | Von Welt (Emil 22.11., 17:43, zu 1566; Sokrates 18:07): tools/godot/bau_am_rechner.py holt | startbar |
-| 1972 | M | Von Chef (22.11., 18:39): Kennzahlen Kosten, Sitzungen, Vorgänge, Aufträge je Stunde, Tag, | startbar |
-| 1974 | M | Von Sokrates (22.11., 18:56): Archiv-Schutz – keine Sitzung archivieren, die auf eine Frei | startbar |
-| 1975 | M | Von Sokrates (22.11., 18:57): Verweis bl → ~/bl aus bau_am_rechner.py (Zeile 5) im Repo; r | startbar |
+| 1970 | M | Von Welt (Emil 22.11., 17:43, zu 1566; Sokrates 18:07): tools/godot/bau_am_rechner.py holt | wartet auf Sokrates |
+| 1972 | M | Von Chef (22.11., 18:39): Kennzahlen Kosten, Sitzungen, Vorgänge, Aufträge je Stunde, Tag, | wartet auf Sokrates |
+| 1974 | M | Von Sokrates (22.11., 18:56): Archiv-Schutz – keine Sitzung archivieren, die auf eine Frei | wartet auf Sokrates |
+| 1975 | M | Von Sokrates (22.11., 18:57): Verweis bl → ~/bl aus bau_am_rechner.py (Zeile 5) im Repo; r | wartet auf Sokrates |
 | 1977 | K | Von Werkzeug (Startwarnung 650.2, 1642, seit 22.11., 18:32): Inhaltsverzeichnis docs/READM | startbar |
-| 1982 | M | Telegram-Nachrichten des Chefs ohne Bezug liest keiner (Chef 23.11., 06:47; „1566 B“ 06:40 | startbar |
+| 1982 | M | Telegram-Nachrichten des Chefs ohne Bezug liest keiner (Chef 23.11., 06:47; „1566 B“ 06:40 | wartet auf Sokrates |
 | 1983 | M | Prüfer nimmt bis drei Aufträge (Chef 23.11., 07:27 A): Profil Prüfer und Disponent (Muster | startbar |
-| 1984 | K | vorgang.py uebergabe „Chefwort …“ von Hand hebt ruht nicht auf (Fund Karin 1976-Ü4, nicht | startbar |
-| 1985 | K | tools/notiz.sh Z. 33: checkout -B main origin/main wird ab git 2.44 (CI 2.56.1) abgelehnt, | startbar |
-| 1987 | K | tools/zug-haken.py 145 nennt weiter ROLLE-BERATUNG-START.md (stumm, da tools/1727-SCHARF v | startbar |
-| 1990 | M | vorgang.py uebergabe nennt als WECKER eine archivierte Sitzung (Besetzung veraltet), Weckr | startbar |
-| 1991 | M | Rufnamen doppelt vergeben: lauf.py --start und Takt geben denselben Rufnamen an Sitzungen | startbar |
-| 1993 | M | lauf.py startet seit 06:40 fünfmal einen Planer für 513, obwohl 513 ruht (Chef 04.11., 13: | startbar |
-| 1994 | M | tagesbericht.py zählt erledigte Vorgänge nicht: Stand seit 22.11., 16:26 kursiv (*erledigt | startbar |
-| 1995 | M | Kür nach Abhängigen ordnen: nach Eilt, Halt, Muss Kür mit vielen offenen wartenden Vorgäng | startbar |
-| 1996 | M | Weckruf-Sperre: Haken am Zugende prüft, dass jeder WECKER aus vorgang.py als Nachricht ver | startbar |
+| 1984 | K | vorgang.py uebergabe „Chefwort …“ von Hand hebt ruht nicht auf (Fund Karin 1976-Ü4, nicht | wartet auf Sokrates |
+| 1985 | K | tools/notiz.sh Z. 33: checkout -B main origin/main wird ab git 2.44 (CI 2.56.1) abgelehnt, | wartet auf Sokrates |
+| 1987 | K | tools/zug-haken.py 145 nennt weiter ROLLE-BERATUNG-START.md (stumm, da tools/1727-SCHARF v | wartet auf Sokrates |
+| 1990 | M | vorgang.py uebergabe nennt als WECKER eine archivierte Sitzung (Besetzung veraltet), Weckr | wartet auf Sokrates |
+| 1991 | M | Rufnamen doppelt vergeben: lauf.py --start und Takt geben denselben Rufnamen an Sitzungen | wartet auf Sokrates |
+| 1993 | M | lauf.py startet seit 06:40 fünfmal einen Planer für 513, obwohl 513 ruht (Chef 04.11., 13: | wartet auf Sokrates |
+| 1994 | M | tagesbericht.py zählt erledigte Vorgänge nicht: Stand seit 22.11., 16:26 kursiv (*erledigt | wartet auf Sokrates |
+| 1995 | M | Kür nach Abhängigen ordnen: nach Eilt, Halt, Muss Kür mit vielen offenen wartenden Vorgäng | wartet auf Sokrates |
+| 1996 | M | Weckruf-Sperre: Haken am Zugende prüft, dass jeder WECKER aus vorgang.py als Nachricht ver | wartet auf Sokrates |
 | 1998 | K | Von Werkzeug (Startwarnung 108, 1642, seit 23.11., 06:39): Datei über 60 KB: docs/chefsach | startbar |
-| 2000 | K | Von 1997 (Prüfer Hanna 14:27): lauf.py druckt LEERLAUF „Ford endet, nichts zu pushen“ und | startbar |
-| 2003 | M | PermissionDenied-Block in settings.json raus, falls nach der ersten echten Auto-Ablehnung | Termin 30.11. |
-| 2004 | M | meldung.sh schreibt die Lehrenbuch-Zeile der lauten Wache vor dem Senden und je Text statt | startbar |
-| 2005 | M | Von Arbeitsplaner (23.11., 19:00, zu 513): lauf.py startet für ruhenden 513 (Stand „ruht, | startbar |
-| 2007 | K | Von 1971 (Prüfer Vera 19:05): Übergabezeilen in vorgang.py (LISTE-VORGAENGE.md) werden mit | startbar |
+| 2000 | K | Von 1997 (Prüfer Hanna 14:27): lauf.py druckt LEERLAUF „Ford endet, nichts zu pushen“ und | wartet auf Sokrates |
+| 2003 | M | PermissionDenied-Block in settings.json raus, falls nach der ersten echten Auto-Ablehnung | wartet auf Sokrates |
+| 2004 | M | meldung.sh schreibt die Lehrenbuch-Zeile der lauten Wache vor dem Senden und je Text statt | wartet auf Sokrates |
+| 2005 | M | Von Arbeitsplaner (23.11., 19:00, zu 513): lauf.py startet für ruhenden 513 (Stand „ruht, | wartet auf Sokrates |
+| 2007 | K | Von 1971 (Prüfer Vera 19:05): Übergabezeilen in vorgang.py (LISTE-VORGAENGE.md) werden mit | wartet auf Sokrates |
 | 2010 | M | Alter Ego (Supervisor): Kosten der Sitzungen; Werkzeug kennt die Rolle nicht (zählt als Fa | startbar |
-| 2011 | M | Von Fritz (23.11., 22:09, Auftrag 2006): lauf.py zählt die Zeile der Lehren-Treffer zur Au | startbar |
-| 2012 | M | Übergabezeilen zeigen nicht, was offen ist: 43 offen, 32 beim Disponenten, 8 älter als 24 | startbar |
-| 2013 | M | Laufsperre: Alter Ego und Disponent-Starter zählen als Fachkraft (Rolle Sonstige), sollen | startbar |
+| 2011 | M | Von Fritz (23.11., 22:09, Auftrag 2006): lauf.py zählt die Zeile der Lehren-Treffer zur Au | wartet auf Sokrates |
+| 2012 | M | Übergabezeilen zeigen nicht, was offen ist: 43 offen, 32 beim Disponenten, 8 älter als 24 | wartet auf Sokrates |
+| 2013 | M | Laufsperre: Alter Ego und Disponent-Starter zählen als Fachkraft (Rolle Sonstige), sollen | wartet auf Sokrates |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 
