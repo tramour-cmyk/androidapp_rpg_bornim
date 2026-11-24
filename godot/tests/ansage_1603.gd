@@ -81,6 +81,9 @@ func _initialize() -> void:
 	faelle += 1
 	_soll((T.get("bugbear", []) as Array).map(func(x): return [String(x[0]), int(x[1])]) == [["morningstar", 2], ["paw", 1]], "Krogg Los Morgenstern 2 : Prankenhieb 1, Ist %s" % [T.get("bugbear")])
 	faelle += 1
+	var z: float = float(JSON.parse_string(FileAccess.get_file_as_string("res://daten/werte.json")).get("absicht_zusatz", {}).get("paw", -1))
+	_soll(is_equal_approx(z, 0.3), "Prankenhieb Zusatz 0,3 (Entscheid C Sokrates 24.11., 00:07), Ist %s" % z)
+	faelle += 1
 	_soll((T.get("_sonst", []) as Array).is_empty(), "_sonst leer, Ist %s" % [T.get("_sonst")])
 	print("ANSAGE1603 %d Fälle, %d Fehler" % [faelle, fehler])
 	quit(1 if fehler > 0 else 0)
