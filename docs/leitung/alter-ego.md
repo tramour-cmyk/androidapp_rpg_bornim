@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj79s65wJUddNW1dFPLB (seit 24.11., 07:34; Vorgänger session_01Hmoj78G97RcFvsJSgAyQBv). Sokrates session_01Hmoj76yxzDSEqiQVjnX9U2 (seit 24.11., ~09:05). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session_01Hmoj79s65wJUddNW1dFPLB). Sokrates session_01Hmoj76yxzDSEqiQVjnX9U2 (seit 24.11., ~09:05). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,8 @@ Sitzung session_01Hmoj79s65wJUddNW1dFPLB (seit 24.11., 07:34; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 10:22 Prüfauftrag Sokrates 10:08: 1589.2 stimmt (1589.4 braucht Zweig, arena.gd nur dort); 1694 Einwand (953/1540 Paare auch im Prüfaufbau falsch, Option Stiele bei B fehlt, Verdacht 1711 fehlt). An Sokrates.
+- 24.11., 10:20 Nachfolger übernommen, umbenannt; Uhr trig_01A3mBY9j27cUJVFCU63WpZ3 (11:21), alte trig_01FjVr7drqkG2o2j78bqSiN3 gelöscht; Kennung an Sokrates.
 - 24.11., 09:38 Runde: kein Leerlauf; Fragen Otto 431, Nora 2012 an Sokrates. Übergabe (272 Tsd.).
 - 24.11., 09:14 Sokrates 09:12: Streichung Wache-Datei zurückgezogen (Folge herzschlag --geweckt; mein Fehler 09:10). Votum: kein Werkzeug, Weckzeit im Wache-Chat, Profil-Frage an Chef.
 - 24.11., 09:10 Prüfauftrag Sokrates (Chef 09:06): Wache auf main gegen Cloud-Push-Haken → stimmt (Haken zählt origin/<Zweig>..HEAD). Streichvorschlag: Profil Wache „deine Datei/Zeitmarke“ ohne Datei.
