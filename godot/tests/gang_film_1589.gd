@@ -5,7 +5,8 @@ extends SceneTree
 # Dazu je Feld und Bewegung das Gleiten des Standfusses (Median, cm/s): „GLEITEN …“.
 # Am Rechner: COMMIT=<kurz> xvfb-run -a ~/godot/godot --path godot --write-movie <x.avi> --fixed-fps 30 -s res://tests/gang_film_1589.gd
 const FPS := 30.0
-const TAKT := 1.12                 # speed_scale der neuen Bewegungen: dreimal je Bewegung in 15 s
+const GESAMT := 14.8               # s Film; daraus der speed_scale der neuen Bewegungen (dreimal je Bewegung)
+var TAKT := 1.0
 const FOLGE := [[deg_to_rad(180.0), "Rückwärts"], [deg_to_rad(135.0), "Rückwärts schräg links"], [deg_to_rad(-135.0), "Rückwärts schräg rechts"],
 	[deg_to_rad(90.0), "Seitschritt links"], [deg_to_rad(-90.0), "Seitschritt rechts"]]
 const VOR := 0.4                   # s Stehen am Anfang
@@ -34,7 +35,8 @@ func _bau() -> void:
 			if fd.is_empty(): quit(1); return
 			felder.append(fd)
 	var an: Animation = (felder[1]["anim"] as AnimationPlayer).get_animation("Rueckwaerts")
-	dauer = 3.0 * an.length / TAKT
+	dauer = (GESAMT - VOR) / FOLGE.size()
+	TAKT = 3.0 * an.length / dauer
 	kopf = Label.new()
 	kopf.position = Vector2(0, 10)
 	kopf.size = Vector2(fenster.x, 90)
@@ -42,7 +44,7 @@ func _bau() -> void:
 	kopf.add_theme_font_size_override("font_size", 36)
 	kopf.add_theme_color_override("font_color", Color(0.93, 0.8, 0.45))
 	root.add_child(kopf)
-	print("FILM Dauer je Bewegung %.2f s, gesamt %.1f s" % [dauer, VOR + dauer * FOLGE.size()])
+	print("FILM Dauer je Bewegung %.2f s, gesamt %.1f s, Takt %.2f" % [dauer, VOR + dauer * FOLGE.size(), TAKT])
 	process_frame.connect(_schritt)
 
 func _feld(gitter: GridContainer, g: String, alt: bool, px: Vector2i) -> Dictionary:
@@ -163,7 +165,9 @@ func _held(f: Dictionary, i: int, dt: float) -> void:
 func _probe(f: Dictionary, i: int) -> void:
 	var sk: Skeleton3D = f["sk"]
 	var p: Dictionary = f["proben"]
-	if not p.has(i): p[i] = {"l": [], "r": []}
+	if not p.has(i): p[i] = {"l": [], "r": [], "n": 0}
+	p[i]["n"] += 1
+	if p[i]["n"] <= 9: return   # Ueberblendung (0,2 s) und ein Bild Ruhe nicht mitmessen
 	for s in ["l", "r"]:
 		var b := sk.find_bone("ball_" + s)
 		p[i][s].append((sk.global_transform * sk.get_bone_global_pose(b)).origin)
@@ -180,13 +184,17 @@ func _kopf_gier(f: Dictionary) -> float:
 func _auswertung() -> void:
 	for f in felder:
 		for i in f["proben"]:
-			var vs := []
-			for s in ["l", "r"]:
-				var ps: Array = f["proben"][i][s]
-				var tief: float = ps.map(func(o): return o.y).min()
-				for j in range(1, ps.size()):
-					if ps[j].y < tief + 0.02 and ps[j - 1].y < tief + 0.02:
-						vs.append(Vector2(ps[j].x - ps[j - 1].x, ps[j].z - ps[j - 1].z).length() * FPS)
+			var vs := []   # je Bild der tiefere Ballen (Standfuss), wenn hoechstens 2 cm ueber seinem Tiefstand
+			var pl: Array = f["proben"][i]["l"]
+			var pr: Array = f["proben"][i]["r"]
+			var tl: float = pl.map(func(o): return o.y).min()
+			var tr: float = pr.map(func(o): return o.y).min()
+			for j in range(1, pl.size()):
+				var ps: Array = pl if pl[j].y - tl < pr[j].y - tr else pr
+				var tief: float = tl if ps == pl else tr
+				if ps[j].y < tief + 0.02 and ps[j - 1].y < tief + 0.02:
+					vs.append(Vector2(ps[j].x - ps[j - 1].x, ps[j].z - ps[j - 1].z).length() * FPS)
 			vs.sort()
-			print("GLEITEN %s %s %s: Standfuss %.1f cm/s (Median, %d Bilder), Kopf hoechstens %.0f Grad aus dem Blick im Stehen" % [f["g"],
-				"alt" if f["alt"] else "neu", FOLGE[i][1], 100.0 * float(vs[vs.size() / 2]) if vs.size() > 0 else -1.0, vs.size(), float(f["kopf"][i])])
+			print("GLEITEN %s %s %s: Standfuss %.1f cm/s (Median; 90 %%: %.1f; %d Bilder), Kopf hoechstens %.0f Grad aus dem Blick im Stehen" % [f["g"],
+				"alt" if f["alt"] else "neu", FOLGE[i][1], 100.0 * float(vs[vs.size() / 2]) if vs.size() > 0 else -1.0,
+				100.0 * float(vs[vs.size() * 9 / 10]) if vs.size() > 0 else -1.0, vs.size(), float(f["kopf"][i])])
