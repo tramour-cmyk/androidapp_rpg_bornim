@@ -167,3 +167,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:25 24.11.: Startsperre 08:25 Start Kampf, Figur, Werkzeug, Arbeitsplaner (lauf.py, Kampf 1589.2 Lutz, Figur 1694 Moritz, Werkzeug 2012 Nora, Arbeitsplaner 431 Olga)
 - 08:30 24.11.: Takt 08:25 (Kampf-Start): START Kampf Lutz (1589.2), Werkzeug Nora (2012, Sokrates 08:22), Planerin Olga (431) ausgeführt; START Figur Moritz 1694 nicht ausgeführt (1694 ruht, beim Chef, Obergrenze B, 1694-Ü15 bei Sokrates); Elke archiviert, Kosten 6,03 $; Jana (Planerin 1716) nicht gestartet (gebaut, wartet Prüfer)
 - 08:37 24.11.: Startsperre 08:37 Start Figur (lauf.py, Figur 431 Otto)
+- 08:41 24.11.: Startsperre 08:41 Start Sokrates (lauf.py --start Sokrates, Neustart nach 402 Tsd. Token, Sokrates 08:37)
