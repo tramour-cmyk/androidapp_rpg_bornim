@@ -255,3 +255,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:49 24.11.: Olga (Planerin 2024) archiviert, Kosten 1,01 $; 2024 Auftrag steht (2024-Ü2 Disponent: Fachkraft Figur starten, wartet auf Platz unter Laufsperre: Reihenfolge 1654, 1694, 1589.4, dann 2024/431, Sokrates fragen)
 - 19:56 24.11.: Startsperre 19:56 Start Kampf (lauf.py, Kampf 1589.4 Oda)
 - 19:59 24.11.: Kampf Oda 1589.4 (session_01Hmoj77f5y1ucwujaX5rJdh, Schritt 2, Deckel 26 $, Halt 20 $) gestartet; Pia (1694, 1,24 $, gesamt 73,10 $) und Rita (431, 0,97 $, gesamt 156,69 $) archiviert; Figur 1694 wartet auf Moritz (1654, Figur eine Sitzung), danach 431, 2024; Testbuild Fr abends
+- 20:06 24.11.: Takt 20:04 ohne Start: Moritz (1654) und Oda (1589.4) laufen (2 von 3), Figur 1694 wartet auf Moritz, dann 431, 2024; Testbuild Fr abends
