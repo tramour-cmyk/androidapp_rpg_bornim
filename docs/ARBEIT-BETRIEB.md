@@ -161,3 +161,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:40 24.11.: Altes Alter Ego (78G97…) von Sokrates archiviert, Kosten 13,14 $ gebucht (2010); Neu (Chef 07:37): Werkzeug-Vorgang erst nach dreimal belegtem Fehler und Chef-Ja, keine Folgevorgänge selbst anlegen, an Sokrates
 - 07:48 24.11.: Startsperre 07:48 Start Werkzeug, Tagesbericht (lauf.py, Werkzeug 2011 Ilse, Tagesbericht 448)
 - 07:52 24.11.: Takt 07:48: START Werkzeug Ilse (2011, Sokrates-Freigabe 07:32, Chef 07:27) und Tagesbericht 24.11. ausgeführt; Dana (1603) und Elke (1694) laufen
+- 08:03 24.11.: Startsperre 08:03 Start Arbeitsplaner, Kampf, Arbeitsplaner, Prüfer (lauf.py, Arbeitsplaner 1716 Jana, Kampf 1589.3 Karla, Arbeitsplaner 2009 Lena, Prüfer 2011 Marta)
