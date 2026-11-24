@@ -33,12 +33,12 @@ for nr, zs in (("9004", [(1, "Disponent", "Auftrag steht (Rückmeldung 23.11., 1
                ("9006", [(1, "Disponent", "Auftrag steht (Rückmeldung 23.11., 10:00 von Arbeitsplaner): starten (1797)")])):
     open(os.path.join(A, "docs", "vorgang", nr + ".md"), "w").write("# %s · Test\n\n" % nr + KOPF + "".join(zeile(nr, k, an, w, "23.11., 10:0%d" % k) for k, an, w in zs))
 HW = "Hinweis (Rückmeldung 23.11., 10:01 von Sokrates): wie einen Eingang behandeln (1739)"
-for nr in ("9007", "9007.2", "9008", "9009"):
+for nr in ("9007", "9007.2", "9008", "9009", "9010"):
     open(os.path.join(A, "docs", "vorgang", nr + ".md"), "w").write("# %s · Test\n\n" % nr + KOPF + zeile(nr, 1, "Disponent", HW, "23.11., 10:01")
         + zeile(nr, 2, "Kampf", "Rückläufer (nein des Prüfers): „Satz“ (1739)", "23.11., 10:02") + zeile(nr, 3, "Prüfer", "prüfen: „fertig“ (1739)", "23.11., 10:03", "angenommen session_P bis 23.11., 10:33"))
 open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
     "# Vorgangsliste\n\n| Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |\n|---|---|---|---|---|---|---|---|---|---|\n"
-    + "".join("| %s | Test %s | Tom | M | startbar | – | – | – | E Welt | – |\n" % (n, n) for n in ("9001", "9004", "9004.2", "9005", "9006", "9007", "9007.2", "9008", "9009")))
+    + "".join("| %s | Test %s | Tom | M | startbar | – | – | – | E Welt | – |\n" % (n, n) for n in ("9001", "9004", "9004.2", "9005", "9006", "9007", "9007.2", "9008", "9009", "9010")))
 open(os.path.join(A, "docs", "vorgang", "9002.md"), "w").write("# 9002 · Schatten\n\n" + KOPF + "".join(
     zeile("9002", k, "Disponent", "Auftrag steht (Rückmeldung 23.11., 10:0%d von Arbeitsplaner): starten (1797)" % k, "23.11., 10:0%d" % k) for k in range(1, 7)))
 g("add", "-A", cwd=A); g("commit", "-q", "-m", "start", cwd=A); g("push", "-q", "origin", "main", cwd=A)
@@ -131,6 +131,9 @@ c, out = vg("fertig", "9008")
 soll("rest_sperre: fertig hält an, keine Zeile zu", c != 0 and "1143" in out and not [z for z in ue.zeilen(datei("9008")) if z["z"].startswith("erledigt")], (out, datei("9008")))
 c, out = vg("schliessen", "9009", "doppelt zu 9001, dort gebaut")
 soll("schliessen: alle Zeilen zu, Grund in der Datei", c == 0 and alle_zu("9009") and "Geschlossen (23.11., 13:00): doppelt zu 9001" in datei("9009"), (out, datei("9009")))
+
+c, out = vg("stand", "9010", "erledigt")
+soll("stand erledigt: alle Zeilen zu", c == 0 and alle_zu("9010"), (out, datei("9010")))
 
 print("uebergabe_schliessen_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

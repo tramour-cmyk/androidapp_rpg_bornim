@@ -78,5 +78,24 @@ def kaputt(*a, **k): raise ue.Fehler("origin/main nicht erreichbar")
 aus = lauf.start_zeilen_schliessen(ALLE, BETRIEB, kaputt, docs)
 soll("Schreibfehler: WARNUNG je Nummer, kein Absturz", aus and all(l.startswith("WARNUNG") for l in aus), aus)
 
+# (5) Anzeige: statt der ersten sechs (zs[:6], alte Zeilen verdrängten neue) alle Kennungen, Rangfolge 1796 bleibt (Eingangszeit),
+# ab der siebten nur Kennung („+N weitere: …“); gilt für Zeilen an Sokrates und an andere
+d5 = tempfile.mkdtemp(prefix="lauf-2012-5-"); os.makedirs(os.path.join(d5, "vorgang"))
+for i in range(1, 10):
+    nr = "97%02d" % i
+    open(os.path.join(d5, "vorgang", nr + ".md"), "w", encoding="utf-8").write("# %s\n\n" % nr + KOPF + zeile(nr, 1, "Text %d" % i, "23.11., %02d:00" % (9 + i), an="Disponent")
+                                                                              + zeile(nr, 2, "Frage %d" % i, "23.11., %02d:00" % (9 + i), an="Sokrates"))
+_scharf = lauf.ist_scharf; lauf.ist_scharf = lambda: True
+aus = []; lauf.uebergabe_zeilen(aus, {}, set(), docs=d5)
+lauf.ist_scharf = _scharf
+z5 = next((l for l in aus if "Offene Zeilen an Disponent" in l), "")
+soll("Zeilen an andere: alle neun Kennungen, sechs mit Text, „+3 weitere“", all("97%02d-Ü1" % i in z5 for i in range(1, 10)) and "Text 6" in z5 and "Text 7" not in z5
+     and "+3 weitere: 9707-Ü1, 9708-Ü1, 9709-Ü1" in z5, aus)
+soll("Rangfolge 1796 bleibt (älteste zuerst)", z5.find("9701-Ü1") < z5.find("9706-Ü1") < z5.find("9707-Ü1"), z5)
+aus = ["START Sokrates | opus | e | r | main | Sokrates – Stellungnahme (24.11., 08:30) | Stellungnahme"]
+lauf.sokrates_zeilen(aus, {}, set(), docs=d5)
+soll("Zeilen an Sokrates: alle neun Kennungen, „+3 weitere“", all("97%02d-Ü2" % i in aus[0] for i in range(1, 10)) and "+3 weitere: 9707-Ü2, 9708-Ü2, 9709-Ü2" in aus[0], aus)
+soll("kurz: bis sechs ohne Zusatz", ue.kurz([("1-Ü1", "a"), ("2-Ü1", "b")]) == "1-Ü1 a; 2-Ü1 b", ue.kurz([("1-Ü1", "a"), ("2-Ü1", "b")]))
+
 print("lauf_2012_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
