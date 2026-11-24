@@ -13,7 +13,7 @@
       "Bash(git diff:*)",
       "Bash(git merge-tree:*)",
       "mcp__claude-code-remote__archive_session",
-      "mcp__claude-code-remote__add_repo"
+      "mcp__claude-code-remote__add_repo", "mcp__claude-code-remote__create_trigger"
     ],
     "deny": [
       "Bash(git push --force:*)",
@@ -158,6 +158,30 @@
           {
             "type": "command",
             "command": "f=/home/user/bornim-main/tools/neustart-haken.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/neustart-haken.py; command -v python3 >/dev/null && python3 \"$f\" nach 2>/dev/null; true",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PermissionDenied": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=/home/user/bornim-main/tools/neustart-haken.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/neustart-haken.py; command -v python3 >/dev/null && python3 \"$f\" abgelehnt 2>/dev/null; true",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=/home/user/bornim-main/tools/neustart-haken.py; [ -f \"$f\" ] || f=\"$CLAUDE_PROJECT_DIR\"/tools/neustart-haken.py; command -v python3 >/dev/null && python3 \"$f\" abgelehnt 2>/dev/null; true",
             "timeout": 10
           }
         ]

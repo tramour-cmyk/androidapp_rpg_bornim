@@ -7,6 +7,8 @@ Tabelle „Wer sucht, gibt vor, trägt ein“). Nie geladen, nur durchsucht; ges
   vorgang.py lehre roh NR "Anlass" "Ursache und Satz"
                                            rohe Zeile anhängen (sonst das Werkzeug selbst: Rückmeldung „ja“ mit „Ursache:“,
                                            zweites „nein“, Schließen)
+  lehren.py betrieb "Ursache" "Anlass"  1999: Betriebsfehler, Fall Betrieb, Bereich B Steuerung, dieselbe Ursache je Tag einmal
+  lehren.py wache-laut "Text"           1999: aus meldung.sh --laut, schreibt nur in der Sitzung der Wache
   vorgang.py lehre zuordnen R<n> L<n>      rohe Zeile an eine Lehre hängen; Wirkung: stand L<n> unter den Treffern des Falls
                                            → „wirkt nein“, sonst bei gleichem Bereich „nicht gefunden“; beides als Zeile an Sokrates
   vorgang.py lehre zuordnen R<n> --neu "Stichworte" "Lehre"     als neue Lehre fassen („erst …, dann …“ / „nie X, stattdessen Y“)
@@ -193,6 +195,62 @@ def roh_aus_rueckmeldung(nr, text, wer, datei_text, zahl_nein):
     return None
 
 
+# 1999 (Sokrates 23.11., 14:21; Chef 14:20): Betriebsfehler ohne Zutun als rohe Zeile, Fall „Betrieb“, Bereich B Steuerung,
+# dieselbe Ursache je Tag nur einmal. Alle Quellen rufen betrieb(): herzschlag.py --wache, neustart-haken.py (abgelehnte
+# create_trigger/create_session), lauf.py (Start nicht angekommen), meldung.sh --laut der Wache. Muster wie oben (Google SRE:
+# jeder Vorfall wird erfasst, ohne dass jemand daran denken muss; Zusammenfassen erst beim Zuordnen).
+BETRIEB, BETRIEB_BEREICH = "Betrieb", "B Steuerung"
+
+
+def betrieb(ursache, anlass):
+    """Rohe Zeile für einen Betriebsfehler; Rückgabe R-Kennung (neu oder die heutige mit derselben Ursache). Wirft ue.Fehler."""
+    zeit = ue.fmt(ue.jetzt())
+    u, a = ue._rein(ursache), ue._rein(anlass)
+    def f(alt):
+        t = alt or LEER
+        for x in rohe(t):
+            if x["fall"] == BETRIEB and x["text"] == u and x["seit"][:6] == zeit[:6]: return alt, x["id"]
+        k = _neue_id(t, "R")
+        return _einfuegen(t, "Roh", "| %s | %s | %s | %s | %s | %s | offen |" % (k, BETRIEB_BEREICH, BETRIEB, a, u, zeit)), k
+    return ue.atomar(BETRIEB, f, "Lehrenbuch: Betrieb (%s, 1999)" % u[:60], pfad=PFAD)
+
+
+def betrieb_still(ursache, anlass):
+    """Für Haken und Läufe: schreibt, Fehler nur als Zeile auf stderr (der Betrieb geht weiter). Rückgabe R-Kennung oder None."""
+    try:
+        k = betrieb(ursache, anlass)
+        print("LEHRENBUCH %s Betrieb: %s" % (k, ue._rein(ursache)[:80]), file=sys.stderr)
+        return k
+    except Exception as e:
+        print("LEHRENBUCH Betrieb nicht geschrieben (%s); von Hand: python3 tools/lehren.py betrieb \"%s\" \"…\"" % (e, ue._rein(ursache)[:60]), file=sys.stderr)
+        return None
+
+
+def ist_wache(kennung=None):
+    """Diese Sitzung ist die Wache laut ARBEIT-BETRIEB.md („**Wache (aktuell)** `session_…`“)."""
+    k = (kennung or os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "")).split("_", 1)[-1]
+    if not k: return False
+    try: m = re.search(r"\*\*Wache \(aktuell\)\*\* `session_(\w+)`", open(os.path.join(ue.WURZEL, "docs", "ARBEIT-BETRIEB.md"), encoding="utf-8").read())
+    except OSError: return False
+    return bool(m) and m.group(1) == k
+
+
+def wache_laut(text):
+    """meldung.sh --laut: nur die Wache schreibt; Ursache ohne Uhrzeiten und Daten, damit dieselbe Meldung je Tag einmal zählt."""
+    if not ist_wache(): return None
+    kern = re.sub(r"\d{1,2}\.\d{1,2}\.(\d{2,4})?,?|\d{1,2}:\d\d|\(vor \d+[^)]*\)", "", text.replace("\\n", " ").lstrip("⚠ "))
+    return betrieb_still("Wache meldet laut: " + ue._rein(kern)[:160], "meldung.sh --laut der Wache: " + text.replace("\\n", " "))
+
+
+START_FEHLT = re.compile(r"^WARNUNG-LAUT Start (\S+) nicht angekommen: Startsperre ([^,]+, \d\d:\d\d)")
+
+
+def aus_lauf(zeilen):
+    """lauf.py --sperre: jede Zeile „Start <Rolle> nicht angekommen“ (gescheiterter Start oder Neustart) wird eine rohe Zeile."""
+    return [betrieb_still("Start %s nicht angekommen: Startsperre ohne Sitzung (Neustart gescheitert)" % m.group(1),
+                          "lauf.py: " + l) for l in zeilen for m in [START_FEHLT.match(l)] if m]
+
+
 def haupt(a):
     a = list(a[1:]) if a[:1] == ["lehre"] else list(a)
     if not a: sys.exit(__doc__)
@@ -206,6 +264,10 @@ def haupt(a):
             if not d: sys.exit("vorgang.py lehre bereich: %s steht nicht in der Vorgangsliste" % rest[0])
             for x in rangfolge(d.get("bereich", "").strip(), d.get("titel", "")): print(zeigen(x))
             return
+        if b == "betrieb" and len(rest) == 2:  # 1999
+            print("LEHRENBUCH %s Betrieb (%s, gepusht)" % (betrieb(*rest), PFAD)); return
+        if b == "wache-laut" and len(rest) == 1:  # 1999, aus meldung.sh --laut; Fehler nur auf stderr
+            wache_laut(rest[0]); return
         if b == "roh" and len(rest) == 3:
             print("LEHRENBUCH %s angehängt (%s, gepusht)" % (roh(*rest), PFAD)); return
         if b == "zuordnen" and len(rest) >= 2:

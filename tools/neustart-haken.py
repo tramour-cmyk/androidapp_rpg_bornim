@@ -7,6 +7,8 @@
   neustart-haken.py vor|nach an jedem Werkzeugaufruf (PreToolUse/PostToolUse, 1537): Erinnerung und Sperre je Rolle (SCHWELLEN, 1520; sonst 200/300 Tsd.)
                              außer Übergabe, Push, Nachricht an Ford (Kaufrepo +200 Tsd., 818; Sokrates 400/500 Tsd., 1643; nie im Test des Chefs; nie bei Ford, 1574).
                              1762: ruft chefwort.haken() (Haken D, Chefwort aus fremder Sitzung).
+  neustart-haken.py abgelehnt  (1999) PermissionDenied/PostToolUseFailure: abgelehntes create_trigger/create_session → Lehrenbuch;
+                             „nach“ und „vor“ prüfen es ebenso
   neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn ein Vorrat docs/ARBEIT-*.md zu groß ist.
 
 Die Größe kommt aus dem Gesprächsprotokoll (transcript_path): Token der letzten Antwort (Eingabe, auch
@@ -449,6 +451,49 @@ def start(eingabe):
                   "Nach der Regel „Vorräte klein halten“ in CLAUDE.md aufräumen (Erledigtes ins Archiv bzw. in die Änderungshistorie).")
 
 
+# 1999 (b, c): abgelehntes create_trigger/create_session wird eine rohe Zeile im Lehrenbuch (Fall Betrieb, je Tag und Ursache einmal).
+# Claude Code meldet eine Ablehnung der Auto-Prüfung als Ereignis PermissionDenied (Feld reason), einen Fehler des Dienstes als
+# PostToolUseFailure (Feld error); PostToolUse kommt nur nach Erfolg (code.claude.com/docs/en/hooks). Darum versteht der Haken alle drei.
+STARTWERKZEUG = ("create_trigger", "create_session")
+ABGELEHNT = r"(?i)\b(denied|refused|rejected|not (?:permitted|allowed|authori[sz]ed)|abgelehnt|verweigert|nicht erlaubt)\b"
+
+
+def abgelehnt(eingabe):
+    """(Ursache, Anlass) für ein abgelehntes create_trigger/create_session, sonst None."""
+    import re
+    w = str(eingabe.get("tool_name") or "")
+    kurz = next((k for k in STARTWERKZEUG if w == k or w.endswith("__" + k)), None)
+    if not kurz:
+        return None
+    ev = str(eingabe.get("hook_event_name") or "")
+    if ev == "PermissionDenied":
+        grund = str(eingabe.get("reason") or "ohne Grund")
+    elif ev == "PostToolUseFailure":
+        if eingabe.get("is_interrupt"):
+            return None
+        grund = str(eingabe.get("error") or "ohne Fehlertext")
+    else:
+        antwort = eingabe.get("tool_response")
+        antwort = antwort if isinstance(antwort, str) else json.dumps(antwort, ensure_ascii=False) if antwort is not None else ""
+        if not re.search(ABGELEHNT, antwort):
+            return None
+        grund, ev = antwort, ev or "PostToolUse"
+    sitzung = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "") or str(eingabe.get("session_id") or "")
+    return ("%s abgelehnt (%s)" % (kurz, ev), "%s in Sitzung %s: %s" % (kurz, sitzung or "?", " ".join(grund.split())[:300]))
+
+
+def lehre_abgelehnt(eingabe):
+    """Schreibt im Hintergrund (Push dauert länger als die Hakenfrist); Ausgabe nach /tmp/bornim-lehre-betrieb.log. Rückgabe Ursache oder None."""
+    import subprocess
+    t = abgelehnt(eingabe)
+    if not t:
+        return None
+    lehren = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lehren.py")
+    with open("/tmp/bornim-lehre-betrieb.log", "a") as log:
+        subprocess.Popen([sys.executable, lehren, "betrieb", t[0], t[1]], stdout=log, stderr=log, stdin=subprocess.DEVNULL, start_new_session=True)
+    return t[0]
+
+
 def main():
     try:
         eingabe = json.load(sys.stdin)
@@ -459,8 +504,13 @@ def main():
         prompt(eingabe)
     elif art == "start":
         start(eingabe)
-    elif art in ("vor", "nach"):
-        return werkzeug(eingabe, art)
+    elif art in ("vor", "nach", "abgelehnt"):
+        try:
+            lehre_abgelehnt(eingabe)  # 1999
+        except Exception:
+            pass
+        if art != "abgelehnt":
+            return werkzeug(eingabe, art)
     return 0
 
 

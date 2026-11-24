@@ -147,12 +147,72 @@ def gueltig_pruefen(dat, stop, warn):
             stop.append("VORGANGSARCHIV.md: neuer Entscheid zu %s berührt %s; im selben Commit die Zeile(n) in DESIGN-STIL/-KAMPF/-ABNAHME "
                         "ändern und am alten Eintrag „→ ersetzt durch …“ anhängen (461b); ändert er nichts daran: „461 unverändert“ in den Eintrag"
                         % (", ".join(sorted(nrn)) or kopf[:20], ", ".join(treffer)))
+    ersatz_pruefen(plus, minus, alt_archiv, stop)  # 1999 (g)
+    for s, p in dat:  # 1999 (f): neue Vorlage der Leitung mit Abschnitt „Abgleich“
+        if s == "A" and re.match(r"docs/chefsache/(entscheiden|billigen)/[^/]+\.md$", p):
+            f = abgleich_fehlt(git("show", ":" + p), git("show", ":docs/LISTE-LEHREN.md"), git("show", ":docs/VORGANGSARCHIV.md") or alt_archiv)
+            if f: stop.append("%s: %s (1999, R6: Vorlage 23.11., 10:07 brachte den abgelösten Weg 1098 A zurück)" % (p, f))
     for s, p in dat:  # 461b: Vorlage nennt berührte Punkte
         if s == "A" and re.match(r"docs/chefsache/(entscheiden|billigen|ansehen)/", p):
             n = os.path.basename(p).split("-")[0].lower()
             ks = sorted({k for nr, v in tafel.items() if nr.replace(".", "").lower() == n for k in v})
             if ks and not re.search(r"\b[A-G]\d\b|461", git("show", ":" + p)):
                 warn.append("%s: Vorlage zu einem Vorgang mit Kennung (%s), nennt aber keinen berührten Punkt A–G (461b)" % (p, ", ".join(ks)))
+
+# 1999 (Sokrates 23.11., 14:21; Chef 14:20): keine Vorlage ohne Suche im Lehrenbuch und im Archiv; kein neuer Entscheid, der einen
+# älteren still ablöst (461b allgemein, nicht nur bei Kennungen A–G).
+NR_ARCH = re.compile(r"(?<![\d.:,])(\d{3,4}(?:\.\d+)?[a-z]?)(?![\d.:])(?!\s*(?:Tsd|Token|Min|Std|Byte|KB|MB|px|ms|%|€|\$))")
+
+def _kopf(z):
+    """Fetter Kopf eines Archiveintrags „- **Kopf** (…) → **Ergebnis**“."""
+    return z[4:z.find("**", 4)] if "**" in z[4:] else z[4:60]
+
+def _ergebnis(z):
+    m = re.search(r"→ \*\*(.*?)\*\*", z)
+    return m.group(1) if m else ""
+
+def _neu_im_archiv(plus, minus):
+    return [n for n in plus if n.startswith("- **") and n not in minus and not any(a.strip() and n.startswith(a.rstrip()) for a in minus)]
+
+def ersatz_pruefen(plus, minus, alt_archiv, stop):
+    """(g) Neuer Archiveintrag zu einer Nummer (Kopf oder Ergebnis) oder mit gleichem Kopf wie ein älterer Eintrag: am älteren steht
+    „ersetzt durch“ (im Index), oder im neuen „ersetzt nichts“; sonst stop."""
+    index = git("show", ":docs/VORGANGSARCHIV.md") or alt_archiv
+    for neu in _neu_im_archiv(plus, minus):
+        if "ersetzt nichts" in neu: continue
+        k = _kopf(neu)
+        nrn = set(NR_ARCH.findall(k + " " + _ergebnis(neu)))
+        stich = re.sub(r"\s+", " ", k).strip().lower()
+        offen = []
+        for z in alt_archiv.splitlines():
+            if not z.startswith("- **") or z.rstrip() == neu.rstrip(): continue
+            ak = _kopf(z)
+            if not (nrn & set(NR_ARCH.findall(ak)) or re.sub(r"\s+", " ", ak).strip().lower() == stich): continue
+            jetzt = next((i for i in index.splitlines() if i.startswith(z.rstrip())), z)  # derselbe Eintrag im Index (angehängt?)
+            if "ersetzt durch" not in jetzt: offen.append(ak[:50])
+        if offen:
+            stop.append("VORGANGSARCHIV.md: neuer Eintrag „%s“ trifft ältere Einträge ohne „ersetzt durch“ (%s); dort „→ ersetzt durch <Nr., Datum>“ "
+                        "anhängen oder „ersetzt nichts“ in den neuen Eintrag (461b, 1999)" % (k[:50], "; ".join(offen[:4])))
+
+def abgleich_fehlt(text, buch, archiv):
+    """(f) Abschnitt „Abgleich“ mit `vorgang.py lehre suche W …` und Archivtreffern zu denselben Worten; jeder Treffer im Lehrenbuch
+    (R/L) und jeder Archivkopf mit allen Worten muss im Abschnitt stehen. Rückgabe Fehlertext oder None."""
+    m = re.search(r"(?ms)^#+ *Abgleich\b(.*?)(?=^#+ |\Z)", text)
+    if not m: return "Abschnitt „## Abgleich“ fehlt: Ausgabe von `vorgang.py lehre suche <Stichworte>` und Archivtreffer zu denselben Stichworten"
+    teil = m.group(1)
+    w = re.search(r"lehre suche ([^`\n]+)", teil)
+    if not w: return "Abgleich ohne Zeile `vorgang.py lehre suche <Stichworte>`"
+    worte = [x.lower() for x in w.group(1).split()]
+    import lehren
+    fehlt = [x["id"] for x in lehren.suche(worte, buch or lehren.LEER) if not re.search(r"\b%s\b" % x["id"], teil)]
+    if fehlt: return "Abgleich nennt Treffer im Lehrenbuch nicht: %s (Stichworte %s)" % (", ".join(fehlt), " ".join(worte))
+    if not re.search(r"(?mi)^\W*Archiv\b[^\n]*" + "".join("(?=[^\n]*%s)" % re.escape(x) for x in worte), teil):
+        return "Abgleich ohne Zeile „Archiv %s: …“ (Archivtreffer zu denselben Stichworten)" % " ".join(worte)
+    treffer = [_kopf(z) for z in archiv.splitlines() if z.startswith("- **") and all(x in z.lower() for x in worte)]
+    if len(treffer) > 8: return "Archiv hat %d Treffer zu „%s“; Stichworte enger fassen (höchstens 8)" % (len(treffer), " ".join(worte))
+    fehlt = [k for k in treffer if k.strip() not in teil]
+    if fehlt: return "Abgleich nennt Archivtreffer nicht: %s" % "; ".join(f[:50] for f in fehlt)
+    return None
 
 TEILCHEN = re.compile(r"\b(GPUParticles[23]D|CPUParticles[23]D|ParticleProcessMaterial)\b")
 

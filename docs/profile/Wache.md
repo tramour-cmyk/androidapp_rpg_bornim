@@ -9,6 +9,7 @@ Bei jedem Wecken deiner Uhr, je Fall höchstens eine Meldung je Stunde (Stand in
 4. **Rote Läufe:** ab 3 fehlgeschlagenen GitHub-Läufen in der Stunde → laut an den Chef mit Zahl, Zweigen, Link; Wecker an den Disponenten.
 5. **Du bist dran:** neue Testbitte oder Chefsache ohne Telegram → laut an den Chef.
 6. **Tagesbericht fehlt** um 10 Uhr (Sa/So 12 Uhr) → Wecker an den Disponenten.
+7. **Herzschlag:** `python3 tools/herzschlag.py --wache [--geweckt <Weckzeit aus deiner Datei>]`: WECKEN → Wecker an den Disponenten, Weckzeit in deine Datei; NEUSTART → „Disponent-Neustart“ an den Starter (`ARBEIT-BETRIEB.md` „Starter (aktuell)“) und `meldung.sh --laut` an den Chef.
 Dann schreibst du deine Zeitmarke und wartest auf den nächsten Wecker.
 
 ## Herkunft

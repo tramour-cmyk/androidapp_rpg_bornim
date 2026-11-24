@@ -33,8 +33,7 @@ stand([zeile("2002", "Beta", "erledigt"), zeile("2003", "Gamma", "erledigt")], "
 z = sammelzeile.erledigt(d, "2026-11-23T08:00:00+01:00", "2026-11-23T09:00:00+01:00")
 pruefe([x[0] for x in z] == ["2001", "2002"], "1971: im Fenster erledigt: 2001, 2002 (nicht 2003 danach, nicht ins Archiv geschoben): %s" % z)
 t = sammelzeile.text(z, "09:00")
-pruefe("✓ 2001 Alpha: erledigt" in t and "✓ 2002 Beta: erledigt" in t, "1971: Wortlaut „✓ <Nr> <Titel kurz>: erledigt“: %r" % t)
-pruefe("Beschreibung" not in t, "1971: Titel gekürzt (bis zum ersten Doppelpunkt oder Klammer)")
+pruefe("✓ 2001 Alpha: lange Beschreibung (Chef 22.11.): erledigt" in t and "✓ 2002 Beta: erledigt" in t, "1971: Wortlaut „✓ <Nr> <Titel kurz>: erledigt“: %r" % t)
 pruefe(sammelzeile.text([], "09:00") == "", "1971: ohne Erledigtes keine Meldung")
 pruefe(sammelzeile.erledigt(d, "2026-11-23T07:00:00+01:00", "2026-11-23T08:00:00+01:00") == [], "1971: Anlage einer Zeile ist kein Erledigt")
 lang = sammelzeile.kurz("X" * 100)
@@ -42,9 +41,25 @@ pruefe(len(lang) <= 60, "1971: Titel höchstens 60 Zeichen: %d" % len(lang))
 # 1971-Ü5 (nein Nils 09:34): Vorsatz „Von <Rolle> (…): “ überspringen, die Sache kürzen
 for tt, soll in (("Von Welt (Emil 22.11., 17:43, zu 1566; Sokrates 18:07): tools/godot/bau_am_rechner.py holt das R10-Wasserkit nicht",
                   "tools/godot/bau_am_rechner.py holt das R10-Wasserkit nicht"),
-                 ("Von Chef (22.11., 18:39): Kennzahlen Kosten, Sitzungen; Bestand kostenbericht.py", "Kennzahlen Kosten, Sitzungen"),
-                 ("Von Sokrates: Archiv-Schutz (status X)", "Archiv-Schutz"),
-                 ("Vonnegut lesen: Kapitel", "Vonnegut lesen")):
+                 ("Von Chef (22.11., 18:39): Kennzahlen Kosten, Sitzungen; Bestand kostenbericht.py", "Kennzahlen Kosten, Sitzungen; Bestand kostenbericht.py"),
+                 ("Von Sokrates: Archiv-Schutz (status X)", "Archiv-Schutz (status X)"),
+                 ("Vonnegut lesen: Kapitel", "Vonnegut lesen: Kapitel")):
     pruefe(sammelzeile.kurz(tt) == soll, "1971-Ü5: %r → %r, soll %r" % (tt[:30], sammelzeile.kurz(tt), soll))
+# 1971-Ü9 (Urteil Sokrates 11:13): kein Schnitt am ersten „: “, „ (“ oder „;“; bis 60 Zeichen, Schnitt am Wortende mit „…“
+for tt, soll in (("Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen …",  # 709
+                  "Kampf: Angriffe treffen den Gegner sichtbar (Waffe am…"),
+                 ("Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur",  # 760
+                  "Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur"),
+                 ("Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin, Bram, Garrick, Jorin, Pim …",  # 1650
+                  "Durchstechprüfung: Hosen stechen durch den Stiefelschaft…"),
+                 ("Durchstechprüfung: Osric innere Stücke stechen durch die Robe (1,2 m, bis 267 Ecken)",  # 1652
+                  "Durchstechprüfung: Osric innere Stücke stechen durch die…"),
+                 ("Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde mit erledigten Vorgängen (✓ Nr Titel), Halbsatz im Kern Büro (Chef 22.11., 18:13)",  # 1971
+                  "Vollzugsmeldung: lautlose Telegram-Sammelzeile je Stunde…"),
+                 ("Von Sokrates (23.11., 11:13): Leitung: Sammelzeile nennt die Sache, nicht nur das Themenwort des Titels",
+                  "Leitung: Sammelzeile nennt die Sache, nicht nur das…")):
+    k = sammelzeile.kurz(tt)
+    pruefe(k == soll and len(k) <= 60, "1971-Ü9: %r → %r, soll %r" % (tt[:30], k, soll))
+pruefe(sammelzeile.kurz("Y" * 80) == "Y" * 59 + "…", "1971-Ü9: Wort über 60 Zeichen hart geschnitten")
 print("sammelzeile_test: %s" % ("gut" if not fehler else "%d Fehler" % fehler))
 sys.exit(1 if fehler else 0)
