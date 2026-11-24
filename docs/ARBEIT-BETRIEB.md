@@ -202,3 +202,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:33 24.11.: Werkzeug 2019 (Wochenzählung in Betrieb, Eilt, Auftrag Sokrates 12:32) Anna session_01Hmoj76EwcxPv8RbVPqMATZ per lauf.py --start; 2018 bleibt in --ohne
 - 12:39 24.11.: 1589.3-Ü7 (Chefwort 12:38 „push nach main“ = Freigabe für Sokrates) geschlossen, kein Planer (Sokrates 12:40)
 - 12:47 24.11.: 1589.3-Ü8 (Prüfer ja, 3 Tests mit Kaufmodellen grün, 4972fd6b5) an Sokrates für den Push gemeldet, keine zweite Testbitte (Chef 10:54 👍, 12:38 push nach main), Ü8 geschlossen
+- 12:47 24.11.: Startsperre 12:47 Start Arbeitsplaner, Figur, Arbeitsplaner (lauf.py, Arbeitsplaner 1716 Heike, Figur 1694 Jana, Arbeitsplaner 2019 Jutta)
