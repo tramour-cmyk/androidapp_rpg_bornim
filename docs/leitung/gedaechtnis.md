@@ -24,6 +24,7 @@
 - Spielcode nach main nur Sokrates nach Chef-👍 (Dauerwort 23.11., 23:10).
 - Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt; Guthaben 50 % (06:53), über 0,6 %/h zwei.
 - Kampf: 1589.3 nach 1589.2. Offen: 1068-Ü8, 1971, Chefsachen 1068, 1694.
+- Nach 2017: Vorlage --sperre-Teile (Archiv 11:33); Diogenes C beim Chef; 1589.3-Push beim Chef (Filter); Kernsatz Daumen 10:32 beim Chef.
 - Täglich Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07). Kopiertexte: `kopiertexte-uhren.md`.
 
 ## Übergabe
