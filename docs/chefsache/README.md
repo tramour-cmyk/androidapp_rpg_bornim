@@ -147,7 +147,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1486 | K | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Begegnungen bi | wartet auf Sokrates |
 | 1487 | K | Heiler wächst in Kapitel 1 nie im Willen (Heilmagie 12/13 am Kapitelende, übt Stumpfe Waff | startbar |
 
-**Kampf** – offen 62, Muss 18, startbar 24
+**Kampf** – offen 62, Muss 18, startbar 23
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -167,7 +167,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1589.4 | M | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nac | wartet auf 1589.2 (ruht) |
 | 1589.5 | M | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Za | wartet auf 1589.4 (startbar) |
 | 1589.6 | M | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt n | wartet auf 1589.2 (ruht) |
-| 1603 | M | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in ke | startbar |
+| 1603 | M | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in ke | wartet auf Test/Build (gebaut) |
 | 1708 | M | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_u | wartet auf 1589.4 (startbar) |
 | 1402 | K | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel | startbar |
 | 1404 | K | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UAL2/Protofac | startbar |
