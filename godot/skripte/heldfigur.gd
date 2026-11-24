@@ -47,7 +47,15 @@ static func volk_modell(v: String) -> String: return String(VOLK_MODELL.get(v, v
 const HAUT_EICHUNG := Vector3(0.355, 0.219, 0.270)
 const HAUT_FARBE := 0.5
 # Bewegungen, die sich wiederholen (wie held.gd Gebiet.bewegungen)
-const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen", "Gesten", "Bodensitz", "Nicken", "Hocken"]
+const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen", "Gesten", "Bodensitz", "Nicken", "Hocken",
+	"Rueckwaerts", "Rueckwaerts_L", "Rueckwaerts_R", "Seitschritt_L", "Seitschritt_R"]
+# 1589.3 (Perikles 1600, DESIGN-GEGNER.md 5 und 11.2, Tom 17.11.): rueckwaerts gerade und schraeg, Seitschritt, das Gesicht bleibt vorn
+# (UAL2, held_klassen.py RICHTUNGEN). Wahl je Richtung wie ein BlendSpace2D im Modus „diskret“ (Godot: die Bewegung, deren Punkt am
+# naechsten liegt; Unity und Unreal: acht Richtungen zu je 45 Grad), einfachste Form: Achtel des Winkels zwischen Blick und Weg ->
+# Bewegung; vorn und schraeg vorn Gehen (die Figur dreht sich zum Weg wie bisher)
+const RICHTUNG := {0: "Gehen", 1: "Gehen", -1: "Gehen", 2: "Seitschritt_L", -2: "Seitschritt_R", 3: "Rueckwaerts_L", -3: "Rueckwaerts_R",
+	4: "Rueckwaerts", -4: "Rueckwaerts"}
+const RICHTUNG_NEU := ["Rueckwaerts", "Rueckwaerts_L", "Rueckwaerts_R", "Seitschritt_L", "Seitschritt_R"]
 
 static var info := {}
 static var haare_szenen := {}   # Geschlecht -> haare.bin (m), haare_w.bin
@@ -312,6 +320,13 @@ static func bewegungen(m: Node3D, sk: Skeleton3D, art := RENNEN, waffen_rennen :
 			an.set_meta("v_quelle", v0); an.set_meta("v_figur", v)
 			var ziel: float = TAKT_RENNEN if n.begins_with("Rennen") else TAKT_GEHEN
 			if v > 0.01: umtakten(an, v / ziel)
+		if n in RICHTUNG_NEU:   # 1589.3: Tempo und Richtung ohne Gleiten an dieser Figur, nicht umgetaktet (Schrittfolge der Quelle)
+			var rk := "%s|%s|%.4f|%.4f" % [n, m.get_meta("tracht", ""), f, _beinlaenge(sk)]
+			if not stand_cache.has(rk): stand_cache[rk] = stand_vektor(an, sk, im_raum(m, sk))
+			var sv: Vector2 = stand_cache[rk]
+			var v := gleich_takten(an, sk, im_raum(m, sk), sv.normalized()) if sv.length() > 0.01 else 0.0
+			an.set_meta("m_je_s", v)
+			an.set_meta("grad", rad_to_deg(atan2(sv.x, sv.y)))
 		lib.add_animation(n, an)
 	ruhe_spuren(lib, sk)
 	var ap := AnimationPlayer.new()
@@ -1562,6 +1577,71 @@ static func stand_tempo(an: Animation, sk: Skeleton3D, raum: Transform3D, tol :=
 	if vs.size() < 4: return 0.0
 	vs.sort()
 	return maxf(float(vs[vs.size() / 2]), 0.0)
+
+# 1589.3: wie stand_tempo in jede Richtung: Vector2(links, vor) in m/s, der Koerper kommt entgegen dem gleitenden Standfuss voran
+# (Blick +Z, links +X); je Achse der Median der Proben hoechstens tol ueber dem Tiefstand (Messung 24.11.: das Tempo, bei dem der
+# Median des Gleitens am kleinsten ist, lag 10 % zu hoch, der Fuss glitt im Film mit dem Koerper mit)
+static func stand_vektor(an: Animation, sk: Skeleton3D, raum: Transform3D, tol := 0.02, n := 120) -> Vector2:
+	var sp := _spuren(an)
+	var L := maxf(0.001, an.length)
+	var vx := []; var vz := []
+	for bn in ["ball_l", "ball_r"]:
+		var b := sk.find_bone(bn)
+		if b < 0: b = sk.find_bone(bn.replace("ball", "foot"))
+		if b < 0: return Vector2.ZERO
+		var p := []
+		for j in n + 1: p.append(knochen_lage(an, sp, sk, raum, b, L * j / n).origin)
+		var tief: float = p.map(func(o): return o.y).min()
+		for j in n:
+			if p[j].y < tief + tol and p[j + 1].y < tief + tol:
+				vx.append((p[j].x - p[j + 1].x) * n / L); vz.append((p[j].z - p[j + 1].z) * n / L)
+	if vx.size() < 4: return Vector2.ZERO
+	vx.sort(); vz.sort()
+	return Vector2(vx[vx.size() / 2], vz[vz.size() / 2])
+
+# 1589.3 (Messung 24.11.: in Walk_Bwd der UAL2 laeuft der Standfuss gegen den Koerper ungleich, 0,2 bis 1,55 m/s; auch die Fassung
+# mit Wurzelbewegung (UAL2_RM, Wurzel gleichmaessig 1,31 m/s) laesst ihn dabei 0,1 bis 0,5 m/s gleiten): die Zeit so umlegen, dass
+# der tiefere Ballen in Richtung r (links, vor) gleichmaessig zurueckgeht; dann traegt ein gleichmaessiger Weg (Tween) die Figur ohne
+# Gleiten. Laenge der Bewegung bleibt; Ergebnis Tempo in m/s bei speed_scale 1, 0 ohne Messung
+# Mindestschritt der neuen Zeit (Anteil des Mittels): wo der Fuss beim Abheben vor- und zurueckzuckt, wuerde die Zeit sonst so stark
+# gestaucht, dass er springt (Messung Film 24.11., Standfuss 90 %: 0,1 -> 160 cm/s, 0,5 -> 111, 0,7 -> 97; Median 1,3 bis 1,8)
+const KLEMME := 0.7
+static func gleich_takten(an: Animation, sk: Skeleton3D, raum: Transform3D, r: Vector2, n := 120) -> float:
+	var sp := _spuren(an)
+	var L := maxf(0.001, an.length)
+	var bl := sk.find_bone("ball_l"); var br := sk.find_bone("ball_r")
+	if bl < 0 or br < 0: return 0.0
+	var pl := []; var pr := []
+	for j in n + 1:
+		pl.append(knochen_lage(an, sp, sk, raum, bl, L * j / n).origin)
+		pr.append(knochen_lage(an, sp, sk, raum, br, L * j / n).origin)
+	var s := []   # Tempo des Koerpers je Probe: Ruecklauf des tieferen Ballens in Richtung r
+	for j in n:
+		var p: Array = pl if pl[j].y + pl[j + 1].y < pr[j].y + pr[j + 1].y else pr
+		var d: Vector3 = p[j] - p[j + 1]
+		s.append(maxf(0.0, d.x * r.x + d.z * r.y) * n / L)
+	var mittel: float = s.reduce(func(x, y): return x + y, 0.0) / n
+	if mittel < 0.01: return 0.0
+	var neu := PackedFloat32Array([0.0])   # neue Zeit je Probe; Mindestschritt KLEMME
+	var summe := 0.0
+	for j in n: summe += maxf(float(s[j]), KLEMME * mittel)
+	for j in n: neu.append(neu[j] + L * maxf(float(s[j]), KLEMME * mittel) / summe)
+	for t in an.get_track_count():
+		for k in an.track_get_key_count(t):
+			var x := an.track_get_key_time(t, k) / L * n
+			var i := clampi(int(x), 0, n - 1)
+			an.track_set_key_time(t, k, lerpf(neu[i], neu[i + 1], x - i))
+	return summe / n   # Tempo des Standfusses nach dem Umlegen (ausser, wo der Mindestschritt greift)
+
+## 1589.3: Bewegung fuer einen Weg im Winkel w (rad, gegen den Uhrzeigersinn von oben, 0 = in Blickrichtung) zur Blickrichtung, fuer
+## Welt und Kampf. {"name", "m_je_s" (Tempo bei speed_scale 1), "rueck" (nur ohne Kaufbewegung: Gehen rueckwaerts abspielen wie
+## bisher), "dreht" (vorn und schraeg vorn, ohne Kaufbewegung auch seitlich: die Figur wendet sich zum Weg und geht vorwaerts)}
+static func gang_wahl(ap: AnimationPlayer, w: float) -> Dictionary:
+	var a := wrapi(roundi(wrapf(w, -PI, PI) / (PI / 4.0)), -4, 4)
+	var n: String = RICHTUNG[a]
+	if n != "Gehen" and ap and ap.has_animation(n) and float(ap.get_animation(n).get_meta("m_je_s", 0.0)) > 0.01:
+		return {"name": n, "m_je_s": float(ap.get_animation(n).get_meta("m_je_s")), "rueck": false, "dreht": false}
+	return {"name": "Gehen", "m_je_s": TAKT_GEHEN, "rueck": absi(a) >= 3, "dreht": absi(a) <= 2}
 
 static func _beinlaenge(sk: Skeleton3D) -> float:
 	var s := 0.0

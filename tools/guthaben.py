@@ -24,7 +24,7 @@ keine Fachkraft, auch nicht Eilt). 2002 (A): eine Fachkraft, deren jüngste Rüc
 updated_at nach dem „fertig“, wieder_taetig). Takt, offene Übergaben und Handstart (lauf.py --start) prüfen
 dieselbe Bremse.
 Läuft = lauf.py „Laufend“ (working/blocked, updated_at unter 60 Minuten, Kopf von lauf.py), nie ARBEIT-BESETZUNG.md; jeder START
-dieses Laufs zählt dazu. Frei, zählt nicht (eigene Menge FREI_OBER): Arbeitsplaner, Prüfer, Tester, Wache, Sokrates, Tagesbericht (und
+dieses Laufs zählt dazu. Frei, zählt nicht (eigene Menge FREI_OBER): Arbeitsplaner, Prüfer, Tester, Wache, Sokrates, Tagesbericht, Wochenzählung (und
 Routinen Sokrates', Disponent, Ford). Ohne „spätestens“ STANDARD_STUNDEN mit Warnung; ohne „Chef“ in der Klammer keine. Beispiel 287:
 „→ **Laufsperre: höchstens drei Fachkräfte zugleich, nur Spiel, nachts 23–07 keine, spätestens 28.11., 20:00**“.
 
@@ -44,7 +44,7 @@ STUFEN = ((100, "Stillstand"), (95, "nur Rückläufer"), (80, "nur Muss"))
 FREI_ROLLEN = {"Sokrates", "Rundblick", "Ideenlauf", "Wache", "Ford"}  # 1907: Ideenlauf ist Sokrates
 STANDARD_STUNDEN = 24
 FREI_OBER = {"Arbeitsplaner", "Planer", "Perikles", "Prüfer", "Diogenes", "Wache", "Sokrates", "Rundblick", "Ideenlauf", "Tagesbericht",
-             "Disponent", "Ford", "Tester", "Alter Ego", "Disponent-Starter"}  # 2001; Tester: 2001-Ü10: frei unter der Obergrenze; FREI_ROLLEN der alten Form bleibt
+             "Wochenzählung", "Disponent", "Ford", "Tester", "Alter Ego", "Disponent-Starter"}  # 2019: Routine Wochenzählung; 2001; Tester: 2001-Ü10: frei unter der Obergrenze; FREI_ROLLEN der alten Form bleibt
 FREI_TITEL = re.compile(r"^(Alter Ego) –|^(Disponent-Starter)(?![\w-])")  # 2013: Leitung und Büro ohne Rufnamen, nach festem Titelanfang frei
 SPIEL = ("G Regeln", "E Kampf", "E Figuren", "E Welt")  # 2001 (Archiv 287, 22.11., 19:57: „nur Spiel (Regeln, Kampf, Figur, Welt)“)
 ZAHLWORT = dict(nachtstarts.ZAHLWORT, keine=0, null=0, keinen=0)
@@ -322,7 +322,7 @@ class Bremse:
                 "" if s["ende"] else "; WARNUNG Ende fehlt, gilt %d h, Sokrates setzt „spätestens HH:MM“" % STANDARD_STUNDEN))
         if self.ober:
             o = self.ober
-            aus.append("LAUFSPERRE %s (Chef %s): höchstens %d Fachkräfte zugleich, %s%s%s, bis %s; frei: Arbeitsplaner, Prüfer, Tester, Wache, Sokrates, Tagesbericht (2001)%s" % (
+            aus.append("LAUFSPERRE %s (Chef %s): höchstens %d Fachkräfte zugleich, %s%s%s, bis %s; frei: Arbeitsplaner, Prüfer, Tester, Wache, Sokrates, Tagesbericht, Wochenzählung (2001, 2019)%s" % (
                 o["quelle"], o["ab"].strftime("%d.%m., %H:%M"), o["n"], "? laufen" if self.laufend is None else "%d laufen%s" % (self.laufend, " (%s)" % ", ".join(self.namen) if self.namen else ""),
                 ", nur %s und Eilt" % self.ber_text() if o["bereiche"] else "", ", nachts %02d–%02d keine" % o["nacht"] if o["nacht"] else "",
                 o["bis"].strftime("%d.%m., %H:%M"), "" if o["ende"] else "; WARNUNG Ende fehlt, gilt %d h, Sokrates setzt „spätestens TT.MM., HH:MM“" % STANDARD_STUNDEN))
