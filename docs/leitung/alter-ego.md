@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session_01Hmoj78XiynF45gfuVmiNc8). Sokrates session_01Hmoj77ZdYKh1YXq5iPdhgN (seit 24.11., 12:51). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session_01Hmoj78XiynF45gfuVmiNc8). Sokrates session_01Hmoj76pVj4STr1hPTJC56p (seit 24.11., 21:52). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 22:48 Runde: Leerlauf (Pit, Rudi untätig, keine Fachkraft arbeitet). An neuen Sokrates: 1589.4-Ü8 steckt fest offen seit 21:51 (Übergabe Sokrates); 1694-Ü26 Prüfer ohne Sitzung seit 22:09, Rudi hält Figur-Platz (1654, 2024, 431 warten). Uhr trig_011bVe5q66xk7R8UcwzkpK9J (25.11., 07:00).
 - 24.11., 21:50 Sokrates 21:50: 1589.4-Ü7 beantwortet; Halt 20 $ gilt für Schritt 2 (14,39 $), nicht erreicht – eigener Fehler 21:47 (Schritt 1 5,55 $ mitgezählt). Lehre: Deckel je Schritt lesen. Rundendauer als Befund Sa: stimmt.
 - 24.11., 21:47 Runde: 1654-Ü3/Ü5-Ü5 erledigt, Rudi 1694 und Vera 1654 laufen. An Sokrates: 1589.4-Ü7 offen seit 21:18 (Halt 20 $ erreicht, Pit wartet); Rundendauer Wolfsrudel 34,8/30,7 s statt alt 26 (Soll 14,6) als Befund. Uhr trig_019juYKq9uFPsD1W8y2Ax4u5 (22:48).
 - 24.11., 20:45 Runde: 1589.4 Oda 19:57 gestartet, 1694/431 Planer fertig. Hänger an Sokrates: 1589.4-Ü5 bei ihm seit 20:27 (Oda blockiert); 1654-Ü3 Prüfer ohne Sitzung seit 20:23, Moritz untätig hält Figur-Platz (1694, 431, 2024 warten). Uhr trig_01S5YrfewVqiEmXG7wNtPPLF (21:46).
