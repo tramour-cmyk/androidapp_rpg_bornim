@@ -166,3 +166,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:15 24.11.: 2011 fertig (Prüfer Marta ja), Ilse und Marta archiviert, Kosten 1,53 $; 2012 wartet nicht mehr auf 2011 (liegt bei Sokrates, Werkzeug-Halt); Hinweis Prüfer: Längenangaben in ladesumme.py Z. 189 und 1727-gesamtbild halten nichts an
 - 08:25 24.11.: Startsperre 08:25 Start Kampf, Figur, Werkzeug, Arbeitsplaner (lauf.py, Kampf 1589.2 Lutz, Figur 1694 Moritz, Werkzeug 2012 Nora, Arbeitsplaner 431 Olga)
 - 08:30 24.11.: Takt 08:25 (Kampf-Start): START Kampf Lutz (1589.2), Werkzeug Nora (2012, Sokrates 08:22), Planerin Olga (431) ausgeführt; START Figur Moritz 1694 nicht ausgeführt (1694 ruht, beim Chef, Obergrenze B, 1694-Ü15 bei Sokrates); Elke archiviert, Kosten 6,03 $; Jana (Planerin 1716) nicht gestartet (gebaut, wartet Prüfer)
+- 08:37 24.11.: Startsperre 08:37 Start Figur (lauf.py, Figur 431 Otto)
+- 08:41 24.11.: Startsperre 08:41 Start Sokrates (lauf.py --start Sokrates, Neustart nach 402 Tsd. Token, Sokrates 08:37)
+- 08:42 24.11.: Sokrates-Neustart (402 Tsd.) auf Bitte Sokrates 08:37: lauf.py --start Sokrates Leitung, Startsperre von Hand, neuer Sokrates session_01Hmoj76yxzDSEqiQVjnX9U2; alter (78Ksb…) beendet selbst, danach archivieren und Kosten buchen; START Figur Otto (431, Planerin Olga fertig) ausgeführt; START Figur Moritz 1694 nicht (ruht)

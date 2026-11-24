@@ -12,6 +12,7 @@
 - Befund, der den Auftrag erledigt, vorher nennen (1638); Ablauf als Raster Einheit × Auslöser, „komplett“ per grep.
 - Chefentscheid nie selbst zurücknehmen oder gegen Chefwort ablehnen: raten, Regel nennen, fragen (1609, 23.11.).
 - Gegenlesen: erst die Art jeder Zeile, dann Inhalt; nur gegen gültige Texte prüfen (t299, 1933).
+- Keine Meldung oder Hinweis ohne Empfänger, der damit handelt; sonst streichen (Chef 24.11., 08:28).
 - Laufende Arbeit nie für eine neue Regel anhalten (1960).
 - Werkzeug erst nach drei belegten Fällen und Chef-Ja; jeden Handfix sofort `vorgang.py lehre roh`. Widerspruch im Vorgang: vorlegen, nicht bauen (Chef 24.11., 07:26/07:37).
 - Notizkopie nur über `tools/notiz.sh`; keine Team- oder Organisations-Einstellungen; vor Vorschlag zum Kaufrepo Archiv und Git nach Versuchen absuchen; Geschäftsmodell nie ins Repo ([Modell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj)).
@@ -22,9 +23,9 @@
 - Werkzeug heute nur 2011 → 2012 → 2013 (`werkzeug-schnitt.md`); Chefsache 2017 offen.
 - Spielcode nach main nur Sokrates nach Chef-👍 (Dauerwort 23.11., 23:10).
 - Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt; Guthaben 50 % (06:53), über 0,6 %/h zwei.
-- Kampf: 1603 baut C; 1589.2, 1589.3 nach 2011. Offen: 1068-Ü8, 1971, Chefsachen 1068, 1694.
+- Kampf: 1589.3 nach 1589.2. Offen: 1068-Ü8, 1971, Chefsachen 1068, 1694.
 - Täglich Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07). Kopiertexte: `kopiertexte-uhren.md`.
 
 ## Übergabe
 
-- 24.11., 08:15, `session_01Hmoj78KsbZtxD4EU46NDFA`: siehe Fäden; Nachfolger: Sokrates – Leitung.
+- 24.11., 08:40, `session_01Hmoj78KsbZtxD4EU46NDFA` (402 Tsd.): Getan: 1603 C, 2001 erledigt, 2009 Doppel 1415, 1993/2005 durch Datenfix 513, Werkzeug-Schnitt (13 Kür zu), 2011 erledigt, Kern Büro neu (2017 Teil 1), Gedächtnis Fassung 5. Läuft: Werkzeug 2012 (Nora) → 2013 → 2017 (400-Grenze ersatzlos), Kampf 1589.2 (Lutz), 1603 (Dana), 1694 (Elke). Letzte Antwort: 2017 ersatzlos. Nachfolger: Sokrates – Leitung.
