@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78XiynF45gfuVmiNc8 (seit 24.11., 13:27; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 18:38 Runde: Leerlauf (keine Fachkraft, drei Takte ohne Start, 1694/1603/431 beim Chef) trotz „Spiel vor“; 887 stets vorgeschlagen, nicht ruht in Liste. An Sokrates. Uhr 19:38.
 - 24.11., 18:14 Prüfung chefsache 431, drei Bilder angesehen: Zahlen stimmen; Einwände Merkmale nicht vollständig gegen LISTE-FIGUREN (Zwergin Zöpfe Z. 178, Ohren, Hauer), Zwerg-Haltung fast Hocke unerwähnt; Teilantworten erlauben. An Sokrates.
 - 24.11., 17:36 Runde: kein Hänger; 1603-Ü4 zu, Lotte 431 fertig 17:25 (431-Ü7 beim Prüfer, Takt 18:03). Nichts an Sokrates. Uhr 18:37.
 - 24.11., 16:34 Runde: 431-Ü3, 1716/1725 ruht, Karla erledigt; Takt 16:03 ohne Start. An Sokrates: 1603-Ü4 Altlast offen; Chefsache 1603 „kein Fehler“ zu stark (Mähne reines Schwarz). Uhr 17:35.
