@@ -36,3 +36,4 @@ Nie geladen, nur durchsucht (`vorgang.py lehre suche <Wort>`); schreiben nur mit
 | R23 | B Werkzeuge | 1751 | geschlossen | Werkzeug-Schnitt 24.11. (Chefwort 07:07, geprüft Alter Ego 07:12): Kür, hält kein Spiel auf; bei erneutem Fehler wieder öffnen | 24.11., 07:13 | offen |
 | R24 | B Werkzeuge | 1924 | geschlossen | Werkzeug-Schnitt 24.11. (Chefwort 07:07, geprüft Alter Ego 07:12): Kür, hält kein Spiel auf; bei erneutem Fehler wieder öffnen | 24.11., 07:13 | offen |
 | R25 | B Werkzeuge | 1984 | geschlossen | Werkzeug-Schnitt 24.11. (Chefwort 07:07, geprüft Alter Ego 07:12): Kür, hält kein Spiel auf; bei erneutem Fehler wieder öffnen | 24.11., 07:13 | offen |
+| R26 | B Werkzeuge | 1985 | geschlossen | Werkzeug-Schnitt 24.11. (Chefwort 07:07, geprüft Alter Ego 07:12): Kür, hält kein Spiel auf; bei erneutem Fehler wieder öffnen | 24.11., 07:13 | offen |
