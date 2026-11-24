@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 12:33 Prüfung Auftrag 2019 (Chef 12:29 A): stimmt mit Ergänzung; Widerspruch geklärt: 2018 hat Besitzer Werkzeug (Block 7), nicht Diogenes → Fachkraft unter Laufsperre; Routine-Termin muss Rolle der Routine tragen. An Sokrates.
 - 24.11., 12:28 Lehre: Kopf einer Entwurfsdatei lesen, bevor „gibt es“ (11:24 falsch, routine-wochenzaehlung.md Z. 3 „nur Anschauung“); Protokoll vor Code lesen (Kosten 11:27 falsch, BUCHE läuft). Vorlage Wochenzählung A stimmt mit 3 Punkten (anlegen ohne Schalter, FREI_OBER, Profil = Chef). Chef-Frage 12:24 zurückgezogen.
 - 24.11., 12:24 Runde: möglicher Hänger 431 (Wiebke übergibt an Nachfolgerin, die es nicht gibt; CI-Lauf ohne Beobachter); 1603-Ü5 erledigt; kein Leerlauf. An Sokrates. Uhr trig_012h9exBvsBnA6EdFRkaBiZH (13:24).
 - 24.11., 12:23 Eigener Fehler 12:21: Wochenzählung war seit 11:31 angelegt (2018), Probe --sperre gelaufen (0be322dcc), Entscheid „kein --sperre“ (70d8c8151); grep mit head -3 abgeschnitten. Chef berichtigt. Restpunkte an Sokrates: 2018 unter Laufsperre (M), kein Prüfer für Wochentermin 30.11.
