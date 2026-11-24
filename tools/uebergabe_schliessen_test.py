@@ -26,6 +26,15 @@ V9001 = ("# 9001 · Zwerg auf dem Tisch\n\n" + KOPF
 V9001_2 = "# 9001.2 · Zwerg, Teil 2\n\n" + KOPF + zeile("9001.2", 1, "Disponent", "Auftrag steht (Rückmeldung 23.11., 10:00 von Arbeitsplaner): starten (1797)", "23.11., 10:00")
 open(os.path.join(A, "docs", "vorgang", "9001.md"), "w").write(V9001)
 open(os.path.join(A, "docs", "vorgang", "9001.2.md"), "w").write(V9001_2)
+for nr, zs in (("9004", [(1, "Disponent", "Auftrag steht (Rückmeldung 23.11., 10:00 von Arbeitsplaner): starten (1797)"), (2, "Disponent", "Hinweis (Rückmeldung 23.11., 10:01 von Sokrates): wie einen Eingang behandeln (1739)"),
+                             (3, "Kampf", "Rückläufer (nein des Prüfers, Rückmeldung 23.11., 10:02 von Prüfer): „Satz“ (1739)")]),
+               ("9004.2", [(1, "Disponent", "Auftrag steht (Rückmeldung 23.11., 10:00 von Arbeitsplaner): starten (1797)")]),
+               ("9005", [(1, "Disponent", "Nachfolger: Kampf für 9005 auf Zweig y")]),
+               ("9006", [(1, "Disponent", "Auftrag steht (Rückmeldung 23.11., 10:00 von Arbeitsplaner): starten (1797)")])):
+    open(os.path.join(A, "docs", "vorgang", nr + ".md"), "w").write("# %s · Test\n\n" % nr + KOPF + "".join(zeile(nr, k, an, w, "23.11., 10:0%d" % k) for k, an, w in zs))
+open(os.path.join(A, "docs", "LISTE-VORGAENGE.md"), "w").write(
+    "# Vorgangsliste\n\n| Nr. | Titel | Besitzer | Kl. | Stand | wartet auf | Zweig | Build | Bereich | Kosten |\n|---|---|---|---|---|---|---|---|---|---|\n"
+    + "".join("| %s | Test %s | Tom | M | startbar | – | – | – | E Welt | – |\n" % (n, n) for n in ("9001", "9004", "9004.2", "9005", "9006", "9007")))
 open(os.path.join(A, "docs", "vorgang", "9002.md"), "w").write("# 9002 · Schatten\n\n" + KOPF + "".join(
     zeile("9002", k, "Disponent", "Auftrag steht (Rückmeldung 23.11., 10:0%d von Arbeitsplaner): starten (1797)" % k, "23.11., 10:0%d" % k) for k in range(1, 7)))
 g("add", "-A", cwd=A); g("commit", "-q", "-m", "start", cwd=A); g("push", "-q", "origin", "main", cwd=A)
@@ -83,6 +92,24 @@ t = datei("9002"); zs = {z["k"]: z["z"] for z in ue.zeilen(t)}
 soll("gleichzeitig: alle Aufrufe ohne Fehler", all(c == 0 for c, _ in r), r)
 soll("gleichzeitig: 7 Zeilen, keine verloren, keine doppelt", sorted(zs) == ["9002-Ü%d" % i for i in range(1, 8)] and t.count("| 9002-Ü") == 7, t)
 soll("gleichzeitig: Ü1–Ü6 zu, neue Zeile Ü7 offen", all(zs["9002-Ü%d" % i].startswith("erledigt") for i in range(1, 7)) and zs["9002-Ü7"] == "offen", zs)
+
+# (3) rueckmeldung.py: „fertig“, „Laufanforderung“ (mit Commit), „steckt fest“ schließen Auftrag steht/Nachfolger der Nummer im selben
+# Commit (Fall 1068 Ü10/Ü11: Ü10 „Auftrag steht“ blieb offen neben Ü11 „prüfen: fertig“); „fertig“ und Laufanforderung auch den Rückläufer;
+# Hinweise bleiben bis vorgang.py fertig; die neue Zeile der Rückmeldung bleibt offen
+import rueckmeldung as rm
+n = g("rev-list", "--count", "origin/main", cwd=A)
+k, _ = rm.eintragen("9004", "fertig (Rückläufer 9004-Ü3): Tipp nennt den Ring, Commit 1a2b3c4d", "Kampf")
+soll("fertig: Auftrag steht und Rückläufer zu, im selben Commit", zu("9004", 1).startswith("erledigt 23.11., 13:00 (fertig") and zu("9004", 3).startswith("erledigt")
+     and int(g("rev-list", "--count", "origin/main", cwd=A)) == int(n) + 1, datei("9004"))
+soll("fertig: Hinweis bleibt offen (erst vorgang.py fertig)", zu("9004", 2) == "offen", datei("9004"))
+soll("fertig: neue Zeile an den Prüfer offen", k == "9004-Ü4" and zu("9004", 4) == "offen" and "| 9004-Ü4 | Prüfer |" in datei("9004"), datei("9004"))
+soll("fertig 9004: 9004.2 unberührt", zu("9004.2", 1) == "offen", datei("9004.2"))
+rm.eintragen("9005", "steckt fest: Kamera hängt, Ursache unklar", "Kampf")
+soll("steckt fest: Nachfolger zu, neue Zeile an Sokrates offen", zu("9005", 1).startswith("erledigt") and zu("9005", 2) == "offen" and "| 9005-Ü2 | Sokrates |" in datei("9005"), datei("9005"))
+rm.eintragen("9006", "Laufanforderung: Sitzung brach ab, Ursache Speicher", "Kampf")
+soll("Laufanforderung ohne Commit (zurückgewiesen): nichts zu", zu("9006", 1) == "offen", datei("9006"))
+rm.eintragen("9006", "Laufanforderung: Sitzung brach ab, Ursache Speicher, behoben in 1a2b3c4d", "Kampf")
+soll("Laufanforderung mit Commit: Auftrag steht zu, Zeile an den Prüfer offen", zu("9006", 1).startswith("erledigt") and "| 9006-Ü2 | Prüfer |" in datei("9006") and zu("9006", 2) == "offen", datei("9006"))
 
 print("uebergabe_schliessen_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
