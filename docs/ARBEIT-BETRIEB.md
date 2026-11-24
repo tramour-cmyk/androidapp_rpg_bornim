@@ -144,3 +144,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:05 24.11.: Takt 01:03 (--ohne 513, 887, 1716, 1961): keine START-/ARCHIVIERE-Zeile (Nachtruhe Fachkräfte); WÄCHTER 1694 schon startbar; Herzschlag gepusht
 - 02:05 24.11.: Takt 02:03: keine START-/ARCHIVIERE-Zeile (Nachtruhe); Herzschlag gepusht
 - 03:05 24.11.: Takt 03:03: keine START-/ARCHIVIERE-Zeile (Nachtruhe); Herzschlag gepusht
+- 03:36 24.11.: Wache (Clara) meldet 296 Tsd. Token, Neustart nur per Handstart des Chefs (15:30); Telegram lautlos an Chef gesendet (kein Neustart durch mich)
