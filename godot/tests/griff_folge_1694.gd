@@ -9,6 +9,9 @@ extends SceneTree
 # Fehlender Wert: FEHLT.
 #   MESS=1694 xvfb-run -a godot --path . --resolution 540x1170 -s res://tests/griff_folge_1694.gd
 #   WEG=spiel|pruef, FALL=greataxe|quarterstaff, BEW=Gehen_axt (sonst Stehen), BILDER=60
+# Befund 24.11., 22:07 (bb359430a, 6 Fälle, je 3 Läufe): im Spielweg zeigt bake im Signal in jedem Aufruf die Pose des vorigen Aufrufs
+# (Abstand 0,00 cm), gegen die Pose dieses Aufrufs bis 47 cm; Prüfaufbau ruht (nicht unterscheidbar). NetzMess paart so das Netz des vorigen
+# Bilds mit der Waffe dieses Bilds.
 #   Exit 1, wenn das Netz in einem Aufruf nicht der Pose dieses Aufrufs folgt (über 0,1 cm).
 
 const GLIEDER := ["hand_r", "index_01_r", "index_02_r", "index_03_r", "middle_01_r", "middle_02_r", "middle_03_r",
