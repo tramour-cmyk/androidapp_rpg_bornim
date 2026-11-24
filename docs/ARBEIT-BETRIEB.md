@@ -242,3 +242,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:45 24.11.: alter Alter Ego (session_01Hmoj78XiynF45gfuVmiNc8) archiviert nach Meldung des neuen (Sokrates 18:43), Kosten 6,78 $ auf 2010 gebucht (gesamt 39,32 $)
 - 18:44 24.11.: Startsperre 18:44 Start Arbeitsplaner, Kampf, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Margit, Kampf 1589.4 Nils, Arbeitsplaner 1507 Nadine)
 - 18:47 24.11.: 1589.4: Auftrag steht (Hanne, Deckel-Vorschlag Schritt 1 bis 4 $, ganz bis 30 $, Freigabe Sokrates); Kampf Nils (session_01Hmoj76gHNeZKEqNMVTBZhc) gestartet (Schritt 1 ohne Spielcode: Liste Wegregeln, Aufwand, dann Frage); 1589.4-Ü2 erledigt; Hanne archiviert, Kosten 1,52 $; nicht ausgeführt: Planer 887 (ruht), 1507 (Werkzeug/Chef 12:48)
+- 19:04 24.11.: Startsperre 19:04 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Margit, Arbeitsplaner 1728 Nadine)
