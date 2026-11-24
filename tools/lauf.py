@@ -640,20 +640,13 @@ def _sieht_nummer(t):
     """1960: läse nummern_aus_titel in t hinter „X – 1:“ eine weitere Vorgangsnummer (Kosten zu gleichen Teilen, 197)?"""
     return nummern_aus_titel("X – 1: %s (01.01., 00:00)" % t) != "1"
 
-def thema(t):
-    """1960 (Chef 22.11., 16:52): Thema für den START-Titel aus dem Vorgangstitel: ohne Markdown, „|“, Zeilenumbruch und
-    „Auftrag <Zahl>“; Vorspann bis zum ersten „: “ außerhalb von Klammern weg, wenn er mit „Von “ beginnt oder eine Vorgangsnummer
-    trägt („Aus 623.2 (Jerry): …“); endet vor „;“, „: “, „ (“, „ – “, einem unpaarigen „ und vor jedem Wort, das nummern_aus_titel
-    als weitere Vorgangsnummer läse (dann ohne Füllwort am Ende und mit „…“); höchstens THEMA_MAX Zeichen am Wortende mit „…“."""
-    t = re.sub(r"\*\*|`", "", str(t or ""))
-    t = " ".join(re.sub(r"[|\r\n]+", " ", t).split())
-    tiefe = 0
-    for i, c in enumerate(t):
-        tiefe += (c == "(") - (c == ")")
-        if c == ":" and tiefe == 0 and t[i + 1:i + 2] in (" ", ""):
-            if (re.match(r"(D\d\S* )?[Vv]on ", t) or _sieht_nummer(t[:i])) and t[i + 1:].strip(): t = t[i + 1:]
-            break
-    t = re.split(r";|:(?=\s|$)| \(| – ", t.strip())[0]
+THEMA_WORTE = 3  # 1960 (Sokrates 22.11., 17:22): Thema mit Gegenstand und Tätigkeit, mindestens etwa drei Wörter
+
+def _worte(t): return len(t.replace("…", "").split())
+
+def _kuerze(t):
+    """1960: Thema-Stück ohne „Auftrag <Zahl>“, endet vor einem unpaarigen „ und vor jedem Wort, das nummern_aus_titel als weitere
+    Vorgangsnummer läse (dann ohne Füllwort am Ende und mit „…“); höchstens THEMA_MAX Zeichen am Wortende mit „…“; ohne offene Klammer."""
     t = re.sub(r"\bAuftrag\s+\d[0-9a-zA-Z.]*", " ", t)
     if t.count("„") > t.count("“"): t = t[:t.rindex("„")]
     worte, rest = [], False
@@ -668,9 +661,37 @@ def thema(t):
         t = t[:t.rindex(" ")] if " " in t else t
         if t.count("„") > t.count("“"): t = t[:t.rindex("„")]
         rest = True
+    if t.count("(") > t.count(")"): t = t[:t.rindex("(")]; rest = True
     t = t.rstrip(" ,;:(–-/")
     while rest and " " in t and t.rsplit(" ", 1)[1].lower() in FUELLWORT: t = t.rsplit(" ", 1)[0].rstrip(" ,;:(–-/")
     return (t + " …") if rest and t else t
+
+def thema(t):
+    """1960 (Chef 22.11., 16:52; Rückläufer Sokrates 22.11., 17:22): Thema für den START-Titel aus dem Vorgangstitel: ohne Markdown,
+    „|“, Zeilenumbruch und „Auftrag <Zahl>“; Vorspann bis zum ersten „: “ außerhalb von Klammern weg, wenn er mit „Von “ beginnt oder
+    eine Vorgangsnummer trägt („Aus 623.2 (Jerry): …“); endet vor „;“, „: “, „ (“, „ – “, solange davor THEMA_WORTE Wörter stehen,
+    sonst über den Trenner weiter („ – “ wird „: “); Teil vor „:“ (ohne Klammer) nur, wenn danach noch ein Wort mitpasst, sonst der Teil danach. Kürzung _kuerze."""
+    t = re.sub(r"\*\*|`", "", str(t or ""))
+    t = " ".join(re.sub(r"[|\r\n]+", " ", t).split())
+    tiefe = 0
+    for i, c in enumerate(t):
+        tiefe += (c == "(") - (c == ")")
+        if c == ":" and tiefe == 0 and t[i + 1:i + 2] in (" ", ""):
+            if (re.match(r"(D\d\S* )?[Vv]on ", t) or _sieht_nummer(t[:i])) and t[i + 1:].strip(): t = t[i + 1:]
+            break
+    teile = re.split(r"(;|:(?=\s|$)| \(| – )", t.strip())
+    stueck, kopf = teile[0], ""
+    for i in range(1, len(teile) - 1, 2):
+        if _worte(_kuerze(stueck)) >= THEMA_WORTE: break
+        tr, weiter = teile[i], teile[i + 1].strip()
+        if not weiter: continue
+        if tr in (":", " – "): kopf, stueck = stueck, weiter
+        else: stueck = stueck + (" (" if tr == " (" else tr + " ") + weiter
+    kopf = " ".join(re.sub(r"\([^()]*\)", " ", kopf).split())  # „BornWire (vorher WireStorm): …“: Klammer im Kopf entfällt
+    if kopf:
+        mit = _kuerze(kopf + ": " + stueck)
+        if _worte(mit) >= THEMA_WORTE and _worte(mit) > _worte(_kuerze(kopf)) or _worte(_kuerze(stueck)) < THEMA_WORTE: return mit
+    return _kuerze(stueck)
 
 def start_titel(kopf, nr):
     """1960: START-Titel „<Kopf>: <Thema> (TT.MM., HH:MM)“ (Fachkraft, Planer, zweiter Planer), Thema aus dem Vorgangstitel von nr;
