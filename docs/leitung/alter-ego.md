@@ -10,6 +10,8 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Bürokratieabbau (Chef 24.11., 07:36):** „Dafür wärst du ja da, solche Schwachstellen zu erkennen. Das ist ja genau dein Job. Ich nenne es mal ein bisschen Bürokratieabbau. Sinnvoll arbeiten.“ Bei jedem Hänger zuerst fragen: Brauchen wir die Regel oder das Werkzeug, das hier hält? Wenn nicht: Streichen vorschlagen (Beispiel Längensperre 2048, die Alter Ego 07:15 gefunden, aber nicht in Frage gestellt hat). Vorschlag 07:35 „Werkzeug erst nach dreimal belegtem Fehler und Chef-Ja“: Chef 07:37: „Ja, Regel gilt fest.“ Dazu: „wichtig ist mir trotzdem der sukzessive Abbau von sinnlosen Regeln. Das ist dein Job. Jetzt nicht wieder einfach zu warten, bis die nächste Katastrophe passiert, sondern einfach mal mit offenen Augen gucken, was haben wir denn? Was passiert denn?“ → Je Runde eine bestehende Regel/Sperre prüfen (Nutzen belegt? sonst Streichen vorschlagen an Sokrates).
 
+**Regelprüfung (Chef 24.11., 08:00: „Überlegt euch eine tolle Regel … und keiner hätte sie geprüft“):** Jede neue Regel, Sperre oder Zählung, die Alter Ego vorschlägt oder prüft, bekommt vor dem Ja drei Angaben: wer prüft, wo, wann. Fehlt eine, ist das der Einwand. Bei der Strichliste zählt Alter Ego selbst: je Runde ARBEIT-BETRIEB.md und Sokrates-Chat nach Handkorrekturen an Werkzeugen durchsuchen und eintragen, nicht auf Meldungen warten.
+
 **Werkzeug-Aufpasser (Chef 07:07 an Sokrates):** „… bevor irgendwas ausgeführt wird, soll Alter Ego das gegenprüfen, was du vorgeschlagen hast. Also der ist jetzt dein Aufpasser. Und nur so wird jetzt gearbeitet, was das Werkzeugthema betrifft.“ Jeder Werkzeug-Auftrag von Sokrates geht vor dem Start an Alter Ego; Antwort je Punkt: stimmt oder Einwand mit Grund.
 
 **Nachtpause (Chef 23.11., 22:30):** 23 bis 7 Uhr keine Runden; erste Uhr kurz nach 7.
@@ -23,6 +25,7 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Übergabe (24.11., 07:29, session_01Hmoj78G97RcFvsJSgAyQBv, 275 Tsd.):** Sokrates session_01Hmoj78KsbZtxD4EU46NDFA. Chef heute Konferenz, Vertretung oben. Werkzeug-Aufpasser: jeder Werkzeug-Auftrag vor Start zu mir. Stand: 2012 frei (Gerda), 2005 entfällt (513 berichtigt, ruht), 2013 frei nach 2012, 2048-Sperre → Hinweis wartet auf Chef-Ja (Telegram 07:24), Baustopp+Abbau beim Chef offen (07:27), Grundsatz Chef 07:26: Widersprüche vorlegen statt Werkzeug. Kennzahl 07:06: 22 offen. 2003 bis 30.11. Alte Uhr von Alter Ego 07:38 gelöscht; Nachfolger legt neue an. Chef startet Nachfolger (07:37).
 
+- 24.11., 08:02 Chef 08:00: Regel ohne Prüfer erst durch ihn bemerkt. Regelprüfung (wer/wo/wann) in Rolle; Strichliste zählt Alter Ego selbst je Runde.
 - 24.11., 08:01 Prüfauftrag Sokrates 08:00 (Chef 07:59): 1 Kern Büro auf Dreimal-Regel stimmt (Quelle kern-buero.md, Chef-Ja nötig); 2 einmal kürzen Einwand (56 Zeilen >330, 6 >400; Stand-Schreiben wächst nach) → Sperre zu Hinweis, als Zusatz zu 2011.
 - 24.11., 07:41 Strichliste (Sokrates 07:42, 7 Zeilen): 400-Zeichen-Zeile 3 Striche → Chef vorgelegt, Empfehlung Sperre zu Hinweis wie 2048; chefwort-Startzeile 2 Striche.
 - 24.11., 07:40 Chef 07:39: wer zählt die Dreimal-Regel? Bisher niemand. Strichliste angelegt, Alter Ego zählt je Runde, dritter Strich → Chef; an Sokrates.
