@@ -187,3 +187,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:15 24.11.: 2013 fertig (Prüfer Fritz ja; Alter Ego und Disponent-Starter zählen nicht mehr als Fachkraft), Fritz archiviert, Kosten 0,49 $; offen für Prüfer ohne Auftrag: 1716, 1301, 1387, 1642, 1643 (nicht gestartet, Werkzeug-Halt)
 - 11:26 24.11.: Startsperre 11:26 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 1716 Erna, Arbeitsplaner 2017 Fenja)
 - 11:28 24.11.: Startsperre 11:28 Start Werkzeug (lauf.py, Werkzeug 2017 Anna)
+- 11:29 24.11.: Takt 11:27: Werkzeug 2017 Anna (session_01Hmoj76U5QQFHQ87Drw7fZr) per lauf.py --start (Auftrag Sokrates 11:15, 2017-Ü1); START Arbeitsplaner 1716 (Erna) und 2017 (Fenja) nicht ausgeführt (1716 Sokrates 11:23; 2017 hat Auftrag); Alter Ego alt: archive_session von Auto-Prüfung abgelehnt, Sokrates archiviert; Wochenzählung 23.11. Ursache an Sokrates (Takt ohne --sperre)
