@@ -199,3 +199,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:25 24.11.: 1603-Ü6 Rückläufer an Carla (Kampf, Nachricht), 1603-Ü7 Hinweis Prüfer an Sokrates weitergegeben, erledigt; 1603 wartet auf Ü8 (Arbeitsplaner); 2018 Wochenzählung: kein START von lauf.py (Laufsperre Q, keine Routine-Funktion), Frage an Sokrates; vorher mein „warte 1603 Prüfer“ aufgehoben
 - 12:28 24.11.: 1603-Ü8 (Chefwort 12:21 = Billigung, Sokrates 12:27) geschlossen, kein Planer; nach main durch Sokrates erst nach Ü6 und Ja des Prüfers; Hinweis an Carla
 - 12:29 24.11.: 1603-Ü9 (Chefwort 12:27: 1603 nicht gebilligt) geschlossen, kein Planer (Sokrates 12:31); 2018 bleibt bis Mo 30.11. in --ohne (Sokrates 12:29); 431: im Takt 13:03 Lauf 45373774018 zuordnen
+- 12:33 24.11.: Werkzeug 2019 (Wochenzählung in Betrieb, Eilt, Auftrag Sokrates 12:32) Anna session_01Hmoj76EwcxPv8RbVPqMATZ per lauf.py --start; 2018 bleibt in --ohne
