@@ -94,14 +94,14 @@ soll("gleichzeitig: 7 Zeilen, keine verloren, keine doppelt", sorted(zs) == ["90
 soll("gleichzeitig: Ü1–Ü6 zu, neue Zeile Ü7 offen", all(zs["9002-Ü%d" % i].startswith("erledigt") for i in range(1, 7)) and zs["9002-Ü7"] == "offen", zs)
 
 # (3) rueckmeldung.py: „fertig“, „Laufanforderung“ (mit Commit), „steckt fest“ schließen Auftrag steht/Nachfolger der Nummer im selben
-# Commit (Fall 1068 Ü10/Ü11: Ü10 „Auftrag steht“ blieb offen neben Ü11 „prüfen: fertig“); „fertig“ und Laufanforderung auch den Rückläufer;
-# Hinweise bleiben bis vorgang.py fertig; die neue Zeile der Rückmeldung bleibt offen
+# Commit (Fall 1068 Ü10/Ü11: Ü10 „Auftrag steht“ blieb offen neben Ü11 „prüfen: fertig“); Hinweise und Rückläufer bleiben bis
+# vorgang.py fertig (4); die neue Zeile der Rückmeldung bleibt offen
 import rueckmeldung as rm
 n = g("rev-list", "--count", "origin/main", cwd=A)
 k, _ = rm.eintragen("9004", "fertig (Rückläufer 9004-Ü3): Tipp nennt den Ring, Commit 1a2b3c4d", "Kampf")
-soll("fertig: Auftrag steht und Rückläufer zu, im selben Commit", zu("9004", 1).startswith("erledigt 23.11., 13:00 (fertig") and zu("9004", 3).startswith("erledigt")
+soll("fertig: Auftrag steht zu, im selben Commit", zu("9004", 1).startswith("erledigt 23.11., 13:00 (fertig")
      and int(g("rev-list", "--count", "origin/main", cwd=A)) == int(n) + 1, datei("9004"))
-soll("fertig: Hinweis bleibt offen (erst vorgang.py fertig)", zu("9004", 2) == "offen", datei("9004"))
+soll("fertig: Hinweis und Rückläufer bleiben offen (erst vorgang.py fertig)", zu("9004", 2) == "offen" and zu("9004", 3) == "offen", datei("9004"))
 soll("fertig: neue Zeile an den Prüfer offen", k == "9004-Ü4" and zu("9004", 4) == "offen" and "| 9004-Ü4 | Prüfer |" in datei("9004"), datei("9004"))
 soll("fertig 9004: 9004.2 unberührt", zu("9004.2", 1) == "offen", datei("9004.2"))
 rm.eintragen("9005", "steckt fest: Kamera hängt, Ursache unklar", "Kampf")
