@@ -46,3 +46,4 @@ Nie geladen, nur durchsucht (`vorgang.py lehre suche <Wort>`); schreiben nur mit
 | R33 | B Werkzeuge | 2005 | Werkzeugfehler 24.11., 07:25 (Sokrates, 3 Min.) | 400-Zeichen-Zeile hält Stand-Schreiben; Titel gekürzt. Dreimal-Regel Strich 3, beim Chef | 24.11., 08:02 | offen |
 | R34 | B Werkzeuge | 1960 | Werkzeugfehler 24.11., 07:15 (Sokrates, 2 Min.) | chefwort erzeugt Startzeile an Planer (1960-Ü9 von Hand geschlossen); Dreimal-Regel Strich 1 | 24.11., 08:02 | offen |
 | R35 | B Werkzeuge | 2005 | Werkzeugfehler 24.11., 07:24 (Alter Ego, 2 Min.) | chefwort erzeugt Startzeile an Planer (2005-Ü4 von Hand geschlossen); Dreimal-Regel Strich 2 | 24.11., 08:02 | offen |
+| R36 | E Kampf | 1589.2 | Werkzeugfehler 23.11., 19:02 (Kampf, Start verhindert) | 2048-Byte-Sperre hält Start (2104 Byte); wird mit 2011 gestrichen | 24.11., 08:02 | offen |
