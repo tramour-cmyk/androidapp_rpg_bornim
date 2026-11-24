@@ -160,3 +160,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:38 24.11.: 1960 fertig (Prüfer Ida ja, auf main fc9f5a40e); Hinweis Prüfer: 8 Restthemen ein Wort wegen Zahlenschnitt, Urteil Chef (Chefwort 16:52) — an Sokrates; Frieda und Ida archiviert, Kosten 3,77 $; Neues Alter Ego session_01Hmoj79s65wJUddNW1dFPLB (Handstart Chef 07:35); altes (78G97…) nach seiner Übergabe archivieren
 - 07:40 24.11.: Altes Alter Ego (78G97…) von Sokrates archiviert, Kosten 13,14 $ gebucht (2010); Neu (Chef 07:37): Werkzeug-Vorgang erst nach dreimal belegtem Fehler und Chef-Ja, keine Folgevorgänge selbst anlegen, an Sokrates
 - 07:48 24.11.: Startsperre 07:48 Start Werkzeug, Tagesbericht (lauf.py, Werkzeug 2011 Ilse, Tagesbericht 448)
+- 07:52 24.11.: Takt 07:48: START Werkzeug Ilse (2011, Sokrates-Freigabe 07:32, Chef 07:27) und Tagesbericht 24.11. ausgeführt; Dana (1603) und Elke (1694) laufen
