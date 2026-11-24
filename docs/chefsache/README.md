@@ -30,7 +30,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 5 | 1487 (Regeln) Heiler wächst in Kapitel 1 nie im Willen |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 62 (64) | 18 | 0 | 1 | 37 | 1589.4 (Kampf) Stufe 3 Gegnerverhalten, Figuren in die Arena: fi… |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 62 (64) | 18 | 1 | 1 | 37 | 1589.4 (Kampf) Stufe 3 Gegnerverhalten, Figuren in die Arena: fi… |
 | ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 34 (32) | 20 | 1 | 2 | 10 | 1694 (Figur) Griff einmal für alle gehaltenen Dinge: fester Gr… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 2 | 0 | 0 | 14 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
@@ -58,7 +58,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | **Chef** | nichts offen in der Chefsache |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
-| Kampf | 1589.4 Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur… (Muss) |
+| Kampf | läuft: 1589.4 (Besetzung); 1589.4 Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur… (Muss) |
 | Figur | läuft: 1654 (Besetzung); 1694 Griff einmal für alle gehaltenen Dinge: fester Griffpunkt i… (Muss); dann 5 weitere |
 | Kataloge | 644.2 Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pfli… (Kür) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
@@ -74,7 +74,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 1589.4 | Kampf | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Bei… | M | 2 Kampf | startbar |
+| 1 | 1589.4 | Kampf | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Bei… | M | 2 Kampf | in Arbeit |
 | 2 | 1694 | Figur | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je… | M | 3 Figuren und Kleidung | startbar |
 | 3 | 431 | Figur | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Figuren und Kleidung | startbar |
 | 4 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | in Arbeit |
@@ -142,35 +142,35 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1486 | K | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Begegnungen bi | wartet auf Sokrates |
 | 1487 | K | Heiler wächst in Kapitel 1 nie im Willen (Heilmagie 12/13 am Kapitelende, übt Stumpfe Waff | startbar |
 
-**Kampf** – offen 62, Muss 18, startbar 23
+**Kampf** – offen 62, Muss 18, startbar 24
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 1589 | M | Motor des Kampfs: Gegnerverhalten nach Regeln … | wartet auf 1589.5 (startbar) |
-| 1627 | M | Trefferbild je Angriff: Kontaktpunkt, Zucken, Treffer/Abwehr/Fehlschlag unterscheidbar, Ke | wartet auf 1589.4 (ruht) |
+| 1627 | M | Trefferbild je Angriff: Kontaktpunkt, Zucken, Treffer/Abwehr/Fehlschlag unterscheidbar, Ke | wartet auf 1589.4 (startbar) |
 | 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (ruht) |
-| 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | wartet auf 1589.4 (ruht) |
-| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar … | wartet auf 1589.4 (ruht) |
-| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur | wartet auf 1589.4 (ruht) |
+| 709 | M | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angre | wartet auf 1589.4 (startbar) |
+| 709.1 | M | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar … | wartet auf 1589.4 (startbar) |
+| 760 | M | Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur | wartet auf 1589.4 (startbar) |
 | 931 | M | Wolf vorn – „Anspringen!“ steht, während er sich duckt (keine eigene Pause), Sprung bis Bi | wartet auf 760 (ruht) |
 | 1032 | M | nach dem eigenen Angriff taumelt ein Wachsoldat getroffen, im Bericht steht ein Angriff, a | wartet auf 760 (ruht) |
 | 1043 | M | MARS-Probekampf Wölfe, Klosterschüler, „Ausweichen“ erzwungen: „davon hab ich nix gesehen. | wartet auf 760 (ruht) |
 | 1068 | M | Ring bei jedem großen Schlag der Gegner … | wartet auf Test/Build (gebaut) |
 | 1415 | M | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A) | wartet auf 709 (ruht) |
-| 1588 | M | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | wartet auf 1589.4 (ruht) |
+| 1588 | M | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | wartet auf 1589.4 (startbar) |
 | 1589.2 | M | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit un | ruht |
-| 1589.4 | M | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nac | ruht |
-| 1589.5 | M | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Za | wartet auf 1589.4 (ruht) |
+| 1589.4 | M | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nac | startbar |
+| 1589.5 | M | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Za | wartet auf 1589.4 (startbar) |
 | 1589.6 | M | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt n | wartet auf 1589.2 (ruht) |
 | 1603 | M | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in ke | wartet auf Test/Build (gebaut) |
-| 1708 | M | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_u | wartet auf 1589.4 (ruht) |
+| 1708 | M | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_u | wartet auf 1589.4 (startbar) |
 | 1402 | K | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel | startbar |
 | 1404 | K | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UAL2/Protofac | startbar |
-| 1526 | K | vorderer Wolf weicht nach Angriff eines hinteren ganz nach hinten und läuft als Nächster w | wartet auf 1589.4 (ruht) |
-| 1532 | K | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Gegnerzug um | wartet auf 1589.4 (ruht) |
+| 1526 | K | vorderer Wolf weicht nach Angriff eines hinteren ganz nach hinten und läuft als Nächster w | wartet auf 1589.4 (startbar) |
+| 1532 | K | Hinterhalt mit dem Rücken: Held steht abgewandt, dreht sich nach dem ersten Gegnerzug um | wartet auf 1589.4 (startbar) |
 | 1533 | K | Gegner ohne Zahlen: Zustand und Stärke in Worten nach Lesestufe, keine Stufe des Gegners | ruht |
 | 1634 | K | Höhle weiß, wie du kommst: entkommt ein Späher oder Kampf laut am Eingang, ist die Höhle g | Chef Gespräch (großes Vorhaben, Sokrates bündelt in der Chefrunde, 1236) |
-| 1639 | K | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen leichter, Lös | wartet auf 1589.4 (ruht) |
+| 1639 | K | Festklammern: ab drei Goblins klammert einer den Helden, die anderen treffen leichter, Lös | wartet auf 1589.4 (startbar) |
 | 39 | K | Schwierigkeitsgrad im Menü | startbar |
 | 52 | K | Feinarbeit an den Kampfanimationen | Idee |
 | 344.2 | K | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | startbar |
@@ -197,7 +197,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 954a.13 | K | Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf klassisch.gd, der entfällt (8 | ruht |
 | 999.2 | K | Armbrust als Waffenmodell im Kampf (Ersatzwaffe der Probehelden, light_crossbow) | startbar |
 | 1165 | K | Prüferbefunde Kampforte in Godot nachprüfen: Baum fast schwarz ohne Moos, Felsen ohne Scha | wartet auf 496 (ruht) |
-| 1224 | K | Berührungsprüfung beim Platztausch (Netze beider Figuren von oben) sperrend machen, sobald | wartet auf 1589.4 (ruht) |
+| 1224 | K | Berührungsprüfung beim Platztausch (Netze beider Figuren von oben) sperrend machen, sobald | wartet auf 1589.4 (startbar) |
 | 1319 | K | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht (Rausch bleibt) | wartet auf Test t301 (Chef) |
 | 1336 | K | Aus 1141 (Jerry 13.11., 18:55): Robe des Goblin-Schamanen fällt steif, Schattenseite zu du | startbar |
 | 1509 | K | Systemlösung? Nebel: 6 frühere Vorgänge (502, 505, 1091, 785.7, 1145 …), neu 623.9 | startbar |
@@ -209,7 +209,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1635 | K | Systemlösung? Bogen: 2 frühere Vorgänge (26.1, 1041), neu 1634 | startbar |
 | 72c | K | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunde | nach dem Meilenstein |
 
-**Figur** – offen 33, Muss 19, startbar 12
+**Figur** – offen 34, Muss 20, startbar 15
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -217,19 +217,19 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1535 | M | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand | wartet auf Test/Build (gebaut) |
 | 1570 | M | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge (1006, 1052, 10 | ruht bis 28.11. |
 | 1619 | M | Held stakst im Film 458.3, sieht nicht nach Gehen aus („vielleicht Tempo“) | wartet auf Test t301 (Chef) |
-| 1621 | M | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffe | wartet auf 1694 (ruht) |
+| 1621 | M | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffe | wartet auf 1694 (startbar) |
 | 1665 | M | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu sehen (Fackel | wartet auf 458.3 (gebaut) |
 | 1674 | M | Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 Minuten an der Bank fest, kommt nicht | wartet auf Test/Build (gebaut) |
 | 1676 | M | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | ruht bis 28.11. |
-| 1694 | M | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finge | ruht |
+| 1694 | M | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finge | startbar |
 | 1709 | M | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535 | ruht bis 28.11. |
-| 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf Sokrates |
-| 1297 | M | Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | wartet auf 431 (ruht) |
-| 1649 | M | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den | wartet auf 1694 (ruht) |
+| 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | startbar |
+| 1297 | M | Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | wartet auf 431 (startbar) |
+| 1649 | M | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den | wartet auf 1694 (startbar) |
 | 1650 | M | Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin, | wartet auf 1535 (gebaut) |
 | 1654 | M | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m, bis 305 Ecken in Ruhe_Tr | startbar |
 | 1655 | M | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, bis 135 Ecken) | wartet auf Test/Build (gebaut) |
-| 1657 | M | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dre | wartet auf 1694 (ruht) |
+| 1657 | M | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dre | wartet auf 1694 (startbar) |
 | 1785 | M | Weg aus 4fd7055c8 … | startbar |
 | 1632 | K | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtempo, je Waff | wartet auf Test t301 (Chef) |
 | 134 | K | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | aufgeteilt |
@@ -237,8 +237,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 455.1 | K | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 1 | startbar |
 | 558.1 | K | Prüferrest Robe Probe 5 nachhalten, nicht bauen | startbar |
 | 691 | K | Platzwechsel mit Leuten und Tieren: beide gleiten ineinander … | startbar |
-| 861 | K | Umhang des Kämpfers im Kampf rechts am Rücken stark gewölbt (Handaxt und Schild, Rückenans | wartet auf 431 (ruht) |
-| 1174 | K | Körperregler in der Erschaffung je Volk in Grenzen: Brust, Bauch, Ober-/Unterarm, Obersche | wartet auf 431 (ruht) |
+| 861 | K | Umhang des Kämpfers im Kampf rechts am Rücken stark gewölbt (Handaxt und Schild, Rückenans | wartet auf 431 (startbar) |
+| 1174 | K | Körperregler in der Erschaffung je Volk in Grenzen: Brust, Bauch, Ober-/Unterarm, Obersche | wartet auf 431 (startbar) |
 | 1613 | K | Waffen episch und höher mit Effekt statt Färbung (Chef 02.11.), Schwarzstahl liest sich fa | startbar |
 | 1656 | K | Systemlösung? Kapuze: 2 frühere Vorgänge (475a, 1546), neu 1655 | startbar |
 | 1735 | K | Federknochen für losen Stoff (Umhang, Rocksaum, Kapuzenzipfel) mit SpringBoneSimulator3D ( | startbar |
@@ -246,6 +246,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 | 1752 | K | Feld jaeger in werte.json kennungen setzen bei Bugbear, Schreckenswolf, Hobgoblin-Hauptman | startbar |
 | 1973 | M | Von Figur (Dana 22.11., 18:49, zu 1570): kein Zweihändermodell in daten/waffen – Gang mit | startbar |
 | 2022 | K | Systemlösung? Griff: 5 frühere Vorgänge (954a.9, 524, 653, 872, 643), neu 1694; einmal gru | startbar |
+| 2024 | M | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schw | startbar |
 
 **Kataloge** – offen 10, Muss 3, startbar 2
 
@@ -268,7 +269,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 |---|---|---|---|
 | 1205b | M | in Grafik Niedrig nur die Blumen des Kits, Kleckse überall weg, Gras in Niedrig unser alte | wartet auf 1535 (gebaut) |
 | 1205 | M | Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass & Wind Kit … | wartet auf 1535 (gebaut) |
-| 1519 | K | vier Helden im Hauptmenü mit Ruhebewegung (Atmen, Umsehen), Hände bleiben, wo sie sind | wartet auf 431 (ruht) |
+| 1519 | K | vier Helden im Hauptmenü mit Ruhebewegung (Atmen, Umsehen), Hände bleiben, wo sie sind | wartet auf 431 (startbar) |
 | 1563 | K | Teich in der Höhle am Ufer noch eckig und kantig | wartet auf 1564 (startbar) |
 | 1630 | K | alle Lichtquellen der Höhle (Fackeln, Glut, Funken) nach Dunkelheit am Ort statt Uhrzeit, | startbar |
 | 145 | K | Karten je Kapitel zum Drucken | startbar |
