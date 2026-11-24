@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78XiynF45gfuVmiNc8 (seit 24.11., 13:27; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 15:11 Zweite Prüfung 1694 (2700a4acf): stimmt; Einwand Kosten zurückgezogen (Jana 6,65 $ gebucht, 5c7cf1a58).
 - 24.11., 15:10 Prüfung chefsache 1694 (992def54a): Belege stimmen (Bild abgelesen); Einwände: C „dick zurück“ fehlt, Kosten ~84 $ statt 71,86 und erster Deckel ohne Ergebnis verbraucht, Halt 12 $ ohne Prüfer, „alle Träger/Wurzel“ unbelegt. An Sokrates.
 - 24.11., 14:30 Runde: Takt 14:28 startet 1716 und 1725 trotz Chef 12:48 „Spiel vor“; Votum 1716 läuft (Prüfung, kein neues Werkzeug), 1725 ruht. Mirja 1694 ist seit 12:13 untätig, nicht archiviert. An Sokrates. Uhr trig_01J83aKiduwwU88foAWTKvqw (15:31).
 - 24.11., 13:27 Nachfolger übernommen (Titel stand schon); Uhr trig_01Fd4id8hM4ZpbTftyhXHAYY (14:28), keine alte zu löschen; Kennung an Sokrates.
