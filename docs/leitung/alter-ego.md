@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 21:47 Runde: 1654-Ü3/Ü5-Ü5 erledigt, Rudi 1694 und Vera 1654 laufen. An Sokrates: 1589.4-Ü7 offen seit 21:18 (Halt 20 $ erreicht, Pit wartet); Rundendauer Wolfsrudel 34,8/30,7 s statt alt 26 (Soll 14,6) als Befund. Uhr trig_019juYKq9uFPsD1W8y2Ax4u5 (22:48).
 - 24.11., 20:45 Runde: 1589.4 Oda 19:57 gestartet, 1694/431 Planer fertig. Hänger an Sokrates: 1589.4-Ü5 bei ihm seit 20:27 (Oda blockiert); 1654-Ü3 Prüfer ohne Sitzung seit 20:23, Moritz untätig hält Figur-Platz (1694, 431, 2024 warten). Uhr trig_01S5YrfewVqiEmXG7wNtPPLF (21:46).
 - 24.11., 19:43 Runde: kein Hänger. Chef 19:37–19:40 A zu 1603, 1694, 431, 1589.4; Olga 2024 und Moritz 1654 laufen, Takt 19:41 schlägt Kampf 1589.4 vor. Nichts an Sokrates. Uhr trig_01WKS8CpUHNptGmhuEQ51BBi (20:44): 1589.4 gestartet? 431/1694 nicht vorgeschlagen?
 - 24.11., 19:42 Chef 19:42: Sokrates soll ihm bis Sa nichts vorlegen, nur abarbeiten, damit es weitergeht; „End of Communication“. Wörtlich an Sokrates.
