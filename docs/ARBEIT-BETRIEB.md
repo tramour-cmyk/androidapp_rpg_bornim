@@ -224,3 +224,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:40 24.11.: 1603 Prüfer Jonas ja (Bildlauf 593, 80a423815, Bild + Film 13,2 s, 15:36): Testbitte NICHT gesendet (Chef-Ruhe bis Sa 28.11., Sokrates 12:50); Stand gebaut/Vorlage bei Sokrates; 1603-Ü13 erledigt, an Sokrates gemeldet
 - 15:44 24.11.: Karla (1603) Ablage für Chefsache erledigt (main bd5596e0e, Film Zweig bilder 8e385fae8, Zahlen 665356308), an Sokrates gemeldet, 1603-Ü14 erledigt, Karla archiviert, Kosten 2,92 $ (1603 gesamt 41,74 $)
 - 15:47 24.11.: 1603-Ü16 (Hinweis Prüfer: schwarzes Rechteck über Krogg = Mähne/Leine, Modell, Verkleinerung verschmilzt) an Sokrates, erledigt
+- 16:04 24.11.: Startsperre 16:04 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Knut, Arbeitsplaner 1128.3 Moritz)
