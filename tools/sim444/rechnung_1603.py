@@ -2,14 +2,14 @@
 Ring nie, gut (halber Schaden), perfekt (keiner), halb gut (jeder zweite Prankenhieb gut); SHARE wie mars.gd. Vergleich
 mit heute (nur Stich), Siege in % je Herkunft und Heldenstufe. Nur Rechnung, keine Aenderung am Spiel.
    python3 tools/sim444/rechnung_1603.py tools/sim444 200 0.82,0.4,0.1,0"""
-import inspect, random, sys
+import inspect, os, random, sys
 sys.path.insert(0, sys.argv[1])
 import sim
 
 W = sim.lade(sys.argv[1] + "/werte.json")
 N = int(sys.argv[2])
 ZS = [float(x) for x in sys.argv[3].split(",")]
-GRENZE = 7
+GRENZE = int(os.environ.get("GRENZE", "7"))  # 1603 C (Sokrates 24.11., 00:07): Maß halb gut, Grenze 10
 CFG = {"p": 0.0, "f": lambda rng: 1.0}
 src = inspect.getsource(sim.kampf)
 alt = 'elif auf_held(mon["angriff"], mon["schaden"]):'

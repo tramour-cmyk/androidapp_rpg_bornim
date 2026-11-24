@@ -46,3 +46,21 @@ Krogg, N = 200 je Fall, Grenze 7 Punkte; groesste Abweichung von heute ueber 8 H
 | 1.20 | gut | -9.5 | Herumtreiber 5 | 72.0 → 62.5 | nein |
 | 1.20 | perfekt | +60.5 | Klosterschüler 2 | 19.5 → 80.0 | nein |
 | 1.20 | halb gut | -46.0 | Klosterschüler 3 | 74.5 → 28.5 | nein |
+
+## Nach Entscheid C (Sokrates 24.11., 00:07), Lauf 24.11., 07:33, Stand nach Merge main
+
+Maß: Ringannahme „halb gut“, Grenze 10 Punkte; gebaut Zusatz 0,3.
+
+`GRENZE=10 python3 tools/sim444/rechnung_1603.py tools/sim444 200 0.3`
+
+Krogg, N = 200 je Fall, Grenze 10 Punkte; groesste Abweichung von heute ueber 8 Herkuenfte x 6 Stufen
+
+| Zusatz | Ring | groesste Abweichung | bei | heute → neu | haelt |
+|---|---|---|---|---|---|
+| 0.30 | nie | -25.0 | Klosterschüler 3 | 77.0 → 52.0 | nein |
+| 0.30 | gut | +24.0 | Klosterschüler 2 | 17.0 → 41.0 | nein |
+| 0.30 | perfekt | +63.5 | Klosterschüler 2 | 17.0 → 80.5 | nein |
+| 0.30 | halb gut | -8.5 | Klosterschüler 3 | 77.0 → 68.5 | ja |
+
+Halb gut −8,5 Punkte (Klosterschüler 3, 77,0 → 68,5 %): in der Spanne. Ohne Ring −25,0, Ring gut +24,0, perfekt +63,5 (Maß nach C nur
+„halb gut“).

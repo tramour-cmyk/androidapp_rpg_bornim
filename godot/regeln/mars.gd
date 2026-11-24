@@ -2294,6 +2294,10 @@ func _pick_intent(foe: Fighter) -> Dictionary:
 		test_gegnerzug = ""
 		test_erzwungen.append("heavy")
 		return I_HEAVY
+	if id == KROGG and test_gegnerzug == "paw":     # 1603: Beleg Kroggs Prankenhieb (Bild und Film), wie 1020.2 C
+		test_gegnerzug = ""
+		test_erzwungen.append("paw")
+		return I_PAW
 	var T: Dictionary = BrsKampf.w().get("absichten", {}).get("je_art", {})
 	var e = T.get(id, T.get("_sonst", [["stab", 1]]))
 	for i in 4:     # Verweis auf eine andere Art (Schamane wie Goblin)
