@@ -2,6 +2,15 @@
 
 Maß: gebaut wird nur, was Spielarbeit aufhält oder den Chef Zeit kostet. Alter Ego prüft je Zeile: stimmt / Einwand mit Grund. Erst danach schreibt Sokrates Aufträge (Profil Werkzeug), Reihenfolge wie unten, je einer zur Zeit.
 
+## Ergebnis nach Prüfung Alter Ego (07:12, alle Einwände angenommen)
+
+**A · Bauen, Reihenfolge:** 2012 · 2005 + 1993 · 2013 · 1990 · 1982 (mit Ergänzung 08:12: Daumen wecken keinen) · 1960 (Rückläufer von Sokrates 17:22, Chefwort 16:52). Je Auftrag zweite Prüfung Alter Ego vor dem Start.
+**2011 nach C:** Kampf 1589.2 hängt am eigenen Auftrag (2106 Byte); Kürzen an Arbeitsplaner (1589.2-Ü11).
+**C dazu:** 1994, 2010, 1742, 1749. Eilt und Chefwünsche (1961, 1965, 1972, 1975, 1995, 1996, 1742, 1749): Stand „ruht, Werkzeug-Schnitt … Chef kann vorziehen“; 1965 und 1956 Titel über 400 Zeichen, Stand nicht schreibbar.
+**D geschlossen:** 1867 (erfüllt durch tools/lehren.py), 1862, 1854, 1850, 1861, 1869, 1751, 1924, 1984, 1985, 1987, 2000, 2007.
+
+## Vorlage 07:12 (überholt)
+
 ## A · Bauen (Reihenfolge)
 
 | Nr | warum |
