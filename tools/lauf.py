@@ -508,6 +508,56 @@ def start_angekommen(rolle, d, alle):
         if s.get("session_status") != "SESSION_STATUS_ARCHIVED" and s.get("updated_at") and z(s["updated_at"]) >= d: return True
     return False
 
+NR_TEIL = re.compile(r"B?\d+(?:\.\d+)?[a-z]?")
+
+def start_eintraege(text, jahr):
+    """2012 (2): (Zeitpunkt naiv, Rolle, Nr, Rufname oder None) je START aus „- HH:MM TT.MM.: Startsperre HH:MM Start <Rollen> (lauf.py,
+    <Rolle> <Nr> <Rufname>, …)“ (startsperre_zeile); bei einer Rolle steht die Nummer auch allein („(lauf.py, 2012)“)."""
+    import rufname
+    aus = []
+    for l in text.splitlines():
+        m = re.search(r"Startsperre (\d\d):(\d\d) Start (\w+(?:, \w+)*) \(lauf\.py((?:, [^,)]+)*)\)", l)
+        k = re.match(r"- \d\d:\d\d (\d\d)\.(\d\d)\.:", l)
+        if not m or not k: continue
+        try: d = datetime.datetime(jahr, int(k.group(2)), int(k.group(1)), int(m.group(1)), int(m.group(2)))
+        except ValueError: continue
+        rollen = m.group(3).split(", ")
+        for teil in m.group(4).split(",")[1:]:
+            w = teil.split()
+            r = next((x for x in w if x in rollen), rollen[0] if len(rollen) == 1 else None)
+            nr = next((x for x in w if NR_TEIL.fullmatch(x)), None)
+            if r and nr: aus.append((d, r, nr, next((x for x in w if x in rufname.ALLE), None)))
+    return aus
+
+def angekommen_nr(rolle, ruf, d, alle):
+    """2012 (2): die Sitzung dieses STARTs ist da: mit Rufname eine Sitzung mit dem Rufnamen im Titel, angelegt ab der Sperre (−5 Min.);
+    ohne Rufname start_angekommen der Rolle."""
+    if not ruf: return start_angekommen(rolle, d, alle)
+    import rufname
+    return any(rufname.aus_titel(s.get("title", "")) == ruf and z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN) for s in alle.values())
+
+def start_zeilen_schliessen(alle, text=None, schliessen=None, docs=None):
+    """2012 (2) (Bauliste Sokrates 23.11., 23:01): je START einer Fachkraft (uebergabe.FACHPROFILE) aus den Startsperren, deren Sitzung
+    angekommen ist, „Auftrag steht“ und „Nachfolger“ der Nummer (exakt) schließen, nur Zeilen bis zur Sperre; Hinweise nie (erst
+    vorgang.py fertig). Vorher lokal nachsehen, ob es etwas zu schließen gibt (kein Netz je Lauf). Rückgabe: Ausgabezeilen."""
+    import uebergabe as _ue
+    schliessen = schliessen or _ue.schliessen_nr
+    text = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")) if text is None else text
+    aus = []; fertig = set()
+    for d, rolle, nr, ruf in sorted(start_eintraege(text, JETZT.year), key=lambda x: x[0], reverse=True):  # jüngste Sperre je Nummer zuerst
+        if rolle not in _ue.FACHPROFILE or nr in fertig: continue
+        try: lokal = open(os.path.join(docs or DOCS, "vorgang", nr + ".md"), encoding="utf-8").read()
+        except OSError: continue
+        if not _ue.schliessen_text(lokal, nr, _ue.START_ARTEN, "", d)[1]: continue
+        if not angekommen_nr(rolle, ruf, d.replace(tzinfo=BERLIN), alle): continue
+        fertig.add(nr)
+        grund = "Start %s %s%s %s angekommen (lauf.py, 2012)" % (rolle, nr, (" " + ruf) if ruf else "", d.strftime("%d.%m., %H:%M"))
+        try: ks = schliessen(nr, _ue.START_ARTEN, grund, bis=d)
+        except Exception as e:
+            aus.append("WARNUNG Übergaben %s nicht geschlossen: %s (2012; von Hand: uebergabe.schliessen_nr)" % (nr, str(e)[:160])); continue
+        if ks: aus.append("NICHTS Übergabe: %s geschlossen, %s (2012)" % (", ".join(ks), grund))
+    return aus
+
 def start_noetig(rolle, st, ausschluss, nur_muss=False, nf_offen=False):
     """1586 (Ford 17.11., 18:38): eine fehlende Sitzung nach der Startsperre zählt nur, wenn die Rolle jetzt etwas zu starten hätte
     (offener Nachfolger oder startbare Zeile, die nicht mit --ohne ausgeschlossen ist, keine Pause). Sonst war der Start gewollt
@@ -1692,6 +1742,7 @@ def main():
         ausgabe.append("WARNUNG-LAUT Start %s nicht angekommen: Startsperre %s, keine Sitzung %s seither; Disponent: START ausführen oder mit --ohne NR:Grund ausschließen (837)" % (name, d.strftime("%d.%m., %H:%M"), name))
         neue_marken.append(schl)
     for name in nicht_da: marken.pop(name, None)  # (2) zählt nicht als Belegung
+    if sperre: ausgabe.extend(start_zeilen_schliessen(alle))  # 2012 (2): Auftrag steht/Nachfolger zu, sobald die Fachkraft angekommen ist
     if bremse and bremse.ober:  # 2001: laufende Fachkräfte aus der Sitzungsliste („Laufend“, Kopf), dazu Startsperren unter SPERRE_MIN ohne Sitzung seither
         laufend_setzen(bremse, je_rolle, marken, archiviert=archiviert)
         neu_ = [l for l in bremse.zeilen() if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l]
