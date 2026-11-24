@@ -21,10 +21,11 @@ Sitzung session_01Hmoj78XiynF45gfuVmiNc8 (seit 24.11., 13:27; Vorgänger session
 - Erste Nachricht: „Du bist Alter Ego, das zweite Paar Augen des Chefs, kein zweiter Sokrates (Rolle neu 24.11., 08:57). Lies docs/leitung/alter-ego.md und arbeite danach: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
 
 
-**Übergabe (24.11., 13:25, 263 Tsd., Nachfolger: Alter Ego – Supervisor (24.11.)):** Chef 12:48/12:49 (Archiv): kein neues Werkzeug, Spiel vor, keine Meldungen an den Chef bis Sa 28.11. außer Laufsperre-Notfall; Wochenzählung fällt weg (2018, 2019, 2020, 2021 ruhen). Runden darum nur Hänger an Sokrates, keine Streich- oder Werkzeugvorschläge. Offen: nichts. Lehren 12:28 (Kopf einer Entwurfsdatei lesen; Protokoll vor Code; Grep nicht mit head abschneiden). Uhr trig_012h9exBvsBnA6EdFRkaBiZH ist verbraucht; Nachfolger legt neue an, keine alte zu löschen außer einer, die diese Sitzung noch anlegt.
+**Übergabe (24.11., 18:40, 248 Tsd., Nachfolger: Alter Ego – Supervisor (24.11.)):** Chef 12:48/12:49: kein neues Werkzeug, Spiel vor, keine Meldungen an den Chef bis Sa 28.11. außer Laufsperre-Notfall. Runden nur Hänger und Leerlauf an Sokrates; Chefsachen 1694, 1603, 431 von Sokrates geprüft bis nichts Neues (liegen bis Sa; 431-Ü11 Merkmalbefund eingetragen). Offen: Leerlauf 18:38 → Sokrates lässt 1589.4 planen (1589.4-Ü1, Uwe startet); in der Runde 19:38 nachsehen, ob gestartet. lauf.py schlägt ruhende Planer (887, 1716) weiter vor: Werkzeug, ruht bis Sa, nicht erneut melden. Uhr trig_01TZud4pmfQVwZwysYLue1EF (19:38) steht noch; Nachfolger löscht sie und legt eigene an.
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 18:40 Sokrates 18:40: 1589.4 wird geplant (Leerlauf behoben), 887 Werkzeug ruht. Übergabe (248 Tsd.), Startfelder an Sokrates.
 - 24.11., 18:38 Runde: Leerlauf (keine Fachkraft, drei Takte ohne Start, 1694/1603/431 beim Chef) trotz „Spiel vor“; 887 stets vorgeschlagen, nicht ruht in Liste. An Sokrates. Uhr 19:38.
 - 24.11., 18:14 Prüfung chefsache 431, drei Bilder angesehen: Zahlen stimmen; Einwände Merkmale nicht vollständig gegen LISTE-FIGUREN (Zwergin Zöpfe Z. 178, Ohren, Hauer), Zwerg-Haltung fast Hocke unerwähnt; Teilantworten erlauben. An Sokrates.
 - 24.11., 17:36 Runde: kein Hänger; 1603-Ü4 zu, Lotte 431 fertig 17:25 (431-Ü7 beim Prüfer, Takt 18:03). Nichts an Sokrates. Uhr 18:37.
