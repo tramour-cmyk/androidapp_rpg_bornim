@@ -229,3 +229,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:10 24.11.: 431-Ü5 (Lauf frei, Prüfer ja, 56c5189b2) und 431-Ü6 (Hinweis lade_bin) an Lotte (Nachricht, läuft), erledigt; keine Testbitte (Ruhe bis Sa)
 - 17:05 24.11.: Startsperre 17:05 Start Arbeitsplaner, Figur, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Knut, Figur 431 Moritz, Arbeitsplaner 1137 Margit)
 - 17:08 24.11.: Takt 17:04: keine Starts: Lotte (431) wartet auf Beleglauf (prüft 17:24), Kosten 10,00 $ (431 Deckel 90 $ ok); START Figur Moritz/ARCHIVIERE Lotte nicht; Planer 887 (ruht), 1137 nicht
+- 18:04 24.11.: Startsperre 18:04 Start Arbeitsplaner, Figur, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Knut, Figur 431 Moritz, Arbeitsplaner 1172 Margit)
