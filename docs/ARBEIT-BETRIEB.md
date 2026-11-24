@@ -162,3 +162,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:48 24.11.: Startsperre 07:48 Start Werkzeug, Tagesbericht (lauf.py, Werkzeug 2011 Ilse, Tagesbericht 448)
 - 07:52 24.11.: Takt 07:48: START Werkzeug Ilse (2011, Sokrates-Freigabe 07:32, Chef 07:27) und Tagesbericht 24.11. ausgeführt; Dana (1603) und Elke (1694) laufen
 - 08:03 24.11.: Startsperre 08:03 Start Arbeitsplaner, Kampf, Arbeitsplaner, Prüfer (lauf.py, Arbeitsplaner 1716 Jana, Kampf 1589.3 Karla, Arbeitsplaner 2009 Lena, Prüfer 2011 Marta)
+- 08:07 24.11.: Takt 08:03: START Prüfer Marta (2011) und Planerin Lena (2009 Kampf-Zeitmaß) ausgeführt; ARCHIVIERE Dana (1603, Kosten 4,57 $) ausgeführt; START Planerin Jana 1716 (gebaut, wartet Prüfer) und Kampf Karla 1589.3 nicht ausgeführt (1589.2 hat Vorrang laut Sokrates 07:38, 1589.2-Ü11 erledigt; Kampf-Start im nächsten Takt nach Startmarke 20 Min.)
