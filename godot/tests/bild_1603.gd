@@ -97,7 +97,12 @@ func _lauf() -> void:
 	var mitte := Vector2(fuss.x, fuss.y - float(kf.ui._tall(fig)) + 150)
 	if kf.ui.sign_of.has(wer):     # Lauf 589: Ausschnitt um Kopf und Fuß verfehlte die Ansage bei großen und flachen Arten; jetzt um die Ansage selbst
 		var sg: Rect2 = kf.ui.sign_of[wer]
-		mitte = Vector2(sg.get_center().x, sg.position.y + 90)
+		mitte = Vector2(sg.get_center().x, sg.position.y + 180)
+	if _env("NUR_ORT", "") == "1":     # Messlauf ohne Bild: wo stehen Figur und Ansage
+		print("ORT1603 %s %s wer=%s fuss=%s tall=%s sign=%s keys=%s view=%s sicht=%s fenster=%s" % [g, modus, wer, fuss, kf.ui._tall(fig), kf.ui.sign_of.get(wer, "fehlt"), kf.ui.sign_of.keys(), bild.get_size(), root.get_visible_rect().size, DisplayServer.window_get_size()])
+		quit(0)
+		return
+	mitte *= float(bild.get_width()) / root.get_visible_rect().size.x     # Lauf 591: Oberfläche rechnet in 1080 × 2340, das Bild hat 540 × 1170
 	var gr := 270
 	var x := clampi(int(mitte.x) - gr / 2, 0, bild.get_width() - gr)
 	var y := clampi(int(mitte.y) - gr / 2, 0, bild.get_height() - gr)
