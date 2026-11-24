@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 12:31, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 12:46, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -30,7 +30,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 5 | 1487 (Regeln) Heiler wächst in Kapitel 1 nie im Willen |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 63 (64) | 19 | 1 | 1 | 37 | 1603 (Kampf) Besonderheiten fehlen im MARS ohne Kerben: Krogg… |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 62 (64) | 18 | 1 | 1 | 37 | 1603 (Kampf) Besonderheiten fehlen im MARS ohne Kerben: Krogg… |
 | ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 32 (32) | 19 | 1 | 2 | 10 | 1694 (Figur) Griff einmal für alle gehaltenen Dinge: fester Gr… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 2 | 0 | 0 | 14 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
@@ -38,15 +38,15 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 
 | ↳ **12** Bedienung und Oberfläche | 6 (6) | 0 | 0 | 0 | 5 | 954a.12 (Oberfläche) Erschaffung: nicht wählbare Fertigkeiten … |
 | ↳ **13** Geschichte und Texte | 9 (9) | 0 | 0 | 0 | 3 | 1628 (Story) Kräutersammler-Handlung vor der Blutzahnhöhle, br… |
 | ↳ **6** Technik, Leistung, Build | 25 (25) | 13 | 0 | 1 | 8 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 114 (128) | 82 | 0 | 1 | 25 | 1520 (Werkzeug) An den Läufen sparen |
+| **7** Firma: Werkzeuge und Abläufe | 115 (128) | 83 | 0 | 1 | 25 | 2018 (Wochenzählung) Wochentermin 23.11.: Wochenzählung |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 9 | 780 (Arbeitsplaner) Unity-Asset-Store-EULA 2.2.1: gilt sie für unsere… |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 22 | 20 | 42 | 1457 |
-| neu | 7 | 35 | 42 | 1548 |
+| erledigt | 23 | 20 | 43 | 1458 |
+| neu | 8 | 35 | 43 | 1549 |
 | **netto** (erledigt − neu) | **+15** | **−15** | **+0** | **−91** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
@@ -55,7 +55,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Profil | als Nächstes |
 |---|---|
-| **Chef** | [15893](entscheiden/15893-main.md) entscheiden |
+| **Chef** | nichts offen in der Chefsache |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | läuft: 1603 (Besetzung); 1603 Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhie… (Muss) |
@@ -84,25 +84,21 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 8 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
 | 9 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
 | 10 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
-| 11 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
-| 12 | 1725 | Werkzeug | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | M | 7 Firma | startbar |
-| 13 | 1933 | Werkzeug | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halb… | M | 7 Firma | startbar |
-| 14 | 1128.3 | Werkzeug | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | 7 Firma | startbar |
-| 15 | 1172 | Werkzeug | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | 7 Firma | startbar |
-| 16 | 1388 | Werkzeug | D257.1 von Diogenes: rote Godot-Läufe 09.–15.11. 93 von 159 gegen 52 von 185 de… | M | 7 Firma | startbar |
-| 17 | 1507 | Werkzeug | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Firma | startbar |
-| 18 | 1728 | Werkzeug | Teilprojekte im Projektplan durch Verweis auf chefsache/themenbloecke.md ersetz… | M | 7 Firma | startbar |
-| 19 | 1773 | Werkzeug | Nachträge zu 1767 F3: Disponent „Fertig“ ohne Ausnahme 1311, Werkzeugfehler-Sat… | M | 7 Firma | startbar |
-| 20 | 1774 | Werkzeug | Werte für Höchstdauer je Auftrag und Laufbremse festlegen | M | 7 Firma | startbar |
+| 11 | 2018 | Wochenzählung | Wochentermin 23.11.: Wochenzählung | M | 7 Firma | startbar |
+| 12 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
+| 13 | 1725 | Werkzeug | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | M | 7 Firma | startbar |
+| 14 | 1933 | Werkzeug | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halb… | M | 7 Firma | startbar |
+| 15 | 1128.3 | Werkzeug | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | 7 Firma | startbar |
+| 16 | 1172 | Werkzeug | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | 7 Firma | startbar |
+| 17 | 1388 | Werkzeug | D257.1 von Diogenes: rote Godot-Läufe 09.–15.11. 93 von 159 gegen 52 von 185 de… | M | 7 Firma | startbar |
+| 18 | 1507 | Werkzeug | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Firma | startbar |
+| 19 | 1728 | Werkzeug | Teilprojekte im Projektplan durch Verweis auf chefsache/themenbloecke.md ersetz… | M | 7 Firma | startbar |
+| 20 | 1773 | Werkzeug | Nachträge zu 1767 F3: Disponent „Fertig“ ohne Ausnahme 1311, Werkzeugfehler-Sat… | M | 7 Firma | startbar |
 
 Danach 115 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 31. Ruhend oder nach dem Meilenstein: 124.
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [1589.3](entscheiden/15893-main.md) | **Muss** | E Kampf | 24.11., 12:37 | Film gebilligt, Zweig gemischt und grün; der Push braucht dein ausdrückliches Wort. | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
@@ -505,12 +501,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-## Lücken
-
-Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
-
-Beantwortet, Datei noch da (383.3: der Absender löscht sofort): entscheiden/15893-main.md (Antwort 1589.3, 24.11., 12:38)
-
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
