@@ -186,3 +186,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:12 24.11.: Planerin Emil: Auftrag 1270.7 steht; Hinweis: Start unter Laufsperre (Technik, nicht Eilt) entscheidet der Disponent → kein Start (Laufsperre 287: nur Spiel und Eilt, bis 28.11., 20:00); Emil archiviert, Kosten 1,69 $
 - 11:15 24.11.: 2013 fertig (Prüfer Fritz ja; Alter Ego und Disponent-Starter zählen nicht mehr als Fachkraft), Fritz archiviert, Kosten 0,49 $; offen für Prüfer ohne Auftrag: 1716, 1301, 1387, 1642, 1643 (nicht gestartet, Werkzeug-Halt)
 - 11:26 24.11.: Startsperre 11:26 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 1716 Erna, Arbeitsplaner 2017 Fenja)
+- 11:28 24.11.: Startsperre 11:28 Start Werkzeug (lauf.py, Werkzeug 2017 Anna)
