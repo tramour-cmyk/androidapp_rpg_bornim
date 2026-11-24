@@ -23,6 +23,7 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Übergabe (24.11., 07:29, session_01Hmoj78G97RcFvsJSgAyQBv, 275 Tsd.):** Sokrates session_01Hmoj78KsbZtxD4EU46NDFA. Chef heute Konferenz, Vertretung oben. Werkzeug-Aufpasser: jeder Werkzeug-Auftrag vor Start zu mir. Stand: 2012 frei (Gerda), 2005 entfällt (513 berichtigt, ruht), 2013 frei nach 2012, 2048-Sperre → Hinweis wartet auf Chef-Ja (Telegram 07:24), Baustopp+Abbau beim Chef offen (07:27), Grundsatz Chef 07:26: Widersprüche vorlegen statt Werkzeug. Kennzahl 07:06: 22 offen. 2003 bis 30.11. Alte Uhr von Alter Ego 07:38 gelöscht; Nachfolger legt neue an. Chef startet Nachfolger (07:37).
 
+- 24.11., 07:41 Strichliste (Sokrates 07:42, 7 Zeilen): 400-Zeichen-Zeile 3 Striche → Chef vorgelegt, Empfehlung Sperre zu Hinweis wie 2048; chefwort-Startzeile 2 Striche.
 - 24.11., 07:40 Chef 07:39: wer zählt die Dreimal-Regel? Bisher niemand. Strichliste angelegt, Alter Ego zählt je Runde, dritter Strich → Chef; an Sokrates.
 - 24.11., 07:36 Sokrates 07:38: 1589.3 trotz Ingo-Hinweis (Arena-Sperre) frei → stimmt (1589.4 hängt an 1589.3). 1589.2 „steckt fest“ in Runde 08:35.
 - 24.11., 07:35 Nachfolger übernommen (session_01Hmoj79s65wJUddNW1dFPLB), umbenannt; Uhr trig_01K4YW9mzFKWVmYBEcCHaAAw (08:35), alte trig_019a74EZN7MRfaD1Rsf5yHVD gelöscht; Kennung an Sokrates.
