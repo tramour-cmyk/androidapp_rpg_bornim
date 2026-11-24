@@ -316,6 +316,37 @@ def wecker(nr, k, an, alt=None, scharf=None):
     if not ds: print("KEIN DISPONENT läuft: Wache bzw. Herzschlag meldet (1764)")
     return ds
 
+# 2012 (Bauliste Sokrates 23.11., 23:01; Chef 23.11., 23:00 „1 bis 4 ja“): Zeilenart aus dem Anfang von „was“; eine Funktion schließt für alle
+# Orte: lauf.py nach dem Start (START_ARTEN), rueckmeldung.py bei fertig/Laufanforderung/steckt fest, vorgang.py fertig und schliessen (alle)
+ARTEN = {"Auftrag steht": r"Auftrag steht\b", "Nachfolger": r"Nachfolger\b", "Hinweis": r"Hinweis\b", "Rückläufer": r"Rückläufer\b"}
+START_ARTEN = ("Auftrag steht", "Nachfolger")
+
+def art(was):
+    """2012: Zeilenart („Auftrag steht“, „Nachfolger“, „Hinweis“, „Rückläufer“) oder None."""
+    return next((a for a, m in ARTEN.items() if re.match(m, (was or "").strip())), None)
+
+def schliessen_text(text, nr, arten=None, grund="", bis=None):
+    """2012: in TEXT jede nicht erledigte Zeile genau der Nummer NR (1589.2 ≠ 1589) schließen, deren Art in ARTEN steht (None: jede),
+    mit „seit“ nicht nach BIS (datetime oder None) → „erledigt <jetzt> (<Grund>)“. Rückgabe (neuer Text, [Kennungen])."""
+    jz = fmt(jetzt()); aus = []
+    for z in reversed(zeilen(text or "")):
+        if nr_aus(z["k"]) != nr or z["z"].strip().startswith("erledigt"): continue
+        if arten is not None and art(z["was"]) not in arten: continue
+        if bis is not None:
+            try:
+                if _zeit(z["seit"], bis.year) > bis: continue
+            except ValueError: continue
+        text = _ersetzen(text, z, "erledigt %s (%s)" % (jz, _rein(grund)[:100])); aus.append(z["k"])
+    return text, list(reversed(aus))
+
+def schliessen_nr(nr, arten=None, grund="", bis=None):
+    """2012: schliessen_text auf docs/vorgang/NR.md über atomar (origin/main, ein Commit, sicher gegen gleichzeitige Schreiber).
+    Fehlt die Datei oder ist nichts zu schließen: kein Commit, []."""
+    def f(alt):
+        if not alt.strip(): return alt, []
+        return schliessen_text(alt, nr, arten, grund, bis)
+    return atomar(nr, f, "Übergaben %s geschlossen: %s (2012)" % (nr, _rein(grund)[:100]))
+
 def _finde(t, kennung):
     z = [z for z in zeilen(t) if z["k"] == kennung]
     if not z: raise Fehler("%s steht nicht in %s" % (kennung, _pfad(nr_aus(kennung))))
