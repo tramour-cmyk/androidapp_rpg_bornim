@@ -142,3 +142,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:20 24.11.: 2001 erledigt (Anna ja, 193 Tests grün), Anna archiviert, Kosten 1,58 $ auf 2001; START Planer Britta (2013-Ü1, Eilt) ausgeführt; Hinweis Anna: Alter Ego/Starter zählen als Fachkraft (Rolle Sonstige) – Entscheid Chef, liegt bei Sokrates
 - 00:22 24.11.: Planerin Britta: Auftrag 2013 (Laufsperre: Alter Ego und Disponent-Starter frei, Werkzeug Eilt) steht, archiviert, Kosten 0,79 $; Werkzeug-Start ab 07:00 (Nachtruhe)
 - 01:05 24.11.: Takt 01:03 (--ohne 513, 887, 1716, 1961): keine START-/ARCHIVIERE-Zeile (Nachtruhe Fachkräfte); WÄCHTER 1694 schon startbar; Herzschlag gepusht
+- 02:05 24.11.: Takt 02:03: keine START-/ARCHIVIERE-Zeile (Nachtruhe); Herzschlag gepusht
