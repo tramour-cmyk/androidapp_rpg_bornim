@@ -248,3 +248,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:21 24.11.: Nils (1589.4) archiviert, Kosten 4,03 $ (1589.4 gesamt 5,55 $); 1589.4 ruht bis Deckel des Chefs ab Sa (Sokrates 19:10)
 - 19:39 24.11.: Startsperre 19:39 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Margit, Arbeitsplaner 1773 Nadine)
 - 19:45 24.11.: Chef 19:37 „1603 A“ (Sokrates 19:40): Planerin Olga 2024 (Krogg-Pranke, session_01Hmoj79EWuFraZEKLsWTx16, Rufname Anna doppelt) gestartet; 1603-Ü19 Testbuild: Weg offen (Frage an Sokrates, kein Build angelegt); nicht ausgeführt: Planer 887, 1773
+- 19:41 24.11.: Startsperre 19:41 Start Kampf, Arbeitsplaner (lauf.py, Kampf 1589.4 Nadine, Arbeitsplaner 1774 Oda)
