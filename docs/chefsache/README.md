@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 14:31, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 14:37, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -31,7 +31,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 5 | 1487 (Regeln) Heiler wächst in Kapitel 1 nie im Willen |
 | ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 62 (64) | 18 | 0 | 1 | 37 | 1603 (Kampf) Besonderheiten fehlen im MARS ohne Kerben: Krogg… |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 32 (32) | 19 | 1 | 2 | 10 | 1694 (Figur) Griff einmal für alle gehaltenen Dinge: fester Gr… |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 33 (32) | 19 | 1 | 2 | 10 | 1694 (Figur) Griff einmal für alle gehaltenen Dinge: fester Gr… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 2 | 0 | 0 | 14 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
@@ -46,8 +46,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 23 | 20 | 43 | 1458 |
-| neu | 9 | 35 | 44 | 1550 |
-| **netto** (erledigt − neu) | **+14** | **−15** | **−1** | **−92** |
+| neu | 10 | 35 | 45 | 1551 |
+| **netto** (erledigt − neu) | **+13** | **−15** | **−2** | **−93** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -95,7 +95,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1773 | Werkzeug | Nachträge zu 1767 F3: Disponent „Fertig“ ohne Ausnahme 1311, Werkzeugfehler-Sat… | M | 7 Firma | startbar |
 | 20 | 1774 | Werkzeug | Werte für Höchstdauer je Auftrag und Laufbremse festlegen | M | 7 Firma | startbar |
 
-Danach 112 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 31. Ruhend oder nach dem Meilenstein: 128.
+Danach 113 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 31. Ruhend oder nach dem Meilenstein: 128.
 ## Zu entscheiden
 
 Nichts offen.
