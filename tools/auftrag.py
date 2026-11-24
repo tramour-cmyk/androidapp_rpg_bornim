@@ -184,7 +184,8 @@ def schliessen(nr, grund):
     zeit = ue.fmt(ue.jetzt())
     def aendern(alt):
         kopf = "" if alt else "# Vorgang %s\n\n" % nr
-        return alt + kopf + ("\n" if alt and not alt.endswith("\n\n") else "") + "Geschlossen (%s): %s\n" % (zeit, grund.strip()), zeit
+        neu = alt + kopf + ("\n" if alt and not alt.endswith("\n\n") else "") + "Geschlossen (%s): %s\n" % (zeit, grund.strip())
+        return ue.schliessen_text(neu, nr, None, "Vorgang %s geschlossen: %s" % (nr, grund.strip()[:60]))[0], zeit  # 2012 (4): alle Zeilen, selber Commit
     return ue.atomar(nr, aendern, "%s: geschlossen (%s): %s" % (nr, zeit, grund.strip()[:120]))
 
 BUILD = re.compile(r"B(\d+)")

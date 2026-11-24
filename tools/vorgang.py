@@ -167,6 +167,7 @@ def stand_setzen(nr, stand, rolle=None):
     n["stand"] = stand
     ersetzen(d, n)
     print("vorgang.py: %s (%s) Stand „%s“%s" % (nr, d["besitzer"], stand, (", wartet auf " + ", ".join(n["warte"])) if n["warte"] else ""))
+    if stand_pruefen(stand, nr) == "erledigt": uebergaben_schliessen(nr, "Vorgang %s erledigt (vorgang.py stand)" % nr)  # 2012 (4)
 
 def warte_setzen(nr, feld, rolle=None):
     d = finden(nr, rolle)
@@ -196,6 +197,7 @@ def setzen(nr, paare, rolle=None):
     else:
         ersetzen(d, n)
     print("vorgang.py: %s gesetzt: %s" % (nr, ", ".join(paare)))
+    if n["stand"] != d["stand"] and stand_pruefen(n["stand"], nr) == "erledigt": uebergaben_schliessen(nr, "Vorgang %s erledigt (vorgang.py setze)" % nr)  # 2012 (4)
 
 def klasse(nr, kl, rolle=None):
     if kl not in ("M", "K"): sys.exit("vorgang.py: Klasse M oder K")
@@ -325,6 +327,19 @@ def rest_sperre(nr, d=None):
     return ("%s nicht erledigt (1143): Rest ohne Folgevorgang – %s. Erst `vorgang.py neu \"… (aus %s)\" …` anlegen "
             "oder einen Commit „%s: Kein Folgevorgang, weil: …“ schreiben (deckt auch alle älteren, 1240)." % (nr, "; ".join("%s: „%s“" % f for f in rest), nr, nr))
 
+def uebergaben_schliessen(nr, grund):
+    """2012 (4): ein erledigter Vorgang schließt alle offenen Übergabezeilen genau seiner Nummer (uebergabe.schliessen_nr; erst nach der
+    rest_sperre aufrufen). Lokal nachsehen, ob es etwas gibt (sonst ohne Netz); Schreibfehler: laute Warnung mit dem Befehl, kein Abbruch."""
+    try: lokal = open(os.path.join(DOCS, "vorgang", nr + ".md"), encoding="utf-8").read()
+    except OSError: lokal = ""
+    if lokal and not uebergabe.schliessen_text(lokal, nr)[1]: return []
+    try: ks = uebergabe.schliessen_nr(nr, None, grund)
+    except uebergabe.Fehler as e:
+        print("WARNUNG Übergaben %s nicht geschlossen: %s (2012; von Hand: python3 -c \"import sys; sys.path.insert(0, 'tools'); import uebergabe; "
+              "print(uebergabe.schliessen_nr('%s', None, 'Vorgang erledigt'))\")" % (nr, e, nr)); return []
+    if ks: print("vorgang.py: Übergaben geschlossen: %s (2012)" % ", ".join(ks))
+    return ks
+
 def fertig(nr, rolle=None):
     d = finden(nr, rolle)
     sperre = rest_sperre(nr, d)
@@ -339,6 +354,7 @@ def fertig(nr, rolle=None):
     zu = [l[:60] for l in startbar.lesen(startbar.VORRAT.get(d["besitzer"], "")).splitlines() if re.match(r"- \*\*Zu " + re.escape(nr) + r"\b", l)]
     print("vorgang.py: %s erledigt (%s)%s%s" % (nr, d["besitzer"], ("; „wartet auf %s“ geleert bei: " % nr + ", ".join("%s (%s)" % (x["nr"], x["besitzer"]) for x in wer)) if wer else "",
                                             ("; Absätze noch da: " + " | ".join(zu)) if zu else ""))
+    uebergaben_schliessen(nr, "Vorgang %s erledigt (vorgang.py fertig)" % nr)
     try:  # 1688: Zeilen „Zu NR, bis erledigt“ als Übergabe „streichen: …“ an den Disponenten (nur bei Fund, sonst ohne Netz)
         import streichen
         if streichen.funde(nr): streichen.melden(nr)
