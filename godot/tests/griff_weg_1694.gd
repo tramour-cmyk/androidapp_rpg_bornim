@@ -8,6 +8,8 @@ extends SceneTree
 #   FALL=greataxe (Grundform im Spiel), BEW=Gehen_axt (Bewegung im Spielweg, sonst Stehen)
 #   Versuch (nur Messung, kein Spielcode): ANGLEICH1694=1 setzt im Spielweg alle Formschlüssel der Netze auf 0 wie im Prüfaufbau,
 #   ANGLEICH1694=<name> nur diesen (kantig, unter_CHEST …)
+#   NACHBILD1694=1 (griff_folge_1694, 24.11.: bake im Signal skeleton_updated zeigt die Pose des vorigen Aufrufs): das gezeichnete Netz
+#   wird mit der Waffenlage des vorigen Aufrufs verglichen (Messung zum passenden Zeitpunkt, nur im Test)
 
 const GLIEDER := ["hand_r", "index_01_r", "index_02_r", "index_03_r", "middle_01_r", "middle_02_r", "middle_03_r",
 	"ring_01_r", "ring_02_r", "ring_03_r", "pinky_01_r", "pinky_02_r", "pinky_03_r", "thumb_01_r", "thumb_02_r", "thumb_03_r"]
@@ -92,7 +94,15 @@ func reihe(sk: Skeleton3D, ding: Node3D, halt: Dictionary, ap: AnimationPlayer) 
 		ap.speed_scale = 0.0; ap.seek(ap.get_animation(ap.assigned_animation).length * 0.25, true)
 		for f in 6: await process_frame
 	var werte := []
-	var cb := func(): werte.append(miss(sk, ding, halt))
+	var nach := OS.get_environment("NACHBILD1694") != ""
+	var vorig := [null]
+	var cb := func():
+		var jetzt := ding.global_transform
+		if nach and vorig[0] != null: ding.global_transform = vorig[0]
+		var w := miss(sk, ding, halt) if (not nach or vorig[0] != null) else {"glied": {}}
+		ding.global_transform = jetzt
+		vorig[0] = jetzt
+		werte.append(w)
 	sk.skeleton_updated.connect(cb)
 	for f in 14: await process_frame
 	sk.skeleton_updated.disconnect(cb)
