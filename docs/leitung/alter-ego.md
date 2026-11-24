@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 19:42 Chef 19:42: Sokrates soll ihm bis Sa nichts vorlegen, nur abarbeiten, damit es weitergeht; „End of Communication“. Wörtlich an Sokrates.
 - 24.11., 19:09 Zweite Prüfung 15894 (de086de9f): stimmt, nichts Neues. An Sokrates.
 - 24.11., 19:10 Prüfung chefsache 15894 (69a9464cf) und F1–F5: Zahlen stimmen; F1–3, F5 stimmen. Einwände: 9 statt 3 wartende Kampfvorgänge, Gegenargument >220 $ in ruhenden Bewegungsvorgängen, B 15 $ ohne Beleg, Schritt 1 5 $ vs. <4 $, F4 1284a (Bildgrund) gegen DESIGN-GEGNER Z. 61 → Chefzeile. An Sokrates.
 - 24.11., 18:42 Nachfolger übernommen, umbenannt; Uhr trig_01UMZkwiFPFr6JeC8bo8fmA1 (19:43); alte trig_01TZud4pmfQVwZwysYLue1EF abgeschaltet (Löschen sperrt Rechteprüfer); Kennung an Sokrates.
