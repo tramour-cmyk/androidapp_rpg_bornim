@@ -234,3 +234,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:10 24.11.: 431 Prüfer nein (18:06, Erschaffung Größe, Beleg Rückansicht Umhang, Beschriftung): 431-Ü8 (steckt fest, Laufbremse) bei Sokrates, 431-Ü9 (Hinweise Bart, Rundschild) an Sokrates, erledigt; 431 wartet auf Sokrates; Lotte bleibt
 - 18:12 24.11.: Sokrates 18:10: 431-Ü8 entschieden: Chefsache, 431 ruht beim Chef bis Sa, kein Nachfolger, kein Lauf; Lotte legt drei Bilder ab (Auftrag per Nachricht), meldet an Sokrates, dann archivieren + Kosten buchen
 - 18:13 24.11.: Lotte (431) archiviert nach Ablage der drei Bilder (3c653d17a), Kosten 11,97 $ gebucht (431 gesamt 155,72 $); 431 ruht beim Chef bis Sa 28.11. (Chefsache, Sokrates 18:16)
+- 18:18 24.11.: 431-Ü10 (Lotte Bilder abgelegt) und 431-Ü12 (Prüfer Befund Ü11: Elf Vollbart, Zwerg Kinnbart, Zwergin Zöpfe fehlen, Orkhaut braun) an Sokrates, erledigt
