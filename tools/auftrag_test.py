@@ -1,4 +1,4 @@
-# 1739: vorgang.py --hilfe, auftrag (Vorlage, Prüfung der sieben Felder, „Zurück“, 2 KB, Eintrag in docs/vorgang/NR.md),
+# 1739: vorgang.py --hilfe, auftrag (Vorlage, Prüfung der sieben Felder, „Zurück“, Eintrag in docs/vorgang/NR.md),
 # schliessen mit Grund. Echtes Git mit nacktem origin. Aufruf: python3 tools/auftrag_test.py
 import os, subprocess, sys, tempfile
 HIER = os.path.dirname(os.path.abspath(__file__))
@@ -60,18 +60,12 @@ soll("unbekannte Nummer hält an", c != 0 and "nicht in der Vorgangsliste" in t,
 soll("gültiger Auftrag ohne Fehler", au.pruefen(GUT) == [], au.pruefen(GUT))
 soll("ohne „Zurück“ hält an", any("Zurück" in x for x in au.pruefen(GUT.split("7. ")[0])), au.pruefen(GUT.split("7. ")[0]))
 soll("„Zurück“ zu knapp", any("knapp" in x for x in au.pruefen(GUT.replace("an das Büro, erstes Wort „fertig“, mit Commit und Bild.", "Büro"))))
-soll("über 2 KB hält an", any("Byte" in x for x in au.pruefen(GUT + "x" * 2100)))
-# 1878 (Lauf 3 Arbeitsplaner L4): wörtliche Zitate unter „Bisher“ zählen nicht zur Grenze, eigene Grenze
+# 2011 (Chef 24.11., 07:27): keine Längenprüfung mehr
+lang = GUT.rstrip() + " " + "Wort " * 600
+soll("2011: 3000 Byte ohne Fehler", len(lang.encode()) >= 3000 and au.pruefen(lang) == [], au.pruefen(lang))
 nein = "„" + "der Stiel liegt nicht in der geschlossenen Hand, also fail " * 30 + "“"
 mit_zitat = GUT.replace("3. **Bisher:**", "3. **Bisher:** Chef 17:38: " + nein + " ·", 1)
-soll("1878: langes Zitat unter „Bisher“ hält nicht an", au.pruefen(mit_zitat) == [] and len(mit_zitat.encode()) > 2048, au.pruefen(mit_zitat))
-soll("1878: Zitat mit geraden Anführungszeichen ebenso", au.pruefen(mit_zitat.replace("„", '"').replace("“", '"')) == [])
-soll("1878: dasselbe ohne Anführungszeichen hält an", any("ohne Zitate" in x for x in au.pruefen(mit_zitat.replace("„", "").replace("“", ""))))
-lang_ziel = GUT.replace("1. **Ziel:**", "1. **Ziel:** " + nein, 1)
-soll("1878: Zitat außerhalb „Bisher“ zählt mit", any("ohne Zitate" in x for x in au.pruefen(lang_ziel)), au.pruefen(lang_ziel))
-zuviel = GUT.replace("3. **Bisher:**", "3. **Bisher:** " + nein + nein + nein, 1)
-soll("1878: Zitate über 2048 Byte halten an", any("Zitate unter „Bisher“" in x for x in au.pruefen(zuviel)), au.pruefen(zuviel))
-soll("1878: groesse trennt Zitate", au.groesse(mit_zitat)[1] == len(nein.encode()) and sum(au.groesse(mit_zitat)) == len(mit_zitat.encode()))
+soll("langes Zitat unter „Bisher“ hält nicht an", au.pruefen(mit_zitat) == [], au.pruefen(mit_zitat))
 # 1879 (Lauf 3 Arbeitsplaner L7, Prüfer-1 L8): Inhalt statt nur Form
 a3_ziel = GUT.replace("Der Zwerg steht auf dem Tisch, nicht darin.", "Ziel und Herkunft fehlen, „Frage“ an Sokrates; dieser Auftrag wird erst mit der Antwort eingetragen.")
 soll("1879: Fehlwörter im Ziel halten an (A3)", any("Feld 1" in x and "fehlt" in x for x in au.pruefen(a3_ziel)), au.pruefen(a3_ziel))
@@ -132,7 +126,7 @@ soll("gültig: Abschnitt „## Auftrag (21.11., 20:40)“ gepusht", c == 0 and "
 
 # 4a 1798: Kern Arbeitsplaner (Feld 6 „Prüfart“, Auftrag oben, Größe in der Vorlage, Rückläufer zu archivierter Nummer)
 soll("Feld 6 auch als „Prüfart“", au.pruefen(GUT.replace("Prüfart und Prüfe vor dem Senden:", "Prüfart:")) == [], au.pruefen(GUT.replace("Prüfart und Prüfe vor dem Senden:", "Prüfart:")))
-soll("Vorlage nennt die Größe", "2048 Byte" in au.vorlage("9001") and "etwa 2 KB" in au.vorlage("9001"))
+soll("2011: Vorlage ohne Größe", "Byte" not in au.vorlage("9001") and "KB" not in au.vorlage("9001"))
 os.environ["BORNIM_JETZT"] = ENV["BORNIM_JETZT"] = "21.11., 21:10"
 c, t = lauf("auftrag", "9001", "--datei", "-", eingabe=GUT.replace("Stellfläche aus dem Netz lesen.", "Zweiter Auftrag."))
 x = datei("9001")

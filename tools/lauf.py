@@ -508,6 +508,56 @@ def start_angekommen(rolle, d, alle):
         if s.get("session_status") != "SESSION_STATUS_ARCHIVED" and s.get("updated_at") and z(s["updated_at"]) >= d: return True
     return False
 
+NR_TEIL = re.compile(r"B?\d+(?:\.\d+)?[a-z]?")
+
+def start_eintraege(text, jahr):
+    """2012 (2): (Zeitpunkt naiv, Rolle, Nr, Rufname oder None) je START aus „- HH:MM TT.MM.: Startsperre HH:MM Start <Rollen> (lauf.py,
+    <Rolle> <Nr> <Rufname>, …)“ (startsperre_zeile); bei einer Rolle steht die Nummer auch allein („(lauf.py, 2012)“)."""
+    import rufname
+    aus = []
+    for l in text.splitlines():
+        m = re.search(r"Startsperre (\d\d):(\d\d) Start (\w+(?:, \w+)*) \(lauf\.py((?:, [^,)]+)*)\)", l)
+        k = re.match(r"- \d\d:\d\d (\d\d)\.(\d\d)\.:", l)
+        if not m or not k: continue
+        try: d = datetime.datetime(jahr, int(k.group(2)), int(k.group(1)), int(m.group(1)), int(m.group(2)))
+        except ValueError: continue
+        rollen = m.group(3).split(", ")
+        for teil in m.group(4).split(",")[1:]:
+            w = teil.split()
+            r = next((x for x in w if x in rollen), rollen[0] if len(rollen) == 1 else None)
+            nr = next((x for x in w if NR_TEIL.fullmatch(x)), None)
+            if r and nr: aus.append((d, r, nr, next((x for x in w if x in rufname.ALLE), None)))
+    return aus
+
+def angekommen_nr(rolle, ruf, d, alle):
+    """2012 (2): die Sitzung dieses STARTs ist da: mit Rufname eine Sitzung mit dem Rufnamen im Titel, angelegt ab der Sperre (−5 Min.);
+    ohne Rufname start_angekommen der Rolle."""
+    if not ruf: return start_angekommen(rolle, d, alle)
+    import rufname
+    return any(rufname.aus_titel(s.get("title", "")) == ruf and z(s["created_at"]) >= d - datetime.timedelta(minutes=START_PRUEF_MIN) for s in alle.values())
+
+def start_zeilen_schliessen(alle, text=None, schliessen=None, docs=None):
+    """2012 (2) (Bauliste Sokrates 23.11., 23:01): je START einer Fachkraft (uebergabe.FACHPROFILE) aus den Startsperren, deren Sitzung
+    angekommen ist, „Auftrag steht“ und „Nachfolger“ der Nummer (exakt) schließen, nur Zeilen bis zur Sperre; Hinweise nie (erst
+    vorgang.py fertig). Vorher lokal nachsehen, ob es etwas zu schließen gibt (kein Netz je Lauf). Rückgabe: Ausgabezeilen."""
+    import uebergabe as _ue
+    schliessen = schliessen or _ue.schliessen_nr
+    text = lesen(os.path.join(DOCS, "ARBEIT-BETRIEB.md")) if text is None else text
+    aus = []; fertig = set()
+    for d, rolle, nr, ruf in sorted(start_eintraege(text, JETZT.year), key=lambda x: x[0], reverse=True):  # jüngste Sperre je Nummer zuerst
+        if rolle not in _ue.FACHPROFILE or nr in fertig: continue
+        try: lokal = open(os.path.join(docs or DOCS, "vorgang", nr + ".md"), encoding="utf-8").read()
+        except OSError: continue
+        if not _ue.schliessen_text(lokal, nr, _ue.START_ARTEN, "", d)[1]: continue
+        if not angekommen_nr(rolle, ruf, d.replace(tzinfo=BERLIN), alle): continue
+        fertig.add(nr)
+        grund = "Start %s %s%s %s angekommen (lauf.py, 2012)" % (rolle, nr, (" " + ruf) if ruf else "", d.strftime("%d.%m., %H:%M"))
+        try: ks = schliessen(nr, _ue.START_ARTEN, grund, bis=d)
+        except Exception as e:
+            aus.append("WARNUNG Übergaben %s nicht geschlossen: %s (2012; von Hand: uebergabe.schliessen_nr)" % (nr, str(e)[:160])); continue
+        if ks: aus.append("NICHTS Übergabe: %s geschlossen, %s (2012)" % (", ".join(ks), grund))
+    return aus
+
 def start_noetig(rolle, st, ausschluss, nur_muss=False, nf_offen=False):
     """1586 (Ford 17.11., 18:38): eine fehlende Sitzung nach der Startsperre zählt nur, wenn die Rolle jetzt etwas zu starten hätte
     (offener Nachfolger oder startbare Zeile, die nicht mit --ohne ausgeschlossen ist, keine Pause). Sonst war der Start gewollt
@@ -640,20 +690,13 @@ def _sieht_nummer(t):
     """1960: läse nummern_aus_titel in t hinter „X – 1:“ eine weitere Vorgangsnummer (Kosten zu gleichen Teilen, 197)?"""
     return nummern_aus_titel("X – 1: %s (01.01., 00:00)" % t) != "1"
 
-def thema(t):
-    """1960 (Chef 22.11., 16:52): Thema für den START-Titel aus dem Vorgangstitel: ohne Markdown, „|“, Zeilenumbruch und
-    „Auftrag <Zahl>“; Vorspann bis zum ersten „: “ außerhalb von Klammern weg, wenn er mit „Von “ beginnt oder eine Vorgangsnummer
-    trägt („Aus 623.2 (Jerry): …“); endet vor „;“, „: “, „ (“, „ – “, einem unpaarigen „ und vor jedem Wort, das nummern_aus_titel
-    als weitere Vorgangsnummer läse (dann ohne Füllwort am Ende und mit „…“); höchstens THEMA_MAX Zeichen am Wortende mit „…“."""
-    t = re.sub(r"\*\*|`", "", str(t or ""))
-    t = " ".join(re.sub(r"[|\r\n]+", " ", t).split())
-    tiefe = 0
-    for i, c in enumerate(t):
-        tiefe += (c == "(") - (c == ")")
-        if c == ":" and tiefe == 0 and t[i + 1:i + 2] in (" ", ""):
-            if (re.match(r"(D\d\S* )?[Vv]on ", t) or _sieht_nummer(t[:i])) and t[i + 1:].strip(): t = t[i + 1:]
-            break
-    t = re.split(r";|:(?=\s|$)| \(| – ", t.strip())[0]
+THEMA_WORTE = 3  # 1960 (Sokrates 22.11., 17:22): Thema mit Gegenstand und Tätigkeit, mindestens etwa drei Wörter
+
+def _worte(t): return len(t.replace("…", "").split())
+
+def _kuerze(t):
+    """1960: Thema-Stück ohne „Auftrag <Zahl>“, endet vor einem unpaarigen „ und vor jedem Wort, das nummern_aus_titel als weitere
+    Vorgangsnummer läse (dann ohne Füllwort am Ende und mit „…“); höchstens THEMA_MAX Zeichen am Wortende mit „…“; ohne offene Klammer."""
     t = re.sub(r"\bAuftrag\s+\d[0-9a-zA-Z.]*", " ", t)
     if t.count("„") > t.count("“"): t = t[:t.rindex("„")]
     worte, rest = [], False
@@ -668,9 +711,37 @@ def thema(t):
         t = t[:t.rindex(" ")] if " " in t else t
         if t.count("„") > t.count("“"): t = t[:t.rindex("„")]
         rest = True
+    if t.count("(") > t.count(")"): t = t[:t.rindex("(")]; rest = True
     t = t.rstrip(" ,;:(–-/")
     while rest and " " in t and t.rsplit(" ", 1)[1].lower() in FUELLWORT: t = t.rsplit(" ", 1)[0].rstrip(" ,;:(–-/")
     return (t + " …") if rest and t else t
+
+def thema(t):
+    """1960 (Chef 22.11., 16:52; Rückläufer Sokrates 22.11., 17:22): Thema für den START-Titel aus dem Vorgangstitel: ohne Markdown,
+    „|“, Zeilenumbruch und „Auftrag <Zahl>“; Vorspann bis zum ersten „: “ außerhalb von Klammern weg, wenn er mit „Von “ beginnt oder
+    eine Vorgangsnummer trägt („Aus 623.2 (Jerry): …“); endet vor „;“, „: “, „ (“, „ – “, solange davor THEMA_WORTE Wörter stehen,
+    sonst über den Trenner weiter („ – “ wird „: “); Teil vor „:“ (ohne Klammer) nur, wenn danach noch ein Wort mitpasst, sonst der Teil danach. Kürzung _kuerze."""
+    t = re.sub(r"\*\*|`", "", str(t or ""))
+    t = " ".join(re.sub(r"[|\r\n]+", " ", t).split())
+    tiefe = 0
+    for i, c in enumerate(t):
+        tiefe += (c == "(") - (c == ")")
+        if c == ":" and tiefe == 0 and t[i + 1:i + 2] in (" ", ""):
+            if (re.match(r"(D\d\S* )?[Vv]on ", t) or _sieht_nummer(t[:i])) and t[i + 1:].strip(): t = t[i + 1:]
+            break
+    teile = re.split(r"(;|:(?=\s|$)| \(| – )", t.strip())
+    stueck, kopf = teile[0], ""
+    for i in range(1, len(teile) - 1, 2):
+        if _worte(_kuerze(stueck)) >= THEMA_WORTE: break
+        tr, weiter = teile[i], teile[i + 1].strip()
+        if not weiter: continue
+        if tr in (":", " – "): kopf, stueck = stueck, weiter
+        else: stueck = stueck + (" (" if tr == " (" else tr + " ") + weiter
+    kopf = " ".join(re.sub(r"\([^()]*\)", " ", kopf).split())  # „BornWire (vorher WireStorm): …“: Klammer im Kopf entfällt
+    if kopf:
+        mit = _kuerze(kopf + ": " + stueck)
+        if _worte(mit) >= THEMA_WORTE and _worte(mit) > _worte(_kuerze(kopf)) or _worte(_kuerze(stueck)) < THEMA_WORTE: return mit
+    return _kuerze(stueck)
 
 def start_titel(kopf, nr):
     """1960: START-Titel „<Kopf>: <Thema> (TT.MM., HH:MM)“ (Fachkraft, Planer, zweiter Planer), Thema aus dem Vorgangstitel von nr;
@@ -993,7 +1064,7 @@ def sokrates_zeilen(ausgabe, je_rolle, archiviert, vorgaenger=lambda r: None, do
     except Exception:
         so_z = []
     if so_z:
-        teil = "Offene Zeilen an dich (1763 C): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; „an den Chef“: Chefsache-Datei nach Muster, nicht selbst lösen; fertig: `vorgang.py erledigt <Kennung>`." % "; ".join("%s %s" % (k, w) for k, w in so_z[:6])
+        teil = "Offene Zeilen an dich (1763 C): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; „an den Chef“: Chefsache-Datei nach Muster, nicht selbst lösen; fertig: `vorgang.py erledigt <Kennung>`." % _ue.kurz(so_z)
         i = next((j for j, z in enumerate(ausgabe) if z.startswith("START Sokrates |") or (z.startswith("WEITER ") and " | Sokrates | " in z)), None)
         if i is not None:
             if ausgabe[i].startswith("WEITER "):
@@ -1150,7 +1221,7 @@ def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
         ausgabe.append("WARNUNG offene Übergabezeilen nicht gelesen: %s (1739)" % e); return {}
     for an, zs in sorted(je.items()):
         r = "Ford" if an == "Disponent" else an if scharf else ALT_EMPFAENGER.get(an, an)  # 1893: Disponent ist Fords Sitzung
-        teil = "Offene Zeilen an %s (1739): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; fertig: `vorgang.py erledigt <Kennung>`." % (an, "; ".join("%s %s" % (k, w) for k, w in zs[:6]))
+        teil = "Offene Zeilen an %s (1739): %s. Je Zeile `vorgang.py annehmen <Kennung>`, Vorgangsdatei `docs/vorgang/<Nr>.md` lesen; fertig: `vorgang.py erledigt <Kennung>`." % (an, _ue.kurz(zs))
         sitz = [s for s in je_rolle.get(r, []) if s["id"] not in archiviert] if r != "Ford" else []
         if sitz: ausgabe.append("NACHRICHT %s | %s | %s" % (r, juengste(sitz)["id"], teil))
         elif r != "Ford" and start and start(r, zs[0][0].split("-Ü")[0], teil): pass
@@ -1166,7 +1237,7 @@ def ist_scharf():
 
 def auftrag_fehlt(nr, docs=None, titel=None):
     """1739 (7.1 „kein Start ohne Feld Zurück“): Grund, warum Vorgang nr keinen gültigen Auftrag hat (jüngster Abschnitt
-    „## Auftrag (…)“ in docs/vorgang/<Nr>.md, geprüft mit auftrag.pruefen: sieben Felder, „Zurück“ mit Inhalt, höchstens 2 KB),
+    „## Auftrag (…)“ in docs/vorgang/<Nr>.md, geprüft mit auftrag.pruefen: sieben Felder, „Zurück“ mit Inhalt),
     sonst None. Zeilen ohne Nummer (M?, Stillstand, Kosten) brauchen keinen."""
     if not re.match(r"B?\d", str(nr)): return None  # 1949: Build-Auftrag B<n> braucht ebenso einen Auftrag
     try:  # 1789: Routinen (Titel „(Routine, Auftrag <Datei> …)“) sind vom Feld „Zurück“ ausgenommen, Teil A ist der Auftrag
@@ -1671,6 +1742,7 @@ def main():
         ausgabe.append("WARNUNG-LAUT Start %s nicht angekommen: Startsperre %s, keine Sitzung %s seither; Disponent: START ausführen oder mit --ohne NR:Grund ausschließen (837)" % (name, d.strftime("%d.%m., %H:%M"), name))
         neue_marken.append(schl)
     for name in nicht_da: marken.pop(name, None)  # (2) zählt nicht als Belegung
+    if sperre: ausgabe.extend(start_zeilen_schliessen(alle))  # 2012 (2): Auftrag steht/Nachfolger zu, sobald die Fachkraft angekommen ist
     if bremse and bremse.ober:  # 2001: laufende Fachkräfte aus der Sitzungsliste („Laufend“, Kopf), dazu Startsperren unter SPERRE_MIN ohne Sitzung seither
         laufend_setzen(bremse, je_rolle, marken, archiviert=archiviert)
         neu_ = [l for l in bremse.zeilen() if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l]

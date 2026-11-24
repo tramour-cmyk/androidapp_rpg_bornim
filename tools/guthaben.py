@@ -44,7 +44,8 @@ STUFEN = ((100, "Stillstand"), (95, "nur Rückläufer"), (80, "nur Muss"))
 FREI_ROLLEN = {"Sokrates", "Rundblick", "Ideenlauf", "Wache", "Ford"}  # 1907: Ideenlauf ist Sokrates
 STANDARD_STUNDEN = 24
 FREI_OBER = {"Arbeitsplaner", "Planer", "Perikles", "Prüfer", "Diogenes", "Wache", "Sokrates", "Rundblick", "Ideenlauf", "Tagesbericht",
-             "Disponent", "Ford", "Tester"}  # 2001; Tester: 2001-Ü10: frei unter der Obergrenze; FREI_ROLLEN der alten Form bleibt
+             "Disponent", "Ford", "Tester", "Alter Ego", "Disponent-Starter"}  # 2001; Tester: 2001-Ü10: frei unter der Obergrenze; FREI_ROLLEN der alten Form bleibt
+FREI_TITEL = re.compile(r"^(Alter Ego) –|^(Disponent-Starter)(?![\w-])")  # 2013: Leitung und Büro ohne Rufnamen, nach festem Titelanfang frei
 SPIEL = ("G Regeln", "E Kampf", "E Figuren", "E Welt")  # 2001 (Archiv 287, 22.11., 19:57: „nur Spiel (Regeln, Kampf, Figur, Welt)“)
 ZAHLWORT = dict(nachtstarts.ZAHLWORT, keine=0, null=0, keinen=0)
 
@@ -178,6 +179,8 @@ def ober_rolle(rolle, titel):
     Vorgang oder einer doppelten Rufnamen-Sperre (kosten.rolle gab für „Hanna – 1675: Prüfung“ Figur); sonst die Rolle."""
     m = TITEL_ROLLE.search(titel or "")
     if m: return "Prüfer" if m.group(1) == "Prüfung" else "Tester"
+    f = FREI_TITEL.match(titel or "") if rolle in (None, "", "Sonstige") else None
+    if f: return f.group(1) or f.group(2)
     return vorgang_rolle(titel) or rolle if rolle in (None, "", "Sonstige") else rolle
 
 

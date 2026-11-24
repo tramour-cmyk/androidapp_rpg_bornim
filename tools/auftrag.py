@@ -2,7 +2,7 @@
 """Auftrag und Schließen über vorgang.py (1739, Bauliste 1727 Gesamtbild 7.1, Vorlage 4.2).
 
   vorgang.py auftrag NR                  Vorlage mit den sieben Feldern ausgeben (zum Ausfüllen)
-  vorgang.py auftrag NR --datei PFAD     Auftrag prüfen (sieben Felder, Pflichtfeld „Zurück“ mit Inhalt, höchstens 2 KB)
+  vorgang.py auftrag NR --datei PFAD     Auftrag prüfen (sieben Felder, Pflichtfeld „Zurück“ mit Inhalt)
                                          und als Abschnitt „## Auftrag (TT.MM., HH:MM)“ in docs/vorgang/NR.md eintragen (gepusht wie
                                          die Übergabezeilen); „-“ liest von der Standardeingabe; --pruefen: nur prüfen, nichts schreiben
   NR muss in der Vorgangsliste oder im Archiv stehen, auch mit --pruefen (1944); Build n: B<n> (Datei docs/vorgang/B<n>.md, 1949)
@@ -11,8 +11,7 @@
 
 Felder (Gesamtbild 4.2): 1 Ziel · 2 Systemfrage · 3 Bisher · 4 Beachte (höchstens fünf Punkte) · 5 Umsetzen · 6 Prüfart und
 Prüfe vor dem Senden · 7 Zurück. Feld 8 „Leistungsstufe“ erst nach 1742 (Gesamtbild 4.2 Fassung 2).
-Größe: Bauliste 7.1 „etwa 2 KB“ (Vorlage 4.2 nannte 1,5 KB); über 2048 Byte hält an. 1878 (Lauf 3 Arbeitsplaner L4): wörtliche
-Zitate in Feld 3 „Bisher“ („…“ oder "…"; Kern: jedes frühere Nein wörtlich) zählen nicht mit, haben eine eigene Grenze von 2048 Byte.
+Größe: keine Prüfung (2011, Chef 24.11., 07:27).
 1879 (Lauf 3 Arbeitsplaner L7, Prüfer-1 L8): Inhalt, nicht nur Form: kein Platzhalter <…> (außer in Pfaden wie docs/vorgang/<Nr>.md),
 in Ziel, Umsetzen, Prüfart und Zurück keine Fehlwörter über den Auftrag selbst („Ziel fehlt“, „Herkunft unklar“, „erst mit der
 Antwort“, TODO; 1917: „Im Hof fehlt die Fackel“ ist ein Spielfund und gilt), Ziel und Zurück ohne Frage,
@@ -26,8 +25,6 @@ FELDER = ["Ziel", "Systemfrage", "Bisher", "Beachte", "Umsetzen", "Prüfart und 
 HINWEIS = ["was der Spieler sieht, hört oder erlebt", "keine Einzellösung; wie lösen es andere? Pflicht bei Bezügen",
            "was schon versucht wurde, mit Ursache", "höchstens fünf Punkte", "was zu tun ist",
            "drei bis fünf Ja-Nein-Fragen", "an wen, in welcher Form, mit Beleg; Zweig gepusht, Commit genannt"]
-GRENZE = 2048
-GRENZE_ZITATE = 2048  # 1878: wörtliche Zitate unter „Bisher“, getrennt von GRENZE
 ZITAT = re.compile(r'„[^“”„]*[“”]|"[^"\n]*"')
 
 # 1789 (Sokrates, routine-rundblick.md:13, „Zu 1766“: alle drei Routinen): Routinen sind vom Feld „Zurück“ ausgenommen; ihr Auftrag ist
@@ -54,8 +51,7 @@ def routine_text(titel, wurzel):
     return m.group(1).strip() if m else None
 
 def vorlage(nr, titel=""):
-    kopf = ("Auftrag %s%s (höchstens %d Byte, etwa 2 KB; wörtliche Zitate unter „Bisher“ zählen nicht mit, eigene Grenze %d Byte; "
-            "oben in docs/vorgang/%s.md)\n\n") % (nr, (": " + titel) if titel else "", GRENZE, GRENZE_ZITATE, nr)
+    kopf = "Auftrag %s%s (oben in docs/vorgang/%s.md)\n\n" % (nr, (": " + titel) if titel else "", nr)
     return kopf + "\n".join("%d. **%s:** <%s>" % (i, f, h) for i, (f, h) in enumerate(zip(FELDER, HINWEIS), 1)) + "\n"
 
 def _name_re(name):
@@ -139,19 +135,9 @@ def inhalt_fehler(text):
             f.append("Feld 6 hat %d Prüffragen, verlangt %d bis %d Ja-Nein-Fragen (Kern Arbeitsplaner)" % (n, FRAGEN_MIN, FRAGEN_MAX))
     return f
 
-def groesse(text):
-    """1878: (Byte ohne die wörtlichen Zitate in Feld 3, Byte dieser Zitate)."""
-    gesamt = len(text.encode("utf-8"))
-    bis = _feld(text, 3, FELDER[2]) or ""
-    z = sum(len(m.group(0).encode("utf-8")) for m in ZITAT.finditer(bis))
-    return gesamt - z, z
-
 def pruefen(text):
     """Liste der Fehler (leer = gut)."""
     f = []
-    n, z = groesse(text)
-    if n > GRENZE: f.append("%d Byte ohne Zitate unter „Bisher“, höchstens %d (Bauliste 7.1 „etwa 2 KB“)" % (n, GRENZE))
-    if z > GRENZE_ZITATE: f.append("Zitate unter „Bisher“ %d Byte, höchstens %d (1878); ältere Neins als Verweis auf docs/vorgang/NR.md" % (z, GRENZE_ZITATE))
     for i, name in enumerate(FELDER, 1):
         inhalt = _feld(text, i, name)
         if inhalt is None: f.append("Feld %d „%s“ fehlt" % (i, name)); continue
@@ -198,7 +184,8 @@ def schliessen(nr, grund):
     zeit = ue.fmt(ue.jetzt())
     def aendern(alt):
         kopf = "" if alt else "# Vorgang %s\n\n" % nr
-        return alt + kopf + ("\n" if alt and not alt.endswith("\n\n") else "") + "Geschlossen (%s): %s\n" % (zeit, grund.strip()), zeit
+        neu = alt + kopf + ("\n" if alt and not alt.endswith("\n\n") else "") + "Geschlossen (%s): %s\n" % (zeit, grund.strip())
+        return ue.schliessen_text(neu, nr, None, "Vorgang %s geschlossen: %s" % (nr, grund.strip()[:60]))[0], zeit  # 2012 (4): alle Zeilen, selber Commit
     return ue.atomar(nr, aendern, "%s: geschlossen (%s): %s" % (nr, zeit, grund.strip()[:120]))
 
 BUILD = re.compile(r"B(\d+)")
@@ -235,7 +222,7 @@ def haupt(a, fertig=None, wieder=None):
                 print("vorgang.py auftrag %s hält an:\n- " % nr + "\n- ".join(f)); sys.exit(1)
             if nur and titel is None and (wieder is None or wieder(nr) is None):  # 1944: unbekannte Nummer nie „gültig“
                 sys.exit("vorgang.py auftrag: %s steht nicht in der Vorgangsliste und nicht im Archiv (Build n: B<n>, 1949); nichts geprüft" % nr)
-            if nur: print("vorgang.py auftrag %s: gültig (%d Byte, davon Zitate unter „Bisher“ %d)" % ((nr, len(text.encode("utf-8"))) + groesse(text)[1:])); return
+            if nur: print("vorgang.py auftrag %s: gültig" % nr); return
             zurueck = titel is None and wieder is not None and not BUILD.fullmatch(nr)
             if zurueck: titel = wieder(nr)  # 1798: Rückläufer zu archivierter Nummer, Vorgang wird wieder offen (Liste und Archiv in eintragen, 1899)
         if titel is None: sys.exit("vorgang.py auftrag: %s steht nicht in der Vorgangsliste und nicht im Archiv" % nr)
