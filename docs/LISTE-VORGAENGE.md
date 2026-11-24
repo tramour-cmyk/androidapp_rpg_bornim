@@ -86,7 +86,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1205 | Wiesen und Blumenfelder mit mehr Pflanzen aus dem Grass & Wind Kit … | 5 | E Welt | M | 1535 | – | claude/tom-1205-wiese | *gebaut, Geprüft an: fdbacd715* | *–* | *0* | *8,30 $* |
 | 1753 | Streicherspur nach 120 bauen, nur bei Jägern (1752) | 11 | E Klang | M | – | 936, 1281, 120, 1752 | – | *startbar* | *–* | *0* | *2,38 $* |
 | 1270.6 | Messbuild Technik: Schalter 3D-Auflösung 50 % im Testmenü, Überzeichnungs-Ansicht vorher am Rechner, Bildrate fest 30 … | 6 | E Technik | M | – | 1270.5, 1645 | claude/spike-1270.6-messbuild | *gebaut, Geprüft an: 05283c930* | *–* | *0* | *3,75 $* |
-| 1270.7 | nach Messung 1270.6: Texturen komprimiert (Nr. 2) und Laub ohne Durchsicht fern (Nr. 3, auf 1484a), je Vergleichsbild … | 6 | E Technik | M | – | 1270.5, 1270.6, 1484a | – | *startbar* | *–* | *0* | *–* |
+| 1270.7 | nach Messung 1270.6: Texturen komprimiert (Nr. 2) und Laub ohne Durchsicht fern (Nr. 3, auf 1484a), je Vergleichsbild … | 6 | E Technik | M | – | 1270.5, 1270.6, 1484a | – | *startbar* | *–* | *0* | *1,69 $* |
 | 1331 | Sammelbuild: alle fertigen Zweige beider Teams, Nummern siehe „Zu 1331“ | 6 | E Technik | M | – | 774 | – | *zu testen, Build 290 Lauf 506* | *–* | *0* | *15,96 $* |
 | 1484 | Welt und Kampf 9–10 Bilder/s (A56 gleicher Build 24–25, Kampf 12–18), Dorf laden 10,6 s kalt | 6 | E Technik | M | – | 619, 292, 698 | – | *startbar* | *–* | *0* | *1,37 $* |
 | 1583 | rotbuch.py --anlegen legt einen Wiederholer neu an, sobald sein Vorgang erledigt ist, aus roten Läufen vor der … | 6 | E Technik | M | – | 1578, 1561, 518, 524 | – | *gebaut, Geprüft an: 787f8c27b* | *–* | *0* | *1,38 $* |
