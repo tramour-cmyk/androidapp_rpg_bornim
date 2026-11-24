@@ -1364,3 +1364,4 @@
 2026-11-24 19:32:32	probelauf	1702: Bild oder Film an den Chef nur aus dem gepushten Stand; nicht committet: tools/blender348/v3/kauf_kleid.py. Erst committen und pushen; eigene Messläufe ohne Bild mit `MESS=`.	claude/jerry-1653-kleid
 2026-11-24 20:20:50	probelauf	Laufbremse (1766, Chef 19.11., 13:02: je Runde ein Bild- oder Filmlauf): für 1654 schon 1 Lauf seit der Freigabe 2026-11-18 22:37:00. Den nächsten gibt der Prüfer frei: seine Rückmeldung („ja“, „nein“	claude/jerry-1653-kleid
 2026-11-24 22:52:09	commit-pruefung	VORGANGSARCHIV.md: neuer Eintrag „1589.4 Halt bei Schritt 2“ trifft ältere Einträge ohne „ersetzt durch“ (1589.4 A, Deckel 26 $; 1589.4 jetzt, Spiel vor); dort „→ ersetzt durch <Nr., Datum>“ anhängen 	main
+2026-11-24 22:52:09	commit-pruefung	VORGANGSARCHIV.md: neuer Eintrag „1589.3 auf main“ trifft ältere Einträge ohne „ersetzt durch“ (1589.3 auf main; 1589.3 A, nach main; 1589.3 Rückwärts und Seitschritt; 1589.3 startbar); dort „→ ersetz	main
