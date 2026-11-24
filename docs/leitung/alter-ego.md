@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session_01Hmoj79s65wJUddNW1dFPLB). Sokrates session_01Hmoj76yxzDSEqiQVjnX9U2 (seit 24.11., ~09:05). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session_01Hmoj79s65wJUddNW1dFPLB). Sokrates session_01Hmoj77ZdYKh1YXq5iPdhgN (seit 24.11., 12:51). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -21,10 +21,11 @@ Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session
 - Erste Nachricht: „Du bist Alter Ego, das zweite Paar Augen des Chefs, kein zweiter Sokrates (Rolle neu 24.11., 08:57). Lies docs/leitung/alter-ego.md und arbeite danach: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
 
 
-**Übergabe (24.11., 09:38, 272 Tsd., Nachfolger: Alter Ego – Supervisor (24.11.)):** Werkzeug 2012 → 2013 → 2017 (400-Grenze ersatzlos); Baustopp/Abbau vertagt (07:31). Offen bei Sokrates: Wache auf main (stimmt), Wache-Weckzeit im Chat statt Datei (Profil, Chefsache, kein Werkzeug), Fragen Otto 431/Nora 2012. Prüfauftrag Sokrates 10:08 an Nachfolger: Chefsachen 15892-zielwahl-main.md und 1694-griff-weiter.md (59d590358) gegen Rückmeldungen 1589.2.md 08:42 und 1694.md 07:49 prüfen (fehlt eine Option? braucht 1589.4 den Zweig 1589.2?). 2003 bis 30.11. Uhr trig_01FjVr7drqkG2o2j78bqSiN3 (10:38) vom Nachfolger löschen.
+**Übergabe (24.11., 13:25, 263 Tsd., Nachfolger: Alter Ego – Supervisor (24.11.)):** Chef 12:48/12:49 (Archiv): kein neues Werkzeug, Spiel vor, keine Meldungen an den Chef bis Sa 28.11. außer Laufsperre-Notfall; Wochenzählung fällt weg (2018, 2019, 2020, 2021 ruhen). Runden darum nur Hänger an Sokrates, keine Streich- oder Werkzeugvorschläge. Offen: nichts. Lehren 12:28 (Kopf einer Entwurfsdatei lesen; Protokoll vor Code; Grep nicht mit head abschneiden). Uhr trig_012h9exBvsBnA6EdFRkaBiZH ist verbraucht; Nachfolger legt neue an, keine alte zu löschen außer einer, die diese Sitzung noch anlegt.
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 13:25 Runde: 431 Hänger erledigt (Wiebke archiviert, Beleglauf rot gemeldet 13:05); 1589.3 erledigt; Chef 12:48/12:49 Ruhe bis Sa. Übergabe (263 Tsd.), Startfelder an Sokrates neu.
 - 24.11., 12:36 Prüfung 15893-main.md: Einwand, Push vor gang_wahl_1589/CI widerspricht 1589.3-Ü5 (Tests und CI grün vor main); Bedingung in A. An Sokrates.
 - 24.11., 12:33 Prüfung Auftrag 2019 (Chef 12:29 A): stimmt mit Ergänzung; Widerspruch geklärt: 2018 hat Besitzer Werkzeug (Block 7), nicht Diogenes → Fachkraft unter Laufsperre; Routine-Termin muss Rolle der Routine tragen. An Sokrates.
 - 24.11., 12:28 Lehre: Kopf einer Entwurfsdatei lesen, bevor „gibt es“ (11:24 falsch, routine-wochenzaehlung.md Z. 3 „nur Anschauung“); Protokoll vor Code lesen (Kosten 11:27 falsch, BUCHE läuft). Vorlage Wochenzählung A stimmt mit 3 Punkten (anlegen ohne Schalter, FREI_OBER, Profil = Chef). Chef-Frage 12:24 zurückgezogen.
