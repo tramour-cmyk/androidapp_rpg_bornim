@@ -170,3 +170,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:41 24.11.: Startsperre 08:41 Start Sokrates (lauf.py --start Sokrates, Neustart nach 402 Tsd. Token, Sokrates 08:37)
 - 08:42 24.11.: Sokrates-Neustart (402 Tsd.) auf Bitte Sokrates 08:37: lauf.py --start Sokrates Leitung, Startsperre von Hand, neuer Sokrates session_01Hmoj76yxzDSEqiQVjnX9U2; alter (78Ksb…) beendet selbst, danach archivieren und Kosten buchen; START Figur Otto (431, Planerin Olga fertig) ausgeführt; START Figur Moritz 1694 nicht (ruht)
 - 08:46 24.11.: Startsperre 08:46 Start Arbeitsplaner, Prüfer (lauf.py, Arbeitsplaner 1785 Paula, Prüfer 2012 Rita)
+- 08:50 24.11.: Takt 08:46: START Prüfer Rita (2012, Nora fertig, auf main 1cb09ac30) und Planerin Paula (1785) ausgeführt; Olga (431) archiviert, Kosten 1,45 $
