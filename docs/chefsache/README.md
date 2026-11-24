@@ -103,7 +103,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [1589.2](entscheiden/15892-zielwahl-main.md) | **Muss** | E Kampf | 24.11., 10:10 | Zielwahl fertig und geprüft, aber zwei Bewegungstests werden mit ihr rot; warten statt rotes main. | Sokrates |
-| [1694](entscheiden/1694-griff-weiter.md) | **Muss** | E Figuren | 24.11., 10:10 | Stiele sind dünner (dein A), im Test greift die Hand, im Spiel noch nicht; Ursache unbekannt. | Sokrates |
+| [1694](entscheiden/1694-griff-weiter.md) | **Muss** | E Figuren | 24.11., 10:10 | Stiele sind dünner (dein A); Großaxt im Test fast richtig, im Spiel nicht; dünne Griffe auch im Test noch oft falsch. | Sokrates |
 
 ## Zu billigen
 
