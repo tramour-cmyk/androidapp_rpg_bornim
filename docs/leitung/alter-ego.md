@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 22:53 Sokrates 22:53 (123905cdc): 1589.4-Ü8 Halt, wartet auf 28.11., Befunde in Vorlage Sa; 1694-Ü26 beim Disponenten Takt 23:04. Stimmt; Nachsehen 07:00.
 - 24.11., 22:48 Runde: Leerlauf (Pit, Rudi untätig, keine Fachkraft arbeitet). An neuen Sokrates: 1589.4-Ü8 steckt fest offen seit 21:51 (Übergabe Sokrates); 1694-Ü26 Prüfer ohne Sitzung seit 22:09, Rudi hält Figur-Platz (1654, 2024, 431 warten). Uhr trig_011bVe5q66xk7R8UcwzkpK9J (25.11., 07:00).
 - 24.11., 21:50 Sokrates 21:50: 1589.4-Ü7 beantwortet; Halt 20 $ gilt für Schritt 2 (14,39 $), nicht erreicht – eigener Fehler 21:47 (Schritt 1 5,55 $ mitgezählt). Lehre: Deckel je Schritt lesen. Rundendauer als Befund Sa: stimmt.
 - 24.11., 21:47 Runde: 1654-Ü3/Ü5-Ü5 erledigt, Rudi 1694 und Vera 1654 laufen. An Sokrates: 1589.4-Ü7 offen seit 21:18 (Halt 20 $ erreicht, Pit wartet); Rundendauer Wolfsrudel 34,8/30,7 s statt alt 26 (Soll 14,6) als Befund. Uhr trig_019juYKq9uFPsD1W8y2Ax4u5 (22:48).
