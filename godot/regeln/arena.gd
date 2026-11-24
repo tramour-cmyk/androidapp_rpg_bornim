@@ -237,10 +237,12 @@ static func setzt_ab(id: String) -> bool:
 
 
 ## F1: ist die Strecke [a] → [b] für einen Kreis mit [r] frei? [andere]: [[Mitte, Umriss], …] der anderen Stehenden
+## Steht er am Start schon im Umriss eines anderen, sperrt der nur einen Weg, der ihm noch näher kommt (heraus darf er immer)
 static func strecke_frei(a: Vector2, b: Vector2, r: float, andere: Array) -> bool:
 	for x: Array in andere:
 		var c: Vector2 = x[0]
-		if c.distance_to(Geometry2D.get_closest_point_to_segment(c, a, b)) < float(x[1]) + r - GLEICH:
+		var nah := c.distance_to(Geometry2D.get_closest_point_to_segment(c, a, b))
+		if nah < float(x[1]) + r - GLEICH and nah < c.distance_to(a) - GLEICH:
 			return false
 	return true
 

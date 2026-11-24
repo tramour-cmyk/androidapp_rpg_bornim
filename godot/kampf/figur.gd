@@ -1651,7 +1651,7 @@ func _wechsel_gehen(rueck: bool, n: int) -> void:
 		return
 	if not _strecke_frei(position, home) and n < WARTE_MAX * 2:
 		if n == 0 and not rueck:
-			var sp := Arena.seitlich(Vector2(position.x, position.z), Vector2(home.x, home.z), own_r(), _kreise())
+			var sp := Arena.seitlich(Vector2(position.x, position.z), Vector2(home.x, home.z), umriss_r(), _kreise())
 			if sp != Vector2(position.x, position.z):
 				var nach := Vector3(sp.x, position.y, sp.y)
 				var v := _wechsel_mps(true) * WECHSEL_LANGSAM
@@ -1769,7 +1769,7 @@ func _gangart(way: float) -> String:
 
 
 ## 1589.4 (DESIGN-GEGNER.md 5, Antwort F1 Sokrates 24.11., 19:10): heim auf gerader Strecke, wie die Arena sie freigibt
-## (Arena.strecke_frei, Kreise mit own_r). Ein Gegner geht rückwärts, das Gesicht zum Feind, wenn der Platz vom Feind weg liegt
+## (Arena.strecke_frei, Kreise mit umriss_r). Ein Gegner geht rückwärts, das Gesicht zum Feind, wenn der Platz vom Feind weg liegt
 ## (Arena.rueckwaerts); sonst dreht er auf der Stelle zum Weg, geht (weiter als RUN_FROM: rennt) vorwärts und dreht daheim zurück
 ## (_turn_home). Versperrt ein Stehender den Weg, wartet er, solange ein anderer geht (WARTE_MAX mal), sonst bleibt er stehen.
 ## Kein Umweg, kein Bogen (alt: _detour, Dubins-Bogen 348.12f r3, Kurve 682, Ausweichen 717/438/1453). Gibt die Dauer (s) zurück.
@@ -1835,12 +1835,12 @@ func _kreise(skip = null) -> Array:
 	var aus := []
 	for o in kampfort.figures.values():
 		if o != self and o != skip and o.visible and not o.down and o.dead_at < 0:
-			aus.append([Vector2(o.position.x, o.position.z), o.own_r()])
+			aus.append([Vector2(o.position.x, o.position.z), o.umriss_r()])
 	return aus
 
 
 func _strecke_frei(a: Vector3, b: Vector3, skip = null) -> bool:
-	return Arena.strecke_frei(Vector2(a.x, a.z), Vector2(b.x, b.z), own_r(), _kreise(skip))
+	return Arena.strecke_frei(Vector2(a.x, a.z), Vector2(b.x, b.z), umriss_r(), _kreise(skip))
 
 
 func _andere_gehen() -> bool:
@@ -1857,9 +1857,9 @@ func _gasse(von: Vector3, nach: Vector3, skip) -> float:
 				or (o.tween and o.tween.is_running() and not o._nur_dreh()) or (o.fighter.monster != null and not o.weg.has("Gehen")):
 			continue
 		var c := Vector2(o.position.x, o.position.z)
-		if Arena.strecke_frei(a, b, own_r(), [[c, o.own_r()]]):
+		if Arena.strecke_frei(a, b, umriss_r(), [[c, o.umriss_r()]]):
 			continue
-		var p := Arena.beiseite(a, b, c, own_r() + o.own_r(), o.own_r(), o._kreise(self))
+		var p := Arena.beiseite(a, b, c, umriss_r() + o.umriss_r(), o.umriss_r(), o._kreise(self))
 		if p == c:
 			continue
 		var ziel := Vector3(p.x, o.position.y, p.y)
@@ -2164,7 +2164,7 @@ func _gefaehrte_macht_platz(other: Variant, leap: bool, weiter: float, t_warte: 
 			# 1589.4 (DESIGN-GEGNER.md 5): er setzt sich ab wie nach dem Angriff (Arena.absetzen, rückwärts oder schräg rückwärts vom Ziel)
 			var n2 := Vector2(n.position.x, n.position.z)
 			var kr: Array = n._kreise(null)
-			var nr2: float = n.own_r()
+			var nr2: float = n.umriss_r()
 			var q2 := Arena.absetzen(n2, Vector2(other.position.x, other.position.z), ABSETZEN * n._scale(), String(n.fighter.monster.get("id", "")),
 					func(x: Vector2) -> bool: return Arena.strecke_frei(n2, x, nr2, kr))
 			if q2 == n2:
@@ -2504,7 +2504,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	elif weg.has("Gehen") and Arena.setzt_ab(id):
 		var von2 := Vector2(ende.x, ende.z)
 		var kreise := _kreise(other)
-		var r := own_r()
+		var r := umriss_r()
 		var ab2 := Arena.absetzen(von2, Vector2(other.position.x, other.position.z), ABSETZEN * _scale(), id,
 				func(q: Vector2) -> bool: return Arena.strecke_frei(von2, q, r, kreise))
 		if ab2 != von2:
@@ -2719,7 +2719,7 @@ func _hieb(other, weiter := 0.0) -> int:
 	if _bleib_717():
 		var s2 := Vector2(start.x, start.z)
 		var kreise := _kreise(other)
-		var r := own_r()
+		var r := umriss_r()
 		var ab2 := Arena.absetzen(s2, Vector2(other.position.x, other.position.z), ABSETZEN * _scale(), String(fighter.monster.get("id", "")),
 				func(q: Vector2) -> bool: return Arena.strecke_frei(s2, q, r, kreise))
 		var ab := Vector3(ab2.x, start.y, ab2.y)
@@ -3263,7 +3263,7 @@ func _tier_heim(back: float, skip, absetzen := true) -> void:
 		var f2 := Vector2(from.x, from.z)
 		var zum := Vector2(skip.position.x, skip.position.z) if skip != null and is_instance_valid(skip) else f2 + _zum_feind(from)
 		var kreise := _kreise(skip)
-		var r := own_r()
+		var r := umriss_r()
 		var z2 := Arena.absetzen(f2, zum, ABSETZEN * _scale(), String(fighter.monster.get("id", "")),
 				func(q: Vector2) -> bool: return Arena.strecke_frei(f2, q, r, kreise))
 		var ziel := Vector3(z2.x, from.y, z2.y)
@@ -4117,6 +4117,15 @@ func bahn_punkte() -> Array:
 
 
 ## Eigener Rand quer zum Weg: die Heldin HERO_R, ein Tier die halbe Breite seines Umrisses (399.2: Wölfe weichen jetzt auch aus)
+## 1589.4 (Sokrates 24.11., 20:47 zu F2, DESIGN-GEGNER 1 „Umriss als Kreis“): der größte Halbmesser des Umrisses am Boden (Kasten
+## der Netze in Ruhe), beim langen Tier die halbe Länge (gemessen 24.11.: Wolf 0,99, Grimmzahn 1,73, Ratte 0,85 m; werte.json „arena“)
+func umriss_r() -> float:
+	if fighter.monster == null:
+		return HERO_R
+	var box := footprint()
+	return maxf(0.5 * maxf(box.size.x, box.size.z), 0.1)
+
+
 func own_r() -> float:
 	if fighter.monster == null:
 		return HERO_R
