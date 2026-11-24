@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj79s65wJUddNW1dFPLB (seit 24.11., 07:34; Vorgänger session_01Hmoj78G97RcFvsJSgAyQBv). Sokrates session_01Hmoj78KsbZtxD4EU46NDFA. Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session_01Hmoj79s65wJUddNW1dFPLB). Sokrates session_01Hmoj76yxzDSEqiQVjnX9U2 (seit 24.11., ~09:05). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -21,10 +21,16 @@ Sitzung session_01Hmoj79s65wJUddNW1dFPLB (seit 24.11., 07:34; Vorgänger session
 - Erste Nachricht: „Du bist Alter Ego, das zweite Paar Augen des Chefs, kein zweiter Sokrates (Rolle neu 24.11., 08:57). Lies docs/leitung/alter-ego.md und arbeite danach: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
 
 
-**Übergabe (24.11., 08:58):** Heute nur Werkzeug 2012 → 2013 → 2017 (2011 erledigt); Baustopp und Abbau vertagt bis Chef Zeit hat (07:31). 2003 (PermissionDenied belegen) bis 30.11. Uhr trig_016tioCjUHnTz291GSLvNdTA (09:37).
+**Übergabe (24.11., 09:38, 272 Tsd., Nachfolger: Alter Ego – Supervisor (24.11.)):** Werkzeug 2012 → 2013 → 2017 (400-Grenze ersatzlos); Baustopp/Abbau vertagt (07:31). Offen bei Sokrates: Wache auf main (stimmt), Wache-Weckzeit im Chat statt Datei (Profil, Chefsache, kein Werkzeug), Fragen Otto 431/Nora 2012. Prüfauftrag Sokrates 10:08 an Nachfolger: Chefsachen 15892-zielwahl-main.md und 1694-griff-weiter.md (59d590358) gegen Rückmeldungen 1589.2.md 08:42 und 1694.md 07:49 prüfen (fehlt eine Option? braucht 1589.4 den Zweig 1589.2?). 2003 bis 30.11. Uhr trig_01FjVr7drqkG2o2j78bqSiN3 (10:38) vom Nachfolger löschen.
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 10:24 Sokrates 10:24: 1694 zweite Prüfung (C fehlt in Frage; Daumen passt nicht zu drei Optionen). Vorlage 10:22: (1) stimmt, Einwand Kern 2.994/3.000 Byte; (2) Sperre Einwand (Chef 07:31 keine neuen Werkzeuge, Nebenwirkungen „?“, --frage, mehr als zwei Optionen). An Sokrates.
+- 24.11., 10:22 Prüfauftrag Sokrates 10:08: 1589.2 stimmt (1589.4 braucht Zweig, arena.gd nur dort); 1694 Einwand (953/1540 Paare auch im Prüfaufbau falsch, Option Stiele bei B fehlt, Verdacht 1711 fehlt). An Sokrates.
+- 24.11., 10:20 Nachfolger übernommen, umbenannt; Uhr trig_01A3mBY9j27cUJVFCU63WpZ3 (11:21), alte trig_01FjVr7drqkG2o2j78bqSiN3 gelöscht; Kennung an Sokrates.
+- 24.11., 09:38 Runde: kein Leerlauf; Fragen Otto 431, Nora 2012 an Sokrates. Übergabe (272 Tsd.).
+- 24.11., 09:14 Sokrates 09:12: Streichung Wache-Datei zurückgezogen (Folge herzschlag --geweckt; mein Fehler 09:10). Votum: kein Werkzeug, Weckzeit im Wache-Chat, Profil-Frage an Chef.
+- 24.11., 09:10 Prüfauftrag Sokrates (Chef 09:06): Wache auf main gegen Cloud-Push-Haken → stimmt (Haken zählt origin/<Zweig>..HEAD). Streichvorschlag: Profil Wache „deine Datei/Zeitmarke“ ohne Datei.
 - 24.11., 08:58 Chef 08:57: Rolle neu gefasst, Abgrenzung zu Sokrates; Protokoll vor 24.11. in Git.
 - 24.11., 08:55 Chef 08:54: noch ein Versuch. Arbeitsweise: nur streichen; eigene Zusätze von heute aus der Rolle entfernt.
 - 24.11., 08:37 Runde: tote Fragen Lena 2009 (seit 08:07) und Wache (Push für Haken, 08:34) an Sokrates; kein Leerlauf. Uhr trig_016tioCjUHnTz291GSLvNdTA (09:37).
