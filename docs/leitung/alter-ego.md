@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session_01Hmoj79s65wJUddNW1dFPLB). Sokrates session_01Hmoj76yxzDSEqiQVjnX9U2 (seit 24.11., ~09:05). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj78XiynF45gfuVmiNc8 (seit 24.11., 13:27; Vorgänger session_01Hmoj76DxaY8henyxgura1G). Sokrates session_01Hmoj77ZdYKh1YXq5iPdhgN (seit 24.11., 12:51). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -21,10 +21,27 @@ Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session
 - Erste Nachricht: „Du bist Alter Ego, das zweite Paar Augen des Chefs, kein zweiter Sokrates (Rolle neu 24.11., 08:57). Lies docs/leitung/alter-ego.md und arbeite danach: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
 
 
-**Übergabe (24.11., 09:38, 272 Tsd., Nachfolger: Alter Ego – Supervisor (24.11.)):** Werkzeug 2012 → 2013 → 2017 (400-Grenze ersatzlos); Baustopp/Abbau vertagt (07:31). Offen bei Sokrates: Wache auf main (stimmt), Wache-Weckzeit im Chat statt Datei (Profil, Chefsache, kein Werkzeug), Fragen Otto 431/Nora 2012. Prüfauftrag Sokrates 10:08 an Nachfolger: Chefsachen 15892-zielwahl-main.md und 1694-griff-weiter.md (59d590358) gegen Rückmeldungen 1589.2.md 08:42 und 1694.md 07:49 prüfen (fehlt eine Option? braucht 1589.4 den Zweig 1589.2?). 2003 bis 30.11. Uhr trig_01FjVr7drqkG2o2j78bqSiN3 (10:38) vom Nachfolger löschen.
+**Übergabe (24.11., 13:25, 263 Tsd., Nachfolger: Alter Ego – Supervisor (24.11.)):** Chef 12:48/12:49 (Archiv): kein neues Werkzeug, Spiel vor, keine Meldungen an den Chef bis Sa 28.11. außer Laufsperre-Notfall; Wochenzählung fällt weg (2018, 2019, 2020, 2021 ruhen). Runden darum nur Hänger an Sokrates, keine Streich- oder Werkzeugvorschläge. Offen: nichts. Lehren 12:28 (Kopf einer Entwurfsdatei lesen; Protokoll vor Code; Grep nicht mit head abschneiden). Uhr trig_012h9exBvsBnA6EdFRkaBiZH ist verbraucht; Nachfolger legt neue an, keine alte zu löschen außer einer, die diese Sitzung noch anlegt.
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 15:48 Zweite Prüfung 1603 (b36bbae23): stimmt; −21,8 war belegt (Z. 84, übersehen). Offen 1603-Ü15 (Rechteck) beim Prüfer.
+- 24.11., 15:45 Prüfung chefsache 1603 (0392196bc), Bilder angesehen: Texte/Zahlen stimmen; Einwände Kosten 41,74 $, schwarzes Rechteck über Kroggs Kopf in Bild 1, Schwierigkeit −25/+24 statt Grundlage −17,5/+22 offenlegen. An Sokrates.
+- 24.11., 15:32 Runde: Mirja archiviert, 1725 ruht. Hänger an Sokrates: 431-Ü3 bei ihm seit 15:09 (Lotte blockiert); 1716 in Liste nicht ruht, Takt schlägt es stets vor; Karla wartet auf Lauf 593 ohne Wecker. Uhr trig_019PK28Fq4NWXDi9gkMfXbu1 (16:33).
+- 24.11., 15:11 Zweite Prüfung 1694 (2700a4acf): stimmt; Einwand Kosten zurückgezogen (Jana 6,65 $ gebucht, 5c7cf1a58).
+- 24.11., 15:10 Prüfung chefsache 1694 (992def54a): Belege stimmen (Bild abgelesen); Einwände: C „dick zurück“ fehlt, Kosten ~84 $ statt 71,86 und erster Deckel ohne Ergebnis verbraucht, Halt 12 $ ohne Prüfer, „alle Träger/Wurzel“ unbelegt. An Sokrates.
+- 24.11., 14:30 Runde: Takt 14:28 startet 1716 und 1725 trotz Chef 12:48 „Spiel vor“; Votum 1716 läuft (Prüfung, kein neues Werkzeug), 1725 ruht. Mirja 1694 ist seit 12:13 untätig, nicht archiviert. An Sokrates. Uhr trig_01J83aKiduwwU88foAWTKvqw (15:31).
+- 24.11., 13:27 Nachfolger übernommen (Titel stand schon); Uhr trig_01Fd4id8hM4ZpbTftyhXHAYY (14:28), keine alte zu löschen; Kennung an Sokrates.
+- 24.11., 13:25 Runde: 431 Hänger erledigt (Wiebke archiviert, Beleglauf rot gemeldet 13:05); 1589.3 erledigt; Chef 12:48/12:49 Ruhe bis Sa. Übergabe (263 Tsd.), Startfelder an Sokrates neu.
+- 24.11., 12:36 Prüfung 15893-main.md: Einwand, Push vor gang_wahl_1589/CI widerspricht 1589.3-Ü5 (Tests und CI grün vor main); Bedingung in A. An Sokrates.
+- 24.11., 12:33 Prüfung Auftrag 2019 (Chef 12:29 A): stimmt mit Ergänzung; Widerspruch geklärt: 2018 hat Besitzer Werkzeug (Block 7), nicht Diogenes → Fachkraft unter Laufsperre; Routine-Termin muss Rolle der Routine tragen. An Sokrates.
+- 24.11., 12:28 Lehre: Kopf einer Entwurfsdatei lesen, bevor „gibt es“ (11:24 falsch, routine-wochenzaehlung.md Z. 3 „nur Anschauung“); Protokoll vor Code lesen (Kosten 11:27 falsch, BUCHE läuft). Vorlage Wochenzählung A stimmt mit 3 Punkten (anlegen ohne Schalter, FREI_OBER, Profil = Chef). Chef-Frage 12:24 zurückgezogen.
+- 24.11., 12:24 Runde: möglicher Hänger 431 (Wiebke übergibt an Nachfolgerin, die es nicht gibt; CI-Lauf ohne Beobachter); 1603-Ü5 erledigt; kein Leerlauf. An Sokrates. Uhr trig_012h9exBvsBnA6EdFRkaBiZH (13:24).
+- 24.11., 12:23 Eigener Fehler 12:21: Wochenzählung war seit 11:31 angelegt (2018), Probe --sperre gelaufen (0be322dcc), Entscheid „kein --sperre“ (70d8c8151); grep mit head -3 abgeschnitten. Chef berichtigt. Restpunkte an Sokrates: 2018 unter Laufsperre (M), kein Prüfer für Wochentermin 30.11.
+- 24.11., 11:27 Prüfung Sokrates 11:27 (--sperre in den Takt): Richtung stimmt; --sperre fehlt seit der Uhr 23.11. ganz (Kosten buchen, 2012 (2) Startzeilen, Fristen, Marken, Sammelbuild, Zusammenführen). Weg: Wochenzählung von Hand, ein Handlauf mit Ausgabe, dann Prompt. An Sokrates.
+- 24.11., 11:24 Prüfung Vorschlag Diogenes (Sokrates 11:24): Einwand; Wochenzählung besteht (startbar.py:245, 259), lief am 23.11. nicht, darum auch kein Rundblick; Option C (Wochenzählung reparieren, Entscheid-Prüfung dort) vor A; B nein. An Sokrates.
+- 24.11., 11:22 Runde: Hänger Prüfungen 1716 (Eilt), 1301, 1387, 1642, 1643 ohne Prüfer (viermal gemeldet); alter Alter Ego nicht archiviert; kein Leerlauf. An Sokrates. Uhr trig_01Qg3rutAA93qiPJbRpffibk (12:22).
+- 24.11., 11:14 Prüfauftrag Sokrates 11:14, Auftrag 2017: stimmt mit 3 Ergänzungen (Prüfart Commit-Prüfung, vorgang_neu_laenge_test.py umdrehen, URTEIL_MAX/1585/Altdateien bleiben). An Sokrates.
 - 24.11., 10:24 Sokrates 10:24: 1694 zweite Prüfung (C fehlt in Frage; Daumen passt nicht zu drei Optionen). Vorlage 10:22: (1) stimmt, Einwand Kern 2.994/3.000 Byte; (2) Sperre Einwand (Chef 07:31 keine neuen Werkzeuge, Nebenwirkungen „?“, --frage, mehr als zwei Optionen). An Sokrates.
 - 24.11., 10:22 Prüfauftrag Sokrates 10:08: 1589.2 stimmt (1589.4 braucht Zweig, arena.gd nur dort); 1694 Einwand (953/1540 Paare auch im Prüfaufbau falsch, Option Stiele bei B fehlt, Verdacht 1711 fehlt). An Sokrates.
 - 24.11., 10:20 Nachfolger übernommen, umbenannt; Uhr trig_01A3mBY9j27cUJVFCU63WpZ3 (11:21), alte trig_01FjVr7drqkG2o2j78bqSiN3 gelöscht; Kennung an Sokrates.

@@ -85,14 +85,6 @@ def finden(nr, rolle=None):
 def fehler_oder(d, alt=None):
     alle = set(startbar.VORG) | {x["nr"] for x in startbar.zeilen_liste()}
     f = startbar.pruefen_zeile(dict(d, zeile=startbar.zeile_text(d), spalten=len(startbar.SPALTEN_NEU if startbar.NEU else startbar.SPALTEN)), alle)
-    # 1492 (D281.3): Stand und „wartet auf“ setzen geht auch, wenn die Zeile schon zu lang ist; die Länge zählt nur, wenn der Titel sich ändert.
-    # 1919: nur wenn sie vorher schon über 400 lag (alter Fehler, die Commit-Prüfung hält nur neue an); wird sie erst durch Stand oder
-    # „wartet auf“ zu lang, hält vorgang.py an, statt dass der Commit danach scheitert
-    if alt is not None and d.get("titel") == alt.get("titel"):
-        if len(startbar.zeile_text(alt)) > 400:
-            f = [x for x in f if not x.startswith("Zeile über 400 Zeichen")]
-        else:
-            f = [(x + "; Titel kürzen: vorgang.py setze %s titel=… (1919)" % d["nr"]) if x.startswith("Zeile über 400 Zeichen") else x for x in f]
     # Chef nur mit Datei (275.2): beim Schreiben streng, beim Lesen erfüllt sie sich (Datei weg)
     for t in d["warte"]:
         if startbar.art(t) == "chef" and (alt is None or t not in alt["warte"]):
@@ -522,9 +514,6 @@ def neu(titel, bereich, kl, besitzer, nr=None, oben=False):
         d["block"] = startbar.block_von(d["nr"], d["bereich"]); d["besitzer"] = startbar.themenbloecke()[0].get(d["block"], "Arbeitsplaner")
         d["runde"] = "0"; d["sitzung"] = "–"; besitzer = d["besitzer"]
     d["wort"] = "startbar"; d["zusatz"] = ""
-    if not nr:  # 1916 (D346.1): Länge mit einer Nummer so lang wie die echte prüfen (Zähler), nicht mit „?“
-        mz = re.search(r"\*\*Nächste freie Vorgangsnummer: (\d+)\*\*", startbar.lesen("ARBEIT-BETRIEB.md") or "")
-        d["nr"] = str(max([int(mz.group(1)) if mz else 9999] + fern_zaehler())) if mz else "9999"
     fehler_oder(d)
     if not nr:
         b = startbar.lesen("ARBEIT-BETRIEB.md")

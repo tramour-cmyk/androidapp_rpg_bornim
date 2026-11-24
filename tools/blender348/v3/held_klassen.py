@@ -1491,6 +1491,11 @@ WENDE = [('Drehen_L', 'Turn90_L'), ('Drehen_R', 'Turn90_R')]
 # 1406 (Chef 16.11. zu 1386/1416: „den 180-Degree Root Motion Turn … wie sich Figuren vernünftig auf der Stelle drehen können“):
 # Wende ab 135 Grad in einem Zug statt zwei Turn90; Bewegung aus UAL2.glb (Wurzel steht), Drehung je Bild aus UAL2_RM.glb
 WENDE180 = [('Drehen180_L', 'Turn180_L'), ('Drehen180_R', 'Turn180_R')]
+# 1589.3 (Perikles 1600, DESIGN-GEGNER.md 5 und 11.2, Tom 17.11.): rueckwaerts gerade und schraeg, Seitschritt, das Gesicht bleibt vorn;
+# Bewegung aus UAL2.glb (Wurzel steht) wie WENDE180; Tempo und Richtung je Bewegung am Standfuss (schritt_vektor) -> held-klassen.json
+# richtung.<Name> (m_je_s, grad gegen den Uhrzeigersinn von oben, 0 = vorn); heldfigur.gd gang_wahl waehlt je Richtung
+RICHTUNGEN = [('Rueckwaerts', 'Walk_Bwd'), ('Rueckwaerts_L', 'Walk_Bwd_L'), ('Rueckwaerts_R', 'Walk_Bwd_R'),
+              ('Seitschritt_L', 'Walk_L'), ('Seitschritt_R', 'Walk_R')]
 
 
 def ual2(rm=False):
@@ -1519,6 +1524,30 @@ def schritt_tempo(arm, a, fuesse=('foot_l', 'foot_r'), toleranz=0.02):
             if h[j] < tief + toleranz and h[j + 1] < tief + toleranz: vs.append((d[j] - d[j + 1]) * fps)
     vs.sort()
     return round(max(vs[len(vs) // 2], 0.0), 3) if vs else 0.0
+
+
+def schritt_vektor(arm, a, fuesse=('ball_l', 'ball_r'), toleranz=0.03):
+    # 1589.3: wie schritt_tempo, aber in jede Richtung: der Koerper kommt entgegen dem gleitenden Standfuss voran; je Achse der Median
+    # (Blick -Y, links +X). Ergebnis {m_je_s, grad}, grad gegen den Uhrzeigersinn von oben, 0 = vorn, 90 = links
+    import math
+    arm.animation_data_create(); arm.animation_data.action = a
+    if hasattr(arm.animation_data, 'action_slot') and a.slots: arm.animation_data.action_slot = a.slots[0]
+    f0, f1 = int(a.frame_range[0]), int(a.frame_range[1])
+    fps = bpy.context.scene.render.fps / bpy.context.scene.render.fps_base
+    vor, links = [], []
+    for fu in fuesse:
+        ps = []
+        for fr in range(f0, f1 + 1):
+            bpy.context.scene.frame_set(fr)
+            ps.append((arm.matrix_world @ arm.pose.bones[fu].head).copy())
+        tief = min(p.z for p in ps)
+        for j in range(len(ps) - 1):
+            if ps[j].z < tief + toleranz and ps[j + 1].z < tief + toleranz:
+                vor.append((ps[j + 1].y - ps[j].y) * fps); links.append((ps[j].x - ps[j + 1].x) * fps)
+    if not vor: return {'m_je_s': 0.0, 'grad': 0.0}
+    vor.sort(); links.sort()
+    v, l = vor[len(vor) // 2], links[len(links) // 2]
+    return {'m_je_s': round(math.hypot(v, l), 3), 'grad': round(math.degrees(math.atan2(l, v)), 1)}
 
 
 def bewegungen():
@@ -1555,12 +1584,14 @@ def bewegungen():
         vorher, vor_a = set(bpy.data.objects), set(bpy.data.actions)
         bpy.ops.import_scene.gltf(filepath=u2)
         for o in [o for o in bpy.data.objects if o not in vorher]: bpy.data.objects.remove(o)
-        quell = dict((q, n) for n, q in WENDE180)
+        quell = dict((q, n) for n, q in WENDE180 + RICHTUNGEN)   # 1589.3: dazu Rueckwaerts, Seitschritt
         for a in [a for a in bpy.data.actions if a not in vor_a]:
             q = next((k for k in quell if a.name in (k, k + '_Loop')), None)
             if q and quell[q] not in bpy.data.actions: a.name = quell[q]; a.use_fake_user = True
             else: bpy.data.actions.remove(a)
     print('WENDE180', u2, [n for n, _ in WENDE180 if n in bpy.data.actions])
+    richtung = {n: schritt_vektor(arm, bpy.data.actions[n]) for n, _ in RICHTUNGEN if n in bpy.data.actions}
+    print('RICHTUNGEN', richtung, 'fehlt', [n for n, _ in RICHTUNGEN if n not in richtung])
     tempo = {n: schritt_tempo(arm, bpy.data.actions[n]) for n in ('Gehen', 'Rennen') if n in bpy.data.actions}
     for a in bpy.data.actions:
         if a.name.startswith(('Gehen_', 'Rennen_')): tempo[a.name] = schritt_tempo(arm, a, ('ball_l', 'ball_r'), 0.03)
@@ -1570,7 +1601,7 @@ def bewegungen():
                               export_animation_mode='ACTIONS', export_skins=True, export_force_sampling=True)
     arten = sorted({n.split('_', 1)[1] for n in tempo if '_' in n})
     wende = wende_gier(pro)
-    return {'wende': wende,'gang': {k: {'gehen_m_je_s': tempo.get('Gehen_' + k, 0.0), 'rennen_m_je_s': tempo.get('Rennen_' + k, 0.0)} for k in arten},
+    return {'wende': wende, 'richtung': richtung, 'gang': {k: {'gehen_m_je_s': tempo.get('Gehen_' + k, 0.0), 'rennen_m_je_s': tempo.get('Rennen_' + k, 0.0)} for k in arten},
             'gehen_m_je_s': tempo.get('Gehen', 0.0), 'rennen_m_je_s': tempo.get('Rennen', 0.0), 'becken_m': round(arm.data.bones['pelvis'].head_local.z, 4),
             'bewegungen': sorted(a.name for a in bpy.data.actions), 'ual': os.path.basename(pro) if pro else 'UAL1_Standard.glb', 'gekauft': bool(pro)}
 
@@ -1669,6 +1700,12 @@ if os.environ.get('VOELKER_NUR') == '1':
     HV.alle_voelker(teil, sys.modules[__name__], ZIEL, VOELKER)
     info['trachten'].update(teil['trachten']); info.setdefault('voelker', {}).update(teil['voelker'])
     json.dump(info, open(os.path.join(ZIEL, 'held-klassen.json'), 'w'), indent=1, ensure_ascii=False)
+    raise SystemExit(0)
+if os.environ.get('BEWEGUNGEN_NUR') == '1':   # 1589.3 am Rechner: nur bewegungen.glb und ihre Eintraege neu (held-klassen.json liegt)
+    info = json.load(open(os.path.join(ZIEL, 'held-klassen.json')))
+    info.update(bewegungen())
+    json.dump(info, open(os.path.join(ZIEL, 'held-klassen.json'), 'w'), indent=1, ensure_ascii=False)
+    print('BEWEGUNGEN OK', info['bewegungen'])
     raise SystemExit(0)
 if os.environ.get('SCHRANK_NUR') == '1':   # 431h Stufe 2 am Rechner: nur den Kleiderschrank neu (teil_*.glb und held-klassen.json liegen)
     info = json.load(open(os.path.join(ZIEL, 'held-klassen.json')))

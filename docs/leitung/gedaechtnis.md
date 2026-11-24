@@ -19,13 +19,12 @@
 
 ## Offene Fäden
 
-- Konferenz: Alter Ego `session_01Hmoj79s65wJUddNW1dFPLB` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
-- Werkzeug heute nur 2011 → 2012 → 2013 (`werkzeug-schnitt.md`); Chefsache 2017 offen.
+- Konferenz: Alter Ego `session_01Hmoj78XiynF45gfuVmiNc8` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
 - Spielcode nach main nur Sokrates nach Chef-👍 (Dauerwort 23.11., 23:10).
 - Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt; Guthaben 50 % (06:53), über 0,6 %/h zwei.
-- Kampf: 1589.3 nach 1589.2. Offen: 1068-Ü8, 1971, Chefsachen 1068, 1694.
-- Täglich Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07). Kopiertexte: `kopiertexte-uhren.md`.
+- Chef 12:48: kein neues Werkzeug (2020, 2021 ruhen), Spiel vor, keine Meldung bis Sa; 1716, 1725 ruhen; Chefsache 1694 liegt. Offen: Vorlage --sperre-Teile; 1301/1387/1642/1643 mit Alter Ego entscheiden; Chefsache 1603 liegt.
+- Täglich Modell, Umgebung, Aufwand aller Sitzungen. Kopiertexte: `kopiertexte-uhren.md`.
 
 ## Übergabe
 
-- 24.11., 08:40, `session_01Hmoj78KsbZtxD4EU46NDFA` (402 Tsd.): Getan: 1603 C, 2001 erledigt, 2009 Doppel 1415, 1993/2005 durch Datenfix 513, Werkzeug-Schnitt (13 Kür zu), 2011 erledigt, Kern Büro neu (2017 Teil 1), Gedächtnis Fassung 5. Läuft: Werkzeug 2012 (Nora) → 2013 → 2017 (400-Grenze ersatzlos), Kampf 1589.2 (Lutz), 1603 (Dana), 1694 (Elke). Letzte Antwort: 2017 ersatzlos. Nachfolger: Sokrates – Leitung.
+- 24.11., 12:47, `76yxzD…` (400 Tsd.): Getan: 1589.3 auf main, 2017 fertig, 2019 Eilt, Kern Daumenregel. Letzte Antwort: Thema zu, Ruhe bis Sa. Nachfolger: Sokrates – Leitung.
