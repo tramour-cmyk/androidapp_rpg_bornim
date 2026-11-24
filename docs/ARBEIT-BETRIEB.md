@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 
-**Nächste freie Vorgangsnummer: 2024** (zuletzt 2023 Werkzeug 24.11. 18:41:55 1642) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 2025** (zuletzt 2024 Figur 24.11. 19:38:09 f0d2) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -242,3 +242,16 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:45 24.11.: alter Alter Ego (session_01Hmoj78XiynF45gfuVmiNc8) archiviert nach Meldung des neuen (Sokrates 18:43), Kosten 6,78 $ auf 2010 gebucht (gesamt 39,32 $)
 - 18:44 24.11.: Startsperre 18:44 Start Arbeitsplaner, Kampf, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Margit, Kampf 1589.4 Nils, Arbeitsplaner 1507 Nadine)
 - 18:47 24.11.: 1589.4: Auftrag steht (Hanne, Deckel-Vorschlag Schritt 1 bis 4 $, ganz bis 30 $, Freigabe Sokrates); Kampf Nils (session_01Hmoj76gHNeZKEqNMVTBZhc) gestartet (Schritt 1 ohne Spielcode: Liste Wegregeln, Aufwand, dann Frage); 1589.4-Ü2 erledigt; Hanne archiviert, Kosten 1,52 $; nicht ausgeführt: Planer 887 (ruht), 1507 (Werkzeug/Chef 12:48)
+- 19:04 24.11.: Startsperre 19:04 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Margit, Arbeitsplaner 1728 Nadine)
+- 19:08 24.11.: Takt 19:04: keine neuen Starts; Nils (1589.4, Kampf) Schritt 1 fertig, Frage F1–F5 an Sokrates (1589.4-Ü3), Nils wartet am Leben (3,87 $); Moritz (Figur 1654) läuft; nicht ausgeführt: Planer 887 (ruht), 1728 (Abläufe, Chef 12:48)
+- 19:10 24.11.: Sokrates 19:10: 1589.4-Ü3 beantwortet, Schritt 2 (20–26 $) wartet auf Deckel des Chefs ab Sa, 1589.4 ruht; Nils läuft noch (Abschluss), danach archivieren + Kosten buchen (3,87 $ um 19:06)
+- 19:21 24.11.: Nils (1589.4) archiviert, Kosten 4,03 $ (1589.4 gesamt 5,55 $); 1589.4 ruht bis Deckel des Chefs ab Sa (Sokrates 19:10)
+- 19:39 24.11.: Startsperre 19:39 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Margit, Arbeitsplaner 1773 Nadine)
+- 19:45 24.11.: Chef 19:37 „1603 A“ (Sokrates 19:40): Planerin Olga 2024 (Krogg-Pranke, session_01Hmoj79EWuFraZEKLsWTx16, Rufname Anna doppelt) gestartet; 1603-Ü19 Testbuild: Weg offen (Frage an Sokrates, kein Build angelegt); nicht ausgeführt: Planer 887, 1773
+- 19:41 24.11.: Startsperre 19:41 Start Kampf, Arbeitsplaner (lauf.py, Kampf 1589.4 Nadine, Arbeitsplaner 1774 Oda)
+- 19:47 24.11.: Chef 19:37–19:40 (Sokrates 19:38–19:44): 1603 A (Testbuild B<n> Fr abends, Technik Fr abends, Build bis Sa 12:00, Erinnerung gesetzt), 1694 A (Planer Pia, session_01Hmoj783rBXTT6vQJvvnZKJ, 15 $/Halt 12 $), 431 A (Planer Rita, session_01Hmoj77STSQicPi6pnSzLNZ, bis 30 $), 1589.4 A (Schritt 2 bis 26 $, Halt 20 $; 1589.4-Ü4 geschlossen); START Kampf Nadine 1589.4: create_session von Auto-Prüfung abgelehnt, nicht umgangen, Sokrates informiert (alter Deckel im Auftrag?); Planer 2024 Olga läuft; nicht ausgeführt: Planer 1774, 1773 (Werkzeug)
+- 19:45 24.11.: Startsperre 19:45 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1794 Oda)
+- 19:50 24.11.: Kampf 1589.4 (Auftrag angepasst 10f69a0d1, Sokrates 19:47): Handstart von lauf.py angehalten (Laufsperre 3: Moritz Figur, Pia (Handstart-Planer 1694 als Figur gezählt), Startsperre Kampf 19:41); Start nach Ende von Pia/Rita/Olga; Fund: Planer künftig mit Titel „<Name> – Auftrag <Nr>: …“ starten (Handstart-Titel zählt als Fachkraft)
+- 19:49 24.11.: Olga (Planerin 2024) archiviert, Kosten 1,01 $; 2024 Auftrag steht (2024-Ü2 Disponent: Fachkraft Figur starten, wartet auf Platz unter Laufsperre: Reihenfolge 1654, 1694, 1589.4, dann 2024/431, Sokrates fragen)
+- 19:56 24.11.: Startsperre 19:56 Start Kampf (lauf.py, Kampf 1589.4 Oda)
+- 19:59 24.11.: Kampf Oda 1589.4 (session_01Hmoj77f5y1ucwujaX5rJdh, Schritt 2, Deckel 26 $, Halt 20 $) gestartet; Pia (1694, 1,24 $, gesamt 73,10 $) und Rita (431, 0,97 $, gesamt 156,69 $) archiviert; Figur 1694 wartet auf Moritz (1654, Figur eine Sitzung), danach 431, 2024; Testbuild Fr abends
