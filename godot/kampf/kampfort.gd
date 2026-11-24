@@ -1549,8 +1549,8 @@ func _play_say(e: Dictionary) -> void:
 		_todesmeldung_vorweg(e)
 		await get_tree().create_timer(maxi(0, tot_ms - fall_ms) / 1000.0).timeout
 		warte_ms = 0
-	# 1589.4 (1526, DESIGN-GEGNER.md 5): tauscht ein vorderer Gegner mit einem hinteren, geht der vordere nur auf den frei gewordenen
-	# Platz (Arena.platz_machen: wo der hintere jetzt steht), nicht ganz nach hinten; Untote und Krogg bleiben (Arena.setzt_ab)
+	# 1589.4 (1526, DESIGN-GEGNER.md 5, Sokrates 24.11., 21:50 (b)): tauscht ein vorderer Gegner mit einem hinteren, weicht der vordere
+	# nur so weit, dass der Nachrücker vorbeikommt (Arena.platz_machen, beiseite), nicht ganz nach hinten; Untote und Krogg bleiben
 	frei_platz.clear()
 	var nach_hinten := []
 	var nach_vorn := []
@@ -1562,7 +1562,7 @@ func _play_say(e: Dictionary) -> void:
 			elif alt[0].x == Mars.BACK and e.places[f.id].x == Mars.FRONT:
 				nach_vorn.append(f.id)
 	if nach_hinten.size() == 1 and nach_vorn.size() == 1 and Arena.setzt_ab(String(mars.find(nach_hinten[0]).monster.get("id", ""))):
-		var q: Vector3 = figures[nach_vorn[0]].position
+		var q: Vector3 = figures[nach_hinten[0]].position
 		var p2 := Arena.platz_machen(Vector2(q.x, q.z))
 		frei_platz[nach_hinten[0]] = Vector3(p2.x, q.y, p2.y)
 		if OS.get_environment("SCHAU_1526") != "":

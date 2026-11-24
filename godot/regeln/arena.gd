@@ -274,9 +274,11 @@ static func absetzen(von: Vector2, ziel: Vector2, weit: float, id: String, frei:
 	return von
 
 
-## 1526 (Abschnitt 5): wer vorn für einen hinteren Platz macht, geht nur auf den frei gewordenen Platz [frei], nicht ganz nach hinten
-static func platz_machen(frei: Vector2) -> Vector2:
-	return frei
+## 1526 (Abschnitt 5, Sokrates 24.11., 21:50 (b)): wer vorn für einen hinteren Platz macht, weicht nur so weit, dass der Nachrücker
+## vorbeikommt, nicht ganz nach hinten (alt: auf den Platz des Nachrückers, die hintere Reihe 5–7 m zurück, Runde 31 s): er bleibt, wo
+## er steht ([steht]); kommt der Nachrücker, tritt er beiseite (beiseite, figur.gd _gasse)
+static func platz_machen(steht: Vector2) -> Vector2:
+	return steht
 
 
 ## geradewegs heran (Chef 18.11., 14:33, Ratte quer): ein Bissplatz liegt höchstens so weit um das Ziel herum (Grad)

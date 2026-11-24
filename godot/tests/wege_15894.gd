@@ -8,8 +8,9 @@
 #  ruecken Absetzen mit Gesicht: ein Gegner, der sich vom nächsten Helden entfernt, blickt zu ihm (nie der Rücken außer auf der Flucht)
 #  stur    Untote (Skelett, Wiedergänger, Grabhund) und Krogg setzen sich nicht ab (entfernen sich nicht vom nächsten Helden,
 #          außer beim Ausweichen)
-#  1526    wer vorn Platz macht (außer Untoten und Krogg, die bleiben) (Reihe vorn → hinten, ein anderer hinten → vorn), steht danach auf dem frei gewordenen Platz
-#          (Punkt des Nachrückers vor dem Tausch, Abstand höchstens sein Umriss), wenn er nach dem Tausch zuerst gegangen ist
+#  1526    wer vorn Platz macht (außer Untoten und Krogg, die bleiben) (Reihe vorn → hinten, ein anderer hinten → vorn), weicht nur so
+#          weit, dass der Nachrücker vorbeikommt (Sokrates 24.11., 21:50, 1526 (b)): steht danach höchstens sein Umriss plus der des
+#          Nachrückers (figur.umriss_r) von seinem Punkt beim Tausch, wenn er nach dem Tausch zuerst gegangen ist
 # Aufruf: godot --headless --path godot --fixed-fps 30 -s res://tests/wege_15894.gd (Exit 0 = gut); WEGE=RATS,WOLVES nur diese;
 # WEGE_LOG=1 je Verstoß eine Zeile mit Bild, Figur, Bewegung.
 extends SceneTree
@@ -108,8 +109,8 @@ func _kampf(foe: String) -> void:
 		plaetze_vor = pl.duplicate()
 		if nach_hinten.size() == 1 and nach_vorn.size() == 1 and not String(kf.figures[nach_hinten[0]].fighter.monster.get("id", "")) in STUR:
 			var hf = kf.figures[nach_hinten[0]]
-			tausch[nach_hinten[0]] = [st[nach_vorn[0]].p if st.has(nach_vorn[0]) else kf.figures[nach_vorn[0]].position, bild, false,
-				Vector2(hf.position.x, hf.position.z)]
+			tausch[nach_hinten[0]] = [Vector2(hf.position.x, hf.position.z), bild, false,
+				Vector2(hf.position.x, hf.position.z), hf.umriss_r() + kf.figures[nach_vorn[0]].umriss_r()]
 		for o in figs:
 			var id: String = o.fighter.id
 			var p3: Vector3 = o.position
@@ -130,11 +131,11 @@ func _kampf(foe: String) -> void:
 				if s.ruhig == 1:
 					s.stur = 0.0
 				if tausch.has(id) and s.ruhig >= 10 and tausch[id][2]:
-					var frei: Vector2 = tausch[id][0]
-					var r := Arena.umriss(o.fighter)
-					if p2.distance_to(frei) > r:
+					var beim_tausch: Vector2 = tausch[id][0]
+					var r: float = tausch[id][4] + Arena.GLEICH
+					if p2.distance_to(beim_tausch) > r:
 						befund["1526"] += 1
-						_melde(foe, bild, o, "1526", "steht %.2f m neben dem frei gewordenen Platz (Umriss %.2f)" % [p2.distance_to(frei), r])
+						_melde(foe, bild, o, "1526", "steht %.2f m weg vom Punkt beim Tausch (höchstens %.2f)" % [p2.distance_to(beim_tausch), r])
 					tausch.erase(id)
 				continue
 			s.ruhig = 0
