@@ -1,5 +1,7 @@
 # 1603 · Ansage je Art und Kroggs Prankenhieb
 
+[Bild von 24.11., 11:33](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/24-1133-1603-Carla-2.png) (eingetragen von meldung.sh, Carla)
+
 [Bild von 24.11., 11:33](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/24-1133-1603-Carla.png) (eingetragen von meldung.sh, Carla)
 
 [Film von 24.11., 11:33](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261124-113329-1603/2026-11/24-1132-1603-Carla.mp4) (eingetragen von meldung.sh, Carla)
