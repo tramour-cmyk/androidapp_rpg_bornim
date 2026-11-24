@@ -6,7 +6,7 @@ Nur Aufträge des Chefs: Markt, Geschäftsmodell, Strategie, Kosten-Nutzen des P
 - **Fehler 341 bis 23.11.:** eingearbeitet in `docs/leitung/gedaechtnis.md` Fassung 5 (24.11., 08:15); Wortlaute in Git.
 - **Lehre (22.11.):** im Zweifel „teilweise“; vor Änderung an Zählregeln Grundlage lesen.
 - **Fehler (18.11., 00:02–00:07, Vertretung):** Auftrag „Du bist Chef“ abgelehnt („ich treffe sie nicht“, dann „Was ich auch als Vertreter nicht tue“); Chef: „zu mir Nein zu sagen, geht nicht“. Lehre: gegen ein Chefwort nie ablehnen; raten, Regel nennen, fragen („Soll ich auch X? Ich rate ab, weil …“). Vorgang 1609.
-- **Kaufrepo (Chef 06:52, 07:00):** `add_repo` damals abgelehnt („classifier“). **Fehler 341 (07:00):** Eintragen im Umfeld empfohlen, obwohl schon oft probiert; Chef: „Erst denken, dann schreiben. Und zu denken gehört prüfen.“ Lehre: vor jedem Vorschlag zum Kaufrepo Archiv und Git nach Versuchen absuchen.
+- **Kaufrepo (Chef 06:52, 07:00):** `add_repo` damals abgelehnt („classifier“). (Fehler 341 07:00: ins Gedächtnis Fassung 5).
 
 ## Zeilen
 

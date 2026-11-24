@@ -2,19 +2,19 @@
 
 ## Geltende Lehren
 
-- Nachsehen statt behaupten: vor „steht nirgends, läuft, getestet, fertig“ Quelle, Code, Spiel, letzte Antwort der Sitzung, Archiv, Git; Stand mit Datum (1423a, Wache 24.11.).
+- Nachsehen statt behaupten: vor „steht nirgends, läuft, getestet, fertig“ Quelle, Code, Spiel, letzte Antwort der Sitzung, Archiv, Git; Stand mit Datum; „startbar“ nie nach Klasse allein, Stand prüfen (1423a, 513, Wache 24.11.).
 - Fremdes (Helfer, Rat, Werkzeugausgabe) an der Quelle prüfen, Ungeprüftes kennzeichnen; Vorrang nur aus dem Archiv (431h, 1727 3.3).
 - Chefwort wörtlich gegen jede Frage lesen; im Zweifel „teilweise“; Bedingungssatz erst auf „umsetzen“; Stand im selben Commit (1727j, 1566).
-- Vorlage: Vorgang und Chefsache nach MUSTER, vorher Prüfung Alter Ego bis nichts Neues, Votum mit Gegenargument, Telegram mit Verweis; nie nur Chat (24.11., 08:00).
+- Vorlage: Vorgang und Chefsache nach MUSTER, vorher Prüfung Alter Ego bis nichts Neues, Prompts an festen echten Fällen, Votum mit Gegenargument, Telegram mit Verweis; nie nur Chat (24.11., 08:00).
 - Vor Nachfrage Telegram lesen; jede Frage auch per Telegram (1570, Chef 19:20).
 - Bild selbst ansehen, Spielkamera; Waffe: Griff je Hand (1650, 1621).
-- Kerne, Profile, Abgenommenes nur in der Quelle, mit Chefwort und Byte, nur die genannte Stelle (D205.3, 1931).
+- Umbau nur von der alten Datei aus, jede Übernahme prüfen (98). Kerne, Profile, Abgenommenes nur in der Quelle, mit Chefwort und Byte, nur die genannte Stelle (D205.3, 1931).
 - Befund, der den Auftrag erledigt, vorher nennen (1638); Ablauf als Raster Einheit × Auslöser, „komplett“ per grep.
 - Chefentscheid nie selbst zurücknehmen oder gegen Chefwort ablehnen: raten, Regel nennen, fragen (1609, 23.11.).
 - Gegenlesen: erst die Art jeder Zeile, dann Inhalt; nur gegen gültige Texte prüfen (t299, 1933).
 - Laufende Arbeit nie für eine neue Regel anhalten (1960).
 - Werkzeug erst nach drei belegten Fällen und Chef-Ja; jeden Handfix sofort `vorgang.py lehre roh`. Widerspruch im Vorgang: vorlegen, nicht bauen (Chef 24.11., 07:26/07:37).
-- Notizkopie nur über `tools/notiz.sh`; keine Team- oder Organisations-Einstellungen; Geschäftsmodell nie ins Repo ([Modell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj)).
+- Notizkopie nur über `tools/notiz.sh`; keine Team- oder Organisations-Einstellungen; vor Vorschlag zum Kaufrepo Archiv und Git nach Versuchen absuchen; Geschäftsmodell nie ins Repo ([Modell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj)).
 
 ## Offene Fäden
 
