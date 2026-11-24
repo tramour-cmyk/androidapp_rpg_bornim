@@ -225,3 +225,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:44 24.11.: Karla (1603) Ablage für Chefsache erledigt (main bd5596e0e, Film Zweig bilder 8e385fae8, Zahlen 665356308), an Sokrates gemeldet, 1603-Ü14 erledigt, Karla archiviert, Kosten 2,92 $ (1603 gesamt 41,74 $)
 - 15:47 24.11.: 1603-Ü16 (Hinweis Prüfer: schwarzes Rechteck über Krogg = Mähne/Leine, Modell, Verkleinerung verschmilzt) an Sokrates, erledigt
 - 16:04 24.11.: Startsperre 16:04 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Knut, Arbeitsplaner 1128.3 Moritz)
+- 16:07 24.11.: Takt 16:03: keine Starts (Planer 887 ruht, Planer 1128.3 Werkzeug/QM nicht, Chef 12:48); Prüfer Jonas bekommt 431-Ü4 (Laufanforderung Lotte, Behebung 92309ef9d); Lotte (431) 9,35 $ um 16:05, 431 gegen Deckel 90 $ ab 10:26 unter Grenze; --ohne 1933, 1128.3 neu
