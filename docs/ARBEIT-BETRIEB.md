@@ -268,3 +268,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:50 24.11.: Startsperre 21:50 Start Sokrates (selbst; Neustart nach Übergabe 2bf197e4a, lauf.py --start Sokrates Leitung, Sokrates 21:48)
 - 21:52 24.11.: Neuer Sokrates session_01Hmoj76pVj4STr1hPTJC56p (lauf.py --start Sokrates Leitung, Übergabe 2bf197e4a); alter session_01Hmoj77ZdYKh1YXq5iPdhgN erst archivieren, wenn der neue sich gemeldet hat
 - 22:04 24.11.: Startsperre 22:04 Start Arbeitsplaner (lauf.py, Arbeitsplaner 887 Tanja)
+- 22:06 24.11.: Takt Uwe: Vera (1654) archiviert, Kosten 0,54 $; Figur 1654 wartet (Rudi/Figur läuft, eine Figur zugleich); 887 ruht, kein Start; alter Sokrates bleibt bis Meldung des neuen; Seite abgeschnitten (has_more).
