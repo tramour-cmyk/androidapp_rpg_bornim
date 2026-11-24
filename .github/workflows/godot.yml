@@ -613,6 +613,9 @@ jobs:
           sed -i "s/^const KAUF := \"\"/const KAUF := \"$K\"/" godot/skripte/schluessel.gd
           grep -q "$K" godot/skripte/schluessel.gd || { echo "Schluessel nicht gesetzt"; exit 1; }
           touch godot/daten/kauf.txt
+          # 431 (Sokrates 24.11., 15:34: App-Zuwachs der Volksmodelle verkleinern): vor dem Verschlüsseln gzip (verschlüsselt packt das APK
+          # nicht mehr), Gebiet.entpacke packt nach dem Entschlüsseln aus; am Rechner 170 MB -> 95 MB
+          for f in godot/daten/held_{ELF,DWARF,HALFLING,HALF_ORC}_*.bin; do [ -f "$f" ] && [ "$(head -c 2 "$f" | od -An -tx1 | tr -d ' ')" != 1f8b ] && gzip -n -9 -c "$f" > "$f.gz" && mv "$f.gz" "$f"; done; true
           cd godot && cat daten/kauf.txt kampf/daten/kauf.txt 2>/dev/null | sort -u | xargs -r bash ../tools/blender348/verschluesseln.sh $K   # 399.1: auch Jerrys Kampfort
           ls $RUNNER_TEMP/klassen_alt/held_*.glb > /dev/null 2>&1 && bash ../tools/blender348/verschluesseln.sh $K $RUNNER_TEMP/klassen_alt/held_*.glb || true   # 656: Held vorher
       - uses: actions/cache@v4
@@ -1203,10 +1206,14 @@ jobs:
           cd godot
           AUS=$B/roh VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 900 xvfb-run -a -s "-screen 0 1080x2340x24" \
             ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/voelker_bild_431.gd 2>&1 | grep -E "SCRIPT ERROR|^BILD|VOELKERBILD" | cut -c1-200 || true
+          for a in alt neu; do   # 431 (Sokrates 15:34): Bogen in der großen Hand des Zwergs, alt gegen neu (Tragen.bogen_punkt)
+            BOGEN_ALT=$([ $a = alt ] && echo 1 || echo 0) NAME=bogen_$a AUS=$B/roh VK_ICD_FILENAMES=/usr/share/vulkan/icd.d/lvp_icd.json timeout 300 xvfb-run -a -s "-screen 0 1080x2340x24" \
+              ~/godot/godot --path . --rendering-driver vulkan --rendering-method mobile --resolution 540x1170 -s res://tests/bogen_bild_431.gd 2>&1 | grep -E "SCRIPT ERROR|^BILD" | cut -c1-200 || true
+          done
           timeout 900 ~/godot/godot --headless --path . -s res://tests/voelker_431.gd 2>&1 | grep -E "^(FALL|FALSCH|BEZUG|VOELKER431)|SCRIPT ERROR" > $B/pruefung.txt || true
           grep -E "^(FALSCH|BEZUG|VOELKER431)" $B/pruefung.txt | cut -c1-200 || true
           { echo "431 Volksmodelle: $(ls daten/held_{ELF,DWARF,HALFLING,HALF_ORC}_*.bin 2>/dev/null | wc -l) Dateien, $(du -cb daten/held_{ELF,DWARF,HALFLING,HALF_ORC}_*.bin 2>/dev/null | tail -1 | cut -f1) Byte"
-            echo "431 APK: $(stat -c %s $GITHUB_WORKSPACE/bornim-godot.apk 2>/dev/null || echo fehlt) Byte"; } | tee $B/groesse.txt
+            echo "431 APK: $(stat -c %s $GITHUB_WORKSPACE/bornim-godot.apk 2>/dev/null || echo fehlt) Byte (vor 431-Packen: Volksmodelle 170181136, APK 866823854)"; } | tee $B/groesse.txt
           bash $GITHUB_WORKSPACE/tools/godot/voelker_bild_431.sh $B/roh $B $C $M || true
           ls -l $B
       # 348.13b Tusche nach Laterne, Fenster, Fackel: nachts je Ort mit und ohne, Kosten je Bild (Renderer wie am Handy), nur bei „348.13b“

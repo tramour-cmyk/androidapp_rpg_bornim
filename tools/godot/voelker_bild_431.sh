@@ -37,4 +37,14 @@ for x in vorn:"vorn, Startausrüstung Wachsoldat" seite:"Seite" hinten:"hinten, 
   schild $R/reihe_$n.png "Mensch, Elf, Zwerg, Hügelvolk, Orkblütiger (je Mann, Frau), wahre Größe; $t; Stand $C" $T/r_$n.png; r+=($T/r_$n.png)
 done
 [ ${#r[@]} -gt 0 ] && convert "${r[@]}" -background black -append $Z/431-reihen.png && echo "BILD $Z/431-reihen.png"
+# 431 (Sokrates 24.11., 15:34): Bogen in der linken Faust des Jägerkinds (Zwerg, Hauptmenü), alt gegen neu, vorn und außen
+b=()
+for a in alt neu; do
+  for s in vorn aussen; do
+    f=$R/bogen_${a}_${s}.png; [ -f $f ] || continue
+    wo=$([ $a = alt ] && echo "alt, Bogen wie vor 431 ($M)" || echo "neu ($C)")
+    schild $f "Zwerg, linke Faust mit Kurzbogen, $s; $wo" $T/b_${a}_${s}.png; b+=($T/b_${a}_${s}.png)
+  done
+done
+[ ${#b[@]} -eq 4 ] && convert \( ${b[0]} ${b[1]} +append \) \( ${b[2]} ${b[3]} +append \) -background black -append $Z/431-bogen.png && echo "BILD $Z/431-bogen.png"
 rm -rf $T
