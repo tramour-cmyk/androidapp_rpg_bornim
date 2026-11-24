@@ -253,3 +253,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:45 24.11.: Startsperre 19:45 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1794 Oda)
 - 19:50 24.11.: Kampf 1589.4 (Auftrag angepasst 10f69a0d1, Sokrates 19:47): Handstart von lauf.py angehalten (Laufsperre 3: Moritz Figur, Pia (Handstart-Planer 1694 als Figur gezählt), Startsperre Kampf 19:41); Start nach Ende von Pia/Rita/Olga; Fund: Planer künftig mit Titel „<Name> – Auftrag <Nr>: …“ starten (Handstart-Titel zählt als Fachkraft)
 - 19:49 24.11.: Olga (Planerin 2024) archiviert, Kosten 1,01 $; 2024 Auftrag steht (2024-Ü2 Disponent: Fachkraft Figur starten, wartet auf Platz unter Laufsperre: Reihenfolge 1654, 1694, 1589.4, dann 2024/431, Sokrates fragen)
+- 19:56 24.11.: Startsperre 19:56 Start Kampf (lauf.py, Kampf 1589.4 Oda)
