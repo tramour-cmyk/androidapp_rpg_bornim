@@ -25,6 +25,7 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Übergabe (24.11., 07:29, session_01Hmoj78G97RcFvsJSgAyQBv, 275 Tsd.):** Sokrates session_01Hmoj78KsbZtxD4EU46NDFA. Chef heute Konferenz, Vertretung oben. Werkzeug-Aufpasser: jeder Werkzeug-Auftrag vor Start zu mir. Stand: 2012 frei (Gerda), 2005 entfällt (513 berichtigt, ruht), 2013 frei nach 2012, 2048-Sperre → Hinweis wartet auf Chef-Ja (Telegram 07:24), Baustopp+Abbau beim Chef offen (07:27), Grundsatz Chef 07:26: Widersprüche vorlegen statt Werkzeug. Kennzahl 07:06: 22 offen. 2003 bis 30.11. Alte Uhr von Alter Ego 07:38 gelöscht; Nachfolger legt neue an. Chef startet Nachfolger (07:37).
 
+- 24.11., 08:12 Sokrates 08:16: Gedächtnis Fassung 5 (2,4 KB), Fehler 341 umgezogen. Gegenprüfung: 3 Lehren fehlen (startbar/ruht, alte Datei als Grundlage, Prompts an festen Fällen), Rest Z. 9 Kaufrepo; an Sokrates.
 - 24.11., 08:08 Chef 08:07 fragt nach Umzug Fehler 341: nicht erledigt (30 Zeilen ARBEIT-BERATUNG, 4 PROJEKT, 1 TAGESBERICHT); Ziel widersprüchlich (Gedächtnis Z. 52 vs fehlerbuch Abs. 6); gedaechtnis.md 9,4 KB statt 3 KB. An Sokrates.
 - 24.11., 08:05 Chef 08:04: Vorlagen an Sokrates sieht Alter Ego nicht. Vorschlag: wer annimmt, trägt sofort ein (Kern-Büro-Satz erweitert, an Sokrates); Alter Ego prüft nur Lücken.
 - 24.11., 08:03 Chef 08:01: Strichliste doppelt (Lehrenbuch, Gedächtnis, Fehler 341). Strichliste gelöscht, 7 Fälle als R31–R37 ins Lehrenbuch.
