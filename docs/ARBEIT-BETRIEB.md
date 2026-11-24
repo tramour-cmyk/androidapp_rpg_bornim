@@ -174,3 +174,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:51 24.11.: Nora (2012) archiviert, Kosten 6,27 $; Nora fragt (Haken-Ausnahme: fertiges Thema ohne Nachfolger beenden) → Sokrates
 - 08:53 24.11.: Paula: Auftrag 1785 steht (1785-Ü1), Hinweis 1785-Ü2: 4fd7055c8 liegt nur auf claude/tom-1535-gruss, nicht auf main; archiviert, Kosten 0,95 $
 - 09:03 24.11.: Startsperre 09:03 Start Kampf, Figur, Werkzeug (lauf.py, Kampf 1589.3 Sabine, Figur 431 Tanja, Werkzeug 2012 Ulla)
+- 09:08 24.11.: Takt 09:03: START Kampf Sabine (1589.3, Sokrates 07:38) und Werkzeug Ulla (2012-Ü6 Rückläufer Beleg fehlt) ausgeführt; START Figur Tanja 431 nicht ausgeführt (431-Ü2 Frage Otto liegt bei Sokrates: Deckel und Umhang-Antwort); Lutz (1589.2, steckt fest 2., 1589.2-Ü12 Chefsache bei Sokrates; wartet auf Wahl (a) oder (b)) und Otto archiviert, Kosten 3,12 und 1,02 $
