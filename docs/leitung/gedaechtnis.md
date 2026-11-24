@@ -22,7 +22,7 @@
 - Konferenz: Alter Ego `session_01Hmoj79s65wJUddNW1dFPLB` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
 - Spielcode nach main nur Sokrates nach Chef-👍 (Dauerwort 23.11., 23:10).
 - Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt; Guthaben 50 % (06:53), über 0,6 %/h zwei.
-- Offen: 2020 Auftrag schreiben (GitHub-Merge, Alter Ego prüft); 2019 läuft (Wochenzählung); Vorlage --sperre-Teile (Archiv 11:33); 1716/1301/1387/1642/1643 mit Alter Ego entscheiden; 1603 Rückläufer, dann Vorlage mit Frage Prankenhieb.
+- Offen: 2020 Auftrag schreiben (GitHub-Merge, Alter Ego prüft); 2019 läuft (Wochenzählung); Vorlage --sperre-Teile; 1716/1301/1387/1642/1643 mit Alter Ego entscheiden; 1603 Rückläufer, dann Vorlage mit Frage Prankenhieb.
 - Täglich Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07). Kopiertexte: `kopiertexte-uhren.md`.
 
 ## Übergabe
