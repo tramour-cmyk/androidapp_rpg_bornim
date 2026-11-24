@@ -73,7 +73,7 @@ func _lauf() -> void:
 				var gut := netz_gut and sicht_gut
 				if not gut or OS.get_environment("ALLE") != "":
 					print("ALLE1694 %s %-28s %s Spalt %.1f, Umschlingung %d°, Glieder %.1f, Kuppen %.1f cm, Griff %.1f cm%s; sichtbar innen %d%%, außen %d%%%s%s" % [kf.get_file(), id, GriffHand.art_von(id),
-						w.get("kontakt", 0.0), int(w.get("umschl", 0.0)), w.get("tief", 0.0), w.get("kuppe", 0.0), 2.0 * float(w.get("radius", 0.0)), " dick" if NetzMess.dick(w) else "",
+						w.get("kontakt", 0.0), int(w.get("umschl", 0.0)), w.get("tief", 0.0), w.get("kuppe", 0.0), 2.0 * float(w.get("radius", 0.0)), " zu dick" if NetzMess.zu_dick(w) else (" offen" if NetzMess.dick(w) else ""),
 						int(100.0 * float(si.get("innen", 1.0))), int(100.0 * float(si.get("aussen", 1.0))),
 						("; Glieder: " + ", ".join(NetzMess.glieder_fehler(w))) if not NetzMess.glieder_fehler(w).is_empty() else "",
 						"" if gut else ("  FEHLER" + (" (nicht in der Hand)" if gueltig[0].has("leer") else "") + ("" if netz_gut else " Netz") + ("" if sicht_gut else " Bild"))])

@@ -128,14 +128,22 @@ static func griff(skel: Skeleton3D, s: String, ding: Node3D, halt: Dictionary) -
 ## bis 1,2 cm
 static func griff_gut(w: Dictionary) -> bool:
 	return w.kontakt <= 0.3 and w.kontakt >= -1.2 and w.tief >= -0.6 and w.kuppe >= -1.2 and glieder_fehler(w).is_empty() \
-		and (dick(w) or w.umschl >= 300.0)
+		and not zu_dick(w) and w.umschl >= (UMGREIFT if dick(w) else 300.0)
 
 ## 1694 (Chef 23.11., 15:39/15:42: „Dann schließt sich halt die Hand nicht komplett“; dicke Griffe bleiben): Griff ab DICK cm Durchmesser
 ## muss die Faust nicht schließen (Umschlingung, Sicht von der Handfläche); geprüft wird dann jeder Finger Glied für Glied am Schaft
+## 1694 (Chef 23.11., 22:21: „die Hand umgreift ja gar nicht den Griff“; 22:23: „dann verdünnen wir halt das Ganze … A“): Stiele werden
+## beim Bau auf echtes Maß gebracht (waffen_staffel.py, 3,5 bis 4 cm); ab DICK cm ist der Griff zu dick (Fehler). Ab OFFEN cm darf die Faust
+## offen bleiben, die Hand umgreift den Stiel aber (Umschlingung mindestens UMGREIFT), jeder Finger Glied für Glied am Holz
 const DICK := 4.2
+const OFFEN := 3.4
+const UMGREIFT := 270.0
 const GLIED_LUFT := 0.5     # cm: Haut des Glieds weiter vom Griff: in der Luft
 const GLIED_HOLZ := -0.6    # cm: tiefer: im Holz (Endglied wie kuppe -1,2)
 static func dick(w: Dictionary) -> bool:
+	return 2.0 * float(w.get("radius", 0.0)) >= OFFEN
+
+static func zu_dick(w: Dictionary) -> bool:
 	return 2.0 * float(w.get("radius", 0.0)) >= DICK
 
 ## Glieder, die nicht am Schaft liegen: [„index_02_r Luft 1,3“, …]. Am dünnen Griff (geschlossene Faust) darf das Endglied auf Ballen
