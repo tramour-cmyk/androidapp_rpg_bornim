@@ -59,7 +59,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | 1603 Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhie… (Muss) |
-| Figur | läuft: 1694 (Besetzung); 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 3 weitere |
+| Figur | 431 Völker als Modelle: erst Bibliothek sichten, Kandidaten dre… (Muss); dann 3 weitere |
 | Kataloge | 644.2 Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pfli… (Kür) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
