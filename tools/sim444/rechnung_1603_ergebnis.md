@@ -64,3 +64,6 @@ Krogg, N = 200 je Fall, Grenze 10 Punkte; groesste Abweichung von heute ueber 8 
 
 Halb gut −8,5 Punkte (Klosterschüler 3, 77,0 → 68,5 %): in der Spanne. Ohne Ring −25,0, Ring gut +24,0, perfekt +63,5 (Maß nach C nur
 „halb gut“).
+
+Gegenprobe N = 500 (Checkliste LISTE-MARS 4: unter 10 Punkten mindestens 500), `GRENZE=10 … 500 0.3`: halb gut +7,0
+(Jägerkind 4, 34,4 → 41,4 %), ohne Ring −21,8, gut +24,8, perfekt +62,6. Halb gut in der Spanne.
