@@ -37,6 +37,22 @@ soll("Vorspann mit Nummer weg, Uhrzeit kein Schnitt", th("Aus 1141 (Jerry 13.11.
 soll("Schnitt an Zahl ohne Füllwort am Ende", th("vier Läufe zu 1655 an einem Tag") == "vier Läufe …", th("vier Läufe zu 1655 an einem Tag"))
 soll("Markdown weg, unpaariges „ weg", th("**Titel** mit „Zitat: x") == "Titel mit", th("**Titel** mit „Zitat: x"))
 
+# Rückläufer 22.11., 18:17: unter drei Wörtern über den Trenner weiterlesen; Teil vor „:“ nur, wenn er mitpasst (709, 1650, 1674, 931)
+def worte(t): return len(t.replace("…", "").split())
+for nr, g in (("709", "Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angriffe"),
+              ("760", "Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur"),
+              ("1650", "Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin"),
+              ("1674", "Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 Minuten an der Bank fest, kommt nicht weiter"),
+              ("931", "Wolf vorn – „Anspringen!“ steht, während er sich duckt (keine eigene Pause), Sprung bis Biss")):
+    t = th(g)
+    soll("%s: Thema mindestens drei Wörter, höchstens 50 Zeichen" % nr, worte(t) >= 3 and len(t) <= 50 and t.count("(") == t.count(")")
+         and t.count("„") == t.count("“") and " – " not in t, t)
+soll("709: Teil vor „:“ passt mit", th("Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur").startswith("Kampf: Wolf springt"), th("Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur"))
+soll("Teil vor „:“ passt nicht: Teil danach", th("Kopf: Wolf springt nicht") == "Kopf: Wolf springt nicht" and th("Vorspannwortungetüm" * 3 + ": Wolf springt nicht") == "Wolf springt nicht",
+     (th("Kopf: Wolf springt nicht"), th("Vorspannwortungetüm" * 3 + ": Wolf springt nicht")))
+soll("drei Wörter vor dem Trenner: Schnitt wie bisher", th("Sitzungstitel ohne Thema: Rest") == "Sitzungstitel ohne Thema", th("Sitzungstitel ohne Thema: Rest"))
+soll("Titel selbst zu kurz bleibt", th("Repo öffentlich") == "Repo öffentlich", th("Repo öffentlich"))
+
 # START-Titel (Fachkraft 1550, Planer 1557, zweiter Planer 585) mit Thema, scharf
 lauf.ist_scharf = lambda: True
 f = titel("Werkzeug – 1960", "1960"); p = titel("Arbeitsplaner – Auftrag 1675", "1675"); p2 = titel("Arbeitsplaner 2 – Auftrag 1621", "1621")

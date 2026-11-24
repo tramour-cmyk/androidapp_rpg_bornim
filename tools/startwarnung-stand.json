@@ -11,6 +11,11 @@
   "text": "Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: LISTE-LEHREN.md",
   "vorgang": "1977"
  },
+ "groesse:docs/ARBEIT-BETRIEB.md": {
+  "besitzer": "Disponent",
+  "seit": "2026-11-24T07:50+01:00",
+  "text": "docs/ARBEIT-BETRIEB.md hat 31808 Bytes (Grenze 30000), Erledigtes streichen"
+ },
  "regel:ARBEIT-TEAM-JERRY.md:Übergabe über N Zeichen (nur Getanes und": {
   "besitzer": "Arbeitsplaner",
   "seit": "2026-11-21T22:18+01:00",

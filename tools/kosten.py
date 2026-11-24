@@ -12,7 +12,7 @@ from collections import defaultdict
 
 SPIEL = {"Tom", "Jerry", "Homer"}
 ROLLEN = ["Ford 2", "Ford", "Perikles", "Diogenes", "Sokrates", "Tom", "Jerry", "Homer", "Spike", "Tuffy", "Rundblick", "Ideenlauf", "Tagesbericht",
-          "Prüfer", "Büro", "Arbeitsplaner", "Tester"]  # 1789, 1907: Routinen Rundblick, Ideenlauf (lauf.rundblick_zeilen); 1779 d: Rollen nach der Umstellung, sonst „Sonstige“ (Höchstdauer prüft sie nie)
+          "Prüfer", "Büro", "Arbeitsplaner", "Tester", "Wache"]  # 1964: Wache („Wache – Disponent (…)“, Profil docs/profile/Wache.md); 1789, 1907: Routinen Rundblick, Ideenlauf (lauf.rundblick_zeilen); 1779 d: Rollen nach der Umstellung, sonst „Sonstige“ (Höchstdauer prüft sie nie)
 TEAM = {"Tuffy": "Jerry"}  # 1328: Spike eigene Rolle; 394 (Chef 28.10., 10:26): Zusatzentwickler, eigene Sitzung, Vorrat und Kosten ihres Teams
 
 def sitzungen(pfad, offen):

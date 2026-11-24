@@ -389,7 +389,12 @@ def vorrat_hinweis(r, nr=None):
     if r in VORRAT and not NEU_LISTE: return "die Übergabe in %s beachten" % VORRAT[r]
     return "die Vorgangsdatei `docs/vorgang/%s.md` lesen (Auftrag, Feld „Zurück“)" % (nr or "<Nr>")
 ROUTINE_ROLLEN = {"Rundblick", "Ideenlauf", "Tagesbericht"}  # 1789, 1907 (Ideenlauf, Gesamtbild 4.3 G:451): Routinen mit eigenem Start (ohne Kern, ohne Rufname, ohne Feld „Zurück“), nur mit tools/1727-SCHARF
-NIE_ARCHIV = {"Ford"}  # Ford, Wache; Sokrates und Sonstige nach eigener Regel (197)
+NIE_ARCHIV = {"Ford", "Wache"}  # Ford, Wache (1964: vorher fehlte die Wache); Sokrates und Sonstige nach eigener Regel (197)
+
+def ohne_rollen_aus(ausschluss):
+    """1148, 1964: Namen aus --ohne, die eine Rolle sind (alte Rollen, Profile, Routinen, Wache; kosten.ROLLEN), nicht Nummern."""
+    rollen = set(kosten.ROLLEN) | set(startbar.profile()) | ROUTINE_ROLLEN
+    return {n for n in ausschluss if n in rollen or re.fullmatch(startbar.ROLLEN_NAMEN, n)}
 
 def geschuetzt():
     """1531 (Chef 17.11., 08:52 zur Sitzung Sokrates: „diese Sitzung definitiv nicht archivieren oder schließen lassen“): Kennungen aus der
@@ -635,20 +640,13 @@ def _sieht_nummer(t):
     """1960: läse nummern_aus_titel in t hinter „X – 1:“ eine weitere Vorgangsnummer (Kosten zu gleichen Teilen, 197)?"""
     return nummern_aus_titel("X – 1: %s (01.01., 00:00)" % t) != "1"
 
-def thema(t):
-    """1960 (Chef 22.11., 16:52): Thema für den START-Titel aus dem Vorgangstitel: ohne Markdown, „|“, Zeilenumbruch und
-    „Auftrag <Zahl>“; Vorspann bis zum ersten „: “ außerhalb von Klammern weg, wenn er mit „Von “ beginnt oder eine Vorgangsnummer
-    trägt („Aus 623.2 (Jerry): …“); endet vor „;“, „: “, „ (“, „ – “, einem unpaarigen „ und vor jedem Wort, das nummern_aus_titel
-    als weitere Vorgangsnummer läse (dann ohne Füllwort am Ende und mit „…“); höchstens THEMA_MAX Zeichen am Wortende mit „…“."""
-    t = re.sub(r"\*\*|`", "", str(t or ""))
-    t = " ".join(re.sub(r"[|\r\n]+", " ", t).split())
-    tiefe = 0
-    for i, c in enumerate(t):
-        tiefe += (c == "(") - (c == ")")
-        if c == ":" and tiefe == 0 and t[i + 1:i + 2] in (" ", ""):
-            if (re.match(r"(D\d\S* )?[Vv]on ", t) or _sieht_nummer(t[:i])) and t[i + 1:].strip(): t = t[i + 1:]
-            break
-    t = re.split(r";|:(?=\s|$)| \(| – ", t.strip())[0]
+THEMA_WORTE = 3  # 1960 (Sokrates 22.11., 17:22): Thema mit Gegenstand und Tätigkeit, mindestens etwa drei Wörter
+
+def _worte(t): return len(t.replace("…", "").split())
+
+def _kuerze(t):
+    """1960: Thema-Stück ohne „Auftrag <Zahl>“, endet vor einem unpaarigen „ und vor jedem Wort, das nummern_aus_titel als weitere
+    Vorgangsnummer läse (dann ohne Füllwort am Ende und mit „…“); höchstens THEMA_MAX Zeichen am Wortende mit „…“; ohne offene Klammer."""
     t = re.sub(r"\bAuftrag\s+\d[0-9a-zA-Z.]*", " ", t)
     if t.count("„") > t.count("“"): t = t[:t.rindex("„")]
     worte, rest = [], False
@@ -663,9 +661,37 @@ def thema(t):
         t = t[:t.rindex(" ")] if " " in t else t
         if t.count("„") > t.count("“"): t = t[:t.rindex("„")]
         rest = True
+    if t.count("(") > t.count(")"): t = t[:t.rindex("(")]; rest = True
     t = t.rstrip(" ,;:(–-/")
     while rest and " " in t and t.rsplit(" ", 1)[1].lower() in FUELLWORT: t = t.rsplit(" ", 1)[0].rstrip(" ,;:(–-/")
     return (t + " …") if rest and t else t
+
+def thema(t):
+    """1960 (Chef 22.11., 16:52; Rückläufer Sokrates 22.11., 17:22): Thema für den START-Titel aus dem Vorgangstitel: ohne Markdown,
+    „|“, Zeilenumbruch und „Auftrag <Zahl>“; Vorspann bis zum ersten „: “ außerhalb von Klammern weg, wenn er mit „Von “ beginnt oder
+    eine Vorgangsnummer trägt („Aus 623.2 (Jerry): …“); endet vor „;“, „: “, „ (“, „ – “, solange davor THEMA_WORTE Wörter stehen,
+    sonst über den Trenner weiter („ – “ wird „: “); Teil vor „:“ (ohne Klammer) nur, wenn danach noch ein Wort mitpasst, sonst der Teil danach. Kürzung _kuerze."""
+    t = re.sub(r"\*\*|`", "", str(t or ""))
+    t = " ".join(re.sub(r"[|\r\n]+", " ", t).split())
+    tiefe = 0
+    for i, c in enumerate(t):
+        tiefe += (c == "(") - (c == ")")
+        if c == ":" and tiefe == 0 and t[i + 1:i + 2] in (" ", ""):
+            if (re.match(r"(D\d\S* )?[Vv]on ", t) or _sieht_nummer(t[:i])) and t[i + 1:].strip(): t = t[i + 1:]
+            break
+    teile = re.split(r"(;|:(?=\s|$)| \(| – )", t.strip())
+    stueck, kopf = teile[0], ""
+    for i in range(1, len(teile) - 1, 2):
+        if _worte(_kuerze(stueck)) >= THEMA_WORTE: break
+        tr, weiter = teile[i], teile[i + 1].strip()
+        if not weiter: continue
+        if tr in (":", " – "): kopf, stueck = stueck, weiter
+        else: stueck = stueck + (" (" if tr == " (" else tr + " ") + weiter
+    kopf = " ".join(re.sub(r"\([^()]*\)", " ", kopf).split())  # „BornWire (vorher WireStorm): …“: Klammer im Kopf entfällt
+    if kopf:
+        mit = _kuerze(kopf + ": " + stueck)
+        if _worte(mit) >= THEMA_WORTE and _worte(mit) > _worte(_kuerze(kopf)) or _worte(_kuerze(stueck)) < THEMA_WORTE: return mit
+    return _kuerze(stueck)
 
 def start_titel(kopf, nr):
     """1960: START-Titel „<Kopf>: <Thema> (TT.MM., HH:MM)“ (Fachkraft, Planer, zweiter Planer), Thema aus dem Vorgangstitel von nr;
@@ -1161,7 +1187,7 @@ def ist_scharf():
 
 def auftrag_fehlt(nr, docs=None, titel=None):
     """1739 (7.1 „kein Start ohne Feld Zurück“): Grund, warum Vorgang nr keinen gültigen Auftrag hat (jüngster Abschnitt
-    „## Auftrag (…)“ in docs/vorgang/<Nr>.md, geprüft mit auftrag.pruefen: sieben Felder, „Zurück“ mit Inhalt, höchstens 2 KB),
+    „## Auftrag (…)“ in docs/vorgang/<Nr>.md, geprüft mit auftrag.pruefen: sieben Felder, „Zurück“ mit Inhalt),
     sonst None. Zeilen ohne Nummer (M?, Stillstand, Kosten) brauchen keinen."""
     if not re.match(r"B?\d", str(nr)): return None  # 1949: Build-Auftrag B<n> braucht ebenso einen Auftrag
     try:  # 1789: Routinen (Titel „(Routine, Auftrag <Datei> …)“) sind vom Feld „Zurück“ ausgenommen, Teil A ist der Auftrag
@@ -1172,6 +1198,7 @@ def auftrag_fehlt(nr, docs=None, titel=None):
     text = lesen(p) if os.path.isfile(p) else ""
     ab = juengster_auftrag(text)
     if not ab: return "kein Auftrag"
+    if (rl := ruecklaeufer_offen(text)): return rl  # 1964 (d)
     teil = text[ab[0]:]
     n = re.search(r"(?m)^## ", teil)
     try:
@@ -1181,6 +1208,18 @@ def auftrag_fehlt(nr, docs=None, titel=None):
         return "Auftrag nicht geprüft (%s)" % e
     return ("Auftrag: " + "; ".join(f[:2])) if f else None
 
+def ruecklaeufer_offen(text, jetzt=None):
+    """1964 (d), 2006: Übergabezeile an den Arbeitsplaner, nicht erledigt, gleich wie alt und auch ohne Auftrag (2006: vorher nur
+    jünger als der jüngste Auftrag) → Grund „wartet auf <Nr>-Ü<k> (Arbeitsplaner)“ (uebergabe.planer_wartet), sonst None.
+    Hält jeden Fachkraft-Start: Zeilenregel und WEITER über startbar.plan, Nachfolger, ue_start (planerzeile_offen)."""
+    import uebergabe as _ue
+    return _ue.planer_wartet(text)
+
+def planerzeile_offen(nr, docs=None):
+    """2006: ruecklaeufer_offen der Vorgangsdatei docs/vorgang/<nr>.md, sonst None."""
+    p = os.path.join(docs or DOCS, "vorgang", "%s.md" % nr)
+    return ruecklaeufer_offen(lesen(p)) if os.path.isfile(p) else None
+
 ARCHIV_SCHUTZ_MIN = 15
 def schutz_min(scharf=None):
     """1739 (7.1 „Archivieren mit Schutz 15 Minuten“; Büro-Gegenüberstellung: „nie binnen 15 Minuten nach der letzten Chefnachricht“):
@@ -1188,29 +1227,32 @@ def schutz_min(scharf=None):
     Ereignis (updated_at; enger als verlangt, nie weiter). Bis zur Umschaltung (tools/1727-SCHARF) 1 Minute (340.10 (c))."""
     return ARCHIV_SCHUTZ_MIN if (ist_scharf() if scharf is None else scharf) else 1
 
-AUFTRAG_KOPF = re.compile(r"(?m)^## Auftrag \((\d\d)\.(\d\d)\.,? (\d\d):(\d\d)\)")
+# 1964: eine Kopfregel „## Auftrag ([Name, [Rolle, ]]TT.MM., HH:MM[; Zusatz])“ (auftrag.py, Planer mit Rufname, Rückläufer mit Zusatz)
+AUFTRAG_KOPF = re.compile(r"(?m)^## Auftrag \((?:[^()\n\d,;]+, ){0,2}(\d\d)\.(\d\d)\.,? (\d\d):(\d\d)[;)][^\n]*")
+
+def auftrag_koepfe(text, jetzt=None):
+    """1964: [(Zeit ohne Zone, Ende der Kopfzeile)] aller Köpfe „## Auftrag (…)“ nach AUFTRAG_KOPF; Jahr: dieses, liegt TT.MM. nach jetzt, das vorige."""
+    j = jetzt or JETZT; aus = []
+    for m in AUFTRAG_KOPF.finditer(text or ""):
+        t, mo, h, mi = (int(x) for x in m.groups())
+        try: aus.append((datetime.datetime(j.year if (mo, t) <= (j.month, j.day) else j.year - 1, mo, t, h, mi), m.end()))
+        except ValueError: continue
+    return aus
 
 def juengster_auftrag(text, jetzt=None):
     """1798 (Kern Arbeitsplaner: Auftrag oben in die Vorgangsdatei): (Anfang nach der Kopfzeile, Ende vor dem nächsten „## “) des
-    jüngsten Abschnitts „## Auftrag (TT.MM., HH:MM)“ nach Zeit, gleich wo er steht (alte Dateien: unten); sonst None."""
-    j = jetzt or JETZT; beste = None
-    for m in AUFTRAG_KOPF.finditer(text or ""):
-        t, mo, h, mi = (int(x) for x in m.groups())
-        try: d = datetime.datetime(j.year if (mo, t) <= (j.month, j.day) else j.year - 1, mo, t, h, mi)
-        except ValueError: continue
-        if beste is None or d >= beste[0]: beste = (d, m.end())
+    jüngsten Abschnitts „## Auftrag (…)“ (AUFTRAG_KOPF) nach Zeit, gleich wo er steht (alte Dateien: unten); sonst None."""
+    beste = None
+    for d, ende in auftrag_koepfe(text, jetzt):
+        if beste is None or d >= beste[0]: beste = (d, ende)
     if not beste: return None
     n = re.search(r"(?m)^## ", text[beste[1]:])
     return beste[1], (beste[1] + n.start()) if n else len(text)
 
 def auftrag_seit(text, jetzt=None):
-    """Zeit des jüngsten Abschnitts „## Auftrag (TT.MM., HH:MM)“ der Vorgangsdatei (auftrag.py), sonst None."""
-    j = jetzt or JETZT; beste = None
-    for t, m, h, mi in AUFTRAG_KOPF.findall(text or ""):
-        try: d = datetime.datetime(j.year if (int(m), int(t)) <= (j.month, j.day) else j.year - 1, int(m), int(t), int(h), int(mi), tzinfo=BERLIN)
-        except ValueError: continue
-        beste = max(beste or d, d)
-    return beste
+    """Zeit (Berlin) des jüngsten Abschnitts „## Auftrag (…)“ der Vorgangsdatei, gleiche Kopfregel wie juengster_auftrag (1964), sonst None."""
+    k = auftrag_koepfe(text, jetzt)
+    return max(d for d, _ in k).replace(tzinfo=BERLIN) if k else None
 
 def leistungsstufe(s, text):
     """„Hoch“ bei Umgebung HOCH oder „Leistungsstufe: Hoch“ im jüngsten Auftrag (Feld 8 nach 1742), sonst „Mittel“."""
@@ -1468,7 +1510,7 @@ def main():
             else: print("WARNUNG --ohne %s ohne Grund ignoriert (190.2)" % nr)
     # 1148 (von Ford): --ohne <Rolle>:Grund nimmt die ganze Rolle aus diesem Lauf (START,
     # ARCHIVIERE und die Warnung „Start nicht angekommen“); vorher wirkte nur --ohne <Nr>, und Ford bekam weiter START Spike
-    ohne_rollen = {n for n in ausschluss if re.fullmatch(startbar.ROLLEN_NAMEN, n)}
+    ohne_rollen = ohne_rollen_aus(ausschluss)  # 1964: auch Profile, Routinen (Tagesbericht), Wache
     seiten = [x for i, x in enumerate(a) if not x.startswith("--") and not (i and a[i - 1] in ("--ohne", "--wecker"))]
     if not seiten: sys.exit(__doc__)
     offen = []; alle = {}
@@ -1720,6 +1762,9 @@ def main():
         elif nf_nr and nf_nr.group(1) in GESPERRT.get(r, {}):
             warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ nicht startbar (%s), oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, GESPERRT[r][nf_nr.group(1)]))
             offen_nf = None
+        elif nf_nr and (pw := planerzeile_offen(nf_nr.group(1))):  # 2006
+            ausgabe.append("NICHTS %s: Nachfolger „%s“: %s %s, kein Start (2006); Zeilenregel gilt" % (r, offen_nf, nf_nr.group(1), pw))
+            offen_nf = None
         elif nf_nr and (eig := fremd_besitzer(r, nf_nr.group(1), muss)):
             # 1662 (Ford 18.11., 13:06): Nachfolger auf einer Zeile, die inzwischen einem anderen gehört (1595 an Spike), startete die alte Rolle
             warnen(ausgabe, neue_warnungen, bekannt, r, nf_zeit, "Nachfolger „%s“ gehört inzwischen %s, oberste startbare Zeile statt dessen; Übergabe anpassen" % (offen_nf, eig))
@@ -1741,6 +1786,9 @@ def main():
         if pause:
             ausgabe.append("NICHTS %s: Pause bis %s" % (r, pause)); continue
         muss = [x for x in muss if x[0] not in ausschluss]; kuer = [x for x in kuer if x[0] not in ausschluss]
+        pw = [(n, g) for n, g in GESPERRT.get(r, {}).items() if g.startswith("wartet auf ") and g.endswith("(Arbeitsplaner)")]
+        if pw:  # 2006: startbar.plan hält die Zeile (Zeilenregel und WEITER), hier steht der Grund
+            ausgabe.append("NICHTS %s: kein Start (2006): %s" % (r, "; ".join("%s %s" % x for x in pw[:5])))
         if ist_scharf():  # 1739 (7.1): kein Start ohne Feld „Zurück“ (gültiger Auftrag in docs/vorgang/<Nr>.md)
             ohne_a = [(x[0], g) for x in muss + kuer if (g := auftrag_fehlt(x[0]))]
             if ohne_a:
@@ -1836,6 +1884,8 @@ def main():
         return zl or warn
     def einmal(marke, zeile, tb=False):
         if marke in marke_text: return
+        if tb and tb_rolle in ohne_rollen:  # 1964: --ohne Tagesbericht: kein START, keine Sperre, keine Marke (nächster Lauf startet ihn)
+            ausgabe.append("NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (tb_rolle, tb_rolle, ausschluss[tb_rolle])); return
         if per_belegt and (tb or "| Perikles |" in zeile):
             ausgabe.append("NICHTS %s: %s wartet, %s läuft (149a)" % (tb_rolle, marke, tb_rolle)); return
         ausgabe.append(zeile() if callable(zeile) else zeile); wochen.append(marke)
@@ -1860,7 +1910,7 @@ def main():
         wie = ("%s läuft noch, Disponent erinnert ihn" if per_belegt else "%s neu gestartet") % tb_rolle  # D55.5: kein „neu gestartet“ ohne Start
         ausgabe.append("TAGESBERICHT-FEHLT %s: Tagesbericht um %s nicht da; Disponent meldet laut „448: Tagesbericht fehlt, %s“" % (heute, JETZT.strftime("%H:%M"), wie))
         wochen.append("Tagesbericht fehlt %s" % heute)
-        if "Tagesbericht %s" % heute in marke_text and not per_belegt:  # sonst startet ihn die Zeile oben schon
+        if "Tagesbericht %s" % heute in marke_text and not per_belegt and tb_rolle not in ohne_rollen:  # 1964; sonst startet ihn die Zeile oben schon
             ausgabe.append(tb_zeile(", fehlte um 10 Uhr (Sa, So 12 Uhr)" if not tb_scharf else " Fehlte um 10 Uhr (Sa, So 12 Uhr)."))
     # Wochenziel und Wochenzählung (früher WOCHENSTART) sind seit 719 Vorgänge aus startbar.WOCHENTERMINE, angelegt oben vor dem Plan
     # 194.2: Datei eines anderen in der Chefsache ohne „Stellungnahme Sokrates“ → Sokrates starten, höchstens zweimal am Tag (Marke im Protokoll)
@@ -1903,6 +1953,8 @@ def main():
         except Exception as e: ausgabe.append("WARNUNG %s nicht geprüft: %s (1789, Spike)" % (rt, e))
     def ue_start(r, nr, teil):  # 1739 Befund 1: Empfänger ohne Sitzung starten
         if r not in START_REIHE or r in ohne_rollen or lauf_laeuft(r): return False
+        if r != PLANER and r not in startbar.BUERO and (pw := planerzeile_offen(nr)):  # 2006: Fachkraft wartet auf die Zeile an den Planer
+            ausgabe.append("NICHTS %s: offene Übergabe %s: %s, kein Start (2006)" % (r, nr, pw)); return True
         i = next((j for j, l in enumerate(ausgabe) if l.startswith("START %s |" % r)), None)
         if i is not None: ausgabe[i] += "\\n\\n" + teil; return True
         if r in marken and (JETZT - marken[r]).total_seconds() < SPERRE_MIN * 60:
@@ -1957,6 +2009,10 @@ def main():
         except Exception as e: ausgabe.append("WARNUNG LIEGT nicht geprüft: %s (1799)" % str(e)[:120])
     # 1472: Chefwort zum Kaufrepo an jede Startnachricht (START: letztes Feld), bei WEITER vor dem Hinweis auf send_message
     ausgabe = [mit_kaufrepo(l) for l in ausgabe]
+    if ohne_rollen:  # 1964: eine Regel für jede Rolle und Routine: mit --ohne <Rolle> kein START und keine Startsperre, gleich welcher Teil ihn schrieb
+        ausgabe = ["NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (r_, r_, ausschluss[r_]) if (r_ := l[6:].split(" |")[0].strip()) in ohne_rollen and l.startswith("START ") else l
+                   for l in ausgabe]
+        sperren[:] = [s_ for s_ in sperren if s_ not in ohne_rollen]
     ausgabe = [mit_kern(l) for l in ausgabe]
     ausgabe += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
     rufnamen = {}  # 1957: Rolle → Rufnamen der STARTs, für die Startsperre
