@@ -52,7 +52,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Wer hinkt (21.11., 20:37)
 
 - **Das Spiel stand seit 19.11., 08:30** (dein Wort: Stillstand bis Sa 20:00 nach dem Griff 1694, Guthaben aufgebraucht): kein Build, kein Spielcode. Build 300 liegt seit 19.11., 08:14 auf `main`, ohne den Wolfsbiss 760 (1724). Die Zeit ging in den Umbau zum Büro (1727) mit Sokrates.
-- **Dieser Bericht fehlte zwei Tage** (20. und 21.11.): die Warnung stand seit 20.11., 10:46 bei mir, und ich habe sie übergangen, weil keine Spielarbeit lief. Das ist derselbe Fehler wie am 19.11. (Fehler 341). Ab Montag kommt er wieder täglich, auch unter Sperre.
+- **Fehler 341 (Altbestand):** im Lehrenbuch R39–R42 (24.11., Sokrates); Wortlaut in Git.
 - **Pflege:** die Vorratsprüfung zeigt 36 Funde, alle bei anderen Besitzern: meist mögliche Doppelungen unter den Systemvorgängen von Sokrates, dazu Toms Zweig 431 (Ausrüstung), der ganz in `main` steckt und mit 125,77 $ als festgefahren gilt. Die Besitzer räumen beim Übergeben auf.
 - **Vollzug fehlt** zu vier Entscheiden, darunter der Wolfsbiss 760 (Stichtag heute 20:00); melden muss der Empfehler Sokrates.
 
