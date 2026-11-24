@@ -27,4 +27,4 @@
 
 ## Übergabe
 
-- 24.11., 12:47, `76yxzD…` (400 Tsd.): Getan: 1589.3 auf main, 2017 fertig, 2019 Eilt, Kern Daumenregel. Letzte Antwort: Thema zu, Ruhe bis Sa. Nachfolger: Sokrates – Leitung.
+- 24.11., 21:50, `77ZdYK…` (401 Tsd.): Getan: 1603, 1694, 431, 1589.4 vorgelegt und vom Chef A; Folgeaufträge, 2024 neu, Testbuild Sa. Letzte Antwort: 1589.4 Kosten, Rest Sa. Nachfolger: Sokrates – Leitung.
