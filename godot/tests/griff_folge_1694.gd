@@ -96,7 +96,7 @@ func _lauf() -> void:
 	print("FOLGE1694 Spalten: P=Prozessbild (ab Start) Ph=Physikbild n=Aufruf im Bild | Modifikatoren | Waffe Griffpunkt cm (Hand) Achse |")
 	print("FOLGE1694   je Ecke Z(eigefinger) K(leinfinger) H(andfläche): bake-j / bake-v cm (j: Pose dieses Aufrufs, v: letzter Aufruf im vorigen Bild) |")
 	print("FOLGE1694   Haut am Griff cm (Netz) Z K H | Beugung Grad 16 Glieder " + " ".join(GLIEDER.map(func(g): return g.substr(0, g.length() - 2))))
-	var schlecht := 0; var nach_v := 0; var n := 0
+	var schlecht := 0; var nach_v := 0; var n := 0; var ohne_v := 0; var ruht := true
 	var spr_g := []
 	for z in zeilen:
 		var ez := ""
@@ -106,7 +106,10 @@ func _lauf() -> void:
 		spr_g.append(z.griff)
 		for e in z.ecke:
 			if e.j == null: continue
+			if e.v == null:   # erster Aufruf: kein voriges Bild, nicht zuzuordnen
+				ohne_v += 1; continue
 			n += 1
+			if absf(float(e.j) - float(e.v)) > 0.01: ruht = false
 			if float(e.j) > GRENZE: schlecht += 1
 			if e.v != null and float(e.v) <= GRENZE and float(e.j) > GRENZE: nach_v += 1
 	# Auswertung
@@ -121,9 +124,9 @@ func _lauf() -> void:
 		for e in z.ecke:
 			if e.j != null: jmax = maxf(jmax, e.j)
 			if e.v != null: vmax = maxf(vmax, e.v)
-	var zuord := "dieses Bild" if schlecht == 0 else ("voriges Bild" if nach_v == schlecht else "keins")
-	print("FOLGE1694 ERGEBNIS weg=%s fall=%s bew=%s: %d Aufrufe in %d Bildern; Netz folgt: %s (Ecken über %.1f cm zur Pose dieses Aufrufs: %d von %d, davon passend zum vorigen Bild: %d; größter Abstand j %.2f, v %.2f cm)" % [
-		weg, fall, bew if bew != "" else "Stehen", zeilen.size(), bilder, zuord, GRENZE, schlecht, n, nach_v, jmax, vmax])
+	var zuord := "nicht unterscheidbar (Pose ruht, dieses = voriges Bild)" if ruht else ("dieses Bild" if schlecht == 0 else ("voriges Bild" if nach_v == schlecht else "keins"))
+	print("FOLGE1694 ERGEBNIS weg=%s fall=%s bew=%s: %d Aufrufe in %d Bildern; Netz folgt: %s (Ecken über %.1f cm zur Pose dieses Aufrufs: %d von %d, davon passend zum vorigen Bild: %d; ohne voriges Bild FEHLT: %d Ecken; größter Abstand j %.2f, v %.2f cm)" % [
+		weg, fall, bew if bew != "" else "Stehen", zeilen.size(), bilder, zuord, GRENZE, schlecht, n, nach_v, ohne_v, jmax, vmax])
 	print("FOLGE1694 ERGEBNIS Waffe Griffpunkt (Hand, cm) Spanne %s; Haut am Griff Spanne Z %s K %s H %s cm" % [_v(gmax - gmin, 2),
 		_spanne(hmin[0], hmax[0]), _spanne(hmin[1], hmax[1]), _spanne(hmin[2], hmax[2])])
 	quit(1 if schlecht > 0 else 0)
