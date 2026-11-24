@@ -266,3 +266,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:14 24.11.: Startsperre 21:14 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Sven, Arbeitsplaner 2010 Tanja)
 - 21:17 24.11.: Planerin Vera (session_01Hmoj763xaU9L2CLjzbYjbL, Titel „Auftrag 1654“: zählt als Planer) schreibt den neuen Auftrag 1654 (1654-Ü6, Prüfer nein, Auftrag 21:05); nicht ausgeführt: Planer 887 (ruht), 2010 (Alter Ego, Werkzeug/Leitung)
 - 21:50 24.11.: Startsperre 21:50 Start Sokrates (selbst; Neustart nach Übergabe 2bf197e4a, lauf.py --start Sokrates Leitung, Sokrates 21:48)
+- 21:52 24.11.: Neuer Sokrates session_01Hmoj76pVj4STr1hPTJC56p (lauf.py --start Sokrates Leitung, Übergabe 2bf197e4a); alter session_01Hmoj77ZdYKh1YXq5iPdhgN erst archivieren, wenn der neue sich gemeldet hat
