@@ -189,3 +189,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:28 24.11.: Startsperre 11:28 Start Werkzeug (lauf.py, Werkzeug 2017 Anna)
 - 11:29 24.11.: Takt 11:27: Werkzeug 2017 Anna (session_01Hmoj76U5QQFHQ87Drw7fZr) per lauf.py --start (Auftrag Sokrates 11:15, 2017-Ü1); START Arbeitsplaner 1716 (Erna) und 2017 (Fenja) nicht ausgeführt (1716 Sokrates 11:23; 2017 hat Auftrag); Alter Ego alt: archive_session von Auto-Prüfung abgelehnt, Sokrates archiviert; Wochenzählung 23.11. Ursache an Sokrates (Takt ohne --sperre)
 - 11:30 24.11.: Wochenzählung 23.11. von Hand angelegt (2018, Diogenes, Sokrates 11:28, nach Alter Ego 11:27); Urteil-Zeilen nicht
+- 11:32 24.11.: Probelauf --sperre (Wegwerf-Klon) als docs/entwurf/sperre-probe-24-11.md; Sokrates 11:33: kein --sperre im Takt, Wochentermin-NICHTS-Zeile von Hand anlegen
