@@ -25,6 +25,15 @@ Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 12:36 Prüfung 15893-main.md: Einwand, Push vor gang_wahl_1589/CI widerspricht 1589.3-Ü5 (Tests und CI grün vor main); Bedingung in A. An Sokrates.
+- 24.11., 12:33 Prüfung Auftrag 2019 (Chef 12:29 A): stimmt mit Ergänzung; Widerspruch geklärt: 2018 hat Besitzer Werkzeug (Block 7), nicht Diogenes → Fachkraft unter Laufsperre; Routine-Termin muss Rolle der Routine tragen. An Sokrates.
+- 24.11., 12:28 Lehre: Kopf einer Entwurfsdatei lesen, bevor „gibt es“ (11:24 falsch, routine-wochenzaehlung.md Z. 3 „nur Anschauung“); Protokoll vor Code lesen (Kosten 11:27 falsch, BUCHE läuft). Vorlage Wochenzählung A stimmt mit 3 Punkten (anlegen ohne Schalter, FREI_OBER, Profil = Chef). Chef-Frage 12:24 zurückgezogen.
+- 24.11., 12:24 Runde: möglicher Hänger 431 (Wiebke übergibt an Nachfolgerin, die es nicht gibt; CI-Lauf ohne Beobachter); 1603-Ü5 erledigt; kein Leerlauf. An Sokrates. Uhr trig_012h9exBvsBnA6EdFRkaBiZH (13:24).
+- 24.11., 12:23 Eigener Fehler 12:21: Wochenzählung war seit 11:31 angelegt (2018), Probe --sperre gelaufen (0be322dcc), Entscheid „kein --sperre“ (70d8c8151); grep mit head -3 abgeschnitten. Chef berichtigt. Restpunkte an Sokrates: 2018 unter Laufsperre (M), kein Prüfer für Wochentermin 30.11.
+- 24.11., 11:27 Prüfung Sokrates 11:27 (--sperre in den Takt): Richtung stimmt; --sperre fehlt seit der Uhr 23.11. ganz (Kosten buchen, 2012 (2) Startzeilen, Fristen, Marken, Sammelbuild, Zusammenführen). Weg: Wochenzählung von Hand, ein Handlauf mit Ausgabe, dann Prompt. An Sokrates.
+- 24.11., 11:24 Prüfung Vorschlag Diogenes (Sokrates 11:24): Einwand; Wochenzählung besteht (startbar.py:245, 259), lief am 23.11. nicht, darum auch kein Rundblick; Option C (Wochenzählung reparieren, Entscheid-Prüfung dort) vor A; B nein. An Sokrates.
+- 24.11., 11:22 Runde: Hänger Prüfungen 1716 (Eilt), 1301, 1387, 1642, 1643 ohne Prüfer (viermal gemeldet); alter Alter Ego nicht archiviert; kein Leerlauf. An Sokrates. Uhr trig_01Qg3rutAA93qiPJbRpffibk (12:22).
+- 24.11., 11:14 Prüfauftrag Sokrates 11:14, Auftrag 2017: stimmt mit 3 Ergänzungen (Prüfart Commit-Prüfung, vorgang_neu_laenge_test.py umdrehen, URTEIL_MAX/1585/Altdateien bleiben). An Sokrates.
 - 24.11., 10:24 Sokrates 10:24: 1694 zweite Prüfung (C fehlt in Frage; Daumen passt nicht zu drei Optionen). Vorlage 10:22: (1) stimmt, Einwand Kern 2.994/3.000 Byte; (2) Sperre Einwand (Chef 07:31 keine neuen Werkzeuge, Nebenwirkungen „?“, --frage, mehr als zwei Optionen). An Sokrates.
 - 24.11., 10:22 Prüfauftrag Sokrates 10:08: 1589.2 stimmt (1589.4 braucht Zweig, arena.gd nur dort); 1694 Einwand (953/1540 Paare auch im Prüfaufbau falsch, Option Stiele bei B fehlt, Verdacht 1711 fehlt). An Sokrates.
 - 24.11., 10:20 Nachfolger übernommen, umbenannt; Uhr trig_01A3mBY9j27cUJVFCU63WpZ3 (11:21), alte trig_01FjVr7drqkG2o2j78bqSiN3 gelöscht; Kennung an Sokrates.
