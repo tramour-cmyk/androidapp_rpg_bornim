@@ -197,3 +197,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:16 24.11.: 2017 fertig (Prüfer Jonas ja, ae61be07f auf main; 2017-Ü3 angenommen, vorgang.py fertig 2017), Anna archiviert, Kosten 1,28 $; 2017 erledigt: Sokrates entscheidet nun 1716, 1301, 1387, 1642, 1643 (werkzeug-schnitt.md Z. 32) und Vorlage zu --sperre
 - 12:21 24.11.: Startsperre 12:21 Start Arbeitsplaner, Figur, Arbeitsplaner (lauf.py, Arbeitsplaner 1716 Gustav, Figur 1694 Heike, Arbeitsplaner 1484 Jana)
 - 12:25 24.11.: 1603-Ü6 Rückläufer an Carla (Kampf, Nachricht), 1603-Ü7 Hinweis Prüfer an Sokrates weitergegeben, erledigt; 1603 wartet auf Ü8 (Arbeitsplaner); 2018 Wochenzählung: kein START von lauf.py (Laufsperre Q, keine Routine-Funktion), Frage an Sokrates; vorher mein „warte 1603 Prüfer“ aufgehoben
+- 12:28 24.11.: 1603-Ü8 (Chefwort 12:21 = Billigung, Sokrates 12:27) geschlossen, kein Planer; nach main durch Sokrates erst nach Ü6 und Ja des Prüfers; Hinweis an Carla
