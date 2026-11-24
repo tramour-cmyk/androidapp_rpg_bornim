@@ -50,3 +50,4 @@ Nie geladen, nur durchsucht (`vorgang.py lehre suche <Wort>`); schreiben nur mit
 | R37 | B Abläufe | 2012 | Werkzeugfehler 24.11., 07:15 (Sokrates, 5 Min.) | 2048-Byte-Sperre hält Start; wird mit 2011 gestrichen | 24.11., 08:02 | offen |
 | R38 | E Kampf | 2009 | geschlossen | Doppel zu 1415 (Kampftakt, ruht bis 1589.4); Messung 23.11. dort nachgetragen; Entscheid Sokrates 24.11., 08:08 auf Frage Arbeitsplaner (a) | 24.11., 08:07 | offen |
 | R39 | B Abläufe | 341 | Projekt 15.11., 22:37 (Chef) | Auf einen Test gewartet, der längst überholt war (T287, schon 290); Archivkopf mit zwei Tests falsch gelesen. Satz: vor dem Warten prüfen, ob der Anlass noch gilt. | 24.11., 08:09 | offen |
+| R40 | B Abläufe | 341 | Projekt 14.11., 10:28 (Chef) | Nachts haben alle aufeinander gewartet statt selbst zu handeln. Satz: wer blockiert ist, handelt oder meldet, statt zu warten. | 24.11., 08:09 | offen |
