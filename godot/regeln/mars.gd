@@ -868,7 +868,7 @@ static func fmt(t: Array, lang_i: int, args: Array) -> String:
 
 func _next_turn() -> void:
 	if order[turn].side == "PARTY":     # 1589.2: ein Zug der Gruppe nach der Ansage einer Flucht
-		for k in flucht_offen:
+		for k: String in flucht_offen:
 			if zuege > int(flucht_offen[k][0]):
 				flucht_offen[k][1].erase(order[turn].id)
 	zuege += 1
@@ -1976,7 +1976,7 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 			first_aimed = x
 			break
 	if first_aimed == null and arena_an and not aimed.is_empty():     # 1589.2: durch eine Lücke erreicht, auch hinter der Reihe
-		var a = find(aimed[0])
+		var a: Fighter = find(aimed[0])
 		if a != null and a in Arena.erreichbar(self, foe):
 			first_aimed = a
 	if first_aimed == null and not r.is_empty():
@@ -2239,7 +2239,7 @@ func announce(foe: Fighter) -> void:
 		retargeted.erase(foe.id)
 		return
 	# 1589.2: das Ziel wählt die Arena nach der Denkweise (vor der Absicht: die Spinne wechselt die Rolle nach ihm); Plan wie bisher
-	var z = Arena.ziel(self, foe, String(arena_ziel.get(foe.id, ""))) if arena_an else null
+	var z: Fighter = Arena.ziel(self, foe, String(arena_ziel.get(foe.id, ""))) if arena_an else null
 	if z != null:
 		arena_ziel[foe.id] = z.id
 	var intent := _pick_intent(foe)
@@ -2360,7 +2360,7 @@ func _absicht_gilt(foe: Fighter, b: String) -> bool:
 		"halbes_leben":
 			return foe.hp * 2 < foe.max_hp
 		"netz":     # 1589.2 Rollenwechsel (DESIGN-GEGNER.md 4): Netz nur in der Rolle Fernkampf
-			var t = find(String(arena_ziel.get(foe.id, "")))
+			var t: Fighter = find(String(arena_ziel.get(foe.id, "")))
 			return not arena_an or t == null or Arena.rolle_jetzt(self, foe, t) == "fern"
 	return false
 
@@ -2513,7 +2513,7 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 			_say(fmt(MSG870_GEGEN_ZOMBIE, lang, [t.name(lang)]), null, t.id)
 		_pack_flees(t)
 		if arena_an:     # 1589.2 Abschnitt 6: wer jetzt flieht, sagt es an
-			for x in all.filter(func(y): return y.side == "FOES" and y.standing()):
+			for x: Fighter in all.filter(func(y: Fighter) -> bool: return y.side == "FOES" and y.standing()):
 				_flucht_ansagen(x)
 	elif t == all[0]:
 		_say(fmt(pick("MSG72_HEROFALLS"), lang, [t.name(lang)]), null, t.id, 0, null, false, false, "HERO_FALLS")
@@ -2531,7 +2531,7 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 ## nur, wer nicht angreifbar ist (Grimmzahns Leibwache: sonst stünde sie nach seinem Fall unbesiegbar da)
 func _pack_flees(leader: Fighter) -> void:
 	var first := true
-	for f in all.filter(func(x): return x.side == "FOES" and x.standing() and x.follows == leader.id and x.gegriffen_von == "" and (not arena_an or not x.angreifbar())):     # 870.5 Griff
+	for f: Fighter in all.filter(func(x: Fighter) -> bool: return x.side == "FOES" and x.standing() and x.follows == leader.id and x.gegriffen_von == "" and (not arena_an or not x.angreifbar())):     # 870.5 Griff
 		f.fled = true
 		intents.erase(f.id)
 		_say(str(f.monster.flee[lang]) if first and f.monster.has("flee") else "", null, f.id, 0, null, false, false, "FOE_FLEES")
@@ -2551,7 +2551,7 @@ func _flucht_ansagen(foe: Fighter) -> bool:
 	if grund == "":
 		return false
 	flucht_grund[foe.id] = grund
-	flucht_offen[foe.id] = [zuege, standing_of("PARTY").map(func(x): return x.id)]
+	flucht_offen[foe.id] = [zuege, standing_of("PARTY").map(func(x: Fighter) -> String: return x.id)]
 	intents[foe.id] = [I_FLEE, []]
 	retargeted.erase(foe.id)
 	_say(fmt(X.MSG72_ANNOUNCES, lang, [foe.name(lang), I_FLEE.name[lang]]), foe.id)
@@ -2562,7 +2562,7 @@ func _flucht_ansagen(foe: Fighter) -> bool:
 
 ## 1589.2: hatte jeder Stehende der Gruppe seit der Ansage von [foe] einen Zug?
 func _flucht_bereit(foe: Fighter) -> bool:
-	return not flucht_offen.has(foe.id) or not flucht_offen[foe.id][1].any(func(id): return find(id) != null and find(id).standing())
+	return not flucht_offen.has(foe.id) or not flucht_offen[foe.id][1].any(func(id: String) -> bool: return find(id) != null and find(id).standing())
 
 
 ## 1589.2: nach seinem Zug ist er fort; wer aus demselben Grund (Rudel, Grak) angesagt hat und bereit ist, läuft mit, eine Zeile für alle
@@ -2570,18 +2570,18 @@ func _fort(foe: Fighter) -> void:
 	var grund := String(flucht_grund.get(foe.id, ""))
 	var mit := [foe]
 	if grund == "rudel" or grund == "grak":
-		mit = all.filter(func(x): return x.side == "FOES" and x.standing() and _flieht(x) and _flucht_bereit(x) and String(flucht_grund.get(x.id, "")) == grund)
+		mit = all.filter(func(x: Fighter) -> bool: return x.side == "FOES" and x.standing() and _flieht(x) and _flucht_bereit(x) and String(flucht_grund.get(x.id, "")) == grund)
 		if not foe in mit:
 			mit.append(foe)
 	var zeile := fmt(MSG1601_RUDEL if grund == "rudel" else (MSG1601_GRAK if grund == "grak" else MSG1601_FORT), lang, [foe.name(lang)])
 	var erst := true
-	for x in mit:
+	for x: Fighter in mit:
 		x.fled = true
 		x.von_selbst = true
 		intents.erase(x.id)
 		_say(zeile if erst else "", null, x.id, 0, null, false, false, "FOE_FLEES")
 		erst = false
-	if not all.any(func(x): return x.side == "FOES" and x.standing()):
+	if not all.any(func(x: Fighter) -> bool: return x.side == "FOES" and x.standing()):
 		outcome = "WON"
 
 

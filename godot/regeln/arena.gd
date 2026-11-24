@@ -8,6 +8,7 @@
 extends RefCounted
 
 const Brs = preload("res://regeln/brs.gd")
+const Mars = preload("res://regeln/mars.gd")
 
 ## Stellplätze wie kampfort.gd _stand (der Test arena_15892 hält beide gleich)
 const FRONT_M := 1.4
@@ -26,32 +27,32 @@ const RATTE := "giant_rat"
 
 
 static func w() -> Dictionary:
-	var a = Brs.lade().get("arena", {})
+	var a: Variant = Brs.lade().get("arena", {})
 	return a if a is Dictionary else {}
 
 
-static func _art(f) -> Dictionary:
+static func _art(f: Mars.Fighter) -> Dictionary:
 	return {} if f == null or f.monster == null else Brs.monster(String(f.monster.get("id", "")))
 
 
 ## Denkweise der Art (Instinkt, List, Stur, Plan); Gruppe: ""
-static func denkweise(f) -> String:
+static func denkweise(f: Mars.Fighter) -> String:
 	return String(_art(f).get("denkweise", ""))
 
 
-static func rollen(f) -> Array:
-	var r = _art(f).get("rolle", [])
+static func rollen(f: Mars.Fighter) -> Array:
+	var r: Variant = _art(f).get("rolle", [])
 	return r if r is Array else []
 
 
 ## Punkt in Metern: gesetzt (mars.arena_punkte, ab Stufe 3 die Wege) oder der Stellplatz seines Platzes
-static func punkt(mars, f) -> Vector2:
-	var p = mars.arena_punkte.get(f.id, null)
+static func punkt(mars: Mars, f: Mars.Fighter) -> Vector2:
+	var p: Variant = mars.arena_punkte.get(f.id, null)
 	if p != null:
 		return p
 	var foe: bool = f.side == "FOES"
 	var back: bool = f.place.x == 1
-	var allein: bool = mars.all.filter(func(x): return x.side == f.side and x.standing() and x.place.x == f.place.x).size() <= 1
+	var allein: bool = mars.all.filter(func(x: Mars.Fighter) -> bool: return x.side == f.side and x.standing() and x.place.x == f.place.x).size() <= 1
 	var row := BACK_M if back else FRONT_M
 	if not foe and back and not allein:
 		return Vector2(-row - NEAR_M + 0.6, 0.6 + (-0.7 if f.place.y == 0 else 0.7))
@@ -63,37 +64,37 @@ static func punkt(mars, f) -> Vector2:
 	return Vector2(row, b) if foe else Vector2(-row - NEAR_M, b)
 
 
-static func umriss(f) -> float:
+static func umriss(f: Mars.Fighter) -> float:
 	if f.monster != null and bool(Brs.kennung(String(f.monster.get("koerper", f.monster.get("id", "")))).get("vierbeiner", false)):
 		return float(w().get("umriss_vierbeiner", 0.45))
 	return float(w().get("umriss_mensch", 0.3))
 
 
 ## Reichweite des eigenen Nahangriffs vor dem eigenen Rand; Gegner ohne Zahl mit Quelle: 0 (Frage 1589.2)
-static func reichweite_nah(f) -> float:
+static func reichweite_nah(f: Mars.Fighter) -> float:
 	return float(w().get("reichweite_mensch", 0.75)) if f.side == "PARTY" else 0.0
 
 
-static func luecke(mars, f, t) -> float:
+static func luecke(mars: Mars, f: Mars.Fighter, t: Mars.Fighter) -> float:
 	return punkt(mars, f).distance_to(punkt(mars, t)) - umriss(f) - umriss(t)
 
 
 ## Abschnitt 1: nah, wer die eigene Reichweite erreicht oder in der des anderen steht; fern bis zur Schussweite; weit darüber.
 ## [schussweite] < 0: aus werte.json (null: keiner ist weit)
-static func abstand(mars, f, t, schussweite := -1.0) -> String:
+static func abstand(mars: Mars, f: Mars.Fighter, t: Mars.Fighter, schussweite := -1.0) -> String:
 	var l := luecke(mars, f, t)
 	if l <= maxf(reichweite_nah(f), reichweite_nah(t)) + GLEICH:
 		return "nah"
-	var s = schussweite if schussweite >= 0.0 else w().get("schussweite", null)
+	var s: Variant = schussweite if schussweite >= 0.0 else w().get("schussweite", null)
 	return "weit" if s != null and l > float(s) else "fern"
 
 
 ## Versperren (Abschnitt 3, Strecken-Kreis-Prüfung): der Weg von [f] zu [t] ist frei, wenn kein anderer Stehender auf der Seite von
 ## [t] mit seinem Umriss näher als beide Umrisse an der Strecke steht
-static func frei(mars, f, t) -> bool:
+static func frei(mars: Mars, f: Mars.Fighter, t: Mars.Fighter) -> bool:
 	var a := punkt(mars, f)
 	var b := punkt(mars, t)
-	for x in mars.all:
+	for x: Mars.Fighter in mars.all:
 		if x == f or x == t or x.side != t.side or not x.standing():
 			continue
 		var c := punkt(mars, x)
@@ -103,55 +104,55 @@ static func frei(mars, f, t) -> bool:
 
 
 ## wen [f] erreicht: Schützen alle (Schüsse gehen über Wesen hinweg), sonst wer frei steht; leer nie, solange einer steht
-static func erreichbar(mars, f) -> Array:
+static func erreichbar(mars: Mars, f: Mars.Fighter) -> Array:
 	var alle: Array = mars.feinde(f)
 	if f.ranged():
 		return alle
-	var r := alle.filter(func(t): return frei(mars, f, t))
+	var r := alle.filter(func(t: Mars.Fighter) -> bool: return frei(mars, f, t))
 	return r if not r.is_empty() else alle
 
 
-static func _naechster(mars, f, unter: Array):
-	var best = null
-	for t in unter:
+static func _naechster(mars: Mars, f: Mars.Fighter, unter: Array) -> Mars.Fighter:
+	var best: Mars.Fighter = null
+	for t: Mars.Fighter in unter:
 		if best == null or luecke(mars, f, t) < luecke(mars, f, best) - GLEICH:
 			best = t
 	return best
 
 
-static func _wunde(t) -> float:
+static func _wunde(t: Mars.Fighter) -> float:
 	return float(t.hp) / maxf(float(t.max_hp), 1.0)
 
 
 ## Abschnitt 3: das Ziel von [f] zu Beginn seines Zugs; [vorher] die Kennung des bisherigen Ziels (Trägheit). Plan: null (die
 ## Reihenfolge des Bosses bleibt bis 1589.5 die heutige Wahl in mars.gd)
-static func ziel(mars, f, vorher := ""):
+static func ziel(mars: Mars, f: Mars.Fighter, vorher := "") -> Mars.Fighter:
 	var dw := denkweise(f)
 	if dw == "" or dw == "Plan":
 		return null
 	var reach := erreichbar(mars, f)
 	if reach.is_empty():
 		return null
-	var neu = null
+	var neu: Mars.Fighter = null
 	match dw:
 		"Instinkt":
 			# „bei gleichem Abstand“ wörtlich (nur Rechengenauigkeit); eine Spanne für „gleich“ hat keine Quelle (Frage 1589.2)
-			var n = _naechster(mars, f, reach)
-			var gleich := reach.filter(func(t): return luecke(mars, f, t) < luecke(mars, f, n) + GLEICH)
+			var n: Mars.Fighter = _naechster(mars, f, reach)
+			var gleich := reach.filter(func(t: Mars.Fighter) -> bool: return luecke(mars, f, t) < luecke(mars, f, n) + GLEICH)
 			neu = n
-			for t in gleich:
+			for t: Mars.Fighter in gleich:
 				if _wunde(t) < _wunde(neu) - GLEICH:
 					neu = t
 		"List":
-			var want = null
-			for t in mars.feinde(f):     # der Schwächste; bei gleichem Leben der weiter hinten
+			var want: Mars.Fighter = null
+			for t: Mars.Fighter in mars.feinde(f):     # der Schwächste; bei gleichem Leben der weiter hinten
 				if want == null or t.hp < want.hp or (t.hp == want.hp and luecke(mars, f, t) > luecke(mars, f, want)):
 					want = t
 			neu = want if want in reach else _naechster(mars, f, reach)
 		_:
 			neu = _naechster(mars, f, reach)
-	var alt = null
-	for t in reach:
+	var alt: Mars.Fighter = null
+	for t: Mars.Fighter in reach:
 		if t.id == vorher:
 			alt = t
 	if alt == null or alt == neu or _deutlich_besser(mars, f, dw, neu, alt):
@@ -159,7 +160,7 @@ static func ziel(mars, f, vorher := ""):
 	return alt
 
 
-static func _deutlich_besser(mars, f, dw: String, neu, alt) -> bool:
+static func _deutlich_besser(mars: Mars, f: Mars.Fighter, dw: String, neu: Mars.Fighter, alt: Mars.Fighter) -> bool:
 	if luecke(mars, f, neu) <= luecke(mars, f, alt) - float(w().get("traegheit_m", 1.0)) + GLEICH:
 		return true
 	if dw == "List":
@@ -169,14 +170,14 @@ static func _deutlich_besser(mars, f, dw: String, neu, alt) -> bool:
 
 ## Abschnitt 4 Rollenwechsel: wer zwei Rollen hat, nimmt die zweite, sobald sein Ziel nah ist oder im Netz hängt; mit „rudel_ab“
 ## (Riesenratte, Tabelle 9 „Nahkampf, zu dritt Rudel“) nach der Zahl seiner Art, die steht
-static func rolle_jetzt(mars, f, t) -> String:
+static func rolle_jetzt(mars: Mars, f: Mars.Fighter, t: Mars.Fighter) -> String:
 	var r := rollen(f)
 	if r.is_empty():
 		return ""
 	var ab := int(_art(f).get("rudel_ab", 0))
 	if ab > 0 and r.size() > 1:
 		var id := String(f.monster.get("id", ""))
-		var art: Array = mars.all.filter(func(x): return x.side == f.side and x.standing() and x.monster != null and String(x.monster.get("id", "")) == id)
+		var art: Array = mars.all.filter(func(x: Mars.Fighter) -> bool: return x.side == f.side and x.standing() and x.monster != null and String(x.monster.get("id", "")) == id)
 		return String(r[1]) if art.size() >= ab else String(r[0])
 	if r.size() > 1 and t != null and (t.held or abstand(mars, f, t) == "nah"):
 		return String(r[1])
@@ -184,35 +185,35 @@ static func rolle_jetzt(mars, f, t) -> String:
 
 
 ## 1a: Ungunst (Punkte) für [f], der mit einer Fernwaffe ([fern_waffe]) auf [t] schießt, während ein Gegner nah steht
-static func ungunst(mars, f, t, fern_waffe: bool) -> int:
+static func ungunst(mars: Mars, f: Mars.Fighter, t: Mars.Fighter, fern_waffe: bool) -> int:
 	if not fern_waffe:
 		return 0
-	for x in mars.feinde(f) + [t]:
+	for x: Mars.Fighter in mars.feinde(f) + [t]:
 		if x.standing() and abstand(mars, f, x) == "nah":
 			return int(w().get("fern_nah_ungunst", -25))
 	return 0
 
 
 ## Abschnitt 6: warum [f] jetzt flieht („rudel“, „grak“, „allein“, „ratte“) oder ""; Untote, Säureschnecke, Bosse nie
-static func flucht_grund(mars, f) -> String:
+static func flucht_grund(mars: Mars, f: Mars.Fighter) -> String:
 	if f.side != "FOES" or not f.standing() or f.monster == null or denkweise(f) in ["Stur", "Plan", ""] or f.boss():
 		return ""
 	var W := w()
 	var id := String(f.monster.get("id", ""))
-	var gegner: Array = mars.all.filter(func(x): return x.side == "FOES")
+	var gegner: Array = mars.all.filter(func(x: Mars.Fighter) -> bool: return x.side == "FOES")
 	if f.follows != "":
-		var leit = mars.find(f.follows)
+		var leit: Mars.Fighter = mars.find(f.follows)
 		if leit != null and leit.hp <= 0:
-			var rudel: Array = gegner.filter(func(x): return x == leit or x.follows == f.follows)
-			var besiegt := rudel.filter(func(x): return x.hp <= 0).size()
+			var rudel: Array = gegner.filter(func(x: Mars.Fighter) -> bool: return x == leit or x.follows == f.follows)
+			var besiegt := rudel.filter(func(x: Mars.Fighter) -> bool: return x.hp <= 0).size()
 			if float(besiegt) >= float(rudel.size()) * float(W.get("rudel_besiegt", 0.5)) - GLEICH:
 				return "rudel"
 	var gruppe := String(Brs.kennung(id).get("gruppe", ""))
-	if gruppe == "Goblin" and gegner.any(func(x): return x.monster != null and String(x.monster.get("id", "")) == GRAK and x.hp <= 0):
+	if gruppe == "Goblin" and gegner.any(func(x: Mars.Fighter) -> bool: return x.monster != null and String(x.monster.get("id", "")) == GRAK and x.hp <= 0):
 		return "grak"
-	var stehen: Array = gegner.filter(func(x): return x.standing())
+	var stehen: Array = gegner.filter(func(x: Mars.Fighter) -> bool: return x.standing())
 	if gruppe in GOBLINS and stehen.size() == 1 and float(f.hp) < float(f.max_hp) * float(W.get("allein_leben", 0.25)) - GLEICH:
 		return "allein"
-	if id == RATTE and f.hp < f.max_hp and not stehen.any(func(x): return x != f and x.monster != null and String(x.monster.get("id", "")) == RATTE):
+	if id == RATTE and f.hp < f.max_hp and not stehen.any(func(x: Mars.Fighter) -> bool: return x != f and x.monster != null and String(x.monster.get("id", "")) == RATTE):
 		return "ratte"
 	return ""
