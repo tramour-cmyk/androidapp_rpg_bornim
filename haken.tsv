@@ -1340,3 +1340,4 @@
 2026-11-23 19:43:11	probelauf	1702: Bild oder Film an den Chef nur aus dem gepushten Stand; nicht committet: godot/tests/durchstich_1631.json. Erst committen und pushen; eigene Messläufe ohne Bild mit `MESS=`.	claude/jerry-1653-kleid
 2026-11-23 21:06:27	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	arne/1603-ansagen
 2026-11-23 22:35:03	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/jerry-1653-kleid
+2026-11-24 08:39:05	startsperre	Startsperre fehlt (750 A): für Sokrates steht in den letzten 10 Minuten keine „Startsperre … Start Sokrates“ auf main (letzte 24.11., 00:03). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, p	HEAD
