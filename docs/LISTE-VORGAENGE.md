@@ -442,3 +442,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2017 | 400-Zeichen-Grenze der Vorgangsliste ersatzlos streichen (Chef 08:28) | 7 | B Abläufe | Eilt | – | – | – | *erledigt* | *–* | *0* | *1,28 $* |
 | 2018 | Wochentermin 23.11.: Wochenzählung (Routine, Auftrag docs/entwurf/1727-muster/routine-wochenzaehlung.md) (719) | 7 | Q QM | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2019 | Wochenzählung in Betrieb bis Mo 30.11.: Profil anlegen, Wochentermin ohne --sperre anlegen und starten, Laufsperre frei; Probelauf zählt Woche 16.–23.11. nach (Chef 12:29, 12:30) | 7 | B Abläufe | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
+| 2020 | Gebilligtes geht über GitHub nach main: Ablauf führt Zweig nach main bei 👍 des Chefs, Ja des Prüfers und grünen Tests am Mischstand (Chef 12:45) | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *–* |
