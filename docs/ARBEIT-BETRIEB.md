@@ -260,3 +260,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:49 24.11.: Sokrates 20:47: 1589.4-Ü5 beantwortet (Oda direkt; Kosten Oda 9,57 $ um 20:45, Halt 20 $ je Runde lesen); 1654-Ü3 Laufanforderung Moritz an Prüfer Jonas (Nachricht, Antwort bis 21:04, sonst endet Moritz mit Übergabe und Figur 1694 startet); nicht ausgeführt: START Figur Rudi 1694/ARCHIVIERE Moritz (erst 21:04), Planer 887, 1966
 - 20:51 24.11.: 1654-Ü3 Prüfer ja, Lauf frei (20:48): Moritz bekommt Bildlauf alt (Nachricht), 1654-Ü4 erledigt; Moritz bleibt auf dem Figur-Platz, Figur 1694 wartet weiter
 - 21:03 24.11.: Startsperre 21:03 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Pit, Arbeitsplaner 1983 Rudi)
+- 21:08 24.11.: Takt 21:03: Moritz 1654 fertig (1654-Ü5, e677b8b4e) an Prüfer Jonas; Oda 1589.4 Frage an Sokrates (Deckel erhöhen oder schneiden; 11,59 $, 403 Tsd. Token); keine Starts; nicht ausgeführt: Planer 887, 1983 (Werkzeug)
