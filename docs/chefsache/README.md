@@ -55,7 +55,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Profil | als Nächstes |
 |---|---|
-| **Chef** | nichts offen in der Chefsache |
+| **Chef** | [1603](ansehen/1603-krogg-prankenhieb.md) ansehen |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | läuft: 1603 (Besetzung); 1589.3 Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwä… (Muss); dann 1 weitere |
@@ -106,7 +106,11 @@ Nichts offen.
 
 ## Anzusehen
 
-Nichts offen.
+**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
+
+| Nr. | Was | Wer | Seit |
+|---|---|---|---|
+| [1603](ansehen/1603-krogg-prankenhieb.md) | Ansage je Art und Kroggs Prankenhieb | – | 24.11., 11:33 |
 
 ## Zu tun
 
@@ -501,6 +505,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+## Lücken
+
+Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
+
+Format (Muster: „So geht's“ unten): ansehen/1603-krogg-prankenhieb.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
