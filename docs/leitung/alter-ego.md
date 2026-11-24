@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78XiynF45gfuVmiNc8 (seit 24.11., 13:27; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 17:36 Runde: kein Hänger; 1603-Ü4 zu, Lotte 431 fertig 17:25 (431-Ü7 beim Prüfer, Takt 18:03). Nichts an Sokrates. Uhr 18:37.
 - 24.11., 16:34 Runde: 431-Ü3, 1716/1725 ruht, Karla erledigt; Takt 16:03 ohne Start. An Sokrates: 1603-Ü4 Altlast offen; Chefsache 1603 „kein Fehler“ zu stark (Mähne reines Schwarz). Uhr 17:35.
 - 24.11., 15:48 Zweite Prüfung 1603 (b36bbae23): stimmt; −21,8 war belegt (Z. 84, übersehen). Offen 1603-Ü15 (Rechteck) beim Prüfer.
 - 24.11., 15:45 Prüfung chefsache 1603 (0392196bc), Bilder angesehen: Texte/Zahlen stimmen; Einwände Kosten 41,74 $, schwarzes Rechteck über Kroggs Kopf in Bild 1, Schwierigkeit −25/+24 statt Grundlage −17,5/+22 offenlegen. An Sokrates.
