@@ -1,5 +1,5 @@
 # 1603 (Beleg Bild): Ansage alt gegen neu je Art. Echter Kampfort (Probe) gegen GEGNER, der Held greift an, der Ring wird gut getroffen,
-# bis ein Gegner die gesuchte Absicht ansagt; dann ein Bild des Gegners mit Ansage (Ausschnitt 270 x 270 um den Kopf).
+# bis ein Gegner die gesuchte Absicht ansagt; dann ein Bild des Gegners mit Ansage (Ausschnitt 270 x 270 um die Ansage).
 #   MODUS=alt: wie main vor 1603 (jede dieser Arten „Stich“, absichten.je_art der Art zur Laufzeit auf [["stab", 1]])
 #   MODUS=neu: die Tabelle 1603; MODUS=paw: Kroggs Prankenhieb erzwungen (Mars.test_gegnerzug „paw“)
 # Nur mit Fenster, im Ordner godot:
@@ -94,12 +94,15 @@ func _lauf() -> void:
 	var bild := root.get_texture().get_image()
 	var fig = kf.figures[wer]
 	var fuss: Vector2 = kf.ui._foot(fig)
-	var kopf := fuss.y - float(kf.ui._tall(fig))
+	var mitte := Vector2(fuss.x, fuss.y - float(kf.ui._tall(fig)) + 150)
+	if kf.ui.sign_of.has(wer):     # Lauf 589: Ausschnitt um Kopf und Fuß verfehlte die Ansage bei großen und flachen Arten; jetzt um die Ansage selbst
+		var sg: Rect2 = kf.ui.sign_of[wer]
+		mitte = Vector2(sg.get_center().x, sg.position.y + 90)
 	var gr := 270
-	var x := clampi(int(fuss.x) - gr / 2, 0, bild.get_width() - gr)
-	var y := clampi(int(kopf) - 150, 0, bild.get_height() - gr)
+	var x := clampi(int(mitte.x) - gr / 2, 0, bild.get_width() - gr)
+	var y := clampi(int(mitte.y) - gr / 2, 0, bild.get_height() - gr)
 	var aus_bild := bild.get_region(Rect2i(x, y, gr, gr))
 	var f := "%s/%s-%s.png" % [aus, g, modus]
 	aus_bild.save_png(f)
-	print("BILD1603 %s %s %s %s | %s" % [g, modus, it.id, it.name[0], f])
+	print("BILD1603 %s %s %s %s | %s | Ansage %s" % [g, modus, it.id, it.name[0], f, kf.ui.sign_of.get(wer, "fehlt")])
 	quit(0)
