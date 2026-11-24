@@ -2,7 +2,7 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 24.11., 07:24 (lauf.py)
+**Stand:** 24.11., 07:29 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
@@ -12,3 +12,4 @@
 | Kampf | [Dana – 1603: Besonderheiten fehlen im MARS ohne Kerben (24.11., 07:02)](https://claude.ai/code/session_01Hmoj797qa4JEmscDeSftgy) | 1603 | – | 24.11., 07:04 |
 | Figur | [Elke – 1694: Griff einmal für alle gehaltenen Dinge (24.11., 07:02)](https://claude.ai/code/session_01Hmoj78sweP3bwfYw8hhUk3) | 1694 | – | 24.11., 07:04 |
 | Werkzeug | [Frieda – 1960: Sitzungstitel ohne Thema (24.11., 07:02)](https://claude.ai/code/session_01Hmoj79QwxrcNe3LGZRkpRa) | 1960 | – | 24.11., 07:04 |
+| Prüfer | [Ida – 1960: offene Übergabe (24.11., 07:24)](https://claude.ai/code/session_01Hmoj75SYr6marLBoTWDEfv) | 1960 | – | 24.11., 07:26 |
