@@ -15,6 +15,10 @@ ORDNER = os.environ['FIGUREN']; UAL = os.environ['UAL']
 BEW = os.environ.get('BEW', 'Ruhe,Idle_Loop,Walk_Loop,Jog_Fwd_Loop,Sword_Attack').split(',')
 WEIT, DURCH_WEIT = 0.08, 0.03
 KOERPER = ('Regular_', 'Superhero_')
+# 431: MUSTER=<glob> (Held je Volk: held_*_[MW].glb); ZEIGEN=<held-klassen.json>: wie im Spiel in der ganzen Tracht (heldfigur.gd kleide):
+# Leibstuecke unter einem Platz und die Lagen *_unter_* weg, Formschluessel unter_<PLATZ> an
+MUSTER = os.environ.get('MUSTER', 'volk_*.glb')
+ZEIGEN = json.load(open(os.environ['ZEIGEN']))['trachten'] if os.environ.get('ZEIGEN') else None
 
 
 def pruefe(p):
@@ -23,6 +27,14 @@ def pruefe(p):
     qa = next(o for o in bpy.data.objects if o.type == 'ARMATURE')
     # Runde 2: ohne die Hilfskugel der Kaufdatei (Icosphere, 2 m, unsichtbar; Lauf 41324116889 zaehlte „Helm durch“ gegen sie: Hügelvolk Frau 127)
     netze = [o for o in bpy.data.objects if o.type == 'MESH' and not o.name.startswith(('Eye', 'Hair', 'Icosphere'))]
+    if ZEIGEN is not None:
+        tr = ZEIGEN.get(os.path.basename(p)[5:-4], {})
+        weg = [o for o in netze if tr.get('leib', {}).get(o.name.split('.')[0]) or o.name.split('.')[0] in tr.get('unter', {})]
+        for o in weg: netze.remove(o); bpy.data.objects.remove(o)
+        for o in netze:
+            if o.data.shape_keys:
+                for kb in o.data.shape_keys.key_blocks:
+                    if kb.name.startswith('unter_'): kb.value = 1.0
     vorher = set(bpy.data.actions); alt = set(bpy.data.objects)
     bpy.ops.import_scene.gltf(filepath=UAL)
     for o in [o for o in bpy.data.objects if o not in alt]: bpy.data.objects.remove(o)
@@ -94,7 +106,7 @@ def pruefe(p):
 
 
 alle = {}
-for p in sorted(glob.glob(os.path.join(ORDNER, 'volk_*.glb'))):
+for p in sorted(glob.glob(os.path.join(ORDNER, MUSTER))):
     alle[os.path.basename(p)] = pruefe(p)
 json.dump(alle, open(os.path.join(ORDNER, 'durch.json'), 'w'), indent=1, ensure_ascii=False)
 print('DURCH OK', len(alle))

@@ -1650,6 +1650,26 @@ if LEUTE_KAUF:
     print('LEUTE KAUF OK', sorted(lk['trachten']))
     raise SystemExit(0)
 
+# 431 (Chef 12.11., 17:37; Deckel 24.11., 10:26): der Held auf dem Koerper seines Volkes (held_voelker.py), je Tracht und Geschlecht
+# held_<VOLK>_<TRACHT>_<G>.glb; VOELKER leer: ohne. VOELKER_NUR=1 am Rechner: nur die Voelker (held_<TRACHT>_<G>.glb und held-klassen.json liegen)
+VOELKER = [s for s in os.environ.get('VOELKER', 'elf,zwerg,huegel,ork').split(',') if s]
+if os.environ.get('VOELKER_NUR') == '1':
+    import held_voelker as HV
+    info = json.load(open(os.path.join(ZIEL, 'held-klassen.json')))
+    neu_v = [HV.KENNUNG[v] for v in VOELKER]
+    for k, t in list(info['trachten'].items()):
+        if k.count('_') > 1:   # Volksmodelle: die neu gebauten Voelker fallen weg, die anderen bleiben
+            mk = k.split('_', 1)[1] if not k.startswith('HALF_ORC_') else k[len('HALF_ORC_'):]
+            if t.get('volk') in neu_v and not (NUR and mk.rsplit('_', 1)[0] not in NUR or NUR_G and mk[-1] not in NUR_G): del info['trachten'][k]
+            continue
+        if NUR and k.rsplit('_', 1)[0] not in NUR or NUR_G and k[-1] not in NUR_G: continue
+        if 'teile' in t: SCHRANK_INFO[k] = {'teile': t['teile'], 'unter': t.get('unter', {}), 'leib': t.get('leib', {})}
+    nur = {k: t for k, t in info['trachten'].items() if k.count('_') == 1 and not (NUR and k.rsplit('_', 1)[0] not in NUR or NUR_G and k[-1] not in NUR_G)}
+    teil = dict(info, trachten=nur)
+    HV.alle_voelker(teil, sys.modules[__name__], ZIEL, VOELKER)
+    info['trachten'].update(teil['trachten']); info.setdefault('voelker', {}).update(teil['voelker'])
+    json.dump(info, open(os.path.join(ZIEL, 'held-klassen.json'), 'w'), indent=1, ensure_ascii=False)
+    raise SystemExit(0)
 if os.environ.get('SCHRANK_NUR') == '1':   # 431h Stufe 2 am Rechner: nur den Kleiderschrank neu (teil_*.glb und held-klassen.json liegen)
     info = json.load(open(os.path.join(ZIEL, 'held-klassen.json')))
     info['schrank'] = {g: schrank_datei(g) for g in GESCHLECHTER if not NUR_G or g in NUR_G}
@@ -1672,6 +1692,9 @@ for t, f in TRACHTEN.items():
             info['trachten'][k]['eigen'] = eigen_stuecke(t)   # 431h Stufe 2: Stuecke, die das eigene Teil zeigt
             if t == 'ROBE': info['trachten'][k]['rock'] = 'CHEST'   # Beine richten sich nach der Robe (heldfigur.gd kleide)
         print('TRACHT', k, info['trachten'][k]['dreiecke'], 'Dreiecke', info['trachten'][k]['kleid'], info['trachten'][k].get('eigen'))
+if VOELKER and not FREI:   # 431: nach den Trachten (SCHRANK_INFO), vor Schrank und Haaren (die laden neu)
+    import held_voelker as HV
+    HV.alle_voelker(info, sys.modules[__name__], ZIEL, VOELKER)
 # 431h Stufe 2: Kleiderschrank je Geschlecht (nach den Trachten: Kettenhemd und Robe aus ihren Bauten); SCHRANK_DATEI=0 ohne
 if SCHRANK and os.environ.get('SCHRANK_DATEI', '1') != '0' and not FREI:
     info['schrank'] = {}
