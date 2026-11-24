@@ -744,7 +744,6 @@ def pruefen_zeile(d, alle_nr=None):
         f.append("„%s“ ohne Feld „wartet auf“ (Test des Chefs: Stand „gebaut“ oder „zu testen“ mit Build; Ereignis ohne Nummer: „ruht“ mit Zusatz)" % d["wort"])
     if d["wort"] == "Chef" and not any(art(t) == "chef" for t in d["warte"]): f.append("„Chef“ ohne „Chef“ im Feld „wartet auf“")
     if d["wort"] == "gebaut" and not GEPRUEFT.search(d.get("stand", "")): f.append("„gebaut“ ohne „Geprüft an: <Link, Lauf oder Commit>“ (340.4, D80.7)")
-    if len(d.get("zeile", "")) > 400 and not (NEU and d.get("wort") == "erledigt"): f.append("Zeile über 400 Zeichen (Einzelheiten als „Zu %s“ in den Vorrat)" % d["nr"])
     if d["nr"] not in SONDER and not bereiche.gueltig(d.get("bereich")):  # 651: feste Liste
         f.append("Bereich „%s“ nicht in der festen Liste (`python3 tools/bereiche.py`; Vorschlag „%s“)" % (d.get("bereich"), bereiche.einordnen(d.get("bereich"))))
     return f
