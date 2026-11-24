@@ -315,6 +315,71 @@ def lage_spiel(me, fl_kl, art):
     return {'laenge_cm': round(L * 100, 1), 'griff_ab_unten_cm': round((zg - float(lo[2])) * 100, 1), 'griff': wie}
 
 
+
+# 1694 (Chef 23.11., 22:23: „Und dann verdünnen wir halt das Ganze“, Variante A): Stiele ab STIEL_AB Durchmesser in Griffhöhe auf
+# STIEL_SOLL, echtes Maß (Royal Museums Greenwich, Pike WPN1655: 34 mm; R. F. Warming, Dane Axe, 05.12.2014: Stielloch 3,9 x 2 cm).
+# Die Pakete bauen Stiele 4,1 bis 8,7 cm dick, darum schließt keine Hand. Nur die Lage quer zur Achse ändert sich (Flächen, Klassen,
+# Farben bleiben): Ecken bis NAH Stielradien von der Achse rücken mit dem Faktor zur Achse, bis FERN gleitend weniger, weiter außen
+# (Kopf, Blatt, Knauf, Parierstange) gar nicht. Erster Versuch je Teil des Netzes ließ Stiele, die im Kopf enden, kegelig (Kriegshammer
+# 4,7 cm). Schwerter nur unter der Parierstange, Armbrust nur der Kolben bis 15 cm vor dem Griff (Klinge, Bogen bleiben).
+STIEL_AB = 0.041
+STIEL_SOLL = 0.038
+NAH, FERN = 1.15, 1.6
+BIS_Z = {'light_crossbow': 0.15, **{w: 0.04 for w in SCHWERTER}}
+
+
+def stiel_mass(me, z=0.0):
+    # Durchmesser in Höhe z (0: Griff im Ursprung): Schnitt der Kanten mit der Ebene, nur nahe der Achse
+    v = punkte(me); sp = []
+    for e in me.edges:
+        a, b = v[e.vertices[0]], v[e.vertices[1]]
+        if (a[2] - z) * (b[2] - z) <= 0 and a[2] != b[2]:
+            t = (z - a[2]) / (b[2] - a[2]); sp.append(a + t * (b - a))
+    sp = np.array(sp).reshape(-1, 3)
+    sp = sp[np.hypot(sp[:, 0], sp[:, 1]) < 0.05]
+    return float(max(np.ptp(sp[:, 0]), np.ptp(sp[:, 1]))) if len(sp) > 2 else 0.0
+
+
+def stiel_duenner(me, art):
+    # Stiele werden zum Kopf hin dicker (Anker-Kriegshammer 5,2 bis 7,9 cm): Stieldicke je Höhe als Gerade über Schnitte alle 5 cm
+    # (Ausreißer wie Kopf, Blatt, Knauf fallen weg), jede Ecke rückt nach dem Faktor ihrer Höhe; bis zu drei Schritte (kantige Kolben)
+    d0 = stiel_mass(me); aus = {}
+    if d0 < STIEL_AB: return {}
+    for schritt in range(3):
+        if stiel_mass(me) < STIEL_AB: break
+        _stiel_schritt(me, art)
+    return {'stiel_roh_cm': round(d0 * 100, 1), 'stiel_cm': round(stiel_mass(me) * 100, 1)}
+
+
+def _stiel_gerade(me, art):
+    v = punkte(me); d0 = stiel_mass(me)
+    zs = [z for z in np.arange(float(v[:, 2].min()) + 0.02, min(float(v[:, 2].max()) - 0.02, BIS_Z.get(art, 9.0)), 0.05)]
+    pz = np.array([(z, stiel_mass(me, z)) for z in zs] + [(0.0, d0)] * 3)
+    pz = pz[pz[:, 1] > 0.005]
+    gut = np.abs(pz[:, 1] - d0) < 0.6 * d0
+    for _ in range(3):
+        if gut.sum() < 3: return lambda z: d0
+        k = np.polyfit(pz[gut, 0], pz[gut, 1], 1)
+        res = np.abs(np.polyval(k, pz[:, 0]) - pz[:, 1])
+        gut = res < 0.2 * np.polyval(k, pz[:, 0])
+    k = (np.polyfit(pz[gut, 0], pz[gut, 1], 1)[0] if gut.sum() >= 3 else 0.0, d0)   # Steigung der Geraden, durch den Griff
+    return lambda z: max(float(np.polyval(k, z)), 0.01)
+
+
+def _stiel_schritt(me, art):
+    dz = _stiel_gerade(me, art)
+    bis = BIS_Z.get(art, 9.0)
+    for ve in me.vertices:
+        x, y, z = ve.co
+        r = (x * x + y * y) ** 0.5
+        d = dz(z); f = min(1.0, STIEL_SOLL / d); a, b = NAH * 0.5 * d, FERN * 0.5 * d
+        if r >= b or r < 1e-9 or f >= 1.0: continue
+        rn = r * f if r <= a else a * f + (r - a) * (b - a * f) / (b - a)
+        k = min(1.0, max(0.0, (bis + 0.03 - z) / 0.03))   # über bis gleitend aus (3 cm)
+        s = 1.0 + k * (rn / r - 1.0)
+        ve.co.x = x * s; ve.co.y = y * s
+    me.update()
+
 if os.environ.get('TESTPAKETE'):
     testpakete(KAUF)
 
@@ -460,6 +525,7 @@ for kennung in sorted(gesucht):
     art = gesucht[kennung][0]
     if SPIEL:
         lage = lage_spiel(me, fl_kl, art)
+        if art not in BOEGEN: lage.update(stiel_duenner(me, art))
     else:
         me.transform(Matrix.Scale(1.0 / max(laenge, 1e-6), 4))   # 1 m zum Ansehen (Film)
         lage = {}
