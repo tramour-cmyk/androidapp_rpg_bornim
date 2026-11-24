@@ -20,3 +20,12 @@ Leg die Uhr Wache für <Kennung der Wache> an.
 ```
 Leg deine Uhr „Disponent-Lauf“ (3 * * * *) und die Uhr der Wache (33 * * * *) selbst mit create_trigger an, wann immer sie fehlen oder an einer archivierten Sitzung hängen. Das ist mein ausdrücklicher Auftrag. Du bleibst eine Sitzung, kein Neustart.
 ```
+
+## C · Neue Wache (Handstart durch den Chef; Sokrates 24.11., 06:57)
+
+1. claude.ai/code → neue Sitzung, Repo `tramour-cmyk/androidapp_rpg_bornim`, Umgebung „WireStorm Mittel“, Modell Sonnet, Titel `Wache – Betrieb (TT.MM., HH:MM)`.
+2. Erste Nachricht:
+
+```
+Auftrag: Wache (Profil docs/profile/Wache.md). Vorgängerin session_01Hmoj78CoScvkasiYmBbPTG ist an der Token-Sperre. Leg deine Uhr „Wache“ (33 * * * *) selbst mit create_trigger an deine Sitzung an und lösch danach die alte Uhr trig_01QuKEpvSi5e9AXBWWDgTvqd. Das ist mein ausdrücklicher Auftrag. Dann melde Sokrates (session_01Hmoj78KsbZtxD4EU46NDFA) deine Kennung.
+```
