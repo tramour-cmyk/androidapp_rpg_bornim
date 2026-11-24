@@ -2,6 +2,7 @@
 
 ## Geltende Lehren
 
+- Nie eine laufende Arbeit für eine neue Regel anhalten; stattdessen Neues nur für Neues (Chef 24.11., 07:14, 1960).
 - Nie „läuft“ aus Uhr oder Sitzungsstatus melden; stattdessen die letzte Antwort der Sitzung lesen (Wache 24.11., 06:56: Uhr feuerte, Wache gesperrt; Chef 06:59).
 - Nie eine Vorlage nur im Chat; stattdessen jede Frage an den Chef auch per Telegram (meldung.sh), er ist unterwegs (Chef 19:20).
 
