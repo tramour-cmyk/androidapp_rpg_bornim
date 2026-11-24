@@ -1348,3 +1348,4 @@
 2026-11-24 10:54:45	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/wiebke-431-volkskoerper
 2026-11-24 11:06:57	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	arne/1603-ansagen
 2026-11-24 11:07:26	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	arne/1603-ansagen
+2026-11-24 11:07:30	probelauf	1702: Bild oder Film an den Chef nur aus dem gepushten Stand; nicht committet: godot/tests/bild_1603.gd. Erst committen und pushen; eigene Messläufe ohne Bild mit `MESS=`.	arne/1603-ansagen
