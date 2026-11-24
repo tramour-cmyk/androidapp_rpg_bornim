@@ -148,3 +148,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 04:05 24.11.: Takt 04:03: keine START-/ARCHIVIERE-Zeile (Nachtruhe); Herzschlag gepusht
 - 05:05 24.11.: Takt 05:03: keine START-/ARCHIVIERE-Zeile (Nachtruhe); Herzschlag gepusht
 - 06:05 24.11.: Takt 06:03: keine START-/ARCHIVIERE-Zeile (Nachtruhe bis 07:00); Herzschlag gepusht
+- 07:02 24.11.: Startsperre 07:02 Start Arbeitsplaner, Kampf, Figur, Werkzeug, Arbeitsplaner (lauf.py, Arbeitsplaner 513 Carla, Kampf 1603 Dana, Figur 1694 Elke, Werkzeug 1960 Frieda, Arbeitsplaner 2012 Gerda)
