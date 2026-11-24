@@ -12,6 +12,11 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Nachtpause (Chef 23.11., 22:30):** 23 bis 7 Uhr keine Runden; erste Uhr kurz nach 7.
 
+**Startprompt Nachfolger (Chef 24.11., 07:16: im Zweifel startet der Disponent):** Ablauf: bei 280 Tsd. Kopiertext per meldung.sh an den Chef; ohne Chefstart bis 295 Tsd. Übergabe hier, dann diese Felder per send_message an Uwe (create_session):
+- Titel: „Alter Ego – Supervisor (TT.MM.)“
+- Modell: opus (claude-opus-5-5), Umgebung env_01F9WxikYD4TTdhscxvPi93p, source_url https://github.com/tramour-cmyk/androidapp_rpg_bornim, source_revision main
+- Erste Nachricht: „Du bist Alter Ego, Supervisor und Vertreter des Chefs (Archiv ‚Alter Ego‘ 23.11., 15:53; Rolle Chef 23.11., 22:17; Vertretung 23:10/23:12; Werkzeug-Aufpasser 24.11., 07:07). Lies docs/leitung/alter-ego.md (Rolle, Übergabe, Protokoll) und arbeite dort weiter: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
+
 **Rundentext:** list_sessions, hängende/blockierte Sitzungen und tote Fragen suchen (Frage nur im eigenen Chat einer Sitzung = tot), Vorgangsdateien stichprobenartig prüfen, 2003 prüfen, Leerlauf (keine Fachkraft tätig) → Uwe Takt außer der Reihe, Zahl offener Disponenten-Übergaben über 2 h zählen (Kennzahl liegengebliebene Arbeit), Funde gebündelt an Sokrates, Protokoll hier. Alter Ego beobachtet und meldet, löst nicht selbst (Chef 22:31: nicht Sokrates’ Arbeit machen).
 
 **Übergabe (24.11., 07:07, session_01Hmoj78G97RcFvsJSgAyQBv, 210 Tsd. Token):** Sokrates jetzt session_01Hmoj78KsbZtxD4EU46NDFA. Chef 24.11. auf Konferenz; Vertretung siehe oben (Chef 23:10/23:12). Nachhalten: 2012 (Gerda, Eilt, Prüffälle 1603-Ü1/1960-Ü8), 2013 nach 1960 auf dem Werkzeug-Platz, 2003 bis 30.11., Kennzahl offene Übergaben (07:06: 22). Uhr „Supervisor-Runde“ trig_019a74EZN7MRfaD1Rsf5yHVD. Diese Sitzung läuft bis etwa 280 Tsd. weiter; dann Kopiertext „Start eines Nachfolgers“ per tools/meldung.sh an den Chef (Sokrates 07:10, Handstart bleibt).
