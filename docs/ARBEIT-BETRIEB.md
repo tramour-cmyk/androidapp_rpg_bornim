@@ -216,3 +216,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:10 24.11.: Sokrates 14:08: 1694-Ü18 beantwortet (fe59ab96c), 1694 startbar, Jana weiter (Nachricht); 1989-Ü12 erledigt; 1603 Kampf-Neustart um 14:26 (Startmarke)
 - 14:28 24.11.: Startsperre 14:28 Start Arbeitsplaner, Kampf, Arbeitsplaner (lauf.py, Arbeitsplaner 1716 Jutta, Kampf 1603 Karla, Arbeitsplaner 1725 Knut)
 - 14:32 24.11.: Kampf Karla 1603 (session_01Hmoj75vqCt4FwXeayqopdk) gestartet (1603-Ü11 Laufanforderung ja, Auftrag unverändert), 1603-Ü11 erledigt; Carla archiviert, Kosten 5,07 $ (1603 gesamt 38,82 $); Prüfer Jonas bekommt 1694-Ü19 (Nachricht); nicht ausgeführt: Planer 1716 Jutta, Planer 1725 Knut (Werkzeug-/Ablauf-Planer, Chef 12:48 kein neues Werkzeug)
+- 14:33 24.11.: Sokrates 14:31: Planer 1716 und 1725 nicht starten (ruhen bis Sa 28.11., --ohne 1716, 1725; kein Spiel); Mirja (1694-Planer) archiviert, Kosten 0,81 $ (1694 gesamt 65,21 $)
