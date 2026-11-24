@@ -27,4 +27,4 @@
 
 ## Übergabe
 
-- 24.11., 12:47, `76yxzD…` (400 Tsd.): Getan: 431 A, 1589.2 A, 1694 A (Chefwort nachgetragen), 1589.3 auf main bfd7f7e1d, 2017 fertig, 2019 Eilt, Kern Daumenregel 2.997, Wache auf main. Letzte Antwort: GitHub-Merge widerwillig ja (2020). Nachfolger: Sokrates – Leitung.
+- 24.11., 12:47, `76yxzD…` (400 Tsd.): Getan: 1589.3 auf main, 2017 fertig, 2019 Eilt, Kern Daumenregel. Letzte Antwort: GitHub-Merge widerwillig ja (2020). Nachfolger: Sokrates – Leitung.
