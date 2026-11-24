@@ -8,6 +8,7 @@
 extends Node3D
 
 const Mars = preload("res://regeln/mars.gd")
+const Arena = preload("res://regeln/arena.gd")
 const Lohn = preload("res://regeln/lohn.gd")
 const Wuerfel = preload("res://regeln/wuerfel.gd")
 const Ui = preload("res://kampf/kampf_ui.gd")
@@ -975,11 +976,14 @@ func _spot_pos(f, spot: Vector2i) -> Vector3:
 ## nach hinten, Runde 19,5 s statt 14,6): wer am Gegner steht, bleibt dort (Platz am Gegner); kommt er dabei in die hintere Reihe,
 ## macht er nur Platz (ein ruhiger Schritt vom Gegner weg); wer so einen eigenen Platz hält, geht nie zurück auf den Platz der Aufstellung
 const KONTAKT_M := 3.0          # Rand des nächsten Gegners bis zur eigenen Mitte: am Gegner (t293.1: der Kaufwolf setzt mit „Ausweichen zurück“ bis 2,9 m ab)
-const PLATZ_MACHEN_M := 1.3     # so weit tritt ein Vorderer zurück, der nach hinten getauscht wird
 var platz_eigen := {}           # Kennung → Reihe, in der er seinen eigenen Platz (am Gegner, Platz gemacht) hält
+var frei_platz := {}            # 1589.4 (1526): Kennung → frei gewordener Platz dessen, mit dem er nach hinten tauscht
 func _platz_am_gegner(f: Variant, spot: Vector2i) -> Vector3:
 	var fig: Variant = figures[f.id]
 	var formation := _spot_pos(f, spot)
+	if frei_platz.has(f.id):
+		platz_eigen[f.id] = spot.x
+		return Vector3(frei_platz[f.id].x, formation.y, frei_platz[f.id].z)
 	if f.side != "FOES" or fig.fighter.monster == null or not fig.bleibt_am_gegner():
 		if OS.get_environment("SCHAU_1072") != "" and f.side == "FOES":
 			print("1072 Platz %s: bleibt nicht (bleib %s, Gehen %s)" % [f.id, fig._bleib_717(), fig.weg.has("Gehen")])
@@ -998,33 +1002,8 @@ func _platz_am_gegner(f: Variant, spot: Vector2i) -> Vector3:
 	if OS.get_environment("SCHAU_1072") != "":
 		print("1072 Platz %s Reihe %d: Rand %.2f an %s, vorher %s" % [f.id, spot.x, rand, nah.fighter.id if nah != null else "-", vorher])
 	if nah != null and rand <= KONTAKT_M * fig._scale():
-		if spot.x == Mars.BACK and vorher != Mars.BACK:     # nach hinten getauscht: Platz machen
-			var weg := Vector3(p.x - nah.position.x, 0.0, p.z - nah.position.z)
-			weg = weg.normalized() if weg.length() > 0.01 else -facing(true)
-			var q := Vector3.INF
-			for k: float in [1.0, 0.6]:     # vom Gegner weg, sonst schräg, sonst kürzer
-				for w: float in [0.0, 35.0, -35.0, 70.0, -70.0, 100.0, -100.0]:
-					var d: Vector3 = weg.rotated(Vector3.UP, deg_to_rad(w))
-					var q2: Vector3 = p + d * PLATZ_MACHEN_M * fig._scale() * k
-					if OS.get_environment("SCHAU_1072") != "":
-						print("1072   %s %.0f° x%.1f: Luft %.2f Bild %s" % [f.id, w, k, fig._platz_luft(q2, -weg, null), fig._im_bild(q2, -weg)])
-					if fig.platz_frei(q2, -weg, fig.PLATZ_BILD_DP):
-						q = q2
-						break
-				if q != Vector3.INF:
-					break
-			if OS.get_environment("SCHAU_1072") != "":
-				print("1072 Platz machen %s: %s" % [f.id, "frei" if q != Vector3.INF else "kein Platz, bleibt"])
-			if q != Vector3.INF:
-				p = q
-				if OS.get_environment("SCHAU_1072") != "":
-					print("1072 Platz gemacht %s an %s, Blick %.0f°" % [f.id, q, rad_to_deg(atan2(-weg.x, -weg.z))])
-			else:
-				# 1453 (reihe_1305 Seed 7, Lauf 524: wolf1 am Bildrand, jede Stelle vom Gegner weg lag außerhalb des Bilds; er blieb
-				# 1,9 m vor dem Helden stehen, die vorderen 2,3 und 2,5 m, der Spieler sah den hinteren vorn): ohne freie Stelle im Bild
-				# geht er auf seinen Platz der Aufstellung hinten, damit die Reihen im Bild stimmen (1305)
-				platz_eigen.erase(f.id)
-				return formation
+		# 1589.4 (1526): nach hinten getauscht ohne einen, der nach vorn kommt (frei_platz): er bleibt, wo er steht (alt: 1,3 m vom
+		# Gegner weg, gesucht im Bild)
 		platz_eigen[f.id] = spot.x
 		return Vector3(p.x, formation.y, p.z)
 	if vorher != null:     # hält schon einen eigenen Platz (Platz gemacht): bleibt dort, auch wenn er wieder nach vorn kommt
@@ -1570,6 +1549,24 @@ func _play_say(e: Dictionary) -> void:
 		_todesmeldung_vorweg(e)
 		await get_tree().create_timer(maxi(0, tot_ms - fall_ms) / 1000.0).timeout
 		warte_ms = 0
+	# 1589.4 (1526, DESIGN-GEGNER.md 5): tauscht ein vorderer Gegner mit einem hinteren, geht der vordere nur auf den frei gewordenen
+	# Platz (Arena.platz_machen: wo der hintere jetzt steht), nicht ganz nach hinten; Untote und Krogg bleiben (Arena.setzt_ab)
+	frei_platz.clear()
+	var nach_hinten := []
+	var nach_vorn := []
+	for f in mars.fighters():
+		var alt: Array = stelle_fest.get(f.id, [])
+		if f.side == "FOES" and e.places.has(f.id) and not alt.is_empty() and figures.has(f.id):
+			if alt[0].x == Mars.FRONT and e.places[f.id].x == Mars.BACK:
+				nach_hinten.append(f.id)
+			elif alt[0].x == Mars.BACK and e.places[f.id].x == Mars.FRONT:
+				nach_vorn.append(f.id)
+	if nach_hinten.size() == 1 and nach_vorn.size() == 1 and Arena.setzt_ab(String(mars.find(nach_hinten[0]).monster.get("id", ""))):
+		var q: Vector3 = figures[nach_vorn[0]].position
+		var p2 := Arena.platz_machen(Vector2(q.x, q.z))
+		frei_platz[nach_hinten[0]] = Vector3(p2.x, q.y, p2.y)
+		if OS.get_environment("SCHAU_1526") != "":
+			print("1526 %s macht Platz für %s: nach %s (steht %s)" % [nach_hinten[0], nach_vorn[0], frei_platz[nach_hinten[0]], figures[nach_hinten[0]].position])
 	for f in mars.fighters():
 		# 573 (Chef 04.11., 20:33: „wenn jemand tot ist, bitte nicht mehr die Position verändern“; der letzte Jungwolf wurde nach dem
 		# Haken „ich gewinne“ tot in die Mitte gezogen, tote_573): wer keine Trefferpunkte mehr hat, bleibt liegen, wo er fiel

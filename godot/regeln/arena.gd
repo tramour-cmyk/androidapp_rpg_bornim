@@ -217,3 +217,111 @@ static func flucht_grund(mars: Mars, f: Mars.Fighter) -> String:
 	if id == RATTE and f.hp < f.max_hp and not stehen.any(func(x: Mars.Fighter) -> bool: return x != f and x.monster != null and String(x.monster.get("id", "")) == RATTE):
 		return "ratte"
 	return ""
+
+
+# ---------------------------------------------------------------------------------------------------------------------------------
+# 1589.4 Stufe 3 (DESIGN-GEGNER.md 5, 11.3; Antworten Sokrates 24.11., 19:10, F1–F5): die Wege der Figuren. figur.gd fragt hier
+# und spielt nur ab. Rechnet in Metern am Boden (x, z der Welt oder a, b der Arena: beides ist eine Drehung, Abstände bleiben).
+# Systemfrage (Entwurf 1589.4-wegregeln.md): gerade Strecke Punkt zu Punkt, geprüft wie Versperren (Strecken-Kreis); ist sie
+# versperrt, wird nicht umgangen, sondern gewartet oder der Vordere macht Platz (F1; Reynolds GDC 1999 nur bei Umweg, den es nicht gibt).
+
+const QUER_GRAD := 45.0      # F2: beim Gehen liegen Weg und Blick höchstens so weit auseinander (außer dem einzelnen Seitschritt, F4)
+const SCHRAEG_GRAD := 35.0   # F3: schräg rückwärts absetzen (Annahme, Chef am Film)
+## Abschnitt 5 Ausnahmen (Homer): Untote (Skelett, Wiedergänger, Grabhund) und Krogg setzen sich nicht ab
+const STUR := ["skeleton", "zombie", "ghoul", Mars.KROGG]
+
+
+## setzt sich die Art [id] nach dem Angriff ab?
+static func setzt_ab(id: String) -> bool:
+	return not id in STUR
+
+
+## F1: ist die Strecke [a] → [b] für einen Kreis mit [r] frei? [andere]: [[Mitte, Umriss], …] der anderen Stehenden
+static func strecke_frei(a: Vector2, b: Vector2, r: float, andere: Array) -> bool:
+	for x: Array in andere:
+		var c: Vector2 = x[0]
+		if c.distance_to(Geometry2D.get_closest_point_to_segment(c, a, b)) < float(x[1]) + r - GLEICH:
+			return false
+	return true
+
+
+## Abschnitt 5: geht ein Gegner den Weg [weg] rückwärts? Ja, wenn er vom Feind ([zum_feind]) wegführt: dann das Gesicht zum Feind
+## (nie der Rücken, F7); sonst auf der Stelle zum Weg drehen und vorwärts
+static func rueckwaerts(weg: Vector2, zum_feind: Vector2) -> bool:
+	return zum_feind != Vector2.ZERO and weg.dot(zum_feind) < 0.0
+
+
+## Blick (Einheitsvektor) beim Gehen des Wegs [weg]: vorwärts in Wegrichtung, rückwärts entgegen; so liegt kein Weg quer zum Blick
+static func blick_beim_gehen(weg: Vector2, rueck: bool) -> Vector2:
+	var d := weg.normalized() if weg.length() > GLEICH else Vector2.ZERO
+	return -d if rueck else d
+
+
+## Abschnitt 5: wohin sich [id] nach dem Angriff absetzt: von [von] bis [weit] Meter gerade rückwärts vom Ziel ([ziel]) weg, sonst
+## schräg rückwärts (±SCHRAEG_GRAD), sonst halb so weit; [frei] (Callable(Vector2) -> bool) prüft einen Punkt. Stur: bleibt.
+## Kein Platz frei: bleibt stehen ([von])
+static func absetzen(von: Vector2, ziel: Vector2, weit: float, id: String, frei: Callable) -> Vector2:
+	if not setzt_ab(id) or weit <= GLEICH:
+		return von
+	var weg := (von - ziel).normalized() if von.distance_to(ziel) > GLEICH else Vector2.DOWN
+	for k: float in [1.0, 0.5]:
+		for w: float in [0.0, SCHRAEG_GRAD, -SCHRAEG_GRAD]:
+			var p := von + weg.rotated(deg_to_rad(w)) * weit * k
+			if frei.call(p):
+				return p
+	return von
+
+
+## 1526 (Abschnitt 5): wer vorn für einen hinteren Platz macht, geht nur auf den frei gewordenen Platz [frei], nicht ganz nach hinten
+static func platz_machen(frei: Vector2) -> Vector2:
+	return frei
+
+
+## geradewegs heran (Chef 18.11., 14:33, Ratte quer): ein Bissplatz liegt höchstens so weit um das Ziel herum (Grad)
+static func bissplatz_winkel(w: float) -> bool:
+	return absf(w) <= QUER_GRAD
+
+
+## Abschnitt 5 „der hintere wartet seitlich, bis der Weg frei ist“: Punkt einen Seitschritt quer zum Weg [von] → [nach], so weit,
+## dass die Strecke des Entgegenkommenden ([nach] → [von]) an ihm vorbeigeht (Umriss [r] plus der des anderen, aus [andere]);
+## links, sonst rechts, wo der Platz frei ist; sonst [von]
+static func seitlich(von: Vector2, nach: Vector2, r: float, andere: Array) -> Vector2:
+	var w := nach - von
+	if w.length() < GLEICH:
+		return von
+	var r2 := r
+	for x: Array in andere:
+		if (x[0] as Vector2).distance_to(nach) < float(x[1]) + r:
+			r2 = r + float(x[1])
+	var quer := Vector2(-w.y, w.x).normalized()
+	for sg: float in [1.0, -1.0]:
+		var p := von + quer * sg * r2
+		if strecke_frei(von, p, r, andere.filter(func(x: Array) -> bool: return (x[0] as Vector2).distance_to(von) >= float(x[1]) + r - GLEICH)):
+			return p
+	return von
+
+
+## F1 „der Vordere macht Platz“: wohin ein Stehender mit Mitte [c] beiseite tritt, damit die Strecke [a] → [b] an ihm vorbeigeht
+## ([abstand]: Umriss des Gehenden plus der eigene): quer zur Strecke auf die Seite, auf der er schon steht, bis [abstand] von ihr;
+## frei gegen [andere] (wie strecke_frei, Umriss [r]); sonst [c]
+static func beiseite(a: Vector2, b: Vector2, c: Vector2, abstand: float, r: float, andere: Array) -> Vector2:
+	var q := Geometry2D.get_closest_point_to_segment(c, a, b)
+	var w := b - a
+	if w.length() < GLEICH:
+		return c
+	var quer := Vector2(-w.y, w.x).normalized()
+	var sg := 1.0 if (c - q).dot(quer) >= 0.0 else -1.0
+	for s: float in [sg, -sg]:
+		var p := q + quer * s * (abstand + GLEICH)
+		if strecke_frei(c, p, r, andere):
+			return p
+	return c
+
+
+## geradewegs heran (Chef 18.11., 14:33): liegt der Weg von [von] zum Angriffsplatz [platz] höchstens QUER_GRAD neben der Richtung
+## zum Ziel [ziel]? (kurzer Weg unter [kurz] Metern zählt nicht)
+static func geradewegs(von: Vector2, platz: Vector2, ziel: Vector2, kurz := 0.15) -> bool:
+	var w := platz - von
+	if w.length() < kurz:
+		return true
+	return absf(rad_to_deg(w.angle_to(ziel - von))) <= QUER_GRAD
