@@ -240,3 +240,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 18:43 24.11.: Alter Ego neu session_01Hmoj76MLqXxxrREpwoxksZ (Notstart, Sokrates 18:41, Übergabe 90bf78e49); alter (session_01Hmoj78XiynF45gfuVmiNc8) erst archivieren, wenn der neue Sokrates seine Kennung gemeldet hat
 - 18:44 24.11.: Figur Moritz 1654 (Durchstechprüfung Rowena Kleid, session_01Hmoj75Q7WJD3yDBL9SK6qE) gestartet (Sokrates 18:42, Spielvorrang Chef 23.11., 11:13, Auftrag seit 23.11., 11:30); zusammen mit Planerin Hanne (1589.4) zwei Fachkräfte/Planer unter Laufsperre
 - 18:45 24.11.: alter Alter Ego (session_01Hmoj78XiynF45gfuVmiNc8) archiviert nach Meldung des neuen (Sokrates 18:43), Kosten 6,78 $ auf 2010 gebucht (gesamt 39,32 $)
+- 18:44 24.11.: Startsperre 18:44 Start Arbeitsplaner, Kampf, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Margit, Kampf 1589.4 Nils, Arbeitsplaner 1507 Nadine)
