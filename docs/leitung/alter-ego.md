@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session_01Hmoj79s65wJUddNW1dFPLB). Sokrates session_01Hmoj77ZdYKh1YXq5iPdhgN (seit 24.11., 12:51). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj78XiynF45gfuVmiNc8 (seit 24.11., 13:27; Vorgänger session_01Hmoj76DxaY8henyxgura1G). Sokrates session_01Hmoj77ZdYKh1YXq5iPdhgN (seit 24.11., 12:51). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 13:27 Nachfolger übernommen (Titel stand schon); Uhr trig_01Fd4id8hM4ZpbTftyhXHAYY (14:28), keine alte zu löschen; Kennung an Sokrates.
 - 24.11., 13:25 Runde: 431 Hänger erledigt (Wiebke archiviert, Beleglauf rot gemeldet 13:05); 1589.3 erledigt; Chef 12:48/12:49 Ruhe bis Sa. Übergabe (263 Tsd.), Startfelder an Sokrates neu.
 - 24.11., 12:36 Prüfung 15893-main.md: Einwand, Push vor gang_wahl_1589/CI widerspricht 1589.3-Ü5 (Tests und CI grün vor main); Bedingung in A. An Sokrates.
 - 24.11., 12:33 Prüfung Auftrag 2019 (Chef 12:29 A): stimmt mit Ergänzung; Widerspruch geklärt: 2018 hat Besitzer Werkzeug (Block 7), nicht Diogenes → Fachkraft unter Laufsperre; Routine-Termin muss Rolle der Routine tragen. An Sokrates.
