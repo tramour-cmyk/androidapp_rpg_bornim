@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78XiynF45gfuVmiNc8 (seit 24.11., 13:27; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 14:30 Runde: Takt 14:28 startet 1716 und 1725 trotz Chef 12:48 „Spiel vor“; Votum 1716 läuft (Prüfung, kein neues Werkzeug), 1725 ruht. Mirja 1694 ist seit 12:13 untätig, nicht archiviert. An Sokrates. Uhr trig_01J83aKiduwwU88foAWTKvqw (15:31).
 - 24.11., 13:27 Nachfolger übernommen (Titel stand schon); Uhr trig_01Fd4id8hM4ZpbTftyhXHAYY (14:28), keine alte zu löschen; Kennung an Sokrates.
 - 24.11., 13:25 Runde: 431 Hänger erledigt (Wiebke archiviert, Beleglauf rot gemeldet 13:05); 1589.3 erledigt; Chef 12:48/12:49 Ruhe bis Sa. Übergabe (263 Tsd.), Startfelder an Sokrates neu.
 - 24.11., 12:36 Prüfung 15893-main.md: Einwand, Push vor gang_wahl_1589/CI widerspricht 1589.3-Ü5 (Tests und CI grün vor main); Bedingung in A. An Sokrates.
