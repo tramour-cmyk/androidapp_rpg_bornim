@@ -40,3 +40,4 @@ Nie geladen, nur durchsucht (`vorgang.py lehre suche <Wort>`); schreiben nur mit
 | R27 | B Werkzeuge | 1987 | geschlossen | Werkzeug-Schnitt 24.11. (Chefwort 07:07, geprüft Alter Ego 07:12): Kür, hält kein Spiel auf; bei erneutem Fehler wieder öffnen | 24.11., 07:13 | offen |
 | R28 | B Werkzeuge | 2000 | geschlossen | Werkzeug-Schnitt 24.11. (Chefwort 07:07, geprüft Alter Ego 07:12): Kür, hält kein Spiel auf; bei erneutem Fehler wieder öffnen | 24.11., 07:13 | offen |
 | R29 | B Werkzeuge | 2007 | geschlossen | Werkzeug-Schnitt 24.11. (Chefwort 07:07, geprüft Alter Ego 07:12): Kür, hält kein Spiel auf; bei erneutem Fehler wieder öffnen | 24.11., 07:14 | offen |
+| R30 | B Werkzeuge | 1993 | geschlossen | enthalten in 2005 (Fall a, d; Werkzeug-Schnitt 24.11., Alter Ego 07:18); Chefwort 04.11., 13:18: 513 ruht bis nach dem Durchspielen | 24.11., 07:17 | offen |
