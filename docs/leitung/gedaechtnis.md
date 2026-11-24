@@ -24,9 +24,9 @@
 - Spielcode nach main nur Sokrates nach Chef-👍 (Dauerwort 23.11., 23:10).
 - Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt; Guthaben 50 % (06:53), über 0,6 %/h zwei.
 - Kampf: 1589.3 nach 1589.2. Offen: 1068-Ü8, 1971, Chefsachen 1068, 1694.
-- Nach 2017: Vorlage --sperre-Teile (Archiv 11:33); Diogenes C beim Chef; 1589.3-Push beim Chef (Filter); Kernsatz Daumen 10:32 beim Chef.
+- Offen: 2020 Auftrag schreiben (GitHub-Merge, Alter Ego prüft); 2019 läuft (Wochenzählung); Vorlage --sperre-Teile (Archiv 11:33); 1716/1301/1387/1642/1643 mit Alter Ego entscheiden; 1603 Rückläufer, dann Vorlage mit Frage Prankenhieb.
 - Täglich Modell, Umgebung, Aufwand aller Sitzungen (Chef 09:07). Kopiertexte: `kopiertexte-uhren.md`.
 
 ## Übergabe
 
-- 24.11., 08:40, Vorgänger `78KsbZ…` (402 Tsd.): Letzte Antwort: 2017 ersatzlos. Nachfolger: Sokrates – Leitung.
+- 24.11., 12:47, `76yxzD…` (400 Tsd.): Getan: 431 A, 1589.2 A, 1694 A (Chefwort nachgetragen), 1589.3 auf main bfd7f7e1d, 2017 fertig, 2019 Eilt, Kern Daumenregel 2.997, Wache auf main. Letzte Antwort: GitHub-Merge widerwillig ja (2020). Nachfolger: Sokrates – Leitung.
