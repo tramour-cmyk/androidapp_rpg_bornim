@@ -10,7 +10,7 @@ ordner, sj, ziel = sys.argv[1:4]
 gross = sys.argv[4] if len(sys.argv) > 4 else 'anker_two_handed_axe'
 formen = {k: v for k, v in json.load(open(sj))['formen'].items() if 'stiel_roh_cm' in v}
 try:
-    F = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 11)
+    F = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 10)
     FB = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf', 13)
 except OSError:
     F = FB = ImageFont.load_default()
@@ -32,17 +32,17 @@ hg = max(gx.height, lade('hand-gross-a.png', 1.0).height)
 H = kopf + reihen * (ch + unter + 6) + 18 + hg + 30
 bild = Image.new('RGB', (W, H), (232, 228, 220))
 d = ImageDraw.Draw(bild)
-d.text((6, 4), '1694 Stiele: links vorher (73f8af7c4), rechts nachher (dbbc99243); 4 px = 1 cm, Griff in der Mitte', fill=(20, 20, 20), font=FB)
+d.text((6, 4), '1694 Stiele je Paar: links vorher (73f8af7c4), rechts nachher (dbbc99243); 4 px = 1 cm', fill=(20, 20, 20), font=FB)
 for i, k in enumerate(ids):
     r, c = divmod(i, je_reihe)
     x = 4 + c * (paar + 12)
     y = kopf + r * (ch + unter + 6)
     bild.paste(lade(k + '-vorher.png'), (x, y))
     bild.paste(lade(k + '-nachher.png'), (x + cw + 4, y))
-    d.text((x, y + ch + 1), k.replace('_sm_', '_')[:22], fill=(20, 20, 20), font=F)
+    d.text((x, y + ch + 1), k.replace('_sm_', '_').replace('two_handed', '2h')[:21], fill=(20, 20, 20), font=F)
     d.text((x, y + ch + 13), '%.1f → %.1f cm' % (formen[k]['stiel_roh_cm'], formen[k]['stiel_cm']), fill=(120, 20, 20), font=F)
 y0 = kopf + reihen * (ch + unter + 6) + 4
-d.text((4, y0), 'Großaxt Stufe 1 (%s) 8 px = 1 cm: vorher, nachher; Hand WACHE_M offen, gleicher Maßstab' % gross, fill=(20, 20, 20), font=FB)
+d.text((4, y0), 'Großaxt Stufe 1 groß, 16 px = 1 cm: vorher, nachher, Hand WACHE_M', fill=(20, 20, 20), font=FB)
 y0 += 18
 x = 4
 for n in [gross + '-gross-vorher.png', gross + '-gross-nachher.png', 'hand-gross-a.png']:
