@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 12:14, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 12:23, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -30,8 +30,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 24.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 5 | 1487 (Regeln) Heiler wächst in Kapitel 1 nie im Willen |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 63 (64) | 19 | 0 | 1 | 37 | 1402 (Kampf) Kamera im Kampf: Spieler dreht frei oder das Spie… |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 32 (32) | 19 | 0 | 2 | 10 | 1694 (Figur) Griff einmal für alle gehaltenen Dinge: fester Gr… |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 63 (64) | 19 | 1 | 1 | 37 | 1402 (Kampf) Kamera im Kampf: Spieler dreht frei oder das Spie… |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 32 (32) | 19 | 1 | 2 | 10 | 1694 (Figur) Griff einmal für alle gehaltenen Dinge: fester Gr… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 2 | 0 | 0 | 14 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
@@ -55,19 +55,19 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Profil | als Nächstes |
 |---|---|
-| **Chef** | [1603](ansehen/1603-krogg-prankenhieb.md) ansehen |
+| **Chef** | nichts offen in der Chefsache |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
-| Kampf | 1402 Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt… (Kür) |
-| Figur | 1694 Griff einmal für alle gehaltenen Dinge: fester Griffpunkt i… (Muss); dann 4 weitere |
+| Kampf | läuft: 1603 (Besetzung); 1402 Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt… (Kür) |
+| Figur | läuft: 431 (Besetzung); 1694 Griff einmal für alle gehaltenen Dinge: fester Griffpunkt i… (Muss); dann 4 weitere |
 | Kataloge | 644.2 Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pfli… (Kür) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
 | Oberfläche | 531a Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast k… (Kür) |
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 2 weitere |
-| Werkzeug | läuft: 2017 (Besetzung); 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 16 weitere |
-| Prüfer | läuft: 2017 (Besetzung); 1716 Buildzweig gehört Spike: nur Spike pusht auf claude/build-<… (Muss); dann 3 weitere |
+| Werkzeug | 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 16 weitere |
+| Prüfer | läuft: 2017 (Besetzung); 1716 Buildzweig gehört Spike: nur Spike pusht auf claude/build-<… (Muss); dann 2 weitere |
 | Tester | leer, weil keine offene Zeile |
 
 **Die nächsten 20**
@@ -75,7 +75,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 1694 | Figur | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je… | M | 3 Figuren und Kleidung | startbar |
-| 2 | 431 | Figur | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Figuren und Kleidung | startbar |
+| 2 | 431 | Figur | Völker als Modelle: erst Bibliothek sichten, Kandidaten drehend im Film vorlege… | M | 3 Figuren und Kleidung | in Arbeit |
 | 3 | 1654 | Figur | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch | M | 3 Figuren und Kleidung | startbar |
 | 4 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
 | 5 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
@@ -106,11 +106,7 @@ Nichts offen.
 
 ## Anzusehen
 
-**Bilder** (ansehen und im Gespräch „ja“ oder was anders sein soll):
-
-| Nr. | Was | Wer | Seit |
-|---|---|---|---|
-| [1603](ansehen/1603-krogg-prankenhieb.md) | Ansage je Art und Kroggs Prankenhieb | – | 24.11., 11:33 |
+Nichts offen.
 
 ## Zu tun
 
@@ -505,12 +501,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 24.11.; „star
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-## Lücken
-
-Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): ansehen/1603-krogg-prankenhieb.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
-
 ## So geht's
 
 - Je Punkt eine Datei: `entscheiden/<nr>-<stichwort>.md` (Nummer ohne Punkt, z. B. `72s1-gefaehrte-kapitel2.md`) oder `ansehen/t<build>-<stichwort>.md`. Erledigt heißt Datei löschen.
