@@ -1357,3 +1357,4 @@
 2026-11-24 14:31:16	probelauf	1254: main hat seit dem Abzweig dieses Zweigs den Modellbau geändert (1 Dateien, etwa tools/blender348/v3/held_klassen.py). Mit diesem Stand trifft die Vorberechnung 854 nicht, der Lauf baut Held je K	HEAD
 2026-11-24 15:41:49	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/wiebke-431-volkskoerper
 2026-11-24 15:42:19	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/wiebke-431-volkskoerper
+2026-11-24 15:43:00	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/wiebke-431-volkskoerper
