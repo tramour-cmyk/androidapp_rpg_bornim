@@ -51,6 +51,7 @@ TEILE = {
     "Profil Regeln": (M + "profil-regeln.md", "Regeln", None),
     "Profil Zugang Kaufrepo": (M + "profil-zugang-kaufrepo.md", "Zugang Kaufrepo", None),
     "Routine Wache": (M + "routine-wache.md|## Text", "Wache", None),
+    "Routine Wochenzählung": (M + "routine-wochenzaehlung.md|## Text", "Wochenzählung", None),  # 2019: Auftrag der Routine (lauf.ROUTINE_PROFIL)
 }
 # Sitzungsart: Teile (herausgezogen.md „Ladesumme je Sitzungsart“); Auftrag kommt je Start dazu
 SITZUNGEN = {
@@ -63,6 +64,7 @@ SITZUNGEN = {
     "Abnahme: Prüfer": ["Sockel", "Kern Abnahme", "Profil Prüfer"],
     "Abnahme: Tester": ["Sockel", "Kern Abnahme", "Profil Tester"],
     "Routine Wache": ["Sockel", "Routine Wache"],
+    "Routine Wochenzählung": ["Sockel", "Routine Wochenzählung"],
 }
 # Startlektüre heute (CLAUDE.md, Rollendatei laut Rollentabelle in CLAUDE.md, Vorrat ARBEIT-…; Gesamtbild:47 zählte ebenso)
 ALT = {"Sokrates": ("ROLLE-BERATUNG.md", "ARBEIT-BERATUNG.md"), "Homer": ("ROLLE-KREATIV.md", "ARBEIT-KREATIV.md"),

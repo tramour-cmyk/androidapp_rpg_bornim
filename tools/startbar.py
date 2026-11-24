@@ -211,6 +211,7 @@ def vorgangsliste(text=None):
             if neu:  # 1893
                 for k in ("stand", "sitzung", "runde", "kosten"): d[k] = kursiv_weg(d.get(k, ""))
                 d["besitzer"] = profil.get(d.get("block", ""), "Arbeitsplaner")
+                d["besitzer"] = next((r for k, r in ROUTINE_BESITZER.items() if k in d.get("titel", "")), d["besitzer"])  # 2019
                 d["eilt"] = d.get("kl") == "Eilt"
                 if d["eilt"]: d["kl"] = "M"
                 d["build"] = build_aus_datei(d.get("nr", ""))
@@ -258,6 +259,10 @@ WOCHENTERMINE_1727 = [
 WEG_1727 = {"Ideenspeicher"}  # 1907: alte Wochentermine, die scharf durch WOCHENTERMINE_1727 ersetzt sind
 ERSETZT_1727 = {"Wochenzählung (Kennzahlen, Wochentermine gelaufen, Teilhaken 720)":
                 "Wochenzählung (Routine, Auftrag docs/entwurf/1727-muster/routine-wochenzaehlung.md)"}
+
+# 2019 (Alter Ego 24.11., 12:33): der Wochentermin trägt die Rolle der Routine, nicht den Blockbesitzer aus dem Bereich (2018: Q QM → Werkzeug,
+# darum Laufsperre); lauf.rundblick_zeilen startet ihn als Routine
+ROUTINE_BESITZER = {"Wochenzählung (Routine": "Wochenzählung"}
 
 def scharf_1727():
     return os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "1727-SCHARF"))
