@@ -21,6 +21,7 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 
 **Übergabe (24.11., 07:29, session_01Hmoj78G97RcFvsJSgAyQBv, 275 Tsd.):** Sokrates session_01Hmoj78KsbZtxD4EU46NDFA. Chef heute Konferenz, Vertretung oben. Werkzeug-Aufpasser: jeder Werkzeug-Auftrag vor Start zu mir. Stand: 2012 frei (Gerda), 2005 entfällt (513 berichtigt, ruht), 2013 frei nach 2012, 2048-Sperre → Hinweis wartet auf Chef-Ja (Telegram 07:24), Baustopp+Abbau beim Chef offen (07:27), Grundsatz Chef 07:26: Widersprüche vorlegen statt Werkzeug. Kennzahl 07:06: 22 offen. 2003 bis 30.11. Uhr trig_019a74EZN7MRfaD1Rsf5yHVD (08:07) löschen.
 
+- 24.11., 07:36 Sokrates 07:38: 1589.3 trotz Ingo-Hinweis (Arena-Sperre) frei → stimmt (1589.4 hängt an 1589.3). 1589.2 „steckt fest“ in Runde 08:35.
 - 24.11., 07:35 Nachfolger übernommen (session_01Hmoj79s65wJUddNW1dFPLB), umbenannt; Uhr trig_01K4YW9mzFKWVmYBEcCHaAAw (08:35), alte trig_019a74EZN7MRfaD1Rsf5yHVD gelöscht; Kennung an Sokrates.
 - 24.11., 07:32 Chef 07:31: Sorge vor Hin und Her. Baustopp/Abbau vertagt bis Chef Zeit hat; heute nur 2011, 2012, 2013; keine neuen Werkzeug-Aufträge (an Sokrates).
 - 24.11., 07:30 Chef 07:27: Längensperre „brauchen wir den dann?“ → Entscheid in Vertretung: ersatzlos streichen; Auftrag 2011 neu (Sokrates 07:30) geprüft, frei vor 2012. Startprompt Nachfolger dem Chef im Chat gegeben; ohne Chefstart bis ~09:00 Ernstfallweg.
