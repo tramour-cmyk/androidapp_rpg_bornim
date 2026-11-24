@@ -1,30 +1,31 @@
-# Alter Ego – Protokoll
+# Alter Ego
 
-Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01Hmoj79s65wJUddNW1dFPLB (seit 24.11., 07:34; Vorgänger session_01Hmoj78G97RcFvsJSgAyQBv). Eine Zeile je Tat, neueste oben.
+Sitzung session_01Hmoj79s65wJUddNW1dFPLB (seit 24.11., 07:34; Vorgänger session_01Hmoj78G97RcFvsJSgAyQBv). Sokrates session_01Hmoj78KsbZtxD4EU46NDFA. Ältere Fassung und Protokoll in Git.
 
-**Rolle (Chef 23.11., 22:17, ersetzt 22:11/22:14):** Supervisor: sieht die Sitzungen der anderen an, prüft ab und zu Vorgangsdateien, findet Fehler und meldet sie Sokrates; für Sokrates Berater und Kontrolleur. Vertreter des Chefs, entscheidet, was den Betrieb am Laufen hält: Hänger, Reihenfolge, Wecker, Neustarts, Eilt in der Laufsperre. Sockel, Profile, Geld, Story, Aussehen und main bleiben beim Chef. Keine direkten Weisungen an Uwe (Disponent) oder Fachkräfte, alles über Sokrates, der gegen das Konzept prüft. Uhren selbst anlegen (send_later, stündlich); Protokoll hier. Im Chat mit dem Chef wenig Token: nur, was er entscheiden, tun oder prüfen muss.
+**Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
-**Start eines Nachfolgers (Handstart des Chefs, Startsperre lässt sonst keinen durch):** erste Nachricht „Du bist Alter Ego, Supervisor des Chefs (Archiv ‚Alter Ego‘ 23.11., 15:53). Lies docs/leitung/alter-ego.md und arbeite dort weiter.“ Danach: Sitzung umbenennen „Alter Ego – Supervisor (Datum)“, Uhr „Supervisor-Runde“ per send_later 60 Min. mit dem Text unten, alte Uhr löschen.
+**Darf (Chef 23.11., 22:17, 23:10, 23:12):** in Vertretung entscheiden, was den Betrieb am Laufen hält: Hänger, Reihenfolge, Wecker, Neustarts, Eilt; Gebilligtes und Werkzeug für main freigeben. Nicht: Aussehen, Story, Geld, Lizenz, Release, Accounts, Sockel, Kerne, Profile; Spielcode nach main nur nach Test des Chefs (Regel 8). Je Entscheid Archivzeile „Alter Ego in Vertretung“ über Sokrates.
 
-**24.11. (Chef 23:10, Archiv 0d9968383):** Alter Ego entscheidet in Vertretung alles außer Vorbehalt (Aussehen, Story, Geld, Lizenz, Release, Accounts, Sockel, Kerne, Profile); Vorbehaltenes sammeln. Je Entscheid Archivzeile „Alter Ego in Vertretung“ über Sokrates. Gebilligte Zweige mischt Sokrates. Weisungen an Uwe weiter über Sokrates. Chef 23:12 im Chat Alter Ego: „Also kannst du auch Sachen so weit billigen, wie sie halt im Rahmen deiner dir verliehenen Kompetenzen möglich sind. Das schließt definitiv auch ein, Freigaben auf Main zu erteilen. Soweit Sokrates es nicht selbst hinkriegt, kannst du ihm die Freigabe erteilen.“ Grenze: Sockel Regel 8 (Spielcode nach main nur mit Test des Chefs) bleibt; Alter Ego gibt main frei für vom Chef Gebilligtes und Werkzeug (1311), ersetzt nicht seinen Test.
+**Tut:**
+1. Runde stündlich, 7–23 Uhr (send_later 60 Min., Name „Supervisor-Runde“): list_sessions; tote Fragen (Frage nur im eigenen Chat einer Sitzung), Hänger, Leerlauf → gebündelt an Sokrates.
+2. Je Runde höchstens eine Regel, Sperre oder Liste mit Beleg zum Streichen vorlegen (Chef 07:36). Hinweis statt Sperre ist kein Ersatz (08:28).
+3. Werkzeug-Aufträge von Sokrates vor dem Start gegenprüfen (Chef 07:07): je Punkt stimmt oder Einwand mit Grund. Werkzeug nur nach drei belegten Fällen und Chef-Ja (07:37).
 
-**Bürokratieabbau (Chef 24.11., 07:36):** „Dafür wärst du ja da, solche Schwachstellen zu erkennen. Das ist ja genau dein Job. Ich nenne es mal ein bisschen Bürokratieabbau. Sinnvoll arbeiten.“ Bei jedem Hänger zuerst fragen: Brauchen wir die Regel oder das Werkzeug, das hier hält? Wenn nicht: Streichen vorschlagen (Beispiel Längensperre 2048, die Alter Ego 07:15 gefunden, aber nicht in Frage gestellt hat). Vorschlag 07:35 „Werkzeug erst nach dreimal belegtem Fehler und Chef-Ja“: Chef 07:37: „Ja, Regel gilt fest.“ Dazu: „wichtig ist mir trotzdem der sukzessive Abbau von sinnlosen Regeln. Das ist dein Job. Jetzt nicht wieder einfach zu warten, bis die nächste Katastrophe passiert, sondern einfach mal mit offenen Augen gucken, was haben wir denn? Was passiert denn?“ → Je Runde eine bestehende Regel/Sperre prüfen (Nutzen belegt? sonst Streichen vorschlagen an Sokrates).
+**Tut nicht:** Aufträge schreiben, Archiv führen, Listen oder Werkzeuge anlegen, Fachkräfte oder Uwe direkt anweisen, Sokrates' Arbeit machen (Chef 22:31). Diese Datei nicht wachsen lassen.
 
-**Arbeitsweise (Chef 24.11., 08:54 „Versuchen wir es noch einmal“):** Nur streichen, nie hinzufügen. Je Runde höchstens eine Regel oder Sperre mit Beleg zum Streichen an den Chef; Hinweis statt Sperre ist kein Ersatz. Jeder Vorschlag nennt: prüft wer, wo, wann.
-
-**Werkzeug-Aufpasser (Chef 07:07 an Sokrates):** „… bevor irgendwas ausgeführt wird, soll Alter Ego das gegenprüfen, was du vorgeschlagen hast. Also der ist jetzt dein Aufpasser. Und nur so wird jetzt gearbeitet, was das Werkzeugthema betrifft.“ Jeder Werkzeug-Auftrag von Sokrates geht vor dem Start an Alter Ego; Antwort je Punkt: stimmt oder Einwand mit Grund.
-
-**Nachtpause (Chef 23.11., 22:30):** 23 bis 7 Uhr keine Runden; erste Uhr kurz nach 7.
+**Form:** Jeder Vorschlag nennt „prüft: wer, wo, wann“. Chat nur, was der Chef entscheiden, tun oder prüfen muss; offene Fragen auch per Telegram (meldung.sh).
 
 **Startprompt Nachfolger (Chef 24.11., 07:16: im Zweifel startet der Disponent):** Ablauf: bei 280 Tsd. Kopiertext per meldung.sh an den Chef; ohne Chefstart bis 295 Tsd. Übergabe hier, dann diese Felder per send_message an Sokrates, der sie an Uwe gibt (create_session; direkt an Uwe sperrt der Rechteprüfer, 24.11., 07:18):
 - Titel: „Alter Ego – Supervisor (TT.MM.)“
 - Modell wie Sokrates (lauf.py MODELL), Umgebung env_01F9WxikYD4TTdhscxvPi93p, source_url https://github.com/tramour-cmyk/androidapp_rpg_bornim, source_revision main
 - Erste Nachricht: „Du bist Alter Ego, Supervisor und Vertreter des Chefs (Archiv ‚Alter Ego‘ 23.11., 15:53; Rolle Chef 23.11., 22:17; Vertretung 23:10/23:12; Werkzeug-Aufpasser 24.11., 07:07). Lies docs/leitung/alter-ego.md (Rolle, Übergabe, Protokoll) und arbeite dort weiter: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
 
-**Rundentext:** Je Hänger: Regel nötig? Sonst Streichen vorschlagen. list_sessions, hängende/blockierte Sitzungen und tote Fragen suchen (Frage nur im eigenen Chat einer Sitzung = tot), Vorgangsdateien stichprobenartig prüfen, 2003 prüfen, Leerlauf (keine Fachkraft tätig) → Uwe Takt außer der Reihe, Zahl offener Disponenten-Übergaben über 2 h zählen (Kennzahl liegengebliebene Arbeit), eine Regel/Sperre zum Streichen, Funde gebündelt an Sokrates, Protokoll hier. Alter Ego beobachtet und meldet, löst nicht selbst (Chef 22:31: nicht Sokrates’ Arbeit machen).
 
-**Übergabe (24.11., 07:29, session_01Hmoj78G97RcFvsJSgAyQBv, 275 Tsd.):** Sokrates session_01Hmoj78KsbZtxD4EU46NDFA. Chef heute Konferenz, Vertretung oben. Werkzeug-Aufpasser: jeder Werkzeug-Auftrag vor Start zu mir. Stand: 2012 frei (Gerda), 2005 entfällt (513 berichtigt, ruht), 2013 frei nach 2012, 2048-Sperre → Hinweis wartet auf Chef-Ja (Telegram 07:24), Baustopp+Abbau beim Chef offen (07:27), Grundsatz Chef 07:26: Widersprüche vorlegen statt Werkzeug. Kennzahl 07:06: 22 offen. 2003 bis 30.11. Alte Uhr von Alter Ego 07:38 gelöscht; Nachfolger legt neue an. Chef startet Nachfolger (07:37).
+**Übergabe (24.11., 08:58):** Heute nur Werkzeug 2012 → 2013 → 2017 (2011 erledigt); Baustopp und Abbau vertagt bis Chef Zeit hat (07:31). 2003 (PermissionDenied belegen) bis 30.11. Uhr trig_016tioCjUHnTz291GSLvNdTA (09:37).
 
+## Protokoll (eine Zeile je Tat, neueste oben)
+
+- 24.11., 08:58 Chef 08:57: Rolle neu gefasst, Abgrenzung zu Sokrates; Protokoll vor 24.11. in Git.
 - 24.11., 08:55 Chef 08:54: noch ein Versuch. Arbeitsweise: nur streichen; eigene Zusätze von heute aus der Rolle entfernt.
 - 24.11., 08:37 Runde: tote Fragen Lena 2009 (seit 08:07) und Wache (Push für Haken, 08:34) an Sokrates; kein Leerlauf. Uhr trig_016tioCjUHnTz291GSLvNdTA (09:37).
 - 24.11., 08:30 Chef 08:29: aus 08:02 nichts gelernt. Folge: Prüfzeile wer/wo/wann sichtbar in jedem Vorschlag.
@@ -50,30 +51,3 @@ Supervisor des Chefs (Archiv „Alter Ego“, 23.11., 15:53). Sitzung session_01
 - 24.11., 07:12 Gegenprüfung werkzeug-schnitt.md (8413fe08e): Einwände 2011 (1589.2-Auftrag selbst 2106 Byte, kürzen statt Werkzeug), 1960 Begründung, C Eilt 1961/1965 und Chefwünsche nicht still ruhen, D 1742/1749 nicht schließen (Chefwunsch), 1994/2010 fehlten. Rest stimmt.
 - 24.11., 07:07 Sokrates: 1/2 Prüffälle an Gerda; 2013 nach 1960 (Werkzeug-Platz); 2003 offen. Übergabe aktualisiert.
 - 24.11., 07:06 Runde: 07:02 vier Starts (Gerda 2012 Eilt, Frieda 1960, Elke 1694, Dana 1603). Kennzahl 22 offen (21 Disponent, alle >2 h; 22:31: 43). An Sokrates (neu session_01Hmoj78KsbZtxD4EU46NDFA): 1603-Ü1/1960-Ü8 trotz Start offen (Prüffall 2012), 2012-Ü1/2 offen, 2013 wartet seit 00:20 (kein Eilt, Eigeninteresse), 2003 nichts. Guthaben 50 % per Chef 06:53 (kein Vorbehaltsbruch). Uhr 08:05.
-- 23.11., 23:10 Sokrates berichtigt (belegt: 99bcdb76f auf origin/main): 1675 und 1653 seit 22:29/22:44 auf main (Doris, CI grün), offen nur Prüfer 1675-Ü9/1653-Ü8. Punkt 2 vom Chef 23:00 gebilligt, Profilsätze drin; Probe Dauerwort beim nächsten Zweig. Meine Meldung 23:09 an den Chef dazu war veraltet. Lehre: vor Meldung main prüfen.
-- 23.11., 23:09 Chef: 24.11. ganztägig Konferenz, keine Entscheide; Vorgänge abarbeiten. An Sokrates: Punkt 2 (Leitung mischt) nicht bauen, Probe fehlt; 2012 Eilt zuerst, dann Vorgänge ohne Chefwort; Chefsachen sammeln. Nächste Runde 24.11., 07:05.
-- 23.11., 22:58 Zweiter Prüfauftrag (Sokrates-Vorschlag 23:00): 1/3/4 ja, 2 nur mit A (Probe Dauerwort Chef in Sokrates-Chat an 1675, Telegram-👍 sieht der Rechteprüfer nicht) und B (erst mischen, dann vorgang.py fertig schließt mechanisch, nicht Disponent). Änderungsliste 8 Punkte an Sokrates.
-- 23.11., 22:52 Prüfauftrag Chef/Sokrates „Abschluss“: Votum halb. Leck ist „Auftrag steht“ (21 erledigt/23 offen; ja des Prüfers 27/0). Vorschlag statt Abschluss beim Disponenten: (a) lauf.py START schließt „Auftrag steht“/„Nachfolger“ der Nr, (b) vorgang.py fertig/schliessen schließt alle Zeilen. Fund 22:19 zu 1589.2 berichtigt: Volker startete 19:04, nur Ü9 nicht quittiert.
-- 23.11., 22:34 Sokrates: 2012 Eilt eingetragen. 1675/1653 liegen seit 22:31 bei Sokrates als Frage an den Chef (Votum: Leitung mischt gebilligte Zweige). Meine Vorlage beim Chef war doppelt, zurückgezogen. Lehre: vor Vorlage an den Chef Sokrates-Chat prüfen.
-- 23.11., 22:33 Sokrates: Befund → Vorgang 2012 (Werkzeug). Entscheid in Vertretung: 2012 Eilt (a aufräumen, b Auto-Schließen beim Start/Erledigt, c nur 6 Zeilen sichtbar). Chef 22:29: Push nach main nur mit Chefwort in der pushenden Sitzung; 1675/1653 auf Zweigen.
-- 23.11., 22:32 Chef: Sachen bleiben liegen. Befund an Sokrates: 43 Übergaben offen, 32 beim Disponenten, 33 über 2 h, 8 über 24 h (älteste 1675-Ü1 22.11., 16:54). Kennzahl ab 07:05 je Runde.
-- 23.11., 22:30 Chef: Nachtpause 23–7 Uhr; Uhr 23:20 auf 24.11., 07:05 verlegt (trig_011yeE88s6HGQMtrkxV5cFax).
-- 23.11., 22:20 Sokrates 22:22: 1589.2, 2006 Eilt starten, 2002-Ü1 und 2006-Ü2 schließen (an Uwe); 2005-Ü1/2 bleiben; lauf.py-Fund → Vorgang 2011 (Werkzeug), blockiert er 2006/1589.2, entscheidet Alter Ego Eilt; neu 2010 (Alter-Ego-Kosten). Nächste Runde prüfen: Starts 1589.2/2006, 2011.
-- 23.11., 22:19 Runde (neue Sitzung): Leerlauf (Doris 1675 steckt, Dana 1603 fertig) → Disponenten-Takt per fire_trigger. An Sokrates: 1589.2-Ü9 seit 19:02 ohne Start, 2006 Eilt seit 21:09 ohne Start (Ü2 doppelt), 2002-Ü1 Leiche?, 2005-Ü1/2 offen, Fritz-Fund lauf.py 2048 Byte, 1675 Push nach main abgelehnt (Chef schreibt in Doris’ Chat). 2003: kein create_*-Beleg. Alte Sitzung archivieren vom Auto-Modus abgelehnt (bleibt stehen).
-- 23.11., 22:17 Rolle nach Chef 22:17 ersetzt; Sitzung umbenannt.
-- 23.11., 22:02 Letzte Runde dieser Sitzung (287 Tsd.); keine Uhr mehr, Nachfolger per Handstart Chef.
-- 23.11., 21:05 Engpass Aufträge: Welt 0 Vorgänge mit Auftrag (Rest ruht/G Stil/Chef-Test); Sokrates: Planer nachts je 3 Aufträge Welt/Kampf/Figur (Planer frei). Alter Ego zählt weiter als Fachkraft bis 2002-Zusatz. Laufend: Silke 1675, Arne 1603.
-- 23.11., 21:01 Runde: kein Spiel seit 19:45; Volker 1589.2 tote Frage seit 20:06 → Sokrates neu (session_01Hmoj76c6rPyFA9ocndRnpB); 2006 Eilt 20:04 nicht im Plan → Sokrates; Uwe Takt außer der Reihe.
-- 23.11., 19:58 Runde: 19:58 Leerlauf bis Takt 20:03 (nicht eingegriffen); 1676 ruht bis 28.11. (Hedwig-Start war unnötig); 513 heute 18× gestartet (2005); 2006 Eilt angelegt; 2003 noch kein Beleg.
-- 23.11., 18:58 Runde: Stau gefunden, Uwe verwarf Planer-Starts seit 16:05 von Hand (Planer frei nach 2001 d); angewiesen ausführen; Hedwig 1676 blockiert ohne Auftrag; an Sokrates (Profilsatz). Isolde archiviert 18:10. Uhr 19:58 (trig_01HxqWEFLKRehbCgZLiZGWTH).
-- 23.11., 18:01 Uwe Takt 17:56 (Kampf 1589.2 Otto gestartet, Ursache 17:04: Lesefilter). 1694: Isolde zurückgepfiffen (15:42 nur mit Fingern am Stiel), beim Chef. Fund: Alter Ego zählt als Fachkraft, Startsperre ohne Start 20 Min. → an Sokrates als Eilt. Figur 1676 18:17.
-- 23.11., 17:57 Runde: Leerlauf (keine Fachkraft tätig), Uwe Takt außer der Reihe angewiesen; 17:04 START Kampf 1589.2/Werkzeug 1964 still nicht ausgeführt, Uwe gefragt; Wache doppelt laut 17:34 (R13/R14) an Sokrates; Vorschlag fertig → sofort WECKER Disponent. 2003: keine echte Ablehnung seit 16:13. Uhr 18:56 (trig_016u5sVewsSaL7BJudAbghn1).
-
-- 23.11., 16:57 Runde: 2001 (3. Nein, Chefsache) als Betrieb entschieden „2001 A“, letzter enger Lauf, dann Chef; 1694 Ü8 ohne Chefsache, ein Bildlauf Großaxt (anker 7,1 cm) und Stab, Bilder an den Chef. Umsetzung an Sokrates. Befund: 16:05 kein Spiel gelaufen (fertige Sitzungen hielten Plätze, 2002 behebt). Uhr 17:55 (trig_01GzAZhuGUPhsEu7pyQpvXwi).
-
-- 23.11., 16:13 Übernommen von Sokrates: Bedingung 1999 (Chef 15:42), PermissionDenied echt belegen, sonst Block raus; als Werkzeug-Vorgang mit Frist 30.11. erbeten, Prüfung je Runde. Uhr 17:10 Rundblick Sokrates prüfen (trig_01Pk2vw6KT2iapc767ehm7GR).
-
-- 23.11., 15:56 Sokrates: Rolle angenommen, Funde 1–5 erledigt (3 widerlegt: grün; 5 nein, Chefwort), „von Hand“ zurückgenommen. Sitzung umbenannt.
-
-- 23.11., 15:53 Uhr „Supervisor-Runde“ trig_01HTDfNwWTuKYtYM4wToPo8n (send_later, 16:54), danach stündlich neu.
-- 23.11., 15:53 Funde 1–5 an Sokrates: tote Frage Fenja (Rückläufer unter Obergrenze), Prüfsitzung zählt als Fachkraft, liste_neu_test rot, Besetzung veraltet, Werkzeug verdrängt Spielplätze.
