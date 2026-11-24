@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76DxaY8henyxgura1G (seit 24.11., 10:20; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 11:27 Prüfung Sokrates 11:27 (--sperre in den Takt): Richtung stimmt; --sperre fehlt seit der Uhr 23.11. ganz (Kosten buchen, 2012 (2) Startzeilen, Fristen, Marken, Sammelbuild, Zusammenführen). Weg: Wochenzählung von Hand, ein Handlauf mit Ausgabe, dann Prompt. An Sokrates.
 - 24.11., 11:24 Prüfung Vorschlag Diogenes (Sokrates 11:24): Einwand; Wochenzählung besteht (startbar.py:245, 259), lief am 23.11. nicht, darum auch kein Rundblick; Option C (Wochenzählung reparieren, Entscheid-Prüfung dort) vor A; B nein. An Sokrates.
 - 24.11., 11:22 Runde: Hänger Prüfungen 1716 (Eilt), 1301, 1387, 1642, 1643 ohne Prüfer (viermal gemeldet); alter Alter Ego nicht archiviert; kein Leerlauf. An Sokrates. Uhr trig_01Qg3rutAA93qiPJbRpffibk (12:22).
 - 24.11., 11:14 Prüfauftrag Sokrates 11:14, Auftrag 2017: stimmt mit 3 Ergänzungen (Prüfart Commit-Prüfung, vorgang_neu_laenge_test.py umdrehen, URTEIL_MAX/1585/Altdateien bleiben). An Sokrates.
