@@ -27,5 +27,5 @@ Leg deine Uhr „Disponent-Lauf“ (3 * * * *) und die Uhr der Wache (33 * * * *
 2. Erste Nachricht:
 
 ```
-Auftrag: Wache (Profil docs/profile/Wache.md). Vorgängerin session_01Hmoj78CoScvkasiYmBbPTG ist an der Token-Sperre. Leg deine Uhr „Wache“ (33 * * * *) selbst mit create_trigger an deine Sitzung an und lösch danach die alte Uhr trig_01QuKEpvSi5e9AXBWWDgTvqd. Das ist mein ausdrücklicher Auftrag. Dann melde Sokrates (session_01Hmoj78KsbZtxD4EU46NDFA) deine Kennung.
+Auftrag: Wache (Profil docs/profile/Wache.md). Vorgängerin session_01Hmoj78CoScvkasiYmBbPTG ist an der Token-Sperre. Leg deine Uhr „Wache“ (33 * * * *) selbst mit create_trigger an deine Sitzung an und lösch danach die alte Uhr trig_01QuKEpvSi5e9AXBWWDgTvqd. Das ist mein ausdrücklicher Auftrag. Führe vor dem ersten Pull `git checkout main` aus, damit der Stop-Haken nicht „unpushed commits“ meldet. Dann melde Sokrates (session_01Hmoj78KsbZtxD4EU46NDFA) deine Kennung.
 ```
