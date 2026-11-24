@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj79s65wJUddNW1dFPLB (seit 24.11., 07:34; Vorgänger session_01Hmoj78G97RcFvsJSgAyQBv). Sokrates session_01Hmoj78KsbZtxD4EU46NDFA. Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj79s65wJUddNW1dFPLB (seit 24.11., 07:34; Vorgänger session_01Hmoj78G97RcFvsJSgAyQBv). Sokrates session_01Hmoj76yxzDSEqiQVjnX9U2 (seit 24.11., ~09:05). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj79s65wJUddNW1dFPLB (seit 24.11., 07:34; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 24.11., 09:10 Prüfauftrag Sokrates (Chef 09:06): Wache auf main gegen Cloud-Push-Haken → stimmt (Haken zählt origin/<Zweig>..HEAD). Streichvorschlag: Profil Wache „deine Datei/Zeitmarke“ ohne Datei.
 - 24.11., 08:58 Chef 08:57: Rolle neu gefasst, Abgrenzung zu Sokrates; Protokoll vor 24.11. in Git.
 - 24.11., 08:55 Chef 08:54: noch ein Versuch. Arbeitsweise: nur streichen; eigene Zusätze von heute aus der Rolle entfernt.
 - 24.11., 08:37 Runde: tote Fragen Lena 2009 (seit 08:07) und Wache (Push für Haken, 08:34) an Sokrates; kein Leerlauf. Uhr trig_016tioCjUHnTz291GSLvNdTA (09:37).
