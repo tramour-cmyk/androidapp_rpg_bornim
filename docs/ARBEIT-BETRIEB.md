@@ -303,3 +303,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:15 25.11.: Alter Ego alt (…76MLqX) archiviert, 13,15 $ (2013); neuer hat sich 10:12 gemeldet. Chef 10:13: drei Fachkräfte bis Sa 20:00. Carla: kein Code bis Deckelentscheid (Chefsache 15894-kapsel-deckel), darf enden.
 - 10:28 25.11.: Startsperre 10:27 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1589.4 Berta)
 - 10:29 25.11.: Planerin Berta 1589.4 (session_01Hmoj77DVatH7TJh9zEk9JC, Chef „Machen“ 10:26: Deckel 36 $, Halt 32 $); danach neue Kampf-Sitzung, Carla (…75pqY4, idle) archivieren (2,31 $).
+- 10:32 25.11.: Startsperre 10:31 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2026 Frieda)
