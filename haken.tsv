@@ -1369,3 +1369,4 @@
 2026-11-25 07:16:38	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/wiebke-431-volkskoerper
 2026-11-25 07:48:56	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/wiebke-431-volkskoerper
 2026-11-25 08:04:49	commit-pruefung	VORGANGSARCHIV.md: neuer Entscheid zu 431 berührt B1, B2; im selben Commit die Zeile(n) in DESIGN-STIL/-KAMPF/-ABNAHME ändern und am alten Eintrag „→ ersetzt durch …“ anhängen (461b); ändert er nichts	main
+2026-11-25 09:52:10	commit-pruefung	VORGANGSARCHIV.md: neuer Eintrag „1589.4 weiter“ trifft ältere Einträge ohne „ersetzt durch“ (1589.4 A, Deckel 26 $; 1589.4 jetzt, Spiel vor; 1589.2 A, wartet auf Stufe 3; 1589.2 steckt fest, Typen un	main
