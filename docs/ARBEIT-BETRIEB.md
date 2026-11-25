@@ -365,3 +365,4 @@ STARTSPERRE - 16:38 25.11.: Startsperre 16:38 Start Sokrates (lauf.py, 1988)
 - 16:41 25.11.: Chef 16:38 (über Sokrates): Deckel mindestens 50 $ je Vorgang, darunter kein Halt; 2029 Hanna Deckel 50 $ (Halt 45 $) gemeldet; 1708 Frauke 50 $.
 - 16:41 25.11.: Sokrates alt (…77b3dQ) archiviert (1988: 18,12 $); neuer …77uPSf meldet sich.
 - 16:58 25.11.: Startsperre 16:58 Start Arbeitsplaner, Kampf, Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Nils, Kampf 1589.4 Olga, Arbeitsplaner 1484 Paula, Tagesbericht 448)
+- 17:00 25.11.: Takt 16:58: Nora (2028, 16,47 $) archiviert; Prüfer (…75ccpj) 2028-Ü4 und 2029-Ü8 per Nachricht geweckt (Sokrates 16:58); START Planer Nils 887, Planer Paula 1484, Kampf Olga 1589.4, Tagesbericht nicht ausgeführt (ruht/Werkzeug/Maja läuft/Chef-Ruhe); lauf.py-Startsperre-Marken irrtümlich gesetzt.
