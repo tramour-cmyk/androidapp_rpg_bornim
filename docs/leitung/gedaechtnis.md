@@ -30,4 +30,4 @@
 
 ## Übergabe
 
-- 25.11., 16:31, `77b3dQ…`: 431 auf main; 1589.4 80 $; 1708 jetzt; 2031 60 $. Offen: „2024 nach main“. Nachfolger: Sokrates.
+- 25.11., 16:31, `77b3dQ…`: 431 auf main; 1589.4 80 $; 1708 jetzt; 2031 60 $. Offen: „2024 nach main“.
