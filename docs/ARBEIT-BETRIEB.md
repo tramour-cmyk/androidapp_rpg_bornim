@@ -115,3 +115,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:15 25.11.: 2041-Ü25 Hinweis Ralf (Besetzung führt Prüfer als Werkzeug) in 2043, erledigt.
 - 22:15 25.11.: Startsperre 22:15 Start Werkzeug (lauf.py, Werkzeug 2042 Anna)
 - 22:17 25.11.: 2042-Ü4 Auftrag steht (Oda 22:14): Werkzeug Britta …7ABjVr gestartet (Eilt, Startsperre 22:15). Kl. in LISTE-VORGAENGE von Hand M → Eilt (Chef 22:03 „A mit Eilt“, Archiv Z. 6), weil die Laufsperre den Start sonst anhielt; vorgang.py klasse kennt nur M|K.
+- 22:25 25.11.: Startsperre 22:25 Start Kampf (lauf.py, Kampf 1708 Anna)
