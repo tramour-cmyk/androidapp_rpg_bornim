@@ -90,3 +90,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:39 25.11.: Startsperre 21:39 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Oda, Arbeitsplaner 2029 Paula)
 - 21:40 25.11.: Startsperre 21:40 Start Figur (lauf.py, Figur 2034 Anna)
 - 21:42 25.11.: Startsperre 21:42 Start Sokrates (lauf.py, 1988)
+- 21:44 25.11.: Startsperre 21:44 Start Arbeitsplaner, Kampf, Arbeitsplaner, Prüfer (lauf.py, Arbeitsplaner 887 Oda, Kampf 1589.4 Paula, Arbeitsplaner 2029 Rudi, Prüfer 2031 Sven)
