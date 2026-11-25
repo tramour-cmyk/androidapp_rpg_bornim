@@ -829,6 +829,20 @@ if os.environ.get('UAL'):
            ('Jog_Left_Loop', 'Ausweichen links', 1.0, 9, WA)]
 BEWEGT = {e_[1]: uebertrage(*e_[:4], arme=e_[4], halt=e_[1] != 'Tod', spiegeln=len(e_) > 5 and e_[5]) for e_ in ZU}
 print('BEWEGUNG Hieb aus %s' % HIEB_Q)
+# 2024 (Prüfer 13:42 (3): am Aufschlag lag der rechte Arm mit dem Morgenstern hinter Krogg, die Drehung des Rumpfs warf ihn nach
+# hinten): im Prankenhieb steht der rechte Arm ab dem Oberarm je Bild zum Becken wie in Stehen, der Morgenstern bleibt vorn
+st_, nst = BEWEGT['Stehen']; pr_, npr = BEWEGT['Prankenhieb']
+OBERARM_R = [b for b in ARM_R if not b.startswith('clavicle')]
+for f in range(0, npr + 1):
+    ARM.animation_data.action = st_; sc.frame_set(f % (nst + 1)); bpy.context.view_layer.update()
+    rel = {b: PB['pelvis'].matrix.inverted() @ PB[b].matrix for b in OBERARM_R}
+    ARM.animation_data.action = pr_; sc.frame_set(f); bpy.context.view_layer.update()
+    P = PB['pelvis'].matrix.copy()
+    for b in OBERARM_R:
+        PB[b].matrix = P @ rel[b]; PB[b].location = (0, 0, 0); PB[b].scale = (1, 1, 1); bpy.context.view_layer.update()     # nur Drehung
+    for b in OBERARM_R:
+        PB[b].keyframe_insert('rotation_quaternion', frame=f)
+print('BEWEGUNG Prankenhieb: rechter Arm zum Becken wie in Stehen (%d Bilder)' % (npr + 1))
 WEG = {}
 RM = os.environ.get('UAL_RM') or (os.path.join(os.path.dirname(os.environ['UAL']), 'UAL1_RM.glb') if os.environ.get('UAL') else '')
 if RM and os.path.exists(RM):
