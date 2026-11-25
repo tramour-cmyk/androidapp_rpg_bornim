@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 25.11., 17:40, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 25.11., 17:51, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -30,8 +30,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 25.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 5 | 1487 (Regeln) Heiler wächst in Kapitel 1 nie im Willen |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 62 (62) | 18 | 1 | 1 | 36 | 1589.4 (Kampf) Stufe 3 Gegnerverhalten, Figuren in die Arena: fi… |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 39 (35) | 24 | 1 | 3 | 10 | 1785 (Figur) Weg aus 4fd7055c8 … |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 62 (62) | 18 | 2 | 1 | 36 | 1589.4 (Kampf) Stufe 3 Gegnerverhalten, Figuren in die Arena: fi… |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 39 (35) | 24 | 3 | 3 | 10 | 1785 (Figur) Weg aus 4fd7055c8 … |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 6 | 644 (Kataloge) Alle Gegenstände an einer Stelle: Katalog 458 mit… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 2 | 0 | 0 | 14 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 2 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
@@ -75,12 +75,12 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 1589.4 | Kampf | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Bei… | M | 2 Kampf | in Arbeit |
-| 2 | 1708 | Kampf | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleib… | M | 2 Kampf | startbar |
+| 2 | 1708 | Kampf | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleib… | M | 2 Kampf | in Arbeit |
 | 3 | 1785 | Figur | Weg aus 4fd7055c8 … | M | 3 Figuren und Kleidung | startbar |
 | 4 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
 | 5 | 2024 | Figur | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der… | M | 3 Figuren und Kleidung | startbar |
-| 6 | 2029 | Figur | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in… | M | 3 Figuren und Kleidung | startbar |
-| 7 | 2031 | Figur | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt geg… | M | 3 Figuren und Kleidung | startbar |
+| 6 | 2029 | Figur | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in… | M | 3 Figuren und Kleidung | in Arbeit |
+| 7 | 2031 | Figur | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt geg… | M | 3 Figuren und Kleidung | in Arbeit |
 | 8 | 2032 | Figur | Rowena: rechte Finger auf dem Gürtel dunkel, gelbe Kleid-Innenseite sichtbar | M | 3 Figuren und Kleidung | startbar |
 | 9 | 2034 | Figur | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NP… | M | 3 Figuren und Kleidung | in Arbeit |
 | 10 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
