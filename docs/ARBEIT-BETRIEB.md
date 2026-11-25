@@ -136,3 +136,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:02 25.11.: Startsperre 23:02 Start Sokrates (lauf.py, 1988)
 - 23:04 25.11.: Sokrates …79sfZC übergab bei 400 Tsd. (b4b4416f0); Nachfolger „Sokrates – Leitung (25.11., 23:03)“ …79MGDR gestartet (Startsperre 23:02). Vorgänger archivieren, sobald der Nachfolger sich meldet.
 - 23:05 25.11.: 2044 an Dora nach 2042 (Sokrates 23:03, kein Start); Kennung neuer Sokrates an Alter Ego.
+- 23:06 25.11.: 2042-Ü17 (fertig Dora Teile 6, 9, dora-2042 331e060e8) an Ralf. Ü18 (auf main) geschlossen ohne Push: CLAUDE.md 8, main erst nach Prüfer-Ja, mischt Sokrates.
