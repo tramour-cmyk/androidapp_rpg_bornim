@@ -25,6 +25,7 @@ Sitzung session_01Hmoj75PCSHUvX4ZVftYC3X (seit 25.11., 16:37; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 17:31 Unabhängige Ablaufprüfung fertig (8 Funde: Plätze falsch gezählt, main-Regel vierfach, Nachtsperre, Rückläufer falsche Sitzung, Leichen offen, Quittungen, Chefwort weckt Planer, Schub statt Zug). Geprüft: 431 main per Chef-👍 12:37 vor Test (Archiv Z. 23), Nachtsperre Sokrates (Archiv Z. 44). Geprüfte Liste dem Chef vorgelegt.
 - 25.11., 17:27 Chef 17:27 zu 2034 (Signatur prüfen, dann Abzug je Teil zoombar, er schließt aus) → wörtlich an Sokrates, Chefwort von Hand. 17:24 unabhängige Ablaufprüfung (Unteragent) gestartet auf Chef 17:23; drei Profilsätze bis dahin zurückgehalten.
 - 25.11., 17:22 Chef 17:21: Prüfer wie Fachkraft weiter bis voll. Entscheid 17:17 berichtigt: Jonas archivieren, sonst WEITER-Grenze (200 Tsd., 60 Min. Ruhe); Profilsatz Disponent beim Chef. Ursache Jonas: uebergabe.py Z. 303–312 weckt die eingetragene Sitzung ohne Grenze. Jonas 28 Übergaben, 43,58 $.
 - 25.11., 17:17 Chef 17:16 zum Prüfer: Jonas seit 24.11., 12:06, 548 Tsd., 43,58 $, getrennt; Profil „einen Auftrag“. Entscheid in Vertretung: archivieren, je Prüfung frischer Prüfer, Besetzung umstellen → an Sokrates. Offen beim Chef: 1990, A/B Starts.
