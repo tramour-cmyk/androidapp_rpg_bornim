@@ -32,5 +32,24 @@ soll("(4) Karls alter Titel → TITEL session_KARL Disponent – Büro (25.11., 
 soll("(4) alte Wache → TITEL session_WALT Wache – Betrieb (24.11., 07:01)", "TITEL session_WALT Wache – Betrieb (24.11., 07:01)" in tz, tz)
 soll("(4) richtige Titel, archivierte und Fachkräfte: keine Zeile", len(tz) == 2, tz)
 
+# (1) list_sessions nur bis Zeitgrenze: Kurzform-Endzeile „# bis: <created_at der letzten Zeile>“ statt „# has_more: nein“
+import datetime, tempfile
+B = lauf.BERLIN
+j1 = datetime.datetime(2026, 11, 25, 22, 34, tzinfo=B); j2 = datetime.datetime(2026, 11, 26, 1, 0, tzinfo=B)
+soll("(1) Grenze 22:34 → heute 00:00", lauf.zeitgrenze(j1) == datetime.datetime(2026, 11, 25, 0, 0, tzinfo=B), lauf.zeitgrenze(j1))
+soll("(1) Grenze 01:00 → jetzt − 3 h", lauf.zeitgrenze(j2) == datetime.datetime(2026, 11, 25, 22, 0, tzinfo=B), lauf.zeitgrenze(j2))
+d = tempfile.mkdtemp()
+def kurz(name, ende):
+    p = os.path.join(d, name)
+    open(p, "w").write("session_A | working | 2026-11-25T21:00:00Z | Karl – Disponent – Betrieb | - | 2026-11-25T20:00:00Z | 90000\n" + ende + "\n"); return p
+alt, jung, voll, ohne = kurz("alt", "# bis: 2026-11-24T22:50:00Z"), kurz("jung", "# bis: 2026-11-25T12:00:00Z"), kurz("voll", "# has_more: nein"), kurz("ohne", "")
+for name, p, soll_offen in (("bis vor Grenze", alt, False), ("bis nach Grenze", jung, True), ("has_more nein", voll, False), ("ohne Endzeile", ohne, True)):
+    offen = []; lauf.kosten.sitzungen(p, offen)
+    rest, bis = lauf.grenze_offen(offen, j1)
+    soll("(1) %s: abgeschnitten=%s" % (name, soll_offen), bool(rest) == soll_offen, (rest, bis))
+besetz = "| Disponent | [Karl](https://claude.ai/code/session_A) | Betrieb | – | x |\n| Wache | [Wache – Betrieb](https://claude.ai/code/session_W) | Betrieb | – | x |\n"
+soll("(1) Besetzung ohne Seite → fehlt session_W", lauf.besetzung_fehlt(besetz, {"session_A"}) == ["session_W"], lauf.besetzung_fehlt(besetz, {"session_A"}))
+soll("(1) Besetzung vollständig → nichts", lauf.besetzung_fehlt(besetz, {"session_A", "session_W"}) == [])
+
 print("lauf_2042_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

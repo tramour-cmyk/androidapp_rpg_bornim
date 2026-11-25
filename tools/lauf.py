@@ -6,6 +6,8 @@ SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more f
   ODER Kurzform (Datei mit einer Zeile je Sitzung, kein Abschreiben der Seiten nötig, 167.2):
   `Kennung | working|idle|blocked|need_input|archived|failed | updated_at (ISO) | Titel | Kosten $ (oder -) | created_at | used_tokens (context_usage, für WEITER, 261.5)`
   Letzte Zeile der Kurzform: `# has_more: nein` (erst nach der letzten Seite von list_sessions); fehlt sie oder steht „ja“, warnt lauf.py „Seite abgeschnitten“ (261.4).
+  2042: statt dessen `# bis: <created_at der letzten Zeile>`, sobald diese vor der Zeitgrenze liegt (früher von heute 00:00 und jetzt − 3 h);
+  fehlt dann eine Sitzung aus ARBEIT-BESETZUNG.md: Zeile GET_SESSION <ids> (Kurzzeile nachtragen, lauf.py neu), kein Plan.
 Ausgabe, Zeile für Zeile auszuführen:
   START <Rolle> | model | [effort high] | environment_id | source_url | source_revision | Titel | erste Nachricht   → create_session mit allen Feldern, source_url (187) und source_revision main (382) Pflicht (Startsperre vorher pushen: --sperre schreibt sie)
   ARCHIVIERE <session_id> | <Rolle> | <Kosten $> | <Vorgang>        → archive_session, danach --kosten (siehe unten)
@@ -1005,6 +1007,31 @@ def sitzungen_lesen(seiten):
     return [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
 
 
+def zeitgrenze(jetzt=None):
+    """2042 (1): list_sessions im Takt nur bis hier (created_at), die frühere von heute 00:00 und jetzt − 3 h (Berlin).
+    Beleg: BUCHE nur heute, Rufnamen nur heute (rufname.heute_vergeben), START_PRUEF_STD 3, WAECHTER_STUNDEN 3."""
+    j = (jetzt or JETZT).astimezone(BERLIN)
+    return min(j.replace(hour=0, minute=0, second=0, microsecond=0), j - datetime.timedelta(hours=3))
+
+
+BIS = re.compile(r"^#\s*bis:\s*(\S+)\s*$", re.M | re.I)
+def grenze_offen(offen, jetzt=None):
+    """2042 (1): abgeschnittene Seiten ohne die Kurzformen, deren Endzeile „# bis: <created_at>“ die Zeitgrenze erreicht.
+    Gibt (noch offen, Liste der Kurzformen mit Zeitgrenze) zurück."""
+    g = zeitgrenze(jetzt); rest = []; bis = []
+    for p in offen:
+        m = BIS.search(lesen(p))
+        try: ok = bool(m) and z(m.group(1)) <= g
+        except ValueError: ok = False
+        (bis if ok else rest).append(p)
+    return rest, bis
+
+
+def besetzung_fehlt(text, ids):
+    """2042 (1): Sitzungen aus ARBEIT-BESETZUNG.md (Text), die in den Seiten bis zur Zeitgrenze fehlen (vor der Grenze gestartet)."""
+    return [k for k in dict.fromkeys(re.findall(r"claude\.ai/code/(session_\w+)", text)) if k not in ids]
+
+
 def laufend_setzen(bremse, sitz, marken, fertig=None, archiviert=()):
     """2001/2002: bremse.laufend und bremse.namen: laufende Fachkräfte („Laufend“, Kopf; ohne fertige ohne Rückläufer, 2002 A), dazu
     Startsperren unter SPERRE_MIN ohne Sitzung seither. sitz: je_rolle des Takts oder eine Liste lebender Sitzungen (Handstart)."""
@@ -1645,7 +1672,12 @@ def main():
         for s in kosten.sitzungen(p, offen): alle[s["id"]] = s
     ausgabe = vorab; archiviert = set()
     schutz = geschuetzt()  # 1531
-    if offen: ausgabe.append("WARNUNG Seite abgeschnitten (has_more) in %s: Plan unvollständig, weitere Seite holen" % ", ".join(offen))
+    offen, bis = grenze_offen(offen)  # 2042 (1): Kurzform bis zur Zeitgrenze gilt als vollständig
+    if offen: ausgabe.append("WARNUNG Seite abgeschnitten (has_more) in %s: Plan unvollständig, weitere Seite bis created_at vor %s holen (2042)" % (", ".join(offen), zeitgrenze().strftime("%d.%m., %H:%M")))
+    if bis:
+        fehlt = besetzung_fehlt(lesen(os.path.join(DOCS, "ARBEIT-BESETZUNG.md")), set(alle))
+        if fehlt:  # laut statt still falsch: vor der Grenze gestartete laufende Sitzung fehlt, sonst doppelter START
+            return print("GET_SESSION %s | 2042: vor der Zeitgrenze gestartet, steht in ARBEIT-BESETZUNG.md: get_session, Kurzzeile vor „# bis:“ anhängen, lauf.py neu" % ",".join(fehlt))
     leb = [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
     for name, tg, nach in startbar.nach_ausgefallen(JETZT):  # 1793: Routine mit „nach“ in der Nachholfrist nicht angelegt
         ausgabe.append("WARNUNG Wochentermin %s „%s“ ausgefallen: „%s“ war bis zum Folgetag nicht erledigt (1793; Sokrates, von Hand anlegen oder auslassen)" % (tg, name[:60], nach))
