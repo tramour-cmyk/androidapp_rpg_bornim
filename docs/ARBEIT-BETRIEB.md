@@ -379,3 +379,4 @@ STARTSPERRE - 17:18 25.11.: Startsperre 17:18 Start Kampf (lauf.py, Kampf 1708 A
 - 17:20 25.11.: START Kampf Berit 1708 (session_01Hmoj76EdmopCkFv7PLLpSS, Deckel 50 $); 1708-Ü2 erledigt; 2029-Ü12 und 2034-Ü1 (Auftrag steht, Anna) angenommen, Starts Figur 2029, 2034-A, 2032, 2033 folgen, sobald Plätze frei (Inge, Maja, Berit = 3).
 - 17:31 25.11.: 2034-Ü1 (Teil A Helme) auf Sokrates 17:29 nicht gestartet, erledigt; 2034-Ü4 (Teil 0 Signatur-Probe und Abzug, Figur) angenommen; Start nach Laufsperre, Reihenfolge 2029, 2034-Teil 0, 2032, 2033.
 - 17:35 25.11.: Startsperre 17:35 Start Kampf, Arbeitsplaner, Tagesbericht (lauf.py, Kampf 1589.4 Paula, Arbeitsplaner 887 Rita, Tagesbericht 448)
+STARTSPERRE - 17:35 25.11.: Startsperre 17:35 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2035 Anna)
