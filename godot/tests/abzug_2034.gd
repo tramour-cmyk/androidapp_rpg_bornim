@@ -190,13 +190,20 @@ func _bild(p: String, nr: String, ansicht: String, art: String, tusche: bool, mi
 	kam.far = a.size.z + 6.0
 	sonne.directional_shadow_max_distance = kam.far   # Buehne 2-3 m statt Lichtung 40 m: Schattenkarte fein genug fuer kleine Stuecke
 	sv.add_child(kam)
-	if tusche:   # Tusche nach Licht wie im Kampfort; nur die Linie der Gruppe (Schablone 2), Welt (0) und Gegner (3) haben hier nichts
-		var ms: Array[ShaderMaterial] = Sig.tusche_licht(kam)
+	# 2034-Ue14 nach Probe 3 (d0ed0dc33: Toon-Stufen 1 statt 3, weisses Stueck 0,98): Buehne ganz wie der Kampfort ueber
+	# Sig.einrichten (Sonne, Tonwerte Filmic/Saettigung/Kontrast, Tusche nach Licht, Nachfuehren je Bild); nur die Linie der
+	# Gruppe (Schablone 2) bleibt sichtbar, Welt (0) und Gegner (3) haben hier nichts
+	var buehne := Node3D.new()
+	sv.add_child(buehne)
+	var sg = Sig.einrichten(buehne, kam, c, welt.environment, sonne, true)
+	sonne.directional_shadow_max_distance = kam.far
+	var ms: Array[ShaderMaterial] = sg.mats
+	for q in kam.get_children():
+		if q is MeshInstance3D and (not tusche or (q as MeshInstance3D).material_override != ms[1]): q.queue_free()
+	if tusche:
 		Sig.nachfuehren(ms, kam, sonne, c, Vector2(B, H), true)
-		for q in kam.get_children():
-			if q is MeshInstance3D and (q as MeshInstance3D).material_override != ms[1]: q.queue_free()
 		ms[1].render_priority = 126
-		print("TUSCHE %s %s px %.2f dick %.2f umriss_dick %.2f sonne %s" % [nr, ansicht, ms[1].get_shader_parameter("px"), ms[1].get_shader_parameter("dick"), ms[1].get_shader_parameter("umriss_dick"), sonne.rotation_degrees])
+		print("TUSCHE %s %s px %.2f dick %.2f umriss_dick %.2f sonne %s tonemap %d" % [nr, ansicht, ms[1].get_shader_parameter("px"), ms[1].get_shader_parameter("dick"), ms[1].get_shader_parameter("umriss_dick"), sonne.rotation_degrees, welt.environment.tonemap_mode])
 	if not maske:   # 2034-Ue6: Wand mit Lichthof hinter dem Stueck (und hinter der Lampe)
 		var wd := MeshInstance3D.new()
 		var wq := QuadMesh.new(); wq.size = Vector2(kam.size * 4.0, kam.size * 4.0)
