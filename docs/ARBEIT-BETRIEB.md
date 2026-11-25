@@ -338,3 +338,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:15 25.11.: Startsperre 13:14 Start Figur (lauf.py, Figur 2029 Ute)
 - 13:16 25.11.: START Figur Ute 2029 (session_01Hmoj786YAM5Vmzh67eAwme, Deckel 30 $, Halt 24 $); Planerin Mia archiviert, 1,47 $. Fachkräfte: Selma 2024, Nora 2028, Ute 2029 (3); Maja 1589.4 wartet (Geld, Chef).
 - 13:19 25.11.: Startsperre 13:18 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1694 Tina)
+- 13:20 25.11.: Planerin Tina 1694-Ü38 (session_01Hmoj78vc9GH1HniSV9vok4, Auftrag neu: Nahkamera/Behebung, Chefwort-Fragen an Sokrates); 1589.4-Ü15 erledigt; 1589.4 Deckel beim Chef (entscheiden/15894-deckel-50.md, Telegram 13:18).
