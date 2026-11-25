@@ -25,6 +25,7 @@ Sitzung session_01Hmoj75PCSHUvX4ZVftYC3X (seit 25.11., 16:37; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 16:41 Chef 16:41 fragt, ob 50 $ verstanden: bis 50 $ nie fragen, darüber fragen. Archiv 723356bb3 stimmt; Folge 1708/2029 Deckel auf 50 $ dem Chef genannt.
 - 25.11., 16:38 Nachfolger übernommen, umbenannt; Uhr trig_01VLLzUkLeriMf7xZS52Sjw8 (17:38); alte trig_01DAga3N7xaRwSNotkCT4Pyd (17:25) nicht löschbar (Rechteprüfer); Kennung an Sokrates.
 - 25.11., 16:37 Übergabe (259 Tsd.), Startfelder an Sokrates.
 - 25.11., 16:34 Chef 16:34 Grundsatz „Alles bis $50 einfach machen … nicht mehr nachfragen“ → wörtlich an Sokrates (Regel eintragen). Eigener Fehler 15:22: Leerlauf gemeldet, obwohl 3 liefen (Uwe 15:09); dem Chef 16:25 berichtigt.
