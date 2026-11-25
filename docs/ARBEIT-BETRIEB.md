@@ -122,3 +122,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:37 25.11.: Sokrates 22:40 (b8f0442fd, Vertretung Alter Ego): Fachkräfte übergeben bis 2042 auf main nicht auf die Mahnung bei 200 Tsd., Sperre 300 Tsd. bleibt; an Carla, Tanja, Paula, Edda weitergegeben, gilt für jeden weiteren Start.
 - 22:38 25.11.: Zurückgenommen (Alter Ego 6e1518d5c, Sokrates 22:41): Mahnung 200 Tsd. gilt für Fachkräfte wie bisher; Widerruf an Carla, Tanja, Paula, Edda. Für den Disponenten weiter NEUSTART ausgesetzt bis 2042, Grenze 500 Tsd.
 - 22:48 25.11.: Sokrates 22:50: 2042-Ü11 (Prüfer) direkt an Ralf, kein Prüfer-Start; Ü10 (Chefwort) ging fälschlich an Paula, ist für Carla (Sokrates hat informiert).
+- 22:49 25.11.: Alter Ego …77coHo übergab bei 264 Tsd. (44c1f33e0); Nachfolger …78egvY gestartet (Felder alter-ego.md, Notstart-Satz, Sokrates 22:51). Vorgänger archiviert der Nachfolger selbst.
