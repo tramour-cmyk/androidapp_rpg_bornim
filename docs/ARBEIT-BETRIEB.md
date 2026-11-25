@@ -171,3 +171,4 @@ STARTSPERRE - 18:02 25.11.: Startsperre 18:02 Start Disponent (lauf.py, Disponen
 - 19:25 25.11.: Neustart Alter Ego (268 Tsd.) auf Bitte Sokrates 19:24: Nachfolger session_01Hmoj78ddRUPdf89SqpS789 (Vorgang 2013, Notstart ohne Startblock); alter …78S1BS7 wird archiviert, sobald der neue sich meldet (Auto-Modus verweigert Archivieren, dann legt Sokrates es dem Chef vor).
 - 19:30 25.11.: Auf Chefwort 19:27 archiviert (ging jetzt durch): Edda …77GxC2 (6,69 $ auf 2034), alter Alter Ego …78S1BS7 (8,33 $ auf 2013), Carsten …75bSt8 (2,72 $ auf 2036). Lehre R54 (Verweigerung) hinfällig bei ausdrücklichem Chefauftrag.
 - 19:29 25.11.: Startsperre 19:29 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2039 Anna)
+- 19:30 25.11.: Start Arbeitsplaner Ulla (session_01Hmoj7639xaDueU5bSvXq6q) für 2039 (Sokrates 19:29), Zeile 2039-Ü1; Handstart nach lauf.py --start --sperre. Wecker des Werkzeugs ging an die Prüferin …75cYry (falscher Empfänger).
