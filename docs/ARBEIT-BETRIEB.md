@@ -123,3 +123,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:38 25.11.: Zurückgenommen (Alter Ego 6e1518d5c, Sokrates 22:41): Mahnung 200 Tsd. gilt für Fachkräfte wie bisher; Widerruf an Carla, Tanja, Paula, Edda. Für den Disponenten weiter NEUSTART ausgesetzt bis 2042, Grenze 500 Tsd.
 - 22:48 25.11.: Sokrates 22:50: 2042-Ü11 (Prüfer) direkt an Ralf, kein Prüfer-Start; Ü10 (Chefwort) ging fälschlich an Paula, ist für Carla (Sokrates hat informiert).
 - 22:49 25.11.: Alter Ego …77coHo übergab bei 264 Tsd. (44c1f33e0); Nachfolger …78egvY gestartet (Felder alter-ego.md, Notstart-Satz, Sokrates 22:51). Vorgänger archiviert der Nachfolger selbst.
+- 22:50 25.11.: 2042-Ü12 ja Ralf 22:48 an 4d112f0c1 (claude/2042-uebergang-300, Übergang 300/450 Tsd.) an Sokrates zum Mischen.
