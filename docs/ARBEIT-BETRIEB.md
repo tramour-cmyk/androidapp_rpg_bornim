@@ -298,3 +298,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:06 25.11.: Takt Uwe: START Figur Dana 1654 (session_01Hmoj77nJnfw9dJKDhKXPKr, Auftrag Bildbeleg Pose); Planerin Anna Zeilen 1603-Ü20, 1589.4-Ü10 weitergereicht; Tagesbericht 448 nicht (Chef-Ruhe); 431 nicht (Zopf-Lizenz beim Chef). Fachkräfte laufen: Carla (Kampf), Dana (Figur).
 - 10:07 25.11.: Startsperre 10:07 Start Tagesbericht (lauf.py, 448)
 - 10:09 25.11.: Startsperre 10:08 Start Figur (lauf.py, Figur 1694 Greta)
+- 10:10 25.11.: START Figur Greta 1694 (session_01Hmoj76sFv9GqX7amHet5WK, Chef „1694 B“ Deckel 10 $, Halt 8 $; Kosten 1694 jetzt 79,30 $, Greta-Kosten je Runde lesen); Planerin Anna archiviert, 1,61 $ gebucht. Carla meldet Kapsel-Umbau 8–10 $ über Deckel 26 $: Frage liegt bei Sokrates (1589.4-Ü14).
