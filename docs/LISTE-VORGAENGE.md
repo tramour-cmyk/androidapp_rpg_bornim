@@ -11,7 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | Eilt | – | – | – | *gebaut, Geprüft an: c431b9c1d* | *–* | *0* | *1,25 $* |
+| 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *1,25 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | Eilt | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
@@ -30,12 +30,12 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1694 | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finger schließen um den Schaft | 3 | E Figuren | M | 28.11. | 1621, 1657 | – | *startbar, A beheben, Deckel 20 $ (Chef 25.11., 19:55)* | *–* | *0* | *89,17 $* |
 | 1709 | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535), Ziel vorher fest | 3 | E Figuren | M | 28.11. | 1535 | – | *ruht, Chef nicht am PC (22.11., 19:29), frühestens 28.11.* | *–* | *0* | *0,67 $* |
 | 1205b | in Grafik Niedrig nur die Blumen des Kits, Kleckse überall weg, Gras in Niedrig unser altes | 5 | E Welt | M | 1535 | 698a | claude/tom-1205-wiese | *gebaut, Geprüft an: fdbacd715 (Bild 👍 17:12)* | *–* | *0* | *1,64 $* |
-| 1398 | Prüfliste mischt wieder Bild/Film mit APK-Wegen | 6 | Q QS | M | – | 1128, 1217 | – | *gebaut, Geprüft an: 68b53e087* | *–* | *0* | *2,25 $* |
-| 1710 | Bildvergleich-Wächter in meldung.sh: Meldung alt gegen neu ohne messbaren Unterschied im markierten Ausschnitt hält an | 6 | E Technik | M | – | – | – | *gebaut, Geprüft an: 46922ae71* | *–* | *0* | *6,23 $* |
+| 1398 | Prüfliste mischt wieder Bild/Film mit APK-Wegen | 6 | Q QS | M | – | 1128, 1217 | – | *erledigt* | *–* | *0* | *2,25 $* |
+| 1710 | Bildvergleich-Wächter in meldung.sh: Meldung alt gegen neu ohne messbaren Unterschied im markierten Ausschnitt hält an | 6 | E Technik | M | – | – | – | *erledigt* | *–* | *0* | *6,23 $* |
 | 2005 | lauf.py startet Planer für ruhende Vorgänge (513 am 23.11. 18-mal) | 7 | B Werkzeuge | Eilt | Sokrates | – | – | *ruht, Daten 513 berichtigt 24.11., kein Start mehr* | *–* | *0* | *1,12 $* |
 | 2019 | Wochenzählung in Betrieb bis Mo 30.11.: Profil anlegen, Wochentermin ohne --sperre anlegen und starten, Laufsperre frei; Probelauf zählt Woche 16.–23.11. nach (Chef 12:29, 12:30) | 7 | B Abläufe | Eilt | – | – | – | *ruht* | *–* | *0* | *4,74 $* |
 | 2035 | Übergaben schlanker: nur Bestehendes ändern oder streichen, kein neues Werkzeug; Rückläufer an die Sitzung mit der Vorgangsnummer, sonst Disponent; „fertig“ und „ja“ schließen alte Rückläufer-Zeilen; Chefwort weckt Arbeitsplaner nur bei Auftragsänderung; „ja“ und „Hinweis“ ohne Quittung erledigt (Chef 25.11., 17:33) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *22,00 $* |
-| 2041 | Abläufe a–d jetzt: Prüfzeile bei gebaut, Rückläufer an Rolle, Zeilen auf main schließen, Titel Name – Status – Nr – Betreff (Chef 25.11., 20:48) | 7 | B Werkzeuge | M | – | – | – | *startbar, Eilt (Chef 25.11., 20:48)* | *–* | *0* | *–* |
+| 2041 | Abläufe a–d jetzt: Prüfzeile bei gebaut, Rückläufer an Rolle, Zeilen auf main schließen, Titel Name – Status – Nr – Betreff (Chef 25.11., 20:48) | 7 | B Werkzeuge | M | – | – | – | *startbar, Eilt (Chef 25.11., 20:48)* | *–* | *0* | *4,51 $* |
 | 1414 | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | 7 | B Werkzeuge | M | – | – | – | *gebaut, Geprüft an: 5307f68d3* | *–* | *0* | *2,44 $* |
 | 1520 | An den Läufen sparen | 7 | B Steuerung | M | – | – | – | *startbar, Rückläufer Sokrates 18:12: Startlast und Dauer neu messen* | *–* | *0* | *29,69 $* |
 | 1572 | Ford hing ab 16:04 zwei Stunden (Rebase-Abbruch abgelehnt), keiner startete, kein Telegram | 7 | B Abläufe | M | 1610 | – | – | *gebaut, Geprüft an: 239b6745a* | *–* | *0* | *1,38 $* |
@@ -54,7 +54,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1589.5 | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Zahlen aus 444 … | 2 | E Kampf | M | 1589.4, 1589.6 | 1600, 1589.1, 444 | – | *startbar* | *–* | *0* | *–* |
 | 1589.6 | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt nah, fern, weit | 2 | E Kampf | M | 1589.2 | 1589.2, 444, 1589.1, 1486 | – | *startbar* | *–* | *0* | *–* |
 | 1603 | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in kerbe.gd | 2 | E Kampf | M | – | 1600 | – | *gebaut, Geprüft an: 80a423815; Chef 19:37 „1603 A“, Testbuild* | *–* | *0* | *41,74 $* |
-| 1708 | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_ui.gd _draw_blood) | 2 | E Kampf | M | – | 760 | – | *in Arbeit, Berit 17:18* | *–* | *0* | *1,62 $* |
+| 1708 | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_ui.gd _draw_blood) | 2 | E Kampf | M | – | 760 | – | *in Arbeit, Berit 17:18* | *–* | *0* | *18,44 $* |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk … | 3 | E Figuren | M | – | 408 | claude/wiebke-431-volkskoerper | *zu testen, auf main db71f9f0f (Chef 👍 12:37), Testbuild Sa* | *–* | *0* | *180,92 $* |
 | 1297 | Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | 3 | E Figuren | M | 431 | 431 | – | *wartet, Schildlage in bewaffne ist auf Menschenmaß gemessen (499, 406); Größe je Körper erst mit den Volkskörpern im Spiel* | *–* | *0* | *–* |
 | 1649 | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den Schaft | 3 | E Figuren | M | 1694 | 1621 | – | *startbar* | *–* | *0* | *0,84 $* |
