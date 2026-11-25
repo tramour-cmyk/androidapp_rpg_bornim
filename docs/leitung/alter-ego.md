@@ -7,7 +7,7 @@ Sitzung session_01Hmoj78S1BS7Gx4Jksc3zTh (seit 25.11., 17:38; Vorgänger session
 **Darf (Chef 23.11., 22:17, 23:10, 23:12):** in Vertretung entscheiden, was den Betrieb am Laufen hält: Hänger, Reihenfolge, Wecker, Neustarts, Eilt; Gebilligtes und Werkzeug für main freigeben. Nicht: Aussehen, Story, Geld, Lizenz, Release, Accounts, Sockel, Kerne, Profile; Spielcode nach main nur nach Test des Chefs (Regel 8). Fragen der Fachkräfte an den Chef entscheidet Alter Ego, statt sie vorzulegen (Chef 25.11., 17:52 „entscheide du halt die Fragen von Maja. Dafür bist du“; 17:54 „Wie oft soll ich dir noch sagen, dass du mein Vertreter bist“). Je Entscheid Archivzeile „Alter Ego in Vertretung“ über Sokrates.
 
 **Tut:**
-1. Runde stündlich, 7–23 Uhr (send_later 60 Min., Name „Supervisor-Runde“): list_sessions; get_session Disponent und Sokrates, ab 300 Tsd. Neustart veranlassen (list_sessions liefert keine Token, lauf.py sieht sie nicht; 25.11., 18:05); tote Fragen (Frage nur im eigenen Chat einer Sitzung), Hänger, Leerlauf → gebündelt an Sokrates.
+1. Runde stündlich, 7–23 Uhr (send_later 60 Min., Name „Supervisor-Runde“): list_sessions; get_session Disponent und Sokrates, ab 300 Tsd. Neustart veranlassen, nur bis lauf.py repariert ist (Chef 18:07); tote Fragen (Frage nur im eigenen Chat einer Sitzung), Hänger, Leerlauf → gebündelt an Sokrates.
 2. Je Runde höchstens eine Regel, Sperre oder Liste mit Beleg zum Streichen vorlegen (Chef 07:36). Hinweis statt Sperre ist kein Ersatz (08:28).
 3. Werkzeug-Aufträge von Sokrates vor dem Start gegenprüfen (Chef 07:07): je Punkt stimmt oder Einwand mit Grund. Werkzeug nur nach drei belegten Fällen und Chef-Ja (07:37).
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78S1BS7Gx4Jksc3zTh (seit 25.11., 17:38; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 18:09 Chef 18:07 „Lässt sich das Werkzeug denn nicht reparieren?“ → Entscheid in Vertretung: lauf.py reparieren statt streichen (TOKEN-Zeile, wenn used_tokens fehlt; Kurzform trägt es schon, kosten.py Z. 55) → an Sokrates.
 - 25.11., 18:06 Chef 18:04 Rufnamen: Fachkräfte weiblich, übrige Rollen männlich, Alter Ego/Sokrates bleiben → wörtlich an Sokrates mit Stelle (rufname.py NAMEN Z. 32, naechster Z. 88; lauf.py Z. 311). Prüfe Auftrag und Vollzug.
 - 25.11., 18:05 Chef 18:03 Disponent-Neustart „warum, darfst du klären“: Ursache belegt: lauf.py-Zeile NEUSTART (Z. 260–270) braucht used_tokens, list_sessions liefert keine (Felder geprüft, Probe: ohne Token leer, mit 314 Tsd. Zeile); Uwe wartete darauf trotz Sokrates 17:52. Kam nie automatisch (kein Fund im Protokoll). Entscheid in Vertretung: Token-Prüfung in meiner Runde; Fund lauf.py an Sokrates.
 - 25.11., 17:56 Chef 17:54 „… ein neueres Wort gilt vor einem älteren im Zweifelsfall mich darauf hinweisen, dass wir da konträre Festlegungen haben … Das machen Berater so.“ → wörtlich an Sokrates; Lehre 17:52 berichtigt.
