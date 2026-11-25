@@ -1371,3 +1371,4 @@
 2026-11-25 08:04:49	commit-pruefung	VORGANGSARCHIV.md: neuer Entscheid zu 431 berührt B1, B2; im selben Commit die Zeile(n) in DESIGN-STIL/-KAMPF/-ABNAHME ändern und am alten Eintrag „→ ersetzt durch …“ anhängen (461b); ändert er nichts	main
 2026-11-25 09:52:10	commit-pruefung	VORGANGSARCHIV.md: neuer Eintrag „1589.4 weiter“ trifft ältere Einträge ohne „ersetzt durch“ (1589.4 A, Deckel 26 $; 1589.4 jetzt, Spiel vor; 1589.2 A, wartet auf Stufe 3; 1589.2 steckt fest, Typen un	main
 2026-11-25 09:59:13	startsperre	Startblock fehlt (1989, Chef 23.11., 09:11): die erste Nachricht trägt nicht den Startblock aus lauf.py (Kopfzeile „**<Profil>**“ und „Auftrag:“). Von Hand nur mit `python3 tools/lauf.py --start ROLLE	HEAD
+2026-11-25 09:59:57	commit-pruefung	docs/chefsache/entscheiden/431-zopf-lizenz.md: Abschnitt „## Abgleich“ fehlt: Ausgabe von `vorgang.py lehre suche <Stichworte>` und Archivtreffer zu denselben Stichworten (1999, R6: Vorlage 23.11., 10	main
