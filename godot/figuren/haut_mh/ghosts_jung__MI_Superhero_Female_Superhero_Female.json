@@ -1,0 +1,20 @@
+{
+ "material": "MI_Superhero_Female_Superhero_Female",
+ "mittel_srgb": [
+  0.8198,
+  0.6342,
+  0.5183
+ ],
+ "hell_linear": 0.4174,
+ "texel": 732870,
+ "ohne_treffer": 0,
+ "quelle": "young_eurasian_female_diffuse.png",
+ "bild": 1024,
+ "gesicht_srgb": [
+  0.8745,
+  0.7001,
+  0.576
+ ],
+ "gesicht_hell_linear": 0.4984,
+ "gesicht_ecken": 3276
+}

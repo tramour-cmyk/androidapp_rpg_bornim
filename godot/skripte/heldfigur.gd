@@ -488,9 +488,14 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 	var eigen: Array = tr.get("eigen", [])
 	var sch: Dictionary = lade_info().get("schrank", {}).get(String(tr.get("geschlecht", "M")), {})
 	var fremd := []   # Kennungen der Schrankteile
+	var mh := []      # 2031: Kennungen der MakeHuman-Schrankteile (MH_SCHRANK)
 	for p in KLEID_PLAETZE:
 		var st = aus.get(p)
 		zeig[p] = st is Dictionary and teile.has(p)
+		if st is Dictionary and mh_teil(String(st.get("base", "")), String(tr.get("geschlecht", "M"))) != "":   # 2031: Schalter mh_probe
+			zeig[p] = false
+			mh.append(mh_teil(String(st.get("base", "")), String(tr.get("geschlecht", "M"))))
+			continue
 		if not (st is Dictionary) or eigen.is_empty() or w.get("stufe1", false): continue   # „stufe1“: Vergleichsfilm alt
 		var b := String(st.get("base", ""))
 		# Robe (held-klassen.json „rock“: CHEST): unter dem eigenen Rock bleiben die eigenen Beine (sonst stechen fremde Hosen durch);
@@ -515,6 +520,14 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 		fremd_platz[String(sch[t].get("platz", ""))] = true
 		if t in ["RANGER_HOOD", "KNIGHT_HELM"]: kap = true   # Haar darunter weg (Topfhelm deckt den ganzen Kopf)
 	if not fremd.is_empty(): schrank_an(m, String(tr.get("geschlecht", "M")), fremd, sch)
+	for t in mh:   # 2031: wie ein Schrankteil (Leib darunter weg, Kleidung darunter zieht unter_<PLATZ> ein, Kapuze deckt das Haar)
+		var e: Dictionary = MH_SCHRANK[t]
+		for lo in Array(e["leib"]): fremd_leib[lo] = true
+		fremd_platz[String(e["platz"])] = true
+		if bool(e.get("kapuze", false)): kap = true
+		for p in Array(e.get("deckt", [])): zeig[p] = false
+		var sz := load(String(e["datei"]) % String(tr.get("geschlecht", "M"))) as PackedScene
+		if sz: teil_an(m, sz.instantiate() as Node3D, Array(e["netze"]), true)
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		var x := mi as MeshInstance3D
 		var n := String(x.name)
@@ -555,27 +568,62 @@ static func schrank_an(m: Node3D, g: String, fremd: Array, sch: Dictionary) -> v
 		if not schrank_szenen.has(datei): schrank_szenen[datei] = Gebiet.lade_glb(datei)
 		var sz: Node3D = schrank_szenen[datei]
 		if sz == null: continue
-		var ssk := Gebiet.finde(sz, "Skeleton3D") as Skeleton3D
-		var modell := String(m.get_meta("tracht", ""))
-		var volk := bool(lade_info().get("trachten", {}).get(modell, {}).has("volk"))
-		for n in Array(sch[t].get("netze", [])):
-			var q := sz.find_child(String(n), true, false) as MeshInstance3D
-			if q == null or q.skin == null: continue
-			var skin := Skin.new()
-			for i in q.skin.get_bind_count():
-				var bn := String(q.skin.get_bind_name(i))
-				if bn == "" and ssk: bn = ssk.get_bone_name(q.skin.get_bind_bone(i))
-				var bind := q.skin.get_bind_pose(i)
-				# 431: am Volkskoerper waechst das Teil mit wie die Tracht (Bindung = Ruhelage des Volkes invers * G * Ruhelage des Menschen)
-				if volk and ssk and sk.find_bone(bn) >= 0 and ssk.find_bone(bn) >= 0:
-					bind = sk.get_bone_global_rest(sk.find_bone(bn)).affine_inverse() * volk_G(modell, bn) * ssk.get_bone_global_rest(ssk.find_bone(bn)) * bind
-				skin.add_named_bind(bn, bind)
-			var mi := MeshInstance3D.new()
-			mi.name = String(n)
-			mi.mesh = q.mesh
-			mi.skin = skin
-			sk.add_child(mi)
-			mi.skeleton = NodePath("..")
+		teil_an(m, sz, Array(sch[t].get("netze", [])))
+
+# Netze eines Schrankteils (Szene mit Skelett des Kaufkoerpers) ans Skelett des Helden; frei: die Szene danach freigeben (2031)
+static func teil_an(m: Node3D, sz: Node3D, netze: Array, frei := false) -> void:
+	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+	if sk == null or sz == null: return
+	var ssk := Gebiet.finde(sz, "Skeleton3D") as Skeleton3D
+	var modell := String(m.get_meta("tracht", ""))
+	var volk := bool(lade_info().get("trachten", {}).get(modell, {}).has("volk"))
+	for n in netze:
+		var q := sz.find_child(String(n), true, false) as MeshInstance3D
+		if q == null or q.skin == null: continue
+		var skin := Skin.new()
+		for i in q.skin.get_bind_count():
+			var bn := String(q.skin.get_bind_name(i))
+			if bn == "" and ssk: bn = ssk.get_bone_name(q.skin.get_bind_bone(i))
+			var bind := q.skin.get_bind_pose(i)
+			# 431: am Volkskoerper waechst das Teil mit wie die Tracht (Bindung = Ruhelage des Volkes invers * G * Ruhelage des Menschen)
+			if volk and ssk and sk.find_bone(bn) >= 0 and ssk.find_bone(bn) >= 0:
+				bind = sk.get_bone_global_rest(sk.find_bone(bn)).affine_inverse() * volk_G(modell, bn) * ssk.get_bone_global_rest(ssk.find_bone(bn)) * bind
+			skin.add_named_bind(bn, bind)
+		var mi := MeshInstance3D.new()
+		mi.name = String(n)
+		mi.mesh = q.mesh
+		mi.skin = skin
+		sk.add_child(mi)
+		mi.skeleton = NodePath("..")
+	if frei: sz.free()
+
+# 2031 (Chef 25.11., 13:39: „Kutte/Robe als Alternative“): MakeHuman-Kleidung als Schrankteil (tools/blender348/v3/kleid_mh.py, suits02
+# donitz_monk_robe + donitz_monk_robe_hood, Donitz, CC0). Nur ueber den Schalter mh_probe (Beleg, Pruefung): Gegenstand -> Kennung.
+# Fehlt die Datei des Geschlechts, bleibt das bisherige Teil (Held laedt weiter). Einbau ins Spiel erst nach Chef-Ja (Folgeauftrag)
+static var mh_probe := {}   # z. B. {"novice_habit": "MH_KUTTE"}
+const MH_SCHRANK := {
+	"MH_KUTTE": {"platz": "CHEST", "netze": ["Teil_MH_KUTTE"], "datei": "res://figuren/mh_kutte_%s.glb", "kapuze": true, "deckt": ["ARMS", "LEGS"],
+		"leib": ["Leib_BECKEN", "Leib_OBERARM", "Leib_OBERSCHENKEL", "Leib_RUMPF", "Leib_UNTERARM", "Leib_UNTERSCHENKEL"]},
+}
+# 2031: MakeHuman-Haut (tools/blender348/v3/haut_mh.py, skins01/skins02, CC0) statt des Hautbilds des Kaufkopfs und -leibs, nur ueber
+# den Schalter mh_haut (Kennung); ungetoent wie die Kaufhaut, toene setzt den Hautton der Erschaffung je Volk weiter
+static var mh_haut := ""
+const MH_HAUT_WAHL := {"M": ["jartur69_mitte", "jartur69_alt", "rehman_wikinger"], "W": ["ghosts_jung", "ghosts_mitte", "ghosts_alt"]}
+const MH_HAUT_ORT := "res://figuren/haut_mh/%s__%s"   # Kennung, Material der Haut (.jpg Bild, .json Mittel und Helligkeit)
+# Bild und Bezug der Toenung (Mittel linear, Helligkeit) der Haut fuer ein Material; leer ohne Schalter oder ohne Datei
+static func mh_haut_bild(rn: String) -> Array: return mh_haut_bild_von(mh_haut, rn)
+static func mh_haut_bild_von(kenn: String, rn: String) -> Array:
+	if rn.get_extension().is_valid_int(): rn = rn.get_basename()   # Blender-Endung „.001“ am Materialnamen
+	var p := MH_HAUT_ORT % [kenn, rn]
+	if kenn == "" or not ResourceLoader.exists(p + ".jpg") or not FileAccess.file_exists(p + ".json"): return []
+	var j = JSON.parse_string(FileAccess.get_file_as_string(p + ".json"))
+	if not (j is Dictionary): return []
+	var c: Array = j["gesicht_srgb"]   # Bezug am Gesicht wie haut_bild der Kaufhaut
+	return [load(p + ".jpg"), _lin(c), float(j["gesicht_hell_linear"])]
+static func mh_teil(base: String, g: String) -> String:
+	var t := String(mh_probe.get(base, ""))
+	if t == "" or not MH_SCHRANK.has(t) or not ResourceLoader.exists(String(MH_SCHRANK[t]["datei"]) % g): return ""
+	return t
 
 # Kapuze der Waldtracht (Head_Hood) nur, wenn die Herkunft sie traegt (Jaegerkind ja, Herumtreiber nein)
 static func kapuze(m: Node3D, an: bool) -> void:
@@ -658,9 +706,13 @@ static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 			if z.r < 0.0: continue
 			var l := z.srgb_to_linear()
 			var t := Vector3(l.r, l.g, l.b)
+			var mhb := mh_haut_bild(rn) if ist_haut else []
+			if not mhb.is_empty():   # 2031: MakeHuman-Haut, Bezug der Toenung aus ihrem Bild
+				sm.set_shader_parameter("tex", Gebiet.mip(mhb[0]))
+				b = mhb[2]
 			if ist_haut:
 				t *= haut_eichung(volk)
-				sm.set_shader_parameter("toen_bild", hbild)
+				sm.set_shader_parameter("toen_bild", hbild if mhb.is_empty() else mhb[1])
 				sm.set_shader_parameter("toen_farbe", haut_farbe())
 			sm.set_shader_parameter("toenung", t)
 			sm.set_shader_parameter("toen_hell", b)

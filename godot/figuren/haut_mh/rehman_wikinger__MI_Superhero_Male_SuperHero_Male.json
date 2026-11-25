@@ -1,0 +1,20 @@
+{
+ "material": "MI_Superhero_Male_SuperHero_Male",
+ "mittel_srgb": [
+  0.5765,
+  0.4539,
+  0.3612
+ ],
+ "hell_linear": 0.2022,
+ "texel": 701888,
+ "ohne_treffer": 0,
+ "quelle": "viking_male_diffuse.png",
+ "bild": 1024,
+ "gesicht_srgb": [
+  0.6195,
+  0.473,
+  0.3529
+ ],
+ "gesicht_hell_linear": 0.2158,
+ "gesicht_ecken": 3080
+}

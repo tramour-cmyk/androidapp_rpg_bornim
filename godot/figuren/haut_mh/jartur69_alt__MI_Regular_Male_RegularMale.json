@@ -1,0 +1,20 @@
+{
+ "material": "MI_Regular_Male_RegularMale",
+ "mittel_srgb": [
+  0.7457,
+  0.6405,
+  0.5603
+ ],
+ "hell_linear": 0.3941,
+ "texel": 550871,
+ "ohne_treffer": 0,
+ "quelle": "Jartur_old_Slavic_Male_with_Genitals_and_beard_lsdif.png",
+ "bild": 1024,
+ "gesicht_srgb": [
+  0.6661,
+  0.5078,
+  0.4398
+ ],
+ "gesicht_hell_linear": 0.2554,
+ "gesicht_ecken": 3124
+}

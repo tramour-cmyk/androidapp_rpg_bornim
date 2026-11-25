@@ -1,2 +1,15 @@
 zopf_zwergin.glb: aus MakeHuman-Asset-Paket hair01, "elvs_double_mh_braid" (Elvaerwyn), CC0
 https://static.makehumancommunity.org/assets/assetpacks/hair01.html (gelesen 25.11.2026); gebaut mit tools/blender348/v3/zopf_mh.py (431)
+mh_kutte_M.glb, mh_kutte_W.glb (2031, Probe hinter Schalter HeldFigur.mh_probe): aus MakeHuman-Asset-Paket suits02, "donitz_monk_robe" und
+"donitz_monk_robe_hood" (Donitz), CC0 laut Paketseite, packs/suits02.json und Kopf der .mhclo/.mhmat ("license CC0");
+https://static.makehumancommunity.org/assets/assetpacks/suits02.html (gelesen 25.11.2026); gebaut mit tools/blender348/v3/kleid_mh.py
+haut_mh/*.jpg, *.json (2031, Probe hinter Schalter HeldFigur.mh_haut), gebacken mit tools/blender348/v3/haut_mh.py:
+  jartur69_mitte, jartur69_alt: skins02 "jartur69_middleage_slavic_male_with_genitals_and_beard", "jartur69_old_slavic_male_with_genitals_and_beard" (jartur69)
+  rehman_wikinger: skins02 "rehmanpolanski_skin_viking_tattoos" (RehmanPolanski)
+  ghosts_jung, ghosts_mitte, ghosts_alt: skins01 "onlytheghosts_young/middle_aged/old_eurasian_female" (OnlyTheGhosts)
+  CC0 laut Paketseite und packs/skins01.json, packs/skins02.json; .mhmat ohne Lizenzzeile (rehmanpolanski: nur AGPL-Text der Materialvorlage)
+  https://static.makehumancommunity.org/assets/assetpacks/skins01.html, skins02.html (gelesen 25.11.2026)
+Grundkoerper hm08 fuer beide Skripte: base.obj aus MPFB 2.0.18 (extensions.blender.org/add-ons/mpfb, Datei mpfb/data/3dobjs/base.obj,
+geladen 25.11.2026), Kopf der Datei: "This asset was explicitly released as CC0 in september 2020" (Data Collection AB, Joel Palmius,
+Jonas Hauquier); https://static.makehumancommunity.org/about/license.html "All core assets are shared under Creative Commons, CC0" (gelesen 25.11.2026).
+Nicht im Repo: base.obj, Paket-Zips (nur Skripte und Ergebnis).

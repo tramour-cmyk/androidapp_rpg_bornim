@@ -1,0 +1,20 @@
+{
+ "material": "MI_Regular_Male_haut",
+ "mittel_srgb": [
+  0.5017,
+  0.364,
+  0.2678
+ ],
+ "hell_linear": 0.1389,
+ "texel": 157824,
+ "ohne_treffer": 0,
+ "quelle": "viking_male_diffuse.png",
+ "bild": 1024,
+ "gesicht_srgb": [
+  0.5783,
+  0.4015,
+  0.31
+ ],
+ "gesicht_hell_linear": 0.1639,
+ "gesicht_ecken": 3124
+}

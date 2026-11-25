@@ -1,0 +1,20 @@
+{
+ "material": "MI_Regular_Female_haut",
+ "mittel_srgb": [
+  0.7507,
+  0.5624,
+  0.4527
+ ],
+ "hell_linear": 0.335,
+ "texel": 157202,
+ "ohne_treffer": 0,
+ "quelle": "middleage_eurasian_female_diffuse.png",
+ "bild": 1024,
+ "gesicht_srgb": [
+  0.8136,
+  0.5783,
+  0.4633
+ ],
+ "gesicht_hell_linear": 0.3566,
+ "gesicht_ecken": 3272
+}
