@@ -25,6 +25,7 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 16:34 Chef 16:34 Grundsatz „Alles bis $50 einfach machen … nicht mehr nachfragen“ → wörtlich an Sokrates (Regel eintragen). Eigener Fehler 15:22: Leerlauf gemeldet, obwohl 3 liefen (Uwe 15:09); dem Chef 16:25 berichtigt.
 - 25.11., 16:24 Runde: Entscheid 15:22 nicht ausgeführt (2031 ohne Fachkraft seit 14:10), Leerlauf dritte Runde; 2029-Ü7 steckt fest bei Sokrates (15:43). An Sokrates: Grund/Sperre nennen. 1708 A/B beim Chef (Telegram 16:07). Uhr trig_01DAga3N7xaRwSNotkCT4Pyd (17:25).
 - 25.11., 16:03 Chef 16:03 zu 2024: Timing fast gut; Blut muss am Trefferpunkt entstehen, nicht im Raum → wörtlich an Sokrates.
 - 25.11., 15:22 Runde: Leerlauf (nur Selma 2024). Entscheid in Vertretung: Uwe startet 2029 (Ü4, Lauf frei) und 2031 (Bau, Lauf nach 2029). 2031-Beleg 13:40 stimmt (Einwand 14:21 zurückgezogen). 1589.4-Ü21 bei Sokrates. Uhr trig_013WNP6SpvWuumSLYvY9tTux (16:23).
