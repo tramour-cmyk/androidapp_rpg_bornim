@@ -159,7 +159,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.11.; „star
 | 1415 | M | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A) | wartet auf 709 (ruht) |
 | 1588 | M | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | wartet auf 1589.4 (startbar) |
 | 1589.2 | M | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit un | ruht |
-| 1589.4 | M | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nac | wartet auf 1589.4-Ü9 (Arbeitsplaner) |
+| 1589.4 | M | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nac | wartet auf 1589.4-Ü15 (Arbeitsplaner) |
 | 1589.5 | M | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Za | wartet auf 1589.4 (startbar) |
 | 1589.6 | M | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt n | wartet auf 1589.2 (ruht) |
 | 1603 | M | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in ke | wartet auf Test/Build (gebaut) |
@@ -209,7 +209,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.11.; „star
 | 1635 | K | Systemlösung? Bogen: 2 frühere Vorgänge (26.1, 1041), neu 1634 | startbar |
 | 72c | K | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunde | nach dem Meilenstein |
 
-**Figur** – offen 35, Muss 20, startbar 15
+**Figur** – offen 36, Muss 21, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -217,19 +217,20 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.11.; „star
 | 1535 | M | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand | wartet auf Test/Build (gebaut) |
 | 1570 | M | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge (1006, 1052, 10 | ruht bis 28.11. |
 | 1619 | M | Held stakst im Film 458.3, sieht nicht nach Gehen aus („vielleicht Tempo“) | wartet auf Test t301 (Chef) |
-| 1621 | M | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffe | wartet auf 1694 (ruht) |
+| 1621 | M | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffe | wartet auf 1694 (startbar) |
 | 1665 | M | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu sehen (Fackel | wartet auf 458.3 (gebaut) |
 | 1674 | M | Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 Minuten an der Bank fest, kommt nicht | wartet auf Test/Build (gebaut) |
 | 1676 | M | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | ruht bis 28.11. |
-| 1694 | M | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finge | ruht bis 28.11. |
+| 1694 | M | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finge | startbar |
+| 2026 | M | MakeHuman-Asset-Packs sichten: Kleidung, Haare, Hauttöne, Körperteile für Bornim; je Paket | startbar |
 | 1709 | M | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535 | ruht bis 28.11. |
-| 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | startbar |
+| 431 | M | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, da | wartet auf 431-Ü18 (Arbeitsplaner) |
 | 1297 | M | Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | wartet auf 431 (startbar) |
-| 1649 | M | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den | wartet auf 1694 (ruht) |
+| 1649 | M | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den | wartet auf 1694 (startbar) |
 | 1650 | M | Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin, | wartet auf 1535 (gebaut) |
-| 1654 | M | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m, bis 305 Ecken in Ruhe_Tr | startbar |
+| 1654 | M | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m, bis 305 Ecken in Ruhe_Tr | wartet auf Sokrates |
 | 1655 | M | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, bis 135 Ecken) | wartet auf Test/Build (gebaut) |
-| 1657 | M | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dre | wartet auf 1694 (ruht) |
+| 1657 | M | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dre | wartet auf 1694 (startbar) |
 | 1785 | M | Weg aus 4fd7055c8 … | startbar |
 | 1632 | K | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtempo, je Waff | wartet auf Test t301 (Chef) |
 | 134 | K | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | aufgeteilt |
@@ -246,7 +247,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.11.; „star
 | 1752 | K | Feld jaeger in werte.json kennungen setzen bei Bugbear, Schreckenswolf, Hobgoblin-Hauptman | startbar |
 | 1973 | M | Von Figur (Dana 22.11., 18:49, zu 1570): kein Zweihändermodell in daten/waffen – Gang mit | startbar |
 | 2022 | K | Systemlösung? Griff: 5 frühere Vorgänge (954a.9, 524, 653, 872, 643), neu 1694; einmal gru | startbar |
-| 2024 | M | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schw | startbar |
+| 2024 | M | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schw | wartet auf 2024-Ü3 (Arbeitsplaner) |
 | 2025 | K | Systemlösung? Axt: 3 frühere Vorgänge (280.2, 348.12j, 1314), neu 1694; einmal grundsätzli | startbar |
 
 **Kataloge** – offen 10, Muss 3, startbar 2
