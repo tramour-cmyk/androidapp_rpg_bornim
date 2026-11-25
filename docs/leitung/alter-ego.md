@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 09:55 Chef 09:55: Umriss praktisch statt Regel (Kapsel/Ellipse für längliche Tiere) → wörtlich an Sokrates, DESIGN-GEGNER 1 anpassen. Eigener Fehler 09:52: Kreis als „deine Regel“ vorgelegt statt nach Praxis gefragt.
 - 25.11., 09:54 Chef 09:54 „1694 B, 2024 A“ (1694 bis 10 $/Halt 8 mit Messregel; 2024 Deckel 15 $/Halt 12; Umriss unbeantwortet = Kreis) → wörtlich an Sokrates, Haken D trägt nicht ein.
 - 25.11., 09:53 Chef 09:53 „Ablauffehler … warum kümmerst du dich nicht“: eigener Fehler, Leerlauf zweimal nur gemeldet statt in Vertretung entschieden. Entscheid in Vertretung an Sokrates: Uwe startet bei <3 Fachkräften selbst nach Rang; --ohne 887/448; jetzt 1589.4 + Welt/Regeln; Quelle „eine Figur zugleich“ belegen. Lehre: Leerlauf mit Beleg zweimal = selbst entscheiden.
 - 25.11., 09:51 Chef 09:51 „1589.4 weiter“ (auf Frage 09:50: weiter bis 26 $, dann Film) → wörtlich an Sokrates.
