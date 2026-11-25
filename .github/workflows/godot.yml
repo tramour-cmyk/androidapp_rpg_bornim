@@ -548,7 +548,7 @@ jobs:
           if [ -n "$PRO" ] && [ -n "$(find ${KAUF:-/kein} -name Bear_Rig.fbx 2>/dev/null | head -1)" ]; then
             OUT=$RUNNER_TEMP/krogg CC0=$HOME/cc0 KAUF=$KAUF UAL=$PRO TOD_QUELLE=Death02 \
               timeout 1500 bl/bin/python -I tools/blender348/krogg_gestalt.py > krogg.log 2>&1 || { tail -40 krogg.log; exit 1; }
-            grep -E "^(KOPF|BEWEGUNG|TOD|WEG|HIEB|STEHEN)" krogg.log | cut -c1-200 || true
+            grep -E "^(KOPF|BEWEGUNG|TOD|WEG|HIEB|PRANKE|STEHEN)" krogg.log | cut -c1-200 || true
             cp $RUNNER_TEMP/krogg/krogg-gestalt.glb $D/bugbear-krogg.bin
             python3 -c "import json,sys; s=json.load(open(sys.argv[1])).get('spiel',{}); d={'waffen':[],'groesse_cm':212,'geruest':'cc0'}; d.update(s); json.dump({'krogg':d},open(sys.argv[2],'w'))" \
               $RUNNER_TEMP/krogg/krogg-gestalt-info.json $D/bugbear-info.json
@@ -712,6 +712,7 @@ jobs:
           set -o pipefail; timeout 300 ~/godot/godot --headless --path . -s res://tests/hieb_844.gd 2>&1 | grep -E "HIEB844|SCRIPT ERROR"   # 844 Goblins, Kobolde, Schamanen schlagen: über dem Boden, nicht durch sich selbst
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/pfeil_601.gd 2>&1 | grep -E "PFEIL601|SCRIPT ERROR"   # 601 Pfeil auch beim Ducken
           set -o pipefail; timeout 300 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/ausholen_1000.gd 2>&1 | grep -E "^(gut|FEHLER|übersprungen)|AUSHOLEN1000|SCRIPT ERROR"   # 1000 Grak hält die Axt oben von der Ansage bis zum Hieb
+          set -o pipefail; timeout 600 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/stiel_2024.gd 2>&1 | grep -E "^(FEHLER|übersprungen)|STIEL2024|SCRIPT ERROR"   # 2024 Waffe am eigenen Knochen bleibt in der Faust (Krogg, Grak; außer Tod)
           set -o pipefail; timeout 120 ~/godot/godot --headless --path . -s res://tests/schuss_601.gd 2>&1 | grep -E "SCHUSS601|SCRIPT ERROR"   # 601 Schussbewegung des Spähers
           set -o pipefail; for s in 7 9 13; do SEED=$s timeout 400 ~/godot/godot --headless --fixed-fps 30 --path . -s res://tests/biss_1284.gd 2>&1 | grep -E "^BISS1284 ([0-9]|FEHLER)|SCRIPT ERROR"; done   # 1284 Ratte beißt auch daneben sichtbar knapp vorbei; 1284a A: drei Würfe
           set -o pipefail; timeout 200 ~/godot/godot --headless --path . --fixed-fps 30 -s res://tests/einschlag_6011.gd 2>&1 | grep -E "^(FEHLER|EINSCHLAG6011)|SCRIPT ERROR"   # 601.1 Geschoss trifft den Rumpf, wo der Getroffene zuckt (Jerry)

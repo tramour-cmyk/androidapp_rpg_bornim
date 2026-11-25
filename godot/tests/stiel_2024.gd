@@ -3,7 +3,7 @@ extends SceneTree
 # krogg_gestalt.py; Grak „axt“, grak_gestalt.py), verlässt in keiner Bewegung die rechte Faust, außer im Tod.
 # Gemessen am gezeichneten Netz: Abstand der Faustmitte (Mittel der Mittelglieder von Zeige-, Mittel-, Ringfinger und Daumen, wie
 # krogg_gestalt.py „faust“) zum nächsten Punkt der Dreiecke der Waffe.
-#  A: jede Bewegung von Krogg und Grak außer Tod, jedes Bild bei 30 Bildern/s (Stellung aus der Bewegung).
+#  A: jede Bewegung von Krogg und Grak außer Tod, jedes Bild bei 30 Bildern/s, wie gezeichnet (nach den Schichten, skeleton_updated).
 #  B: Krogg im Kampf mit erzwungenem Prankenhieb (Mars.test_gegnerzug „paw“), jedes gezeichnete Bild nach allen Schichten
 #     (skeleton_updated), solange er lebt.
 # Grenze GRENZE_M; Ausgabe „STIEL2024 n Bilder, k über der Grenze“.
@@ -184,6 +184,10 @@ func _bewegungen(foe: String, id: String) -> bool:
 		r[0].queue_free()
 		return false
 	_griff(sk, w)
+	var mess := [NAN]
+	var merke := func(): mess[0] = _abstand(sk, w)
+	sk.skeleton_updated.connect(merke)
+	ap.speed_scale = 0.0
 	for nm in ap.get_animation_list():
 		if String(nm).begins_with("Tod") or String(nm) == "RESET":
 			continue
@@ -192,9 +196,13 @@ func _bewegungen(foe: String, id: String) -> bool:
 		ap.play(nm, 0.0)
 		for f in n + 1:
 			ap.seek(minf(f / FPS, a.length), true)
-			_zaehle(fig.fighter.id, nm, _abstand(sk, w), f / FPS)
+			mess[0] = NAN
+			await process_frame
+			var d: float = mess[0] if not is_nan(mess[0]) else _abstand(sk, w)
+			_zaehle(fig.fighter.id, nm, d, f / FPS)
 			if OS.get_environment("SCHAU_2024") == String(nm):
-				print("2024 %s %s %.2f s: %.3f m" % [fig.fighter.id, nm, f / FPS, _abstand(sk, w)])
+				print("2024 %s %s %.2f s: %.3f m" % [fig.fighter.id, nm, f / FPS, d])
+	sk.skeleton_updated.disconnect(merke)
 	r[0].queue_free()
 	await process_frame
 	return true

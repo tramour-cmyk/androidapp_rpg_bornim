@@ -159,6 +159,9 @@ var mass := {}
 ## 348.12 nachbessern (Chef 28.10., 15:23, Archiv: „Der Axthieb trifft auch nicht“): Aufschlag des Hiebs eines Zweibeiners aus
 ## <art>-info.json „hieb“ (grak_gestalt.py): Abstand Ursprung–Schneide (Modellmeter), Zeit (s), Drehung (Grad, + links), Höhe (m)
 var hieb := []
+## 2024 (Chef 25.11., 09:54 „2024 A“): Kroggs Prankenhieb mit der freien linken Pranke (krogg_gestalt.py „Prankenhieb“), wie [hieb]:
+## [Weite der Pranke vor dem Ursprung m, Aufschlag s, Winkel Grad, Höhe m]; leer: der Prankenhieb spielt „Hieb“
+var pranke := []
 ## so weit (m) liegt die Schneide beim Aufschlag im Rand des Ziels
 const AXT_IM_RAND := 0.12
 
@@ -557,6 +560,15 @@ func _load_model() -> Node3D:
 				for a in ["Stehen", "Gehen", "Hocke", "Rennen", "Zurück"]:
 					if anim.has_animation(a):
 						anim.get_animation(a).loop_mode = Animation.LOOP_LINEAR
+				# 2024: eine Waffe am eigenen Knochen (Krogg „waffe“, Grak „axt“) bleibt in der Faust, außer im Tod (faustgriff.gd)
+				var sk := _find(n, "Skeleton3D") as Skeleton3D
+				if sk != null and (sk.find_bone("waffe") >= 0 or sk.find_bone("axt") >= 0):
+					var fg = preload("res://kampf/faustgriff.gd").new()
+					fg.name = "Faustgriff"
+					if fg.einrichten(anim, sk):
+						sk.add_child(fg)
+					else:
+						fg.free()
 			return n
 	# noch ohne Modell (Goblin, Spinne …): ein Körper in der Größe, damit der Ablauf sichtbar bleibt
 	var mi := MeshInstance3D.new()
@@ -1801,6 +1813,8 @@ func _weg() -> Dictionary:
 				float(b0[2]) + float(bj.Bisskette[2]) - float(bj.Biss[2])]
 		if j[fell].get("hieb") is Array:
 			hieb = j[fell].hieb
+		if j[fell].get("pranke") is Array:
+			pranke = j[fell].pranke
 		if j[fell].get("tempo") is Dictionary:
 			tempo = j[fell].tempo
 		for k in ["breite_m", "laenge_m", "koerper_hoch_m", "hoehe_m"]:
@@ -3281,18 +3295,20 @@ func _dreh(tw: Tween, von: float, nach: float, nm: String) -> Array:
 ## RUN_FROM: rennt) bis vor das Ziel, so weit und so gedreht, dass die Schneide beim Aufschlag (info „hieb“) AXT_IM_RAND im Rand
 ## des Ziels liegt, und schlägt dort; dann zurück, das Gesicht zum Ziel (Zurück, sonst Gehen rückwärts), daheim zur Blickrichtung.
 ## Gibt wie strike() die Zeit bis zum Aufschlag / 0,42 zurück (ms).
-func _hieb(other, weiter := 0.0) -> int:
+func _hieb(other, weiter := 0.0, nm := "Hieb") -> int:
+	# 2024: der Prankenhieb schlägt mit der Pranke (eigene Bewegung, Maße aus „pranke“), der Morgenstern bleibt in der Faust
+	var h: Array = pranke if nm == "Prankenhieb" else hieb
 	var flat := Vector3(other.position.x - position.x, 0.0, other.position.z - position.z)
 	if flat.length() < 0.01:
 		flat = basis.z
 	var dir := flat.normalized()
-	var stand: float = other.body_r() - AXT_IM_RAND + float(hieb[0]) * model.scale.x     # Ursprung bis Mitte des Ziels beim Aufschlag
+	var stand: float = other.body_r() - AXT_IM_RAND + float(h[0]) * model.scale.x     # Ursprung bis Mitte des Ziels beim Aufschlag
 	# 709 (Chef 08.11., 21:36: „dass die Angriffe so sind, dass sie den Gegner treffen“): wie beim Helden der Stand nach dem Weg der
 	# Waffe durch den Hieb gegen den Körper des Ziels (HIEB_TIEF darin, daneben [weiter] davor), Aufschlag im nächsten Punkt; der
 	# eigene Körper bleibt HIEB_KOERPER_LUFT vor Körper und Schild. Ohne gemessenen Weg wie bisher (info „hieb“)
-	var auf: float = float(hieb[1])
+	var auf: float = float(h[1]) / maxf(float(tempo.get(nm, 1.0)), 0.1) + HIEB_VERZUG if nm == "Prankenhieb" else float(h[1])
 	# nur mit Waffe in der Hand (_hold); Krogg trägt sie im Modell, dann wäre der Kopf die Waffe (_hieb_bahn beim Tier)
-	var bb: Array = _hieb_bahn("Hieb", deg_to_rad(float(hieb[2]))) if traegt().any(func(g): return g[2] != "" and not String(g[2]).to_lower().contains("shield")) else []
+	var bb: Array = _hieb_bahn("Hieb", deg_to_rad(float(hieb[2]))) if nm == "Hieb" and traegt().any(func(g): return g[2] != "" and not String(g[2]).to_lower().contains("shield")) else []
 	if not bb.is_empty():
 		var pl: Array = hieb_plan(bb, other.koerper(), other.position, dir, weiter if weiter > 0.0 else -HIEB_TIEF, HIEB_KOERPER_LUFT, other.schild_kapseln())
 		if OS.get_environment("SCHAU_709") != "":
@@ -3301,7 +3317,7 @@ func _hieb(other, weiter := 0.0) -> int:
 			stand = pl[0]
 			auf = float(pl[1]) / maxf(float(tempo.get("Hieb", 1.0)), 0.1) + HIEB_VERZUG
 	var start := position + dir * (flat.length() - stand)
-	var schlag := atan2(dir.x, dir.z) + deg_to_rad(float(hieb[2]))
+	var schlag := atan2(dir.x, dir.z) + deg_to_rad(float(h[2]))
 	angriff_von = start     # die Schneide, nicht die Körperachse zum Ziel
 	if tween and tween.is_running():
 		tween.kill()
@@ -3336,9 +3352,9 @@ func _hieb(other, weiter := 0.0) -> int:
 		t_run = d[0] + t
 	var d2: Array = _dreh(tween, yaw, schlag, "Stehen")
 	t_run += d2[0]
-	var bl: float = anim.get_animation("Hieb").length if anim and anim.has_animation("Hieb") else 0.9
+	var bl: float = anim.get_animation(nm).length if anim and anim.has_animation(nm) else 0.9
 	# 1000: aus der gehaltenen Lage beginnt der Hieb an der Stelle, die sie zeigt (die Axt ist schon oben), ohne zweites Ausholen
-	var oben := ausgeholt()
+	var oben := ausgeholt() and nm == "Hieb"
 	var t0: float = ausholer.stelle() if oben else 0.0
 	if oben:
 		ausholer.fest = true
@@ -3352,7 +3368,7 @@ func _hieb(other, weiter := 0.0) -> int:
 			ausholer.aus_sofort()
 			schlag_kommt = false
 		else:
-			_play("Hieb", 0.08))
+			_play(nm, 0.08))
 	tween.tween_interval(bl)
 	# zurück, das Gesicht zum Ziel, um die anderen herum
 	var vh := _detour(start, home, other)
@@ -3465,6 +3481,8 @@ func ausholen(an: bool) -> void:
 			return
 		sk.add_child(a)
 		ausholer = a
+		if sk.has_node("Faustgriff"):     # 2024: die Faust hält die Waffe auch über der Haltung (faustgriff.gd läuft als letzte)
+			sk.move_child(sk.get_node("Faustgriff"), -1)
 	if not ausholer.an:
 		ausholer.phase = 0.0
 	ausholer.an = true
@@ -3568,7 +3586,9 @@ func strike(other, e: Dictionary) -> int:
 		# 438 (Prüfer Film r2: Klinge 31,2 s durch Wolf 2 ohne Treffer): daneben bleibt der Held VERFEHLT_M weiter weg
 		return _held_schlag(other, VERFEHLT_M if e.get("roll") != null and Mars.ist_angriff(e.roll) and not e.roll[4] else 0.0)
 	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
-		return _hieb(other, VERFEHLT_M if e.get("roll") != null and Mars.ist_angriff(e.roll) and not e.roll[4] else 0.0)
+		# 2024: Kroggs angesagter Prankenhieb (Absicht „paw“) mit der eigenen Bewegung, sonst der Hieb mit der Waffe
+		var pr: bool = angesagt != null and String(angesagt.get("id", "")) == "paw" and pranke.size() >= 3 and anim.has_animation("Prankenhieb")
+		return _hieb(other, VERFEHLT_M if e.get("roll") != null and Mars.ist_angriff(e.roll) and not e.roll[4] else 0.0, "Prankenhieb" if pr else "Hieb")
 	if fighter.monster != null and weg.has("Gehen"):
 		nach_biss = true     # 453: daheim zuerst Hecheln
 		_schnaufen(1.0)     # 453 r2: nach dem Biss schneller und tiefer atmen

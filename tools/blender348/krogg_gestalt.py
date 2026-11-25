@@ -748,8 +748,13 @@ HALT_Q = [(b, haltung_q(b, a, g)) for b, a, g in HALTUNG if b in r_uns]
 FAUST = {}                         # rechte Faust um den Stiel: Finger aus Sword_Idle Bild 0
 
 
-def lokal(q_name, tempo=1.0, halt=False):
+def gegen(b):     # Knochen der anderen Seite (hand_r <-> hand_l)
+    return b[:-2] + ('_l' if b.endswith('_r') else '_r') if b[-2:] in ('_r', '_l') else b
+
+
+def lokal(q_name, tempo=1.0, halt=False, spiegeln=False):
     # Bewegung q_name als lokale Drehungen je Bild und Knochen auf Kroggs Gerüst (ohne Schlüssel)
+    # spiegeln (2024): links und rechts getauscht, an der Ebene quer zur Welt-X gespiegelt (Drehung (w, x, y, z) -> (w, x, -y, -z))
     q = bpy.data.actions[q_name]; binde(UA, q)
     a0, a1 = q.frame_range
     n = int(round((a1 - a0) / tempo))
@@ -761,11 +766,14 @@ def lokal(q_name, tempo=1.0, halt=False):
         for b in reihen:
             pu = UA.pose.bones.get(b)
             D[b] = (pu.matrix.to_quaternion() @ r_ual[b].inverted()) if pu else Quaternion()
+        if spiegeln:
+            D = {b: Quaternion((D[gegen(b)].w, D[gegen(b)].x, -D[gegen(b)].y, -D[gegen(b)].z)) if gegen(b) in D else D[b] for b in reihen}
         R = {}
         for b in reihen:
             dp = D[eltern[b]] if eltern[b] else Quaternion()
             R[b] = r_uns[b].inverted() @ (dp.inverted() @ D[b]) @ r_uns[b]
         d_ = UA.pose.bones['pelvis'].matrix.translation - becken_ual
+        if spiegeln: d_.x = -d_.x
         R['_becken'] = r_uns['pelvis'].inverted() @ (d_ * mass)
         bilder.append(R)
     return bilder
@@ -778,9 +786,9 @@ def seite(s_):     # Arm einer Seite mit Hand und Fingern
 ARM_R, ARM_L = seite('r'), seite('l')
 
 
-def uebertrage(q_name, z_name, tempo=1.0, kurz=None, halt=True, arme=()):
+def uebertrage(q_name, z_name, tempo=1.0, kurz=None, halt=True, arme=(), spiegeln=False):
     # arme: [(Knochen, Bilder einer anderen Bewegung)], z. B. der Waffenarm aus Sword_Idle (Bild f mod Länge)
-    bilder = lokal(q_name, tempo)
+    bilder = lokal(q_name, tempo, spiegeln=spiegeln)
     if kurz: bilder = bilder[:kurz + 1]
     z = bpy.data.actions.new(z_name); z.use_fake_user = True; ARM.animation_data.action = z
     for f, R in enumerate(bilder):
@@ -811,10 +819,15 @@ WA = [(ARM_R, SWORD)]
 HIEB_Q = 'Sword_Attack_Standing' if os.environ.get('UAL') and 'Sword_Attack_Standing' in bpy.data.actions else 'Sword_Attack'
 ZU = [('Idle_Loop', 'Stehen', 1.0, None, WA), ('Walk_Loop', 'Gehen', 1.0, None, WA), ('Hit_Chest', 'Treffer', 1.0, None, ()),
       (os.environ.get('TOD_QUELLE', 'Death01'), 'Tod', 1.0, None, ()), (HIEB_Q, 'Hieb', float(os.environ.get('HIEB_TEMPO', '1.35')), None, [(ARM_L, IDLE)])]
+# 2024 (Chef 25.11., 09:54 „2024 A“; Eingebung [1069.prankenhieb] „Er holt mit der Pranke aus.“): Prankenhieb mit der freien linken
+# Pranke: der Hieb gespiegelt (der linke Arm holt aus und schlägt, der Rumpf dreht mit), der rechte Arm hält den Morgenstern
+# kampfbereit wie in Stehen (Sword_Idle), die linken Finger offen wie in Idle_Loop (Krallen statt Faust)
+FINGER_L = [b for b in ARM_L if b.split('_')[0] in FINGERN]
+ZU += [(HIEB_Q, 'Prankenhieb', float(os.environ.get('HIEB_TEMPO', '1.35')), None, [(ARM_R, SWORD), (FINGER_L, IDLE)], True)]
 if os.environ.get('UAL'):
     ZU += [('Jog_Fwd_Loop', 'Rennen', 1.0, None, WA), ('Jog_Bwd_Loop', 'Zurück', 1.0, None, WA), ('Jog_Right_Loop', 'Ausweichen', 1.0, 9, WA),
            ('Jog_Left_Loop', 'Ausweichen links', 1.0, 9, WA)]
-BEWEGT = {z_: uebertrage(q_, z_, t_, k_, arme=a_, halt=z_ != 'Tod') for q_, z_, t_, k_, a_ in ZU}
+BEWEGT = {e_[1]: uebertrage(*e_[:4], arme=e_[4], halt=e_[1] != 'Tod', spiegeln=len(e_) > 5 and e_[5]) for e_ in ZU}
 print('BEWEGUNG Hieb aus %s' % HIEB_Q)
 WEG = {}
 RM = os.environ.get('UAL_RM') or (os.path.join(os.path.dirname(os.environ['UAL']), 'UAL1_RM.glb') if os.environ.get('UAL') else '')
@@ -823,7 +836,7 @@ if RM and os.path.exists(RM):
     rm_ = importiere(RM)
     RA = next(o for o in rm_ if o.type == 'ARMATURE')
     neu_ = {a_.name.split('.')[0]: a_ for a_ in bpy.data.actions if a_ not in alt_}
-    for q_, z_, t_, k_, _ in ZU:
+    for q_, z_, t_, k_, *_ in ZU:
         if z_ not in ('Gehen', 'Rennen', 'Zurück', 'Ausweichen', 'Ausweichen links') or q_ not in neu_: continue
         binde(RA, neu_[q_])
         a0, a1 = [int(round(v)) for v in neu_[q_].frame_range]
@@ -1026,6 +1039,18 @@ f_auf, vor, kp = best
 HIEB = [round(math.hypot(kp.x, kp.y), 3), round(f_auf / FPS, 3), round(-math.degrees(math.atan2(kp.x, -kp.y)), 1), round(kp.z, 2)]
 print('HIEB Aufschlag Bild %d (%.2f s von %.2f s): Kopf %.2f m vor dem Ursprung, %.0f Grad, %.2f m hoch' % (
     f_auf, f_auf / FPS, nh / FPS, HIEB[0], -HIEB[2], HIEB[3]))
+# 2024: Aufschlag des Prankenhiebs: Bild, in dem die linke Pranke (Mittelfingerknöchel) am weitesten vor Krogg ist
+pr_, npr = BEWEGT['Prankenhieb']
+ARM.animation_data.action = pr_
+best = None
+for f in range(0, npr + 1):
+    sc.frame_set(f); bpy.context.view_layer.update()
+    kp = AW @ PB['middle_01_l'].matrix.translation
+    if best is None or -kp.y > best[1]: best = (f, -kp.y, kp)
+f_auf, vor, kp = best
+PRANKE = [round(math.hypot(kp.x, kp.y), 3), round(f_auf / FPS, 3), round(-math.degrees(math.atan2(kp.x, -kp.y)), 1), round(kp.z, 2)]
+print('PRANKE Aufschlag Bild %d (%.2f s von %.2f s): Pranke %.2f m vor dem Ursprung, %.0f Grad, %.2f m hoch' % (
+    f_auf, f_auf / FPS, npr / FPS, PRANKE[0], -PRANKE[2], PRANKE[3]))
 ARM.animation_data.action = STEHEN
 sc.frame_set(0); bpy.context.view_layer.update()
 st = WAFFE.matrix_world.to_3x3() @ Vector((0, 0, 1)); kk = WAFFE.matrix_world @ Vector((0, 0, 0.80))
@@ -1038,7 +1063,7 @@ info = {'hoehe': round(scheitel(), 3), 'quellen': sorted(set(QUELLEN)),
         'lizenz': 'Quaternius CC0 1.0 (Körper, Bewegungen), Anker CC0 (Morgenstern), Janpec Animal Pack Deluxe gekauft (Bärenkopf)',
         'masse': {'kopf_breite_m': round(float(np.ptp(welt(KOPF)[:, 0])), 3), 'hand_r_m': round(float((KN['hand_r'] - KN['lowerarm_r']).length * s_), 3)},
         'pruefung': {k: {'paare': v[0], 'netze': v[1], 'tief_m': round(v[2], 3)} for k, v in MESS.items()},
-        'spiel': {'weg': WEG, 'fps': FPS, 'hieb': HIEB}}
+        'spiel': {'weg': WEG, 'fps': FPS, 'hieb': HIEB, 'pranke': PRANKE}}
 ecken = sum(len(o.data.vertices) for o in bpy.data.objects if o.type == 'MESH')
 dreiecke = 0
 for o in bpy.data.objects:
