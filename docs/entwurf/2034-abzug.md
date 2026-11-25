@@ -1,6 +1,6 @@
 # 2034 Teil 0: Abzug der MakeHuman-Stücke (Liste)
 
-Vorgang 2034 Teil 0 (Chef 25.11., 17:27; Sokrates 17:29). Erzeugt von `tools/godot/abzug_2034_liste.py` aus `tools/blender348/v3/abzug_mh.py` (Stand db0cc4ce5). Pakete neu geladen von `files.makehumancommunity.org` (25.11., 18:12–18:21, HTTP 200; fünf CC-BY-Pakete heißen dort `*_cc-by.zip`). Stücke je Paket: alle `.mhclo` (M1 nur `hair/`), Häute alle `.mhmat` unter `skins/`. Dreiecke: Flächen der `.obj` (n-Eck = n−2), nicht ausgedünnt; Bild: Größe des `diffuseTexture`.
+Vorgang 2034 Teil 0 (Chef 25.11., 17:27; Sokrates 17:29). Erzeugt von `tools/godot/abzug_2034_liste.py` aus `tools/blender348/v3/abzug_mh.py` (Stand 666fc20ce). Pakete neu geladen von `files.makehumancommunity.org` (25.11., 18:12–18:21, HTTP 200; fünf CC-BY-Pakete heißen dort `*_cc-by.zip`). Stücke je Paket: alle `.mhclo` (M1 nur `hair/`), Häute alle `.mhmat` unter `skins/`. Dreiecke: Flächen der `.obj` (n-Eck = n−2), nicht ausgedünnt; Bild: Größe des `diffuseTexture`.
 
 **F6 ✗ Sichtung:** nur, wenn ein in der Sichtung mit ✗ genanntes Wort in Name, Ordner oder Paketbeschreibung steht (Suchwörter in `abzug_2034_liste.py`); nicht gezeichnet, der Chef kann nachfordern. Alles andere ist gezeichnet, auch wenn die Sichtung das Paket „meist modern“ nannte.
 
@@ -33,6 +33,15 @@ Vorgang 2034 Teil 0 (Chef 25.11., 17:27; Sokrates 17:29). Erzeugt von `tools/god
 | M54 | shirts02 | 13 | 13 | 11 | 2 |
 | M57 | shoes03 | 12 | 12 | 9 | 3 |
 | **Summe** | | 292 | 293 | 243 | 50 |
+
+## Signatur-Probe (vorn, Spiel-Shader)
+
+- **M29-04**: Messung (vorn): Umriss 5042 px, davon 74 % mit Tusche; Kanten innen 4231 px Tusche; Tonstufen 3 (Helligkeit 0.39, 0.41, 0.53); Lichtstufen weiß 0.85, 0.93, 1.00; Stufen gegen Bild 0.39 (kleinster Stufenabstand / Streuung des Bildes); hellster Pixel 0.729; Pixel über Glanzgrenze (heller als weißes mattes Stück) 0
+- **M27-09**: Messung (vorn): Umriss 7272 px, davon 68 % mit Tusche; Kanten innen 2172 px Tusche; Tonstufen 3 (Helligkeit 0.44, 0.52, 0.56); Lichtstufen weiß 0.85, 0.93, 0.99; Stufen gegen Bild 0.31 (kleinster Stufenabstand / Streuung des Bildes); hellster Pixel 1.000; Pixel über Glanzgrenze (heller als weißes mattes Stück) 0
+- **M27-05**: Messung (vorn): Umriss 8009 px, davon 65 % mit Tusche; Kanten innen 5134 px Tusche; Tonstufen 3 (Helligkeit 0.41, 0.42, 0.49); Lichtstufen weiß 0.85, 0.93, 0.99; Stufen gegen Bild 0.14 (kleinster Stufenabstand / Streuung des Bildes); hellster Pixel 0.720; Pixel über Glanzgrenze (heller als weißes mattes Stück) 0
+- **M36-05**: Messung (vorn): Umriss 5962 px, davon 55 % mit Tusche; Kanten innen 480 px Tusche; Tonstufen 3 (Helligkeit 0.09, 0.10, 0.14); Lichtstufen weiß 0.85, 0.93, 0.99; Stufen gegen Bild 0.44 (kleinster Stufenabstand / Streuung des Bildes); hellster Pixel 0.577; Pixel über Glanzgrenze (heller als weißes mattes Stück) 0
+- **M36-06**: Messung (vorn): Umriss 4475 px, davon 46 % mit Tusche; Kanten innen 359 px Tusche; Tonstufen 3 (Helligkeit 0.06, 0.08, 0.11); Lichtstufen weiß 0.85, 0.93, 0.99; Stufen gegen Bild 0.92 (kleinster Stufenabstand / Streuung des Bildes); hellster Pixel 0.287; Pixel über Glanzgrenze (heller als weißes mattes Stück) 0
+- **M57-09**: Messung (vorn): Umriss 5230 px, davon 54 % mit Tusche; Kanten innen 29 px Tusche; Tonstufen 3 (Helligkeit 0.11, 0.13, 0.16); Lichtstufen weiß 0.85, 0.93, 1.00; Stufen gegen Bild 0.77 (kleinster Stufenabstand / Streuung des Bildes); hellster Pixel 0.484; Pixel über Glanzgrenze (heller als weißes mattes Stück) 0
 
 ## Stücke
 

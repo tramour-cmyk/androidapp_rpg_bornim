@@ -35,14 +35,15 @@ while IFS=$'\t' read -r nr name paket art liz dr bild urh; do
     strich $R/${nr}_vorn.png $pv $T/a.png; strich $R/${nr}_seite.png $ps $T/b.png
     la="vorn"; lb="Seite (Blick nach rechts)"; mess=""
   fi
-  convert $T/a.png -fill "$GOLD" -pointsize 24 -annotate +80+40 "$la" $T/a2.png
-  convert $T/b.png -fill "$GOLD" -pointsize 24 -annotate +80+40 "$lb" $T/b2.png
+  convert $T/a.png -fill "$GOLD" -pointsize 24 -annotate +110+40 "$la" $T/a2.png
+  convert $T/b.png -fill "$GOLD" -pointsize 24 -annotate +110+40 "$lb" $T/b2.png
   convert $T/a2.png $T/b2.png +append $T/oben.png
   txt="$nr  $name  ($art)  ·  Paket $paket, Urheber $urh, Lizenz $liz  ·  $dr Dreiecke (nicht ausgedünnt), Bild $bild  ·  Spiel-Shader toon + tusche (Held), Stand $C"
   [ -n "$mess" ] && txt="$txt"$'\n'"$mess"
+  txt=${txt//%/%%}   # ImageMagick: % ist Steuerzeichen
   convert -background black -fill "$GOLD" -pointsize 21 -size 2024x88 -gravity west caption:"$txt" -bordercolor black -border 12x6 $T/rand.png
   convert $T/oben.png $T/rand.png -background black -append -resize 2048x1024! $Z/$nr.png
-  cwebp -quiet -q 90 $Z/$nr.png -o $Z/$nr.webp && rm $Z/$nr.png
+  convert $Z/$nr.png -quality 90 $Z/$nr.webp && rm $Z/$nr.png
   echo "BILD $Z/$nr.webp"
 done < $T/zeilen
 rm -rf $T
