@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session_01Hmoj78XiynF45gfuVmiNc8). Sokrates session_01Hmoj76pVj4STr1hPTJC56p (seit 24.11., 21:52). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session_01Hmoj76MLqXxxrREpwoxksZ). Sokrates session_01Hmoj76pVj4STr1hPTJC56p (seit 24.11., 21:52). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -21,10 +21,24 @@ Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session
 - Erste Nachricht: „Du bist Alter Ego, das zweite Paar Augen des Chefs, kein zweiter Sokrates (Rolle neu 24.11., 08:57). Lies docs/leitung/alter-ego.md und arbeite danach: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
 
 
-**Übergabe (24.11., 18:40, 248 Tsd., Nachfolger: Alter Ego – Supervisor (24.11.)):** Chef 12:48/12:49: kein neues Werkzeug, Spiel vor, keine Meldungen an den Chef bis Sa 28.11. außer Laufsperre-Notfall. Runden nur Hänger und Leerlauf an Sokrates; Chefsachen 1694, 1603, 431 von Sokrates geprüft bis nichts Neues (liegen bis Sa; 431-Ü11 Merkmalbefund eingetragen). Offen: Leerlauf 18:38 → Sokrates lässt 1589.4 planen (1589.4-Ü1, Uwe startet); in der Runde 19:38 nachsehen, ob gestartet. lauf.py schlägt ruhende Planer (887, 1716) weiter vor: Werkzeug, ruht bis Sa, nicht erneut melden. Uhr trig_01TZud4pmfQVwZwysYLue1EF (19:38) steht noch; Nachfolger löscht sie und legt eigene an.
+**Übergabe (25.11., 10:08, 263 Tsd., Nachfolger: Alter Ego – Supervisor (25.11.)):** Chef 09:52: Entscheidungen jetzt vorlegen, nicht bis Sa vertagen (ersetzt 19:42). Entscheid in Vertretung 09:53: unter drei Fachkräften startet Uwe selbst nach Rang, Takt --ohne 887/448; „eine Figur zugleich“ ohne Quelle. Chef 10:13: Guthaben A (drei bis Sa); 431 Zopf-Lizenz klären lassen (CC0 belegt = B, sonst A). Runde 11:08 prüfen: drei Fachkräfte (Carla 1589.4, Dana 1654, 1694-Ü30 Start). Leerlauf zweimal belegt = selbst entscheiden, nicht nur melden (Chef 09:53). Uhr trig_01KgDW6PaLy6gc9pK8xvPN88 abgelaufen; Nachfolger legt eigene an.
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 10:30 Chef 10:30 „Nee, wir bauen keinen eigenen Zopf.“ (= 431 B) → wörtlich an Sokrates.
+- 25.11., 10:29 Chef 10:27/10:29 MakeHuman-Asset-Packs „Pakete sichten auf jeden Fall“ → wörtlich an Sokrates (Auftrag anlegen); Übersicht und Lizenzlage CC0/CC-BY dem Chef 10:28 belegt.
+- 25.11., 10:26 Chef 10:26 „Vorgang 1589.4. Machen.“ (auf Meldung 10:15, Deckel Kapsel-Umbau, Votum 36 $) → wörtlich an Sokrates.
+- 25.11., 10:13 Chef 10:13 „A, 431 kann man das nicht klären?“ → Guthaben A (drei bis Sa); 431 Lizenz klären (Zip-Lizenz, MakeHuman-FAQ, MakeClothes-Vorgabe), CC0 belegt = B, sonst A. An Sokrates.
+- 25.11., 10:12 Nachfolger übernommen, umbenannt; Uhr trig_01CZdZqiST6WF5sX88Lx1dpF (11:11); alte trig_01KgDW6PaLy6gc9pK8xvPN88 abgelaufen (Löschen sperrt Rechteprüfer); Kennung an Sokrates.
+- 25.11., 10:08 Runde: zwei von drei (Carla, Dana); 1694-Ü30 seit 10:02 nicht gestartet → an Sokrates. Übergabe (263 Tsd.), Startfelder an Sokrates.
+- 25.11., 10:01 Chef 10:01 „63 Prozent Wochenlimit“ → an Sokrates; 0,48 %/h (tragbar 0,45), 80 % Do ~21 Uhr, 100 % Sa ~15 Uhr; Frage drei/zwei an Chef.
+- 25.11., 09:55 Chef 09:55: Umriss praktisch statt Regel (Kapsel/Ellipse für längliche Tiere) → wörtlich an Sokrates, DESIGN-GEGNER 1 anpassen. Eigener Fehler 09:52: Kreis als „deine Regel“ vorgelegt statt nach Praxis gefragt.
+- 25.11., 09:54 Chef 09:54 „1694 B, 2024 A“ (1694 bis 10 $/Halt 8 mit Messregel; 2024 Deckel 15 $/Halt 12; Umriss unbeantwortet = Kreis) → wörtlich an Sokrates, Haken D trägt nicht ein.
+- 25.11., 09:53 Chef 09:53 „Ablauffehler … warum kümmerst du dich nicht“: eigener Fehler, Leerlauf zweimal nur gemeldet statt in Vertretung entschieden. Entscheid in Vertretung an Sokrates: Uwe startet bei <3 Fachkräften selbst nach Rang; --ohne 887/448; jetzt 1589.4 + Welt/Regeln; Quelle „eine Figur zugleich“ belegen. Lehre: Leerlauf mit Beleg zweimal = selbst entscheiden.
+- 25.11., 09:51 Chef 09:51 „1589.4 weiter“ (auf Frage 09:50: weiter bis 26 $, dann Film) → wörtlich an Sokrates.
+- 25.11., 09:50 Chef 09:50 fragt, was er entscheiden muss: nur 1589.4 (weiter bis 26 $); sonst 1639 in Vertretung auf Kampf-Platz.
+- 25.11., 09:05 Runde: Leerlauf hält (Takte 08:06, 09:05 nur 887 und 448, nicht ausgeführt; kein Kampf-Vorschlag). An Sokrates: Takt mit --ohne 887/448 wie 23./24.11. Uhr trig_01KgDW6PaLy6gc9pK8xvPN88 (10:06).
+- 25.11., 08:09 Sokrates: 431-Ü15 beantwortet; Kampf-Platz besetzt Disponent nach Vorrang.
 - 25.11., 08:03 Runde: Leerlauf, 1 von 3 Fachkräften (Britta 431), Kampf-Platz frei seit 1589.4-Halt; Kandidaten 1639, 1634, 785.x an Sokrates. 431-Ü15 frisch. Neustart-Haken mahnt ab 200 Tsd., Rollendatei sagt 280 Tsd.: Rolle gilt. Uhr trig_014uwhdWkq4wS9U2cULgFcqq (09:04).
 - 25.11., 07:01 Runde: Nacht ohne Fachkraft (Nachtruhe, kein Hänger). 1694 ruht bis Sa (6. steckt fest, 1694-Ü27), 1589.4 wartet 28.11. Figur frei: 1654, 2024, 431 startbar, Takt 07:04 abwarten. Nichts an Sokrates. Uhr trig_01Tz36ZHiCX8P1zz97R5WS1X (08:02).
 - 24.11., 22:53 Sokrates 22:53 (123905cdc): 1589.4-Ü8 Halt, wartet auf 28.11., Befunde in Vorlage Sa; 1694-Ü26 beim Disponenten Takt 23:04. Stimmt; Nachsehen 07:00.
