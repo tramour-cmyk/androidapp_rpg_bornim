@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj77coHozxLd4WLoTXMn (seit 25.11., 21:54). Sokrates session_01Hmoj79sfZCCTcafJDfrfK4 (seit 25.11., 21:43). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj78egvYz1pP981xLHs5 (seit 25.11., 22:48). Sokrates session_01Hmoj79sfZCCTcafJDfrfK4 (seit 25.11., 21:43). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj77coHozxLd4WLoTXMn (seit 25.11., 21:54). Sokrates session_
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 22:48 Nachfolger übernommen, umbenannt; Uhr trig_01NdYUgPya6E344diyid2VZB (23:49); alte trig_01M79hDGn24dPP13MYwuEWBd abgeschaltet (Löschen sperrt Auto-Modus); Vorgänger …77coHo archiviert; Kennung an Sokrates.
 - 25.11., 22:49 Chef 22:43 „umbenennen“ → Ralf „Ralf – Prüfer – frei“, Regel an Sokrates; Chef 22:45 „1 ja, 2 auch temporär“ → wörtlich an Sokrates. Übergabe (264 Tsd.), Startfelder an Sokrates.
 - 25.11., 22:44 Chef 22:40 „gegenprüfen … dann machen wir es so mit Alt (Eilt)“: Unteragent 22:42 bestätigt Befunde, Ursache rufname.py Z. 229, Einwand Disponent.md Z. 5 → Prüfer-Ablauf und Teil-6-Fix an Sokrates in 2042. Übergabe geschrieben.
 - 25.11., 22:39 Britta 2042 nach 15 Min. 212 Tsd., Neustart (Grenze 200 = Chef 1520, SCHWELLEN Z. 255); 2042 misst alle Rollen; Übergang 22:38 (Rollendatei) zurückgenommen, war falsch belegt. Teil 6 = Titel-Fix in 2042 (Carla). 1708-Ü10 geschlossen auf Sokrates 20:29 „wartet auf 1589.4“. Fragen an Chef: Prüfer im Titel, Fachkräfte starten selbst, Grenze 200.
