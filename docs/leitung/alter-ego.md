@@ -25,6 +25,7 @@ Sitzung session_01Hmoj75PCSHUvX4ZVftYC3X (seit 25.11., 16:37; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 16:49 Sokrates 7613d7cf7/9fd8a025d geprüft: Archiv, Gedächtnis, Herkunft stimmen; Auftragszeilen 1708 Z. 12 (20/18 $) und 2029 Z. 18 (30/24 $) alt → an Sokrates.
 - 25.11., 16:48 Chef 16:47 „wieso … wieder bei 20 und $30?“: eigener Fehler 16:43 (16:42 als Deckel = Schätzung gelesen). An Sokrates: Deckel 50 $ = einziger Halt, Schätzung = Ziel. Lehre: Fragegrenze und Ausgabeziel getrennt weitergeben.
 - 25.11., 16:46 Sokrates 2328d4467 geprüft: Archiv „50 $ nur Fragegrenze“, Gedächtnis Z. 21, 1708 20/18 $, 2029 30/24 $ stimmen.
 - 25.11., 16:43 Chef 16:42: 50 $ nur Fragegrenze, ausgegeben wird nach Schätzung → wörtlich an Sokrates, Archiv 723356bb3 berichtigen.
