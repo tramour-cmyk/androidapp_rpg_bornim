@@ -194,6 +194,8 @@ Vorher (Chef 09.11., 11:21, 743 „alle verwerfen“): Spiel-Engine Godot, Monst
 - **Neue Bosse:** Banditenhauptmann, Ogerhäuptling, Gelatinewürfel; mehrphasig, rufen Verstärkung. → **später:** Kapitel 2.
 
 ## B Betrieb
+- **Folgeschritt startet die Sitzung selbst** (Chef 25.11., 20:27 an Alter Ego, noch kein Ja: „Die sollen halt einfach eine Nachricht schicken … Dann kann der Facharbeiter entweder eine neue Sache übernehmen oder er wird geschlossen.“): Schließen, Kosten, Builds bleiben beim Disponenten; Bedingung Alter Ego: Prüfer-Ja gibt den Platz sofort frei.
+- **Zustand im Sitzungsnamen** (Chef 25.11., 20:28 an Alter Ego, noch kein Ja): „arbeitet“, „frei“, „wartet auf Prüfer“; Sitzung benennt sich selbst um, lauf.py zählt Plätze aus den Titeln. Vorher belegen: haben Fachkräfte set_session_title? Chef 20:36 (über Alter Ego): „Schön wäre, wenn der Status sozusagen Name, Status, Vorgangsnummer, Betreff. Weil auf dem Handy sehe ich dann, ob eben wartet ist oder beim Prüfer oder frei.“ Form: „Name – Status – Nr – Betreff“; Auftrag erst nach Gegenprüfung Alter Ego (Punkt 9).
 
 - **Claude-Sitzungen auf eigener Hardware (Chef 16.11., 18:20–18:23, Idee „nachhalten“):** Sitzungen auf Proxmox oder dem NAS (DS1522+, AMD Ryzen R1600, 2 Kerne, 32 GB) statt in der Cloud; Vorteil: Einstellungen dauerhaft, Kaufrepo per Git statt `add_repo`, kein Neuaufbau je Start. Dagegen: Betrieb (Ford, Weckrufe, Archiv) auf Cloud gebaut, Pflege, Schlüssel lokal; Proxmox-Runner war langsamer als GitHub (264), das NAS hat nur 2 Kerne (Godot-Tests lokal langsamer; die Sitzung selbst wartet meist auf das Modell). Bauen bleibt bei GitHub. Bedingung: erst wenn 1472 (Kaufrepo-Satz im Start) scheitert, dann Vorlage Sokrates mit Messung.
 

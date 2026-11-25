@@ -1,4 +1,4 @@
-# Gedächtnis der Leitung · Fassung 5 (Sokrates 24.11., 08:15): auf 3 KB gekürzt, „Fehler 341“ aus `ARBEIT-BERATUNG.md` eingearbeitet; ältere Fassungen und Wortlaute in Git
+# Gedächtnis der Leitung · Fassung 5 (24.11.); ältere Fassungen in Git
 
 ## Geltende Lehren
 
@@ -7,25 +7,26 @@
 - Chefwort wörtlich gegen jede Frage lesen; im Zweifel „teilweise“; Bedingungssatz erst auf „umsetzen“; Stand im selben Commit (1727j, 1566).
 - Vorlage: Vorgang und Chefsache nach MUSTER, vorher Prüfung Alter Ego bis nichts Neues, Prompts an festen echten Fällen, Votum mit Gegenargument, Telegram mit Verweis; nie nur Chat (24.11., 08:00).
 - Vor Nachfrage Telegram lesen; jede Frage auch per Telegram (1570, Chef 19:20).
-- Bild selbst ansehen, Spielkamera; Waffe: Griff je Hand (1650, 1621).
+- Bild selbst ansehen, Spielkamera (1650, 1621).
 - Umbau nur von der alten Datei aus, jede Übernahme prüfen (98). Kerne, Profile, Abgenommenes nur in der Quelle, mit Chefwort und Byte, nur die genannte Stelle (D205.3, 1931).
 - Befund, der den Auftrag erledigt, vorher nennen (1638); Ablauf als Raster Einheit × Auslöser, „komplett“ per grep.
 - Keine Regel gegen Praktisches vorschieben (Kapsel 25.11.).
+- Neueres Chefwort gilt; widerspricht es Älterem, Chef darauf hinweisen, er löst (17:54).
 - Chefentscheid nie selbst zurücknehmen oder gegen Chefwort ablehnen: raten, Regel nennen, fragen (1609, 23.11.).
 - Gegenlesen: erst die Art jeder Zeile, dann Inhalt; nur gegen gültige Texte prüfen (t299, 1933).
 - Keine Meldung oder Hinweis ohne Empfänger, der damit handelt; sonst streichen (Chef 24.11., 08:28).
 - Laufende Arbeit nie für eine neue Regel anhalten (1960).
 - Werkzeug erst nach drei belegten Fällen und Chef-Ja; jeden Handfix sofort `vorgang.py lehre roh`. Widerspruch im Vorgang: vorlegen, nicht bauen (Chef 24.11., 07:26/07:37).
 - Notizkopie nur über `tools/notiz.sh`; keine Team- oder Organisations-Einstellungen; vor Vorschlag zum Kaufrepo Archiv und Git nach Versuchen absuchen; Geschäftsmodell nie ins Repo ([Modell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj)).
+- Deckel je Vorgang 50 $: dort Halt, Frage; Schätzung = Ziel (Chef 25.11., 16:47).
 
 ## Offene Fäden
 
-- Konferenz: Alter Ego `session_01Hmoj796ziGfneFcCRZG7J7` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
-- Spielcode nach main nur Sokrates nach Chef-👍 (Dauerwort 23.11., 23:10).
-- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt; Guthaben 50 % (06:53), über 0,6 %/h zwei
-- Chef 12:48: Spiel vor, kein Werkzeug (1716, 1725, 2020, 2021 ruhen); fragt der Chef, jetzt vorlegen (25.11., 09:52). 1694, 431, 1589.4, 1603 A (19:3x). Sa vorlegen: 1589.4 Kapsel, --sperre-Teile; Testbuild Sa (Technik Fr). Offen: 1301/1387/1642/1643 mit Alter Ego.
-- Täglich Modell, Umgebung, Aufwand aller Sitzungen. Kopiertexte: `kopiertexte-uhren.md`
+- Konferenz: Alter Ego `session_01Hmoj78GVgrp48SUhwspQ4U` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
+- Nach main: CLAUDE.md 8 (Chef 25.11., 17:37, 17:44); mischt Sokrates.
+- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Werkzeug nur 2035, 2036, 2039, 2041. Sa vorlegen: --sperre-Teile, Testbuild Sa (Technik Fr).
+- Täglich Modell, Umgebung, Aufwand je Sitzung.
 
 ## Übergabe
 
-- 24.11., 21:50, `77ZdYK…`: Letzte Antwort: 1589.4 Kosten, Rest Sa. Nachfolger: Sokrates – Leitung.
+- 25.11., 21:39, `75bAmZ`: Fragen 2029/31/32/34/39 beantwortet (96b91cc84). Offen dir: Alter Ego 21:37 Punkte 5, 6; Notstart-Zeilen (1989, 2035, 2041) schließen. Offen Chef: trig_01UMBs6p ab; archivieren Detlef, Berit, Edda, alter Alter Ego, Uwe; Sperre 300 Tsd. (Rat B). Letzte Antwort: 21:39. Nachfolger: Sokrates – Leitung.

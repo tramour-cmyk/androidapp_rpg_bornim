@@ -184,8 +184,9 @@ static func lade_glb(p: String) -> Node3D:
 	return doc.generate_scene(state) as Node3D
 
 # 348.12i: gekaufte Modelle liegen verschluesselt im APK (tools/blender348/verschluesseln.sh: „BKV1“, IV, AES-256-CBC mit PKCS7)
+# 431 (App-Größe): gzip-gepackte Modelle (godot.yml, Volksmodelle des Helden) packt entpacke nach dem Entschlüsseln aus
 static func entschluessele(b: PackedByteArray, p: String) -> PackedByteArray:
-	if b.size() < 36 or b.slice(0, 4).get_string_from_ascii() != "BKV1": return b
+	if b.size() < 36 or b.slice(0, 4).get_string_from_ascii() != "BKV1": return entpacke(b)
 	if Schluessel.KAUF.length() != 64 or (b.size() - 20) % 16 != 0:
 		push_error("verschluesselt, ohne Schluessel: %s" % p)
 		return PackedByteArray()
@@ -197,7 +198,11 @@ static func entschluessele(b: PackedByteArray, p: String) -> PackedByteArray:
 	if pad < 1 or pad > 16:
 		push_error("falscher Schluessel: %s" % p)
 		return PackedByteArray()
-	return d.slice(0, d.size() - pad)
+	return entpacke(d.slice(0, d.size() - pad))
+
+static func entpacke(b: PackedByteArray) -> PackedByteArray:
+	if b.size() < 2 or b[0] != 0x1f or b[1] != 0x8b: return b
+	return b.decompress_dynamic(-1, FileAccess.COMPRESSION_GZIP)
 
 # 397 (Chef 28.10., 11:15: Ruhebewegungen wie im alten Spiel, mindestens drei): wer steht, spielt Stehen zwei- bis viermal, dann
 # eine der anderen Ruhebewegungen (geruest.py RUHE, aus der UAL Pro) einmal, dann wieder Stehen; ohne die Kaufbewegungen nur Stehen.

@@ -259,12 +259,15 @@ def wache_id():
 
 def leitung_neustart(je_rolle, archiviert, wache=None):
     """1988: je nicht archivierte Sitzung der Leitung (Sokrates) und, Zusatz 09:26, des Disponenten mit used_tokens
-    (context_usage, get_session) ab 300.000 eine Zeile an den Disponenten; ohne Wert keine Zeile."""
+    (context_usage, get_session) ab 300.000 eine Zeile an den Disponenten; 2035 (Entscheid Alter Ego 25.11., 18:09): ohne Wert
+    statt Schweigen die Zeile „TOKEN <id> | <Rolle>: …“ (list_sessions liefert used_tokens nicht, Kurzform trägt es)."""
     aus = []
     for rolle, (art, text) in NEUSTART_ZEILE.items():
         for s in je_rolle.get(rolle, []):
             tok = s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens")
-            if s["id"] not in archiviert and tok and tok >= LEITUNG_NEUSTART_TOKEN:
+            if s["id"] not in archiviert and not tok:
+                aus.append("TOKEN %s | %s: get_session, Zahl in die Kurzform, lauf.py neu" % (s["id"], rolle))
+            elif s["id"] not in archiviert and tok >= LEITUNG_NEUSTART_TOKEN:
                 if "%s" in text: text = text % (wache or wache_id())
                 aus.append("%s %s | %s | %d Tsd. Token | %s (1988, ab %d Tsd.)" % (art, s["id"], rolle, tok // 1000, text, LEITUNG_NEUSTART_TOKEN // 1000))
     return aus
@@ -2267,7 +2270,9 @@ def besetzung_text(t, leb):
     for s in sorted(leb, key=lambda x: x["created_at"]):
         r, laufend, ruhig, hinder = s["_info"]
         titel = s.get("title", s["id"])
-        if r == "Sonstige" and not titel.startswith("Ford"): continue
+        import uebergabe as _ue
+        if _ue.DISPONENT_TITEL.match(titel): r = "Disponent"  # 2035: „Detlef – Disponent – Betrieb“ zählt kosten.rolle als Sonstige
+        elif r == "Sonstige" and not titel.startswith("Ford"): continue
         zl = nummer_aus_titel(titel) or "Betrieb"
         zw = ((s.get("external_metadata") or {}).get("current_branches") or {}).get("") or vz.get(zl) or "–"
         zeilen.append("| %s | [%s](https://claude.ai/code/%s) | %s | %s | %s |" % (r, titel, s["id"], zl, zw, berlin(z(s["created_at"]))))

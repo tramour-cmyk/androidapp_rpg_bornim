@@ -68,30 +68,13 @@ def text(stufe, plus, gesamt, ab=AB, ford=False):
     kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist {k(gesamt)} Token lang (Schwelle {k(ab)}, je Rolle 1520; seit dem Start +{k(plus)}); Erinnerung Nr. {stufe}."
     # 81r: der Anlass entscheidet, nicht ein Ja des Nutzers; kein Vorschlag im Chat (D8.2: der löste den Chefsache-Haken aus)
     if stufe == 1:
-        rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): zuerst `python3 tools/regelcheck.py --kurz` und die Funde im eigenen Vorrat beheben, dann Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
+        rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): zuerst `python3 tools/regelcheck.py --kurz` und die Funde im eigenen Vorrat beheben, dann Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an den Disponenten „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
     else:
-        rest = "Zweite Erinnerung: jetzt den Schritt beenden, Übergabe pushen, Neustart über Ford (81r); im Chat danach genau „Weiter in <Titel>: <Link>“."
+        rest = "Zweite Erinnerung: jetzt den Schritt beenden, Übergabe pushen, Neustart über den Disponenten (81r); im Chat danach genau „Weiter in <Titel>: <Link>“."
     return kopf + " " + rest
 
 
-ROLLEN = r"(Perikles|Homer|Sokrates|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)( \d)?"
-
-
-def ist_ford():
-    """1574: diese Sitzung ist der aktuelle Ford laut ARBEIT-BETRIEB.md („Ford (aktuell)“), auch wenn die erste Nachricht nicht mit „Ford“ beginnt
-    (Handstart des Chefs 17.11., 18:24: Haken erkannte ihn nicht)."""
-    import re
-    kennung = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "").split("_", 1)[-1]
-    if not kennung:
-        return False
-    for d in ("/home/user/bornim-main", os.environ.get("CLAUDE_PROJECT_DIR") or "."):
-        try:
-            m = re.search(r"\*\*Ford \(aktuell\)\*\* `session_(\w+)`", open(os.path.join(d, "docs", "ARBEIT-BETRIEB.md"), encoding="utf-8").read())
-        except OSError:
-            continue
-        if m:
-            return m.group(1) == kennung
-    return False
+ROLLEN = r"(Perikles|Homer|Sokrates|Diogenes|Disponent|Tom|Jerry|Spike|Tuffy)( \d)?"
 
 
 def name(pfad, sitzung):
@@ -118,7 +101,8 @@ def name(pfad, sitzung):
                 inhalt = " ".join(t.get("text", "") for t in inhalt if isinstance(t, dict))
             if not isinstance(inhalt, str) or not inhalt.strip():
                 continue
-            m = re.match(r"\W*" + ROLLEN + r"\b", inhalt.strip())
+            m = re.match(r"\W*" + ROLLEN + r"(?![\w-])", inhalt.strip())  # 2035: nicht „Disponent-Starter“
+            m = m or re.match(r"\w+ – (Disponent)() – ", inhalt.strip())  # 2035: Titel „Detlef – Disponent – Betrieb“ (uebergabe.DISPONENT_TITEL), nie „Wache – Disponent (…)“
             # 1683: Startnachricht mit Kern beginnt mit „## Kern … Du bist **Spike**“, nicht mit dem Namen (Haken grüßten mit „Tom“)
             m = m or re.search(r"Du bist \*\*" + ROLLEN + r"\*\*", inhalt[:2000])
             m = m or re.search(r"^Dein Rufname: \w+ \(Rolle " + ROLLEN + r"\b", inhalt.strip())  # 1739 (lauf.mit_rufnamen)
@@ -223,8 +207,8 @@ def prompt(eingabe):
         z = {}
     ab = schwellen(rolle(pfad, sitzung), kauf())[0]  # 1520: je Rolle (818 Kaufrepo, 1643 Sokrates)
     ford = False
-    try:  # 1574 (Chef 17.11., 18:31): Ford bleibt eine Sitzung, kein Selbstneustart; die Verdichtung hält sein Gespräch klein, keine Erinnerung
-        if name(pfad, sitzung).startswith("Ford") or ist_ford():
+    try:  # 1574 (Chef 17.11., 18:31): der Disponent bleibt eine Sitzung, kein Selbstneustart; die Verdichtung hält sein Gespräch klein, keine Erinnerung
+        if name(pfad, sitzung).startswith("Disponent"):
             return
     except Exception:
         pass
@@ -243,7 +227,7 @@ def prompt(eingabe):
             n = None
         if n:  # 812: kein Neustart mitten im Test
             print(f"Neustart-Haken (Thema 14): Das Gespräch ist {round(gesamt / 1000)} Tsd. Token lang, aber der Chef meldet Prüfliste t{n} in dieser Sitzung: "
-                  "weiter, bis er fertig ist; danach Übergabe und Neustart über Ford (812). Im Chat nichts dazu.")
+                  "weiter, bis er fertig ist; danach Übergabe und Neustart über den Disponenten (812). Im Chat nichts dazu.")
         else:
             print(text(stufe, plus, gesamt, ab, ford))
     with open(zpfad, "w") as f:
@@ -364,8 +348,8 @@ def werkzeug(eingabe, art):
         return 0
     gesamt = letzte_groesse(pfad)
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
-    ford = name(pfad, sitzung).startswith("Ford") or ist_ford()
-    if ford:  # 1574: Ford bleibt eine Sitzung, weder Erinnerung noch Sperre
+    ford = name(pfad, sitzung).startswith("Disponent")
+    if ford:  # 1574: der Disponent bleibt eine Sitzung, weder Erinnerung noch Sperre
         return 0
     ab, sperre = schwellen(rolle(pfad, sitzung), kauf())  # 1520: Tabelle je Rolle (818 Kaufrepo, 1643 Sokrates)
     if gesamt < ab:

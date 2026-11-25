@@ -61,6 +61,13 @@ def rolle(titel, created_at=None):
     """Rolle eines Sitzungstitels; created_at (1957) ordnet Rufnamen-Sitzungen über die Startsperre ihrer Startrolle zu."""
     for r in ROLLEN:
         if titel == r or titel.startswith((r + " ", r + ",", r + ":")): return r  # 360: „Homer, 279 …“ blieb als Klon stehen
+    try:  # 2035 (Auftrag 25.11., 20:45): „Detlef – Disponent – Betrieb“ vor dem Rufnamen-Zweig; Muster nur in uebergabe.DISPONENT_TITEL
+        import os
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import uebergabe
+        if uebergabe.DISPONENT_TITEL.match(titel or ""): return "Disponent"
+    except ImportError:
+        pass
     try:  # 1893: Titel mit Profil statt Rufname („Technik – 1893 …“, Start vor tools/1727-SCHARF an der neuen Liste)
         import os
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

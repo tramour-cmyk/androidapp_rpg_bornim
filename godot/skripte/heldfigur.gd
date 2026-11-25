@@ -45,6 +45,9 @@ static func volk_modell(v: String) -> String: return String(VOLK_MODELL.get(v, v
 # Helligkeit (Eichung 1,66/1,39/1,40 durch ihre Helligkeit; nicht heller: Chef „dunkler“), dazu ein Teil der Farbschwankung des Bildes
 # 431 (Chef 02.11., 20:37 „Heldenhaut so“; 431e eine Eichung, Bezug Kampfortlicht): gemessen in Lauf 5 41504744398 (EICHUNG HELD)
 const HAUT_EICHUNG := Vector3(0.355, 0.219, 0.270)
+# 431 (Befund Pruefer 24.11., 18:14: Orkbluetiger braun trotz graugruener Wahl; tests/orkhaut_431.gd): der Rotueberhang der Eichung
+# (R/G 1,62) gilt fuer Menschenhaut; Voelker mit nicht menschlichen Hauttoenen nehmen nur ihre Helligkeit (Luminanz), Farbton wie gewaehlt
+const HAUT_EICHUNG_VOLK := {"HALF_ORC": Vector3(0.2516, 0.2516, 0.2516)}
 const HAUT_FARBE := 0.5
 # Bewegungen, die sich wiederholen (wie held.gd Gebiet.bewegungen)
 const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen", "Gesten", "Bodensitz", "Nicken", "Hocken",
@@ -104,8 +107,28 @@ static func wort(k: String) -> String:
 	return String(w[0] if Sprache.aktiv() == "de" else w[1])
 
 static func formen() -> Array: return [""] + Array(lade_info().get("formen", []))
-static func frisuren(g := "m") -> Array: return Array(geschlecht_info(g).get("haare", [])) + [""]
-static func baerte(g := "m") -> Array: return [""] + Array(geschlecht_info(g).get("baerte", []))
+static func frisuren(g := "m", volk := "HUMAN") -> Array: return _volk_filter(Array(geschlecht_info(g).get("haare", [])) + [""], volk, g, "frisur")
+static func baerte(g := "m", volk := "HUMAN") -> Array: return _volk_filter([""] + Array(geschlecht_info(g).get("baerte", [])), volk, g, "bart")
+
+# 431 (LISTE-FIGUREN.md „Völker“ Punkt 3; Systemfrage 431: die Volksregel geht ueber die Herkunft, ein Filter je Volk fuer Held, Leute
+# und Soeldner): erlaubte Frisuren und Baerte je Volk und Geschlecht, das erste ist der Ersatz, wenn Herkunft oder Wahl anderes bringt.
+# Elf langes Haar, nie Bart; Zwerg Vollbart bis aufs Brustbein mit Schnauzbart (held_klassen.py Bart_Breit, Hair_Moustache), Zwergin ohne
+# Bart, zwei Zoepfe von den Schlaefen bis auf die Brust (ZOPF); Huegelvolk hoechstens kurzer Bart
+const VOLK_KOPF := {
+	"ELF": {"m": {"frisur": ["Hair_Long", "Hair_LongDreads"], "bart": [""]}, "w": {"frisur": ["Hair_Long", "Hair_LongDreads"], "bart": [""]}},
+	"DWARF": {"m": {"bart": ["Bart_Breit,Hair_Moustache"]}, "w": {"frisur": ["Zopf_Zwergin"], "bart": [""]}},
+	"HALFLING": {"m": {"bart": ["", "Hair_Moustache"]}},
+}
+static func _volk_filter(l: Array, volk: String, g: String, teil: String) -> Array:
+	var erlaubt: Array = VOLK_KOPF.get(volk_modell(volk), {}).get(g.to_lower(), {}).get(teil, [])
+	return l if erlaubt.is_empty() else erlaubt
+
+static func volk_kopf(a: Dictionary, volk: String) -> Dictionary:
+	var g := String(a.get("geschlecht", "m")).to_lower()
+	for teil in ["frisur", "bart"]:
+		var erlaubt: Array = VOLK_KOPF.get(volk_modell(volk), {}).get(g, {}).get(teil, [])
+		if not erlaubt.is_empty() and String(a.get(teil, "")) not in erlaubt: a[teil] = erlaubt[0]
+	return a
 
 # Angaben zum Kopf des Geschlechts (held_klassen.py haare): kopf, haut_bild, haar_bild, haare, baerte; ohne „geschlechter“ wie bisher oben
 static func geschlecht_info(g: String) -> Dictionary:
@@ -155,12 +178,12 @@ static func vorgabe(herkunft_: String, geschlecht := "m", volk := "HUMAN") -> Di
 	v["geschlecht"] = geschlecht
 	if geschlecht == "w":
 		v["frisur"] = String(FRAU_FRISUR.get(k, "Hair_Long")); v["bart"] = ""
-	return v
+	return volk_kopf(v, volk)
 
 static func aussehen_voll(a: Dictionary, herkunft_ := "", volk := "HUMAN") -> Dictionary:
 	var v := vorgabe(herkunft_, String(a.get("geschlecht", "m")), volk)
 	for k in a: v[k] = a[k]
-	return v
+	return volk_kopf(v, volk)
 
 # 416.4: Tempo ohne Gleiten der Bewegung n in der Bewegungsdatei (held-klassen.json; Pakete unter gang.<art>), vor dem Umtakten
 static func _eigen(n: String) -> float:
@@ -206,8 +229,10 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 	var a := aussehen_voll(w.get("aussehen", {}), k, String(w.get("volk", "HUMAN")))
 	var t := tracht({"herkunft": k, "aussehen": a, "modell": w.get("modell", ""), "kapuze": w.get("kapuze", false)})
 	if not FileAccess.file_exists("res://daten/held_%s.bin" % t["modell"]) or not FileAccess.file_exists("res://daten/bewegungen.bin"): return null
+	if String(w.get("modell", "")) == "": t["modell"] = volk_tracht(String(w.get("volk", "HUMAN")), String(t["modell"]))   # 431
 	var m := ModellSpeicher.kopie("res://daten/held_%s.bin" % t["modell"])   # 1270.2: einmal je Spielstart gebaut, danach Kopie
 	if m == null: return null
+	bilder_vom_menschen(m, String(t["modell"]))   # 431: Volksmodelle ohne eigene Bilder
 	m.name = "Held_" + herkunft(w)
 	m.set_meta("tracht", t["modell"])
 	kapuze(m, t["kapuze"])
@@ -219,6 +244,7 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 		m.free()
 		return null
 	if "--ohneheben" not in OS.get_cmdline_user_args(): sk.add_child(FigurenProbe.KopfHeben.new())   # UAL senkt den Kopf (Helfer 20:2x)
+	haltung(sk, String(w.get("volk", "HUMAN")), String(t["modell"]))
 	Gebiet.male(m, null, 2, mats)
 	for x in mats:   # 463: Kleidung geschlossen (Innenseiten und Aermel verlieren in der Tiefe; toon.gdshader rueck, nach)
 		(x as ShaderMaterial).set_shader_parameter("rueck", RUECK)
@@ -250,6 +276,60 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 		m.set_meta("gang_gehen_m_je_s", TAKT_GEHEN if float(g.get("gehen_m_je_s", 0.0)) > 0.01 else 0.0)
 		m.set_meta("gang_rennen_m_je_s", TAKT_RENNEN if float(g.get("rennen_m_je_s", 0.0)) > 0.01 else 0.0)
 	return m
+
+# 431 (Chef 12.11., 17:37 „431 jetzt“): der Held auf dem Koerper seines Volkes (held_klassen.py VOELKER, held_voelker.py):
+# held_<VOLK>_<TRACHT>_<G>.bin, Eintrag wie die Tracht des Menschen in held-klassen.json trachten (dazu „volk“, „bilder_von“); fehlt
+# das Modell (Bau ohne Kaufmodelle, Volk gescheitert), traegt der Held den Menschenkoerper wie bisher
+static var ohne_volk := false   # Vergleichsbild alt (tests/voelker_bild_431.gd): Menschenkoerper wie vor 431
+static func volk_tracht(volk: String, modell: String) -> String:
+	var vm := "%s_%s" % [volk_modell(volk), modell]
+	if ohne_volk or volk_modell(volk) == "HUMAN" or not lade_info().get("trachten", {}).has(vm) or not FileAccess.file_exists("res://daten/held_%s.bin" % vm):
+		return modell
+	return vm
+
+# 431: Haltung des Volkes (LISTE-FIGUREN.md „Völker“ Punkt 5, abgenommen 02.11. mit VoelkerProbe.HALTUNG), nur am Volkskoerper; vor
+# KopfHeben (der Kopf hebt sich danach auf die neue Brust)
+static func haltung(sk: Skeleton3D, volk: String, modell: String) -> void:
+	if not lade_info().get("trachten", {}).get(modell, {}).has("volk"): return
+	var name := String(VOLK_MODELL.find_key(volk_modell(volk)))
+	if not VoelkerProbe.HALTUNG.has(name): return
+	var hm := VoelkerProbe.Haltung.new()
+	hm.name = "Haltung"
+	hm.liste = VoelkerProbe.HALTUNG[name]
+	sk.add_child(hm)
+	sk.move_child(hm, 0)
+
+# 431: Abbildung G des Knochens bn (Raum des Menschen -> Raum des Volkes, held-klassen.json voelker.<VOLK>.<G>.G); ohne: Einheit
+static func volk_G(modell: String, bn: String) -> Transform3D:
+	var tr: Dictionary = lade_info().get("trachten", {}).get(modell, {})
+	if not tr.has("volk"): return Transform3D.IDENTITY
+	var l: Array = info.get("voelker", {}).get(String(tr["volk"]), {}).get(String(tr.get("geschlecht", "M")), {}).get("G", {}).get(bn, [])
+	if l.size() != 12: return Transform3D.IDENTITY
+	return Transform3D(Basis(Vector3(l[0], l[4], l[8]), Vector3(l[1], l[5], l[9]), Vector3(l[2], l[6], l[10])), Vector3(l[3], l[7], l[11]))
+
+# 431: die Volksmodelle tragen die Bilder der Kleidung nicht selbst (App-Groesse); sie kommen aus dem Modell des Menschen („bilder_von“),
+# je Material nach Namen. Die Vorlage im ModellSpeicher bekommt sie einmal, jede Kopie teilt sie
+static var bilder_vorrat := {}
+static func bilder_vom_menschen(m: Node3D, modell: String) -> void:
+	var von := String(lade_info().get("trachten", {}).get(modell, {}).get("bilder_von", ""))
+	if von == "": return
+	if not bilder_vorrat.has(von):
+		var d := {}
+		var h := ModellSpeicher.kopie("res://daten/held_%s.bin" % von)
+		if h:
+			for mi in h.find_children("*", "MeshInstance3D", true, false):
+				var me := (mi as MeshInstance3D).mesh
+				for i in me.get_surface_count():
+					var s := me.surface_get_material(i) as BaseMaterial3D
+					if s and s.albedo_texture: d[String(s.resource_name)] = s.albedo_texture
+			h.free()
+		bilder_vorrat[von] = d
+	var bv: Dictionary = bilder_vorrat[von]
+	for mi in m.find_children("*", "MeshInstance3D", true, false):
+		var me := (mi as MeshInstance3D).mesh
+		for i in me.get_surface_count():
+			var s := me.surface_get_material(i) as BaseMaterial3D
+			if s and s.albedo_texture == null and bv.has(String(s.resource_name)): s.albedo_texture = bv[String(s.resource_name)]
 
 ## 1140: zeigt die Figur eine Fackel? Nur mit „fackel_zeigen“ und einer Fackel (Grundform der Art LIGHT) in der Nebenhand
 static func fackel_in_hand(w: Dictionary) -> bool:
@@ -476,6 +556,8 @@ static func schrank_an(m: Node3D, g: String, fremd: Array, sch: Dictionary) -> v
 		var sz: Node3D = schrank_szenen[datei]
 		if sz == null: continue
 		var ssk := Gebiet.finde(sz, "Skeleton3D") as Skeleton3D
+		var modell := String(m.get_meta("tracht", ""))
+		var volk := bool(lade_info().get("trachten", {}).get(modell, {}).has("volk"))
 		for n in Array(sch[t].get("netze", [])):
 			var q := sz.find_child(String(n), true, false) as MeshInstance3D
 			if q == null or q.skin == null: continue
@@ -483,7 +565,11 @@ static func schrank_an(m: Node3D, g: String, fremd: Array, sch: Dictionary) -> v
 			for i in q.skin.get_bind_count():
 				var bn := String(q.skin.get_bind_name(i))
 				if bn == "" and ssk: bn = ssk.get_bone_name(q.skin.get_bind_bone(i))
-				skin.add_named_bind(bn, q.skin.get_bind_pose(i))
+				var bind := q.skin.get_bind_pose(i)
+				# 431: am Volkskoerper waechst das Teil mit wie die Tracht (Bindung = Ruhelage des Volkes invers * G * Ruhelage des Menschen)
+				if volk and ssk and sk.find_bone(bn) >= 0 and ssk.find_bone(bn) >= 0:
+					bind = sk.get_bone_global_rest(sk.find_bone(bn)).affine_inverse() * volk_G(modell, bn) * ssk.get_bone_global_rest(ssk.find_bone(bn)) * bind
+				skin.add_named_bind(bn, bind)
 			var mi := MeshInstance3D.new()
 			mi.name = String(n)
 			mi.mesh = q.mesh
@@ -496,6 +582,9 @@ static func kapuze(m: Node3D, an: bool) -> void:
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		if String(mi.name).contains("Head_Hood"): (mi as MeshInstance3D).visible = an
 
+# 431 (Sokrates 25.11., 08:08): Doppelzopf aus MakeHuman hair01 „elvs_double_mh_braid“ (Elvaerwyn, CC0), tools/blender348/v3/zopf_mh.py
+const ZOPF := "res://figuren/zopf_zwergin.glb"
+static var zopf_szene: Node3D
 static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Array) -> void:
 	var g := String(a.get("geschlecht", "m")).to_lower()
 	var datei := "res://daten/haare.bin" if g == "m" else "res://daten/haare_%s.bin" % g
@@ -506,13 +595,21 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 	if hs == null or kb < 0: return
 	# Haare liegen in der Ruhelage der Bezugsfigur des Geschlechts (Kopfknochen bei kopf); an diesen Kopf nur verschoben
 	var ref: Array = geschlecht_info(g).get("kopf", [0, 0, 0])
-	var ich: Array = info.get("trachten", {}).get(k, {}).get("kopf", ref)
+	var tr: Dictionary = info.get("trachten", {}).get(k, {})
+	# 431: am Volkskoerper vom Kopf des Menschen aus, dann mit dem Kopfknochen gewachsen (G)
+	var ich: Array = info.get("trachten", {}).get(String(tr.get("bilder_von", k)), tr).get("kopf", ref)
+	var gk := volk_G(k, "Head")
 	var vers := Vector3(ich[0] - ref[0], ich[1] - ref[1], ich[2] - ref[2])
 	var ruhe := im_raum(m, sk) * sk.get_bone_global_rest(kb)
 	# 475 Lauf 2: Bart auch als Liste mit Komma (Schnauzer und Kinnbart), weitere Formen aus held_klassen.py baerte_mehr
 	for n in [String(a.get("frisur", ""))] + Array(String(a.get("bart", "")).split(",", false)):
 		if n == "": continue
 		var q := hs.find_child(n, true, false) as MeshInstance3D
+		var qs := hs
+		if q == null and ResourceLoader.exists(ZOPF):   # 431: Zoepfe der Zwergin (eigene Datei, CC0, Ruhelage wie haare_w.bin; importiert, im APK)
+			if zopf_szene == null: zopf_szene = (load(ZOPF) as PackedScene).instantiate() as Node3D
+			qs = zopf_szene
+			q = zopf_szene.find_child(n, true, false) as MeshInstance3D if zopf_szene else null
 		if q == null: continue
 		var ba := BoneAttachment3D.new()
 		ba.name = "Haar_" + n
@@ -521,7 +618,7 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 		var mi := MeshInstance3D.new()
 		mi.name = n
 		mi.mesh = q.mesh
-		mi.transform = ruhe.affine_inverse() * Transform3D(Basis(), vers) * im_raum(hs, q)
+		mi.transform = ruhe.affine_inverse() * gk * Transform3D(Basis(), vers) * im_raum(qs, q)
 		ba.add_child(mi)
 		Gebiet.male(mi, null, 2, mats)
 
@@ -534,9 +631,11 @@ static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 	if a.has("haut_rgb"): haut = Color.html(String(a["haut_rgb"]))   # 475: Leute mit eigenem Ton (leute.json haut, haar)
 	if a.has("haar_rgb"): haar = Color.html(String(a["haar_rgb"]))
 	var gi := geschlecht_info(String(a.get("geschlecht", "m")))
-	var hb := _hell(gi.get("haut_bild", [1, 1, 1]))
+	# 431: der Superheld (Orkbluetiger) hat ein eigenes Hautbild (held_voelker.py haut_bild), Bezug der Toenung wie VoelkerProbe._eigene_haut
+	var hbm: Array = lade_info().get("trachten", {}).get(String(m.get_meta("tracht", "")), {}).get("haut_bild", gi.get("haut_bild", [1, 1, 1]))
+	var hb := _hell(hbm)
 	var hh := _hell(gi.get("haar_bild", [1, 1, 1]))
-	var hbild := _lin(gi.get("haut_bild", [1, 1, 1]))
+	var hbild := _lin(hbm)
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		var me := (mi as MeshInstance3D).mesh
 		for i in me.get_surface_count():
@@ -547,6 +646,10 @@ static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 			var z := Color(-1, 0, 0)
 			var b := 0.0
 			var ist_haut := rn.contains("Regular") or rn.contains("Superhero")
+			if rn.begins_with("Hauer"):   # 431: Hauer des Orkbluetigen, vergilbter Knochen (merkmale.py ZAHN, wie VoelkerProbe._zahn)
+				var zl := VoelkerProbe.ZAHN.srgb_to_linear()
+				sm.set_shader_parameter("toenung", Vector3(zl.r, zl.g, zl.b))
+				continue
 			if ist_haut: z = haut; b = hb
 			elif rn.contains("Hair"):
 				z = haar; b = hh
@@ -556,19 +659,19 @@ static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 			var l := z.srgb_to_linear()
 			var t := Vector3(l.r, l.g, l.b)
 			if ist_haut:
-				t *= haut_eichung()
+				t *= haut_eichung(volk)
 				sm.set_shader_parameter("toen_bild", hbild)
 				sm.set_shader_parameter("toen_farbe", haut_farbe())
 			sm.set_shader_parameter("toenung", t)
 			sm.set_shader_parameter("toen_hell", b)
 
 # Probe am Rechner (Klassenlauf): --hauteichung=r,g,b und --hautfarbe=x ersetzen die Konstanten
-static func haut_eichung() -> Vector3:
+static func haut_eichung(volk := "HUMAN") -> Vector3:
 	for x in OS.get_cmdline_user_args():
 		if x.begins_with("--hauteichung="):
 			var p := x.substr(14).split(",")
 			return Vector3(float(p[0]), float(p[1]), float(p[2]))
-	return HAUT_EICHUNG
+	return HAUT_EICHUNG_VOLK.get(volk_modell(volk), HAUT_EICHUNG)
 
 static func haut_farbe() -> float:
 	for x in OS.get_cmdline_user_args():
@@ -652,7 +755,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 			# Mitte 29 cm unter spine_03 wie oben; die Neigung nach dem ganzen Schild: die Gerade, die hinter allem zwischen Unter- und
 			# Oberkante liegt und in der Mitte am naechsten am Ruecken ist (am Rechner Kaempfer unten 3,6 cm, oben 1,9 cm; Kleriker oben
 			# 2,6 cm, die Spitze des Drachenschilds 8 cm ueber den Oberschenkeln, das Gesaess steht 5 cm weiter ab)
-			var hh := schild_hoehe(schild)
+			var hh := schild_hoehe(schild) * rueckenschild_mass(m, sk)
 			# 499 (Chef 08.11., 12:41: „früher … eher am Nackenabschluss … jetzt … eher über den Arsch“): Oberkante wie alt (Dress.kt
 			# shieldOnBack) 0,045 x Koerperhoehe ueber der Schulterlinie (Schultergelenke 0,022 x Hoehe tiefer), in „Stehen“; vorher Mitte
 			# 29 cm unter spine_03 (Oberkante 1,32 m, etwa Brusthoehe)
@@ -673,6 +776,8 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 				t = Transform3D(Basis(Vector3.LEFT, h2, Vector3.LEFT.cross(h2)), Vector3(0, yc, float(li[0]) + float(li[1]) * yc - 0.03))
 				t.origin += t.basis.z * weg
 			anker = im_raum(m, sk) * (lagen[mi] as Transform3D)
+		var k := rueckenschild_mass(m, sk)   # 431: am kleineren Volkskoerper kleiner (Sokrates 25.11., 08:08)
+		t.basis = t.basis * Basis.from_scale(Vector3.ONE * k)
 		_haenge(m, sk, mi, anker, schild, t, "RueckenSchild")
 		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10 - weg   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
 	# 417 Runde 6: Godot benennt den zweiten gleichnamigen Knoten „@Getragen@…“ bzw. „@Tragen@…“; „Getragen*“ fand ihn nicht, beim
@@ -1504,6 +1609,17 @@ static func _modell(g) -> String:
 	if not g is Dictionary: return ""
 	var b := String(g.get("base", ""))
 	return b if FileAccess.file_exists("res://daten/waffen/%s.bin" % b) else ""
+
+# 431 (Pruefer 24.11., 18:06: Huegelvolk-Rundschild ragt hinter dem Koerper heraus; Sokrates 25.11., 08:08: Rueckenschild auf die
+# Schulterbreite des Volkes): Faktor = Schulterbreite (Abstand der Oberarmgelenke in Ruhe) zu der des Menschen gleichen Geschlechts
+# (Mann 0,384 m, Frau 0,303 m), hoechstens 1; nur am Volkskoerper (Mensch und Leute unveraendert). Huegelvolk Mann 0,59, Elf 0,84
+const SCHULTER_MENSCH := {"M": 0.384, "W": 0.303}
+static func rueckenschild_mass(m: Node3D, sk: Skeleton3D) -> float:
+	var tr: Dictionary = lade_info().get("trachten", {}).get(String(m.get_meta("tracht", "")), {})
+	var ul := sk.find_bone("upperarm_l"); var ur := sk.find_bone("upperarm_r")
+	if not tr.has("volk") or ul < 0 or ur < 0: return 1.0
+	var a := sk.get_bone_global_rest(ul).origin.distance_to(sk.get_bone_global_rest(ur).origin)
+	return clampf(a / float(SCHULTER_MENSCH.get(String(tr.get("geschlecht", "M")), 0.384)), 0.4, 1.0)
 
 static func _haenge(m: Node3D, sk: Skeleton3D, bi: int, brust: Transform3D, was: String, t: Transform3D, nm: String) -> void:
 	var ba := BoneAttachment3D.new()

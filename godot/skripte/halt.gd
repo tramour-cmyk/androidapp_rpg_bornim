@@ -154,6 +154,12 @@ static func halterung(sk: Skeleton3D, platz: String, koerper := "") -> Dictionar
 const KORREKTUR := {
 	"KLOSTER_M": {"unterarm_l": [0.0, 0.0, 0.016, 0.0]}, "KLOSTER_W": {"unterarm_l": [0.0, 0.0, 0.003, 0.0]},
 	"WALD_M": {"unterarm_l": [0.0, 0.0, 0.003, 0.0]}, "WALD_W": {"unterarm_l": [0.0, 0.0, 0.005, 0.0]},
+	# 431 (halt_653 am Rechner, Kaufstand 24.11., Volkskörper held_voelker.py): wie 967, tiefste Ecke von Unterarm und Hand im Brett und 2 mm
+	"DWARF_BAUER_W": {"unterarm_l": [0.0, 0.0, 0.007, 0.0]}, "DWARF_KLOSTER_M": {"unterarm_l": [0.0, 0.0, 0.036, 0.0]}, "DWARF_KLOSTER_W": {"unterarm_l": [0.0, 0.0, 0.018, 0.0]},
+	"DWARF_ROBE_M": {"unterarm_l": [0.0, 0.0, 0.007, 0.0]}, "DWARF_WACHE_M": {"unterarm_l": [0.0, 0.0, 0.039, 0.0]}, "DWARF_WACHE_W": {"unterarm_l": [0.0, 0.0, 0.026, 0.0]},
+	"DWARF_WALD_M": {"unterarm_l": [0.0, 0.0, 0.018, 0.0]}, "DWARF_WALD_W": {"unterarm_l": [0.0, 0.0, 0.021, 0.0]}, "ELF_KLOSTER_M": {"unterarm_l": [0.0, 0.0, 0.005, 0.0]},
+	"HALFLING_KLOSTER_W": {"unterarm_l": [0.0, 0.0, 0.009, 0.0]}, "HALF_ORC_BAUER_W": {"unterarm_l": [0.0, 0.0, 0.010, 0.0]}, "HALF_ORC_KLOSTER_M": {"unterarm_l": [0.0, 0.0, 0.027, 0.0]},
+	"HALF_ORC_KLOSTER_W": {"unterarm_l": [0.0, 0.0, 0.012, 0.0]}, "HALF_ORC_WALD_M": {"unterarm_l": [0.0, 0.0, 0.010, 0.0]}, "HALF_ORC_WALD_W": {"unterarm_l": [0.0, 0.0, 0.015, 0.0]},
 }
 
 # ---------------------------------------------------------------- die eine Anlegefunktion
