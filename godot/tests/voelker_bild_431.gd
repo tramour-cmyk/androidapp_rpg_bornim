@@ -120,7 +120,7 @@ func _reihe(ansicht: String) -> void:
 			var b := BrsHeld.neu(v, "Wachsoldat")
 			b.ausstatten()
 			var ausr: Dictionary = b.ausruestung
-			if hinten: ausr = load("res://tests/voelker_431.gd").platte(ausr)
+			if hinten or ansicht == "seite": ausr = load("res://tests/voelker_431.gd").platte(ausr)   # 431: Seite ohne Umhang, Knie sichtbar
 			var vm := HeldFigur.volk_modell(v)
 			var mats := []
 			var m := HeldFigur.baue({"herkunft": "Wachsoldat", "volk": vm, "aussehen": HeldFigur.vorgabe("Wachsoldat", g, vm), "ausruestung": ausr}, mats)

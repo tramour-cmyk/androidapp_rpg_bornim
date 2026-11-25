@@ -45,7 +45,7 @@ for v in mensch elf zwerg huegelvolk orkbluetiger; do
   echo "BILD $Z/431-$v.png"
 done
 r=()
-for x in vorn:"vorn, Startausrüstung Wachsoldat" seite:"Seite" hinten:"hinten, Platte (Brustplatte, Handschuhe, Beinschienen), ohne Umhang und Schild"; do
+for x in vorn:"vorn, Startausrüstung Wachsoldat" seite:"Seite, Platte ohne Umhang (Knie)" hinten:"hinten, Platte (Brustplatte, Handschuhe, Beinschienen), ohne Umhang und Schild"; do
   n=${x%%:*}; t=${x#*:}
   [ -f $R/reihe_$n.png ] || continue
   schild $R/reihe_$n.png "Mensch, Elf, Zwerg, Hügelvolk, Orkblütiger (je Mann, Frau), wahre Größe; $t; Stand $C${KNIE:+; Knie $KNIE}" $T/r_$n.png; r+=($T/r_$n.png)

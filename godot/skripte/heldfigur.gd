@@ -113,10 +113,10 @@ static func baerte(g := "m", volk := "HUMAN") -> Array: return _volk_filter([""]
 # 431 (LISTE-FIGUREN.md „Völker“ Punkt 3; Systemfrage 431: die Volksregel geht ueber die Herkunft, ein Filter je Volk fuer Held, Leute
 # und Soeldner): erlaubte Frisuren und Baerte je Volk und Geschlecht, das erste ist der Ersatz, wenn Herkunft oder Wahl anderes bringt.
 # Elf langes Haar, nie Bart; Zwerg Vollbart bis aufs Brustbein mit Schnauzbart (held_klassen.py Bart_Breit, Hair_Moustache), Zwergin ohne
-# Bart; Huegelvolk hoechstens kurzer Bart. Zwergin zwei Schlaefenzoepfe: kein Netz im Bestand (Frage 431, 25.11.)
+# Bart, zwei Zoepfe von den Schlaefen bis auf die Brust (ZOPF); Huegelvolk hoechstens kurzer Bart
 const VOLK_KOPF := {
 	"ELF": {"m": {"frisur": ["Hair_Long", "Hair_LongDreads"], "bart": [""]}, "w": {"frisur": ["Hair_Long", "Hair_LongDreads"], "bart": [""]}},
-	"DWARF": {"m": {"bart": ["Bart_Breit,Hair_Moustache"]}, "w": {"bart": [""]}},
+	"DWARF": {"m": {"bart": ["Bart_Breit,Hair_Moustache"]}, "w": {"frisur": ["Zopf_Zwergin"], "bart": [""]}},
 	"HALFLING": {"m": {"bart": ["", "Hair_Moustache"]}},
 }
 static func _volk_filter(l: Array, volk: String, g: String, teil: String) -> Array:
@@ -582,6 +582,9 @@ static func kapuze(m: Node3D, an: bool) -> void:
 	for mi in m.find_children("*", "MeshInstance3D", true, false):
 		if String(mi.name).contains("Head_Hood"): (mi as MeshInstance3D).visible = an
 
+# 431 (Sokrates 25.11., 08:08): Doppelzopf aus MakeHuman hair01 „elvs_double_mh_braid“ (Elvaerwyn, CC0), tools/blender348/v3/zopf_mh.py
+const ZOPF := "res://figuren/zopf_zwergin.glb"
+static var zopf_szene: Node3D
 static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Array) -> void:
 	var g := String(a.get("geschlecht", "m")).to_lower()
 	var datei := "res://daten/haare.bin" if g == "m" else "res://daten/haare_%s.bin" % g
@@ -602,6 +605,11 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 	for n in [String(a.get("frisur", ""))] + Array(String(a.get("bart", "")).split(",", false)):
 		if n == "": continue
 		var q := hs.find_child(n, true, false) as MeshInstance3D
+		var qs := hs
+		if q == null and ResourceLoader.exists(ZOPF):   # 431: Zoepfe der Zwergin (eigene Datei, CC0, Ruhelage wie haare_w.bin; importiert, im APK)
+			if zopf_szene == null: zopf_szene = (load(ZOPF) as PackedScene).instantiate() as Node3D
+			qs = zopf_szene
+			q = zopf_szene.find_child(n, true, false) as MeshInstance3D if zopf_szene else null
 		if q == null: continue
 		var ba := BoneAttachment3D.new()
 		ba.name = "Haar_" + n
@@ -610,7 +618,7 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 		var mi := MeshInstance3D.new()
 		mi.name = n
 		mi.mesh = q.mesh
-		mi.transform = ruhe.affine_inverse() * gk * Transform3D(Basis(), vers) * im_raum(hs, q)
+		mi.transform = ruhe.affine_inverse() * gk * Transform3D(Basis(), vers) * im_raum(qs, q)
 		ba.add_child(mi)
 		Gebiet.male(mi, null, 2, mats)
 
@@ -747,7 +755,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 			# Mitte 29 cm unter spine_03 wie oben; die Neigung nach dem ganzen Schild: die Gerade, die hinter allem zwischen Unter- und
 			# Oberkante liegt und in der Mitte am naechsten am Ruecken ist (am Rechner Kaempfer unten 3,6 cm, oben 1,9 cm; Kleriker oben
 			# 2,6 cm, die Spitze des Drachenschilds 8 cm ueber den Oberschenkeln, das Gesaess steht 5 cm weiter ab)
-			var hh := schild_hoehe(schild)
+			var hh := schild_hoehe(schild) * rueckenschild_mass(m, sk)
 			# 499 (Chef 08.11., 12:41: „früher … eher am Nackenabschluss … jetzt … eher über den Arsch“): Oberkante wie alt (Dress.kt
 			# shieldOnBack) 0,045 x Koerperhoehe ueber der Schulterlinie (Schultergelenke 0,022 x Hoehe tiefer), in „Stehen“; vorher Mitte
 			# 29 cm unter spine_03 (Oberkante 1,32 m, etwa Brusthoehe)
@@ -768,6 +776,8 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 				t = Transform3D(Basis(Vector3.LEFT, h2, Vector3.LEFT.cross(h2)), Vector3(0, yc, float(li[0]) + float(li[1]) * yc - 0.03))
 				t.origin += t.basis.z * weg
 			anker = im_raum(m, sk) * (lagen[mi] as Transform3D)
+		var k := rueckenschild_mass(m, sk)   # 431: am kleineren Volkskoerper kleiner (Sokrates 25.11., 08:08)
+		t.basis = t.basis * Basis.from_scale(Vector3.ONE * k)
 		_haenge(m, sk, mi, anker, schild, t, "RueckenSchild")
 		aussen = minf(aussen, (oben.z + unten.z) * 0.5) - 0.10 - weg   # Schild mit Buckel (376.1 Lauf 2: bei 7 cm durchdrang der Buckel das Schwert)
 	# 417 Runde 6: Godot benennt den zweiten gleichnamigen Knoten „@Getragen@…“ bzw. „@Tragen@…“; „Getragen*“ fand ihn nicht, beim
@@ -1599,6 +1609,17 @@ static func _modell(g) -> String:
 	if not g is Dictionary: return ""
 	var b := String(g.get("base", ""))
 	return b if FileAccess.file_exists("res://daten/waffen/%s.bin" % b) else ""
+
+# 431 (Pruefer 24.11., 18:06: Huegelvolk-Rundschild ragt hinter dem Koerper heraus; Sokrates 25.11., 08:08: Rueckenschild auf die
+# Schulterbreite des Volkes): Faktor = Schulterbreite (Abstand der Oberarmgelenke in Ruhe) zu der des Menschen gleichen Geschlechts
+# (Mann 0,384 m, Frau 0,303 m), hoechstens 1; nur am Volkskoerper (Mensch und Leute unveraendert). Huegelvolk Mann 0,59, Elf 0,84
+const SCHULTER_MENSCH := {"M": 0.384, "W": 0.303}
+static func rueckenschild_mass(m: Node3D, sk: Skeleton3D) -> float:
+	var tr: Dictionary = lade_info().get("trachten", {}).get(String(m.get_meta("tracht", "")), {})
+	var ul := sk.find_bone("upperarm_l"); var ur := sk.find_bone("upperarm_r")
+	if not tr.has("volk") or ul < 0 or ur < 0: return 1.0
+	var a := sk.get_bone_global_rest(ul).origin.distance_to(sk.get_bone_global_rest(ur).origin)
+	return clampf(a / float(SCHULTER_MENSCH.get(String(tr.get("geschlecht", "M")), 0.384)), 0.4, 1.0)
 
 static func _haenge(m: Node3D, sk: Skeleton3D, bi: int, brust: Transform3D, was: String, t: Transform3D, nm: String) -> void:
 	var ba := BoneAttachment3D.new()

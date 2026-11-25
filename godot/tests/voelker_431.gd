@@ -104,7 +104,7 @@ static func haare(m: Node3D) -> String:
 	return ",".join(l) if not l.is_empty() else "-"
 
 # LISTE-FIGUREN.md „Völker“ Punkt 3 und 4: Elf langes Haar, nie Bart; Zwerg Vollbart (Bart_Breit) mit Schnauzbart; Zwergin kein Bart,
-# zwei Schlaefenzoepfe (Netz fehlt: nur genannt); Huegelvolk Mann hoechstens kurzer Bart; Orkbluetiger Hautton im Farbton der Wahl
+# zwei Schlaefenzoepfe (Zopf_Zwergin); Huegelvolk Mann hoechstens kurzer Bart; Orkbluetiger Hautton im Farbton der Wahl
 # (Toenung der Haut G/R >= 0,9 * G/R des Tons, wie tests/orkhaut_431.gd im Bild). Leer = richtig, sonst der Grund
 static func kopf_pruefen(m: Node3D, v: String, g: String, haut := 0) -> String:
 	var h := haare(m).split(",")
@@ -117,6 +117,8 @@ static func kopf_pruefen(m: Node3D, v: String, g: String, haut := 0) -> String:
 		for x in h: if x.begins_with("Bart") or x in ["Hair_Beard", "Hair_Moustache", "Hair_MuttonChops"]: r.append("Elf mit Bart " + x)
 	if v == "Zwerg" and g == "m" and not ("Bart_Breit" in h and "Hair_Moustache" in h): r.append("Zwerg ohne Vollbart mit Schnauzbart")
 	if v == "Zwerg" and g == "w":
+		var kap := m.find_children("*Head_Hood*", "MeshInstance3D", true, false).any(func(x): return (x as Node3D).is_visible_in_tree())
+		if h[0] != "Zopf_Zwergin" and not kap: r.append("Zwergin ohne zwei Zoepfe")
 		for x in h: if x.begins_with("Bart") or x in ["Hair_Beard", "Hair_Moustache", "Hair_MuttonChops"]: r.append("Zwergin mit Bart")
 	if v == "Hügelvolk" and g == "m":
 		for x in h: if x in voll: r.append("Huegelvolk mit langem Bart " + x)
@@ -230,64 +232,14 @@ func messe(m: Node3D, teil := "") -> Dictionary:
 	return {"scheitel": scheitel, "sohle": sohle, "schrank": schrank, "haar": haar, "teil_unten": teil_unten, "teil_oben": teil_oben}
 
 
-# 431 Nachbesserung (Auftrag 24.11., 19:47: Kniewinkel Zwerg messen, Mensch zum Vergleich): am gezeichneten Netz der Beine (Haut,
-# Hose, Stiefel; ohne Umhang, der an den Oberschenkeln haengt). Ober- und Unterschenkel = Ecken, die zu mindestens 80 % dem
-# Knochen gehoeren (thigh, calf), Knie = Ecken, die beiden je mindestens 25 % gehoeren; Kniewinkel am Knie zwischen der Mitte des
-# Ober- und des Unterschenkels (180 = gestreckt). Je Seite
+# 431 Nachbesserung (Auftrag 24.11., 19:47: Kniewinkel Zwerg messen, Mensch zum Vergleich): Winkel am Knie zwischen Huefte und
+# Knoechel in der gezeigten Pose (Stehen Bild 0, nach Haltung). Am Netz gemessen streute es je Verfahren 102-167 Grad (dicke, kurze
+# Zwergenschenkel, Hose, Umhang; 25.11.), darum die Gelenke der Pose; das Bild Seite neben dem Menschen prueft es. 180 = gestreckt
 static func knie(m: Node3D) -> Dictionary:
+	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 	var r := {}
 	for s in ["l", "r"]:
-		var teile := {"thigh_" + s: [], "calf_" + s: [], "knie": []}
-		for mi in m.find_children("*", "MeshInstance3D", true, false):
-			var x := mi as MeshInstance3D
-			if not x.is_visible_in_tree() or x.skin == null or x.mesh == null: continue
-			var nm0 := String(x.name)
-			if not (nm0.begins_with("Leib_") or nm0.contains("LEGS") or nm0.contains("Feet") or nm0.contains("Boot")): continue   # Bein, ohne Umhang
-			var sk := x.get_node_or_null(x.skeleton) as Skeleton3D
-			if sk == null: continue
-			var raum := m.global_transform.affine_inverse() * sk.global_transform
-			var tr := []
-			var namen := []
-			for i in x.skin.get_bind_count():
-				var bn := String(x.skin.get_bind_name(i))
-				var bi := sk.find_bone(bn) if bn != "" else x.skin.get_bind_bone(i)
-				tr.append(raum * sk.get_bone_global_pose(maxi(bi, 0)) * x.skin.get_bind_pose(i))
-				namen.append(sk.get_bone_name(maxi(bi, 0)))
-			var ziel := []   # je Bindung: 0 Oberschenkel, 1 Unterschenkel, -1 sonst
-			for nm in namen: ziel.append(0 if nm == "thigh_" + s else (1 if nm == "calf_" + s else -1))
-			if not (0 in ziel or 1 in ziel): continue
-			for su in x.mesh.get_surface_count():
-				var a := x.mesh.surface_get_arrays(su)
-				var V: PackedVector3Array = a[Mesh.ARRAY_VERTEX]
-				var B = a[Mesh.ARRAY_BONES]
-				var W = a[Mesh.ARRAY_WEIGHTS]
-				if B == null or W == null or V.is_empty(): continue
-				var kk := int(B.size() / V.size())
-				for j in V.size():
-					var w2 := [0.0, 0.0]
-					var ws := 0.0
-					for e in kk:
-						var wt: float = W[j * kk + e]
-						ws += wt
-						var zi: int = ziel[B[j * kk + e]]
-						if zi >= 0: w2[zi] += wt
-					if ws <= 0.0: continue
-					var wo := ""
-					if maxf(w2[0], w2[1]) >= 0.8 * ws: wo = "thigh_" + s if w2[0] >= w2[1] else "calf_" + s
-					elif minf(w2[0], w2[1]) >= 0.25 * ws: wo = "knie"
-					if wo == "": continue
-					var p := Vector3.ZERO
-					for e in kk:
-						var wt: float = W[j * kk + e]
-						if wt > 0.0: p += (tr[B[j * kk + e]] as Transform3D) * V[j] * wt
-					(teile[wo] as Array).append(p / ws)
-		if (teile["knie"] as Array).size() < 5 or (teile["thigh_" + s] as Array).size() < 5 or (teile["calf_" + s] as Array).size() < 5:
-			r[s] = -1.0; continue
-		var kn := _mitte(teile["knie"])
-		r[s] = rad_to_deg((_mitte(teile["thigh_" + s]) - kn).angle_to(_mitte(teile["calf_" + s]) - kn))
+		var p := []
+		for bn in ["thigh_" + s, "calf_" + s, "foot_" + s]: p.append(sk.get_bone_global_pose(sk.find_bone(bn)).origin)
+		r[s] = rad_to_deg((p[0] - p[1]).angle_to(p[2] - p[1]))
 	return r
-
-static func _mitte(pts: Array) -> Vector3:
-	var c := Vector3.ZERO
-	for p in pts: c += p
-	return c / pts.size()
