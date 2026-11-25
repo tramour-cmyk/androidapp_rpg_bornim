@@ -1,4 +1,7 @@
 # 1654 · Rowenas Kleid an der Hüfte: so erledigt?
+
+[Bild von 25.11., 12:34](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/25-1234-1654-Sokrates.png) (eingetragen von meldung.sh, Sokrates)
+
 Sokrates · 25.11., 12:35 · E Figuren · Prüfer ja 12:32 (1654-Ü10)
 Kurz: Rock sticht an der Hüfte nicht mehr durch die Schürze; Bild alt gegen neu in der Spielkamera.
 
