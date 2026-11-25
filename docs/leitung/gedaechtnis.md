@@ -30,4 +30,4 @@
 
 ## Übergabe
 
-- 25.11., 16:40, `77b3dQ…`: Letzte Antwort: „2024 nach main“ offen. Nachfolger: Sokrates – Leitung.
+- 25.11., 18:42, `77uPSf…` (369 Tsd.): Getan: Deckel 50 $/Ziel; F10 (kein Angriff in die Luft); 1589.4 Weg b; 2029 alles, 2034 erst Abzug, 2035, 2036 Rufnamen angelegt. Archivzeilen zu Chefworten über Alter Ego sperrt die Sicherheitsprüfung: die schreibt Alter Ego. Letzte Antwort: „Eilt darf Alter Ego“. Nachfolger: Sokrates – Leitung.
