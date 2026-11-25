@@ -231,7 +231,7 @@ func _haut_werte(volk: String, g: String, kenn: String) -> Dictionary:
 	var m := HeldFigur.baue({"herkunft": "Wachsoldat", "volk": volk, "aussehen": {"geschlecht": g}, "ausruestung": hw.ausruestung.duplicate()}, [])
 	HeldFigur.mh_haut = ""
 	if m == null: return {"fehler": "Figur fehlt"}
-	var leer := 0; var proben := 0; var hell := []; var ton := [[], [], []]; var satt := []; var glanz := []; var stirn := []; var wange := []
+	var leer := 0; var proben := 0; var hell := []; var ton := [[], [], []]; var satt := []; var glanz := []; var stirn := []; var wange := []; var kopf_o := []
 	var augen := Vector3.INF
 	for x in m.find_children("Eyes*", "MeshInstance3D", true, false):
 		augen = (x as MeshInstance3D).mesh.get_aabb().get_center()
@@ -285,6 +285,11 @@ func _haut_werte(volk: String, g: String, kenn: String) -> Dictionary:
 				# Haelfte), dicht im Bild je Dreieck (6 x 6 Punkte; die Fotohaut hat Poren und Bartschatten zwischen den Ecken), Farbe nach der
 				# Formel des Shaders; Saettigung und Helligkeit der mittleren Farbe, dazu das dunkle Fuenftel
 				for k in range(0, idx.size(), 3):
+					# Bild 23:09 (Orkfrau: roter Fleck unter dem Kinn, ausserhalb des Gesichts): rote Punkte am ganzen Kopf, je Dreieck 3 Punkte
+					for w_: Vector3 in [Vector3(0.6, 0.2, 0.2), Vector3(0.2, 0.6, 0.2), Vector3(0.2, 0.2, 0.6)]:
+						var q3: Vector2 = uv[idx[k]] * w_.x + uv[idx[k + 1]] * w_.y + uv[idx[k + 2]] * w_.z
+						var c3: Color = im.get_pixel(clampi(int(q3.x * im.get_width()), 0, im.get_width() - 1), clampi(int(q3.y * im.get_height()), 0, im.get_height() - 1)).srgb_to_linear()
+						kopf_o.append(_shader_ton(Vector3(c3.r, c3.g, c3.b), t, th, tb, tf))
 					var drin := true
 					for j in 3:
 						var v := vs[idx[k + j]]
@@ -319,14 +324,14 @@ func _haut_werte(volk: String, g: String, kenn: String) -> Dictionary:
 	var mx := maxf(mf.x, maxf(mf.y, mf.z))
 	glanz.sort(); sl.sort()
 	var gm: float = glanz[glanz.size() / 2]
-	# Pruefer 21:53 (Lauf 860a1dced): roter Fleck unter Lippe und Kinn (Frau), Stirn fleckig dunkler (Mann): Anteil der Punkte, die
+	# Pruefer 21:53 (Lauf 860a1dced), Bild 23:09 (Orkfrau unter dem Kinn): roter Fleck unter Lippe, Kinn und am Hals (Frau), Stirn fleckig dunkler (Mann): Anteil der Punkte, die
 	# deutlich roeter (Gruen/Rot unter 0,6 des Medians) oder deutlich dunkler (unter 0,6 der mittleren Helligkeit) sind
 	var gr := []
-	for o3 in satt: gr.append(o3.y / maxf(o3.x, 0.0001))
+	for o3 in kopf_o: gr.append(o3.y / maxf(o3.x, 0.0001))
 	gr.sort()
 	var grm: float = gr[gr.size() / 2]
 	var rot := 0; var dun := 0
-	for o3 in satt:
+	for o3 in kopf_o:
 		if o3.y / maxf(o3.x, 0.0001) < 0.6 * grm: rot += 1
 	stirn.sort()
 	var sm_: float = stirn[stirn.size() / 2] if not stirn.is_empty() else 1.0
@@ -336,7 +341,7 @@ func _haut_werte(volk: String, g: String, kenn: String) -> Dictionary:
 		if h_ < 0.7 * sm_: dun += 1
 	return {"leer": leer, "proben": proben, "mittel": mittel, "flecken": float(fl) / hell.size(), "ton": [ton[0][ton[0].size() / 2], ton[1][ton[1].size() / 2], ton[2][ton[2].size() / 2]],
 		"satt": (mx - minf(mf.x, minf(mf.y, mf.z))) / maxf(mx, 0.001), "hell": 0.2126 * mf.x + 0.7152 * mf.y + 0.0722 * mf.z, "hmed": gm, "dunkel": glanz[glanz.size() / 5],
-		"rot": float(rot) / satt.size(), "fleck": float(dun) / maxf(stirn.size(), 1), "stirn_wange": sm_ / maxf(wm_, 0.0001)}
+		"rot": float(rot) / maxf(kopf_o.size(), 1), "fleck": float(dun) / maxf(stirn.size(), 1), "stirn_wange": sm_ / maxf(wm_, 0.0001)}
 
 # Farbe nach toon.gdshader (toen_hell > 0) samt Maske „haut“ (431c B1: weit vom Bezug bleibt das Bild ungetoent), linear
 static func _shader_ton(l: Vector3, t: Vector3, th: float, tb: Vector3, tf: float) -> Vector3:

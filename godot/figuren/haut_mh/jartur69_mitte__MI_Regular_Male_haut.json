@@ -2,11 +2,11 @@
  "bezug": "tools/godot/haut_bezug_2031.gd nach haut_mh_flecken.py (Bild 22:53)",
  "bild": 1024.0,
  "gesicht_ecken": 544,
- "gesicht_hell_linear": 0.2116,
+ "gesicht_hell_linear": 0.2128,
  "gesicht_srgb": [
-  0.626,
+  0.6297,
   0.4598,
-  0.3977
+  0.4012
  ],
  "hell_linear": 0.271,
  "material": "MI_Regular_Male_haut",

@@ -2,11 +2,11 @@
  "bezug": "tools/godot/haut_bezug_2031.gd nach haut_mh_flecken.py (Bild 22:53)",
  "bild": 1024.0,
  "gesicht_ecken": 538,
- "gesicht_hell_linear": 0.1671,
+ "gesicht_hell_linear": 0.1673,
  "gesicht_srgb": [
   0.5529,
   0.4181,
-  0.3226
+  0.3266
  ],
  "hell_linear": 0.2022,
  "material": "MI_Superhero_Male_SuperHero_Male",

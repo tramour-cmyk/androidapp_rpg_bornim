@@ -10,7 +10,8 @@ import os, sys
 import numpy as np
 from PIL import Image
 
-RADIUS = int(os.environ.get('RADIUS', '20'))      # px bei 1024: groesser als ein Fleck, kleiner als ein Gesicht (20: Orkstirn wie heute, 40 zu weich)
+RADIUS = 40        # px bei 1024, rot und dunkel: groesser als ein Fleck (bei 20 blieb der Kinnfleck der Orkfrau, Bild 23:09)
+RADIUS_GROSS = 20  # px, Helligkeit der Kaufhaut: Orkstirn wie heute (bei 40 zu weich)
 ROT = 0.8
 DUNKEL = float(os.environ.get('DUNKEL', '0.4'))
 GROSS = 2.5      # Kaufhaut-Helligkeit: Faktor hoechstens 2,5 auf oder ab
@@ -23,10 +24,10 @@ def glaetten(p, kauf=None):
     def kasten(a, r, ax):   # gleitendes Mittel ueber 2r+1 Texel, Rand wie aussen 0
         c = np.cumsum(np.pad(a, [(r + 1, r) if i == ax else (0, 0) for i in range(2)]), axis=ax)
         return (np.take(c, range(2 * r + 1, c.shape[ax]), axis=ax) - np.take(c, range(0, c.shape[ax] - 2 * r - 1), axis=ax)) / (2 * r + 1)
-    def blur(a):   # drei Kaesten etwa Gauss mit RADIUS
+    def blur(a, r=RADIUS):   # drei Kaesten etwa Gauss mit Radius r
         a = a.astype(np.float64)
         for _ in range(3):
-            a = kasten(kasten(a, RADIUS // 2, 0), RADIUS // 2, 1)
+            a = kasten(kasten(a, r // 2, 0), r // 2, 1)
         return a.astype(np.float32)
     w = blur(belegt.astype(np.float32))
     ort = np.stack([blur(lin[..., k] * belegt) for k in range(3)], 2) / np.maximum(w, 1e-4)[..., None]
@@ -42,9 +43,9 @@ def glaetten(p, kauf=None):
         K = np.asarray(Image.open(kauf).convert('RGB').resize(im.size), dtype=np.float32) / 255.0
         KY = np.where(K <= 0.04045, K / 12.92, ((K + 0.055) / 1.055) ** 2.4) @ np.array([0.2126, 0.7152, 0.0722], np.float32)
         bk = belegt & (K.sum(2) > 0.06)
-        wk = np.maximum(blur(bk.astype(np.float32)), 1e-4)
+        wk = np.maximum(blur(bk.astype(np.float32), RADIUS_GROSS), 1e-4)
         Yn = neu @ np.array([0.2126, 0.7152, 0.0722], np.float32)
-        r = (blur(KY * bk) / wk) / np.maximum(blur(Yn * bk) / wk, 1e-4)
+        r = (blur(KY * bk, RADIUS_GROSS) / wk) / np.maximum(blur(Yn * bk, RADIUS_GROSS) / wk, 1e-4)
         r = np.clip(r / np.median(r[bk]), 1 / GROSS, GROSS)   # Mitte bleibt (Bezug der .json gilt weiter)
         neu = neu * r[..., None]
     neu = np.where(belegt[..., None], neu, lin)

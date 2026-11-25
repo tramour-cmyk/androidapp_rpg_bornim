@@ -2,10 +2,10 @@
  "bezug": "tools/godot/haut_bezug_2031.gd nach haut_mh_flecken.py (Bild 22:53)",
  "bild": 1024.0,
  "gesicht_ecken": 544,
- "gesicht_hell_linear": 0.0964,
+ "gesicht_hell_linear": 0.097,
  "gesicht_srgb": [
-  0.464,
-  0.3054,
+  0.4604,
+  0.3088,
   0.2398
  ],
  "hell_linear": 0.219,
