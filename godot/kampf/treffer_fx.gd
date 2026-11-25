@@ -17,6 +17,8 @@ static var _stile := {}        # Name -> TrailStyle (gedämpft) oder false
 static var _gedaempft := {}    # "<Name>|<Ressource-ID>" -> gedämpfte Kopie (je Effekt einmal, dann geteilt)
 ## für Tests und Meldungen: je Name, wie oft gezeigt
 static var gezeigt := {}
+## 1708: der zuletzt gezeigte Effekt (Messung tests/blut_1708.gd: wo der Blutfleck steht)
+static var zuletzt: Node3D = null
 
 
 static func tabelle() -> Dictionary:
@@ -133,6 +135,7 @@ static func zeige(name: String, eltern: Node3D, at: Vector3, hoehe := 1.8, blick
 	if fx.has_method("play"):
 		fx.call("play")
 	gezeigt[name] = int(gezeigt.get(name, 0)) + 1
+	zuletzt = n
 	var w: WeakRef = weakref(fx)     # das Paket gibt seine Effekte selbst frei (auto_free); sonst nach 3 s
 	eltern.get_tree().create_timer(3.0).timeout.connect(func() -> void: if w.get_ref() != null: w.get_ref().queue_free())
 	return n
