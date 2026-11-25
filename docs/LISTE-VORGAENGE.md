@@ -264,6 +264,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1280 | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 668, 678, 687, 613.2, 713 … | 5 | E Welt | K | – | 1271a, 569, 570, 589, 590, 665, 668, 678, 687, 613.2, 713, 1023, 1164, 614, 637, 638, 639, 640 | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 1281 | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, 937, 938, 1002 | 5 | E Kampf | K | – | 1271a, 551, 289, 628, 634, 936, 937, 938, 1002 | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | 13 | G Story | K | – | 168 | – | *nach Meilenstein, Kapitel 2/3 nach Kapitel 1 (Perikles 17.11.)* | *–* | *0* | *–* |
+| 2040 | Wörter für Frisur und Bart aus 2029 (Elf Mann Haar_MH01, Zwerg Mann Bart_Breit und Bart_Wikinger mit Schnurrbart), Vorschlag de/en an den Chef | 13 | G Story | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | 8 | M Veröffentlichung | K | – | – | – | *nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür* | *–* | *0* | *4,68 $* |
 | 109 | Repo öffentlich | 8 | M Veröffentlichung | K | – | – | – | *nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür* | *–* | *0* | *–* |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | 8 | M Veröffentlichung | K | – | – | – | *nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür* | *–* | *0* | *19,96 $* |
