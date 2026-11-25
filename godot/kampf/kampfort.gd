@@ -1543,7 +1543,9 @@ func _play_say(e: Dictionary) -> void:
 				var p0_: Vector2 = cam_p if not hit.is_empty() or rand_z >= 1.0 else rand_p
 				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms, "z0": z0_, "p0": p0_}
 			if wound:
-				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else ""))
+				# 1708: das Blut beginnt, wo der Angriff den Körper trifft, und geht mit ihm
+				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else "",
+					blut_anker(actor, target, fx != null)))
 	# 399.2 (Chef 28.10., 16:10: „wenn nur noch zwei Wölfe da sind und die dann in einer Linie stehen, dann läuft der hintere Wolf
 	# durch den vorderen“; umweg_399 Lauf 168): greift einer von hinten an, tauscht er mit dem vorderen den Platz (mars.gd
 	# _leap_forward); beide liefen zugleich auf derselben Linie gegeneinander. Wer Platz macht, geht erst, wenn der Angreifer vorbei ist
@@ -1714,8 +1716,16 @@ func _fx_szene2(e: Dictionary, actor: Variant, target: Variant, by: Variant, tg:
 		if by.monster == null and fx == null:
 			namen.append(TrefferFx.fuer_waffe(gruppe, "treffer"))
 		get_tree().create_timer(wann).timeout.connect(func() -> void:
+			# 1708: am Treffpunkt (beim Aufschlag gemessen) und mit dem Getroffenen, sonst vorn an der Brust
+			var an: Node3D = blut_anker(actor, target, fx != null)
 			for n: String in namen:
-				TrefferFx.zeige(n, self, brust, hoehe, richt))
+				var fxn: Node3D = TrefferFx.zeige(n, self, to_local(an.global_position) if an != null else brust, hoehe, richt)
+				if an != null and fxn != null:
+					var rt := RemoteTransform3D.new()
+					rt.update_rotation = false
+					rt.update_scale = false
+					an.add_child(rt)
+					rt.remote_path = rt.get_path_to(fxn))
 	elif _missed(e) and tf.blockt() and e.cue != "EVADED":
 		var schild := tf.model.find_child("Schild", true, false) as Node3D if tf.model != null else null
 		var at: Vector3 = to_local(schild.global_position) if schild != null and schild.visible else tf.position + Vector3.UP * hoehe * 0.55 - richt * ui._girth(tf)
@@ -1847,5 +1857,17 @@ func finish() -> void:
 
 
 ## 399.2: wie viel Blut (Menü System „Blut“: Aus, Dezent, Deutlich; MarsLayout bloodLevel)
+## 1708 (Chef 25.11., 16:03: „das Blut muss da anfangen, wo jemand getroffen wird“): Knoten am Körper von [target], wo der Angriff
+## von [actor] ihn trifft (Figur.treffpunkt: Waffe, Pranke, Zähne; [fern]: Pfeil oder Zauber, die Stelle des Rumpfs zum Schützen,
+## 601.1), geht mit ihm (Figur.anker); null ohne Gerüst oder Angriffsteil (dann wie bisher die Mitte)
+func blut_anker(actor: Variant, target: Variant, fern := false) -> Node3D:
+	if not figures.has(target) or not figures.has(actor):
+		return null
+	var tf: Variant = figures[target]
+	var af: Variant = figures[actor]
+	var von: Variant = af.cast_point() if fern else null
+	return tf.blut_anker(af, (von if von != null else af.head()) if fern else Vector3.INF)
+
+
 func blood_level() -> int:
 	return Bedienung.blut_stufe()

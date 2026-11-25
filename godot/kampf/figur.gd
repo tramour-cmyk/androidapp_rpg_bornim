@@ -4329,6 +4329,138 @@ func treffpunkt_fern(von: Vector3) -> Vector3:
 	return best
 
 
+
+## 1708 (Chef 25.11., 16:03: „das Blut muss da anfangen, wo jemand getroffen wird“): was beim Angriff trifft, als Kapseln [a, b, r]
+## (Welt), wie _hieb_bahn für alle Angreifer: die Waffe in der Hand (Klinge nach Halt, sonst längs des Kastens; auch die Waffe im
+## Modell, Krogg, Grak), im Prankenhieb die linke Pranke (Hand und Finger, krogg_gestalt.py), beim Tier ohne Waffe Kopf, Kiefer,
+## Zunge (BISS_TEILE); leer ohne Gerüst
+const PRANKE_TEILE := ["hand_l", "index_", "middle_", "pinky_", "ring_", "thumb_"]
+func angriffs_kapseln() -> Array:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	var out: Array = []
+	if sk == null:
+		return out
+	if anim != null and String(anim.current_animation) == "Prankenhieb":
+		for c: Array in kapseln():
+			var nm := String(c[3]) if c.size() > 3 else ""
+			if nm == "hand_l" or nm.ends_with("_l") and PRANKE_TEILE.any(func(w: String) -> bool: return nm.begins_with(w)):
+				out.append(c)
+		return out
+	for at: BoneAttachment3D in find_children("*", "BoneAttachment3D", true, false):
+		var was := String(at.get_meta("was", ""))
+		if was == "" or was.contains("shield"):
+			continue
+		var hm := klinge_halt(at)
+		if not hm.is_empty():
+			out.append(_strecke(sk, [at.bone_idx, at.global_transform.affine_inverse() * (at.get_child(0) as Node3D).global_transform, hm], Transform3D.IDENTITY))
+			continue
+		for mm: MeshInstance3D in at.find_children("*", "MeshInstance3D", true, false):
+			out.append(_strecke(sk, [at.bone_idx, at.global_transform.affine_inverse() * mm.global_transform, mm.get_aabb()], Transform3D.IDENTITY))
+	if out.is_empty() and fighter.monster != null:
+		# ohne Waffe nach 709: was an der Hand hängt (Schwert des Skeletts ohne „was“), sonst Zähne, Kieferklauen und Hände (der
+		# Wiedergänger schlägt mit der Hand); treffpunkt nimmt das Teil, das dem Körper am nächsten kommt
+		for at: BoneAttachment3D in find_children("*", "BoneAttachment3D", true, false):
+			if String(at.bone_name).to_lower().contains("hand") and not at.has_meta("was"):
+				for mm: MeshInstance3D in at.find_children("*", "MeshInstance3D", true, false):
+					out.append(_strecke(sk, [at.bone_idx, at.global_transform.affine_inverse() * mm.global_transform, mm.get_aabb()], Transform3D.IDENTITY))
+		if not out.is_empty():
+			return out
+		for c: Array in kapseln():
+			var nm := String(c[3]).to_lower() if c.size() > 3 else ""
+			if nm.begins_with("ik_"):
+				continue
+			for w: String in BISS_TEILE + ["chelicere", "hand"]:
+				if nm.contains(w):
+					out.append(c)
+					break
+	return out
+
+
+## 1708 (aus 760 treffpunkt_biss, c05b7fe70): wo der Angriff von [angreifer] den eigenen Körper trifft: die Stelle der eigenen
+## Kapseln (Oberfläche, Welt) nächst am Angriffsteil (angriffs_kapseln), beim Aufschlag gemessen; Vector3.INF, wenn einer von beiden
+## kein Gerüst oder der Angreifer kein Angriffsteil hat (dann wie bisher die Mitte)
+func treffpunkt(angreifer: Variant) -> Vector3:
+	if angreifer == null or not is_instance_valid(angreifer):
+		return Vector3.INF
+	return _naechst(angreifer.angriffs_kapseln())
+
+
+## 1708: die Stelle der eigenen Kapseln (Oberfläche, Welt) nächst an den Kapseln [teile]; Vector3.INF ohne
+func _naechst(teile: Array) -> Vector3:
+	var best := Vector3.INF
+	var naechst := INF
+	var ks: Array = koerper()
+	for w: Array in teile:
+		for c: Array in ks:
+			var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(w[0], w[1], c[0], c[1])
+			var d: Vector3 = pq[0] - pq[1]
+			if d.length() < naechst:
+				naechst = d.length()
+				best = pq[1] + (d.normalized() * float(c[2]) if d.length() > float(c[2]) else d)
+	return best
+
+
+## 1708 (Chef 25.11., 16:03: „das Blut muss da anfangen, wo jemand getroffen wird“): ein Knoten am eigenen Körper, wo der Angriff von
+## [angreifer] beim Aufschlag trifft (treffpunkt; mit [von] ein Geschoss von dort: treffpunkt_fern), der mit dem getroffenen Körperteil
+## geht (Zucken, Fallen, Rücken): an einem BoneAttachment3D an dessen Knochen. null ohne Gerüst oder Angriffsteil (dann wie bisher die
+## Mitte). Frei nach [dauer] s
+func blut_anker(angreifer: Variant, von := Vector3.INF, dauer := 3.0) -> Node3D:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	if sk == null or angreifer == null or not is_instance_valid(angreifer):
+		return null
+	var p: Vector3 = treffpunkt_fern(von) if von != Vector3.INF else treffpunkt(angreifer)
+	if p == Vector3.INF:
+		return null
+	var kn := -1
+	var best := INF
+	for c: Array in _koerper_knochen():
+		var d := absf(Geometry3D.get_closest_point_to_segment(p, c[0], c[1]).distance_to(p) - float(c[2]))
+		if d < best:
+			best = d
+			kn = c[3]
+	if kn < 0:
+		return null
+	var at := BoneAttachment3D.new()
+	at.name = "Blutanker"
+	at.bone_name = sk.get_bone_name(kn)
+	sk.add_child(at)
+	at.transform = sk.get_bone_global_pose(kn)
+	var k := Node3D.new()
+	k.set_meta("knochen", kn)     # Messung tests/blut_1708.gd
+	at.add_child(k)
+	k.global_position = p
+	get_tree().create_timer(dauer).timeout.connect(func() -> void: if is_instance_valid(at): at.queue_free())
+	return k
+
+
+## 1708: koerper() mit dem Knochen, mit dem jede Kapsel geht, als [a, b, r, Knochen] (Mensch: MENSCH_KAPSELN, Tier: der Elternknochen
+## der Strecke); in der Haltung, die das Gerüst gerade hat
+func _koerper_knochen() -> Array:
+	var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+	var out: Array = []
+	if sk == null:
+		return out
+	if fighter.monster == null:
+		var g := sk.global_transform
+		for c: Array in MENSCH_KAPSELN:
+			var i0 := sk.find_bone(c[0])
+			var i1 := sk.find_bone(c[1])
+			if i0 < 0 or i1 < 0:
+				continue
+			var a: Vector3 = g * sk.get_bone_global_pose(i0).origin
+			var b: Vector3 = g * sk.get_bone_global_pose(i1).origin
+			if c[0] == "Head":
+				a += g.basis.y.normalized() * 0.1
+				b = a
+			out.append([a, b, float(c[2]), i0])
+		return out
+	for c: Array in koerper():
+		var i := sk.find_bone(String(c[3])) if c.size() > 3 else -1
+		if i >= 0:
+			out.append([c[0], c[1], c[2], sk.get_bone_parent(i) if sk.get_bone_parent(i) >= 0 else i])
+	return out
+
+
 ## 709: der Weg eines Angriffs [hn] im eigenen Raum (+Z zum Ziel, wie _face; [versatz]: so weit dreht die Figur beim Angriff aus der
 ## Richtung zum Ziel, z. B. die Schnauze im Biss), je 1/30 s: [t (s der Bewegung), Waffe, Körper], beide als Kapseln [[a, b, r] …].
 ## Waffe: was der Held in der Waffenhand trägt (Strecke längs des Kastens), beim Tier Kopf, Kiefer, Zunge; Körper: beim Held Rumpf,

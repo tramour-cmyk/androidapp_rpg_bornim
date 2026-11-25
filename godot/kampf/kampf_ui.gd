@@ -1758,10 +1758,21 @@ func _draw_overlay() -> void:
 
 
 ## 249: ein Treffer, der blutet: [by] schlug [on]; [hurt] wie schwer der Getroffene danach verwundet ist (0..1).
-func bleed(by: String, on: String, crit: bool, hurt: float, monster_id: String) -> void:
+## 1708 (Chef 25.11., 16:03: „das Blut muss da anfangen, wo jemand getroffen wird“): [an] der Knoten am Treffpunkt (Figur.anker,
+## geht mit dem Getroffenen); dort beginnt das Blut. null: wie bisher die Mitte des Körpers
+func bleed(by: String, on: String, crit: bool, hurt: float, monster_id: String, an: Node3D = null) -> void:
 	var gore: String = {"skeleton": "BONE", "zombie": "ICHOR", "ghoul": "ICHOR", "ochre_jelly": "SLIME"}.get(monster_id, "BLOOD")
 	bleeding = {"by": by, "on": on, "crit": crit, "hurt": clampf(hurt, 0.0, 1.0), "gore": gore,
-		"seed": int(bleeding.get("seed", 0)) + 1, "t0": kampfort.clock_ms}
+		"seed": int(bleeding.get("seed", 0)) + 1, "t0": kampfort.clock_ms, "an": an}
+
+
+## 1708: Beginn des Bluts am Schirm: der Treffpunkt (Knoten am Körper), sonst die Mitte des Körpers (wie BattleBlood.kt)
+func blut_ursprung(on: Variant) -> Vector2:
+	var an: Variant = bleeding.get("an")
+	if an is Node3D and is_instance_valid(an) and (an as Node3D).is_inside_tree() and bleeding.get("on") == on.fighter.id:
+		return kampfort.screen_of(kampfort.to_local((an as Node3D).global_position))
+	var to := _foot(on)
+	return Vector2(to.x, to.y - _tall(on) * 0.55)
 
 
 var _in_row := {}     # Wirkender und Art -> [Start ms, Nummer in Folge]
@@ -2703,7 +2714,7 @@ func _draw_blood() -> void:
 	var dy := (to.y - from.y) * 0.5 - 0.3 * to.distance_to(from)
 	var base := -25.0 if dx == 0.0 and dy == 0.0 else rad_to_deg(atan2(dy, dx))
 	var unit := tall / 40.0
-	var origin := Vector2(to.x, to.y - tall * 0.55)
+	var origin := blut_ursprung(on)     # 1708: am Treffpunkt, geht mit dem Getroffenen
 	var ground := to.y
 	var cols: Array = GORE[bleeding.gore]
 	var rnd := RandomNumberGenerator.new()

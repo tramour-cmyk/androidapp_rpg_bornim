@@ -35,6 +35,7 @@ var n_ohne := 0
 var mit_max := 0.0
 var weiten := []
 var zeilen := []
+var sichtbar := {}     # Figur -> Knochen (Welt), wie zu sehen: im skeleton_updated gelesen (mit den Modifiern: Atem, Zucken …)
 
 
 func _initialize() -> void:
@@ -79,6 +80,16 @@ func _art(art: String) -> void:
 	kf.ui.uhr = func() -> int: return int(Engine.get_process_frames() * 1000.0 / FPS)
 	while kf.verhuellt:
 		await process_frame
+	sichtbar.clear()
+	for f in kf.figures.values():
+		var fsk := f._find(f.model, "Skeleton3D") as Skeleton3D if f.model != null else null
+		if fsk != null:
+			fsk.skeleton_updated.connect(func() -> void:
+				var h: Array = sichtbar.get(f, [])
+				h.append(_haltung(f))
+				if h.size() > 4:
+					h.pop_front()
+				sichtbar[f] = h)
 	var zug := "paw" if art == "KROGG" else ""
 	Mars.test_gegnerzug = zug
 	var t0_blut := int(kf.ui.bleeding.get("t0", -1)) if not kf.ui.bleeding.is_empty() else -1
@@ -87,11 +98,14 @@ func _art(art: String) -> void:
 	var n := 0
 	var hier := 0
 	var mit: Array = []        # [Getroffener, Knochen, Versatz im Knochen, bis Bild]
-	while n < int(FPS * ZEIT_S) and hier < JE_ART:
+	var pranken := 0
+	while n < int(FPS * ZEIT_S) and (hier < JE_ART or art == "KROGG" and pranken == 0 and hier < 4 * JE_ART):
 		await process_frame
 		n += 1
 		if Mars.test_gegnerzug == "" and zug != "":
 			Mars.test_gegnerzug = zug
+		# das Blut kommt im Zeitgeber des Aufschlags, vor dem Stellen der Gerüste in diesem Bild: gemessen im nächsten Bild, mit der
+		# Haltung, wie sie im Bild des Aufschlags zu sehen war (skeleton_updated)
 		var bl: Dictionary = kf.ui.bleeding
 		if not bl.is_empty() and int(bl.t0) != t0_blut and kf.figures.has(bl.by) and kf.figures.has(bl.on):
 			t0_blut = int(bl.t0)
@@ -100,12 +114,17 @@ func _art(art: String) -> void:
 			fx0 = TrefferFx.zuletzt
 			if not m.is_empty():
 				mit = m
-		if not mit.is_empty() and n <= int(mit[3]) and is_instance_valid(mit[0]) and not kf.ui.bleeding.is_empty():
+			pranken += 1 if String(kf.figures[bl.by].anim.current_animation) == "Prankenhieb" else 0
+		if not mit.is_empty() and Engine.get_process_frames() <= int(mit[3]) and is_instance_valid(mit[0]) and not kf.ui.bleeding.is_empty() and int(kf.ui.bleeding.t0) == int(mit[4]):
 			var on = mit[0]
 			var sk: Skeleton3D = on._find(on.model, "Skeleton3D")
-			var q: Vector3 = sk.global_transform * sk.get_bone_global_pose(int(mit[1])) * (mit[2] as Vector3)
+			var q: Vector3 = ((sichtbar[on] as Array)[-1].pose[int(mit[1])] as Transform3D) * (mit[2] as Vector3)
 			var d: float = kf.screen_of(kf.to_local(q)).distance_to(_ursprung(kf.ui, on)) / maxf(kf.ui._tall(on), 1.0)
 			mit_max = maxf(mit_max, d)
+			if OS.get_environment("SCHAU1708") != "":
+				var an: Variant = kf.ui.bleeding.get("an")
+				var ap: Vector3 = (an as Node3D).global_position if an is Node3D and is_instance_valid(an) else Vector3.INF
+				print("1708 mit Bild %d %s: %.3f, Haut: Anker %.3f m, Punkt %.3f m" % [Engine.get_process_frames(), on.fighter.id, d, _haut(on, ap), _haut(on, q)])
 		if kf.mars.outcome != "ONGOING" and not kf.busy and not kf.playing and kf.beats.is_empty():
 			break
 		if kf.ring_open:
@@ -152,9 +171,11 @@ func _teile(f) -> Array:
 		var was := String(at.get_meta("was", ""))
 		if was == "" or was.contains("shield"):
 			continue
+		# der Anhänger kann in diesem Augenblick noch die Haltung des letzten Bilds zeigen: über den Knochen, wie er jetzt steht
+		var kn: Transform3D = sk.global_transform * sk.get_bone_global_pose(at.bone_idx)
 		var hm: Dictionary = f.klinge_halt(at)
 		if not hm.is_empty():
-			var tr: Transform3D = (at.get_child(0) as Node3D).global_transform
+			var tr: Transform3D = kn * (at.global_transform.affine_inverse() * (at.get_child(0) as Node3D).global_transform)
 			out.append([tr * (hm.griff as Vector3), tr * (hm.spitze as Vector3), 0.0])
 			continue
 		for mm in at.find_children("*", "MeshInstance3D", true, false):
@@ -164,32 +185,53 @@ func _teile(f) -> Array:
 			var p1: Vector3 = p0
 			p0[ax] = box.position[ax]
 			p1[ax] = box.end[ax]
-			out.append([mm.global_transform * p0, mm.global_transform * p1, 0.0])
+			var tm: Transform3D = kn * (at.global_transform.affine_inverse() * mm.global_transform)
+			out.append([tm * p0, tm * p1, 0.0])
 	if out.is_empty() and f.fighter.monster != null:
+		for at in f.find_children("*", "BoneAttachment3D", true, false):
+			if String(at.bone_name).to_lower().contains("hand") and not at.has_meta("was"):
+				var kn2: Transform3D = sk.global_transform * sk.get_bone_global_pose(at.bone_idx)
+				for mm in at.find_children("*", "MeshInstance3D", true, false):
+					var box: AABB = mm.get_aabb()
+					var ax := box.get_longest_axis_index()
+					var p0: Vector3 = box.get_center()
+					var p1: Vector3 = p0
+					p0[ax] = box.position[ax]
+					p1[ax] = box.end[ax]
+					var tm: Transform3D = kn2 * (at.global_transform.affine_inverse() * mm.global_transform)
+					out.append([tm * p0, tm * p1, 0.0])
+		if not out.is_empty():
+			return out
 		for c in f.kapseln():
 			var nm := String(c[3]).to_lower() if c.size() > 3 else ""
-			if BISS.any(func(w): return nm.contains(w)):
+			if not nm.begins_with("ik_") and (BISS + ["chelicere", "hand"]).any(func(w): return nm.contains(w)):
 				out.append(c)
 	return out
 
 
 ## ein Treffer mit Blut: [Getroffener, Knochen, Versatz, bis Bild] für „geht mit“, leer ohne Berührungspunkt
 func _messe(art: String, kf, by, on, fx0) -> Array:
-	var fern: bool = kf.shown.get("spell") != null or by.schuss != null and String(by.anim.current_animation) != "Hieb"
+	# im Bild des Aufschlags, wie kapseln() das Gerüst liefert (Haltung der Bewegung; der Zeitgeber des Aufschlags lief schon)
+	var hb: Dictionary = _haltung(by)
+	var ho: Dictionary = _haltung(on)
+	# Fernangriff wie kampfort _fx_of: Zauber, Netzwurf der Spinne, Pfeil
+	var fern: bool = kf.shown.get("spell") != null or by.fighter.ranged() or by.fighter.monster != null and by.fighter.monster.id == Mars.SPIDER and by.netz_los_ms >= 0
 	var punkt := Vector3.INF
 	var luecke := INF
+	var naechst := INF
 	var teil := ""
 	if fern:
 		punkt = on.treffpunkt_fern(by.cast_point() if by.cast_point() != null else by.head())
 		teil = "Geschoss"
 	else:
-		var ws: Array = _teile(by)
-		teil = "Pranke" if String(by.anim.current_animation) == "Prankenhieb" else ("Waffe" if by.fighter.monster == null or by.traegt().any(func(g): return g[2] != "" and not String(g[2]).contains("shield")) else "Biss")
+		var ws: Array = hb.teile
+		teil = "Pranke" if hb.anim == "Prankenhieb" else ("Klinge" if by.fighter.monster == null or by.traegt().any(func(g): return not String(g[2]).contains("shield")) else "Biss")
 		for w in ws:
-			for c in on.koerper():
+			for c in ho.koerper:
 				var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(w[0], w[1], c[0], c[1])
 				var d: Vector3 = pq[0] - pq[1]
-				if d.length() < luecke:
+				if d.length() < naechst:
+					naechst = d.length()
 					luecke = d.length() - float(c[2])
 					punkt = pq[1] + (d.normalized() * float(c[2]) if d.length() > float(c[2]) else d)
 	var ui = kf.ui
@@ -201,8 +243,28 @@ func _messe(art: String, kf, by, on, fx0) -> Array:
 		print("1708 %s %s %s an %s: ohne Gerüst oder Angriffsteil" % [art, teil, by.fighter.id, on.fighter.id])
 		return []
 	n_treffer += 1
+	# der Punkt im Raum des Knochens, an dem das Blut hängt (sonst des nächsten), in dieses Bild mitgenommen
+	var sk := on._find(on.model, "Skeleton3D") as Skeleton3D
+	var an: Variant = kf.ui.bleeding.get("an")
+	var best: int = int((an as Node3D).get_meta("knochen", -1)) if an is Node3D and is_instance_valid(an) else -1
+	var bd := INF
+	var pose: Array = ho.pose
+	for i in (pose.size() if best < 0 else 0):
+		var nm := sk.get_bone_name(i).to_lower()
+		if nm.begins_with("ik_") or nm == "root":
+			continue
+		var pa := sk.get_bone_parent(i)
+		var a: Vector3 = (pose[i] as Transform3D).origin
+		var b: Vector3 = a if pa < 0 else (pose[pa] as Transform3D).origin
+		var d := Geometry3D.get_closest_point_to_segment(punkt, a, b).distance_to(punkt)
+		if d < bd:
+			bd = d
+			best = pa if pa >= 0 else i
+	var aus: Vector3 = (pose[best] as Transform3D).affine_inverse() * punkt
 	var am: Vector2 = kf.screen_of(kf.to_local(punkt))
 	var d1 := am.distance_to(ur) / hoch
+	if OS.get_environment("SCHAU1708") != "" and on.has_method("treffpunkt"):
+		print("1708 schau: Test %s, Figur jetzt %s, Anker %s (Knochen %s); Teile Test %d, Figur %d; Haltung von Bild %d/%d, jetzt %d" % [punkt, on.treffpunkt(by), (an as Node3D).global_position if an is Node3D else "-", (an as Node3D).get_meta("knochen", "–") if an is Node3D else "-", (hb.teile as Array).size(), by.angriffs_kapseln().size(), hb.bild, ho.bild, Engine.get_process_frames()])
 	var zu: bool = d1 > BLUT_AB
 	n_ueber += 1 if zu else 0
 	var fl := ""
@@ -215,23 +277,17 @@ func _messe(art: String, kf, by, on, fx0) -> Array:
 		zu = zu or d2 > BLUT_AB
 	print("%s 1708 %s %s %s an %s: Tropfen ab %.2f Körperhöhen vom Berührungspunkt%s (Angriffsteil %.2f m vom Körper)" % [
 		"FEHLER" if zu else "gut", art, teil, by.fighter.id, on.fighter.id, d1, fl, luecke if luecke < INF else 0.0])
-	# „geht mit“: der Punkt im Raum des nächsten Knochens des Getroffenen
-	var sk := on._find(on.model, "Skeleton3D") as Skeleton3D
-	var best := -1
-	var bd := INF
-	for i in sk.get_bone_count():
-		var nm := sk.get_bone_name(i).to_lower()
-		if nm.begins_with("ik_") or nm == "root":
-			continue
-		var pa := sk.get_bone_parent(i)
-		var a: Vector3 = sk.global_transform * sk.get_bone_global_pose(i).origin
-		var b: Vector3 = a if pa < 0 else sk.global_transform * sk.get_bone_global_pose(pa).origin
-		var d := Geometry3D.get_closest_point_to_segment(punkt, a, b).distance_to(punkt)
-		if d < bd:
-			bd = d
-			best = pa if pa >= 0 else i
-	var tr: Transform3D = sk.global_transform * sk.get_bone_global_pose(best)
-	return [on, best, tr.affine_inverse() * punkt, Engine.get_process_frames() + int(MIT_S * FPS)]
+	return [on, best, aus, Engine.get_process_frames() + int(MIT_S * FPS), int(kf.ui.bleeding.get("t0", -1))]
+
+
+## Angriffsteil, Körper und Knochen (Welt) von [f] in diesem Bild
+func _haltung(f) -> Dictionary:
+	var sk := f._find(f.model, "Skeleton3D") as Skeleton3D if f.model != null else null
+	var pose: Array = []
+	if sk != null:
+		for i in sk.get_bone_count():
+			pose.append(sk.global_transform * sk.get_bone_global_pose(i))
+	return {"teile": _teile(f), "koerper": f.koerper(), "pose": pose, "anim": String(f.anim.current_animation) if f.anim != null else "", "bild": Engine.get_process_frames()}
 
 
 ## weiteste Strecke eines Tropfens vom Beginn (px), wie _draw_blood (gleiche Würfel), bis er landet
@@ -267,3 +323,11 @@ func _weite(ui, on) -> float:
 			if origin.y + y >= to.y:
 				break
 	return weit
+
+
+## Abstand (m) von [p] zur Oberfläche der Kapseln von [f] (< 0: darin)
+func _haut(f, p: Vector3) -> float:
+	var best := INF
+	for c in f.koerper():
+		best = minf(best, Geometry3D.get_closest_point_to_segment(p, c[0], c[1]).distance_to(p) - float(c[2]))
+	return best
