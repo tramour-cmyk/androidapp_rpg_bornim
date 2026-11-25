@@ -87,6 +87,22 @@ soll("guthaben.ober_rolle Prüfer weiter", guthaben.ober_rolle(kosten.rolle("Ral
 
 soll("rufname.ALLE: Mira", "Mira" in rn.ALLE)
 
+# Doppel gegen laufende Sitzungen (Chef 21:39 „Anna und Otto als Disponenten???“; Anna …779idR lief seit 20:43, Startsperre ohne Namen)
+b = os.path.join(tempfile.mkdtemp(), "b.md")
+open(b, "w", encoding="utf-8").write("| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n"
+    "| Werkzeug | [Anna – 2035: Handstart (25.11., 20:43)](https://claude.ai/code/session_A) | 2035 | – | 25.11., 20:42 |\n"
+    "| Disponent | [Disponent – Büro (25.11., 21:50)](https://claude.ai/code/session_D) | Betrieb | – | 25.11., 21:50 |\n")
+soll("rufname.laufende aus der Besetzung", ruf(getattr(rn, "laufende", lambda p: "fehlt"), b) == {"Anna"}, ruf(getattr(rn, "laufende", lambda p: "fehlt"), b))
+soll("naechster überspringt laufende (nächster Name im Buchstaben)", ruf(rn.naechster, [], laufend={"Anna"}) == "Arne", ruf(rn.naechster, [], laufend={"Anna"}))
+bz = rn.BESETZUNG; rn.BESETZUNG = b
+try:
+    aus = lauf.mit_rufnamen(["START Prüfer | a | b | c | d | Prüfer – 2041: x (25.11., 21:50) | A"], [])
+    soll("mit_rufnamen: nie der Name einer laufenden Sitzung (Anna)", rn.aus_titel(aus[0].split(" | ")[5]) not in (None, "Anna"), aus[0][:80])
+    aus = lauf.mit_rufnamen(["START Prüfer | a | b | c | d | Prüfer – 2041: x (25.11., 21:50) | A"], [{"title": "Britta – 2030: y", "created_at": "2026-11-24T10:00:00Z"}])
+    soll("mit_rufnamen: laufende Sitzung von gestern zählt (Britta)", rn.aus_titel(aus[0].split(" | ")[5]) not in (None, "Anna", "Britta"), aus[0][:80])
+finally:
+    rn.BESETZUNG = bz
+
 # Texte an Sitzungen: Disponent statt Ford
 q = open(os.path.join(HIER, "neustart-haken.py"), encoding="utf-8").read()
 soll("neustart-haken.py: keine „Nachricht an Ford“", "Nachricht an Ford" not in q and q.count("Nachricht an den Disponenten") >= 4,

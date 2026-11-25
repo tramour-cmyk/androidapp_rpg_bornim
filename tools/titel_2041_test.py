@@ -56,7 +56,7 @@ for t, n in (("Paula – Auftrag 2041 (25.11., 21:00)", "2041"), ("Paula – in 
 soll("Leser lauf.auftrag_aus_titel alt ohne Auftrag: None", lauf.auftrag_aus_titel(ALT) is None)
 z = "START Werkzeug | a | b | c | d | %s | Auftrag"
 for t, soll_t in (("Werkzeug – 2041: Abläufe (25.11., 21:09)", "Nora – 2041: Abläufe (25.11., 21:09)"), ("Werkzeug – in Arbeit – 2041 – Abläufe", "Nora – in Arbeit – 2041 – Abläufe")):
-    rn_alt = rn.naechster; rn.naechster = lambda belegt, docs=None: "Nora"
+    rn_alt = rn.naechster; rn.naechster = lambda belegt, docs=None, **k: "Nora"
     try: aus = lauf.mit_rufnamen([z % t], [])
     finally: rn.naechster = rn_alt
     soll("Leser lauf.mit_rufnamen: %s" % t, aus[0].split(" | ")[5] == soll_t, aus); leser.add("lauf.mit_rufnamen")
