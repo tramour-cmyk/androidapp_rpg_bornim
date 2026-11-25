@@ -1397,3 +1397,4 @@
 2026-11-25 13:30:28	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/figur-2029-kopfteile
 2026-11-25 13:30:31	probelauf	1702: Bild oder Film an den Chef nur aus dem gepushten Stand; nicht committet: godot/skripte/heldfigur.gd. Erst committen und pushen; eigene Messläufe ohne Bild mit `MESS=`.	claude/figur-2029-kopfteile
 2026-11-25 13:39:44	probelauf	1702: die Modelle am Rechner sind zum Stand 8f07379a6 gebaut, die Bauskripte haben sich seither geändert; erst `python3 tools/godot/bau_am_rechner.py --cache --laden`, dann der Lauf.	claude/figur-2029-kopfteile
+2026-11-25 15:05:35	probelauf	1702: die Modelle am Rechner sind zum Stand e91f185a0 gebaut, die Bauskripte haben sich seither geändert; erst `python3 tools/godot/bau_am_rechner.py --cache --laden`, dann der Lauf.	claude/figur-2028-handgelenk
