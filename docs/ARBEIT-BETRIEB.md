@@ -285,3 +285,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 07:07 25.11.: Takt Uwe: START Figur Britta 431 (session_01Hmoj75m4KpRacmtj5GsB4c, bis 30 $); Rudi (1694) archiviert, Kosten 4,59 $; 887-START Anna nicht ausgeführt (ruht); 1654-Figur liegt startbar (lauf.py startet sie nicht, Ü7 angenommen), Figur eine zugleich.
 - 08:04 25.11.: Startsperre 08:04 Start Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Benno, Tagesbericht 448)
 - 08:06 25.11.: Takt Uwe: Britta (431) hat 08:00 Frage gestellt, Sokrates hat Zeile 431-Ü15 erledigt; START Benno 887 (ruht) und Tagesbericht 448 (Chef-Ruhe) nicht ausgeführt, Sokrates informiert.
+- 09:03 25.11.: Startsperre 09:03 Start Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Benno, Tagesbericht 448)
