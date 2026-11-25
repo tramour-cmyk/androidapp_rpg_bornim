@@ -4,6 +4,8 @@ Vorgang 2034 Teil 0 (Chef 25.11., 17:27; Sokrates 17:29). Erzeugt von `tools/god
 
 **F6 ✗ Sichtung:** nur, wenn ein in der Sichtung mit ✗ genanntes Wort in Name, Ordner oder Paketbeschreibung steht (Suchwörter in `abzug_2034_liste.py`); nicht gezeichnet, der Chef kann nachfordern. Alles andere ist gezeichnet, auch wenn die Sichtung das Paket „meist modern“ nannte.
 
+**Pixelblöcke (2034-Ü6, Prüfer 18:42, M57-09):** Ursache bei uns, nicht im Paketbild: `abzug_mh.py` legte die Netze flach an (je Fläche eine Normale; die `.obj` haben keine `vn`), im Toon-Licht wurde jedes Viereck ein eigener Tonblock. Beleg `2034-abzug/probe/M57-09_bloecke.webp` (Probebild 3-fach, Netzkanten darüber, Paketbild 1:1 glatt). Behoben mit `me.shade_smooth()`; betrifft alle 194 gezeichneten Netze (243 ohne 49 Häute). Paare (Stiefel 9, Handschuhe 4): linker und rechter Teil bis 2 cm Luft zusammengeschoben (nur Abzug), damit das Stück die Höhe füllt; Anteil je Stück in `2034-abzug/fuellt.tsv`.
+
 **Lizenz:** Spalte 1 = Paketseite (maßgeblich, LISTE-QUELLEN.md); „AGPL3“ im Kopf der .mhclo ist die MakeClothes-Vorgabe, „AGPLv3“ im Kopf der .mhmat die Materialvorlage (LISTE-QUELLEN.md). NC an irgendeiner Stelle: nie gezeigt.
 
 ## Summe je Paket gegen die Sichtung

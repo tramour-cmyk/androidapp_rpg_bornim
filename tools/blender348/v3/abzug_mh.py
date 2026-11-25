@@ -32,6 +32,29 @@ ART = {'M1': 'Haar', 'M15': 'Haut', 'M16': 'Haut', 'M17': 'Haut', 'M20': 'Bart',
        'M29': 'Helm', 'M31': 'Hose', 'M34': 'Rock', 'M36': 'Ganzanzug', 'M41': 'Bart', 'M42': 'Kleid', 'M43': 'Kleid', 'M47': 'Hut',
        'M48': 'Helm', 'M49': 'Haar', 'M50': 'Haar', 'M51': 'Maske', 'M54': 'Oberteil', 'M57': 'Stiefel'}
 GRAU = {'Haar', 'Bart'}
+PAARE = {'Stiefel', 'Handschuhe'}
+
+def paar_enger(W, F):
+    # 2034-Ue6 (Planer 19:01: Stueck fuellt die Hoehe, auch Paare): die Teile links und rechts (zusammenhaengende Netzteile, Mitte
+    # links bzw. rechts von x = 0) zur Mitte schieben, bis 2 cm Luft bleiben; nur Abzug, nur Stiefel und Handschuhe
+    eltern = list(range(len(W)))
+    def wurzel(i):
+        while eltern[i] != i:
+            eltern[i] = eltern[eltern[i]]; i = eltern[i]
+        return i
+    for f in F:
+        for a, _ in f[1:]: eltern[wurzel(a)] = wurzel(f[0][0])
+    r = np.array([wurzel(i) for i in range(len(W))])
+    links = np.zeros(len(W), bool)
+    for k in np.unique(r): links[r == k] = W[r == k, 0].mean() < 0
+    if links.all() or not links.any(): return W
+    luft = W[~links, 0].min() - W[links, 0].max()
+    if luft <= 0.02: return W
+    W = W.copy()
+    W[links, 0] += (luft - 0.02) / 2
+    W[~links, 0] -= (luft - 0.02) / 2
+    print('ABZUG Paar enger: %.3f m Luft -> 0,02 m' % luft)
+    return W
 BILD = 2048
 
 def kopf(p):
@@ -92,8 +115,13 @@ def glb(nr, V, VT, F, bildpfad, alpha, ziel):
     for m in list(bpy.data.materials): bpy.data.materials.remove(m)
     for i in list(bpy.data.images): bpy.data.images.remove(i)
     W = V * 0.1   # Dezimeter -> Meter
+    W = paar_enger(W, F) if ART[nr.split('-')[0]] in PAARE else W
     me = bpy.data.meshes.new(nr)
     me.from_pydata([(x, -z, y) for x, y, z in W], [], [[i for i, _ in f] for f in F])   # Blender Z oben, Blick -Y
+    # 2034-Ue6 (Pruefer 18:42, Pixelbloecke im Leder M57-09): from_pydata legt Flaechen flach an (je Flaeche eine Normale); im
+    # Toon-Licht wurde jedes Viereck ein eigener Tonblock (Beleg docs/entwurf/2034-abzug/probe/M57-09_bloecke.webp). Die .obj der
+    # Pakete haben keine Normalen (vn) und keine Glaettgruppen: glatt wie MakeHuman
+    me.shade_smooth()
     uv = me.uv_layers.new()
     for poly in me.polygons:
         for li, (_, ti) in zip(poly.loop_indices, F[poly.index]):

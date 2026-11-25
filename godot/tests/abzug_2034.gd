@@ -15,6 +15,13 @@ const GRUND := Color(0.035, 0.045, 0.075)        # kaltes Blauschwarz
 const UMGEBUNG := Color(0.32, 0.36, 0.48)         # kaltes Streulicht im Schatten
 const SONNE := Color(1.0, 0.86, 0.66)             # warm
 const SONNE_DREH := Vector3(-40, -30, 0)          # wie Drehteller: von vorn oben links
+# 2034-Ue6 (Pruefer 18:42): dunkle Stuecke (Robe, Stiefel, Helligkeit 0,09-0,16) lagen auf GRUND, die Tusche war unsichtbar. Hinter dem
+# Stueck eine kalte, unbeleuchtete Wand mit Lichthof: in der Mitte HOF (kaltes Graublau), nach aussen weich bis GRUND; das Stueck selbst
+# bleibt unveraendert (nicht aufgehellt), die Tusche liegt am Umriss zwischen Stueck und hellerem Grund
+const HOF := Color(0.25, 0.28, 0.36)
+const HOF_INNEN := 0.45    # Halbmesser voll hell, Anteil der Bildhoehe
+const HOF_AUSSEN := 0.95   # bis hier GRUND
+const WAND := "shader_type spatial;\nrender_mode unshaded, cull_disabled, fog_disabled, shadows_disabled;\nuniform vec3 hof : source_color;\nuniform vec3 grund : source_color;\nuniform vec2 mitte;\nuniform float r0;\nuniform float r1;\nvarying vec3 w;\nvoid vertex() { w = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }\nvoid fragment() { float d = length(w.xy - mitte); ALBEDO = mix(hof, grund, smoothstep(r0, r1, d)); }\n"
 var aus := OS.get_environment("AUS")
 var toon2: Shader
 var tusche2: Shader
@@ -129,7 +136,7 @@ func _bild(p: String, nr: String, ansicht: String, art: String, tusche: bool, mi
 	var kam := Camera3D.new()
 	kam.projection = Camera3D.PROJECTION_ORTHOGONAL
 	kam.keep_aspect = Camera3D.KEEP_HEIGHT
-	kam.size = maxf(a.size.y, a.size.x * float(H) / float(B)) * 1.08
+	kam.size = maxf(a.size.y, a.size.x * float(H) / float(B)) * 1.08   # Stueck fuellt die Hoehe, wenn die Breite es zulaesst
 	var c := a.get_center()
 	kam.position = Vector3(c.x, c.y, a.end.z + 2.0)
 	kam.near = 0.05
@@ -152,6 +159,22 @@ func _bild(p: String, nr: String, ansicht: String, art: String, tusche: bool, mi
 		q.material_override = tm
 		q.position = Vector3(0, 0, -1)
 		kam.add_child(q)
+	if not maske:   # 2034-Ue6: Wand mit Lichthof hinter dem Stueck (und hinter der Lampe)
+		var wd := MeshInstance3D.new()
+		var wq := QuadMesh.new(); wq.size = Vector2(kam.size * 4.0, kam.size * 4.0)
+		wd.mesh = wq
+		wd.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		var wm := ShaderMaterial.new()
+		var ws := Shader.new(); ws.code = WAND
+		wm.shader = ws
+		wm.set_shader_parameter("hof", HOF)
+		wm.set_shader_parameter("grund", GRUND)
+		wm.set_shader_parameter("mitte", Vector2(c.x, c.y))
+		wm.set_shader_parameter("r0", kam.size * HOF_INNEN)
+		wm.set_shader_parameter("r1", kam.size * HOF_AUSSEN)
+		wd.material_override = wm
+		wd.position = Vector3(c.x, c.y, a.position.z - 2.0)
+		sv.add_child(wd)
 	if not maske:   # sichtbare Quelle: warme Lampe oben links, hinter dem Stueck (verdeckt nie etwas)
 		var la := MeshInstance3D.new()
 		var sp := SphereMesh.new(); sp.radius = kam.size * 0.022; sp.height = kam.size * 0.044
@@ -179,7 +202,7 @@ func _bild(p: String, nr: String, ansicht: String, art: String, tusche: bool, mi
 	await RenderingServer.frame_post_draw
 	var ziel := aus.path_join("%s_%s%s.png" % [nr, ansicht, art])
 	sv.get_texture().get_image().save_png(ziel)
-	if art == "": print("MARKE %s %s px_je_m %.1f hoehe_m %.3f breite_m %.3f" % [nr, ansicht, float(H) / kam.size, a.size.y, a.size.x])
+	if art == "": print("MARKE %s %s px_je_m %.1f hoehe_m %.3f breite_m %.3f fuellt %.3f" % [nr, ansicht, float(H) / kam.size, a.size.y, a.size.x, a.size.y / kam.size])
 	print("BILD ", ziel)
 	sv.queue_free()
 	await process_frame
