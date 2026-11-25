@@ -275,3 +275,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 00:03 25.11.: Startsperre 00:03 Start Sokrates, Arbeitsplaner (lauf.py, Sokrates 1989, Arbeitsplaner 1603 Anna)
 - 00:05 25.11.: Takt Uwe: alter Sokrates (77ZdYK) archiviert, Kosten 19,89 $ (1989); neuer Sokrates 76pVj4 bleibt (lauf.py erkennt Titel Handstart nicht: START/ARCHIVIERE Sokrates nicht ausgeführt, offene Zeile 1989-Ü13 per Nachricht); START Anna 1603 (Testbuild) nicht ausgeführt, erst Fr nach Rückfrage; Wochentermin 23.11. ausgefallen -> Sokrates.
 - 01:04 25.11.: Startsperre 01:04 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1603 Anna)
+- 01:05 25.11.: Takt Uwe: nichts zu tun (Nacht, 0 Fachkräfte); START Anna 1603 (Testbuild) nicht ausgeführt, ab jetzt --ohne 1603:Testbuild-Fr.
