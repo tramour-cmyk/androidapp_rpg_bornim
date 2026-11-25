@@ -25,6 +25,7 @@ Sitzung session_01Hmoj77coHozxLd4WLoTXMn (seit 25.11., 21:54). Sokrates session_
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 22:35 Chef 22:32 „klärt das jetzt, warum der Umbau nicht greift“: Probe titel_zeile: Britta „<Rufname>“, Paula None, Ralf als Werkzeug – titel_zeile liest Besetzung (nur Stundentakt, Handstart-Rolle falsch); 1708-Ü10 angenommen+erledigt in 3 s ohne Start (0ea352814/7642a44fe), vorgang.py prüft Start nicht → Rückläufer 2041 (1)–(5) Eilt in Vertretung an Sokrates.
 - 25.11., 22:25 Chef 22:20 „1707 Berrit. Was läuft nicht?“ (= 1708): B steht seit 19:46, nie gestartet, Ü10 ohne Start erledigt (Otto 21:24), Stand Z. 57 Leiche, Berit still seit 18:45. Chef 22:24 „B soll jetzt auch starten“ → wörtlich an Sokrates; Archivieren Berit und Nachricht mit Entscheid in Vertretung sperrte Auto-Modus.
 - 25.11., 22:09 Chef 22:08 „30 Minuten bis zum Neustart ist krank!“ → Entscheid 22:07 zurück: Karl bleibt bis 2042 A auf main, dann ein Neustart auf sonnet; bis dahin NEUSTART-Zeile überspringen, Not-Grenze 500 Tsd.; Ziel 2042: mehrere Stunden Laufzeit → an Sokrates.
 - 25.11., 22:07 Chef 22:07 „Karl ist ja der erste Fehler“: Karl trug nach 2041 auf main (8abd10517, 22:01) alten Titel → umbenannt „Disponent – Büro“; Neustart auf sonnet (332 Tsd., opus) in Vertretung; Ursache (Titel nur bei Start) an Sokrates. 2041: Tests titel_2041b/ablaeufe_2041/titel_2041 grün (selbst).
