@@ -142,3 +142,4 @@ STARTSPERRE - 17:38 25.11.: Startsperre 17:38 Start Figur (Handstart, Figur 2029
 - 11:03 25.11.: Startsperre 11:03 Start Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Gerda, Tagesbericht 448)
 - 17:52 25.11.: Alter-Ego-Querprüfung: Frauke 1708 (1,62 $), Anna 2034 (3,07 $), Moritz 2028 (1,32 $), Clara 2035 (2,44 $) archiviert und gebucht; Liste: 2029, 1708, 2031, 1589.4 auf „in Arbeit“; aufgeräumt; keine Prüfer-Zeile offen; Fund: vorgang.py pruefen meldet 2018 Besitzer „Wochenzählung" ungültig.
 - 17:53 25.11.: Disponent-Starter …79aK2Z archiviert (0,51 $, ohne Nummer).
+STARTSPERRE - 18:00 25.11.: Startsperre 18:00 Start Figur, Figur (Handstart, Figur 2034 Edda, Figur 2032 Finja)
