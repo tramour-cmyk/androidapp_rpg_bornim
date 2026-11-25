@@ -22,10 +22,10 @@
 
 - Konferenz: Alter Ego `session_01Hmoj796ziGfneFcCRZG7J7` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
 - Spielcode nach main nur Sokrates nach Chef-👍 (Dauerwort 23.11., 23:10).
-- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt; Guthaben 50 % (06:53), über 0,6 %/h zwei
-- Chef 12:48: Spiel vor, kein Werkzeug (1716, 1725, 2020, 2021 ruhen); fragt der Chef, jetzt vorlegen (25.11., 09:52). 1694, 431, 1589.4, 1603 A (19:3x). Sa vorlegen: 1589.4 Kapsel, --sperre-Teile; Testbuild Sa (Technik Fr). Offen: 1301/1387/1642/1643 mit Alter Ego.
+- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt; 63 % am 25.11.
+- Chef 12:48: Spiel vor, kein Werkzeug (1716, 1725, 2020, 2021 ruhen); fragt der Chef, jetzt vorlegen (25.11., 09:52). Sa vorlegen: --sperre-Teile; Testbuild Sa (Technik Fr). Offen: 1301/1387/1642/1643 mit Alter Ego.
 - Täglich Modell, Umgebung, Aufwand aller Sitzungen. Kopiertexte: `kopiertexte-uhren.md`
 
 ## Übergabe
 
-- 25.11., 11:56, `76pVj4…` (401 Tsd.): Getan: 1589.4 weiter, 36 $; 1694 B, Lauf frei; 2024 A; 2026 neu; 431 B, Lauf frei, Ansehen an Chef. Letzte Antwort: 431 Bilder an Chef, 👍 = Testbuild. Nachfolger: Sokrates – Leitung.
+- 25.11., 11:56, `76pVj4…` (401 Tsd.): Getan: Chefworte 1589.4, 1694, 2024, 2026, 431 eingetragen. Letzte Antwort: 431 Bilder an Chef, 👍 = Testbuild. Nachfolger: Sokrates – Leitung.
