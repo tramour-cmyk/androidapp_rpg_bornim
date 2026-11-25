@@ -15,6 +15,12 @@ func _guertel(name: String, m: Node3D) -> void:
 	await process_frame
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 	var ap := m.get_node_or_null("AnimationPlayer") as AnimationPlayer
+	if "--ohnestatur" in OS.get_cmdline_user_args():
+		for mi in m.find_children("*", "MeshInstance3D", true, false):
+			var me := mi as MeshInstance3D
+			if me.mesh == null: continue
+			for bi in me.mesh.get_blend_shape_count():
+				if String(me.mesh.get_blend_shape_name(bi)).begins_with("statur"): me.set_blend_shape_value(bi, 0.0)
 	var netz := _sammle(sk)
 	var haltung: Node = null
 	for c in sk.get_children():
@@ -22,7 +28,9 @@ func _guertel(name: String, m: Node3D) -> void:
 	ap.speed_scale = 0.0
 	ap.play("Stehen", 0.0)
 	ap.seek(0.0, true)
-	if haltung:
+	if haltung and "--ohnehaltung" in OS.get_cmdline_user_args():
+		haltung.active = false
+	elif haltung:
 		haltung.grund_w = -1.0; haltung.arm_w = -1.0; haltung.dame_w = -1.0
 	sk.skeleton_updated.connect(_nach_update.bind(sk))
 	_posen = []
