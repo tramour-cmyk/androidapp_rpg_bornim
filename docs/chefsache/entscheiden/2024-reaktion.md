@@ -1,4 +1,7 @@
 # 2024 · Prankenhieb des Krogg: reicht die Reaktion des Helden jetzt?
+
+[Film von 25.11., 15:58](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261125-155834-2024/2026-11/25-1558-2024-Sokrates.mp4) (eingetragen von meldung.sh, Sokrates)
+
 Sokrates · 25.11., 16:00 · E Figuren · Prüfer nein 15:57 (2024-Ü12), dritter abgelehnter Auftrag
 Kurz: Blut kommt jetzt im Bild des Aufschlags, das Zucken 0,2 s danach (vorher knapp 1 s); Deckel 22 $, ausgegeben 20 $.
 Beim Chef, weil: Geld
