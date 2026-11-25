@@ -79,7 +79,7 @@ Wer ein Urteil des Chefs braucht: Datei in `chefsache/<ordner>/<nr>-….md` mit 
 - **Ford-Sitzung** wird stündlich von einem geplanten Auftrag („Ford-Lauf“) geweckt. Je Lauf: `list_sessions` (alle Seiten) als Kurzzeilen in eine Datei, dann `python3 tools/lauf.py --sperre --besetzung <Datei>`; jede Ausgabezeile ausführen: `START` (`create_session` mit Rolle, Modell, Umgebung, `source_url`, erster Nachricht), `WEITER` (`send_message` an eine laufende Sitzung), `ARCHIVIERE`, `WARNUNG(-LAUT)` (Telegram), `LEERLAUF` (nichts). Danach pushen, eine Telegram-Zeile. Ablauf: `LISTE-BETRIEB.md`.
 - **Stellung** oben in `ARBEIT-BETRIEB.md`: aus / Co-Pilot / Pilot.
 - **Startsperre:** `startsperre-haken.py` lässt `create_session` nur durch, wenn `lauf.py --sperre` die Zeile „Startsperre HH:MM Start <Name>“ geschrieben hat; so startet keiner an `lauf.py` vorbei und es gibt keine Klone.
-- **Tiefe:** jede gestartete Sitzung liegt eins tiefer (Grenze 8). Darum gibt es den **Ford-Starter** (Tiefe 1, startet nur Ford neu) und die **Ford-Wache** (geweckt 07:08 Mo–Fr, 09:08 Sa/So, meldet Stillstand). Ab Tiefe 6 bittet Ford den Chef per Telegram um einen Handstart.
+- **Tiefe:** jede gestartete Sitzung liegt eins tiefer (Grenze 8). **Abgelöst (Sokrates 25.11., 19:52):** heute startet der Disponent seinen Nachfolger selbst; die Wache hat ihr Profil `docs/profile/Wache.md`. Früher gab es dafür den **Ford-Starter** (Tiefe 1, startet nur Ford neu) und die **Ford-Wache** (geweckt 07:08 Mo–Fr, 09:08 Sa/So, meldet Stillstand). Ab Tiefe 6 bittet Ford den Chef per Telegram um einen Handstart.
 - **Selbstneustart:** über etwa 400 Tsd. Token übergibt jede Sitzung; der Neustart-Haken erinnert.
 - **Kosten:** beim Archivieren schreibt `lauf.py --kosten` den API-Preis an den Vorgang; `kostenbericht.py` → `LISTE-KOSTEN.md`.
 - Geplante Aufträge, die selbst eine Sitzung erzeugen, können keine Sitzungen starten (Probe 13.11.); darum weckt die Uhr eine bestehende Ford-Sitzung.
@@ -156,7 +156,7 @@ Dazu: Ausgabestil „Knapp“ (`.claude/output-styles/knapp.md`), Zeitzone und A
 5. Cloud-Umgebung in claude.ai/code (Netz, Variable, Setup über den Haken), Modelle je Rolle in `lauf.py`.
 6. Bauserver: `godot.yml` (APK, Tests, Bilder, Prüfliste über `pruefliste.py`), `zug-index.yml`; Secrets (Signatur, `KAUF_TOKEN`); Zweit-Repo für Gekauftes.
 7. Im Spiel: Testmodus mit Reiter „Test“, der die Prüfliste aus dem Bau zeigt und Lagen herstellt.
-8. Ford von Hand starten (Tiefe 0): Uhr „Ford-Lauf“ stündlich auf seine Sitzung, Ford-Starter und Ford-Wache anlegen, Stellung „Pilot“.
+8. Ford von Hand starten (Tiefe 0): Uhr „Ford-Lauf“ stündlich auf seine Sitzung, Ford-Starter und Ford-Wache anlegen, Stellung „Pilot“. **Abgelöst (Sokrates 25.11., 19:52):** heute startet der Disponent seinen Nachfolger selbst; die Wache hat ihr Profil `docs/profile/Wache.md`.
 9. Erstes Wochenziel durch Perikles; los.
 
 ## 12. Wo es hakt (Stand 15.11.)
@@ -164,5 +164,5 @@ Dazu: Ausgabestil „Knapp“ (`.claude/output-styles/knapp.md`), Zeitzone und A
 - **Viel Regelwerk:** jeder Haken entstand aus einem Fehler; neue Regeln brauchen eine Streichung (Regelbilanz), sonst wächst `CLAUDE.md` über 15 KB.
 - **Vorräte zu groß:** Tom, Jerry, Beratung liegen um 30 KB; jede Sitzung liest sie beim Start.
 - **Warten aufeinander:** Muss, die auf eine Rolle warten, die `lauf.py` nicht startet (Sokrates), lösen erst den Stillstand-Lauf aus (1246).
-- **Tiefe der Sitzungen:** Ford braucht etwa täglich einen Handstart oder den Ford-Starter.
+- **Tiefe der Sitzungen:** Ford braucht etwa täglich einen Handstart oder den Ford-Starter. **Abgelöst (Sokrates 25.11., 19:52):** heute startet der Disponent seinen Nachfolger selbst.
 - **Telegram ohne Wort:** ein 👎 ohne Begründung wurde still eingetragen (1301; seit 15.11. ist die Nachfrage Pflicht).
