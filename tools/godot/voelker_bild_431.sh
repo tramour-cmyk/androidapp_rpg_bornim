@@ -33,7 +33,8 @@ for v in mensch elf zwerg huegelvolk orkbluetiger; do
         set -- $mk; kx=$4; ky=$5; sx=$7; sy=$8
         # Pfeil von oben rechts auf den Kopf, Spitze 18 px vor der Kopfmitte (Prüfer 25.11., 09:58: Kreis deckte Gesichter zu)
         zeich="-stroke red -strokewidth 2 -draw \"line $((kx+50)),$((ky-40)) $((kx+18)),$((ky-14))\" -fill red -draw \"polygon $((kx+14)),$((ky-11)) $((kx+28)),$((ky-15)) $((kx+21)),$((ky-24))\" -fill none"
-        [ $v = huegelvolk ] && [ $sx -ge 0 ] && zeich="$zeich -draw \"circle $sx,$sy $((sx+45)),$sy\""
+        # Schild: Pfeil von unten links, Spitze 14 px vor der Schildmitte (Kreis r 45 schnitt das Gesicht des Hügelvolks, Lauf 45590157637)
+        [ $v = huegelvolk ] && [ $sx -ge 0 ] && zeich="$zeich -fill none -draw \"line $((sx-50)),$((sy+40)) $((sx-18)),$((sy+14))\" -fill red -draw \"polygon $((sx-14)),$((sy+11)) $((sx-28)),$((sy+15)) $((sx-21)),$((sy+24))\" -fill none"
       fi
       eval convert $f $zeich -crop 260x300+0+0 +repage $T/a.png
       schild $T/a.png "${MERK[$v]:-Ausschnitt}" $T/a_${a}.png
