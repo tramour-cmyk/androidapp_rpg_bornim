@@ -376,3 +376,4 @@ STARTSPERRE - 17:09 25.11.: Startsperre 17:09 Start Arbeitsplaner (lauf.py, Arbe
 - 17:11 25.11.: Planerin Anna session_01Hmoj77kiHyjP2FKgnYKEmP für 2034 (Rest MakeHuman-Pakete) und 2029-Ü11 (Chef 17:07 „alles“) gestartet; Maja geweckt (Sokrates, Ü23); Figur-Start 2029 nach Auftrag, Handstarts 1708/2032/2033 nach Laufsperre.
 - 17:19 25.11.: Prüfer Jonas (…75ccpj, 2017: 43,58 $) archiviert (Alter Ego Vertretung 7415afc91: jede Prüfung ein frischer Prüfer); nächste Prüfer-Zeile startet neuen Prüfer über lauf.py.
 STARTSPERRE - 17:18 25.11.: Startsperre 17:18 Start Kampf (lauf.py, Kampf 1708 Anna)
+- 17:20 25.11.: START Kampf Berit 1708 (session_01Hmoj76EdmopCkFv7PLLpSS, Deckel 50 $); 1708-Ü2 erledigt; 2029-Ü12 und 2034-Ü1 (Auftrag steht, Anna) angenommen, Starts Figur 2029, 2034-A, 2032, 2033 folgen, sobald Plätze frei (Inge, Maja, Berit = 3).
