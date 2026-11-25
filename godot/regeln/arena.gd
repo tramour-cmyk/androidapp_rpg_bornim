@@ -273,15 +273,27 @@ static func weg_kapsel(a: Vector2, b: Vector2, laenge: float, r: float) -> Array
 
 
 ## F1: ist der Weg [a] → [b] einer Figur mit Kapsel [laenge], [r] frei? [andere]: Kapseln [p, q, r] der anderen Stehenden
-## Steckt sie am Start schon in einem anderen, sperrt der nur einen Weg, der ihm noch näher kommt (heraus darf sie immer)
-static func strecke_frei(a: Vector2, b: Vector2, laenge: float, r: float, andere: Array) -> bool:
+## Steckt sie am Start schon in einem anderen, sperrt der nur einen Weg, der ihm noch näher kommt (heraus darf sie immer).
+## [ende]: ihre Kapsel am Ziel (oder mehrere: Bisshaltung, dann Ruhe), wie sie dort steht (die Kapsel dreht mit; leer: nicht geprüft); auch sie darf
+## keinem näher kommen, als sie ihm am Start steht
+static func strecke_frei(a: Vector2, b: Vector2, laenge: float, r: float, andere: Array, ende := []) -> bool:
 	var weg := weg_kapsel(a, b, laenge, r)
 	var start := weg_kapsel(a, a + (b - a) * GLEICH, laenge, r) if a.distance_to(b) > GLEICH else weg
 	for x: Array in andere:
+		var vorher := kapsel_abstand(start, x)
 		var nah := kapsel_abstand(weg, x)
-		if nah < -GLEICH and nah < kapsel_abstand(start, x) - GLEICH:
+		if nah < -GLEICH and nah < vorher - GLEICH:
 			return false
+		for e: Array in kapseln(ende):
+			var am_ziel := kapsel_abstand(e, x)
+			if am_ziel < -GLEICH and am_ziel < vorher - GLEICH:
+				return false
 	return true
+
+
+## eine Kapsel [p, q, r] oder eine Liste von Kapseln als Liste
+static func kapseln(x: Array) -> Array:
+	return [] if x.is_empty() else ([x] if x[0] is Vector2 else x)
 
 
 ## eine Kapsel [k] um [v] verschoben
@@ -351,34 +363,40 @@ static func seitlich(von: Vector2, nach: Vector2, laenge: float, r: float, ander
 ## F1 „der Vordere macht Platz“: wohin ein Stehender mit Kapsel [k] beiseite tritt, damit der Weg [a] → [b] (Kapsel [laenge_w],
 ## [r_w] des Gehenden) an ihm vorbeigeht: quer zur Strecke auf die Seite, auf der er schon steht, nur so weit, bis der Weg frei ist
 ## (Sokrates 24.11., 21:08: höchstens bis zum nächsten freien Platz; nie auf die andere Seite); sein eigener Weg frei gegen
-## [andere] (strecke_frei, Länge [laenge], Halbmesser k[2]); gibt die neue Mitte zurück, sonst die alte (der Gehende wartet).
+## [andere] (strecke_frei, Länge [laenge], Halbmesser k[2]); gibt den Schritt zurück, sonst Null (der Gehende wartet).
 ## Untote und Krogg treten nicht beiseite ([id], Abschnitt 5: sie weichen nicht)
-static func beiseite(a: Vector2, b: Vector2, laenge_w: float, r_w: float, k: Array, laenge: float, andere: Array, id := "") -> Vector2:
+## [ende_bei] (Callable(Vector2) -> Array): seine Kapsel nach einem Schritt, zum Gegner gedreht (strecke_frei [ende])
+static func beiseite(a: Vector2, b: Vector2, laenge_w: float, r_w: float, k: Array, laenge: float, andere: Array, id := "", ende_bei := Callable(), ziel_w := []) -> Vector2:
 	var c: Vector2 = ((k[0] as Vector2) + (k[1] as Vector2)) * 0.5
 	var w := b - a
 	if w.length() < GLEICH or not setzt_ab(id):
-		return c
+		return Vector2.ZERO
 	var quer := Vector2(-w.y, w.x).normalized()
 	var ab := (c - Geometry2D.get_closest_point_to_segment(c, a, b)).dot(quer)
 	var sg := 1.0 if ab >= 0.0 else -1.0
-	# der Rand der eigenen Strecke, der dem Weg am nächsten liegt, rückt bis Halbmesser beider vom Weg weg
-	var innen := minf(((k[0] as Vector2) - a).dot(quer) * sg, ((k[1] as Vector2) - a).dot(quer) * sg)
-	var s := maxf(0.0, r_w + float(k[2]) + GLEICH - innen)
 	var weg := weg_kapsel(a, b, laenge_w, r_w)
-	if kapsel_abstand(weg, schieb(k, quer * sg * s)) > 0.0:     # endlicher Weg: oft genügt weniger
-		var lo := 0.0
-		var hi := s
-		for i in 12:
-			var m := 0.5 * (lo + hi)
-			if kapsel_abstand(weg, schieb(k, quer * sg * m)) >= GLEICH * 0.5:
-				hi = m
-			else:
-				lo = m
-		s = hi
-	var p := c + quer * sg * s
-	if p != c and strecke_frei(c, p, laenge, float(k[2]), andere):
-		return p
-	return c
+	# frei nach einem Schritt [x] quer: seine Kapsel (am neuen Platz zum Gegner gedreht, [ende_bei]) gegen den Weg des Gehenden und
+	# gegen dessen Kapsel am Ziel ([ziel_w], z. B. in Bisshaltung)
+	var frei := func(x: float) -> bool:
+		var e: Array = ende_bei.call(quer * sg * x) if ende_bei.is_valid() else schieb(k, quer * sg * x)
+		return kapsel_abstand(weg, e) >= 0.0 and kapseln(ziel_w).all(func(z: Array) -> bool: return kapsel_abstand(z, e) >= 0.0)
+	# höchstens: der Rand der eigenen Strecke, der dem Weg am nächsten liegt, rückt bis Halbmesser beider vom Weg weg, plus beide Längen
+	# (Drehen am neuen Platz, Kapsel am Ziel); nur so weit wie nötig (Halbierung)
+	var innen := minf(((k[0] as Vector2) - a).dot(quer) * sg, ((k[1] as Vector2) - a).dot(quer) * sg)
+	var hi := maxf(0.0, r_w + float(k[2]) + GLEICH - innen) + laenge_w + laenge
+	if not frei.call(hi):
+		return Vector2.ZERO
+	var lo := 0.0
+	for i in 14:
+		var m := 0.5 * (lo + hi)
+		if frei.call(m):
+			hi = m
+		else:
+			lo = m
+	var p := c + quer * sg * (hi + GLEICH)
+	if strecke_frei(c, p, laenge, float(k[2]), andere, ende_bei.call(p - c) if ende_bei.is_valid() else []):
+		return p - c
+	return Vector2.ZERO
 
 
 ## geradewegs heran (Chef 18.11., 14:33): liegt der Weg von [von] zum Angriffsplatz [platz] höchstens QUER_GRAD neben der Richtung

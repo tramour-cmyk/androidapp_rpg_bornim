@@ -1651,7 +1651,7 @@ func _wechsel_gehen(rueck: bool, n: int) -> void:
 		return
 	if not _strecke_frei(position, home) and n < WARTE_MAX * 2:
 		if n == 0 and not rueck:
-			var sp := Arena.seitlich(Vector2(position.x, position.z), Vector2(home.x, home.z), kapsel_laenge(), umriss_r(), _kreise())
+			var sp := Arena.seitlich(Vector2(position.x, position.z), Vector2(home.x, home.z), weg_laenge(), umriss_r(), _kreise())
 			if sp != Vector2(position.x, position.z):
 				var nach := Vector3(sp.x, position.y, sp.y)
 				var v := _wechsel_mps(true) * WECHSEL_LANGSAM
@@ -1830,6 +1830,24 @@ func _zum_feind(p: Vector3) -> Vector2:
 	return best
 
 
+## 1589.4 (Chef 25.11., 09:55): ist der Bissplatz [s] (Blick [d] zum Ziel) nach der Arena frei? Weg von hier dorthin und die
+## Kapsel in Bisshaltung gegen die Kapseln der anderen außer dem Ziel [other] (Arena.strecke_frei)
+func _arena_biss(s: Vector3, d: Vector3, other) -> bool:
+	var a := Vector2(position.x, position.z)
+	var b := Vector2(s.x, s.z)
+	return Arena.strecke_frei(a, b, weg_laenge(), umriss_r(), _kreise(other), [kapsel_bei(b, atan2(d.x, d.z)), kapsel_am_ziel(b)])
+
+
+func _wer_sperrt(s: Vector3, d: Vector3, other) -> String:
+	var out := ""
+	var e := kapsel_bei(Vector2(s.x, s.z), atan2(d.x, d.z))
+	var w := Arena.weg_kapsel(Vector2(position.x, position.z), Vector2(s.x, s.z), weg_laenge(), umriss_r())
+	for o in kampfort.figures.values():
+		if o != self and o != other and o.visible and not o.down and o.dead_at < 0:
+			out += " %s(weg %.2f ende %.2f)" % [o.fighter.id, Arena.kapsel_abstand(w, o.umriss_kapsel()), Arena.kapsel_abstand(e, o.umriss_kapsel())]
+	return out
+
+
 ## 1589.4: die Kapseln der anderen Stehenden für die Arena ([[p, q, r], …], umriss_kapsel), ohne [skip]
 func _kreise(skip = null) -> Array:
 	var aus := []
@@ -1840,7 +1858,7 @@ func _kreise(skip = null) -> Array:
 
 
 func _strecke_frei(a: Vector3, b: Vector3, skip = null) -> bool:
-	return Arena.strecke_frei(Vector2(a.x, a.z), Vector2(b.x, b.z), kapsel_laenge(), umriss_r(), _kreise(skip))
+	return Arena.strecke_frei(Vector2(a.x, a.z), Vector2(b.x, b.z), weg_laenge(), umriss_r(), _kreise(skip), kapsel_am_ziel(Vector2(b.x, b.z)))
 
 
 func _andere_gehen() -> bool:
@@ -1848,21 +1866,27 @@ func _andere_gehen() -> bool:
 
 ## 1589.4 (DESIGN-GEGNER.md 5, F1 „der Vordere macht Platz“): steht ein Eigener auf der geraden Strecke [von] → [nach], geht er beiseite
 ## (Arena.beiseite: auf der geraden Strecke, gedreht zum Weg, daheim wieder zum Gegner); gibt zurück, wie lange der Gehende wartet
-func _gasse(von: Vector3, nach: Vector3, skip) -> float:
+func _gasse(von: Vector3, nach: Vector3, skip, ziel_k := []) -> float:
 	var t := 0.0
 	var a := Vector2(von.x, von.z)
 	var b := Vector2(nach.x, nach.z)
 	for o in kampfort.figures.values():
 		if o == self or o == skip or not o.visible or o.down or o.dead_at >= 0 or o.fighter.side != fighter.side or o.unterwegs() \
 				or (o.tween and o.tween.is_running() and not o._nur_dreh()) or (o.fighter.monster != null and not o.weg.has("Gehen")):
+			if OS.get_environment("SCHAU_MESS") != "" and o != self and o.fighter.side == fighter.side and not o.down:
+				print("1589.4 gasse %s übersprungen: unterwegs %s tween %s dreh %s gehen %s gang %s" % [o.fighter.id, o.unterwegs(), o.tween != null and o.tween.is_running(), o._nur_dreh(), o.weg.has("Gehen"), o.gang])
 			continue
 		var c := Vector2(o.position.x, o.position.z)
 		var ok: Array = o.umriss_kapsel()
-		if Arena.strecke_frei(a, b, kapsel_laenge(), umriss_r(), [ok]):
+		var zk: Array = ziel_k if not ziel_k.is_empty() else kapsel_am_ziel(b)
+		if Arena.strecke_frei(a, b, weg_laenge(), umriss_r(), [ok], zk):
 			continue
-		var p := Arena.beiseite(a, b, kapsel_laenge(), umriss_r(), ok, o.kapsel_laenge(), o._kreise(self), \
-				String(o.fighter.monster.get("id", "")) if o.fighter.monster != null else "")
+		var p := Arena.beiseite(a, b, weg_laenge(), umriss_r(), ok, o.weg_laenge(), o._kreise(self), \
+				String(o.fighter.monster.get("id", "")) if o.fighter.monster != null else "", \
+				func(v: Vector2) -> Array: return o.kapsel_bei(c + v, o.rotation.y) if v.length() <= ZUR_SEITE_M * o._scale() else o.kapsel_am_ziel(c + v), zk) + c
 		if p == c:
+			if OS.get_environment("SCHAU_MESS") != "":
+				print("1589.4 %s kann nicht beiseite für %s (%s -> %s)" % [o.fighter.id, fighter.id, von, nach])
 			continue
 		var ziel := Vector3(p.x, o.position.y, p.y)
 		o._dreh_ab()
@@ -1872,7 +1896,17 @@ func _gasse(von: Vector3, nach: Vector3, skip) -> float:
 		o.tween = o.create_tween()
 		if OS.get_environment("SCHAU_MESS") != "":
 			print("1589.4 %s geht beiseite für %s: %s -> %s" % [o.fighter.id, fighter.id, o.position, ziel])
-		t = maxf(t, o._gerade(o.tween, o.position, ziel, true) + 0.1)
+		if p.distance_to(c) <= ZUR_SEITE_M * o._scale() and o.fighter.monster != null:
+			# F4: ein einzelner Seitschritt, ohne zu drehen (gedreht schwenkte der lange Rumpf in den Weg, wolf_mess_438)
+			var v: float = o._wechsel_mps(true) * WECHSEL_LANGSAM
+			var nm: String = o._gang_ss("Gehen")
+			o.tween.tween_callback(func(): o.anim.play(nm, 0.15, WECHSEL_LANGSAM))
+			var dauer := p.distance_to(c) / maxf(v, 0.1)
+			o._lauf_gerade(o.tween, o.position, ziel, dauer)
+			o.tween.tween_callback(o._idle)
+			t = maxf(t, dauer + 0.1)
+		else:
+			t = maxf(t, o._gerade(o.tween, o.position, ziel, true) + 0.1)
 	return t
 
 
@@ -2167,9 +2201,9 @@ func _gefaehrte_macht_platz(other: Variant, leap: bool, weiter: float, t_warte: 
 			var n2 := Vector2(n.position.x, n.position.z)
 			var kr: Array = n._kreise(null)
 			var nr2: float = n.umriss_r()
-			var nl2: float = n.kapsel_laenge()
+			var nl2: float = n.weg_laenge()
 			var q2 := Arena.absetzen(n2, Vector2(other.position.x, other.position.z), ABSETZEN * n._scale(), String(n.fighter.monster.get("id", "")),
-					func(x: Vector2) -> bool: return Arena.strecke_frei(n2, x, nl2, nr2, kr))
+					func(x: Vector2) -> bool: return Arena.strecke_frei(n2, x, nl2, nr2, kr, n.kapsel_am_ziel(x)))
 			if q2 == n2:
 				continue
 			var q := Vector3(q2.x, n.position.y, q2.y)
@@ -2369,7 +2403,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 						for j in 3:
 							var q := tr2 * Vector3(lerpf(fb2.position.x, fb2.end.x, j / 2.0), 0.0, lerpf(fb2.position.z, fb2.end.z, i / 6.0))
 							r2 = minf(r2, other.clearance(q, Vector3.INF, atan2(zum.x, zum.z), hoehe_oben()))
-				if l2 < PLATZ_LUFT or w2 < WEG_LUFT or r2 < r_soll or h2 < -BISS_UMRISS:
+				if l2 < PLATZ_LUFT or w2 < WEG_LUFT or r2 < r_soll or h2 < -BISS_UMRISS or not _arena_biss(s2, d2, other):
 					continue
 				var bt := float(pl[1]) / maxf(float(tempo.get(nm, 1.0)), 0.1) + HIEB_VERZUG
 				if not voll:     # die Schnauze bliebe pl[0] − pl[2] davor (Schild oder eigener Körper im Weg); näher als bisher
@@ -2409,12 +2443,13 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	# durch Wolf 3, der davor kauerte): der Platz zählt nur so frei wie der Weg dorthin
 	var weg0 := _weg_luft(position, start, other) if start.distance_to(position) > 0.15 else INF
 	if OS.get_environment("SCHAU_MESS") != "":
-		print("Bissplatz %s an %s: start %s Luft %.2f Weg %.2f" % [fighter.id, other.fighter.id, start, luft, weg0])
-	var frei_ende := luft >= PLATZ_LUFT and weg0 >= WEG_LUFT     # 1284a
-	if luft < PLATZ_LUFT or weg0 < WEG_LUFT:
+		print("Bissplatz %s an %s: start %s Luft %.2f Weg %.2f Arena %s %s" % [fighter.id, other.fighter.id, start, luft, weg0, _arena_biss(start, dir, other), _wer_sperrt(start, dir, other)])
+	var ar0 := _arena_biss(start, dir, other)     # 1589.4: Weg und Bisshaltung frei nach den Kapseln der Arena
+	var frei_ende := luft >= PLATZ_LUFT and weg0 >= WEG_LUFT and ar0     # 1284a
+	if luft < PLATZ_LUFT or weg0 < WEG_LUFT or not ar0:
 		var tg := Vector3(other.position.x, position.y, other.position.z)
 		var r0 := Vector2(tg.x - start.x, tg.z - start.z).length()
-		var best := [minf(luft, weg0), dir, start, luft]
+		var best := [minf(luft, weg0) - (0.0 if ar0 else 1.0), dir, start, luft]
 		var r_satz := r0 - stand     # was über den Bissabstand hinaus zum Satz gehört
 		for w in [15.0, -15.0, 30.0, -30.0, 45.0, -45.0, 60.0, -60.0].filter(func(x: float) -> bool: return Arena.bissplatz_winkel(x)):
 			var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
@@ -2428,7 +2463,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			var w2 := _weg_luft(position, s2, other) if s2.distance_to(position) > 0.15 else INF
 			# 438 (wolf_mess_438, Kleriker 66 s: Wolf 1 lief zu einem Bissplatz am rechten Rand, 20 px aus dem Bild): ein Platz
 			# aus dem Bild nur, wenn keiner im Bild frei ist
-			var drin := true     # 1589.4: Regeln in der Arena, nie im Bild
+			var drin := _arena_biss(s2, d2, other)     # 1589.4: Regeln in der Arena (Kapseln), nie im Bild
 			var wert2 := minf(l2, w2) - (0.0 if drin else 1.0)
 			if wert2 > best[0]:
 				best = [wert2, d2, s2, l2]
@@ -2456,7 +2491,9 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	rotation.y += deg_to_rad(bite[nm][2])     # die Schnauze, nicht die Körperachse zum Ziel
 	var schnauze := rotation.y
 	rotation.y = r_alt     # 438: erst mit Tritten zum Ziel drehen (vorher in einem Bild, gemessen bis 81°)
-	t_warte = maxf(t_warte, _gasse(position, start, other))     # 1589.4: ein Eigener im Weg geht beiseite
+	if OS.get_environment("SCHAU_MESS") != "":
+		print("1589.4 Biss %s an %s: von %s nach %s Sprung %.2f frei %s Arena %s %s" % [fighter.id, other.fighter.id, position, start, jump, frei_ende, _arena_biss(start, dir, other), _wer_sperrt(start, dir, other)])
+	t_warte = maxf(t_warte, _gasse(position, start, other, [kapsel_bei(Vector2(start.x, start.z), atan2(dir.x, dir.z)), kapsel_am_ziel(Vector2(start.x, start.z))]))     # 1589.4: ein Eigener im Weg geht beiseite
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
@@ -2509,7 +2546,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		var kreise := _kreise(other)
 		var r := umriss_r()
 		var ab2 := Arena.absetzen(von2, Vector2(other.position.x, other.position.z), ABSETZEN * _scale(), id,
-				func(q: Vector2) -> bool: return Arena.strecke_frei(von2, q, kapsel_laenge(), r, kreise))
+				func(q: Vector2) -> bool: return Arena.strecke_frei(von2, q, weg_laenge(), r, kreise, kapsel_am_ziel(q)))
 		if ab2 != von2:
 			var ab0 := ende
 			ende = Vector3(ab2.x, ende.y, ab2.y)
@@ -2724,7 +2761,7 @@ func _hieb(other, weiter := 0.0) -> int:
 		var kreise := _kreise(other)
 		var r := umriss_r()
 		var ab2 := Arena.absetzen(s2, Vector2(other.position.x, other.position.z), ABSETZEN * _scale(), String(fighter.monster.get("id", "")),
-				func(q: Vector2) -> bool: return Arena.strecke_frei(s2, q, kapsel_laenge(), r, kreise))
+				func(q: Vector2) -> bool: return Arena.strecke_frei(s2, q, weg_laenge(), r, kreise, kapsel_am_ziel(q)))
 		var ab := Vector3(ab2.x, start.y, ab2.y)
 		back = [ab]
 		weit = start.distance_to(ab)
@@ -3268,7 +3305,7 @@ func _tier_heim(back: float, skip, absetzen := true) -> void:
 		var kreise := _kreise(skip)
 		var r := umriss_r()
 		var z2 := Arena.absetzen(f2, zum, ABSETZEN * _scale(), String(fighter.monster.get("id", "")),
-				func(q: Vector2) -> bool: return Arena.strecke_frei(f2, q, kapsel_laenge(), r, kreise))
+				func(q: Vector2) -> bool: return Arena.strecke_frei(f2, q, weg_laenge(), r, kreise, kapsel_am_ziel(q)))
 		var ziel := Vector3(z2.x, from.y, z2.y)
 		tween = create_tween()
 		tween.tween_property(self, "position", ziel, minf(back, 0.4)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -4126,7 +4163,7 @@ func umriss_r() -> float:
 	if fighter.monster == null:
 		return HERO_R
 	var box := footprint()
-	return maxf(0.5 * minf(box.size.x, box.size.z), 0.1)
+	return maxf(0.5 * minf(box.size.x, box.size.z), 0.1)     # der Kasten ist im eigenen Raum, die Figur steht skaliert
 
 
 func kapsel_laenge() -> float:
@@ -4144,9 +4181,47 @@ func kapsel_achse() -> Vector2:
 	return Vector2(w.x, w.z)
 
 
-## die eigene Kapsel jetzt in der Welt [p, q, r] (Arena.kapsel)
+## die eigene Kapsel jetzt in der Welt [p, q, r] (Arena.kapsel), um die Mitte des Körpers (Kasten), gedreht mit der Figur
 func umriss_kapsel() -> Array:
-	return Arena.kapsel(Vector2(position.x, position.z), kapsel_achse(), kapsel_laenge(), umriss_r())
+	return kapsel_bei(Vector2(position.x, position.z), rotation.y)
+
+
+## die eigene Kapsel, stünde der Punkt der Figur bei [p] mit Gier [yaw]
+func kapsel_bei(p: Vector2, yaw: float) -> Array:
+	if fighter.monster == null:
+		return Arena.kapsel(p, Vector2.RIGHT, 0.0, HERO_R)
+	var box := footprint()
+	var c := Basis(Vector3.UP, yaw) * box.get_center()
+	var lok := Vector3.RIGHT if box.size.x >= box.size.z else Vector3.BACK
+	var w := Basis(Vector3.UP, yaw) * lok
+	return Arena.kapsel(p + Vector2(c.x, c.z), Vector2(w.x, w.z), kapsel_laenge(), umriss_r())
+
+
+## die eigene Kapsel am Ziel [b] (Punkt der Figur), so gedreht, wie sie dort steht (_face: zum Ziel, Wolf halb seitlich)
+func kapsel_am_ziel(b: Vector2) -> Array:
+	if not kampfort or fighter.monster == null:
+		return kapsel_bei(b, rotation.y)
+	var p0 := position
+	var r0 := rotation.y
+	var n0: float = neck.want if neck else 0.0
+	position = Vector3(b.x, position.y, b.y)
+	_face()
+	var yaw := rotation.y
+	position = p0
+	rotation.y = r0
+	if neck:
+		neck.want = n0
+	return kapsel_bei(b, yaw)
+
+
+## Länge der Kapsel für einen Weg: der Punkt der Figur liegt nicht in der Mitte des Körpers (Wolf: Kopf vorn); vorwärts wie
+## rückwärts reicht sie an beiden Enden um den Versatz längs der Achse weiter
+func weg_laenge() -> float:
+	if fighter.monster == null:
+		return 0.0
+	var box := footprint()
+	var c := box.get_center()
+	return kapsel_laenge() + 2.0 * absf(c.x if box.size.x >= box.size.z else c.z)
 
 
 func own_r() -> float:

@@ -1,6 +1,6 @@
 # 1589.4 (DESIGN-GEGNER.md 5, 11.3; Antworten Sokrates 24.11., 19:10, F1–F5): Wege im Kampf, ohne Bild, an allen Arten Kapitel 1 und
 # gemischten Gruppen (Probekampf, Autopilot). Je Bild jede Figur: Punkt am Boden, Blick, Bewegung. Geprüft wird:
-#  durch   kein Weg durch einen Umriss: die Mitte einer gehenden Figur liegt nie im Umriss einer anderen Stehenden (dieselbe Kapsel
+#  durch   kein Weg durch einen Umriss: die Mitte des Körpers einer gehenden Figur liegt nie im Umriss einer anderen Stehenden (dieselbe Kapsel
 #          wie im Spiel, figur.umriss_kapsel; Chef 25.11., 09:55)
 #  quer    kein Querlauf: beim Gehen liegt der Weg höchstens 45° neben Blick oder Rücken (F2), außer dem einzelnen Seitschritt
 #          (1284a, F4: höchstens ZUR_SEITE_M weit), dem Ausweichen (Antwort auf einen Angriff, Bewegung „Ausweichen…“) und der Flucht
@@ -149,7 +149,8 @@ func _kampf(foe: String) -> void:
 			for x in figs:
 				if x != o and not x.falling():
 					var kx: Array = x.umriss_kapsel()
-					var nah := Arena.punkt_kapsel(p2, kx)
+					var ko: Array = o.umriss_kapsel()     # Mitte des Körpers, nicht der Punkt der Figur (Wolf: Kopf vorn)
+					var nah := Arena.punkt_kapsel(((ko[0] as Vector2) + (ko[1] as Vector2)) * 0.5, kx)
 					if nah < float(kx[2]) and (not _geht(st, x) or x.fighter.id < id):
 						befund.durch += 1
 						_melde(foe, bild, o, "durch", "Mitte %.2f m in %s (Kapsel r %.2f, Länge %.2f), %s" % [nah, x.fighter.id, kx[2], x.kapsel_laenge(), nm])
