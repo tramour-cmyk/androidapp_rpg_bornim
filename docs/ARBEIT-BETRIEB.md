@@ -288,3 +288,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:03 25.11.: Startsperre 09:03 Start Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Benno, Tagesbericht 448)
 - 09:05 25.11.: Takt Uwe: Britta (431) läuft; START Benno 887 und Tagesbericht 448 nicht ausgeführt (ruht / Chef-Ruhe).
 - 09:55 25.11.: Startsperre 09:55 Start Arbeitsplaner, Kampf, Figur, Tagesbericht (lauf.py, Arbeitsplaner 887 Benno, Kampf 1589.4 Carla, Figur 431 Dana, Tagesbericht 448)
+- 09:58 25.11.: Disponent außer der Reihe (Sokrates 09:55, Chef 09:51 „1589.4 weiter“): START Kampf Carla 1589.4 (session_01Hmoj75pqY4ujxZXuG1gZjH, bis 26 $ gesamt); Britta (431) und Pit (1589.4) archiviert, Kosten 17,13 + 3,30 $; Prüfer 431-Ü16 weitergereicht; START Dana 431 nicht ausgeführt (431 liegt beim Prüfer); Benno 887/Tagesbericht 448 nicht.
