@@ -1621,6 +1621,8 @@ func glide_to(p: Vector3, eigener_zug := false) -> void:
 		return
 	if _held_wechsel():
 		return
+	if OS.get_environment("SCHAU_MESS") != "":
+		print("1589.4 %s gleitet %.2f m" % [fighter.id, position.distance_to(p)])
 	var t := create_tween()
 	t.tween_property(self, "position", p, GLIDE_S).set_trans(Tween.TRANS_SINE)
 
@@ -1654,6 +1656,8 @@ func _wechsel_gehen(rueck: bool, n: int) -> void:
 			var sp := Arena.seitlich(Vector2(position.x, position.z), Vector2(home.x, home.z), weg_laenge(), umriss_r(), _kreise())
 			if sp != Vector2(position.x, position.z):
 				var nach := Vector3(sp.x, position.y, sp.y)
+				if OS.get_environment("SCHAU_MESS") != "":
+					print("1589.4 %s Seitschritt %.2f m" % [fighter.id, position.distance_to(nach)])
 				var v := _wechsel_mps(true) * WECHSEL_LANGSAM
 				var nm := _gang_ss("Gehen")
 				tween = create_tween()
@@ -1670,7 +1674,11 @@ func _wechsel_gehen(rueck: bool, n: int) -> void:
 	var way := Vector2(home.x - position.x, home.z - position.z).length()
 	if way < 0.05:
 		return
-	if rueck:
+	# 1589.4 (F2, kein Querlauf): Weg und Blick höchstens Arena.QUER_GRAD auseinander; rückwärts nur, wenn der Weg hinter ihm liegt,
+	# sonst erst zum Weg drehen (alt: Söldner ging 0,7 m seitlich, wege_15894)
+	var w2 := Vector2(home.x - position.x, home.z - position.z)
+	var quer := absf(rad_to_deg(Vector2(sin(rotation.y), cos(rotation.y)).angle_to(w2)))
+	if rueck and quer >= 180.0 - Arena.QUER_GRAD:
 		_back_home(way / _wechsel_mps(false), null)
 		return
 	var nm := _gang_ss("Gehen")
@@ -1678,8 +1686,10 @@ func _wechsel_gehen(rueck: bool, n: int) -> void:
 		position = home
 		return
 	var dauer := way / maxf(_held_mps(nm) if kauf else WALK_MPS, 0.1)
-	anim.play(nm, 0.12, 1.0)
 	tween = create_tween()
+	if quer > Arena.QUER_GRAD:
+		_turn(tween, atan2(w2.x, w2.y), false)
+	tween.tween_callback(func(): anim.play(nm, 0.12, 1.0))
 	tween.tween_property(self, "position", home, dauer)
 	tween.tween_callback(func(): _face(); _idle())
 
@@ -1774,6 +1784,11 @@ func _gangart(way: float) -> String:
 ## (_turn_home). Versperrt ein Stehender den Weg, wartet er, solange ein anderer geht (WARTE_MAX mal), sonst bleibt er stehen.
 ## Kein Umweg, kein Bogen (alt: _detour, Dubins-Bogen 348.12f r3, Kurve 682, Ausweichen 717/438/1453). Gibt die Dauer (s) zurück.
 func _walk_home(skip = null) -> float:
+	# 1589.4 (DESIGN-GEGNER.md 5): Untote und Krogg gehen nicht vom Feind weg heim; sie bleiben, wo sie stehen
+	if fighter.monster != null and not flieht and not Arena.setzt_ab(String(fighter.monster.get("id", ""))):
+		var zf := _zum_feind(position)
+		if zf != Vector2.ZERO and Vector2(home.x - position.x, home.z - position.z).dot(zf) < 0.0:
+			home = position
 	var d := home - position
 	d.y = 0.0
 	if d.length() < 0.12:
@@ -2488,6 +2503,21 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			start = tg - dir * (rb - jump + kurz)
 			jump = kurz
 		flat = dir * flat.length()
+	# 1589.4 (F1, Sokrates 25.11., 15:26 zu Ü21): kein freier Platz nach den Kapseln der Arena: nur so weit heran, wie es frei ist, und
+	# dort warten (kein Lauf durch einen anderen); wer vor dem Ziel steht, geht erst in seinem eigenen Zug
+	if not frei_ende and not sauber and not _arena_biss(start, dir, other):
+		var lo := 0.0
+		var hi := 1.0
+		var von := position
+		var ziel_s := start
+		for i in 10:
+			var m := 0.5 * (lo + hi)
+			if _arena_biss(von.lerp(ziel_s, m), dir, other):
+				lo = m
+			else:
+				hi = m
+		start = von.lerp(ziel_s, lo)
+		jump = 0.0
 	_plan_frei = sauber if haupt else frei_ende
 	if _nur_planen:     # 1284a: nur die Frage, ob ein freier Platz da ist (_nachbar_zur_seite)
 		return 0
