@@ -352,3 +352,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:35 25.11.: Startsperre 15:34 Start Figur (lauf.py, Figur 2029 Vera)
 - 15:36 25.11.: START Figur Vera 2029 Helm-Bildlauf (session_01Hmoj77vQTHukmT1xcgH9Ja, Prüfer ja Lauf frei 15:05); Fachkräfte Maja 1589.4, Selma 2024, Vera 2029 = 3; 2031 wartet auf Platz; Nora (2028, 13,11 $) idle, nicht archiviert (Prüferstand 2028 offen).
 - 16:04 25.11.: Startsperre 16:04 Start Arbeitsplaner, Kampf, Tagesbericht (lauf.py, Arbeitsplaner 887 Marta, Kampf 1589.4 Nils, Tagesbericht 448)
+- 16:08 25.11.: Startsperre 16:07 Start Figur (lauf.py, Figur 2031 Inge)
