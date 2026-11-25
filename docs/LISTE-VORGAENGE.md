@@ -38,7 +38,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1675 | Wachsoldatin im Hauptmenü, Schild schwebt neben ihr | 3 | E Figuren | M | – | – | – | *erledigt* | *–* | *0* | *28,20 $* |
 | 1676 | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | 3 | E Figuren | M | 28.11. | – | – | *ruht, mit 1570 bis nach Reset Sa 28.11. (Chef 18.11., 17:07; 1570 A 23.11., 07:08; Sokrates 19:02)* | *–* | *0* | *1,76 $* |
 | 1694 | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finger schließen um den Schaft | 3 | E Figuren | M | – | 1621, 1657 | – | *startbar, ein Versuch bis 10 $ (Chef 25.11., 09:54)* | *–* | *0* | *88,23 $* |
-| 2026 | MakeHuman-Asset-Packs sichten: Kleidung, Haare, Hauttöne, Körperteile für Bornim; je Paket Lizenz (CC0, CC-BY mit Namensnennung), Eignung Handy und Stil; Liste als Vorlage, kein Einbau (Chef 25.11., 10:29) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *6,65 $* |
+| 2026 | MakeHuman-Asset-Packs sichten: Kleidung, Haare, Hauttöne, Körperteile für Bornim; je Paket Lizenz (CC0, CC-BY mit Namensnennung), Eignung Handy und Stil; Liste als Vorlage, kein Einbau (Chef 25.11., 10:29) | 3 | E Figuren | M | – | – | – | *erledigt* | *–* | *0* | *6,65 $* |
 | 1709 | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535), Ziel vorher fest | 3 | E Figuren | M | 28.11. | 1535 | – | *ruht, Chef nicht am PC (22.11., 19:29), frühestens 28.11.* | *–* | *0* | *0,67 $* |
 | 1205b | in Grafik Niedrig nur die Blumen des Kits, Kleckse überall weg, Gras in Niedrig unser altes | 5 | E Welt | M | 1535 | 698a | claude/tom-1205-wiese | *gebaut, Geprüft an: fdbacd715 (Bild 👍 17:12)* | *–* | *0* | *1,64 $* |
 | 1566 | Höhlenwasser leuchtet hinter Wänden im Dunkeln, obwohl nicht in Sicht und ohne Licht | 5 | G Stil | M | – | – | claude/emil-1566-hoehlenwasser | *erledigt* | *–* | *0* | *31,78 $* |
@@ -77,7 +77,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1650 | Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin, Bram, Garrick, Jorin, Pim … | 3 | E Figuren | M | 1535 | 1631 | claude/tom-1650-stiefel | *gebaut, Geprüft an: 6ab87322b (Bild 👍 17:12)* | *–* | *0* | *17,24 $* |
 | 1652 | Durchstechprüfung: Osric innere Stücke stechen durch die Robe (1,2 m, bis 267 Ecken) | 3 | E Figuren | M | – | 1631 | – | *erledigt* | *–* | *0* | *4,87 $* |
 | 1653 | Durchstechprüfung: Thessa Kleid sticht durch den Kragen (1,4–1,5 m, bis 224 Ecken) | 3 | E Figuren | M | – | 1631 | – | *erledigt* | *–* | *0* | *13,30 $* |
-| 1654 | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m, bis 305 Ecken in Ruhe_Tresen) | 3 | E Figuren | M | – | 1631 | – | *startbar, steckt fest* | *–* | *0* | *8,71 $* |
+| 1654 | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m, bis 305 Ecken in Ruhe_Tresen) | 3 | E Figuren | M | – | 1631 | – | *erledigt* | *–* | *0* | *8,71 $* |
 | 1655 | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, bis 135 Ecken) | 3 | E Figuren | M | – | 1631 | claude/tom-1655-kapuze | *gebaut, Geprüft an: 10d4710c0 (Bild neu offen, Lauf 20:58 nur alt)* | *–* | *0* | *5,33 $* |
 | 1657 | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dreiecke | 3 | E Figuren | M | 1694 | 1631 | – | *startbar, Robe gilt; Stab durch die Knöchel (Chef 16:56)* | *–* | *0* | *–* |
 | 1785 | Weg aus 4fd7055c8 … | 3 | E Figuren | M | – | 1535 | – | *startbar* | *–* | *0* | *0,95 $* |
@@ -225,7 +225,9 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2022 | Systemlösung? Griff: 5 frühere Vorgänge (954a.9, 524, 653, 872, 643), neu 1694; einmal grundsätzlich lösen? (654) | 3 | E Figuren | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2024 | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schwebt heute daneben) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *1,43 $* |
 | 2025 | Systemlösung? Axt: 3 frühere Vorgänge (280.2, 348.12j, 1314), neu 1694; einmal grundsätzlich lösen? (654) | 3 | E Figuren | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 2028 | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 25.11., 12:32) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 2028 | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 25.11., 12:32) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *0,97 $* |
+| 2029 | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielkamera (2026 A) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 2030 | Systemlösung? Haar: 2 frühere Vorgänge (2026, 1423b), neu 2029; einmal grundsätzlich lösen? (654) | 3 | E Figuren | K | – | – | – | *erledigt, keine Systemfrage: 2029 setzt 2026 fort, 1423b ist anderes (Sokrates 25.11., 13:10)* | *–* | *0* | *–* |
 | 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel … | 4 | E Kataloge | K | 644.1, 644.2, 644.4 | 458 | – | *wartet, entschieden A B C (Chef 14:28)* | *–* | *0* | *32,25 $* |
 | 644.1 | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit 649.2 | 4 | E Kataloge | K | 649.2 | 644, 649.2 | – | *wartet, Build 3 nach 649b A* | *–* | *0* | *–* |
 | 644.2 | Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 Seltenheitsdecke je Kapitel in … | 4 | E Kataloge | K | 23.11. | 644, 644a | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |

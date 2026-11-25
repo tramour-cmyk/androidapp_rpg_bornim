@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 
-**Nächste freie Vorgangsnummer: 2029** (zuletzt 2028 Figur 25.11. 12:33:18 ff54) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 2031** (zuletzt 2030 Figur 25.11. 13:07:52 5943) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -331,3 +331,7 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:34 25.11.: 1654 Prüfer ja (16c516564) und Hinweis Handgelenke schwarz an Sokrates (Vorlage, Fund); Lena (1654) archiviert, 2,52 $.
 - 13:04 25.11.: Startsperre 13:04 Start Arbeitsplaner, Figur, Arbeitsplaner, Tagesbericht, Sokrates (lauf.py, Arbeitsplaner 887 Heike, Figur 2026 Ida, Arbeitsplaner 2028 Jana, Tagesbericht 448, Sokrates 1589.4)
 - 13:07 25.11.: Takt Uwe 13:04: Planerin Jana 2028 (Rowena Handgelenke, session_01Hmoj78iTdpNtoFou5SoQda); START Ida 2026 nicht ausgeführt (2026 fertig, Chef 👍 12:37), START/ARCHIVIERE Sokrates nicht (Titel Handstart), 887/448 nicht; Chef-👍 2026, 1654, 431 zur Kenntnis (Sokrates mischt); Selma 2024 läuft; Maja wartet auf Geld (Chef).
+- 13:10 25.11.: Startsperre 13:09 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2029 Mia)
+- 13:11 25.11.: Planerin Mia 2029 Kopfteile-Probe (session_01Hmoj77zLbPT9mxRvfvoUKB, Deckel 30 $, Halt 24 $); alter Sokrates (…76pVj4) war schon archiviert; Sokrates läuft als …77b3dQ (START/ARCHIVIERE Sokrates von lauf.py nicht ausführen).
+- 13:11 25.11.: Startsperre 13:10 Start Figur (lauf.py, Figur 2028 Nora)
+- 13:12 25.11.: START Figur Nora 2028 (session_01Hmoj76SFWSo5MsovSNZmPq, Rowena Handgelenke); Planerin Jana archiviert, 0,97 $.
