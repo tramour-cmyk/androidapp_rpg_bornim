@@ -59,3 +59,42 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:38 25.11.: Otto: Protokoll auf 14 KB gekürzt (Zeilen vor 19:00 und alte Startsperren raus, stehen in Git; war 34,6 KB). Vera: 1694 Auftrag steht (Ü41), wartet auf Figur-Platz; 2039 Eilt wartet auf Werkzeug-Platz. Sokrates alt …79nRJF archiviert (11,43 $ auf 1988).
 - 20:43 25.11.: Startsperre 20:43 Start Arbeitsplaner (selbst, 2035-Ü32, Otto).
 - 20:52 25.11.: Startsperre 20:52 Start Werkzeug (selbst, 2035-Ü33, dann 2041; Handstart mit Ja Sokrates 20:51, R53, Otto).
+- 21:02 25.11.: Startsperre 21:02 Start Arbeitsplaner, Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Benno, Arbeitsplaner 2029 Conrad, Tagesbericht 448)
+
+- 21:02 25.11.: Marke Tagesbericht 25.11. (lauf.py)
+
+- 21:02 25.11.: Marke Nachhalten 25.11. (lauf.py)
+
+- 21:02 25.11.: Marke Tagesbericht fehlt 25.11. (lauf.py)
+
+- 21:02 25.11.: Marke Abgleich ganz 25.11. (lauf.py)
+
+- 21:02 25.11.: Marke Ohne-Rolle session_01Hmoj75zjMe2vQTTLnP9jaN (lauf.py)
+
+- 21:02 25.11.: Marke Ohne-Rolle session_01Hmoj78GVgrp48SUhwspQ4U (lauf.py)
+
+- 21:02 25.11.: Marke Ohne-Rolle session_01Hmoj79qsAJkf1SGKyjZA9Q (lauf.py)
+
+- 21:02 25.11.: Marke Ohne-Rolle session_01Hmoj78FAZt4S1xdWaMpnzt (lauf.py)
+
+- 21:02 25.11.: Marke Ohne-Rolle session_01Hmoj78JK5ZK3PgG9J51MzU (lauf.py)
+
+- 21:02 25.11.: Marke Ohne-Rolle session_01Hmoj77NKuNKtY23SQr71xQ (lauf.py)
+
+- 21:02 25.11.: Marke Ohne-Rolle session_01Hmoj78ddRUPdf89SqpS789 (lauf.py)
+
+- 21:02 25.11.: Marke Ohne-Rolle session_01Hmoj78E4LWrmHhvJmYYDVD (lauf.py)
+
+- 21:02 25.11.: Marke Ohne-Rolle session_01Hmoj78Wv7RZiy8Cg7y8keo (lauf.py)
+
+- 21:02 25.11.: Marke Ohne-Rolle session_01Hmoj76EdmopCkFv7PLLpSS (lauf.py)
+
+- 21:02 25.11.: Marke Start-fehlt Arbeitsplaner 25.11.-20:43 (lauf.py)
+
+- 21:02 25.11.: Marke Start-fehlt Kampf 25.11.-20:17 (lauf.py)
+
+- 21:02 25.11.: Marke Start-fehlt Prüfer 25.11.-20:17 (lauf.py)
+
+- 21:02 25.11.: Marke Start-fehlt Tagesbericht 25.11.-20:30 (lauf.py)
+
+- 21:02 25.11.: Marke Start-fehlt Werkzeug 25.11.-20:52 (lauf.py)
