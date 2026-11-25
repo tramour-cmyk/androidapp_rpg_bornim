@@ -26,6 +26,8 @@ const HELL_AB := 0.10     # Helligkeit (Median wie der Hautton im Band; Sokrates
 const DUNKEL_AB := 0.15   # dunkles Fuenftel hoechstens 15 % dunkler
 const ROT_PLUS := 0.001   # Pruefer 21:53: roter Fleck (Gruen/Rot unter 0,6 des Medians) hoechstens 0,1 Punkte mehr als heute
 const STIRN_GRENZE := 0.055   # Stirn: dunkle Punkte (unter 0,7 des Stirnmedians) bei Fotohaeuten hoechstens 5,5 % (Sokrates 22:05: auf den gemessenen Wert, hoechster 5,41 %)
+const STIRN_WANGE := 0.8   # Bild 22:53 (Gesicht Orkbluetiger): Stirn dunkler als die Wange, heute heller; Verhaeltnis Stirn/Wange (Median)
+                          # hoechstens 20 % unter heute
 const STIRN_AUSNAHME := ["rehman_wikinger"]   # Taetowierung an den Schlaefen bleibt (Sokrates 22:05), nur fuer die Stirn
 
 var faelle := 0
@@ -211,8 +213,9 @@ func _haeute() -> void:
 				var du: float = neu["dunkel"] / maxf(alt["dunkel"], 0.001) - 1.0
 				var ok: bool = neu["leer"] == 0 and neu["mittel"] >= 0.15 and neu["flecken"] < 0.05 and ab <= 0.10 \
 					and sa <= SATT_PLUS and absf(he) <= HELL_AB and du >= -DUNKEL_AB \
-					and neu["rot"] <= alt["rot"] + ROT_PLUS and (neu["fleck"] <= STIRN_GRENZE or String(kenn) in STIRN_AUSNAHME)
-				print("KH2031 FLECK %s rot %.2f %% gegen %.2f %%, Stirn dunkel %.2f %% gegen %.2f %%" % [name, neu["rot"] * 100, alt["rot"] * 100, neu["fleck"] * 100, alt["fleck"] * 100])
+					and neu["rot"] <= alt["rot"] + ROT_PLUS and (neu["fleck"] <= STIRN_GRENZE or String(kenn) in STIRN_AUSNAHME) \
+					and neu["stirn_wange"] >= STIRN_WANGE * alt["stirn_wange"]
+				print("KH2031 FLECK %s rot %.2f %% gegen %.2f %%, Stirn dunkel %.2f %% gegen %.2f %%, Stirn/Wange %.2f gegen %.2f" % [name, neu["rot"] * 100, alt["rot"] * 100, neu["fleck"] * 100, alt["fleck"] * 100, neu["stirn_wange"], alt["stirn_wange"]])
 				_fall(name, ok, "ohne Wert %d von %d Proben, Bildmittel %.3f, Flecken %.1f %%, Hautton Gesicht %s gegen heute %s (Abweichung %.1f %%); ganzes Gesicht: Saettigung %.3f gegen %.3f (%+.0f %%), Helligkeit Mittel %.3f gegen %.3f, Median %+.0f %%, dunkles Fuenftel %.3f gegen %.3f (%+.0f %%)" % [
 					neu["leer"], neu["proben"], neu["mittel"], neu["flecken"] * 100.0, _v(neu["ton"]), _v(alt["ton"]), ab * 100.0,
 					neu["satt"], alt["satt"], sa * 100.0, neu["hell"], alt["hell"], he * 100.0, neu["dunkel"], alt["dunkel"], du * 100.0])
@@ -228,7 +231,7 @@ func _haut_werte(volk: String, g: String, kenn: String) -> Dictionary:
 	var m := HeldFigur.baue({"herkunft": "Wachsoldat", "volk": volk, "aussehen": {"geschlecht": g}, "ausruestung": hw.ausruestung.duplicate()}, [])
 	HeldFigur.mh_haut = ""
 	if m == null: return {"fehler": "Figur fehlt"}
-	var leer := 0; var proben := 0; var hell := []; var ton := [[], [], []]; var satt := []; var glanz := []; var stirn := []
+	var leer := 0; var proben := 0; var hell := []; var ton := [[], [], []]; var satt := []; var glanz := []; var stirn := []; var wange := []
 	var augen := Vector3.INF
 	for x in m.find_children("Eyes*", "MeshInstance3D", true, false):
 		augen = (x as MeshInstance3D).mesh.get_aabb().get_center()
@@ -294,7 +297,9 @@ func _haut_werte(volk: String, g: String, kenn: String) -> Dictionary:
 							var c2 := im.get_pixel(clampi(int(q2.x * im.get_width()), 0, im.get_width() - 1), clampi(int(q2.y * im.get_height()), 0, im.get_height() - 1)).srgb_to_linear()
 							var o2 := _shader_ton(Vector3(c2.r, c2.g, c2.b), t, th, tb, tf)
 							satt.append(o2)
-							if (vs[idx[k]].y + vs[idx[k + 1]].y + vs[idx[k + 2]].y) / 3.0 > augen.y + 0.03: stirn.append(0.2126 * o2.x + 0.7152 * o2.y + 0.0722 * o2.z)
+							var my_ := (vs[idx[k]].y + vs[idx[k + 1]].y + vs[idx[k + 2]].y) / 3.0
+							if my_ > augen.y + 0.03: stirn.append(0.2126 * o2.x + 0.7152 * o2.y + 0.0722 * o2.z)
+							elif my_ < augen.y and my_ > augen.y - 0.09: wange.append(0.2126 * o2.x + 0.7152 * o2.y + 0.0722 * o2.z)
 							glanz.append(0.2126 * o2.x + 0.7152 * o2.y + 0.0722 * o2.z)
 	m.free()
 	if hell.is_empty() or (ton[0] as Array).is_empty(): return {"fehler": "keine Haut oder kein Gesicht gefunden"}
@@ -325,11 +330,13 @@ func _haut_werte(volk: String, g: String, kenn: String) -> Dictionary:
 		if o3.y / maxf(o3.x, 0.0001) < 0.6 * grm: rot += 1
 	stirn.sort()
 	var sm_: float = stirn[stirn.size() / 2] if not stirn.is_empty() else 1.0
+	wange.sort()
+	var wm_: float = wange[wange.size() / 2] if not wange.is_empty() else 1.0
 	for h_ in stirn:
 		if h_ < 0.7 * sm_: dun += 1
 	return {"leer": leer, "proben": proben, "mittel": mittel, "flecken": float(fl) / hell.size(), "ton": [ton[0][ton[0].size() / 2], ton[1][ton[1].size() / 2], ton[2][ton[2].size() / 2]],
 		"satt": (mx - minf(mf.x, minf(mf.y, mf.z))) / maxf(mx, 0.001), "hell": 0.2126 * mf.x + 0.7152 * mf.y + 0.0722 * mf.z, "hmed": gm, "dunkel": glanz[glanz.size() / 5],
-		"rot": float(rot) / satt.size(), "fleck": float(dun) / maxf(stirn.size(), 1)}
+		"rot": float(rot) / satt.size(), "fleck": float(dun) / maxf(stirn.size(), 1), "stirn_wange": sm_ / maxf(wm_, 0.0001)}
 
 # Farbe nach toon.gdshader (toen_hell > 0) samt Maske „haut“ (431c B1: weit vom Bezug bleibt das Bild ungetoent), linear
 static func _shader_ton(l: Vector3, t: Vector3, th: float, tb: Vector3, tf: float) -> Vector3:

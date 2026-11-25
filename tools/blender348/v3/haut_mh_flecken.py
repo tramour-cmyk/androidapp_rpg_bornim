@@ -4,16 +4,18 @@
 #  rot:   Gruen/Rot des Texels unter ROT des Ortsmittels -> Farbe des Ortsmittels in der Helligkeit des Texels
 #  dunkel: Helligkeit unter dem Ortsmittel gestaucht (Verhaeltnis hoch DUNKEL), hell bleibt; Zeichnung bleibt, Flecken flacher
 # Mittel und Bezug in der .json bleiben (Median des Gesichts aendert sich kaum; kutte_haut_2031 misst den Hautton nach).
-# Aufruf: python3 -I haut_mh_flecken.py <bild.jpg> [...]   (ueberschreibt; Bild aus haut_mh.py)
+#  gross (mit =<kaufbild>, Bild 22:53 Gesicht Orkbluetiger): Helligkeit im Grossen (Ortsmittel) wie die Kaufhaut derselben UV, Mitte gleich
+# Aufruf: python3 -I haut_mh_flecken.py <bild.jpg>[=<kaufbild der gleichen UV>] [...]   (ueberschreibt; Bild aus haut_mh.py)
 import os, sys
 import numpy as np
 from PIL import Image
 
-RADIUS = int(os.environ.get('RADIUS', '40'))      # px bei 1024: groesser als ein Fleck, kleiner als ein Gesicht
+RADIUS = int(os.environ.get('RADIUS', '20'))      # px bei 1024: groesser als ein Fleck, kleiner als ein Gesicht (20: Orkstirn wie heute, 40 zu weich)
 ROT = 0.8
 DUNKEL = float(os.environ.get('DUNKEL', '0.4'))
+GROSS = 2.5      # Kaufhaut-Helligkeit: Faktor hoechstens 2,5 auf oder ab
 
-def glaetten(p):
+def glaetten(p, kauf=None):
     im = Image.open(p).convert('RGB')
     B = np.asarray(im, dtype=np.float32) / 255.0
     lin = np.where(B <= 0.04045, B / 12.92, ((B + 0.055) / 1.055) ** 2.4)
@@ -36,10 +38,19 @@ def glaetten(p):
     neu[rot] = ort[rot] * q[rot][:, None]
     dunkel = belegt & (q < 1.0)
     neu[dunkel] = neu[dunkel] * (q[dunkel] ** (DUNKEL - 1.0))[:, None]   # Helligkeit q -> q^DUNKEL
+    if kauf:   # Bild 22:53: grossflaechige Helligkeit wie die Kaufhaut derselben UV (dort Stirn heller als die Wange, MH-Haut dunkler)
+        K = np.asarray(Image.open(kauf).convert('RGB').resize(im.size), dtype=np.float32) / 255.0
+        KY = np.where(K <= 0.04045, K / 12.92, ((K + 0.055) / 1.055) ** 2.4) @ np.array([0.2126, 0.7152, 0.0722], np.float32)
+        bk = belegt & (K.sum(2) > 0.06)
+        wk = np.maximum(blur(bk.astype(np.float32)), 1e-4)
+        Yn = neu @ np.array([0.2126, 0.7152, 0.0722], np.float32)
+        r = (blur(KY * bk) / wk) / np.maximum(blur(Yn * bk) / wk, 1e-4)
+        r = np.clip(r / np.median(r[bk]), 1 / GROSS, GROSS)   # Mitte bleibt (Bezug der .json gilt weiter)
+        neu = neu * r[..., None]
     neu = np.where(belegt[..., None], neu, lin)
     s = np.where(neu <= 0.0031308, neu * 12.92, 1.055 * np.clip(neu, 0, 1) ** (1 / 2.4) - 0.055)
     Image.fromarray((np.clip(s, 0, 1) * 255 + 0.5).astype(np.uint8)).save(p, quality=90)
     print('FLECKEN', p, 'rot', int(rot.sum()), 'dunkel', int(dunkel.sum()), 'von', int(belegt.sum()))
 
-for p in sys.argv[1:]:
-    glaetten(p)
+for a in sys.argv[1:]:
+    glaetten(*a.split('='))
