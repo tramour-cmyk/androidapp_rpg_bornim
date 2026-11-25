@@ -45,6 +45,9 @@ static func volk_modell(v: String) -> String: return String(VOLK_MODELL.get(v, v
 # Helligkeit (Eichung 1,66/1,39/1,40 durch ihre Helligkeit; nicht heller: Chef „dunkler“), dazu ein Teil der Farbschwankung des Bildes
 # 431 (Chef 02.11., 20:37 „Heldenhaut so“; 431e eine Eichung, Bezug Kampfortlicht): gemessen in Lauf 5 41504744398 (EICHUNG HELD)
 const HAUT_EICHUNG := Vector3(0.355, 0.219, 0.270)
+# 431 (Befund Pruefer 24.11., 18:14: Orkbluetiger braun trotz graugruener Wahl; tests/orkhaut_431.gd): der Rotueberhang der Eichung
+# (R/G 1,62) gilt fuer Menschenhaut; Voelker mit nicht menschlichen Hauttoenen nehmen nur ihre Helligkeit (Luminanz), Farbton wie gewaehlt
+const HAUT_EICHUNG_VOLK := {"HALF_ORC": Vector3(0.2516, 0.2516, 0.2516)}
 const HAUT_FARBE := 0.5
 # Bewegungen, die sich wiederholen (wie held.gd Gebiet.bewegungen)
 const SCHLEIFEN := ["Stehen", "Gehen", "Rennen", "Stehen_2", "Stehen_3", "Sitzen", "Gesten", "Bodensitz", "Nicken", "Hocken",
@@ -628,19 +631,19 @@ static func toene(m: Node3D, a: Dictionary, volk: String) -> void:
 			var l := z.srgb_to_linear()
 			var t := Vector3(l.r, l.g, l.b)
 			if ist_haut:
-				t *= haut_eichung()
+				t *= haut_eichung(volk)
 				sm.set_shader_parameter("toen_bild", hbild)
 				sm.set_shader_parameter("toen_farbe", haut_farbe())
 			sm.set_shader_parameter("toenung", t)
 			sm.set_shader_parameter("toen_hell", b)
 
 # Probe am Rechner (Klassenlauf): --hauteichung=r,g,b und --hautfarbe=x ersetzen die Konstanten
-static func haut_eichung() -> Vector3:
+static func haut_eichung(volk := "HUMAN") -> Vector3:
 	for x in OS.get_cmdline_user_args():
 		if x.begins_with("--hauteichung="):
 			var p := x.substr(14).split(",")
 			return Vector3(float(p[0]), float(p[1]), float(p[2]))
-	return HAUT_EICHUNG
+	return HAUT_EICHUNG_VOLK.get(volk_modell(volk), HAUT_EICHUNG)
 
 static func haut_farbe() -> float:
 	for x in OS.get_cmdline_user_args():
