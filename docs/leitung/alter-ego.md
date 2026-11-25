@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj78XiynF45gfuVmiNc8 (seit 24.11., 13:27; Vorgänger session_01Hmoj76DxaY8henyxgura1G). Sokrates session_01Hmoj77ZdYKh1YXq5iPdhgN (seit 24.11., 12:51). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session_01Hmoj78XiynF45gfuVmiNc8). Sokrates session_01Hmoj76pVj4STr1hPTJC56p (seit 24.11., 21:52). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -21,10 +21,26 @@ Sitzung session_01Hmoj78XiynF45gfuVmiNc8 (seit 24.11., 13:27; Vorgänger session
 - Erste Nachricht: „Du bist Alter Ego, das zweite Paar Augen des Chefs, kein zweiter Sokrates (Rolle neu 24.11., 08:57). Lies docs/leitung/alter-ego.md und arbeite danach: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
 
 
-**Übergabe (24.11., 13:25, 263 Tsd., Nachfolger: Alter Ego – Supervisor (24.11.)):** Chef 12:48/12:49 (Archiv): kein neues Werkzeug, Spiel vor, keine Meldungen an den Chef bis Sa 28.11. außer Laufsperre-Notfall; Wochenzählung fällt weg (2018, 2019, 2020, 2021 ruhen). Runden darum nur Hänger an Sokrates, keine Streich- oder Werkzeugvorschläge. Offen: nichts. Lehren 12:28 (Kopf einer Entwurfsdatei lesen; Protokoll vor Code; Grep nicht mit head abschneiden). Uhr trig_012h9exBvsBnA6EdFRkaBiZH ist verbraucht; Nachfolger legt neue an, keine alte zu löschen außer einer, die diese Sitzung noch anlegt.
+**Übergabe (24.11., 18:40, 248 Tsd., Nachfolger: Alter Ego – Supervisor (24.11.)):** Chef 12:48/12:49: kein neues Werkzeug, Spiel vor, keine Meldungen an den Chef bis Sa 28.11. außer Laufsperre-Notfall. Runden nur Hänger und Leerlauf an Sokrates; Chefsachen 1694, 1603, 431 von Sokrates geprüft bis nichts Neues (liegen bis Sa; 431-Ü11 Merkmalbefund eingetragen). Offen: Leerlauf 18:38 → Sokrates lässt 1589.4 planen (1589.4-Ü1, Uwe startet); in der Runde 19:38 nachsehen, ob gestartet. lauf.py schlägt ruhende Planer (887, 1716) weiter vor: Werkzeug, ruht bis Sa, nicht erneut melden. Uhr trig_01TZud4pmfQVwZwysYLue1EF (19:38) steht noch; Nachfolger löscht sie und legt eigene an.
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 07:01 Runde: Nacht ohne Fachkraft (Nachtruhe, kein Hänger). 1694 ruht bis Sa (6. steckt fest, 1694-Ü27), 1589.4 wartet 28.11. Figur frei: 1654, 2024, 431 startbar, Takt 07:04 abwarten. Nichts an Sokrates. Uhr trig_01Tz36ZHiCX8P1zz97R5WS1X (08:02).
+- 24.11., 22:53 Sokrates 22:53 (123905cdc): 1589.4-Ü8 Halt, wartet auf 28.11., Befunde in Vorlage Sa; 1694-Ü26 beim Disponenten Takt 23:04. Stimmt; Nachsehen 07:00.
+- 24.11., 22:48 Runde: Leerlauf (Pit, Rudi untätig, keine Fachkraft arbeitet). An neuen Sokrates: 1589.4-Ü8 steckt fest offen seit 21:51 (Übergabe Sokrates); 1694-Ü26 Prüfer ohne Sitzung seit 22:09, Rudi hält Figur-Platz (1654, 2024, 431 warten). Uhr trig_011bVe5q66xk7R8UcwzkpK9J (25.11., 07:00).
+- 24.11., 21:50 Sokrates 21:50: 1589.4-Ü7 beantwortet; Halt 20 $ gilt für Schritt 2 (14,39 $), nicht erreicht – eigener Fehler 21:47 (Schritt 1 5,55 $ mitgezählt). Lehre: Deckel je Schritt lesen. Rundendauer als Befund Sa: stimmt.
+- 24.11., 21:47 Runde: 1654-Ü3/Ü5-Ü5 erledigt, Rudi 1694 und Vera 1654 laufen. An Sokrates: 1589.4-Ü7 offen seit 21:18 (Halt 20 $ erreicht, Pit wartet); Rundendauer Wolfsrudel 34,8/30,7 s statt alt 26 (Soll 14,6) als Befund. Uhr trig_019juYKq9uFPsD1W8y2Ax4u5 (22:48).
+- 24.11., 20:45 Runde: 1589.4 Oda 19:57 gestartet, 1694/431 Planer fertig. Hänger an Sokrates: 1589.4-Ü5 bei ihm seit 20:27 (Oda blockiert); 1654-Ü3 Prüfer ohne Sitzung seit 20:23, Moritz untätig hält Figur-Platz (1694, 431, 2024 warten). Uhr trig_01S5YrfewVqiEmXG7wNtPPLF (21:46).
+- 24.11., 19:43 Runde: kein Hänger. Chef 19:37–19:40 A zu 1603, 1694, 431, 1589.4; Olga 2024 und Moritz 1654 laufen, Takt 19:41 schlägt Kampf 1589.4 vor. Nichts an Sokrates. Uhr trig_01WKS8CpUHNptGmhuEQ51BBi (20:44): 1589.4 gestartet? 431/1694 nicht vorgeschlagen?
+- 24.11., 19:42 Chef 19:42: Sokrates soll ihm bis Sa nichts vorlegen, nur abarbeiten, damit es weitergeht; „End of Communication“. Wörtlich an Sokrates.
+- 24.11., 19:09 Zweite Prüfung 15894 (de086de9f): stimmt, nichts Neues. An Sokrates.
+- 24.11., 19:10 Prüfung chefsache 15894 (69a9464cf) und F1–F5: Zahlen stimmen; F1–3, F5 stimmen. Einwände: 9 statt 3 wartende Kampfvorgänge, Gegenargument >220 $ in ruhenden Bewegungsvorgängen, B 15 $ ohne Beleg, Schritt 1 5 $ vs. <4 $, F4 1284a (Bildgrund) gegen DESIGN-GEGNER Z. 61 → Chefzeile. An Sokrates.
+- 24.11., 18:42 Nachfolger übernommen, umbenannt; Uhr trig_01UMZkwiFPFr6JeC8bo8fmA1 (19:43); alte trig_01TZud4pmfQVwZwysYLue1EF abgeschaltet (Löschen sperrt Rechteprüfer); Kennung an Sokrates.
+- 24.11., 18:40 Sokrates 18:40: 1589.4 wird geplant (Leerlauf behoben), 887 Werkzeug ruht. Übergabe (248 Tsd.), Startfelder an Sokrates.
+- 24.11., 18:38 Runde: Leerlauf (keine Fachkraft, drei Takte ohne Start, 1694/1603/431 beim Chef) trotz „Spiel vor“; 887 stets vorgeschlagen, nicht ruht in Liste. An Sokrates. Uhr 19:38.
+- 24.11., 18:14 Prüfung chefsache 431, drei Bilder angesehen: Zahlen stimmen; Einwände Merkmale nicht vollständig gegen LISTE-FIGUREN (Zwergin Zöpfe Z. 178, Ohren, Hauer), Zwerg-Haltung fast Hocke unerwähnt; Teilantworten erlauben. An Sokrates.
+- 24.11., 17:36 Runde: kein Hänger; 1603-Ü4 zu, Lotte 431 fertig 17:25 (431-Ü7 beim Prüfer, Takt 18:03). Nichts an Sokrates. Uhr 18:37.
+- 24.11., 16:34 Runde: 431-Ü3, 1716/1725 ruht, Karla erledigt; Takt 16:03 ohne Start. An Sokrates: 1603-Ü4 Altlast offen; Chefsache 1603 „kein Fehler“ zu stark (Mähne reines Schwarz). Uhr 17:35.
 - 24.11., 15:48 Zweite Prüfung 1603 (b36bbae23): stimmt; −21,8 war belegt (Z. 84, übersehen). Offen 1603-Ü15 (Rechteck) beim Prüfer.
 - 24.11., 15:45 Prüfung chefsache 1603 (0392196bc), Bilder angesehen: Texte/Zahlen stimmen; Einwände Kosten 41,74 $, schwarzes Rechteck über Kroggs Kopf in Bild 1, Schwierigkeit −25/+24 statt Grundlage −17,5/+22 offenlegen. An Sokrates.
 - 24.11., 15:32 Runde: Mirja archiviert, 1725 ruht. Hänger an Sokrates: 431-Ü3 bei ihm seit 15:09 (Lotte blockiert); 1716 in Liste nicht ruht, Takt schlägt es stets vor; Karla wartet auf Lauf 593 ohne Wecker. Uhr trig_019PK28Fq4NWXDi9gkMfXbu1 (16:33).

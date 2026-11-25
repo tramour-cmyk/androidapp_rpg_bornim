@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 
-**Nächste freie Vorgangsnummer: 2023** (zuletzt 2022 Figur 24.11. 14:36:57 f0ff) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 2026** (zuletzt 2025 Figur 24.11. 23:06:45 aea1) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -224,3 +224,62 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:40 24.11.: 1603 Prüfer Jonas ja (Bildlauf 593, 80a423815, Bild + Film 13,2 s, 15:36): Testbitte NICHT gesendet (Chef-Ruhe bis Sa 28.11., Sokrates 12:50); Stand gebaut/Vorlage bei Sokrates; 1603-Ü13 erledigt, an Sokrates gemeldet
 - 15:44 24.11.: Karla (1603) Ablage für Chefsache erledigt (main bd5596e0e, Film Zweig bilder 8e385fae8, Zahlen 665356308), an Sokrates gemeldet, 1603-Ü14 erledigt, Karla archiviert, Kosten 2,92 $ (1603 gesamt 41,74 $)
 - 15:47 24.11.: 1603-Ü16 (Hinweis Prüfer: schwarzes Rechteck über Krogg = Mähne/Leine, Modell, Verkleinerung verschmilzt) an Sokrates, erledigt
+- 16:04 24.11.: Startsperre 16:04 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Knut, Arbeitsplaner 1128.3 Moritz)
+- 16:07 24.11.: Takt 16:03: keine Starts (Planer 887 ruht, Planer 1128.3 Werkzeug/QM nicht, Chef 12:48); Prüfer Jonas bekommt 431-Ü4 (Laufanforderung Lotte, Behebung 92309ef9d); Lotte (431) 9,35 $ um 16:05, 431 gegen Deckel 90 $ ab 10:26 unter Grenze; --ohne 1933, 1128.3 neu
+- 16:10 24.11.: 431-Ü5 (Lauf frei, Prüfer ja, 56c5189b2) und 431-Ü6 (Hinweis lade_bin) an Lotte (Nachricht, läuft), erledigt; keine Testbitte (Ruhe bis Sa)
+- 17:05 24.11.: Startsperre 17:05 Start Arbeitsplaner, Figur, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Knut, Figur 431 Moritz, Arbeitsplaner 1137 Margit)
+- 17:08 24.11.: Takt 17:04: keine Starts: Lotte (431) wartet auf Beleglauf (prüft 17:24), Kosten 10,00 $ (431 Deckel 90 $ ok); START Figur Moritz/ARCHIVIERE Lotte nicht; Planer 887 (ruht), 1137 nicht
+- 18:04 24.11.: Startsperre 18:04 Start Arbeitsplaner, Figur, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Knut, Figur 431 Moritz, Arbeitsplaner 1172 Margit)
+- 18:07 24.11.: 431 fertig (Lotte, Beleglauf 45422069657 grün, 5df25b2af): 431-Ü7 an Prüfer Jonas (Nachricht), 431 wartet auf Prüfer; nicht ausgeführt: Figur Moritz 431/ARCHIVIERE Lotte (erst nach Prüfer), Planer 887, 1172 (Werkzeug/QM, ruht)
+- 18:10 24.11.: 431 Prüfer nein (18:06, Erschaffung Größe, Beleg Rückansicht Umhang, Beschriftung): 431-Ü8 (steckt fest, Laufbremse) bei Sokrates, 431-Ü9 (Hinweise Bart, Rundschild) an Sokrates, erledigt; 431 wartet auf Sokrates; Lotte bleibt
+- 18:12 24.11.: Sokrates 18:10: 431-Ü8 entschieden: Chefsache, 431 ruht beim Chef bis Sa, kein Nachfolger, kein Lauf; Lotte legt drei Bilder ab (Auftrag per Nachricht), meldet an Sokrates, dann archivieren + Kosten buchen
+- 18:13 24.11.: Lotte (431) archiviert nach Ablage der drei Bilder (3c653d17a), Kosten 11,97 $ gebucht (431 gesamt 155,72 $); 431 ruht beim Chef bis Sa 28.11. (Chefsache, Sokrates 18:16)
+- 18:18 24.11.: 431-Ü10 (Lotte Bilder abgelegt) und 431-Ü12 (Prüfer Befund Ü11: Elf Vollbart, Zwerg Kinnbart, Zwergin Zöpfe fehlen, Orkhaut braun) an Sokrates, erledigt
+- 18:39 24.11.: Startsperre 18:39 Start Arbeitsplaner, Figur, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Knut, Figur 1654 Moritz, Arbeitsplaner 1388 Margit)
+- 18:42 24.11.: Sokrates 18:40: Planer für 1589.4 (Stufe 3 Figuren in die Arena, Beinarbeit, Spielvorrang) Hanne (session_01Hmoj765z76Nf58houhw1Rq) per lauf.py --start (Rufname Anna doppelt zu Alter Ego/früher, darum Hanne); danach Kampf-Fachkraft. Nicht ausgeführt: Planer 887 (ruht, kein Start; lauf hängt 1589.4-Ü1 an), Planer 1388 (Werkzeug), Figur Moritz 1654 (Durchstech, Sperre: kein Auftrag/Nicht Spiel-Vorrang, Sokrates 12:50 Spiel: Kampf)
+- 18:43 24.11.: Alter Ego neu session_01Hmoj76MLqXxxrREpwoxksZ (Notstart, Sokrates 18:41, Übergabe 90bf78e49); alter (session_01Hmoj78XiynF45gfuVmiNc8) erst archivieren, wenn der neue Sokrates seine Kennung gemeldet hat
+- 18:44 24.11.: Figur Moritz 1654 (Durchstechprüfung Rowena Kleid, session_01Hmoj75Q7WJD3yDBL9SK6qE) gestartet (Sokrates 18:42, Spielvorrang Chef 23.11., 11:13, Auftrag seit 23.11., 11:30); zusammen mit Planerin Hanne (1589.4) zwei Fachkräfte/Planer unter Laufsperre
+- 18:45 24.11.: alter Alter Ego (session_01Hmoj78XiynF45gfuVmiNc8) archiviert nach Meldung des neuen (Sokrates 18:43), Kosten 6,78 $ auf 2010 gebucht (gesamt 39,32 $)
+- 18:44 24.11.: Startsperre 18:44 Start Arbeitsplaner, Kampf, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Margit, Kampf 1589.4 Nils, Arbeitsplaner 1507 Nadine)
+- 18:47 24.11.: 1589.4: Auftrag steht (Hanne, Deckel-Vorschlag Schritt 1 bis 4 $, ganz bis 30 $, Freigabe Sokrates); Kampf Nils (session_01Hmoj76gHNeZKEqNMVTBZhc) gestartet (Schritt 1 ohne Spielcode: Liste Wegregeln, Aufwand, dann Frage); 1589.4-Ü2 erledigt; Hanne archiviert, Kosten 1,52 $; nicht ausgeführt: Planer 887 (ruht), 1507 (Werkzeug/Chef 12:48)
+- 19:04 24.11.: Startsperre 19:04 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Margit, Arbeitsplaner 1728 Nadine)
+- 19:08 24.11.: Takt 19:04: keine neuen Starts; Nils (1589.4, Kampf) Schritt 1 fertig, Frage F1–F5 an Sokrates (1589.4-Ü3), Nils wartet am Leben (3,87 $); Moritz (Figur 1654) läuft; nicht ausgeführt: Planer 887 (ruht), 1728 (Abläufe, Chef 12:48)
+- 19:10 24.11.: Sokrates 19:10: 1589.4-Ü3 beantwortet, Schritt 2 (20–26 $) wartet auf Deckel des Chefs ab Sa, 1589.4 ruht; Nils läuft noch (Abschluss), danach archivieren + Kosten buchen (3,87 $ um 19:06)
+- 19:21 24.11.: Nils (1589.4) archiviert, Kosten 4,03 $ (1589.4 gesamt 5,55 $); 1589.4 ruht bis Deckel des Chefs ab Sa (Sokrates 19:10)
+- 19:39 24.11.: Startsperre 19:39 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Margit, Arbeitsplaner 1773 Nadine)
+- 19:45 24.11.: Chef 19:37 „1603 A“ (Sokrates 19:40): Planerin Olga 2024 (Krogg-Pranke, session_01Hmoj79EWuFraZEKLsWTx16, Rufname Anna doppelt) gestartet; 1603-Ü19 Testbuild: Weg offen (Frage an Sokrates, kein Build angelegt); nicht ausgeführt: Planer 887, 1773
+- 19:41 24.11.: Startsperre 19:41 Start Kampf, Arbeitsplaner (lauf.py, Kampf 1589.4 Nadine, Arbeitsplaner 1774 Oda)
+- 19:47 24.11.: Chef 19:37–19:40 (Sokrates 19:38–19:44): 1603 A (Testbuild B<n> Fr abends, Technik Fr abends, Build bis Sa 12:00, Erinnerung gesetzt), 1694 A (Planer Pia, session_01Hmoj783rBXTT6vQJvvnZKJ, 15 $/Halt 12 $), 431 A (Planer Rita, session_01Hmoj77STSQicPi6pnSzLNZ, bis 30 $), 1589.4 A (Schritt 2 bis 26 $, Halt 20 $; 1589.4-Ü4 geschlossen); START Kampf Nadine 1589.4: create_session von Auto-Prüfung abgelehnt, nicht umgangen, Sokrates informiert (alter Deckel im Auftrag?); Planer 2024 Olga läuft; nicht ausgeführt: Planer 1774, 1773 (Werkzeug)
+- 19:45 24.11.: Startsperre 19:45 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1794 Oda)
+- 19:50 24.11.: Kampf 1589.4 (Auftrag angepasst 10f69a0d1, Sokrates 19:47): Handstart von lauf.py angehalten (Laufsperre 3: Moritz Figur, Pia (Handstart-Planer 1694 als Figur gezählt), Startsperre Kampf 19:41); Start nach Ende von Pia/Rita/Olga; Fund: Planer künftig mit Titel „<Name> – Auftrag <Nr>: …“ starten (Handstart-Titel zählt als Fachkraft)
+- 19:49 24.11.: Olga (Planerin 2024) archiviert, Kosten 1,01 $; 2024 Auftrag steht (2024-Ü2 Disponent: Fachkraft Figur starten, wartet auf Platz unter Laufsperre: Reihenfolge 1654, 1694, 1589.4, dann 2024/431, Sokrates fragen)
+- 19:56 24.11.: Startsperre 19:56 Start Kampf (lauf.py, Kampf 1589.4 Oda)
+- 19:59 24.11.: Kampf Oda 1589.4 (session_01Hmoj77f5y1ucwujaX5rJdh, Schritt 2, Deckel 26 $, Halt 20 $) gestartet; Pia (1694, 1,24 $, gesamt 73,10 $) und Rita (431, 0,97 $, gesamt 156,69 $) archiviert; Figur 1694 wartet auf Moritz (1654, Figur eine Sitzung), danach 431, 2024; Testbuild Fr abends
+- 20:06 24.11.: Takt 20:04 ohne Start: Moritz (1654) und Oda (1589.4) laufen (2 von 3), Figur 1694 wartet auf Moritz, dann 431, 2024; Testbuild Fr abends
+- 20:46 24.11.: Startsperre 20:46 Start Arbeitsplaner, Figur, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Pit, Figur 1694 Rudi, Arbeitsplaner 1966 Sven)
+- 20:49 24.11.: Sokrates 20:47: 1589.4-Ü5 beantwortet (Oda direkt; Kosten Oda 9,57 $ um 20:45, Halt 20 $ je Runde lesen); 1654-Ü3 Laufanforderung Moritz an Prüfer Jonas (Nachricht, Antwort bis 21:04, sonst endet Moritz mit Übergabe und Figur 1694 startet); nicht ausgeführt: START Figur Rudi 1694/ARCHIVIERE Moritz (erst 21:04), Planer 887, 1966
+- 20:51 24.11.: 1654-Ü3 Prüfer ja, Lauf frei (20:48): Moritz bekommt Bildlauf alt (Nachricht), 1654-Ü4 erledigt; Moritz bleibt auf dem Figur-Platz, Figur 1694 wartet weiter
+- 21:03 24.11.: Startsperre 21:03 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Pit, Arbeitsplaner 1983 Rudi)
+- 21:08 24.11.: Takt 21:03: Moritz 1654 fertig (1654-Ü5, e677b8b4e) an Prüfer Jonas; Oda 1589.4 Frage an Sokrates (Deckel erhöhen oder schneiden; 11,59 $, 403 Tsd. Token); keine Starts; nicht ausgeführt: Planer 887, 1983 (Werkzeug)
+- 21:07 24.11.: Startsperre 21:07 Start Kampf, Figur (lauf.py, Kampf 1589.4 Pit, Figur 1694 Rudi)
+- 21:11 24.11.: Oda (1589.4, 12,00 $, gesamt 17,55 $) und Moritz (1654, 2,94 $) archiviert; Kampf Pit 1589.4 (session_01Hmoj79jA6NkWUNot73ShrC, Schritt 2 weiter, bis 20 $ gesamt, Sokrates 21:08) und Figur Rudi 1694 (session_01Hmoj76mepXSCA2Jw3bwyPP, Messung, Deckel 15 $, Halt 12 $) gestartet; 1654 wartet auf Planer (Prüfer nein, Auftrag 21:05), Planer 21:13; nicht ausgeführt: Planer 887, 1983
+- 21:14 24.11.: Startsperre 21:14 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 887 Sven, Arbeitsplaner 2010 Tanja)
+- 21:17 24.11.: Planerin Vera (session_01Hmoj763xaU9L2CLjzbYjbL, Titel „Auftrag 1654“: zählt als Planer) schreibt den neuen Auftrag 1654 (1654-Ü6, Prüfer nein, Auftrag 21:05); nicht ausgeführt: Planer 887 (ruht), 2010 (Alter Ego, Werkzeug/Leitung)
+- 21:50 24.11.: Startsperre 21:50 Start Sokrates (selbst; Neustart nach Übergabe 2bf197e4a, lauf.py --start Sokrates Leitung, Sokrates 21:48)
+- 21:52 24.11.: Neuer Sokrates session_01Hmoj76pVj4STr1hPTJC56p (lauf.py --start Sokrates Leitung, Übergabe 2bf197e4a); alter session_01Hmoj77ZdYKh1YXq5iPdhgN erst archivieren, wenn der neue sich gemeldet hat
+- 22:04 24.11.: Startsperre 22:04 Start Arbeitsplaner (lauf.py, Arbeitsplaner 887 Tanja)
+- 22:06 24.11.: Takt Uwe: Vera (1654) archiviert, Kosten 0,54 $; Figur 1654 wartet (Rudi/Figur läuft, eine Figur zugleich); 887 ruht, kein Start; alter Sokrates bleibt bis Meldung des neuen; Seite abgeschnitten (has_more).
+- 23:04 24.11.: Startsperre 23:04 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1603 Tanja)
+- 23:05 24.11.: Takt Uwe: 0 Fachkräfte laufen (Nacht ab 23); Prüfer 1694-Ü26 weitergereicht; START Tanja 1603-Ü19 (Testbuild) nicht ausgeführt, Testbuild erst Fr abends nach Rückfrage Sokrates; alter Sokrates bleibt; Seite abgeschnitten.
+- 23:07 24.11.: Uwe: 1694-Ü28 erledigt (Systemlösung? Axt angelegt, K Sokrates); 1694-Ü27 liegt bei Sokrates.
+- 00:03 25.11.: Startsperre 00:03 Start Sokrates, Arbeitsplaner (lauf.py, Sokrates 1989, Arbeitsplaner 1603 Anna)
+- 00:05 25.11.: Takt Uwe: alter Sokrates (77ZdYK) archiviert, Kosten 19,89 $ (1989); neuer Sokrates 76pVj4 bleibt (lauf.py erkennt Titel Handstart nicht: START/ARCHIVIERE Sokrates nicht ausgeführt, offene Zeile 1989-Ü13 per Nachricht); START Anna 1603 (Testbuild) nicht ausgeführt, erst Fr nach Rückfrage; Wochentermin 23.11. ausgefallen -> Sokrates.
+- 01:04 25.11.: Startsperre 01:04 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1603 Anna)
+- 01:05 25.11.: Takt Uwe: nichts zu tun (Nacht, 0 Fachkräfte); START Anna 1603 (Testbuild) nicht ausgeführt, ab jetzt --ohne 1603:Testbuild-Fr.
+- 02:05 25.11.: Takt Uwe: nichts zu tun (Nacht).
+- 03:04 25.11.: Takt Uwe: nichts zu tun (Nacht).
+- 04:04 25.11.: Takt Uwe: nichts zu tun (Nacht).
+- 05:05 25.11.: Takt Uwe: nichts zu tun (Nacht).
+- 06:04 25.11.: Takt Uwe: nichts zu tun (Nacht).
+- 07:04 25.11.: Startsperre 07:04 Start Arbeitsplaner, Figur (lauf.py, Arbeitsplaner 887 Anna, Figur 431 Britta)
+- 07:07 25.11.: Takt Uwe: START Figur Britta 431 (session_01Hmoj75m4KpRacmtj5GsB4c, bis 30 $); Rudi (1694) archiviert, Kosten 4,59 $; 887-START Anna nicht ausgeführt (ruht); 1654-Figur liegt startbar (lauf.py startet sie nicht, Ü7 angenommen), Figur eine zugleich.
