@@ -278,3 +278,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:05 25.11.: Takt Uwe: nichts zu tun (Nacht, 0 Fachkräfte); START Anna 1603 (Testbuild) nicht ausgeführt, ab jetzt --ohne 1603:Testbuild-Fr.
 - 02:05 25.11.: Takt Uwe: nichts zu tun (Nacht).
 - 03:04 25.11.: Takt Uwe: nichts zu tun (Nacht).
+- 04:04 25.11.: Takt Uwe: nichts zu tun (Nacht).
