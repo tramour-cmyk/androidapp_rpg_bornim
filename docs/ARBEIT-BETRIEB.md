@@ -384,3 +384,4 @@ STARTSPERRE - 17:35 25.11.: Startsperre 17:35 Start Arbeitsplaner (lauf.py, Arbe
 - 17:38 25.11.: Notstart Alter Ego (Nr. 2013, kein Profil, Sokrates 17:37, Übergabe c4b182bd0): session_01Hmoj78S1BS7Gx4Jksc3zTh; alter (…75PCSH) wird nach Meldung der Kennung archiviert.
 - 17:38 25.11.: START Figur Dora 2029 von Hand (session_01Hmoj79WtehTiJaAd5sb7FC, Deckel 50 $; Sokrates 17:40: Marke für nicht ausgeführten Vorschlag zählt nicht); Reihenfolge weiter 2034 Teil 0, 2032, 2033.
 STARTSPERRE - 17:38 25.11.: Startsperre 17:38 Start Figur (Handstart, Figur 2029 Dora)
+- 17:40 25.11.: Alter Ego alt (…75PCSH) archiviert (2013: 12,60 $); neuer …78S1BS meldet sich.
