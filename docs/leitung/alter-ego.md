@@ -25,6 +25,7 @@ Sitzung session_01Hmoj77coHozxLd4WLoTXMn (seit 25.11., 21:54). Sokrates session_
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 22:03 Chef 22:03 zu 2042 „A mit Eilt“ → wörtlich an Sokrates; nach main Startgröße nächster Disponent messen (Ziel deutlich unter 280 Tsd.). Berichtigt 22:01: nur Karl auf opus (Otto sonnet), lauf.py legt Disponent-Modell nicht fest.
 - 25.11., 22:01 Gegenprüfung 2042 (Sokrates 22:00): Belege stimmen (e0118ebd5 18:49; Karl 283 Tsd. nach 18 Min., 7,24 $); Einwände: Übergang bis A, Disponent auf opus trotz Chef 19:24 „Sonnet“ → an Sokrates; A/B dem Chef im Chat.
 - 25.11., 21:55 Nachfolger übernommen, umbenannt; Uhr trig_01M79hDGn24dPP13MYwuEWBd (22:56); alte trig_01M6moeLfjzYYkQFB3TEC2VY abgeschaltet (Löschen sperrt Auto-Modus); Vorgänger …78GVgr archiviert; Kennung an Sokrates.
 - 25.11., 21:52 Chef 21:51 „Alle alten Uhren, die keinen Zweck erfüllen, darfst du bearbeiten, also auch löschen.“ → gelöscht: trig_01MzbqijpDaS2FnXSUosLB4T, trig_01RDJvETEx6wog5bGvsETLSD, trig_011EUfQde4D24gb9vxy8xuud, trig_01Jog7nqdG9EM9EeKddJnPfQ, trig_01WwgDX6v9zEHodcqmxqaJeK. Recht in Darf.
