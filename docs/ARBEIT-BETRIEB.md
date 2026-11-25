@@ -324,3 +324,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:06 25.11.: Takt Uwe: 1694-Ü35 (Beleg fehlt) an Greta; Maja (1589.4) wartet auf Entscheid (a)/(b) in 1589.4-Ü17 bei Sokrates; Isolde 2026 läuft; Kampf-/Planer-/Tagesbericht-Starts nicht ausgeführt (Kampf läuft schon, 887 ruht, 448 Chef-Ruhe); 1654 und 2024 warten auf Platz.
 - 12:18 25.11.: Startsperre 12:18 Start Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Gerda, Tagesbericht 448)
 - 12:20 25.11.: Startsperre 12:19 Start Figur (lauf.py, Figur 1654 Lena)
+- 12:21 25.11.: Startsperre 12:20 Start Figur (lauf.py, Figur 2024 Selma)
