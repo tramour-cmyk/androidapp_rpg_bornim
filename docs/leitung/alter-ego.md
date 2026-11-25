@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78GVgrp48SUhwspQ4U (seit 25.11., 20:33; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 21:13 Chef 21:09 „warum nach Namen, nicht nach Funktion?“: Beleg kosten.py:63 (Rolle nur am Titelanfang, Rufnamen vorn seit 287f96046). Chef 21:11 „Disponent heißt wieder Disponent, Büro, kein Name“ (löst 18:04 für Disponent ab, Widerspruch genannt) → wörtlich an Sokrates in 2041; d darf starten.
 - 25.11., 21:05 Disponent-Uhr: neue trig_01RDJvETEx6wog5bGvsETLSD an Otto (3 * * * *); die alte trig_01Jog7nqdG9EM9EeKddJnPfQ an Detlef lässt sich weder abschalten noch löschen (Auto-Modus sperrt update_trigger enabled=false und delete_trigger) → Chef.
 - 25.11., 20:48 Chef 20:48 „a bis d ja und jetzt … anpassen von Kernen und Profilen und ggf. Sockel erlaubt. Nachprüfen mach Umbau.“ → wörtlich an Sokrates, Laufsperre für a–d aufgehoben. Nach main: Prüfer, dann eigene Gegenprüfung, dann Meldung an den Chef.
 - 25.11., 20:41 Gegenprüfung (Unteragent, Chef 20:36) fertig. Nachgeprüft: kosten.rolle(Disponent-Titel) = Sonstige, deshalb kann TOKEN/NEUSTART nie auslösen. Entscheid in Vertretung (Chef 18:07): Reparatur kosten.rolle, danach gilt eine Grenze 300. Werkzeug a–d (Prüferzeile bei „gebaut“, Rückläufer an Rolle, „auf main“ selbst schließen, Titelmuster) dem Chef vorgelegt; Profilfunde Wache/Disponent an Sokrates.
