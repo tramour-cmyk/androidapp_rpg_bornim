@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78ddRUPdf89SqpS789 (seit 25.11., 19:25; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 20:07 Chef 20:04 zu 2034 (Signatur nicht gefunden, Hintergrund egal) → wörtlich an Sokrates; Befund: Licht fast frontal (abzug_2034.gd Z. 5) statt A2 schräg seitlich, Nachbesserung nur Hintergrund; Entscheid: Probe neu nach A2 mit Ausschnitt Licht-/Schattenseite.
 - 25.11., 19:55 Chef 19:53 „Ja, Aufträge zählen, nicht nur Vorgänge.“ → wörtlich an Sokrates (Werkzeug ueberblick.py), Archiv.
 - 25.11., 19:54 Chef 19:51 Disponent-Starter: archiviert seit 23.11., 13:54; ARBEIT-BETRIEB Z. 27/28 falsch → Entscheid in Vertretung: Starter-Zeile streichen, Disponent startet Nachfolger selbst, Ausfall: Wache; an Sokrates.
 - 25.11., 19:53 Chef 19:49 „wie kann es sein, dass fertige Arbeit nicht abgeschlossen ist?“: Rückläufer an archivierte Person (2024-Ü6 Selma, 2031-Ü3 Inge), Start-Zeilen seit 22.–24.11. offen, 1694-Frage nie vorgelegt, Prüfer-Wecker an Uwe → Entscheide an Sokrates; Zeilen-Probe in Tut 1. Lücke: Runde sah nur Sitzungen, nicht offene Zeilen.
