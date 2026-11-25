@@ -131,3 +131,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:55 25.11.: Sokrates 22:57 (564e37bae): Median genügt nicht, Greta …779v32 geweckt für Bildlauf „Gesicht Orkblütiger“; Ü13 hält bis danach. 2031-Ü12 (Chefwort 22:3x an Greta zur Kutte) an Sokrates, erledigt.
 - 22:57 25.11.: 2042 Ralf nein 22:56 (Teile 1–5): Rückläufer Ü15 an Dora (Rechnung aus Messung 3, Wortlaut Schritt 3, Beleg Archivieren); Prüffrage 5 „nein, Auftrag“ und Hinweis Ü16 an Sokrates.
 - 22:58 25.11.: Sokrates 23:00/23:01: Folge für Carlas Nachfolgerin Dora (6aa4fe2a8): drei Punkte, Teil 9 und offen-Ausgabe, dann 6 und 7; an Dora gegeben (läuft seit 22:50, kein neuer Start). Werkzeug-Modell wie lauf.py.
+- 22:59 25.11.: Sokrates 23:03: neue Reihenfolge 2042 für Dora (Nein-Punkte, zugleich Teil 6, dann Rechnung vor weiterem Bau), weitergegeben.
