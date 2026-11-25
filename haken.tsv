@@ -1374,3 +1374,4 @@
 2026-11-25 09:59:57	commit-pruefung	docs/chefsache/entscheiden/431-zopf-lizenz.md: Abschnitt „## Abgleich“ fehlt: Ausgabe von `vorgang.py lehre suche <Stichworte>` und Archivtreffer zu denselben Stichworten (1999, R6: Vorlage 23.11., 10	main
 2026-11-25 09:59:57	commit-pruefung	docs/chefsache/entscheiden/431-zopf-lizenz.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-25 10:00:22	commit-pruefung	docs/chefsache/entscheiden/431-zopf-lizenz.md: Abgleich ohne Zeile „Archiv lizenz zopf cc0: …“ (Archivtreffer zu denselben Stichworten) (1999, R6: Vorlage 23.11., 10:07 brachte den abgelösten Weg 1098	main
+2026-11-25 10:11:58	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/jerry-1653-kleid
