@@ -252,12 +252,13 @@ FREI_BASH = (r"^\s*(do\s+|then\s+)?(cd \S+\s*$|git( -C \S+)? (add|commit|push|pu
 # Fehlt die Rolle, gilt STANDARD. Ausnahmen nach Chefentscheid, nicht aus der Rechnung: Sokrates (1643), Kaufrepo +200 Tsd. (818); Ford nie (1574).
 # Je Rolle: Kosten je Schritt bei Sperre 300/450/600 Tsd. (Opus 5.5, 1h-Cache 8 $, Lesen 0,20 $, Ausgabe 20 $ je MTok; 76 Sitzungen 22.11. ab 07:00).
 STANDARD = (AB, SPERRE_AB)
+UEBERGANG_2042 = (300000, 450000)  # Chef 25.11., 22:45 „2 auch temporär“: bis 2042 auf main Erinnerung 300, Sperre 450 Tsd. (2/3 wie 1520); danach zurück auf STANDARD oder Messwert 2042, Chef entscheidet
 SCHWELLEN = {
     "Spike": STANDARD,         # 27 Sitzungen: 6,75 / 8,01 / 9,42 ct, Minimum 199 Tsd.
-    "Diogenes": STANDARD,      # 14: 6,45 / 7,74 / 9,15 ct, Minimum 192 Tsd.
-    "Arbeitsplaner": STANDARD,  # 9: 6,92 / 8,17 / 9,57 ct, Minimum 197 Tsd.
-    "Werkzeug": STANDARD,      # 3: 7,29 / 8,55 / 9,94 ct, Minimum 197 Tsd.
-    "Prüfer": STANDARD,        # 2: 7,18 / 8,41 / 9,79 ct, Minimum 204 Tsd.
+    "Diogenes": UEBERGANG_2042,      # 14: 6,45 / 7,74 / 9,15 ct, Minimum 192 Tsd.
+    "Arbeitsplaner": UEBERGANG_2042,  # 9: 6,92 / 8,17 / 9,57 ct, Minimum 197 Tsd.
+    "Werkzeug": UEBERGANG_2042,      # 3: 7,29 / 8,55 / 9,94 ct, Minimum 197 Tsd.
+    "Prüfer": UEBERGANG_2042,        # 2: 7,18 / 8,41 / 9,79 ct, Minimum 204 Tsd.
     "Wache": STANDARD,         # 2: 9,51 / 10,44 / 11,70 ct, Minimum 256 Tsd.
     "Homer": STANDARD,         # 1: 7,34 / 8,59 / 9,99 ct
     "Tagesbericht": STANDARD,  # 1: 6,39 / 7,70 / 9,12 ct

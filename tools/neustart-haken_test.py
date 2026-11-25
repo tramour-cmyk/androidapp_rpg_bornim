@@ -37,7 +37,7 @@ nh = importlib.util.module_from_spec(spec); spec.loader.exec_module(nh)
 # Tabelle je Rolle
 soll("Tabelle SCHWELLEN vorhanden", isinstance(getattr(nh, "SCHWELLEN", None), dict))
 soll("Spike 200/300 Tsd.", nh.schwellen("Spike") == (200000, 300000), nh.schwellen("Spike"))
-soll("Werkzeug (Neustruktur) 200/300 Tsd.", nh.schwellen("Werkzeug") == (200000, 300000))
+soll("Werkzeug Übergang 2042 (Chef 25.11., 22:45) 300/450 Tsd.", nh.schwellen("Werkzeug") == nh.UEBERGANG_2042 == (300000, 450000))
 soll("unbekannte Rolle: Standard", nh.schwellen("") == nh.STANDARD == (200000, 300000))
 soll("Sokrates 400/500 Tsd. (1643)", nh.schwellen("Sokrates") == (400000, 500000))
 soll("Kaufrepo +200 Tsd. (818)", nh.schwellen("Spike", True) == (400000, 500000))
@@ -55,7 +55,7 @@ for s in ("t1520-r1-%d" % os.getpid(), "t1520-r2-%d" % os.getpid()):
 # Sperre am Werkzeugaufruf
 W = "Dein Rufname: Tanja (Rolle Werkzeug; Titel)\n\nAuftrag"
 soll("Werkzeug 290 Tsd.: frei", vor(W, 290000) == 0)
-soll("Werkzeug 310 Tsd.: gesperrt", vor(W, 310000) == 2)
+soll("Werkzeug 460 Tsd.: gesperrt (Übergang 2042)", vor(W, 460000) == 2)
 S = "Sokrates – 1727: Leitung"
 soll("Sokrates 450 Tsd.: frei", vor(S, 450000) == 0)
 soll("Sokrates 510 Tsd.: gesperrt", vor(S, 510000) == 2)

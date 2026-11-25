@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 
-**Nächste freie Vorgangsnummer: 2044** (zuletzt 2043 Werkzeug 25.11. 22:00:19 9dc1) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 2045** (zuletzt 2044 Werkzeug 25.11. 23:00:42 8c34) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -115,3 +115,29 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:15 25.11.: 2041-Ü25 Hinweis Ralf (Besetzung führt Prüfer als Werkzeug) in 2043, erledigt.
 - 22:15 25.11.: Startsperre 22:15 Start Werkzeug (lauf.py, Werkzeug 2042 Anna)
 - 22:17 25.11.: 2042-Ü4 Auftrag steht (Oda 22:14): Werkzeug Britta …7ABjVr gestartet (Eilt, Startsperre 22:15). Kl. in LISTE-VORGAENGE von Hand M → Eilt (Chef 22:03 „A mit Eilt“, Archiv Z. 6), weil die Laufsperre den Start sonst anhielt; vorgang.py klasse kennt nur M|K.
+- 22:25 25.11.: Startsperre 22:25 Start Kampf (lauf.py, Kampf 1708 Anna)
+- 22:27 25.11.: Chef 22:24 „B soll jetzt auch starten“ (Archiv 908839331, Sokrates 22:25): Tanja …7A54ew für 1708 B gestartet (Startsperre 22:25), neben Paula, oberhalb der Laufsperre. 1708-Ü11 erledigt (Auftrag B steht).
+- 22:31 25.11.: Startsperre 22:31 Start Werkzeug (lauf.py, Werkzeug 2042 Anna)
+- 22:33 25.11.: Britta …7ABjVr übergab (faf67978de, 212 Tsd. nach 15 Min.; Teile 3, 4 auf britta-2042), archiviert, 6,37 $ auf 2042. Nachfolgerin Carla …75mPRi (Teile 1, 2, 5; Startsperre 22:31).
+- 22:37 25.11.: Sokrates 22:40 (b8f0442fd, Vertretung Alter Ego): Fachkräfte übergeben bis 2042 auf main nicht auf die Mahnung bei 200 Tsd., Sperre 300 Tsd. bleibt; an Carla, Tanja, Paula, Edda weitergegeben, gilt für jeden weiteren Start.
+- 22:38 25.11.: Zurückgenommen (Alter Ego 6e1518d5c, Sokrates 22:41): Mahnung 200 Tsd. gilt für Fachkräfte wie bisher; Widerruf an Carla, Tanja, Paula, Edda. Für den Disponenten weiter NEUSTART ausgesetzt bis 2042, Grenze 500 Tsd.
+- 22:48 25.11.: Sokrates 22:50: 2042-Ü11 (Prüfer) direkt an Ralf, kein Prüfer-Start; Ü10 (Chefwort) ging fälschlich an Paula, ist für Carla (Sokrates hat informiert).
+- 22:49 25.11.: Alter Ego …77coHo übergab bei 264 Tsd. (44c1f33e0); Nachfolger …78egvY gestartet (Felder alter-ego.md, Notstart-Satz, Sokrates 22:51). Vorgänger archiviert der Nachfolger selbst.
+- 22:50 25.11.: 2042-Ü12 ja Ralf 22:48 an 4d112f0c1 (claude/2042-uebergang-300, Übergang 300/450 Tsd.) an Sokrates zum Mischen.
+- 22:49 25.11.: Startsperre 22:49 Start Werkzeug (lauf.py, Werkzeug 2042 Anna)
+- 22:52 25.11.: Carla …75mPRi übergab (67daeea38e, 224 Tsd. nach 17 Min.; Teile 1, 2, 5 auf britta-2042), archiviert, 6,86 $ auf 2042. Teile 1–5 beim Prüfer Ralf (Sokrates 22:53). Nachfolgerin Dora …75ru4A für Teile 6 und 9 (Teil 7 beim Chef), Startsperre 22:49.
+- 22:53 25.11.: 2042-Ü12 gemischt (9072e9421; Zeile schon 22:50 erledigt). Mahnung Werkzeug/Prüfer/Arbeitsplaner jetzt 300, Sperre 450 Tsd. (nach Pull). Dora schon 22:50 wie lauf.py (opus) gestartet.
+- 22:54 25.11.: 2031 Prüfer ja (Ralf 22:51). Ü13 Testbitte: meldung.sh verlangt Vorlage docs/chefsache/entscheiden/2031-….md (374) → an Sokrates; Ü13 angenommen bis Vorlage steht. Ü14 Hinweis (Orkhaut: Median statt Bezug) an Sokrates, erledigt.
+- 22:55 25.11.: Sokrates 22:57 (564e37bae): Median genügt nicht, Greta …779v32 geweckt für Bildlauf „Gesicht Orkblütiger“; Ü13 hält bis danach. 2031-Ü12 (Chefwort 22:3x an Greta zur Kutte) an Sokrates, erledigt.
+- 22:57 25.11.: 2042 Ralf nein 22:56 (Teile 1–5): Rückläufer Ü15 an Dora (Rechnung aus Messung 3, Wortlaut Schritt 3, Beleg Archivieren); Prüffrage 5 „nein, Auftrag“ und Hinweis Ü16 an Sokrates.
+- 22:58 25.11.: Sokrates 23:00/23:01: Folge für Carlas Nachfolgerin Dora (6aa4fe2a8): drei Punkte, Teil 9 und offen-Ausgabe, dann 6 und 7; an Dora gegeben (läuft seit 22:50, kein neuer Start). Werkzeug-Modell wie lauf.py.
+- 22:59 25.11.: Sokrates 23:03: neue Reihenfolge 2042 für Dora (Nein-Punkte, zugleich Teil 6, dann Rechnung vor weiterem Bau), weitergegeben.
+- 23:02 25.11.: 2044 (Werkzeug, Eilt, Alter Ego in Vertretung; beantwortete Vorlage mit Bild bleibt in der Chefsache): Start erst nach Gegenprüfung Alter Ego; Nachtsperre 23–07 auch für Eilt (guthaben.py Z. 21–22): neuer Start frühestens 07:00, sonst Dora nach 2042.
+- 23:02 25.11.: Startsperre 23:02 Start Sokrates (lauf.py, 1988)
+- 23:04 25.11.: Sokrates …79sfZC übergab bei 400 Tsd. (b4b4416f0); Nachfolger „Sokrates – Leitung (25.11., 23:03)“ …79MGDR gestartet (Startsperre 23:02). Vorgänger archivieren, sobald der Nachfolger sich meldet.
+- 23:05 25.11.: 2044 an Dora nach 2042 (Sokrates 23:03, kein Start); Kennung neuer Sokrates an Alter Ego.
+- 23:06 25.11.: 2042-Ü17 (fertig Dora Teile 6, 9, dora-2042 331e060e8) an Ralf. Ü18 (auf main) geschlossen ohne Push: CLAUDE.md 8, main erst nach Prüfer-Ja, mischt Sokrates.
+- 23:07 25.11.: Takt 23:03 (Uhr). Sokrates …79sfZC archiviert (22,63 $ auf 1988), Nachfolger …79MGDR gemeldet. ARCHIVIERE Oda nicht getan: sie bekommt 2042-Ü8/Ü9 (Chefworte 22:40, 22:43; Wecker fälschlich an Paula). ARCHIVIERE Edda nicht getan: 2034-Ü21 Laufanforderung bei Ralf offen, Vorbereitung liegt nur in ihrem Behälter. WARNUNG-LAUT 'Start nicht angekommen' Kampf/Prüfer/Werkzeug falsch (Tanja 22:26, Ralf 21:55, Dora 22:50; R69), Tagesbericht 21:02 vor meiner Zeit, morgens. NACHRICHT Figur 2029 an Ines nicht gesendet (falsche Sitzung). URTEIL 5024 (👍 2032) und Wochentermin Rundblick an Sokrates. Nachtsperre: keine Starts.
+- 23:08 25.11.: 2042-Ü19 steckt fest (Ralf 23:05 an 331e060e8) an neuen Sokrates …79MGDR (Wecker ging an den archivierten Vorgänger); Ü20 bei Dora (wartet auf Sokrates).
+- 23:09 25.11.: Sokrates 23:05: 2032-Ü10 (Chefwort „2032 A“ 23:02, Wecker an Paula) an Oda, Lehre R74. 2044: Auftrag zuerst Alter Ego, Start nach Ja, nicht vor 07:00. 2031: Ü15 Frage Greta 23:01 (Orkgesicht dunkler, Behebung f097e3347) bei Sokrates; Ü13 hält.
+- 23:09 25.11.: 2042-Ü21 Auftrag Fassung 2 (Oda 23:06) an Dora, nach Sokrates zu Ü19. Fund Oda (Disponent nicht erkannt) als Lehre.
