@@ -1378,3 +1378,4 @@
 2026-11-25 10:12:02	probelauf	513.1 (Chef 03.11., 15:56: „513 B“): dieser Stand enthält den abgenommenen Figurenstand nicht: 3b29ac0cb (417), e3789d130 (463). Erst den Figurenstand hineinmischen (Zweig mit allen Abnahmen, Toms 513	claude/jerry-1653-kleid
 2026-11-25 10:14:17	commit-pruefung	VORGANGSARCHIV.md: neuer Entscheid zu 287, 431 berührt B1, B2; im selben Commit die Zeile(n) in DESIGN-STIL/-KAMPF/-ABNAHME ändern und am alten Eintrag „→ ersetzt durch …“ anhängen (461b); ändert er n	main
 2026-11-25 10:14:58	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/jerry-1653-kleid
+2026-11-25 10:15:23	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/figur-1694-griff
