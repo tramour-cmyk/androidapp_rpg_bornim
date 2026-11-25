@@ -1773,7 +1773,8 @@ func _gangart(way: float) -> String:
 func _walk_home(skip = null) -> float:
 	# 1589.4 (DESIGN-GEGNER.md 5): Untote und Krogg gehen nicht vom Feind weg heim; sie bleiben, wo sie stehen
 	if fighter.monster != null and not flieht and not Arena.setzt_ab(String(fighter.monster.get("id", ""))):
-		var zf := _zum_feind(position)
+		# auch nicht zuletzt (wege_15894 25.11.: Wiedergänger quer heim, am Ende 0,1 m vom Helden weg): daheim am nächsten am Feind
+		var zf := _zum_feind(home)
 		if zf != Vector2.ZERO and Vector2(home.x - position.x, home.z - position.z).dot(zf) < 0.0:
 			home = position
 	var d := home - position
@@ -1819,6 +1820,17 @@ func _gerade(tw: Tween, von: Vector3, nach: Vector3, heim: bool) -> float:
 	if heim:
 		tw.tween_callback(_turn_home)
 	return t
+
+
+## 1589.4 (wege_15894 25.11.: der Held ging zum Hieb an der langen Säureschnecke 0,06 m durch ihr Ende): der gerade Weg von hier
+## nach [s] führt die eigene Mitte nicht durch den Umriss des Ziels [other]
+func _am_ziel_vorbei(s: Vector3, other) -> bool:
+	var zk: Array = other.umriss_kapsel()
+	for i in range(1, 9):
+		var q := position.lerp(s, i / 8.0)
+		if Arena.punkt_kapsel(Vector2(q.x, q.z), zk) < float(zk[2]):
+			return false
+	return true
 
 
 ## 1589.4: Richtung (x, z) vom Punkt [p] zum nächsten stehenden Feind; Nullvektor ohne Feind
@@ -2020,7 +2032,8 @@ func zurueck_in_reihe() -> float:     # 778: gibt die Dauer zurück (0: geht nic
 	platz_neu = false
 	# 1589.4 (DESIGN-GEGNER.md 5): Untote und Krogg setzen sich nicht ab; liegt der neue Platz weiter vom Feind weg, bleiben sie stehen
 	if not Arena.setzt_ab(String(fighter.monster.get("id", ""))):
-		var zf := _zum_feind(position)
+		# auch nicht zuletzt (wege_15894 25.11.: Wiedergänger quer heim, am Ende 0,1 m vom Helden weg): daheim am nächsten am Feind
+		var zf := _zum_feind(home)
 		if zf != Vector2.ZERO and Vector2(home.x - position.x, home.z - position.z).dot(zf) < 0.0:
 			home = position
 			return 0.0
@@ -2335,8 +2348,8 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			other.footprint()     # misst schild_unten (ohne Schild INF)
 			# 1589.4 Variante a (Alter Ego 25.11., 20:21 in Vertretung, Chef 17:52; F10): am Schild schräg bis BISS_SCHILD_GRAD heran,
 			# der Biss an der Seite; geradewegs nur am Anfang des Wegs, der Schild fährt beim Treffer nicht vor (kein ABWEHR_VOR)
-			var am_schild: bool = other.schild_unten < INF
 			var unter_schild: bool = other.schild_unten < INF and hoehe_oben() < other.schild_unten
+			var am_schild: bool = other.schild_unten < INF and not unter_schild
 			var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
 			# 1284 (Chef 15.11., 14:54, Film Rattenbiss: „man sieht nicht, ob sie trifft oder nicht, weil da steht ja genau der Held dann
 			# davor … die steht ja neben ihm, als sie zubeißt“; biss_1284: 10 von 11 Bissen lagen die Zähne ganz hinter dem Ziel, die
@@ -2368,7 +2381,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 				# reicht die Schnauze nicht ganz hin, steht der Schild davor; er fährt bei der Abwehr (Ring) vor, also gleich ABWEHR_VOR
 				# Abstand (wolf_mess_438 Kleriker 71,9 s: Schild 9 cm im Wolf)
 				# 709 (treffen_709 Ratten: 8 cm vor dem Helden): wer unter dem Schild bleibt, dem stößt er nicht entgegen
-				var st2: float = float(pl[0]) + (ABWEHR_VOR if not unter_schild and (not voll or other.has_method("blockt") and other.blockt()) else 0.0)
+				var st2: float = float(pl[0]) + (ABWEHR_VOR if not unter_schild and not am_schild and (not voll or other.has_method("blockt") and other.blockt()) else 0.0)
 				var s2 := Vector3(other.position.x, position.y, other.position.z) - d2 * st2
 				if not Arena.geradewegs(Vector2(position.x, position.z), Vector2(s2.x, s2.z), Vector2(other.position.x, other.position.z), 0.15, am_schild):
 					continue     # 1589.4: nur ein Platz, zu dem der Weg geradewegs heran führt
@@ -2411,7 +2424,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 				# wer mit Schild kämpft, hält ihn bei der Abwehr vor sich (footprint), um ABWEHR_VOR weiter (wolf_mess_438 Kämpfer: 0,11 m)
 				var r_soll: float = BISS_UMRISS + (ABWEHR_VOR if other.kauf and other._ss() and not unter_schild and not am_schild else 0.0)
 				# und der Held dreht sich getroffen oder abwehrend zum Wolf (_face_sanft), den Schild mit (footprint): sein Umriss auch so
-				if other.kauf and other._ss():
+				if other.kauf and other._ss() and not am_schild:     # Variante a: von der Seite (treffen_709, wolf_mess_438 25.11.)
 					var fb2 := rumpf
 					var tr2 := Transform3D(Basis(Vector3.UP, y0), s2)
 					var zum: Vector3 = s2 - other.position
@@ -3068,6 +3081,16 @@ func strike(other, e: Dictionary) -> int:
 				else:
 					hi = m
 			there = position.lerp(there, lo)
+	# 1589.4 (wege_15894 25.11.: die Fledermaus biss mit ihrer Mitte bis an den Rand des Helden): die eigene Mitte bleibt vor dem Umriss
+	# des Ziels; sonst so weit zurück, wie nötig
+	if not hero and there.distance_to(position) > 0.01:
+		var zk: Array = other.umriss_kapsel()
+		var yb := atan2((to - there).x, (to - there).z)
+		var kb: Array = kapsel_bei(Vector2(there.x, there.z), yb)
+		var mb: Vector2 = ((kb[0] as Vector2) + (kb[1] as Vector2)) * 0.5
+		var tief := float(zk[2]) - Arena.punkt_kapsel(mb, zk)
+		if tief >= 0.0:
+			there -= (there - position).normalized() * minf(tief + Arena.GLEICH, there.distance_to(position))
 	if OS.get_environment("SCHAU_MESS") != "":
 		print("1589.4 Ausfall %s an %s: von %s nach %s frei %s%s" % [fighter.id, other.fighter.id, position, there, _arena_biss(there, (Vector3(to.x, position.y, to.z) - there).normalized(), other), _wer_sperrt(there, (Vector3(to.x, position.y, to.z) - there).normalized(), other)])
 	gang = "hin"
@@ -3259,13 +3282,18 @@ func _held_schlag(other, weiter := 0.0) -> int:
 				break
 			start -= zur * 0.05
 	# 1589.4 (F1, Versperren): auch der Weg dorthin frei nach den Kapseln der Arena (nicht durch einen anderen hindurch)
-	if flat.length() > 0.01 and not (_stand_frei(start, other) and _arena_biss(start, flat.normalized(), other)):
+	if flat.length() > 0.01 and not (_stand_frei(start, other) and _arena_biss(start, flat.normalized(), other) and _am_ziel_vorbei(start, other)):
 		var off := start - to
 		for w in [25.0, -25.0, 50.0, -50.0, 75.0, -75.0]:
 			var p2 := to + off.rotated(Vector3.UP, deg_to_rad(w))
-			if _stand_frei(p2, other) and _arena_biss(p2, (to - p2).normalized(), other):
+			# auch dort nicht im Umriss des Ziels (wege_15894 25.11.: um die Mitte der langen Säureschnecke gedreht stand er 0,39 m darin)
+			var y2 := atan2((to - p2).x, (to - p2).z)
+			if _stand_frei(p2, other) and _arena_biss(p2, (to - p2).normalized(), other) \
+					and Arena.kapsel_abstand(kapsel_bei(Vector2(p2.x, p2.z), y2), other.umriss_kapsel()) >= 0.0 and _am_ziel_vorbei(p2, other):
 				start = p2
 				break
+	if OS.get_environment("SCHAU_HIEB") != "":
+		print("1589.4 Hieb %s an %s: von %s nach %s, vorbei %s, Ziel-Kapsel %s" % [fighter.id, other.fighter.id, position, start, _am_ziel_vorbei(start, other), other.umriss_kapsel()])
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
@@ -3362,6 +3390,14 @@ func _back_home(back: float, skip) -> void:
 	tween = create_tween()
 	var kurve := Tween.TRANS_LINEAR if gleich else Tween.TRANS_SINE
 	tween.tween_property(self, "position", home, back).set_trans(kurve).set_ease(Tween.EASE_IN_OUT)
+	# 1589.4 (F2; wege_15894 25.11.: vom seitlichen Platz am Wolf ging der Held 134° neben dem Blick heim): rückwärts mit dem Rücken
+	# zum Weg (Arena.blick_beim_gehen), beim Losgehen gedreht
+	var wh := Vector2(home.x - from.x, home.z - from.z)
+	if way > 0.2:
+		var bh := Arena.blick_beim_gehen(wh, true)
+		var dz := wrapf(atan2(bh.x, bh.y) - rotation.y, -PI, PI)
+		if absf(rad_to_deg(dz)) > Arena.QUER_GRAD:
+			tween.parallel().tween_property(self, "rotation:y", rotation.y + dz, minf(back, absf(rad_to_deg(dz)) / _turn_dps()))
 	tween.tween_callback(func(): _guard(false); _face(); _idle())
 
 

@@ -120,7 +120,7 @@ func _kampf(foe: String) -> void:
 			var p2 := Vector2(p3.x, p3.z)
 			var blick := Vector2(sin(o.rotation.y), cos(o.rotation.y))
 			if not st.has(id):
-				st[id] = {"p": p2, "lauf": 0.0, "quer": 0.0, "heran": 0.0, "rueck": 0.0, "stur": 0.0, "ruhig": 0}
+				st[id] = {"p": p2, "von": p2, "lauf": 0.0, "quer": 0.0, "heran": 0.0, "rueck": 0.0, "stur": 0.0, "ruhig": 0}
 				continue
 			var s: Dictionary = st[id]
 			var d: Vector2 = p2 - s.p
@@ -128,6 +128,7 @@ func _kampf(foe: String) -> void:
 			var v := d.length() * 30.0 / ZEIT
 			if v < GEHT_MPS:
 				s.ruhig += 1
+				s.von = p2
 				s.quer = 0.0
 				s.heran = 0.0
 				s.rueck = 0.0
@@ -160,7 +161,11 @@ func _kampf(foe: String) -> void:
 						_melde(foe, bild, o, "durch", "Mitte %.2f m in %s (Kapsel r %.2f, Länge %.2f), %s, gang %s, bei %s, %s bei %s" % [nah, x.fighter.id, kx[2], x.kapsel_laenge(), nm, o.gang, o.position, x.fighter.id, x.position])
 			# quer: Winkel Weg zu Blick
 			var w := rad_to_deg(blick.angle_to(d.normalized()))
-			if not flieht and not weicht and absf(w) > QUER_GRAD and absf(w) < 180.0 - QUER_GRAD:
+			# Fund an Figur, nicht Wege (Sokrates 25.11., 16:57 zu Ü22 (2): quer zählt ohne diese Fälle): Söldner beim Ausholen und
+			# Kampfstehen, Schnecke beim Gehen (beide schon am Startstand 0e2cb82e4)
+			var fund_figur: bool = (o.fighter.monster == null and nm in ["Ausholen", "Kampfstehen"] and o.gang == "") or \
+					(o.fighter.monster != null and o.fighter.id.begins_with("slug") and nm == "Gehen")
+			if not flieht and not weicht and not fund_figur and absf(w) > QUER_GRAD and absf(w) < 180.0 - QUER_GRAD:
 				s.quer += d.length()
 				if s.quer > ZUR_SEITE_M * o._scale() and s.quer - d.length() <= ZUR_SEITE_M * o._scale():
 					befund.quer += 1
@@ -178,10 +183,12 @@ func _kampf(foe: String) -> void:
 				ziel = held
 			if o.gang in ["anlauf", "hin"]:
 				var zum := Vector2(ziel.position.x, ziel.position.z) - p2
+				# am Schild (Variante a, Alter Ego 25.11., 20:21 in Vertretung; F10): geradewegs am Anfang, schräg zum Bissplatz bis
+				# Arena.BISS_SCHILD_GRAD um das Ziel; gemessen gegen die Richtung zum Ziel vom Punkt, an dem er losging (Arena.geradewegs)
+				if o.gang == "anlauf" and ziel.schild_unten < INF and o.hoehe_oben() >= ziel.schild_unten:
+					zum = Vector2(ziel.position.x, ziel.position.z) - s.von
 				var wz := rad_to_deg(zum.angle_to(d))
-				# am Schild schräg bis Arena.BISS_SCHILD_GRAD heran (Variante a, Alter Ego 25.11., 20:21; F10)
-				var quer_max: float = Arena.BISS_SCHILD_GRAD if o.gang == "anlauf" and ziel.schild_unten < INF else QUER_GRAD
-				if absf(wz) > quer_max and absf(wz) < 180.0 - quer_max:
+				if absf(wz) > QUER_GRAD and absf(wz) < 180.0 - QUER_GRAD:
 					s.heran += d.length()
 					if s.heran > ZUR_SEITE_M * o._scale() and s.heran - d.length() <= ZUR_SEITE_M * o._scale():
 						befund.heran += 1

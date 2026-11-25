@@ -405,10 +405,12 @@ static func beiseite(a: Vector2, b: Vector2, laenge_w: float, r_w: float, k: Arr
 
 ## geradewegs heran (Chef 18.11., 14:33): liegt der Weg von [von] zum Angriffsplatz [platz] höchstens QUER_GRAD neben der Richtung
 ## zum Ziel [ziel], am Anfang wie am Ende? (kurzer Weg unter [kurz] Metern zählt nicht)
-static func geradewegs(von: Vector2, platz: Vector2, ziel: Vector2, kurz := 0.15, nur_anfang := false) -> bool:
+## [am_schild]: nur am Anfang des Wegs, zuletzt schräg zum Bissplatz bis BISS_SCHILD_GRAD um das Ziel (Variante a, Alter Ego 25.11.,
+## 20:21 in Vertretung, Chef 17:52; F10)
+static func geradewegs(von: Vector2, platz: Vector2, ziel: Vector2, kurz := 0.15, am_schild := false) -> bool:
 	var w := platz - von
 	if w.length() < kurz:
 		return true
 	# am Anfang und am Ende des Wegs (dazwischen liegt der Winkel zwischen beiden): wer neben dem Ziel ankommt, liefe zuletzt quer
 	return absf(rad_to_deg(w.angle_to(ziel - von))) <= QUER_GRAD and \
-			(nur_anfang or platz.distance_to(ziel) < GLEICH or absf(rad_to_deg(w.angle_to(ziel - platz))) <= QUER_GRAD)
+			(am_schild or platz.distance_to(ziel) < GLEICH or absf(rad_to_deg(w.angle_to(ziel - platz))) <= QUER_GRAD)
