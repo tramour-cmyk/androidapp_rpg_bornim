@@ -327,3 +327,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:21 25.11.: Startsperre 12:20 Start Figur (lauf.py, Figur 2024 Selma)
 - 12:22 25.11.: Sokrates-Takt 12:18 (Alter Ego 12:15): Starts Figur Lena 1654 (session_01Hmoj78XnhbcUevM8ycezi1, Bildlauf alt frei) und Selma 2024 (session_01Hmoj76fzkwKM4yi2hKwAtp, 15 $/Halt 12 $); Prüfer 1694-Ü37 und 2026-Ü4 weitergereicht; Isolde (2026, 5,39 $) und Tilda (0,42 $) archiviert. Maja 1589.4 wartet auf Entscheid (Geld, Chef). Greta 1694 wartet auf Prüfer.
 - 12:27 25.11.: Greta (1694) archiviert, 8,93 $ (1694 gesamt 88,23 $, Halt 8 $ um 0,93 $ überschritten); Kostenstand an Prüfer; 1694-Ü38 (nein, Auftrag) wartet auf Planer-START im Takt 13:03; 2026-Ü5 (Prüfer ja) Vorlage an den Chef bei Sokrates (mein Telegram von Auto-Prüfung abgelehnt).
+- 12:28 25.11.: 1694-Ü39 (Hinweis Prüfer: Kosten nachgetragen, nur Bildausschnitt für Planer offen) erledigt.
