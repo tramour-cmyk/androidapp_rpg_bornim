@@ -65,6 +65,9 @@ func _lauf() -> void:
 		if t == null or t.waffe == null:
 			print("FOLGE1694 FEHLER Spielweg: kein Tragen"); quit(1); return
 		ding = t.waffe; halt = t.halt
+		if OS.get_environment("GANZ1694") != "": _ganze_probe(sk, t)
+		if OS.get_environment("ZWEI1694") != "":   # Gegenprobe nur im Test: Schaft nicht zur linken Faust drehen (Tragen.zwei_anteil)
+			t.zwei_anteil = float(OS.get_environment("ZWEI1694")); print("BILD1694 ZWEI1694: Tragen.zwei_anteil = %.2f" % t.zwei_anteil)
 		id = Staffel.datei(HeldFigur._modell(hw.ausruestung["MAIN_HAND"]))
 		ap = Gebiet.finde(mod, "AnimationPlayer") as AnimationPlayer
 		print("FOLGE1694 Spielweg: Tracht %s, Gegenstand %s, Tragen art=%s gang=%s" % [mod.get_meta("tracht", "?"), id, t.art, t.gang])
@@ -83,6 +86,7 @@ func _lauf() -> void:
 		ding = Halt.anlegen(sk, "faust_r", id, "Gehalten1694")
 		Gebiet.male(ding, null, 2, [])
 		GriffHand.an(sk, ding, "r", halt, GriffHand.art_von(id))
+		if OS.get_environment("GANZ1694") != "": _ganze_probe(sk, null)
 		ap = Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
 		print("FOLGE1694 Prüfaufbau: Körper %s, Gegenstand %s, Griffart %s, AnimationPlayer %s" % [m.name, id, GriffHand.art_von(id), ap != null])
 		if bew != "":
@@ -236,6 +240,7 @@ func _ecken_waehlen(sk: Skeleton3D) -> void:
 
 # ---------- BILD1694
 const DREI := ["hand_r", "index_01_r", "pinky_01_r"]
+const SPRUNG := 0.5   # cm
 class Fuehler extends Node3D:
 	var xf := Transform3D(); var bild := -1
 	func _ready() -> void: set_notify_transform(true)
@@ -348,7 +353,20 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 	var sp := ""
 	for g in DREI: if wmin.has(g): sp += " %s Spanne %s" % [g, _v(wmax[g] - wmin[g], 2)]
 	print("BILD1694 ERGEBNIS gezeichnete Knochen in Waffe (cm):%s; größter Abstand gezeichnet gegen nach letztem Modifikator %.2f cm; Waffe global_transform gegen RS-Lage bis %.2f cm" % [sp, dif_max, sprung_max])
-	quit(0)
+	# rot: ein Glied im gezeigten Bild tiefer im Holz als NetzMess erlaubt (Handfläche und Endglieder −1,2, sonst −0,6 cm) oder die Hand
+	# springt am Schaft (gezeichnete Knochen in Waffenkoordinaten über SPRUNG cm)
+	var rot := []
+	for gl in GLIEDER:
+		var grenze := -1.2 if gl == "hand_r" or gl.contains("_03_") else NetzMess.GLIED_HOLZ
+		var tiefst := INF; var bei := -1
+		for z in zeilen_b:
+			if z.netz.get(gl) != null and float(z.netz[gl]) < tiefst: tiefst = z.netz[gl]; bei = z.p - start
+		if tiefst < grenze: rot.append("%s %.2f cm im Holz (Grenze %.1f, Bild %d)" % [gl, tiefst, grenze, bei])
+	for g in DREI:
+		if wmin.has(g) and ((wmax[g] as Vector3) - (wmin[g] as Vector3)).length() > SPRUNG:
+			rot.append("%s springt %.2f cm am Schaft" % [g, ((wmax[g] as Vector3) - (wmin[g] as Vector3)).length()])
+	print("BILD1694 PRÜFUNG %s" % ("grün" if rot.is_empty() else "ROT: " + "; ".join(rot)))
+	quit(1 if not rot.is_empty() else 0)
 
 # Netze mit Ecken der rechten Hand (Hauptknochen unter hand_r): {mi, bind{k:b}, su:[{idx:[vi], b:[bone]}]}
 func _hand_netze(sk: Skeleton3D) -> Array:
@@ -515,6 +533,58 @@ func _intern(sk: Skeleton3D, ding: Node3D, halt: Dictionary, sch: Dictionary, R:
 			var d = _holz(sch, Wi * (P * p), k)
 			if d != null: aus[gl] = minf(aus.get(gl, INF), d)
 	return aus
+
+# GANZ1694=1 (Gegenprobe nur im Test, kein Spielcode): griff.gd sieht die ganze Haut. Die Zwischenspeicher am Skelett werden ersetzt:
+# griff_netz_r (Griff.netz_finger) mit allen Ecken je Fingerglied (ohne Viertel-Regel, ohne Ausdünnen), griff_r_<r> (Griff.hand_mass)
+# mit der tiefsten Haut der Handfläche über die ganze Faustbreite (seitlich bis HAND_HALB statt 1,2 cm Säule); danach schließt die Hand neu
+func _ganze_probe(sk: Skeleton3D, t) -> void:
+	await process_frame
+	var u := Griff.einheit(sk, "r")
+	var ne := {}
+	var finger := {}
+	for fi in Griff.FINGER + ["thumb"]:
+		for g in ["_01_", "_02_", "_03_"]:
+			if sk.find_bone(fi + g + "r") >= 0: finger[sk.find_bone(fi + g + "r")] = true
+	var ih := sk.find_bone("hand_r")
+	var hand := []
+	for mi in sk.find_children("*", "MeshInstance3D", true, false):
+		var m3 := mi as MeshInstance3D
+		if m3.mesh == null or m3.skin == null or not m3.visible: continue
+		var bind := {}
+		for k in m3.skin.get_bind_count():
+			var nmn := m3.skin.get_bind_name(k)
+			bind[k] = sk.find_bone(nmn) if nmn != "" else m3.skin.get_bind_bone(k)
+		for su in m3.mesh.get_surface_count():
+			var a := m3.mesh.surface_get_arrays(su)
+			var pos = a[Mesh.ARRAY_VERTEX]; var kn = a[Mesh.ARRAY_BONES]; var gw = a[Mesh.ARRAY_WEIGHTS]
+			if pos == null or kn == null or gw == null or pos.size() == 0: continue
+			var je: int = kn.size() / pos.size()
+			for vi in pos.size():
+				var best := -1; var bw := 0.0
+				for k in je:
+					if gw[vi * je + k] > bw: bw = gw[vi * je + k]; best = int(kn[vi * je + k])
+				var b: int = bind.get(best, -1)
+				var lok: Vector3 = m3.skin.get_bind_pose(best) * pos[vi]
+				if finger.has(b):
+					if not ne.has(b): ne[b] = PackedVector3Array()
+					ne[b].append(lok)
+				elif b == ih: hand.append(sk.get_bone_global_rest(ih) * lok)
+	sk.set_meta("griff_netz_r", ne)
+	var f := Griff.flaeche(sk, "r", true)
+	var mp: Vector3 = f[0]; var lang: Vector3 = f[1]; var fl: Vector3 = f[2]
+	for m in sk.get_meta_list():
+		if not String(m).begins_with("griff_r_"): continue
+		var r := float(String(m).substr(8)) / 10000.0
+		var hm: Vector2 = sk.get_meta(m)
+		var basis := mp - lang * (r + hm.y)
+		var tief := -INF
+		for p in hand:
+			var rel: Vector3 = p - basis
+			var tt := rel.dot(fl)
+			if tt > 0.0 and (rel - fl * tt).length() < Griff.HAND_HALB * u: tief = maxf(tief, tt)
+		print("BILD1694 GANZ1694 %s: Haut der Handfläche %.2f → %.2f cm; Fingerglieder %d mit allen Ecken" % [m, hm.x * 100.0, tief * 100.0, ne.size()])
+		if tief > 0.0: sk.set_meta(m, Vector2(tief, hm.y))
+	if t != null: t.merk.clear(); t.merk2.clear()
 
 # Bild nur in griff_folge_bild_1694.gd (Unterklasse; dieser Test legt kein Bild ab)
 func _nimm_bild(): return null
