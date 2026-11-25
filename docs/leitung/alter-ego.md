@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78GVgrp48SUhwspQ4U (seit 25.11., 20:33; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 21:05 Disponent-Uhr: neue trig_01RDJvETEx6wog5bGvsETLSD an Otto (3 * * * *); die alte trig_01Jog7nqdG9EM9EeKddJnPfQ an Detlef lässt sich weder abschalten noch löschen (Auto-Modus sperrt update_trigger enabled=false und delete_trigger) → Chef.
 - 25.11., 20:48 Chef 20:48 „a bis d ja und jetzt … anpassen von Kernen und Profilen und ggf. Sockel erlaubt. Nachprüfen mach Umbau.“ → wörtlich an Sokrates, Laufsperre für a–d aufgehoben. Nach main: Prüfer, dann eigene Gegenprüfung, dann Meldung an den Chef.
 - 25.11., 20:41 Gegenprüfung (Unteragent, Chef 20:36) fertig. Nachgeprüft: kosten.rolle(Disponent-Titel) = Sonstige, deshalb kann TOKEN/NEUSTART nie auslösen. Entscheid in Vertretung (Chef 18:07): Reparatur kosten.rolle, danach gilt eine Grenze 300. Werkzeug a–d (Prüferzeile bei „gebaut“, Rückläufer an Rolle, „auf main“ selbst schließen, Titelmuster) dem Chef vorgelegt; Profilfunde Wache/Disponent an Sokrates.
 - 25.11., 20:37 Chef 20:35 „Detlef hat Ralf keinen Prüfauftrag gegeben“: 1301/1387/1642/1643 „wartet auf Prüfer“ ohne Prüfzeile, Detlef 20:31 „kein Auftrag“ → Entscheid in Vertretung an Sokrates …5bAmZg: Otto gibt Ralf die vier; Lücke Stand ohne Zeile melden; 2035-Ü11/15/24/28 schließen. Eigener Fehler: Ralf 20:28 für sechs überholte Zeilen gestartet. Prüfen 21:34.
