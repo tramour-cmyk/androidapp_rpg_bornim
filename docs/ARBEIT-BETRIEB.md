@@ -107,3 +107,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:01 25.11.: 2041 ja (Gerd 21:59 an fc2f65c88). 2041-Ü20 (mischen): nach Sokrates 21:56 mischt Sokrates, Zeile an ihn. 2041-Ü21 Hinweis → neuer Vorgang 2043 (Werkzeug, M, wartet Laufsperre), erledigt.
 - 22:02 25.11.: 2041-Ü22 (ja Prüfer 22:00, zweites Ja zu Ü18) wie Ü20 an Sokrates zum Mischen, erledigt. Sokrates 22:02: Chef 19:24 (Archiv Z. 38) Disponent läuft auf Sonnet; Nachfolger des Disponenten mit model „sonnet“ starten (lauf.py MODELL ohne Disponent-Eintrag, Vorgabe opus).
 - 22:03 25.11.: 2041-Ü23 (zweites Ja, Ralf 22:00) an Sokrates zum Mischen; Ü24 Hinweis in 2043 aufgenommen, Punkt (2) Ford-Umbenennung an Sokrates; beide erledigt.
+- 22:03 25.11.: Startsperre 22:03 Start Kampf (lauf.py, Kampf 1589.4 Tanja)
