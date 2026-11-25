@@ -179,7 +179,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2029 | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielkamera (2026 A) | 3 | E Figuren | M | – | – | – | *in Arbeit, Dora 17:38 Einbau Nacken* | *–* | *0* | *24,32 $* |
 | 2031 | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt gegen neu (Chef 13:39) | 3 | E Figuren | M | – | – | – | *in Arbeit, Inge* | *–* | *0* | *17,98 $* |
 | 2032 | Rowena: rechte Finger auf dem Gürtel dunkel, gelbe Kleid-Innenseite sichtbar (Rest aus 2028, Prüfer 25.11., 17:00) | 3 | E Figuren | M | – | – | – | *in Arbeit, Finja 18:00* | *–* | *0* | *–* |
-| 2034 | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NPCs, als zusätzliche Auswahl (Chef 25.11., 17:07 zu 2029 „alles“) | 3 | E Figuren | M | – | – | – | *in Arbeit, Edda 18:00* | *–* | *0* | *9,76 $* |
+| 2034 | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NPCs, als zusätzliche Auswahl (Chef 25.11., 17:07 zu 2029 „alles“) | 3 | E Figuren | M | Sokrates | – | – | *in Arbeit, steckt fest* | *–* | *0* | *9,76 $* |
 | 1632 | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtempo, je Waffe und Gangart (1619) | 3 | E Figuren | K | t301 | 1619 | claude/spike-1619-gang-main | *gebaut, Geprüft an: bad5be71b* | *–* | *0* | *–* |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | 3 | E Figuren | K | – | – | – | *aufgeteilt* | *–* | *0* | *1,06 $* |
 | 417.1 | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, Stabgang) | 3 | E Figuren | K | 23.11. | 417 | claude/tom-417-tragart | *ruht* | *–* | *0* | *–* |
