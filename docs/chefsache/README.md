@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 25.11., 22:05, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 25.11., 22:13, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -31,7 +31,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 25.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 4 | 59e (Regeln) Händler: Vorrat je Laden |
 | ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 62 (62) | 18 | 2 | 1 | 28 | 1589.4 (Kampf) Stufe 3 Gegnerverhalten, Figuren in die Arena: fi… |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 40 (35) | 24 | 1 | 3 | 8 | 1785 (Figur) Weg aus 4fd7055c8 … |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 40 (35) | 24 | 2 | 3 | 7 | 1785 (Figur) Weg aus 4fd7055c8 … |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 4 | 644.2 (Kataloge) Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 2 | 0 | 0 | 5 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 0 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
@@ -95,14 +95,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 1128.3 | Werkzeug | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | 7 Firma | startbar |
 | 20 | 1137 | Werkzeug | Vollzugsmeldung je Entscheid: Folgeaufträge melden Vollzug auf Telegram, Sticht… | M | 7 Firma | startbar |
 
-Danach 173 weitere offen. Bei dir zum Testen (vorgelegt): 6. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 83.
+Danach 174 weitere offen. Bei dir zum Testen (vorgelegt): 6. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 82.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
-| [2032](entscheiden/2032-guertel-falte.md) | **Muss** | B Figur | 25.11., 22:08 | Durchscheinende Kleid-Innenseite an Rowenas Hand halb behoben (90 → 33 Punkte), Rest ist eine Falte; A weiter in 2032, B halben Stand nehmen und Falte später. | Sokrates |
+| [2032](entscheiden/2032-guertel-falte.md) | **Muss** | E Figuren | 25.11., 22:10 | Durchscheinende Kleid-Innenseite an Rowenas Hand halb behoben (90 → 33 Punkte), Rest ist eine Falte; A weiter in 2032, B halben Stand nehmen und Falte später. |  |
 | [2034](entscheiden/2034-abzug-grund.md) | **Muss** | E Figuren | 25.11., 20:00 | Grund des Abzugs graublau mit Lichthof statt Blauschwarz; A so lassen, B sichtbare Lichtquelle bauen. |  |
 
 ## Zu billigen
@@ -525,7 +525,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): entscheiden/2034-abzug-grund.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+Format (Muster: „So geht's“ unten): entscheiden/2032-guertel-falte.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); entscheiden/2034-abzug-grund.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
 ## So geht's
 
