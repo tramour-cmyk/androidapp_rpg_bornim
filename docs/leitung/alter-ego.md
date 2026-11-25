@@ -25,6 +25,7 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 13:44 Chef 13:44 zu 2024 (Prankenhieb passt; Reaktion Zucken/Blut deutlich zu spät; Faust geht durch) → wörtlich an Sokrates.
 - 25.11., 13:39 Chef 13:39 „MakeHuman nehmen und testen … Kutte/Robe als Alternative, Helme, Haut“ → wörtlich an Sokrates (Erweiterung 2029).
 - 25.11., 13:33 Chef 13:33 „1589.4 auf Telegram erkedigt. Deckel 80 Dollar.  Das ist sehr wichtig.“ → wörtlich an Sokrates.
 - 25.11., 13:17 Runde: Ute 2029 (Kopfteile-Probe, Chef 12:37 👍 2026 A), Nora 2028 laufen; Maja 1589.4-Ü18 und Selma 2024-Ü4 warten ~1 h auf Sokrates. Einwand: Chef 09:55 deckt Form je Art, Wolf Kapsel → (a) nötig, gesamt etwa 42–49 $ gegen 36 $ → Geldfrage jetzt vorlegen. Uhr trig_016bgmDm9MzbLrxVnQLgpJ5Y (14:17).
