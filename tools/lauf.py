@@ -343,6 +343,9 @@ def mit_rufnamen(ausgabe, sitzungen, jetzt=None, namen=None):
         if namen is not None: namen.setdefault(teile[0][6:].strip(), []).append(n)
         t = teile[5]
         teile[5] = n + t[t.index(" – "):] if " – " in t else "%s – %s" % (n, t)
+        if teile[0][6:].strip() == "Prüfer":  # 2042 Teil 7 (Chef 22:43): Prüfer tragen „Prüfer“ ab Start
+            m = re.match(r"\S+ – (?:Prüfer – )?(?:Auftrag )?(\d[0-9a-zA-Z.]*)(?::| –) (.*?)(?: \(\d\d\.\d\d\., \d\d:\d\d\))?$", t)
+            teile[5] = rufname.pruefer_titel(n, m.group(1), m.group(2)) if m else rufname.pruefer_titel(n)
         teile[6] = "Dein Rufname: %s (Rolle %s; Titel, Besetzung, Meldung).\\n\\n%s" % (n, teile[0][6:].strip(), teile[6])  # „Rolle“ liest startsperre-haken.py
         aus.append(" | ".join(teile))
     return aus

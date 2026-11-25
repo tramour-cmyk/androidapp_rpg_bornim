@@ -398,7 +398,8 @@ def titel_zeilen(nr, text, vorher, sid, wer):
         if "Lauf frei" in w or "nein, Auftrag" in w: return []
         m = macher_sid(vorher)
         z = rufname.titel_zeile(m, nr, "frei" if "ja" in w else "in Arbeit", fuer=True) if m and m != sid else None
-        return [z] if z else []
+        e = rufname.titel_zeile(sid, nr, "frei", rolle="Prüfer") if sid else None  # 2042 Teil 7: Prüfer nach ja/nein „frei“
+        return [x for x in (z, e) if x and x.startswith("TITEL")]
     if "fertig" in w and COMMIT.search(text or ""): st = "beim Prüfer"
     elif w & {"Laufanforderung", "steckt fest"}: st = "wartet"
     elif "Frage" in w: st = "wartet" if ANHALTEN.search(text or "") else "in Arbeit"  # 2042 Teil 6 (Carla 22:46: fragt und baut weiter)

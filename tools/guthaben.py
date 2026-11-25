@@ -177,6 +177,7 @@ TITEL_ROLLE = re.compile(r" – \d[0-9a-zA-Z.]*(?::| –) (Prüfung|Test(?:er)?)
 def ober_rolle(rolle, titel):
     """2001-Ü10 (Prüfer 23.11., 15:54): Titel „<Rufname> – <Nr>: Prüfung …“ → Prüfer, „…: Test …“ → Tester, vor der Rolle aus dem
     Vorgang oder einer doppelten Rufnamen-Sperre (kosten.rolle gab für „Hanna – 1675: Prüfung“ Figur); sonst die Rolle."""
+    if re.match(r"\s*[A-ZÄÖÜ][a-zäöüß]+ – Prüfer – ", titel or ""): return "Prüfer"  # 2042 Teil 7 (Chef 22:43): „Name – Prüfer – …“
     m = TITEL_ROLLE.search(titel or "")
     if m: return "Prüfer" if m.group(1) == "Prüfung" else "Tester"
     f = FREI_TITEL.match(titel or "") if rolle in (None, "", "Sonstige") else None

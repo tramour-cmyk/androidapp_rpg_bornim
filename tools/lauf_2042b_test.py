@@ -59,7 +59,7 @@ z = rufname.titel_zeile("session_EIGEN", "1589.4", "in Arbeit")
 soll("(6b) Paula (Kampf) als Arbeitsplaner besetzt: Titel trotzdem", (z or "").startswith("TITEL Paula – in Arbeit – 1589.4"), z)
 open(B, "w").write(KOPF + RALF.replace("session_RALF", "session_EIGEN"))
 protokoll("Dein Rufname: Ralf (Rolle Prüfer; Titel, Besetzung, Meldung).")
-soll("(6b) Ralf (Prüfer) als Werkzeug besetzt: Prüfer behält Titel", rufname.titel_zeile("session_EIGEN", "2041", "in Arbeit") is None)
+soll("(6b) Ralf (Prüfer) als Werkzeug besetzt: Prüfer-Titel (Teil 7), nicht Werkzeug", (rufname.titel_zeile("session_EIGEN", "2041", "in Arbeit") or "").startswith("TITEL Ralf – Prüfer – in Arbeit – 2041"), rufname.titel_zeile("session_EIGEN", "2041", "in Arbeit"))
 open(B, "w").write(KOPF)
 protokoll("Hallo ohne Rufname")
 z = rufname.titel_zeile("session_EIGEN", "2042", "in Arbeit")
@@ -148,6 +148,42 @@ hs = lauf.start_sitzungen([jp])
 soll("(6-4) Handstart-Seite als JSON: Titel und created_at gelesen (auch archiviert)", ("Britta – in Arbeit – 2042 – x", "2026-11-25T21:16:00Z") in hs and len(hs) >= 2, hs)
 kp = os.path.join(d, "seite.txt"); open(kp, "w").write("session_C | archived | 2026-11-25T21:30:00Z | Britta – in Arbeit – 2042 – x | - | 2026-11-25T21:16:00Z | -\n# bis: 2026-11-24T22:00:00Z\n")
 soll("(6-4) Handstart-Seite als Kurzform", ("Britta – in Arbeit – 2042 – x", "2026-11-25T21:16:00Z") in lauf.start_sitzungen([kp]), lauf.start_sitzungen([kp]))
+
+# Teil 7 (Chef 22:43, 22:45 (1); Auftrag Fassung 2, 23:06): Prüfer-Titel, Rolle aus dem Titel, Wecker an freien Prüfer
+import guthaben
+open(BT, "a").write("- 22:04 25.11.: Startsperre 22:04 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1484 Tanja)\n"
+                    "- 22:25 25.11.: Startsperre 22:25 Start Kampf (lauf.py, Kampf 1708 Tanja)\n")
+r = rufname.rolle("Tanja – 1708 B: Blut nur bei Berührung (25.11., 22:26)", "2026-11-25T21:26:00Z", BT)
+soll("(7) Tanja (Titel „1708 B:“): Sperre mit Nr 1708 → Kampf, nicht Arbeitsplaner 1484", r == "Kampf", r)
+soll("(7) titel Prüfer frei", rufname.pruefer_titel("Ralf") == "Ralf – Prüfer – frei")
+soll("(7) titel Prüfer in Arbeit", rufname.pruefer_titel("Ralf", "2042", "Disponenten klein") == "Ralf – Prüfer – in Arbeit – 2042 – Disponenten klein")
+soll("(7) teile liest Prüfer-Titel", (rufname.teile("Ralf – Prüfer – in Arbeit – 2042 – x") or {}).get("nr") == "2042" and
+     (rufname.teile("Ralf – Prüfer – frei") or {}).get("status") == "frei", (rufname.teile("Ralf – Prüfer – in Arbeit – 2042 – x"), rufname.teile("Ralf – Prüfer – frei")))
+for t in ("Ralf – Prüfer – frei", "Ralf – Prüfer – in Arbeit – 2042 – x"):
+    soll("(7) guthaben.ober_rolle %s → Prüfer" % t, guthaben.ober_rolle("Werkzeug", t) == "Prüfer", guthaben.ober_rolle("Werkzeug", t))
+os.environ["BORNIM_SITZUNG"] = "session_EIGEN"
+protokoll("Dein Rufname: Ralf (Rolle Prüfer; Titel, Besetzung, Meldung).")
+open(B, "w").write(KOPF)
+soll("(7) annehmen als Prüfer → „Ralf – Prüfer – in Arbeit – Nr – Betreff“",
+     (rufname.titel_zeile("session_EIGEN", "2042", "in Arbeit") or "").startswith("TITEL Ralf – Prüfer – in Arbeit – 2042 – "), rufname.titel_zeile("session_EIGEN", "2042", "in Arbeit"))
+soll("(7) ja/nein als Prüfer → „Ralf – Prüfer – frei“", rufname.titel_zeile("session_EIGEN", "2042", "frei") == "TITEL Ralf – Prüfer – frei", rufname.titel_zeile("session_EIGEN", "2042", "frei"))
+os.environ.pop("BORNIM_SITZUNG")
+z = rueckmeldung.titel_zeilen("2042", "ja. Prüfer Ralf (25.11., 23:20) an 92a094995", "", "session_EIGEN", "Prüfer")
+os.environ["BORNIM_SITZUNG"] = "session_EIGEN"
+z = rueckmeldung.titel_zeilen("2042", "ja. Prüfer Ralf (25.11., 23:20) an 92a094995", "", "session_EIGEN", "Prüfer")
+soll("(7) rueckmeldung ja des Prüfers: eigener Titel frei", "TITEL Ralf – Prüfer – frei" in z, z)
+os.environ.pop("BORNIM_SITZUNG")
+FREI = "| Prüfer | [Ralf – Prüfer – frei](https://claude.ai/code/session_RFREI) | Betrieb | – | 25.11., 21:55 |\n"
+BUSY = "| Prüfer | [Gerd – Prüfer – in Arbeit – 2041 – x](https://claude.ai/code/session_GERD) | 2041 | – | 25.11., 21:00 |\n"
+open(B, "w").write(KOPF + KARL + BUSY + FREI)
+ss, t = ausgabe(uebergabe.wecker, "2042", "2042-Ü30", "Prüfer", scharf=True)
+soll("(7) Wecker an Prüfer: nur der freie (Ralf), nicht Gerd in Arbeit", ss == ["session_RFREI"] and "PRÜFER session_RFREI frei" in t, t)
+open(B, "w").write(KOPF + KARL + BUSY)
+ss, t = ausgabe(uebergabe.wecker, "2042", "2042-Ü31", "Prüfer", scharf=True)
+soll("(7) kein freier Prüfer: Zeile START Prüfer für den Disponenten, kein Wecker an Gerd", "session_GERD" not in t and "START Prüfer" in t and ss == ["session_KARL"], t)
+
+st = lauf.mit_rufnamen(["START Prüfer | sonnet | e | r | main | Prüfer – 2042: Disponenten klein (25.11., 23:20) | Prüfer\\n\\nprüfen"], [], namen={})
+soll("(7) START Prüfer: Titel „Name – Prüfer – in Arbeit – 2042 – Disponenten klein“", " – Prüfer – in Arbeit – 2042 – Disponenten klein | " in st[0], st)
 
 print("LAUF2042B %d Fehler" % fehl)
 sys.exit(1 if fehl else 0)

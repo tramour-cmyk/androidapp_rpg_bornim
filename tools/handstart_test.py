@@ -25,7 +25,7 @@ for rolle, nr in (("Prüfer", "1988"), ("Werkzeug", "1989"), ("Sokrates", "1989"
     if not start: continue
     l = start[0]; f = l.split(" | ", 6)
     pruefe(f[0] == "START " + rolle and f[3] == lauf.REPO and f[4] == lauf.REVISION, "%s: Kopf (Rolle, Repo, main): %s" % (rolle, f[:5]))
-    pruefe(("– %s: Handstart" % nr) in f[5], "%s: Titel mit Nummer: %s" % (rolle, f[5]))
+    pruefe(("– %s: Handstart" % nr) in f[5] or (rolle == "Prüfer" and (" – Prüfer – in Arbeit – %s – Handstart" % nr) in f[5]), "%s: Titel mit Nummer: %s" % (rolle, f[5]))
     pruefe("\n" not in l, "%s: echter Zeilenumbruch" % rolle)
     msg = f[6].replace("\\n", "\n")
     teile = lauf.leitung_block() if rolle == "Sokrates" else lauf.startblock(rolle, nr)[0]

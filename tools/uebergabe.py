@@ -293,6 +293,12 @@ ALT = {"Prüfer": "Diogenes", "Disponent": DISPONENT_ALT, "Arbeitsplaner": DISPO
 
 DISPONENT_TITEL = re.compile(r"^(?:Disponent – Büro(?:$| \()|\w+ – Disponent – )")  # 2041 d (Chef 25.11., 21:11): „Disponent – Büro (…)“ ohne Rufnamen; alte Form „Otto – Disponent – Betrieb“ (2035, Chef 19:47), bis Otto umbenannt ist; nie „Disponent-Starter“, „Wache – Disponent (…)“
 
+def pruefer_frei():
+    """2042 Teil 7: Kennungen der Prüfer mit Titel „<Name> – Prüfer – frei“ in ARBEIT-BESETZUNG.md (Titel setzt der Prüfer selbst)."""
+    try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+    except OSError: return []
+    return [s for z in t.splitlines() if re.search(r"\[[A-ZÄÖÜ][a-zäöüß]+ – Prüfer – frei\]", z) for s in re.findall(r"code/(session_\w+)", z)]
+
 def disponent():
     """2035: der laufende Disponent, die jüngste Zeile in ARBEIT-BESETZUNG.md mit Titel „Disponent – Büro …“ oder alt „Rufname – Disponent – …“ (lauf.besetzung_text
     sortiert nach Start); keine Handzeile in ARBEIT-BETRIEB.md (2001 „Disponent (aktuell)“ entfällt). Leer, bis der neue Disponent sein
@@ -343,6 +349,10 @@ def wecker(nr, k, an, alt=None, scharf=None):
     scharf = _scharf() if scharf is None else scharf
     alt = "" if scharf else ALT.get(an, "") if alt is None else alt
     ss = (disponent() if an == "Disponent" and scharf else besetzung(an, nr)) or (besetzung(alt, nr) if alt else [])
+    if an == "Prüfer" and scharf:  # 2042 Teil 7 (Chef 22:43, 22:45): nur ein freier Prüfer („Name – Prüfer – frei“); sonst Start
+        ss = pruefer_frei()
+        for x in ss: print("PRÜFER %s frei: Wecker unten senden, wenn get_session unter 200 Tsd. zeigt, sonst lauf.py --start Prüfer %s (2042 Teil 7)" % (x, nr))
+        if not ss: print("START Prüfer %s | kein freier Prüfer (Titel „– Prüfer – frei“): lauf.py --start Prüfer %s \"sieh in %s (%s)\" (2042 Teil 7)" % (nr, nr, nr, k))
     if ss and an == "Disponent" and _gebuendelt_zeile(k, an): return ss
     for s in ss: print("WECKER %s | sieh in %s (%s)" % (s, nr, k))
     if ss: return ss
