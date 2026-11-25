@@ -343,3 +343,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:25 25.11.: 1694 Entscheid Sokrates 13:24 (c6e257691): C, ruht bis Vorlage Sa 28.11., kein Auftrag; Tina (0,94 $) archiviert; 1694-Ü38 erledigt. Platz frei für nächsten Spielvorgang nach Vorrang.
 - 13:46 25.11.: 2024 Prüfer nein (Ü6: Ring/Aufschlag, ausholen.gd, Standbild); Selma 11,79 $ (+1,43 $) = 13,22 $, Halt 12 $ überschritten, Deckel 15 $: Selma nicht geweckt, Entscheid Sokrates.
 - 13:57 25.11.: 2024-Ü9 (Frage Selma: Ring/Aufschlag A so lassen / B eigener Vorgang) an Sokrates per Nachricht.
+- 14:04 25.11.: Startsperre 14:04 Start Arbeitsplaner, Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Karla, Arbeitsplaner 2031 Lutz, Tagesbericht 448)
