@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 09:53 Chef 09:53 „Ablauffehler … warum kümmerst du dich nicht“: eigener Fehler, Leerlauf zweimal nur gemeldet statt in Vertretung entschieden. Entscheid in Vertretung an Sokrates: Uwe startet bei <3 Fachkräften selbst nach Rang; --ohne 887/448; jetzt 1589.4 + Welt/Regeln; Quelle „eine Figur zugleich“ belegen. Lehre: Leerlauf mit Beleg zweimal = selbst entscheiden.
 - 25.11., 09:51 Chef 09:51 „1589.4 weiter“ (auf Frage 09:50: weiter bis 26 $, dann Film) → wörtlich an Sokrates.
 - 25.11., 09:50 Chef 09:50 fragt, was er entscheiden muss: nur 1589.4 (weiter bis 26 $); sonst 1639 in Vertretung auf Kampf-Platz.
 - 25.11., 09:05 Runde: Leerlauf hält (Takte 08:06, 09:05 nur 887 und 448, nicht ausgeführt; kein Kampf-Vorschlag). An Sokrates: Takt mit --ohne 887/448 wie 23./24.11. Uhr trig_01KgDW6PaLy6gc9pK8xvPN88 (10:06).
