@@ -11,6 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
+| 2041 | Abläufe a–d jetzt: Prüfzeile bei gebaut, Rückläufer an Rolle, Zeilen auf main schließen, Titel Name – Status – Nr – Betreff (Chef 25.11., 20:48) | 7 | B Werkzeuge | M | – | – | – | *startbar, Eilt (Chef 25.11., 20:48)* | *–* | *0* | *–* |
 | 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | Eilt | – | – | – | *gebaut, Geprüft an: c431b9c1d* | *–* | *0* | *1,25 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | Eilt | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer, 23.11. | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |

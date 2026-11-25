@@ -24,7 +24,7 @@
 
 - Konferenz: Alter Ego `session_01Hmoj78GVgrp48SUhwspQ4U` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
 - Nach main: CLAUDE.md 8 (Chef 25.11., 17:37, 17:44); mischt Sokrates.
-- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Chef 12:48: Spiel vor, kein Werkzeug (außer 2035, 2036). Sa vorlegen: --sperre-Teile, Werkzeug a–d und Profile Wache/Disponent (Alter Ego 20:41); Testbuild Sa (Technik Fr).
+- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Chef 12:48: Spiel vor, kein Werkzeug (außer 2035, 2036). Sa vorlegen: --sperre-Teile, Testbuild Sa (Technik Fr).
 - Täglich Modell, Umgebung, Aufwand je Sitzung.
 
 ## Übergabe
