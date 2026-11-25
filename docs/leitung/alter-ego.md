@@ -25,6 +25,7 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 16:03 Chef 16:03 zu 2024: Timing fast gut; Blut muss am Trefferpunkt entstehen, nicht im Raum → wörtlich an Sokrates.
 - 25.11., 15:22 Runde: Leerlauf (nur Selma 2024). Entscheid in Vertretung: Uwe startet 2029 (Ü4, Lauf frei) und 2031 (Bau, Lauf nach 2029). 2031-Beleg 13:40 stimmt (Einwand 14:21 zurückgezogen). 1589.4-Ü21 bei Sokrates. Uhr trig_013WNP6SpvWuumSLYvY9tTux (16:23).
 - 25.11., 14:21 Runde: Ute 2029, Nora 2028, Selma 2024 laufen. Einwand 2031: Deckel 60 $ mit Beleg „Chef 👍 13:40“ vor der Frage 13:43, unbelegt → Sperre bis Chef-Ja. 1589.4-Ü20 bei Sokrates. Uhr trig_01NjLkVexYifoBq2161irbAh (15:21).
 - 25.11., 13:45 Chef 13:45 zu 2024: Faust durch den Helden kein Mangel; nur Reaktion ~1 s zu spät → wörtlich an Sokrates. Eigener Fehler 13:44: „Befund Faust geht durch“ als Mangel gelesen.
