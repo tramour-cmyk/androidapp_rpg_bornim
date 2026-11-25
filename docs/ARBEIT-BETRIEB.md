@@ -320,3 +320,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:52 25.11.: Startsperre 11:51 Start Sokrates (selbst, Neustart Kontext 401 Tsd., Übergabe 8baebbf2b)
 - 11:53 25.11.: Nachfolger Sokrates gestartet (session_01Hmoj77b3dQK5zpocRJsWFB); alter (…76pVj4) erst nach Meldung des neuen archivieren. 431-Bilder hat Sokrates selbst an den Chef gesendet (ansehen/431-voelker.md); von mir keine Vorlage.
 - 11:54 25.11.: alter Sokrates (…76pVj4) archiviert, 17,85 $ (1989); neuer Sokrates …77b3dQ hat sich 11:53 gemeldet.
+- 12:04 25.11.: Startsperre 12:04 Start Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Gerda, Tagesbericht 448)
