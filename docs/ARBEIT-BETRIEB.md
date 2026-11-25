@@ -129,3 +129,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:53 25.11.: 2042-Ü12 gemischt (9072e9421; Zeile schon 22:50 erledigt). Mahnung Werkzeug/Prüfer/Arbeitsplaner jetzt 300, Sperre 450 Tsd. (nach Pull). Dora schon 22:50 wie lauf.py (opus) gestartet.
 - 22:54 25.11.: 2031 Prüfer ja (Ralf 22:51). Ü13 Testbitte: meldung.sh verlangt Vorlage docs/chefsache/entscheiden/2031-….md (374) → an Sokrates; Ü13 angenommen bis Vorlage steht. Ü14 Hinweis (Orkhaut: Median statt Bezug) an Sokrates, erledigt.
 - 22:55 25.11.: Sokrates 22:57 (564e37bae): Median genügt nicht, Greta …779v32 geweckt für Bildlauf „Gesicht Orkblütiger“; Ü13 hält bis danach. 2031-Ü12 (Chefwort 22:3x an Greta zur Kutte) an Sokrates, erledigt.
+- 22:57 25.11.: 2042 Ralf nein 22:56 (Teile 1–5): Rückläufer Ü15 an Dora (Rechnung aus Messung 3, Wortlaut Schritt 3, Beleg Archivieren); Prüffrage 5 „nein, Auftrag“ und Hinweis Ü16 an Sokrates.
