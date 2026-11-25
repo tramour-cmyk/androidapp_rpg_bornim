@@ -149,3 +149,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:15 25.11.: Startsperre 23:15 Start Disponent (lauf.py, 1997)
 - 23:16 25.11.: Startsperre 23:16 Start Prüfer (lauf.py, Prüfer 2042 Wiebke)
 - 23:19 25.11.: Lutz (Disponent, Sonnet) übernimmt von Karl …78AKMt; Karl archiviert (26,25 $ auf 1997), Paula …78QfZv archiviert (6,37 $ auf 1589.4). Prüfer-Start 2042 ausgeschlossen (Ralf prüft laufend, Ü22). Uhren-Umhängen: Bitte an Alter Ego vom Auto-Modus verweigert, offen beim Chef. Sokrates …79MGDR gemeldet.
+- 23:21 25.11.: Nachtsperre 287 gilt auch für Weiterarbeit (Sokrates 23:23 zurückgenommen). Bis 07:00 ruhen Tanja 1708-Ü12, Dora 2042-Ü24/Ü20 (Mischen) und 2044, Greta 2031-Ü15. Ab 07:00: neue Kampf-Sitzung für 1589.4-Ü28 mit Übergabe aus 1589.4.md (Paula nicht zurückholen, 275 Tsd.). Dora um 23:21 angehalten (Nachricht 23:19 zurückgenommen).
