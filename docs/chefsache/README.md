@@ -55,7 +55,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Profil | als Nächstes |
 |---|---|
-| **Chef** | [431](ansehen/431-voelker.md) ansehen, hält 4 Zeilen |
+| **Chef** | [2026](entscheiden/2026-pakete.md) entscheiden; dann 1 weitere |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | 1402 Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt… (Kür) |
@@ -98,7 +98,11 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 Danach 116 weitere offen. Bei dir zum Testen (vorgelegt): 5. Gebaut, fährt mit dem nächsten Build: 18. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 130.
 ## Zu entscheiden
 
-Nichts offen.
+Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
+
+| Nr. | Vorrang | Bereich | Seit | Was | Wer |
+|---|---|---|---|---|---|
+| [2026](entscheiden/2026-pakete.md) | **Muss** | E Figuren | 25.11., 12:26 | 65 von 65 Paketen gesichtet, 5 taugen: Haare, Bärte, Kutte und Wikingerkleidung, Helme, Stiefel; Einbau zuerst als Probe in der Spielkamera. |  |
 
 ## Zu billigen
 
@@ -514,7 +518,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Format (Muster: „So geht's“ unten): ansehen/431-voelker.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
+Format (Muster: „So geht's“ unten): entscheiden/2026-pakete.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2); ansehen/431-voelker.md: kein Absender (Zeile 1 „· <Rolle> ·“ oder Zeile 2)
 
 ## So geht's
 
