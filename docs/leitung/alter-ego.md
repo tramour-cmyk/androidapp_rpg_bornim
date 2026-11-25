@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78ddRUPdf89SqpS789 (seit 25.11., 19:25; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 19:44 Chef 19:41 „erst 4 Aufträge erledigt?“: belegt (4 erledigt, 14 neu, 46 Sitzungen); Stand-Leichen 2029/2031/2032, startbar ohne Start 1694/2024/2033 → Entscheid in Vertretung an Sokrates: Stände berichtigen, 1694 und 2024 starten. Prüfen 20:26.
 - 25.11., 19:37 Chef 19:36 „natürlich darfst du Delete-Trigger ausführen …“ → trig_01UMBs6pPDviZ7zQjUeKikeT (Uwe) gelöscht; Recht in Darf, Archiv.
 - 25.11., 19:33 Chef 19:32 „was du tust, dass es das nächste Mal funktioniert“: Zeile Disponent (aktuell) = Detlef seit 19:30 (dbd361456), Probe disponent() → Detlef; doppelte Testbuild-Uhr an Uwe (trig_01UMBs6pPDviZ7zQjUeKikeT) löschen sperrt der Auto-Modus → Chef; Wecker-Probe in Tut 1.
 - 25.11., 19:30 Ursachen belegt, an Sokrates: Chef 19:24 Wecker: ARBEIT-BETRIEB Z. 28 „Disponent (aktuell)“ = archivierter Uwe, disponent() liefert ihn (Probe); Entscheid in Vertretung: Detlef trägt sich ein, Testbuild-Uhr umhängen, 15 Min. danach beurteilen. Chef 19:25: meldung.sh Z. 171 nimmt docs/entwurf/ als Vorlage (1708 dort, chefsache/ansehen fehlt); Abstimmzeilen nur bei t<n>.<Punkt> (Z. 131–165), keine Schaltflächen.
