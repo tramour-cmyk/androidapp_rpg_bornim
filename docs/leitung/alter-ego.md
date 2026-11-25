@@ -25,7 +25,7 @@ Sitzung session_01Hmoj78ddRUPdf89SqpS789 (seit 25.11., 19:25; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
-- 25.11., 19:33 Chef 19:32 „was du tust, dass es das nächste Mal funktioniert“: Zeile Disponent (aktuell) = Detlef seit 19:30 (dbd361456), Probe disponent() → Detlef; doppelte Testbuild-Uhr an Uwe gelöscht; Wecker-Probe in Tut 1.
+- 25.11., 19:33 Chef 19:32 „was du tust, dass es das nächste Mal funktioniert“: Zeile Disponent (aktuell) = Detlef seit 19:30 (dbd361456), Probe disponent() → Detlef; doppelte Testbuild-Uhr an Uwe (trig_01UMBs6pPDviZ7zQjUeKikeT) löschen sperrt der Auto-Modus → Chef; Wecker-Probe in Tut 1.
 - 25.11., 19:30 Ursachen belegt, an Sokrates: Chef 19:24 Wecker: ARBEIT-BETRIEB Z. 28 „Disponent (aktuell)“ = archivierter Uwe, disponent() liefert ihn (Probe); Entscheid in Vertretung: Detlef trägt sich ein, Testbuild-Uhr umhängen, 15 Min. danach beurteilen. Chef 19:25: meldung.sh Z. 171 nimmt docs/entwurf/ als Vorlage (1708 dort, chefsache/ansehen fehlt); Abstimmzeilen nur bei t<n>.<Punkt> (Z. 131–165), keine Schaltflächen.
 - 25.11., 19:26 Nachfolger übernommen (Titel stand schon); Uhr trig_01TsbFm1xEoEvciDR6iLzBXT (20:26); alte trig_011mB4sD6Wu3W1t2tbTqKTRC gelöscht; Kennung an Sokrates.
 - 25.11., 19:28 Chef 19:25 Chefsache leer, Telegram-Videos ohne Abstimm-Schaltfläche → wörtlich an Sokrates, in Übergabe.
