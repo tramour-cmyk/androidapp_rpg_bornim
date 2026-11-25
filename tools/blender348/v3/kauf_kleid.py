@@ -336,7 +336,7 @@ SA = np.stack([S[n] for n in Q_KN])                    # Knochen x 4 x 4
 qmi = np.array(qkoerper.matrix_world.inverted().to_3x3())
 rein = 0
 # 2028 (Fund Prüfer 1654-Ü11, 25.11.: fast schwarze Flecken an Rowenas Handgelenken): in dieser Haltung hängen die Hände neben Rock und
-# Schürze; der Strahl entlang der Normale traf sie binnen VERDECKT, Haut an Hand und Fingern fiel weg (Rowena: 540 Ecken, davon 9 unter dem
+# Schürze; der Strahl entlang der Normale traf sie binnen VERDECKT, Haut an Hand und Fingern fiel weg (Rowena: 564 Ecken, davon 9 unter dem
 # Ärmel), ebenso die Haut des Unterarms bis ans Handgelenk unter dem Ärmelende; die Hand war ein löchriger, offener Schlauch. Hob die
 # Person die Hand (Hüfte, Gürtel), sah man in sie hinein, die Tusche zog die Tiefensprünge schwarz nach (handgelenk_2028.gd). Haut an
 # Hand, Fingern und Unterarm binnen HANDGELENK vor dem Handknochen bleibt darum immer; sticht sie durch Ärmel oder Stulpe (ARM_KLEID),
