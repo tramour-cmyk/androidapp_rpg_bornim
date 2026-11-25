@@ -277,3 +277,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:04 25.11.: Startsperre 01:04 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1603 Anna)
 - 01:05 25.11.: Takt Uwe: nichts zu tun (Nacht, 0 Fachkräfte); START Anna 1603 (Testbuild) nicht ausgeführt, ab jetzt --ohne 1603:Testbuild-Fr.
 - 02:05 25.11.: Takt Uwe: nichts zu tun (Nacht).
+- 03:04 25.11.: Takt Uwe: nichts zu tun (Nacht).
