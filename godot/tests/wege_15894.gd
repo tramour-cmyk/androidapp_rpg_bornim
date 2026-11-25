@@ -198,7 +198,7 @@ func _kampf(foe: String) -> void:
 				s.stur += -zu.normalized().dot(d)
 				if s.stur > STUR_M and s.stur + zu.normalized().dot(d) <= STUR_M:
 					befund.stur += 1
-					_melde(foe, bild, o, "stur", "setzt sich ab, %s" % nm)
+					_melde(foe, bild, o, "stur", "setzt sich ab, %s, gang %s, %s -> %s" % [nm, o.gang, o.position, o.home])
 	var n := 0
 	for k in befund:
 		n += befund[k]

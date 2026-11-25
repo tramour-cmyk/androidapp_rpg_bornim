@@ -2016,6 +2016,12 @@ func zurueck_in_reihe() -> float:     # 778: gibt die Dauer zurück (0: geht nic
 	if not _bleib_717() or down or not platz_neu or (tween and tween.is_running()) or _platz_besetzt():
 		return 0.0
 	platz_neu = false
+	# 1589.4 (DESIGN-GEGNER.md 5): Untote und Krogg setzen sich nicht ab; liegt der neue Platz weiter vom Feind weg, bleiben sie stehen
+	if not Arena.setzt_ab(String(fighter.monster.get("id", ""))):
+		var zf := _zum_feind(position)
+		if zf != Vector2.ZERO and Vector2(home.x - position.x, home.z - position.z).dot(zf) < 0.0:
+			home = position
+			return 0.0
 	var weit := Vector2(home.x - position.x, home.z - position.z).length()
 	# 983 (angriff_824 GEGNER=GOBLINS: „Invalid access to property or key 'Gehen'“ in _weg_len, der Goblin blieb abgesetzt stehen):
 	# ohne Wurzelweg geht ein Gegner in die Reihe wie nach seinem Angriff (_tier_heim), um die anderen herum, das Gesicht zum Helden

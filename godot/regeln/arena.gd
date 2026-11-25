@@ -402,9 +402,11 @@ static func beiseite(a: Vector2, b: Vector2, laenge_w: float, r_w: float, k: Arr
 
 
 ## geradewegs heran (Chef 18.11., 14:33): liegt der Weg von [von] zum Angriffsplatz [platz] höchstens QUER_GRAD neben der Richtung
-## zum Ziel [ziel]? (kurzer Weg unter [kurz] Metern zählt nicht)
+## zum Ziel [ziel], am Anfang wie am Ende? (kurzer Weg unter [kurz] Metern zählt nicht)
 static func geradewegs(von: Vector2, platz: Vector2, ziel: Vector2, kurz := 0.15) -> bool:
 	var w := platz - von
 	if w.length() < kurz:
 		return true
-	return absf(rad_to_deg(w.angle_to(ziel - von))) <= QUER_GRAD
+	# am Anfang und am Ende des Wegs (dazwischen liegt der Winkel zwischen beiden): wer neben dem Ziel ankommt, liefe zuletzt quer
+	return absf(rad_to_deg(w.angle_to(ziel - von))) <= QUER_GRAD and \
+			(platz.distance_to(ziel) < GLEICH or absf(rad_to_deg(w.angle_to(ziel - platz))) <= QUER_GRAD)
