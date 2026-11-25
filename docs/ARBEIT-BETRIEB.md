@@ -292,3 +292,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:57 25.11.: Startsperre 09:57 Start Tagesbericht (lauf.py, 448)
 - 09:58 25.11.: Startsperre 09:58 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1694 Anna)
 - 09:58 25.11.: Startsperre 09:58 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2024 Tilda)
+- 10:01 25.11.: Disponent (Sokrates 09:57, Archiv 5884492c9): Planer Anna 1694 (session_01Hmoj7725FFxEQjJ7YhAe3q, Chef „1694 B“ bis 10 $, Halt 8 $) und Tilda 2024 (session_01Hmoj76jqSJ298dWWiCMdT2, Chef „2024 A“ 15 $, Halt 12 $) gestartet; Carla Kampf 1589.4 läuft. Regel: weniger als 3 Fachkräfte und kein Vorschlag von lauf.py: nächsten startbaren Spielvorgang selbst starten; Reihe Figur 431, 1694, 2024, 1654. Takt jetzt mit --ohne 887:ruht-bis-Sa --ohne 448:Chef-Ruhe.
