@@ -82,3 +82,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:06 25.11.: Disponent-Uhr: trig_01RDJvETEx6wog5bGvsETLSD (3 * * * *, auf Otto …79qsAJ, von Alter Ego umgehängt, Sokrates 21:05); alte trig_01Jog7nq… aus. Testbuild-Erinnerung trig_01MzbqijpDaS2FnXSUosLB4T (Fr 27.11., 17:30) auf Otto. Detlef …78E4LW archiviert (12,83 $ auf 1997).
 - 21:05 25.11.: Startsperre 21:05 Start Prüfer (lauf.py, Prüfer 1992 Anna)
 - 21:09 25.11.: Startsperre 21:09 Start Werkzeug (selbst, Nachfolger Mira 2041-Ü3, Handstart mit Ja Sokrates 20:51, R53, Otto).
+- 21:14 25.11.: Otto: Prüfer Gerd …75U9LA ersetzt Ralf (archiviert, 4,46 $ auf 2035); 1992 erledigt (c431b9c1d), 2035-Teil Disponent erkennen auf main (b076bd0b3), Nora …793gz7 baut 2041 a–c (Mira archiviert, Kosten offen). 1398/1710 ja an Sokrates, 1535/1674 Beleg fehlt.
