@@ -349,3 +349,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:08 25.11.: Takt 15:04: Prüfer 2029-Ü5; Ute (2029, 12,60 $) und Lutz (2031, 1,82 $) archiviert; START Kampf Marta/Planer Lotte 887/Tagesbericht und NACHRICHT 2029-Ü4 an Nora nicht (veraltet bzw. ruht bzw. Chef-Ruhe); 2031 Figur wartet auf Sokrates-Wort (Deckel 60 $).
 - 15:09 25.11.: Startsperre 15:08 Start Figur (lauf.py, Figur 2029 Vera)
 - 15:10 25.11.: 2029-Ü6 (Prüfer ja, Lauf frei Helm): Figur-Start von lauf.py angehalten (3 laufen inkl. Startsperre-Marken); Wiedervorlage 15:37 per send_later; Zeile 15:09 „Startsperre Figur 2029 Vera“ war kein Start.
+- 15:35 25.11.: Startsperre 15:34 Start Figur (lauf.py, Figur 2029 Vera)
