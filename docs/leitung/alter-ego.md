@@ -25,6 +25,7 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 13:39 Chef 13:39 „MakeHuman nehmen und testen … Kutte/Robe als Alternative, Helme, Haut“ → wörtlich an Sokrates (Erweiterung 2029).
 - 25.11., 13:33 Chef 13:33 „1589.4 auf Telegram erkedigt. Deckel 80 Dollar.  Das ist sehr wichtig.“ → wörtlich an Sokrates.
 - 25.11., 13:17 Runde: Ute 2029 (Kopfteile-Probe, Chef 12:37 👍 2026 A), Nora 2028 laufen; Maja 1589.4-Ü18 und Selma 2024-Ü4 warten ~1 h auf Sokrates. Einwand: Chef 09:55 deckt Form je Art, Wolf Kapsel → (a) nötig, gesamt etwa 42–49 $ gegen 36 $ → Geldfrage jetzt vorlegen. Uhr trig_016bgmDm9MzbLrxVnQLgpJ5Y (14:17).
 - 25.11., 12:15 Runde: Leerlauf dritter Mal (keine Fachkraft arbeitet; Maja wartet auf 1589.4-Ü17 seit 11:21). Entscheid in Vertretung: Uwe startet 1654 und 2024. 2026 fertig (65 von 65, ja 5), Kontaktbogen angesehen, dem Chef vorgelegt. An neuen Sokrates: Prüfer 2026-Ü4/1694-Ü37, 431-Ü18/19, 431-Testbuild-Frage tot? Uhr trig_014TnWv1VTesznAVisuhrskJ (13:15).
