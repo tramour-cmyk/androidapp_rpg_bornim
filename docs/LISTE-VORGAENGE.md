@@ -338,3 +338,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 2036 | Rufnamen: Fachkräfte weiblich, alle anderen Rollen männlich; Sokrates und Alter Ego bleiben (Chef 25.11., 18:04) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *3,72 $* |
 | 2038 | Von Werkzeug (Startwarnung Pflege, 1642, seit 25.11., 12:20): ARBEIT-TAGESBERICHT.md: Tagesbericht 35 Stunden alt (höchstens 26, 341 Z1, 448): Perikles setzt ihn neu | 7 | B Abläufe | K | – | – | – | *startbar* | *–* | *0* | *–* |
+| 2039 | Chefsache: nichts zum Angucken; Filme auf Telegram ohne Abstimmschaltfläche (Chef 25.11., 19:25) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
