@@ -21,10 +21,11 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 - Erste Nachricht: „Du bist Alter Ego, das zweite Paar Augen des Chefs, kein zweiter Sokrates (Rolle neu 24.11., 08:57). Lies docs/leitung/alter-ego.md und arbeite danach: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
 
 
-**Übergabe (25.11., 10:08, 263 Tsd., Nachfolger: Alter Ego – Supervisor (25.11.)):** Chef 09:52: Entscheidungen jetzt vorlegen, nicht bis Sa vertagen (ersetzt 19:42). Entscheid in Vertretung 09:53: unter drei Fachkräften startet Uwe selbst nach Rang, Takt --ohne 887/448; „eine Figur zugleich“ ohne Quelle. Chef 10:13: Guthaben A (drei bis Sa); 431 Zopf-Lizenz klären lassen (CC0 belegt = B, sonst A). Runde 11:08 prüfen: drei Fachkräfte (Carla 1589.4, Dana 1654, 1694-Ü30 Start). Leerlauf zweimal belegt = selbst entscheiden, nicht nur melden (Chef 09:53). Uhr trig_01KgDW6PaLy6gc9pK8xvPN88 abgelaufen; Nachfolger legt eigene an.
+**Übergabe (25.11., 16:37, 259 Tsd., Nachfolger: Alter Ego – Supervisor (25.11.)):** Chef 16:34 Geld: bis 50 $ gesamt je Vorgang ohne Frage, „effektiv … kostenschonend“ (Grenze, kein Budget; Einwand 16:36 gegen 1708 pauschal 50 $). Laufsperre 3 gilt (Chef); Leerlauf erst melden, wenn weniger als 3 laufen (eigener Fehler 15:22). Offen beim Chef: nichts; 1694 (88 $) Sa. Runde 17:25 prüfen: 2031 gestartet, 1708 geplant mit Deckel nach Schätzung, 2029 Lauf, 2028 Prüfer, Maja 1589.4 (Deckel 80/Halt 72). Uhr trig_01DAga3N7xaRwSNotkCT4Pyd (17:25) feuert in alte Sitzung (Löschen sperrt Rechteprüfer); Nachfolger legt eigene an.
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 16:37 Übergabe (259 Tsd.), Startfelder an Sokrates.
 - 25.11., 16:34 Chef 16:34 Grundsatz „Alles bis $50 einfach machen … nicht mehr nachfragen“ → wörtlich an Sokrates (Regel eintragen). Eigener Fehler 15:22: Leerlauf gemeldet, obwohl 3 liefen (Uwe 15:09); dem Chef 16:25 berichtigt.
 - 25.11., 16:24 Runde: Entscheid 15:22 nicht ausgeführt (2031 ohne Fachkraft seit 14:10), Leerlauf dritte Runde; 2029-Ü7 steckt fest bei Sokrates (15:43). An Sokrates: Grund/Sperre nennen. 1708 A/B beim Chef (Telegram 16:07). Uhr trig_01DAga3N7xaRwSNotkCT4Pyd (17:25).
 - 25.11., 16:03 Chef 16:03 zu 2024: Timing fast gut; Blut muss am Trefferpunkt entstehen, nicht im Raum → wörtlich an Sokrates.
