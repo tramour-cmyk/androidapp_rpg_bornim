@@ -10,7 +10,7 @@
 - Bild selbst ansehen, Spielkamera; Waffe: Griff je Hand (1650, 1621).
 - Umbau nur von der alten Datei aus, jede Übernahme prüfen (98). Kerne, Profile, Abgenommenes nur in der Quelle, mit Chefwort und Byte, nur die genannte Stelle (D205.3, 1931).
 - Befund, der den Auftrag erledigt, vorher nennen (1638); Ablauf als Raster Einheit × Auslöser, „komplett“ per grep.
-- Regel nicht gegen Praktisches vorschieben: Vorteil nennen, Chef fragen (Kapsel 25.11., 09:55).
+- Keine Regel gegen Praktisches vorschieben (Kapsel 25.11.).
 - Chefentscheid nie selbst zurücknehmen oder gegen Chefwort ablehnen: raten, Regel nennen, fragen (1609, 23.11.).
 - Gegenlesen: erst die Art jeder Zeile, dann Inhalt; nur gegen gültige Texte prüfen (t299, 1933).
 - Keine Meldung oder Hinweis ohne Empfänger, der damit handelt; sonst streichen (Chef 24.11., 08:28).
