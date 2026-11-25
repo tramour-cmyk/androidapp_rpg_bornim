@@ -18,6 +18,16 @@ const FLECKEN := 0.05
 const LIPPE_X := 0.03
 var fehler := 0
 var stueck_ok := {}   # Kennung_G -> Text, leer = gut
+# Pose, wie sie gezeichnet wird: nach den Modifikatoren (KopfHeben), festgehalten in skeleton_updated; danach setzt das Skelett die Pose
+# der Bewegung zurueck (get_bone_global_pose ausserhalb gab den Kopf bis 12 Grad gesenkt, die BoneAttachment und das Bild gehoben)
+var posen := []
+
+func posen_merken(sk: Skeleton3D) -> void:
+	posen = []
+	for i in sk.get_bone_count(): posen.append(sk.get_bone_global_pose(i))
+
+func pose(sk: Skeleton3D, i: int) -> Transform3D:
+	return posen[i] if i < posen.size() else sk.get_bone_global_pose(i)
 
 func _initialize() -> void: _lauf.call_deferred()
 
@@ -36,8 +46,9 @@ func _lauf() -> void:
 			for g in (["m"] if art == "bart" else ["m", "w"]):
 				n += 1
 				var r := await fall(art, v, g, hieb)
-				if r != "": fehler += 1
-				print("%s %s %s %s%s" % ["FALL" if r == "" else "FALSCH", art, v, g, r])
+				var falsch := r.begins_with("!")
+				if falsch: fehler += 1
+				print("%s %s %s %s%s" % ["FALSCH" if falsch else "FALL", art, v, g, r.trim_prefix("!")])
 	print("KOPFTEIL2029 %d Faelle, %d falsch" % [n, fehler])
 	quit(1 if fehler > 0 else 0)
 
@@ -84,7 +95,7 @@ func fall(art: String, v: String, g: String, hieb: Animation) -> String:
 		"bart": a["bart"] = "Bart_Wikinger,Hair_Moustache"
 		"helm": a["helm"] = kenn
 	var m := HeldFigur.baue({"herkunft": "Wachsoldat", "volk": vm, "aussehen": a, "ausruestung": b.ausruestung}, [])
-	if m == null: return " FALSCH: keine Figur"
+	if m == null: return "!, FALSCH: keine Figur"
 	root.add_child(m)
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 	var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
@@ -93,8 +104,9 @@ func fall(art: String, v: String, g: String, hieb: Animation) -> String:
 	if s != "": r.append(s.trim_prefix(" FALSCH: "))
 	var ba := m.find_child("Haar_" + kenn, true, false) as BoneAttachment3D
 	if ba == null or ba.bone_name != "Head" or ba.get_child_count() == 0:
-		m.free(); return " FALSCH: %s nicht am Kopfknochen" % kenn
+		m.free(); return "!, FALSCH: %s nicht am Kopfknochen" % kenn
 	var mi := ba.get_child(0) as MeshInstance3D
+	sk.skeleton_updated.connect(posen_merken.bind(sk))
 	if art == "helm":
 		for x in m.find_children("Haar_*", "BoneAttachment3D", true, false):
 			var hn := String(x.name).substr(5)
@@ -110,9 +122,8 @@ func fall(art: String, v: String, g: String, hieb: Animation) -> String:
 		ap.seek(0.0 if pose == "Stehen" else ap.get_animation(pose).length, true)
 		ap.pause()
 		for i in 3: await process_frame
-		var kopf := m.global_transform.affine_inverse() * sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head"))
+		var kopf := m.global_transform.affine_inverse() * sk.global_transform * pose(sk, sk.find_bone("Head"))
 		var ki := kopf.affine_inverse()
-		if OS.get_environment("K29_DEBUG") != "": print("DBG %s ba %s\n    kopf %s\n    override %s" % [pose, m.global_transform.affine_inverse() * ba.global_transform, kopf, ba.override_pose])
 		# folgt dem Kopf: Mitte der Kopfhaut (Ecken nur am Kopf und seinen Kindern, gehaeutet) im Raum des Stuecks, in beiden Posen gleich
 		var mil := (m.global_transform.affine_inverse() * mi.global_transform).affine_inverse()
 		var mitte := Vector3.ZERO
@@ -143,7 +154,7 @@ func fall(art: String, v: String, g: String, hieb: Animation) -> String:
 		if d > 0.002: r.append("folgt dem Kopf nicht (%.4f m)" % d)
 	var mo := String(m.get_meta("tracht", ""))
 	m.free()
-	return ", Modell %s, %s%s" % [mo, "; ".join(zahlen), "" if r.is_empty() else ", FALSCH: " + "; ".join(r)]
+	return ("" if r.is_empty() else "!") + ", Modell %s, %s%s" % [mo, "; ".join(zahlen), "" if r.is_empty() else ", FALSCH: " + "; ".join(r)]
 
 # Ecken eines Netzes im Raum des Kopfknochens: gehaeutet (Skelett mal Bindung, nach Gewicht) oder starr (am Kopf)
 func netz(m: Node3D, x: MeshInstance3D, ki: Transform3D, nur_kopf := false, sk: Skeleton3D = null, anteil := 0.5) -> PackedVector3Array:
@@ -156,7 +167,7 @@ func netz(m: Node3D, x: MeshInstance3D, ki: Transform3D, nur_kopf := false, sk: 
 		for i in x.skin.get_bind_count():
 			var bn := String(x.skin.get_bind_name(i))
 			var bi := sk.find_bone(bn) if bn != "" else x.skin.get_bind_bone(i)
-			tr.append(ki * raum * sk.get_bone_global_pose(maxi(bi, 0)) * x.skin.get_bind_pose(i))
+			tr.append(ki * raum * pose(sk, maxi(bi, 0)) * x.skin.get_bind_pose(i))
 			var j := bi
 			while j >= 0:
 				if sk.get_bone_name(j) == "Head": kopf[i] = true; break
@@ -218,9 +229,7 @@ func helm_raus(m: Node3D, sk: Skeleton3D, ki: Transform3D, hv: PackedVector3Arra
 		for i in range(0, ix.size(), 3):
 			var t = Geometry3D.ray_intersects_triangle(c, d, hv[ix[i]], hv[ix[i + 1]], hv[ix[i + 2]])
 			if t != null: weit = maxf(weit, ((t as Vector3) - c).length())
-		if weit < (p - c).length():
-			raus += 1
-			if OS.get_environment("K29_DEBUG") != "": print("RAUS %s stirn %.3f c %s weit %.3f" % [p, stirn, c, weit])
+		if weit < (p - c).length(): raus += 1
 	return Vector2i(haut.size(), raus)
 
 # Kampfbewegung „Hieb“ aus kampf-bewegungen.bin, wie kampf/figur.gd _kaufheld auf das Geruest des Helden umgesetzt

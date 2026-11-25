@@ -605,6 +605,11 @@ const KOPFTEILE := {
 	"Helm_Templer": "res://figuren/helm_templer.glb",    # hats02 javherre templar_knight_helmet
 }
 static var kopfteil_szenen := {}
+# 2029: Helm seitlich weiter fuer Voelker mit Ohren ueber der Stirnlinie (Spitzohren der Elfen, Ohren von Huegelvolk und Orkbluetigen
+# stachen seitlich durch den Helm; tests/kopfteil_2029.gd). Kennung -> Volk des Modells -> Geschlecht -> [Breite, Hoehe, Tiefe] gegen den Menschen
+static var kopfteil_breite := {
+	"Helm_Templer": {"ELF": {"M": [1.3, 1.0, 1.2], "W": [1.2, 1.0, 1.0]}, "HALFLING": {"M": [1.15, 1.0, 1.0]}, "HALF_ORC": {"M": [1.15, 1.0, 1.0]}},
+}
 static func kopfteil(n: String, g: String) -> MeshInstance3D:
 	var datei := String(KOPFTEILE.get(n, ""))
 	if datei == "" or not ResourceLoader.exists(datei): return null
@@ -648,6 +653,12 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 		mi.name = n
 		mi.mesh = q.mesh
 		mi.transform = ruhe.affine_inverse() * gk * Transform3D(Basis(), vers) * im_raum(qs, q)
+		var br: Dictionary = kopfteil_breite.get(n, {})
+		for vo in br:   # Modell der Figur beginnt mit dem Volk (ELF_WACHE_M), Geschlecht am Ende
+			if k.begins_with(String(vo) + "_") and (br[vo] as Dictionary).has(k.right(1)):
+				var f: Array = br[vo][k.right(1)]   # Breite, Hoehe, Tiefe; um die Mittellinie des Kopfes auf Hoehe der Unterkante des Stuecks
+				var u := Vector3(0, q.mesh.get_aabb().position.y, 0)
+				mi.transform = mi.transform * Transform3D(Basis(), u) * Transform3D(Basis.from_scale(Vector3(float(f[0]), float(f[1]), float(f[2]))), Vector3.ZERO) * Transform3D(Basis(), -u)
 		ba.add_child(mi)
 		Gebiet.male(mi, null, 2, mats)
 

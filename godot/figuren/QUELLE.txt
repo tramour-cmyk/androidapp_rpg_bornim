@@ -1,2 +1,9 @@
 zopf_zwergin.glb: aus MakeHuman-Asset-Paket hair01, "elvs_double_mh_braid" (Elvaerwyn), CC0
 https://static.makehumancommunity.org/assets/assetpacks/hair01.html (gelesen 25.11.2026); gebaut mit tools/blender348/v3/zopf_mh.py (431)
+haar_mh01.glb (2029): aus MakeHuman-Asset-Paket hair01, "culturalibre_hair_01" (culturalibre), CC0 laut Paketseite und packs/hair01.json;
+https://static.makehumancommunity.org/assets/assetpacks/hair01.html (gelesen 25.11.2026); Kopf der .mhclo "author Unknown, license AGPL3" = Vorgabe von MakeClothes
+bart_wikinger.glb (2029): aus MakeHuman-Asset-Paket bodyparts05, "rehmanpolanski_beard_viking" (RehmanPolanski), CC0 laut Paketseite, packs/bodyparts05.json und Kopf der .mhclo;
+https://static.makehumancommunity.org/assets/assetpacks/bodyparts05.html (gelesen 25.11.2026)
+helm_templer.glb (2029): aus MakeHuman-Asset-Paket hats02, "javherre_casco_caballero_templario_templar_knight_helmet" (javherre), CC0 laut Paketseite und packs/hats02.json;
+https://static.makehumancommunity.org/assets/assetpacks/hats02.html (gelesen 25.11.2026); Kopf der .mhclo "author Unknown, license AGPL3" = Vorgabe von MakeClothes
+alle drei gebaut mit tools/blender348/v3/kopfteil_mh.py, gesetzt auf das MakeHuman-Grundnetz base.obj (CC0, makehumancommunity/makehuman, makehuman/data/3dobjs/base.obj)

@@ -23,12 +23,18 @@ STUECKE = {
     'helm': ('Helm_Templer', 'hats02/clothes/javherre_casco_caballero_templario_templar_knight_helmet', 'casco_templario.obj', 'casco.jpg', 'Helm_Templer', False),
 }
 DREIECKE, BILD = 800, 1024
-# Unser Kopf in der Ruhelage der Bezugsfigur (Mensch Wachsoldat, Haut RegularMale / Female_Regular und Eyes, gemessen 25.11. mit
-# godot/tests/kopfteil_2029.gd --mass): Scheitel, Augenmitte, Kinn (Unterkante vorn), halbe Breite, Hinterkopf, Nasenspitze
+# Unser Kopf in der Ruhelage der Bezugsfigur (Mensch Wachsoldat, Haut RegularMale / Female_Regular und Eyes, gemessen 25.11. am
+# Kaufcache figur 5b0a834e4 mit denselben Regeln wie kopf_grundnetz): Scheitel, Augenmitte, Kinn, halbe Breite, Hinterkopf, Nasenspitze,
+# Stirnlinie (Oberkante der Brauen)
 KOPF = {
-    'M': dict(top=1.8101, eye=1.6985, kinn=1.5869, w=0.0906, hinten=-0.1061, nase=0.1152),
-    'W': dict(top=1.7664, eye=1.6559, kinn=1.5565, w=0.0889, hinten=-0.1129, nase=0.1119),
+    'M': dict(top=1.8101, eye=1.6985, kinn=1.5869, w=0.0906, hinten=-0.1061, nase=0.1152, stirn=1.725),
+    'W': dict(top=1.7664, eye=1.6559, kinn=1.5565, w=0.0889, hinten=-0.1129, nase=0.1119, stirn=1.687),
 }
+# Sitz je Stueck: Massstab um die Kopfmitte auf Hoehe der Stirnlinie (Oberkante der Brauen, „stirn“). Helm: im Paket fuer einen Kopf
+# mit Kappe gebaut, auf unserem Kopf rundum 2 bis 3 cm Luft (Beleglauf 25.11., 13:41: Helm schwebte, Stirn frei). 0,85 = kleinster
+# Massstab, bei dem jede Ecke der Kopfhaut ueber der Stirnlinie mindestens 3 mm innerhalb des Helms bleibt (Strahl aus der Kopfmitte,
+# Mann 0,85, Frau 0,84); der Rand liegt dann vorn auf den Brauen
+SITZ = {'helm': 0.85}
 
 def lies_obj(p):
     V, VT, F, G, g = [], [], [], {}, None
@@ -140,6 +146,7 @@ if grau:
     mat.node_tree.links.new(ma.outputs[0], bsdf.inputs['Alpha'])
 for gs, k in KOPF.items():
     W = abbilden(P, b, k)
+    if STUECK in SITZ: W = (W - [0, k['stirn'], 0]) * SITZ[STUECK] + [0, k['stirn'], 0]
     name = '%s_%s' % (kennung, gs)
     me = bpy.data.meshes.new(name)
     me.from_pydata([(x, -z, y) for x, y, z in W], [], [[i for i, _ in f] for f in F])   # Blender Z oben, Blick -Y
