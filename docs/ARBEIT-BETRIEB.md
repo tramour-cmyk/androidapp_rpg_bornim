@@ -146,3 +146,4 @@ STARTSPERRE - 18:00 25.11.: Startsperre 18:00 Start Figur, Figur (Handstart, Fig
 - 18:02 25.11.: START Figur Edda 2034 Teil 0 (session_01Hmoj77GxC2suK6CZCePZ2Y, Deckel 40 $) und Figur Finja 2032 (session_01Hmoj75yn4RXoAgS3pGhzE3, Deckel 50 $) von Hand; Fachkräfte arbeitend: Dora, Edda, Finja (Berit, Inge, Maja untätig, zählen nicht); 2033 (Technik) und 2035 (Werkzeug) folgen bei freiem Platz.
 STARTSPERRE - 18:02 25.11.: Startsperre 18:02 Start Disponent (lauf.py, Disponent 1997 Anna)
 - 18:04 25.11.: Neustart Disponent (Kontext über 300 Tsd.): Nachfolger session_01Hmoj77CqtJv41zq9EoMJMF mit Übergabe; neue Uhr trig_01ETQpAvjSVfcdY3oSVpy3xR (:03) an ihn, alte trig_01JyUFnFGzKzNd1KdsU583gN abgeschaltet; alter Disponent (…75wHERa) archiviert sich nach Meldung des Nachfolgers.
+- 18:03 25.11.: Startsperre 18:03 Start Arbeitsplaner, Arbeitsplaner, Tagesbericht, Prüfer (lauf.py, Arbeitsplaner 887 Rita, Arbeitsplaner 1484 Sabine, Tagesbericht 448, Prüfer 2031 Tanja)
