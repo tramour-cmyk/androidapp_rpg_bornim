@@ -353,3 +353,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:36 25.11.: START Figur Vera 2029 Helm-Bildlauf (session_01Hmoj77vQTHukmT1xcgH9Ja, Prüfer ja Lauf frei 15:05); Fachkräfte Maja 1589.4, Selma 2024, Vera 2029 = 3; 2031 wartet auf Platz; Nora (2028, 13,11 $) idle, nicht archiviert (Prüferstand 2028 offen).
 - 16:04 25.11.: Startsperre 16:04 Start Arbeitsplaner, Kampf, Tagesbericht (lauf.py, Arbeitsplaner 887 Marta, Kampf 1589.4 Nils, Tagesbericht 448)
 - 16:08 25.11.: Startsperre 16:07 Start Figur (lauf.py, Figur 2031 Inge)
+- 16:08 25.11.: Takt 16:04: Vera (2029, 1,25 $ -> 2029 gesamt 15,32 $) und Selma (2024, 20,44 $ -> gesamt 21,87 $, Chef 👍 16:04) archiviert; 2028-Ü3 (Prüfer nein) an Nora; 2031-Start von lauf.py angehalten (Startsperre-Marken, Zeile 16:07 oben war kein Start), Wiedervorlage 16:35; Kampf-START Nils/887/448 nicht.
