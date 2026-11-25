@@ -287,3 +287,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 08:06 25.11.: Takt Uwe: Britta (431) hat 08:00 Frage gestellt, Sokrates hat Zeile 431-Ü15 erledigt; START Benno 887 (ruht) und Tagesbericht 448 (Chef-Ruhe) nicht ausgeführt, Sokrates informiert.
 - 09:03 25.11.: Startsperre 09:03 Start Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Benno, Tagesbericht 448)
 - 09:05 25.11.: Takt Uwe: Britta (431) läuft; START Benno 887 und Tagesbericht 448 nicht ausgeführt (ruht / Chef-Ruhe).
+- 09:55 25.11.: Startsperre 09:55 Start Arbeitsplaner, Kampf, Figur, Tagesbericht (lauf.py, Arbeitsplaner 887 Benno, Kampf 1589.4 Carla, Figur 431 Dana, Tagesbericht 448)
