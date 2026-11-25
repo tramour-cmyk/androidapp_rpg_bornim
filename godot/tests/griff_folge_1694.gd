@@ -298,16 +298,27 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 		zeilen_b.append(z)
 	RenderingServer.frame_post_draw.connect(cb)
 	var start := Engine.get_process_frames()
-	var bild_bei := 30
+	var bild_bei := [30]
+	# ZWEIBILD1694=1 (Sokrates 25.11., 11:16): im selben Lauf ab Bild 60 Tragen.zwei_anteil = 0 (nur Test), zweites Bild bei 90
+	var zweibild := OS.get_environment("ZWEIBILD1694") != ""
+	if zweibild: bild_bei.append(90)
 	for f in bilder:
 		await process_frame
-		if mit_bild and f == bild_bei:
+		if zweibild and f == 60:
+			for n in sk.get_children():
+				if n is Tragen: n.zwei_anteil = 0.0; n.merk.clear(); n.merk2.clear()
+			print("BILD1694 ZWEIBILD1694: ab Bild 60 Tragen.zwei_anteil = 0")
+		if mit_bild and f in bild_bei:
 			var cam := root.get_viewport().get_camera_3d()
 			var hp = _rs_knochen(sk, netze, "hand_r")
 			print("BILD1694 Kamera %s, hand_r im Bild %s, Fenster %s" % [cam.get_path() if cam else "FEHLT", cam.unproject_position(hp) if cam and hp != null else "FEHLT", root.get_viewport().get_visible_rect().size])
 			await RenderingServer.frame_post_draw
 			var img = _nimm_bild()
-			if img != null: zeilen_b[zeilen_b.size() - 1]["bild"] = img
+			if img != null:
+				zeilen_b[zeilen_b.size() - 1]["bild"] = img
+				zeilen_b[zeilen_b.size() - 1]["tag"] = "zwei0" if f >= 60 else "ohne"
+				var zz: Dictionary = zeilen_b[zeilen_b.size() - 1]
+				print("BILD1694 BILDWERTE Bild %d (%s): %s" % [f, zz.tag, " ".join(GLIEDER.map(func(g): return "%s %s" % [g.trim_suffix("_r"), _z(zz.netz.get(g))]))])
 	RenderingServer.frame_post_draw.disconnect(cb)
 	print("BILD1694 Fall %s, %d Bilder; Spalten je Glied: Netz (gezeichnet, frame_post_draw, Waffe global_transform) / Netz mit Waffe beim RS / griff.gd intern; cm, + Luft, − Holz" % [fall, zeilen_b.size()])
 	var sprung_max := 0.0; var wmin := {}; var wmax := {}
