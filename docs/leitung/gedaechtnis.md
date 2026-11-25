@@ -28,4 +28,4 @@
 
 ## Übergabe
 
-- 25.11., 16:31, `77b3dQ…`: Getan: 431 auf main (db71f9f0f); 2026, 1654 erledigt; neu 2029, 2028, 2031 (60 $); 1589.4 Deckel 80 $; 2024 Zeitpunkt ok; 1708 jetzt. Letzte Antwort: „2024 nach main“ beim Chef offen. Nachfolger: Sokrates – Leitung.
+- 25.11., 16:31, `77b3dQ…`: 431 auf main; 1589.4 80 $; 1708 jetzt; 2031 60 $. Offen: „2024 nach main“. Nachfolger: Sokrates.
