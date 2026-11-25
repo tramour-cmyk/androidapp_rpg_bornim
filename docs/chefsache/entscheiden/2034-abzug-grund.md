@@ -1,4 +1,7 @@
 # 2034 · Darf der Bildabzug der Pakete auf graublauem Grund mit Lichthof bleiben?
+
+[Bild von 25.11., 20:00](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/25-1958-2034-Sokrates.webp) (eingetragen von meldung.sh, Sokrates)
+
 Sokrates · 25.11., 19:59 · B Figur · aus deinem Wort 17:27 (Bildabzug, „damit ich sagen kann, was sinnvoll ist“)
 Kurz: Grund des Abzugs graublau mit Lichthof statt Blauschwarz; A so lassen, B sichtbare Lichtquelle bauen.
 Beim Chef, weil: Obergrenze B (2. „steckt fest“, Prüferin Rita 19:59)
