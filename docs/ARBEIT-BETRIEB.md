@@ -347,3 +347,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 14:07 25.11.: Takt Uwe 14:04: Planerin Lutz 2031 Kutte/Robe und Haut (session_01Hmoj7A8UJChisXSPLpsx5L, Chef 👍 13:40); Prüfer 2029-Ü3 (Laufanforderung Helm) weitergereicht; Fachkräfte Maja 1589.4, Nora 2028, Selma 2024 (3); 887/448 nicht.
 - 15:04 25.11.: Startsperre 15:04 Start Arbeitsplaner, Kampf, Tagesbericht (lauf.py, Arbeitsplaner 887 Lotte, Kampf 1589.4 Marta, Tagesbericht 448)
 - 15:08 25.11.: Takt 15:04: Prüfer 2029-Ü5; Ute (2029, 12,60 $) und Lutz (2031, 1,82 $) archiviert; START Kampf Marta/Planer Lotte 887/Tagesbericht und NACHRICHT 2029-Ü4 an Nora nicht (veraltet bzw. ruht bzw. Chef-Ruhe); 2031 Figur wartet auf Sokrates-Wort (Deckel 60 $).
+- 15:09 25.11.: Startsperre 15:08 Start Figur (lauf.py, Figur 2029 Vera)
