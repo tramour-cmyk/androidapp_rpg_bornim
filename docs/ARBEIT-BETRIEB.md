@@ -283,3 +283,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 06:04 25.11.: Takt Uwe: nichts zu tun (Nacht).
 - 07:04 25.11.: Startsperre 07:04 Start Arbeitsplaner, Figur (lauf.py, Arbeitsplaner 887 Anna, Figur 431 Britta)
 - 07:07 25.11.: Takt Uwe: START Figur Britta 431 (session_01Hmoj75m4KpRacmtj5GsB4c, bis 30 $); Rudi (1694) archiviert, Kosten 4,59 $; 887-START Anna nicht ausgeführt (ruht); 1654-Figur liegt startbar (lauf.py startet sie nicht, Ü7 angenommen), Figur eine zugleich.
+- 08:04 25.11.: Startsperre 08:04 Start Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Benno, Tagesbericht 448)
