@@ -2164,6 +2164,7 @@ const ZUR_SEITE_M := 0.5        # ein halber Schritt
 const NACHBAR_M := 2.6          # Mitte zu Mitte: so nah steht ein Nachbar des Ziels
 var _nur_planen := false
 var _plan_frei := false         # der letzte Plan fand einen freien Platz, an dem man den Biss sieht
+var ohne_biss := false          # 1589.4: der letzte Plan fand keinen freien Platz, er wartet ohne Biss
 func _nachbar_zur_seite(other: Variant, leap: bool, weiter: float, t_warte: float) -> Array:
 	var nr := biss_nr
 	_nur_planen = true
@@ -2503,20 +2504,11 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			start = tg - dir * (rb - jump + kurz)
 			jump = kurz
 		flat = dir * flat.length()
-	# 1589.4 (F1, Sokrates 25.11., 15:26 zu Ü21): kein freier Platz nach den Kapseln der Arena: nur so weit heran, wie es frei ist, und
-	# dort warten (kein Lauf durch einen anderen); wer vor dem Ziel steht, geht erst in seinem eigenen Zug
-	if not frei_ende and not sauber and not _arena_biss(start, dir, other):
-		var lo := 0.0
-		var hi := 1.0
-		var von := position
-		var ziel_s := start
-		for i in 10:
-			var m := 0.5 * (lo + hi)
-			if _arena_biss(von.lerp(ziel_s, m), dir, other):
-				lo = m
-			else:
-				hi = m
-		start = von.lerp(ziel_s, lo)
+	# 1589.4 (F1; Sokrates 25.11., 16:57 zu Ü22, Chef 16:54 „dass der Wolf jetzt wieder in die Luft beißt“): kein freier Platz nach
+	# den Kapseln der Arena: er wartet ohne Biss, wo er steht (kein Lauf durch einen anderen, kein Biss ohne Reichweite)
+	ohne_biss = not frei_ende and not sauber and not _arena_biss(start, dir, other)
+	if ohne_biss:
+		start = position
 		jump = 0.0
 	_plan_frei = sauber if haupt else frei_ende
 	if _nur_planen:     # 1284a: nur die Frage, ob ein freier Platz da ist (_nachbar_zur_seite)
@@ -2559,8 +2551,9 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 	t_run += t_warte
 	var bl: float = anim.get_animation(nm).length if anim and anim.has_animation(nm) else 0.8
 	var b := Basis(Vector3.UP, atan2(dir.x, dir.z))
-	tween.tween_callback(func(): _play(nm, 0.08))
-	if nm == "Sprungbiss":
+	var nm_spiel: String = nm if not ohne_biss else ("Knurren" if anim.has_animation("Knurren") else "Stehen")
+	tween.tween_callback(func(): _play(nm_spiel, 0.08))
+	if nm == "Sprungbiss" and not ohne_biss:
 		tween.tween_method(func(x: float): position = _weg_at(start, b, nm, x, k), 0.0, bl, bl)
 	else:
 		# 1453 (wolf_mess_438 Seed 7, CLERIC 18,5 s, am Rechner mit Kaufwolf: am Ort des Bisses stand der Kopf noch, als der Held aus
