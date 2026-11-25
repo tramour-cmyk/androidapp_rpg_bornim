@@ -28,8 +28,10 @@ def s(i, tok, ext=False):
 je = {"Sokrates": [s("session_A", 300001), s("session_B", 299999), s("session_C", 430000, ext=True), s("session_D", None), s("session_E", 500000)],
       "Tom": [s("session_T", 900000)]}
 z = lauf.leitung_neustart(je, {"session_E"})
-ids = [x.split(" ", 2)[1] for x in z]
+ids = [x.split(" ", 2)[1] for x in z if x.startswith("NEUSTART-")]
 pruefe(ids == ["session_A", "session_C"], "1988: Neustart ab 300.000 nur für laufende Leitung, nicht archiviert, nicht ohne Wert: %s" % z)
+pruefe([x for x in z if not x.startswith("NEUSTART-")] == ["TOKEN session_D | Sokrates: get_session, Zahl in die Kurzform, lauf.py neu"], "2035: ohne Wert TOKEN-Zeile statt Schweigen: %s" % z)
+z = [x for x in z if x.startswith("NEUSTART-")]
 pruefe(all(x.startswith("NEUSTART-LEITUNG ") and "Leitung neu starten (Übergabe ins Gedächtnis)" in x for x in z), "1988: Wortlaut: %s" % z)
 pruefe(lauf.leitung_neustart({"Sokrates": [s("session_X", 300000)]}, set()) != [], "1988: genau 300.000 zählt (ab)")
 aus = lauf.vorn(["START Tom | x", "NEUSTART-LEITUNG session_A | Sokrates | 300 Tsd. | y", "STREICHEN 1-Ü1 | z"])
@@ -43,6 +45,15 @@ pruefe(zd and "Übergabe zuerst, dann startet der Disponent seinen Nachfolger se
        and "Wache" not in zd[0] and "send_message" not in zd[0], "1992 (Chef 10:04): Disponent startet Nachfolger selbst, nicht über die Wache: %s" % zd)
 aus = lauf.vorn(["START Tom | x", "NEUSTART-DISPONENT session_P | y", "NEUSTART-LEITUNG session_A | y", "STREICHEN 1-Ü1 | z"])
 pruefe([a.split(" ")[0] for a in aus[:3]] == ["STREICHEN", "NEUSTART-LEITUNG", "NEUSTART-DISPONENT"], "1988 (4): Disponentzeile vorn: %s" % aus)
+# 2035 (Sokrates 25.11., 18:06; Entscheid Alter Ego 18:09): Kurzform-Zeile ohne used_tokens → TOKEN-Zeile; mit 314 Tsd. → NEUSTART-DISPONENT
+import kosten
+k = kosten.kurzzeilen("session_K | idle | 2026-11-25T18:00:00Z | Disponent – 2035 | 1,00 | 2026-11-25T17:00:00Z\n"
+                      "session_L | idle | 2026-11-25T18:00:00Z | Disponent – 2035 | 1,00 | 2026-11-25T17:00:00Z | 314000")
+z = lauf.leitung_neustart({"Disponent": k}, set())
+pruefe(z[0] == "TOKEN session_K | Disponent: get_session, Zahl in die Kurzform, lauf.py neu", "2035: Zeile ohne Token → TOKEN-Zeile: %s" % z)
+pruefe(len(z) == 2 and z[1].startswith("NEUSTART-DISPONENT session_L | Disponent | 314 Tsd. Token"), "2035: mit 314 Tsd. → NEUSTART-DISPONENT: %s" % z)
+pruefe(lauf.leitung_neustart({"Disponent": k}, {"session_K", "session_L"}) == [], "2035: archiviert ohne TOKEN-Zeile")
+pruefe(lauf.leitung_neustart({"Tom": [s("session_T", None)]}, set()) == [], "2035: andere Rollen ohne TOKEN-Zeile")
 import tempfile, datetime, json
 _st = os.path.join(tempfile.mkdtemp(), "warn.json")
 t0 = datetime.datetime(2026, 11, 23, 9, 0, tzinfo=lauf.BERLIN)
