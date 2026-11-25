@@ -25,6 +25,7 @@ Sitzung session_01Hmoj77coHozxLd4WLoTXMn (seit 25.11., 21:54). Sokrates session_
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 22:39 Britta 2042 nach 15 Min. 212 Tsd., Neustart (Grenze 200 = Chef 1520, SCHWELLEN Z. 255); 2042 misst alle Rollen; Übergang 22:38 (Rollendatei) zurückgenommen, war falsch belegt. Teil 6 = Titel-Fix in 2042 (Carla). 1708-Ü10 geschlossen auf Sokrates 20:29 „wartet auf 1589.4“. Fragen an Chef: Prüfer im Titel, Fachkräfte starten selbst, Grenze 200.
 - 25.11., 22:35 Chef 22:32 „klärt das jetzt, warum der Umbau nicht greift“: Probe titel_zeile: Britta „<Rufname>“, Paula None, Ralf als Werkzeug – titel_zeile liest Besetzung (nur Stundentakt, Handstart-Rolle falsch); 1708-Ü10 angenommen+erledigt in 3 s ohne Start (0ea352814/7642a44fe), vorgang.py prüft Start nicht → Rückläufer 2041 (1)–(5) Eilt in Vertretung an Sokrates.
 - 25.11., 22:25 Chef 22:20 „1707 Berrit. Was läuft nicht?“ (= 1708): B steht seit 19:46, nie gestartet, Ü10 ohne Start erledigt (Otto 21:24), Stand Z. 57 Leiche, Berit still seit 18:45. Chef 22:24 „B soll jetzt auch starten“ → wörtlich an Sokrates; Archivieren Berit und Nachricht mit Entscheid in Vertretung sperrte Auto-Modus.
 - 25.11., 22:09 Chef 22:08 „30 Minuten bis zum Neustart ist krank!“ → Entscheid 22:07 zurück: Karl bleibt bis 2042 A auf main, dann ein Neustart auf sonnet; bis dahin NEUSTART-Zeile überspringen, Not-Grenze 500 Tsd.; Ziel 2042: mehrere Stunden Laufzeit → an Sokrates.
