@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session_01Hmoj78XiynF45gfuVmiNc8). Sokrates session_01Hmoj76pVj4STr1hPTJC56p (seit 24.11., 21:52). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session_01Hmoj76MLqXxxrREpwoxksZ). Sokrates session_01Hmoj76pVj4STr1hPTJC56p (seit 24.11., 21:52). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 10:12 Nachfolger übernommen, umbenannt; Uhr trig_01CZdZqiST6WF5sX88Lx1dpF (11:11); alte trig_01KgDW6PaLy6gc9pK8xvPN88 abgelaufen (Löschen sperrt Rechteprüfer); Kennung an Sokrates.
 - 25.11., 10:08 Runde: zwei von drei (Carla, Dana); 1694-Ü30 seit 10:02 nicht gestartet → an Sokrates. Übergabe (263 Tsd.), Startfelder an Sokrates.
 - 25.11., 10:01 Chef 10:01 „63 Prozent Wochenlimit“ → an Sokrates; 0,48 %/h (tragbar 0,45), 80 % Do ~21 Uhr, 100 % Sa ~15 Uhr; Frage drei/zwei an Chef.
 - 25.11., 09:55 Chef 09:55: Umriss praktisch statt Regel (Kapsel/Ellipse für längliche Tiere) → wörtlich an Sokrates, DESIGN-GEGNER 1 anpassen. Eigener Fehler 09:52: Kreis als „deine Regel“ vorgelegt statt nach Praxis gefragt.
