@@ -296,3 +296,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:02 25.11.: Sokrates 10:03: 431 Zopf-Lizenz beim Chef (Chefsache); Figur-Start 431 nur mit Auftrag „Antwort Sokrates zu 431-Ü17“ (Flecken im Haar und Beleg beheben, kein Beleglauf vor Chefantwort); sonst 431 nicht starten.
 - 10:03 25.11.: Startsperre 10:03 Start Figur, Tagesbericht (lauf.py, Figur 1654 Dana, Tagesbericht 448)
 - 10:06 25.11.: Takt Uwe: START Figur Dana 1654 (session_01Hmoj77nJnfw9dJKDhKXPKr, Auftrag Bildbeleg Pose); Planerin Anna Zeilen 1603-Ü20, 1589.4-Ü10 weitergereicht; Tagesbericht 448 nicht (Chef-Ruhe); 431 nicht (Zopf-Lizenz beim Chef). Fachkräfte laufen: Carla (Kampf), Dana (Figur).
+- 10:07 25.11.: Startsperre 10:07 Start Tagesbericht (lauf.py, 448)
