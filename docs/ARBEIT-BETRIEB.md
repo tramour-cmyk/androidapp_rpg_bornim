@@ -83,3 +83,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:05 25.11.: Startsperre 21:05 Start Prüfer (lauf.py, Prüfer 1992 Anna)
 - 21:09 25.11.: Startsperre 21:09 Start Werkzeug (selbst, Nachfolger Mira 2041-Ü3, Handstart mit Ja Sokrates 20:51, R53, Otto).
 - 21:14 25.11.: Otto: Prüfer Gerd …75U9LA ersetzt Ralf (archiviert, 4,46 $ auf 2035); 1992 erledigt (c431b9c1d), 2035-Teil Disponent erkennen auf main (b076bd0b3), Nora …793gz7 baut 2041 a–c (Mira archiviert, Kosten offen). 1398/1710 ja an Sokrates, 1535/1674 Beleg fehlt.
+- 21:15 25.11.: Chef 21:11: Disponent heißt künftig „Disponent – Büro“ (Archiv 6594535ac); Otto behält Titel „Otto – Disponent – Betrieb“, bis 2041 d auf main ist, dann set_session_title.
