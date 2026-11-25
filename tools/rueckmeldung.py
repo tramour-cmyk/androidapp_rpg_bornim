@@ -337,6 +337,18 @@ def hinweis_weitergabe(nr, text, zeit, wer, vorher):
     return [(DISPONENT, "Hinweis (%s): wie einen Eingang behandeln (1739)" % von)]
 
 
+def ohne_sitzung_an_rolle(m, vorher):
+    """2041 b (Fälle 2024-Ü6 an Selma, 2031-Ü3 an Inge): ist der Macher ein Rufname ohne lebende Sitzung (ARBEIT-BESETZUNG.md), geht der
+    Rückläufer an die Rolle des Vorgangs (Besitzer in der Liste); ohne Besitzer bleibt der Macher."""
+    try:
+        import rufname
+        if not m or m not in rufname.ALLE or ue.besetzung(m): return m
+    except Exception:
+        return m
+    k = re.match(r"#\s*(\d+(?:\.\d+)?[a-z]?)\b", vorher or "")
+    return (_listen_besitzer(k.group(1)) if k else None) or m
+
+
 def weitergabe(w, t, zeit, wer, text, vorher, routine=False, werkzeug=False):
     """1739 (3.3 Nr. 5): Empfänger und Zeile für „fertig“, „nein“, „Beleg fehlt“, „ja“, „Hinweis“; (None, None) sonst."""
     satz = ue._rein(text)[:160]
@@ -344,6 +356,7 @@ def weitergabe(w, t, zeit, wer, text, vorher, routine=False, werkzeug=False):
     if w & {"nein", "Beleg fehlt"}:
         m = macher(vorher)
         wort = "nein" if "nein" in w else "Beleg fehlt"
+        m = ohne_sitzung_an_rolle(m, vorher)  # 2041 b
         if m: return m, "Rückläufer (%s des Prüfers, %s): „%s“; nachbessern, dann `vorgang.py rueckmeldung` „fertig“ mit Commit (1739)" % (wort, von, satz)
         return DISPONENT, "Rückläufer (%s, %s), Fachkraft unbekannt (kein „fertig“ in der Vorgangsdatei): an dieselbe Fachkraft zurückgeben (1739)" % (wort, von)
     if "fertig" in w:

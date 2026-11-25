@@ -341,6 +341,18 @@ def schliessen_text(text, nr, arten=None, grund="", bis=None):
         text = _ersetzen(text, z, "erledigt %s (%s)" % (jz, _rein(grund)[:100])); aus.append(z["k"])
     return text, list(reversed(aus))
 
+MAIN_ZEILE = re.compile(r"auf main, Vollzug mit Commit: `?([0-9a-f]{7,40})\b")
+
+def main_zeilen_schliessen_text(text, nr, auf_main_fn):
+    """2041 c (Fälle 2035-Ü15/24/28): nicht erledigte Zeile „auf main, Vollzug mit Commit: <c> …“ der Nummer NR schließt sich, wenn
+    auf_main_fn(c) True ist (Commit auf origin/main); False oder None (unbekannt) lässt sie offen. Rückgabe (neuer Text, [Kennungen])."""
+    jz = fmt(jetzt()); aus = []
+    for z in reversed(zeilen(text or "")):
+        m = MAIN_ZEILE.match(z["was"].strip())
+        if not m or nr_aus(z["k"]) != nr or z["z"].strip().startswith("erledigt") or auf_main_fn(m.group(1)) is not True: continue
+        text = _ersetzen(text, z, "erledigt %s (Commit %s auf origin/main, 2041 c)" % (jz, m.group(1))); aus.append(z["k"])
+    return text, list(reversed(aus))
+
 def schliessen_nr(nr, arten=None, grund="", bis=None):
     """2012: schliessen_text auf docs/vorgang/NR.md über atomar (origin/main, ein Commit, sicher gegen gleichzeitige Schreiber).
     Fehlt die Datei oder ist nichts zu schließen: kein Commit, []."""
@@ -478,6 +490,17 @@ def buero_rang(docs=None):
         return (klasse, folge.index(block) if block in folge else len(folge), z)
     return schluessel
 
+def _main_zeilen_schliessen():
+    """2041 c: je Vorgangsdatei mit offener „auf main“-Zeile, deren Commit auf origin/main steht, ein Commit (atomar); Fehler: Warnung."""
+    import liegt
+    kand = [nr for nr, t in _alle_dateien() if main_zeilen_schliessen_text(t, nr, lambda c: liegt.auf_main(c, WURZEL))[1]]
+    for nr in kand:
+        try:
+            ks = atomar(nr, lambda alt, nr=nr: main_zeilen_schliessen_text(alt, nr, lambda c: liegt.auf_main(c, WURZEL)), "Übergaben %s: Commit auf origin/main (2041 c)" % nr)
+            if ks: print("vorgang.py: Übergaben geschlossen (Commit auf main): %s (2041 c)" % ", ".join(ks))
+        except Fehler as e:
+            print("WARNUNG auf-main-Zeilen %s nicht geschlossen: %s (2041 c)" % (nr, e))
+
 def offen(an=None, sitzungen_dateien=(), still=False):
     """still: nichts drucken (lauf.py ruft es je Lauf, 1739 Befund 1); Rückgabe [(Zeile, Nr, wie)].
     1782: Frist abgelaufen und Halter ruht, oder Halter abgebrochen (auch vor der Frist) → beim ersten Mal „offen (wieder 1)“,
@@ -488,6 +511,7 @@ def offen(an=None, sitzungen_dateien=(), still=False):
         if h == "abgebrochen": return h
         if _zeit(m.group("bis"), jz.year) > jz: return None
         return h
+    _main_zeilen_schliessen()  # 2041 c
     for nr, t in list(_alle_dateien()):
         frei = {}
         for z in zeilen(t):
