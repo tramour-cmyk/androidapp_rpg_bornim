@@ -1421,3 +1421,4 @@
 2026-11-25 20:18:38	commit-pruefung	VORGANGSARCHIV.md: neuer Eintrag „1589.4 Wolf am Schild: Variante a“ trifft ältere Einträge ohne „ersetzt durch“ (1589.4 Deckel 80 $; 1589.4 jetzt, Spiel vor; 1589.4 Deckel 36 $, Kapsel-Umbau; 1589.4 	main
 2026-11-25 20:21:38	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/figur-2031-kutte-haut
 2026-11-25 20:21:55	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/figur-2032-guertel
+2026-11-25 20:21:58	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/figur-2032-guertel
