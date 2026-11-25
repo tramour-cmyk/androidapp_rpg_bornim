@@ -103,7 +103,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
 | [1589.4](entscheiden/15894-kapsel-deckel.md) | **Muss** | E Kampf | 25.11., 10:15 | Der Umbau auf Kapsel und Ellipse kostet etwa 8 bis 10 Dollar mehr als dein Deckel von 26 Dollar. | Sokrates |
-| [431](entscheiden/431-zopf-lizenz.md) | **Muss** | E Figuren | 25.11., 10:02 | Der MakeHuman-Zopf hat zwei widersprüchliche Lizenzangaben; Vorschlag: eigener Zopf. | Sokrates |
+| [431](entscheiden/431-zopf-lizenz.md) | **Muss** | E Figuren | 25.11., 10:02 | Geklärt (Chef 10:13): AGPL3 ist nur die Vorgabe des alten Werkzeugs, das Paket führt den Zopf als CC0; Vorschlag jetzt: behalten. | Sokrates |
 
 ## Zu billigen
 
