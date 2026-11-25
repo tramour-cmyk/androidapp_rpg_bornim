@@ -157,3 +157,4 @@ STARTSPERRE - 18:02 25.11.: Startsperre 18:02 Start Disponent (lauf.py, Disponen
 - 18:42 25.11.: Sokrates 18:42: Dora 2029 (7,11 $) und Bruno 2036 (1,00 $) archiviert und gebucht; Prüferin Anna weiter (WEITER 2034-Ü5, dann 2029-Ü13); Handstart Werkzeug 2035 TOKEN von lauf.py angehalten (Laufsperre, 2035 ohne Kl. Eilt), an Sokrates; 2031-Ü3 (Rückläufer Inge, 440 Tsd. Token) an Sokrates zur Entscheidung.
 - 18:42 25.11.: Startsperre 18:42 Start Werkzeug (lauf.py, Werkzeug 2035 Anna)
 - 18:43 25.11.: Startsperre 18:43 Start Sokrates (lauf.py, 0)
+- 18:44 25.11.: Startsperre 18:44 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2036 Anna)
