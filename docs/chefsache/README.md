@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 25.11., 19:46, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 25.11., 19:53, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -59,14 +59,14 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Arbeitsplaner | läuft: 2031 (Besetzung); 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | 1589.4 Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur… (Muss); dann 1 weitere |
-| Figur | 1785 Weg aus 4fd7055c8 … (Muss); dann 6 weitere |
+| Figur | 1785 Weg aus 4fd7055c8 … (Muss); dann 5 weitere |
 | Kataloge | 644.2 Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pfli… (Kür) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
 | Oberfläche | 531a Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast k… (Kür) |
 | Story | 1628 Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kr… (Kür) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 3 weitere |
-| Werkzeug | läuft: 2035 (Besetzung); 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 17 weitere |
+| Werkzeug | läuft: 2035 (Besetzung); 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 16 weitere |
 | Prüfer | 1301 👎 ohne Wort auf Telegram, wer es einträgt, fragt im selben… (Muss); dann 3 weitere |
 | Tester | leer, weil keine offene Zeile |
 
@@ -82,18 +82,18 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 6 | 2029 | Figur | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in… | M | 3 Figuren und Kleidung | startbar |
 | 7 | 2031 | Figur | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt geg… | M | 3 Figuren und Kleidung | in Arbeit |
 | 8 | 2032 | Figur | Rowena: rechte Finger auf dem Gürtel dunkel, gelbe Kleid-Innenseite sichtbar | M | 3 Figuren und Kleidung | in Arbeit |
-| 9 | 2034 | Figur | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NP… | M | 3 Figuren und Kleidung | in Arbeit |
-| 10 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
-| 11 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
-| 12 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
-| 13 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
-| 14 | 2033 | Technik | Thessa: fast schwarzes Loch in der rechten Faust, Tusche zieht die Faustöffnung… | M | 6 Technik, Leistung, Build | startbar |
-| 15 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
-| 16 | 1933 | Werkzeug | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halb… | M | 7 Firma | startbar |
-| 17 | 1128.3 | Werkzeug | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | 7 Firma | startbar |
-| 18 | 1172 | Werkzeug | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | 7 Firma | startbar |
-| 19 | 1388 | Werkzeug | D257.1 von Diogenes: rote Godot-Läufe 09.–15.11. 93 von 159 gegen 52 von 185 de… | M | 7 Firma | startbar |
-| 20 | 1507 | Werkzeug | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Firma | startbar |
+| 9 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
+| 10 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
+| 11 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
+| 12 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
+| 13 | 2033 | Technik | Thessa: fast schwarzes Loch in der rechten Faust, Tusche zieht die Faustöffnung… | M | 6 Technik, Leistung, Build | startbar |
+| 14 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
+| 15 | 1933 | Werkzeug | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halb… | M | 7 Firma | startbar |
+| 16 | 1128.3 | Werkzeug | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am… | M | 7 Firma | startbar |
+| 17 | 1172 | Werkzeug | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgehol… | M | 7 Firma | startbar |
+| 18 | 1388 | Werkzeug | D257.1 von Diogenes: rote Godot-Läufe 09.–15.11. 93 von 159 gegen 52 von 185 de… | M | 7 Firma | startbar |
+| 19 | 1507 | Werkzeug | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tu… | M | 7 Firma | startbar |
+| 20 | 1728 | Werkzeug | Teilprojekte im Projektplan durch Verweis auf chefsache/themenbloecke.md ersetz… | M | 7 Firma | startbar |
 
 Danach 123 weitere offen. Bei dir zum Testen (vorgelegt): 6. Gebaut, fährt mit dem nächsten Build: 19. Werkzeug gebaut, Prüfung Diogenes: 30. Ruhend oder nach dem Meilenstein: 129.
 ## Zu entscheiden
