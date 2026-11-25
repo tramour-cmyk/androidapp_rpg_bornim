@@ -308,3 +308,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:34 25.11.: Startsperre 10:33 Start Figur (lauf.py, Figur 431 Hilde)
 - 10:35 25.11.: START Figur Hilde 431 (session_01Hmoj797oqYhLMFHqrJYfR6, 431 B Chef 10:30, Halt 30 $); Fachkräfte 3: Hilde 431, Greta 1694, Dana 1654; Planerinnen Tilda 2024, Berta 1589.4, Frieda 2026.
 - 10:34 25.11.: Carla (1589.4) archiviert, 2,31 $. Reihe nächster freier Platz (Sokrates 10:35): Kampf 1589.4 nach Berta „Auftrag steht“, dann 2026, 2024; keiner weicht.
+- 10:37 25.11.: Frieda (2026) archiviert, 1,26 $; Auftrag steht (cbf4b6764); Figur 2026 wartet auf Platz (Reihe: Kampf 1589.4, dann 2026, dann 2024); 2026-Ü2/Ü3 angenommen (Übersicht HTTP 503: erster Schritt der Fachkraft Erreichbarkeit).
