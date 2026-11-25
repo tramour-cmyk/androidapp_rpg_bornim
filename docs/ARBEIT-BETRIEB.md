@@ -280,3 +280,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 03:04 25.11.: Takt Uwe: nichts zu tun (Nacht).
 - 04:04 25.11.: Takt Uwe: nichts zu tun (Nacht).
 - 05:05 25.11.: Takt Uwe: nichts zu tun (Nacht).
+- 06:04 25.11.: Takt Uwe: nichts zu tun (Nacht).
