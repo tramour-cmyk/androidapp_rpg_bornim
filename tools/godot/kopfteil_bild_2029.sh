@@ -70,7 +70,7 @@ if [ -f $R/nacken_alt_spiel.png ]; then
   for r in sp au vo se hi; do eval "convert \"\${$r[@]}\" -background black -gravity north +append $T/z_$r.png"; done
   convert $T/z_sp.png $T/z_au.png $T/z_vo.png $T/z_se.png $T/z_hi.png -background black -append $T/ganz0.png
   w=$(identify -format %w $T/ganz0.png)
-  convert -background black -fill "$GOLD" -pointsize 14 -size $((w - 12))x -gravity west caption:"Gegenstand helmet (Helm_Templer, MakeHuman hats02, CC0). alt: Helm ohne Frisur darunter, Nacken kahl (Stand 685a45298, hier mit Schalter nacken=alt nachgestellt). A: Helm_Templer und darunter Hair_Buzzed (kuerzeste Frisur aus haare.bin, um 2 % eingezogen). B: Helm_Templer_B (Rand hinten bis zum Haaransatz gezogen), ohne Frisur. Dreiecke: $DV. Stand $C" -bordercolor black -border 6x6 $T/fuss.png
+  convert -background black -fill "$GOLD" -pointsize 14 -size $((w - 12))x -gravity west caption:"Gegenstand helmet (Helm_Templer, MakeHuman hats02, CC0). alt: Helm ohne Frisur darunter, Nacken kahl (Stand 685a45298, hier mit Schalter nacken=alt nachgestellt). A: Helm_Templer und darunter Hair_Buzzed (kuerzeste Frisur aus haare.bin, um 2 %% eingezogen). B: Helm_Templer_B (Rand hinten bis zum Haaransatz gezogen), ohne Frisur; das Randband des Paketbilds wird mitgestreckt (Streifen am Schirm). Dreiecke: $DV. Stand $C" -bordercolor black -border 6x6 $T/fuss.png
   convert $T/ganz0.png $T/fuss.png -background black -append $T/ganz.png
   schild $T/ganz.png "2029 Nacken unter dem Helm: Mensch Mann, Wachsoldat; links alt, Mitte A, rechts B; Spiel-Shader mit Tusche" $T/g.png
   convert $T/g.png -bordercolor black -border 6 $Z/2029-helm-nacken.png
