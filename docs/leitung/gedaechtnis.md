@@ -29,4 +29,4 @@
 
 ## Übergabe
 
-- 25.11., 20:36, `75bAmZ`: 2039 Eilt, 1694 A eingetragen. Offen Chef: Wochenkontingent %, Sperre 300 Tsd. (Rat jetzt B, 20:41), drei archivieren, trig_01UMBs6p ab. Offen: 2029-Ü21 Frisur/Bart. Letzte Antwort: 20:42.
+- 25.11., 20:36, `75bAmZ`: 2039 Eilt, 1694 A eingetragen. Offen Chef: Wochenkontingent %, Sperre 300 Tsd. (Rat jetzt B, 20:41), drei archivieren, trig_01UMBs6p ab. Offen: 2029-Ü21 Frisur/Bart. 2041 läuft (Nora). Chef schläft ab 21:14, nichts vor morgen früh. Letzte Antwort: 21:15.
