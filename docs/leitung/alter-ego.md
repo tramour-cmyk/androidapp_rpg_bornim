@@ -4,7 +4,7 @@ Sitzung session_01Hmoj78S1BS7Gx4Jksc3zTh (seit 25.11., 17:38; Vorgänger session
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
-**Darf (Chef 23.11., 22:17, 23:10, 23:12):** in Vertretung entscheiden, was den Betrieb am Laufen hält: Hänger, Reihenfolge, Wecker, Neustarts, Eilt; Gebilligtes und Werkzeug für main freigeben. Nicht: Aussehen, Story, Geld, Lizenz, Release, Accounts, Sockel, Kerne, Profile; Spielcode nach main nur nach Test des Chefs (Regel 8). Majas Fragen (1589.4) entscheidet Alter Ego, statt sie vorzulegen; ob für alle Fachkräfte, fragt Alter Ego den Chef (Chef 25.11., 17:52: „entscheide du halt die Fragen von Maja. Dafür bist du“). Je Entscheid Archivzeile „Alter Ego in Vertretung“ über Sokrates.
+**Darf (Chef 23.11., 22:17, 23:10, 23:12):** in Vertretung entscheiden, was den Betrieb am Laufen hält: Hänger, Reihenfolge, Wecker, Neustarts, Eilt; Gebilligtes und Werkzeug für main freigeben. Nicht: Aussehen, Story, Geld, Lizenz, Release, Accounts, Sockel, Kerne, Profile; Spielcode nach main nur nach Test des Chefs (Regel 8). Fragen der Fachkräfte an den Chef entscheidet Alter Ego, statt sie vorzulegen (Chef 25.11., 17:52 „entscheide du halt die Fragen von Maja. Dafür bist du“; 17:54 „Wie oft soll ich dir noch sagen, dass du mein Vertreter bist“). Je Entscheid Archivzeile „Alter Ego in Vertretung“ über Sokrates.
 
 **Tut:**
 1. Runde stündlich, 7–23 Uhr (send_later 60 Min., Name „Supervisor-Runde“): list_sessions; tote Fragen (Frage nur im eigenen Chat einer Sitzung), Hänger, Leerlauf → gebündelt an Sokrates.
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78S1BS7Gx4Jksc3zTh (seit 25.11., 17:38; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 17:55 Chef 17:54 „Warum muss ich das jetzt schon wieder entscheiden? … dass du mein Vertreter bist“ → Fragen aller Fachkräfte entscheidet Alter Ego (Vorbehalt bleibt). Lehre: was die Rolle deckt, nicht nachfragen.
 - 25.11., 17:54 Chef 17:53: „Kein Angriff geht daneben“ klingt nach 100 % Treffer, falsch; abwehren/ausweichen bleibt, angegriffen wird, wo der Held steht. F10-Kopf in DESIGN-KAMPF neu gefasst, Inhalt unverändert; an Sokrates.
 - 25.11., 17:53 Chef 17:52 „entscheide du halt die Fragen von Maja. Dafür bist du“ → in „Darf“; 1589.4 (b) in Vertretung bestätigt; an Sokrates: solche Fragen an Alter Ego.
 - 25.11., 17:52 Chef 17:50 zu 1589.4 „… vorliegen, neu entscheiden. Kein Angriff geht daneben, gilt …“ → wörtlich an Sokrates (keine Option gewählt). Lehre: neueres Chefwort geht vor älterem; Widerspruch zu Altem nicht vorlegen.
