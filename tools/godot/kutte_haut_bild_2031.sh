@@ -27,7 +27,7 @@ spalte() {   # Fall, Titel, Ansichten..., Ausgabe ist $T/sp_<fall>.png
   local teile=($T/a_$f.png)
   for an in "$@"; do
     convert $R/${f}_${an}.png -resize 270x $T/v.png
-    schild $T/v.png "$an" $T/b_${f}_$an.png
+    schild $T/v.png "${an/gesicht_ork/Gesicht Orkbluetiger}" $T/b_${f}_$an.png
     teile+=($T/b_${f}_$an.png)
   done
   convert "${teile[@]}" -background black -gravity north -append $T/sp_$f.png
@@ -54,9 +54,9 @@ for g in m w; do
   if [ $g = m ]; then H="jartur69_mitte jartur69_alt rehman_wikinger"; GN="Mann"; Q="skins02: jartur69_middleage_slavic_male (jartur69), jartur69_old_slavic_male (jartur69), rehmanpolanski_skin_viking_tattoos (RehmanPolanski)"
   else H="ghosts_jung ghosts_mitte ghosts_alt"; GN="Frau"; Q="skins01: onlytheghosts_young/middle_aged/old_eurasian_female (OnlyTheGhosts)"; fi
   sp=()
-  spalte haut_${g}_alt "alt: Kaufhaut (wie main $M)" vorn gesicht; sp+=($T/sp_haut_${g}_alt.png)
-  for h in $H; do spalte haut_${g}_$h "neu: $h ($C)$([ $h = rehman_wikinger ] && echo "; Taetowierung an den Schlaefen gewollt")" vorn gesicht; sp+=($T/sp_haut_${g}_$h.png); done
-  bild 2031-haut-$g "2031 Haut: Mensch $GN Wachsoldat; links alt, rechts drei neue zur Wahl; Ganzfigur und Gesicht vorn; Hautton der Erschaffung (getoent wie heute)" \
+  spalte haut_${g}_alt "alt: Kaufhaut (wie main $M)" vorn gesicht gesicht_ork; sp+=($T/sp_haut_${g}_alt.png)
+  for h in $H; do spalte haut_${g}_$h "neu: $h ($C)$([ $h = rehman_wikinger ] && echo "; Taetowierung an den Schlaefen gewollt")" vorn gesicht gesicht_ork; sp+=($T/sp_haut_${g}_$h.png); done
+  bild 2031-haut-$g "2031 Haut: Mensch $GN Wachsoldat; links alt, rechts drei neue zur Wahl; Ganzfigur, Gesicht vorn, Gesicht Orkbluetiger; Hautton der Erschaffung (getoent wie heute)" \
     "neu aus $Q, CC0 (Seite, Paketdatei); gebacken auf die Kauf-UV, Kopf und Leib je 1024x1024 JPG. Pruefung kutte_haut_2031: 15 Hautfaelle $GN (5 Voelker x 3), ${KH_HAUT:-?}" \
     "${sp[@]}"
 done

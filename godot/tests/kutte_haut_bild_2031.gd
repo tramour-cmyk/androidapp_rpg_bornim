@@ -1,7 +1,8 @@
 extends SceneTree
 # 2031 Beleg: Kutte und Haeute alt gegen neu, Renderer wie am Handy (mobile), Bildschirm 540x1170 (wie kopfteil_bild_2029.gd).
 #   <fall>_spiel.png: die echte Erschaffung (ErschaffungBrs), Klosterschueler bzw. Wachsoldat, Held angehalten (Drehung 25 Grad, „Stehen“ 0,4 s)
-#   <fall>_vorn.png, _seite.png, _hieb.png: Ganzfigur (Spielfigur, Toon-Licht, Tusche, Schatten); _gesicht.png: Gesicht vorn
+#   <fall>_vorn.png, _seite.png, _hieb.png: Ganzfigur (Spielfigur, Toon-Licht, Tusche, Schatten); _gesicht.png: Gesicht vorn;
+#   _gesicht_ork.png: dieselbe Wahl als Orkbluetiger (Sokrates 22:57)
 #   MARKE-Zeilen: Mitte des Stuecks im Bildschirm (Pfeil neben der Figur, kutte_haut_bild_2031.sh), DREIECKE-Zeilen: sichtbare Dreiecke
 # kutte: Mensch Mann Klosterschueler; alt1 Novizenkutte (wie main), alt2 Robe (Gegenstand robe, Schrankteil ROBE), neu MH_KUTTE (Schalter)
 # haut_m / haut_w: Mensch Mann / Frau Wachsoldat; alt Kaufhaut, neu drei MakeHuman-Haeute (Schalter HeldFigur.mh_haut)
@@ -24,7 +25,7 @@ func faelle() -> Array:
 		for g in ["m", "w"]:
 			for h in ["alt"] + Array(HeldFigur.MH_HAUT_WAHL.get(g.to_upper(), [])):
 				l.append({"name": "haut_%s_%s" % [g, h], "volk": "Mensch", "g": g, "herkunft": "Wachsoldat", "haut": "" if h == "alt" else h,
-					"ansichten": ["vorn", "gesicht"], "marke": "Head"})
+					"ansichten": ["vorn", "gesicht", "gesicht_ork"], "marke": "Head"})
 	return l
 
 func _lauf() -> void:
@@ -115,7 +116,7 @@ func _pose(n: Node) -> void:
 # Ganzfigur bzw. Gesicht: Spielfigur mit Toon-Licht, Tusche und Schatten am Boden (wie kopfteil_bild_2029 _ausschnitt)
 func _ausschnitt(w: Dictionary, f: Dictionary, ansicht: String) -> void:
 	var sv := SubViewport.new()
-	sv.size = Vector2i(400, 600) if ansicht != "gesicht" else Vector2i(400, 400)
+	sv.size = Vector2i(400, 600) if not ansicht.begins_with("gesicht") else Vector2i(400, 400)
 	sv.own_world_3d = true
 	sv.msaa_3d = Viewport.MSAA_4X
 	sv.render_target_update_mode = SubViewport.UPDATE_ALWAYS
@@ -139,6 +140,9 @@ func _ausschnitt(w: Dictionary, f: Dictionary, ansicht: String) -> void:
 	boden.material_override = bm
 	sv.add_child(boden)
 	_schalter(f)
+	if ansicht == "gesicht_ork":   # Sokrates 22:57: Zeile „Gesicht Orkbluetiger“, sonst gleiche Wahl
+		w = w.duplicate(true)
+		w["volk"] = "HALF_ORC"
 	var mats := []
 	var m := HeldFigur.baue(w, mats)
 	for x in mats:
@@ -161,7 +165,7 @@ func _ausschnitt(w: Dictionary, f: Dictionary, ansicht: String) -> void:
 	for k in 3: await process_frame
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 	var kam := Camera3D.new()
-	if ansicht == "gesicht":
+	if ansicht.begins_with("gesicht"):
 		var kopf := (sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head"))).origin + Vector3(0, 0.07, 0)
 		kam.fov = 22.0
 		kam.position = kopf + Vector3(0, 0.02, 1.1)
