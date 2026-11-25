@@ -68,6 +68,14 @@ def rolle(titel, created_at=None):
         if uebergabe.DISPONENT_TITEL.match(titel or ""): return "Disponent"
     except ImportError:
         pass
+    try:  # 2041 d (2035-Ü38): Prüfer, Tester, Arbeitsplaner am Titel vor Startsperre und Bereich des Vorgangs (sonst zählt „Ralf – 2035: Prüfung …“ als Werkzeug, R53)
+        import rufname, guthaben
+        if rufname.aus_titel(titel):
+            m = guthaben.TITEL_ROLLE.search(titel)
+            if m: return "Prüfer" if m.group(1) == "Prüfung" else "Tester"
+            if re.match(r"\w+ – Auftrag \d", titel): return "Arbeitsplaner"  # lauf.py: „<Rolle> – Auftrag <Nr>“ (1960)
+    except ImportError:
+        pass
     try:  # 1893: Titel mit Profil statt Rufname („Technik – 1893 …“, Start vor tools/1727-SCHARF an der neuen Liste)
         import os
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

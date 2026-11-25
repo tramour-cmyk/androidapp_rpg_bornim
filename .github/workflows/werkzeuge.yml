@@ -57,6 +57,12 @@ jobs:
           python3 tools/lauf_2012_test.py       # 2012 Auftrag steht/Nachfolger zu, sobald die Fachkraft angekommen ist
           python3 tools/lauf_2019_test.py       # 2019 Wochenzählung: Termin ohne --sperre, Rolle der Routine, frei unter der Laufsperre
           python3 tools/lauf_2035_test.py       # 2035 Besetzung trägt den Disponenten am Titel „Rufname – Disponent – …“
+          python3 tools/ablaeufe_2041_test.py   # 2041 a–c Prüferzeile bei gebaut, Rückläufer an Rolle, main-Zeilen schließen
+          python3 tools/titel_2041_test.py      # 2041 d Titel Name – Status – Nr – Betreff, Leser alt und neu, TITEL-Zeilen
+          python3 tools/titel_2041b_test.py     # 2041 d Nachträge: Disponent – Büro, Wache – Betrieb, Wochenzählung – KW, kosten.rolle Prüfer/Tester/Arbeitsplaner
+          python3 tools/art_weg_test.py         # 1398-Ü3 (Prüfer 25.11., 21:11): Aussehen zählt nicht als Handypunkt
+          python3 -c 'import PIL, numpy' 2> /dev/null || python3 -m pip install -q --break-system-packages pillow numpy  # bildvergleich.py
+          python3 tools/bildvergleich.py --test # 1710-Ü3 (Prüfer 25.11., 21:11): Bildvergleich Selbsttest
           python3 tools/lauf_kern_test.py       # 1923 Startblock, 1986 Sokrates mit Kern Leitung und Gedächtnis
           python3 tools/leitung_test.py         # 1988 Neustart Leitung und Disponent ab 300 Tsd. Token, Warnung einmal je Stunde
           python3 tools/sammelzeile_test.py     # 1971 stündliche Sammelzeile erledigter Vorgänge

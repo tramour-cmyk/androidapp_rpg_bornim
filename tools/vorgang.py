@@ -148,6 +148,22 @@ def stand_pruefen(stand, nr):
     if len(startbar.zusatz_von(stand)) > 120: sys.exit("vorgang.py: Zusatz über 120 Zeichen; Einzelheiten als „Zu %s“ in den Vorrat" % nr)
     return w
 
+COMMIT_GEPRUEFT = re.compile(r"Geprüft an:?\s*`?([0-9a-f]{7,40})`?(?![\w/])")
+
+def pruefer_bei_gebaut(nr, alt, neu, text=None):
+    """2041 a (Chef 25.11., 20:48): Stand wird „gebaut“ mit Commit → sofort eine Zeile an den Prüfer (bisher fing liegt.py erst nach
+    24 h, Fälle 1301, 1387, 1642, 1643); nicht, wenn der Stand schon „gebaut“ war oder eine Prüferzeile der Nummer offen ist. Kennung oder None."""
+    if startbar.wort_von(neu) != "gebaut" or startbar.wort_von(alt or "") == "gebaut": return None
+    m = COMMIT_GEPRUEFT.search(neu)
+    if not m: return None
+    if text is None:
+        try: text = open(os.path.join(DOCS, "vorgang", nr + ".md"), encoding="utf-8").read()
+        except OSError: text = ""
+    if any(z["an"] == "Prüfer" and (uebergabe.ist_offen(z["z"]) or z["z"].startswith("angenommen")) for z in uebergabe.zeilen(text)): return None
+    try: return uebergabe.uebergabe(nr, "Prüfer", "prüfen: Stand „gebaut“, Geprüft an %s (vorgang.py stand, 2041 a)" % m.group(1))
+    except uebergabe.Fehler as e:
+        print("WARNUNG Prüferzeile %s nicht angelegt: %s (2041 a; von Hand: vorgang.py uebergabe %s Prüfer „prüfen: …“)" % (nr, e, nr)); return None
+
 def stand_setzen(nr, stand, rolle=None):
     d = finden(nr, rolle)
     n = dict(d)
@@ -160,6 +176,7 @@ def stand_setzen(nr, stand, rolle=None):
     ersetzen(d, n)
     print("vorgang.py: %s (%s) Stand „%s“%s" % (nr, d["besitzer"], stand, (", wartet auf " + ", ".join(n["warte"])) if n["warte"] else ""))
     if stand_pruefen(stand, nr) == "erledigt": uebergaben_schliessen(nr, "Vorgang %s erledigt (vorgang.py stand)" % nr)  # 2012 (4)
+    pruefer_bei_gebaut(nr, d["stand"], stand)  # 2041 a
 
 def warte_setzen(nr, feld, rolle=None):
     d = finden(nr, rolle)
@@ -190,6 +207,7 @@ def setzen(nr, paare, rolle=None):
         ersetzen(d, n)
     print("vorgang.py: %s gesetzt: %s" % (nr, ", ".join(paare)))
     if n["stand"] != d["stand"] and stand_pruefen(n["stand"], nr) == "erledigt": uebergaben_schliessen(nr, "Vorgang %s erledigt (vorgang.py setze)" % nr)  # 2012 (4)
+    pruefer_bei_gebaut(nr, d["stand"], n["stand"])  # 2041 a
 
 def klasse(nr, kl, rolle=None):
     if kl not in ("M", "K"): sys.exit("vorgang.py: Klasse M oder K")

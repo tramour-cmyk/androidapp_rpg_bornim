@@ -5,7 +5,7 @@
                              seit dem Start gewachsen ist, und erinnert ab der Schwelle an einen Neustart,
                              erst selten, dann immer öfter, je länger der Nutzer weiterarbeitet.
   neustart-haken.py vor|nach an jedem Werkzeugaufruf (PreToolUse/PostToolUse, 1537): Erinnerung und Sperre je Rolle (SCHWELLEN, 1520; sonst 200/300 Tsd.)
-                             außer Übergabe, Push, Nachricht an Ford (Kaufrepo +200 Tsd., 818; Sokrates 400/500 Tsd., 1643; nie im Test des Chefs; nie bei Ford, 1574).
+                             außer Übergabe, Push, Nachricht an den Disponenten (Kaufrepo +200 Tsd., 818; Sokrates 400/500 Tsd., 1643; nie im Test des Chefs; nie bei Ford, 1574).
                              1762: ruft chefwort.haken() (Haken D, Chefwort aus fremder Sitzung).
   neustart-haken.py abgelehnt  (1999) PermissionDenied/PostToolUseFailure: abgelehntes create_trigger/create_session → Lehrenbuch;
                              „nach“ und „vor“ prüfen es ebenso
@@ -236,7 +236,7 @@ def prompt(eingabe):
 
 SPERRE_AB = int(os.environ.get("BORNIM_SPERRE_AB", "300000"))
 WERKZEUG_ALLE = 25  # 1537: Erinnerung an Werkzeugaufrufen höchstens alle 25 Aufrufe
-# 1537 (1520 so, Chef 17.11., 10:00): ab der Sperre nur noch Übergabe, Push, Neustart-Nachricht an Ford
+# 1537 (1520 so, Chef 17.11., 10:00): ab der Sperre nur noch Übergabe, Push, Neustart-Nachricht an den Disponenten
 FREI_WERKZEUG = {"ToolSearch", "ReadNotifications", "TaskStop", "mcp__claude-code-remote__send_message",
                  "mcp__claude-code-remote__get_session", "mcp__claude-code-remote__list_sessions",
                  "mcp__claude-code-remote__set_session_title", "mcp__claude-code-remote__create_session"}
@@ -318,7 +318,7 @@ def letzte_groesse(pfad, rueck=3_000_000):
 
 
 def frei(eingabe):
-    """1537: erlaubt ab der Sperre: Übergabe (Vorrat docs/ARBEIT-*.md lesen und schreiben), Commit und Push, Meldung, Nachricht an Ford."""
+    """1537: erlaubt ab der Sperre: Übergabe (Vorrat docs/ARBEIT-*.md lesen und schreiben), Commit und Push, Meldung, Nachricht an den Disponenten."""
     import re
     werkzeug = str(eingabe.get("tool_name") or "")
     ein = eingabe.get("tool_input") or {}
@@ -374,7 +374,7 @@ def werkzeug(eingabe, art):
         if test:
             return 0
         sys.stderr.write(f"Neustart-Haken (1537): Das Gespräch ist {k(gesamt)} Token lang, Sperre ab {k(sperre)}: erlaubt sind nur noch "
-                         "Übergabe (docs/ARBEIT-*.md), Commit und Push, meldung.sh, vorgang.py und die Nachricht an Ford "
+                         "Übergabe (docs/ARBEIT-*.md), Commit und Push, meldung.sh, vorgang.py und die Nachricht an den Disponenten "
                          + ("(Selbstneustart nach LISTE-BETRIEB.md)." if ford else "„Neustart <Name>, <Commit>“ (send_message); im Chat danach genau „Weiter in <Titel>: <Link>“."))
         return 2
     z["aufrufe"] = aufrufe
@@ -386,7 +386,7 @@ def werkzeug(eingabe, art):
     if not z["test"] and (aufrufe % WERKZEUG_ALLE == 1 or int(z.get("stufe", 0)) == 0):
         stufe = int(z.get("stufe", 0)) + 1
         z["stufe"], z["seit"] = stufe, 0
-        hinweis = text(stufe, 0, gesamt, ab, ford).replace("; seit dem Start +0 Tsd.", "") + f" Ab {k(sperre)} sperrt der Haken jeden Werkzeugaufruf außer Übergabe, Push und Nachricht an Ford (1537)."
+        hinweis = text(stufe, 0, gesamt, ab, ford).replace("; seit dem Start +0 Tsd.", "") + f" Ab {k(sperre)} sperrt der Haken jeden Werkzeugaufruf außer Übergabe, Push und Nachricht an den Disponenten (1537)."
         print(json.dumps({"hookSpecificOutput": {"hookEventName": "PostToolUse", "additionalContext": hinweis}}, ensure_ascii=False))
     with open(zpfad, "w") as f:
         json.dump(z, f)
