@@ -4,7 +4,7 @@ Sitzung session_01Hmoj78ddRUPdf89SqpS789 (seit 25.11., 19:25; Vorgänger session
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
-**Darf (Chef 23.11., 22:17, 23:10, 23:12):** in Vertretung entscheiden, was den Betrieb am Laufen hält: Hänger, Reihenfolge, Wecker, Neustarts, Eilt; Gebilligtes und Werkzeug für main freigeben. Nicht: Aussehen, Story, Geld, Lizenz, Release, Accounts, Sockel, Kerne, Profile; Spielcode nach main nur nach Test des Chefs (Regel 8). Fragen der Fachkräfte an den Chef entscheidet Alter Ego, statt sie vorzulegen (Chef 25.11., 17:52 „entscheide du halt die Fragen von Maja. Dafür bist du“; 17:54 „Wie oft soll ich dir noch sagen, dass du mein Vertreter bist“). Je Entscheid Archivzeile „Alter Ego in Vertretung“ über Sokrates.
+**Darf (Chef 23.11., 22:17, 23:10, 23:12):** in Vertretung entscheiden, was den Betrieb am Laufen hält: Hänger, Reihenfolge, Wecker, Neustarts, Eilt; Gebilligtes und Werkzeug für main freigeben. Uhren löschen, umhängen, neu anlegen (Chef 25.11., 19:36). Nicht: Aussehen, Story, Geld, Lizenz, Release, Accounts, Sockel, Kerne, Profile; Spielcode nach main nur nach Test des Chefs (Regel 8). Fragen der Fachkräfte an den Chef entscheidet Alter Ego, statt sie vorzulegen (Chef 25.11., 17:52 „entscheide du halt die Fragen von Maja. Dafür bist du“; 17:54 „Wie oft soll ich dir noch sagen, dass du mein Vertreter bist“). Je Entscheid Archivzeile „Alter Ego in Vertretung“ über Sokrates.
 
 **Tut:**
 1. Runde stündlich, 7–23 Uhr (send_later 60 Min., Name „Supervisor-Runde“): list_sessions; get_session Disponent und Sokrates, ab 300 Tsd. Neustart veranlassen, nur bis lauf.py repariert ist (Chef 18:07); tote Fragen (Frage nur im eigenen Chat einer Sitzung), Hänger, Leerlauf → gebündelt an Sokrates. Wecker-Probe (Chef 25.11., 19:32): `uebergabe.disponent()` = laufender Disponent, keine aktive Uhr an archivierter Sitzung; Abweichung sofort selbst berichtigen.
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78ddRUPdf89SqpS789 (seit 25.11., 19:25; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 19:37 Chef 19:36 „natürlich darfst du Delete-Trigger ausführen …“ → trig_01UMBs6pPDviZ7zQjUeKikeT (Uwe) gelöscht; Recht in Darf, Archiv.
 - 25.11., 19:33 Chef 19:32 „was du tust, dass es das nächste Mal funktioniert“: Zeile Disponent (aktuell) = Detlef seit 19:30 (dbd361456), Probe disponent() → Detlef; doppelte Testbuild-Uhr an Uwe (trig_01UMBs6pPDviZ7zQjUeKikeT) löschen sperrt der Auto-Modus → Chef; Wecker-Probe in Tut 1.
 - 25.11., 19:30 Ursachen belegt, an Sokrates: Chef 19:24 Wecker: ARBEIT-BETRIEB Z. 28 „Disponent (aktuell)“ = archivierter Uwe, disponent() liefert ihn (Probe); Entscheid in Vertretung: Detlef trägt sich ein, Testbuild-Uhr umhängen, 15 Min. danach beurteilen. Chef 19:25: meldung.sh Z. 171 nimmt docs/entwurf/ als Vorlage (1708 dort, chefsache/ansehen fehlt); Abstimmzeilen nur bei t<n>.<Punkt> (Z. 131–165), keine Schaltflächen.
 - 25.11., 19:26 Nachfolger übernommen (Titel stand schon); Uhr trig_01TsbFm1xEoEvciDR6iLzBXT (20:26); alte trig_011mB4sD6Wu3W1t2tbTqKTRC gelöscht; Kennung an Sokrates.
