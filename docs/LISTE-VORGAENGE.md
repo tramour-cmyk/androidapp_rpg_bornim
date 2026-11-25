@@ -11,7 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *1,25 $* |
+| 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *6,02 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | Eilt | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
@@ -35,7 +35,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2005 | lauf.py startet Planer für ruhende Vorgänge (513 am 23.11. 18-mal) | 7 | B Werkzeuge | Eilt | Sokrates | – | – | *ruht, Daten 513 berichtigt 24.11., kein Start mehr* | *–* | *0* | *1,12 $* |
 | 2019 | Wochenzählung in Betrieb bis Mo 30.11.: Profil anlegen, Wochentermin ohne --sperre anlegen und starten, Laufsperre frei; Probelauf zählt Woche 16.–23.11. nach (Chef 12:29, 12:30) | 7 | B Abläufe | Eilt | – | – | – | *ruht* | *–* | *0* | *4,74 $* |
 | 2035 | Übergaben schlanker: nur Bestehendes ändern oder streichen, kein neues Werkzeug; Rückläufer an die Sitzung mit der Vorgangsnummer, sonst Disponent; „fertig“ und „ja“ schließen alte Rückläufer-Zeilen; Chefwort weckt Arbeitsplaner nur bei Auftragsänderung; „ja“ und „Hinweis“ ohne Quittung erledigt (Chef 25.11., 17:33) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *23,31 $* |
-| 2041 | Abläufe a–d jetzt: Prüfzeile bei gebaut, Rückläufer an Rolle, Zeilen auf main schließen, Titel Name – Status – Nr – Betreff (Chef 25.11., 20:48) | 7 | B Werkzeuge | M | – | – | – | *startbar, steckt fest* | *–* | *0* | *4,51 $* |
+| 2041 | Abläufe a–d jetzt: Prüfzeile bei gebaut, Rückläufer an Rolle, Zeilen auf main schließen, Titel Name – Status – Nr – Betreff (Chef 25.11., 20:48) | 7 | B Werkzeuge | M | – | – | – | *startbar, steckt fest* | *–* | *0* | *11,84 $* |
 | 1414 | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | 7 | B Werkzeuge | M | – | – | – | *gebaut, Geprüft an: 5307f68d3* | *–* | *0* | *2,44 $* |
 | 1520 | An den Läufen sparen | 7 | B Steuerung | M | – | – | – | *startbar, Rückläufer Sokrates 18:12: Startlast und Dauer neu messen* | *–* | *0* | *29,69 $* |
 | 1572 | Ford hing ab 16:04 zwei Stunden (Rebase-Abbruch abgelehnt), keiner startete, kein Telegram | 7 | B Abläufe | M | 1610 | – | – | *gebaut, Geprüft an: 239b6745a* | *–* | *0* | *1,38 $* |
