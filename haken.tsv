@@ -1366,3 +1366,4 @@
 2026-11-24 22:52:09	commit-pruefung	VORGANGSARCHIV.md: neuer Eintrag „1589.4 Halt bei Schritt 2“ trifft ältere Einträge ohne „ersetzt durch“ (1589.4 A, Deckel 26 $; 1589.4 jetzt, Spiel vor); dort „→ ersetzt durch <Nr., Datum>“ anhängen 	main
 2026-11-24 22:52:09	commit-pruefung	VORGANGSARCHIV.md: neuer Eintrag „1589.3 auf main“ trifft ältere Einträge ohne „ersetzt durch“ (1589.3 auf main; 1589.3 A, nach main; 1589.3 Rückwärts und Seitschritt; 1589.3 startbar); dort „→ ersetz	main
 2026-11-25 07:12:18	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/wiebke-431-volkskoerper
+2026-11-25 07:16:38	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/wiebke-431-volkskoerper
