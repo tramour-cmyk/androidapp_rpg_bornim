@@ -1,4 +1,7 @@
 # 2032 · Soll Ines die Gürtelfalte neben Rowenas rechter Faust noch in diesem Vorgang beheben?
+
+[Bild von 25.11., 22:10](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/25-2208-2032-Sokrates.png) (eingetragen von meldung.sh, Sokrates)
+
 Sokrates · 25.11., 22:08 · B Figur · Vorgang 2032 (Gürtel und Hand), zweites Mal festgefahren (Ines 22:01)
 Kurz: Durchscheinende Kleid-Innenseite an Rowenas Hand halb behoben (90 → 33 Punkte), Rest ist eine Falte; A weiter in 2032, B halben Stand nehmen und Falte später.
 Beim Chef, weil: Aussehen; Obergrenze B (2. „steckt fest“)
