@@ -1,5 +1,7 @@
 # 1708 Blut am Treffpunkt: Beleg (Berit, 25.11.)
 
+[Bild von 25.11., 18:44](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/25-1844-1708-Berit.png) (eingetragen von meldung.sh, Berit)
+
 [Film von 25.11., 18:44](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261125-184429-1708/2026-11/25-1844-1708-Berit.mp4) (eingetragen von meldung.sh, Berit)
 
 [Film von 25.11., 18:44](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261125-184414-1708/2026-11/25-1842-1708-Berit.mp4) (eingetragen von meldung.sh, Berit)
