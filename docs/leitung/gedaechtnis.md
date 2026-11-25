@@ -26,7 +26,7 @@
 - Nach main: CLAUDE.md 8 (Chef 25.11., 17:37, 17:44); mischt Sokrates.
 - Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Werkzeug nur 2035, 2036, 2039, 2041, Eilt 2042, 2044. Sa vorlegen: --sperre-Teile, Testbuild Sa (Technik Fr).
 - Täglich Modell, Umgebung, Aufwand je Sitzung.
-- Übergang 300/450 Tsd. (9072e9421) nach 2042 zurück (Teil 8, Chef).
+- Übergang 300/450 Tsd. nach 2042 zurück (Teil 8, Chef).
 
 ## Übergabe
 
