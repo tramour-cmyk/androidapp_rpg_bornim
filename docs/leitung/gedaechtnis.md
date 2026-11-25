@@ -26,8 +26,8 @@
 - Nach main: CLAUDE.md 8 (Chef 25.11., 17:37, 17:44); mischt Sokrates.
 - Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Werkzeug nur 2035, 2036, 2039, 2041, Eilt 2042, 2044. Sa vorlegen: --sperre-Teile, Testbuild Sa (Technik Fr).
 - Täglich Modell, Umgebung, Aufwand je Sitzung.
-- 2042 Übergang neustart-haken 300/450 Tsd. (9072e9421) nach 2042 zurück, Chef entscheidet (Teil 8).
+- Übergang 300/450 Tsd. (9072e9421) nach 2042 zurück (Teil 8, Chef).
 
 ## Übergabe
 
-- 25.11., 23:01, `79sfZC` (400 Tsd.): 2041 auf main (8abd10517), 2042 Eilt läuft (Dora; Teile 1–5 nach 3 Punkten mischen, dann Teil 6, Rechnung, 9), Übergang 300 auf main; 1708 B gestartet, Berit archiviert; 2034 Lauf frei, 2044 angelegt (Start nach Gegenprüfung Alter Ego). Offen Chef: 2032 (Alter Ego legt vor), 2031 Kutte (Telegram 22:55), 2031-Vorlage nach Orkbild. Fehlerquelle: Zeitstempel nur aus der Uhr-Zeile. Letzte Antwort: 23:01. Nachfolger: Sokrates – Leitung.
+- 25.11., 23:01, `79sfZC` (400 Tsd.): 2041 auf main; 2042 Eilt (Dora, Stand in 2042.md, mischt Sokrates); 1708 B läuft; 2044 Start nach Gegenprüfung. Offen Chef: 2032, 2031 Kutte; 2031-Vorlage nach Orkbild. Letzte Antwort: 23:01. Nachfolger: Sokrates – Leitung.
