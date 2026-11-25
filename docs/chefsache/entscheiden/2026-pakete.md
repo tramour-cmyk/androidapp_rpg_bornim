@@ -1,4 +1,7 @@
 # 2026 · Welche MakeHuman-Pakete holen wir ins Spiel?
+
+[Bild von 25.11., 12:26](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/25-1226-2026-Sokrates.png) (eingetragen von meldung.sh, Sokrates)
+
 Sokrates · 25.11., 12:30 · E Figuren · aus deinem Wort 10:29 „Ja, Pakete sichten auf jeden Fall.“
 Kurz: 65 von 65 Paketen gesichtet, 5 taugen: Haare, Bärte, Kutte und Wikingerkleidung, Helme, Stiefel; Einbau zuerst als Probe in der Spielkamera.
 Beim Chef, weil: Aussehen
