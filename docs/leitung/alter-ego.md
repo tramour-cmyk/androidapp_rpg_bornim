@@ -25,6 +25,7 @@ Sitzung session_01Hmoj75PCSHUvX4ZVftYC3X (seit 25.11., 16:37; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 17:02 Chef 17:02: Fehlwurf = Abwehr oder Ausweichen für alle Gegner → wörtlich an Sokrates (DESIGN-KAMPF). Chefwort 17:00 von Hand in 1589.4 (f02c256f6, Haken D).
 - 25.11., 17:00 Chef 17:00 zu 1589.4 (Fehlwurf: kein Danebenbeißen, nur Schild, Waffe, Ausweichen) → wörtlich an Sokrates; beantwortet Telegram-Frage A/B.
 - 25.11., 16:59 Chef 16:56 fragt Wartezeiten: aus 361 Übergaben seit 23.11. (Tag) Median Prüfer 19, Sokrates 10, Disponent Start 72 Min.; 2029: 3 h 20, davon ~2 h Warten. Prüfer 2028-Ü4/2029-Ü8 offen → an Sokrates.
 - 25.11., 16:58 Ü22 (c380c8780) geprüft: stimmt zu Chef 16:54; Nachsatz 16:55 (Fehlschlag als Luftbiss?) fehlt → an Sokrates.
