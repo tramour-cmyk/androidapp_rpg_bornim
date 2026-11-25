@@ -179,7 +179,9 @@ func _kampf(foe: String) -> void:
 			if o.gang in ["anlauf", "hin"]:
 				var zum := Vector2(ziel.position.x, ziel.position.z) - p2
 				var wz := rad_to_deg(zum.angle_to(d))
-				if absf(wz) > QUER_GRAD and absf(wz) < 180.0 - QUER_GRAD:
+				# am Schild schräg bis Arena.BISS_SCHILD_GRAD heran (Variante a, Alter Ego 25.11., 20:21; F10)
+				var quer_max: float = Arena.BISS_SCHILD_GRAD if o.gang == "anlauf" and ziel.schild_unten < INF else QUER_GRAD
+				if absf(wz) > quer_max and absf(wz) < 180.0 - quer_max:
 					s.heran += d.length()
 					if s.heran > ZUR_SEITE_M * o._scale() and s.heran - d.length() <= ZUR_SEITE_M * o._scale():
 						befund.heran += 1

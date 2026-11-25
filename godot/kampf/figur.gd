@@ -2152,7 +2152,6 @@ const NACHBAR_M := 2.6          # Mitte zu Mitte: so nah steht ein Nachbar des Z
 var _nur_planen := false
 var _plan_frei := false         # der letzte Plan fand einen freien Platz, an dem man den Biss sieht
 var ohne_biss := false          # 1589.4: der letzte Plan fand keinen freien Platz, er wartet ohne Biss
-var _bogen_winkel := 0.0        # 1589.4 Probe Ü27 b2: der Bissplatz liegt so weit um das Ziel herum, hin im Bogen
 func _nachbar_zur_seite(other: Variant, leap: bool, weiter: float, t_warte: float) -> Array:
 	var nr := biss_nr
 	_nur_planen = true
@@ -2334,12 +2333,9 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			var ziel: Array = other.koerper()
 			var hind: Array = other.schild_kapseln()
 			other.footprint()     # misst schild_unten (ohne Schild INF)
-			# 1589.4 Probe Ü27 (Chef: a, b2, c ansehen; SCHILD_WEG): c = beim Schild vorn Biss in Arm oder Bein unter dem Schild
-			var variante := OS.get_environment("SCHILD_WEG")
-			if variante == "c" and other.schild_unten < INF:
-				var unten: Array = ziel.filter(func(c: Array) -> bool: return minf((c[0] as Vector3).y, (c[1] as Vector3).y) < other.position.y + other.schild_unten)
-				if not unten.is_empty():
-					ziel = unten
+			# 1589.4 Variante a (Alter Ego 25.11., 20:21 in Vertretung, Chef 17:52; F10): am Schild schräg bis BISS_SCHILD_GRAD heran,
+			# der Biss an der Seite; geradewegs nur am Anfang des Wegs, der Schild fährt beim Treffer nicht vor (kein ABWEHR_VOR)
+			var am_schild: bool = other.schild_unten < INF
 			var unter_schild: bool = other.schild_unten < INF and hoehe_oben() < other.schild_unten
 			var teil := []     # bester freier Platz, an dem die Schnauze nicht ganz hinreicht: [Lücke, Platz, Richtung, Stand, t]
 			# 1284 (Chef 15.11., 14:54, Film Rattenbiss: „man sieht nicht, ob sie trifft oder nicht, weil da steht ja genau der Held dann
@@ -2374,7 +2370,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 				# 709 (treffen_709 Ratten: 8 cm vor dem Helden): wer unter dem Schild bleibt, dem stößt er nicht entgegen
 				var st2: float = float(pl[0]) + (ABWEHR_VOR if not unter_schild and (not voll or other.has_method("blockt") and other.blockt()) else 0.0)
 				var s2 := Vector3(other.position.x, position.y, other.position.z) - d2 * st2
-				if not Arena.geradewegs(Vector2(position.x, position.z), Vector2(s2.x, s2.z), Vector2(other.position.x, other.position.z), 0.15, variante in ["a", "b2"]):
+				if not Arena.geradewegs(Vector2(position.x, position.z), Vector2(s2.x, s2.z), Vector2(other.position.x, other.position.z), 0.15, am_schild):
 					continue     # 1589.4: nur ein Platz, zu dem der Weg geradewegs heran führt
 				var l2 := _platz_luft(s2, d2, other)
 				var w2 := _weg_luft(position, s2, other) if s2.distance_to(position) > 0.15 else INF
@@ -2413,7 +2409,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 				if OS.get_environment("SCHAU_709") != "":
 					print("709 Bissplatz %s, %.0f°: Luft %.2f Weg %.2f Umriss %.2f Heim %.2f im Bild %s" % [fighter.id, w, l2, w2, r2, h2, _im_bild(s2, d2)])
 				# wer mit Schild kämpft, hält ihn bei der Abwehr vor sich (footprint), um ABWEHR_VOR weiter (wolf_mess_438 Kämpfer: 0,11 m)
-				var r_soll: float = BISS_UMRISS + (ABWEHR_VOR if other.kauf and other._ss() and not unter_schild and variante == "" else 0.0)
+				var r_soll: float = BISS_UMRISS + (ABWEHR_VOR if other.kauf and other._ss() and not unter_schild and not am_schild else 0.0)
 				# und der Held dreht sich getroffen oder abwehrend zum Wolf (_face_sanft), den Schild mit (footprint): sein Umriss auch so
 				if other.kauf and other._ss():
 					var fb2 := rumpf
@@ -2436,7 +2432,6 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 				dir = d2
 				stand = st2
 				biss_t = bt
-				_bogen_winkel = w if variante == "b2" else 0.0
 				if OS.get_environment("SCHAU_1284") != "":
 					print("1284 gewählt %s an %s: %.0f°, Platz %s" % [fighter.id, other.fighter.id, w, s2])
 				sauber = true
@@ -2539,32 +2534,9 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		var gn := _gangart(run)
 		var auf := start - position
 		var y_weg := atan2(auf.x, auf.z)
-		if absf(_bogen_winkel) > Arena.QUER_GRAD and OS.get_environment("SCHILD_WEG") == "b2":
-			# Probe Ü27 b2: gerade bis vor das Ziel (gleicher Abstand), dann in kurzen geraden Stücken um das Ziel herum
-			var tg := Vector3(other.position.x, position.y, other.position.z)
-			var rad := tg.distance_to(start)
-			var vorn := tg + (position - tg).normalized() * rad
-			var y0 := atan2((vorn - position).x, (vorn - position).z)
-			t_run = _turn(tween, y0, false)
-			tween.tween_callback(func(): _play(gn, 0.1))
-			t_run += _lauf(tween, position, vorn, gn)
-			var a0 := atan2((vorn - tg).x, (vorn - tg).z)
-			var a1 := atan2((start - tg).x, (start - tg).z)
-			var da := wrapf(a1 - a0, -PI, PI)
-			var stuecke := maxi(2, int(absf(rad_to_deg(da)) / 15.0))
-			var von := vorn
-			for i in range(1, stuecke + 1):
-				var nach := tg + Vector3(sin(a0 + da * i / stuecke), 0.0, cos(a0 + da * i / stuecke)) * rad
-				var yy := atan2((nach - von).x, (nach - von).z)
-				tween.tween_property(self, "rotation:y", yy, 0.12)
-				t_run += 0.12 + _lauf(tween, von, nach, "Gehen")
-				von = nach
-			y_weg = atan2((start - von).x, (start - von).z) if von.distance_to(start) > 0.01 else rotation.y
-			tween.tween_callback(func(): _play(gn, 0.1))
-		else:
-			t_run = _turn(tween, y_weg, false)
-			tween.tween_callback(func(): _play(gn, 0.1))
-			t_run += _lauf(tween, position, start, gn)
+		t_run = _turn(tween, y_weg, false)
+		tween.tween_callback(func(): _play(gn, 0.1))
+		t_run += _lauf(tween, position, start, gn)
 		var dz := wrapf(schnauze - y_weg, -PI, PI)
 		tween.tween_property(self, "rotation:y", y_weg + dz, absf(rad_to_deg(dz)) / _turn_dps())
 		t_run += absf(rad_to_deg(dz)) / _turn_dps()
