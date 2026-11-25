@@ -55,7 +55,7 @@ for g in m w; do
   spalte haut_${g}_alt "alt: Kaufhaut (wie main $M)" vorn gesicht; sp+=($T/sp_haut_${g}_alt.png)
   for h in $H; do spalte haut_${g}_$h "neu: $h ($C)" vorn gesicht; sp+=($T/sp_haut_${g}_$h.png); done
   bild 2031-haut-$g "2031 Haut: Mensch $GN Wachsoldat; links alt, rechts drei neue zur Wahl; Ganzfigur und Gesicht vorn; Hautton der Erschaffung (getoent wie heute)" \
-    "neu aus $Q, CC0 (Seite, Paketdatei); gebacken auf die Kauf-UV, Kopf und Leib je 1024x1024 JPG. Pruefung kutte_haut_2031: 15 Hautfaelle $GN (5 Voelker x 3), 0 falsch, Hautton am Gesicht hoechstens 5 % vom heutigen" \
+    "neu aus $Q, CC0 (Seite, Paketdatei); gebacken auf die Kauf-UV, Kopf und Leib je 1024x1024 JPG. Pruefung kutte_haut_2031: 15 Hautfaelle $GN (5 Voelker x 3), 0 falsch, Hautton am Gesicht hoechstens 5 %% vom heutigen" \
     "${sp[@]}"
 done
 rm -rf $T
