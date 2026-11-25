@@ -57,6 +57,8 @@ jobs:
           python3 tools/lauf_2012_test.py       # 2012 Auftrag steht/Nachfolger zu, sobald die Fachkraft angekommen ist
           python3 tools/lauf_2019_test.py       # 2019 Wochenzählung: Termin ohne --sperre, Rolle der Routine, frei unter der Laufsperre
           python3 tools/lauf_2035_test.py       # 2035 Besetzung trägt den Disponenten am Titel „Rufname – Disponent – …“
+          python3 tools/lauf_2042_test.py       # 2042 Disponent klein: sonnet, TITEL, Zeitgrenze list_sessions, Wecker gebündelt
+          python3 tools/lauf_2042b_test.py      # 2042 Teil 6 Wecker an Vorgangssitzung, Titel aus Startnachricht, Startrolle; Teil 9 LIEGT kurz
           python3 tools/ablaeufe_2041_test.py   # 2041 a–c Prüferzeile bei gebaut, Rückläufer an Rolle, main-Zeilen schließen
           python3 tools/titel_2041_test.py      # 2041 d Titel Name – Status – Nr – Betreff, Leser alt und neu, TITEL-Zeilen
           python3 tools/titel_2041b_test.py     # 2041 d Nachträge: Disponent – Büro, Wache – Betrieb, Wochenzählung – KW, kosten.rolle Prüfer/Tester/Arbeitsplaner
