@@ -62,9 +62,14 @@ for poly in me.polygons:
 for o in list(bpy.data.objects): bpy.data.objects.remove(o)
 ob = bpy.data.objects.new('Zopf_Zwergin', me)
 bpy.context.scene.collection.objects.link(ob)
-# Bild: Grau mit Mittel 0,545 wie haar_bild der Haare (held-klassen.json), 512 px
+# Bild: Grau mit Mittel 0,545 wie haar_bild der Haare (held-klassen.json), 512 px. Das Paketbild ist fast schwarz (Mittel 0,05);
+# linear auf 0,545 gehoben (Faktor ~10, abgeschnitten) wurden Straehnen weiss und Schattenstellen schwarz, getoent orange-schwarz
+# gefleckt wie Fell (Pruefer 25.11., 09:58; Test zopf_431 rot 69,8 %). Daher Helligkeit mit Gamma 0,4 gestaucht und nur halb
+# gespannt (Mittel 1 ± Haelfte), Straehnen bleiben sichtbar
 a = np.asarray(Image.open(os.path.join(QUELLE, 'braid01_diffuse_black.png')).convert('RGBA')).astype(float) / 255
-g = np.clip(a[..., :3] * (0.545 / max(a[..., :3].mean(), 0.01)), 0, 1)
+t = (a[..., :3].mean(2) + 0.004) ** 0.4
+t /= t.mean()
+g = np.repeat(np.clip(0.545 * (0.5 + 0.5 * t), 0, 1)[..., None], 3, axis=2)
 bild = os.path.join(os.path.dirname(AUS) or '.', '_zopf.png')
 Image.fromarray((np.dstack([g, a[..., 3:]]) * 255).astype(np.uint8)).resize((512, 512), Image.LANCZOS).save(bild)
 mat = bpy.data.materials.new('Hair_Zopf')
