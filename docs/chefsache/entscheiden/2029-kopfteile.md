@@ -1,5 +1,7 @@
 # 2029 · Sollen die neuen Haare, Bärte und Helme aus den MakeHuman-Paketen ins Spiel?
 
+[Bild von 25.11., 17:05](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/25-1705-2029-Sokrates.png) (eingetragen von meldung.sh, Sokrates)
+
 [Bild von 25.11., 17:04](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/25-1704-2029-Sokrates.png) (eingetragen von meldung.sh, Sokrates)
 
 Sokrates · 25.11., 17:06 · E Figuren · aus deinem 👍 12:37 auf 2026 A: „danach entscheidest du am Bild, ob der Rest kommt“
