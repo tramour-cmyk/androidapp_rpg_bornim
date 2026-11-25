@@ -50,12 +50,13 @@ aus = []
 ROOT = os.path.dirname(H)  # lauf.DOCS ist der Notizklon; Test liest das Profil dieses Stands
 nr = lauf.rundblick_zeilen(aus, {}, set(), {}, zeilen=[d], scharf=True, wurzel=ROOT, name="Wochenzählung")
 st = [l for l in aus if l.startswith("START ")]
-soll("START Wochenzählung für 2018", nr == "2018" and st and st[0].startswith("START Wochenzählung |") and "Wochenzählung – 2018: Routine" in st[0], aus)
+soll("START Wochenzählung für 2018", nr == "2018" and st and st[0].startswith("START Wochenzählung |") and "| Wochenzählung – KW 47 – 2018 (" in st[0], aus)  # 2041 d (Chef 25.11., 21:14): „Wochenzählung – KW“
 soll("Startnachricht: Woche Mo 16.11. bis So 22.11.", st and "Mo 16.11. bis So 22.11." in st[0], st)
 prof = lauf.ladetext("Wochenzählung", os.path.join(ROOT, "docs"))
 soll("Startnachricht: Profil docs/profile/Wochenzählung.md (Ladetext)", prof and st and prof.split("\n")[0] in st[0].replace("\\n", "\n"), (prof, st))
 soll("Routine ohne Kern und Rufname (ROUTINE_ROLLEN)", "Wochenzählung" in lauf.ROUTINE_ROLLEN and st and lauf.mit_kern(st[0]) == st[0], st)
-soll("Rolle für Kosten und Sitzungen: kosten.rolle(„Wochenzählung – 2018: …“)", lauf.kosten.rolle("Wochenzählung – 2018: Routine (24.11., 12:40)") == "Wochenzählung")
+soll("Rolle für Kosten und Sitzungen: kosten.rolle(„Wochenzählung – 2018: …“)", lauf.kosten.rolle("Wochenzählung – 2018: Routine (24.11., 12:40)") == "Wochenzählung"
+     and lauf.kosten.rolle("Wochenzählung – KW 47 – 2018 (24.11., 12:40)") == "Wochenzählung")
 
 # 4. Laufsperre 287 (Form 2001, Wortlaut Archiv 23.11., 14:43) hält Werkzeug an, die Routine nicht
 ARCHIV = ("- **287 Laufsperre (Form 2001)** (23.11., 14:43, Chef an Sokrates: „lasst den einen dritten aufmachen“) → **Laufsperre: höchstens "

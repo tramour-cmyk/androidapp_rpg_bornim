@@ -40,7 +40,7 @@ NAMEN = {
     "W": ["Wiebke", "Werner", "Wanda"], "Z": ["Zora", "Zeno", "Zita"],
 }
 BUCHSTABEN = list(NAMEN)
-ALLE = {n for ns in NAMEN.values() for n in ns} | {"Edda", "Ines", "Selma", "Inge", "Tilda", "Detlef", "Ralf"}  # 2035: im Bestand vergeben, nicht in NAMEN; nur Erkennung, keine Vergabe
+ALLE = {n for ns in NAMEN.values() for n in ns} | {"Edda", "Ines", "Selma", "Inge", "Tilda", "Detlef", "Ralf", "Mira"}  # 2041: Mira; 2035: im Bestand vergeben, nicht in NAMEN; nur Erkennung, keine Vergabe
 
 # Alte Rollen- und Sitzungsnamen (CLAUDE.md „Rollen“, startbar.BESITZER, Account); Sokrates bleibt, vergeben wird er nie.
 ALTE_ROLLEN = {"Chef", "Sokrates", "Homer", "Perikles", "Diogenes", "Ford", "Tom", "Jerry", "Spike", "Tuffy", "Max", "Zentrale"}

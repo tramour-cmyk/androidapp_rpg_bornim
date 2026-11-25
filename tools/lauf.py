@@ -299,17 +299,22 @@ def warnung_einmal_je_stunde(zeilen, pfad=None, jetzt=None):
     return aus
 
 
+FESTER_TITEL = {"Disponent": "Disponent – Büro", "Wache": "Wache – Betrieb"}  # 2041 d (Chef 25.11., 21:11, 21:14): Einzelrollen ohne Rufnamen
+OHNE_RUFNAMEN = {"Sokrates"} | set(FESTER_TITEL)  # mit ROUTINE_ROLLEN; Alter Ego startet lauf.py nie
+
+
 def mit_rufnamen(ausgabe, sitzungen, jetzt=None, namen=None):
     """1739 Rufnamen (erst mit tools/1727-SCHARF): jede START-Zeile außer Sokrates bekommt den nächsten freien Rufnamen des
     Tages (rufname.py) als erstes Wort des Titels statt der Rolle, und die erste Nachricht nennt ihn. Die Rolle bleibt im
     ersten Feld (Startsperre, Kern, Profil). 1957: namen (Rolle → Rufnamen in START-Folge) geht in die Startsperre; daraus finden
-    Kosten, Archivregel, Startprüfung und Belegung die Startrolle (rufname.rolle), nicht den Besitzer des Vorgangs im Titel."""
+    Kosten, Archivregel, Startprüfung und Belegung die Startrolle (rufname.rolle), nicht den Besitzer des Vorgangs im Titel.
+    2041 d: ohne Rufnamen bleiben Sokrates, Disponent, Wache (FESTER_TITEL) und die Routinen (ROUTINE_ROLLEN)."""
     import rufname
     belegt = rufname.heute_vergeben([(s.get("title", ""), s.get("created_at", "")) for s in sitzungen], jetzt or JETZT)
     aus = []
     for l in ausgabe:
         teile = l.split(" | ", 6)
-        if not l.startswith("START ") or len(teile) < 7 or teile[0][6:].strip() in ("Sokrates",) + tuple(ROUTINE_ROLLEN):
+        if not l.startswith("START ") or len(teile) < 7 or teile[0][6:].strip() in OHNE_RUFNAMEN | ROUTINE_ROLLEN:
             aus.append(l); continue
         n = rufname.naechster(belegt)
         if not n:
@@ -1013,6 +1018,7 @@ def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None, bremse=None, z
     mo, satz, hoch = modell(rolle, nr)
     msg = "%s\n\n%s Zuerst Start nach deiner Rollendatei.%s" % (rolle, nachricht.strip(), satz)
     l = "START %s | %s%s | %s | %s | %s | %s | %s" % (rolle, mo, aufwand(hoch), umgebung(rolle, hoch), REPO, REVISION,
+                                                     ("%s (%s)" % (FESTER_TITEL[rolle], berlin(JETZT))) if rolle in FESTER_TITEL else
                                                      "%s – %s: Handstart (%s)" % (rolle, nr, berlin(JETZT)), msg.replace("\n", "\\n"))
     aus = [mit_kern(mit_kaufrepo(l), docs)]
     namen = {}
@@ -1133,8 +1139,19 @@ def rundblick_zeilen(ausgabe, je_rolle, archiviert, marken, zeilen=None, scharf=
         ausgabe.append("WARNUNG %s %s nicht gestartet: Teil A nicht lesbar (%s; 1789, Spike)" % (name, nr, (_a.routine(d["titel"]) or ("?",))[0])); return None
     msg = "Routine %s, Vorgang %s (Wochentermin; ohne Kern, %s ist dein Auftrag, 1789).\n\n%s\n\n<Nr> ist %s." % (
         name, nr, "der Text" if name in ROUTINE_PROFIL else "Teil A", text, nr)
-    ausgabe.append("START %s | %s%s | %s | %s | %s | %s – %s: Routine (%s) | %s" % (name, MODELL["Sokrates"], aufwand(), umgebung(name), REPO, REVISION, name, nr, berlin(JETZT), msg.replace("\n", "\\n")))
+    ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (name, MODELL["Sokrates"], aufwand(), umgebung(name), REPO, REVISION, routine_titel(name, nr, d["titel"]), msg.replace("\n", "\\n")))
     return nr
+
+
+def routine_titel(name, nr, titel):
+    """START-Titel einer Routine „<Name> – <Nr>: Routine (…)“; 2041 d (Chef 25.11., 21:14): Wochenzählung „Wochenzählung – KW <nn> – <Nr> (…)“
+    (Kalenderwoche der gezählten Woche, woche_vor), ohne Rufnamen; Nummer nach dem zweiten Strich (nummer_aus_titel)."""
+    w = woche_vor(titel) if name == "Wochenzählung" else None
+    if w:
+        mo = datetime.datetime.strptime(w[3:9] + str(JETZT.year), "%d.%m.%Y")
+        if mo > JETZT.replace(tzinfo=None) + datetime.timedelta(days=1): mo = mo.replace(year=mo.year - 1)
+        return "Wochenzählung – KW %02d – %s (%s)" % (mo.isocalendar()[1], nr, berlin(JETZT))
+    return "%s – %s: Routine (%s)" % (name, nr, berlin(JETZT))
 
 
 ROUTINE_PROFIL = {"Wochenzählung"}  # 2019: Routinen, deren Auftrag docs/profile/<Name>.md ist (ladesumme.py --anlegen, wie Wache)
@@ -1214,8 +1231,8 @@ ALT_EMPFAENGER = {"Arbeitsplaner": "Ford", "Disponent": "Ford", "Prüfer": "Diog
 def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
     """1739 (Sokrates 21.11., 20:43, F4 (1)): offene Übergabezeilen an andere als Sokrates (etwa „Arbeitsplaner“ aus chefwort.py,
     rueckmeldung.py) → NACHRICHT an die Sitzung des Empfängers. Hat er keine, startet ihn start(r, nr, teil) (Befund 1: Start statt
-    nur NACHRICHT an Ford; hängt an eine START-Zeile dieses Laufs an, nie zwei Starts); kann start nicht (nicht startbare Rolle,
-    --ohne, Hintergrundlauf, Startsperre jünger als 20 Min.) oder fehlt es, NACHRICHT an Ford. Bis zur Umschaltung
+    nur NACHRICHT an den Disponenten; hängt an eine START-Zeile dieses Laufs an, nie zwei Starts); kann start nicht (nicht startbare Rolle,
+    --ohne, Hintergrundlauf, Startsperre jünger als 20 Min.) oder fehlt es, NACHRICHT an den Disponenten (Zeile „NACHRICHT Ford“). Bis zur Umschaltung
     (tools/1727-SCHARF) sind Arbeitsplaner und Disponent Ford, der Prüfer Diogenes (ALT_EMPFAENGER).
     1911 (D343.1): wartet der Vorgang (Feld „wartet auf“, etwa Sokrates nach „steckt fest“), bleibt eine Zeile an eine Fachkraft
     liegen (kein Start ohne Startbares, 340.12/3); Zeilen an das Büro (startbar.BUERO) gehen weiter. 1914 (D345.1): nur offene

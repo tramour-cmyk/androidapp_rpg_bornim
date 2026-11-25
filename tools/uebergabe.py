@@ -287,10 +287,10 @@ def uebergabe(nr, an, was):
 DISPONENT_ALT = "Ford"  # 1739: bis zur Umschaltung (lauf.ALT_EMPFAENGER)
 ALT = {"Prüfer": "Diogenes", "Disponent": DISPONENT_ALT, "Arbeitsplaner": DISPONENT_ALT}
 
-DISPONENT_TITEL = re.compile(r"^\w+ – Disponent – ")  # 2035 (Chef 25.11., 19:47): „Detlef – Disponent – Betrieb“; nie „Disponent-Starter“, „Wache – Disponent (…)“
+DISPONENT_TITEL = re.compile(r"^(?:Disponent – Büro(?:$| \()|\w+ – Disponent – )")  # 2041 d (Chef 25.11., 21:11): „Disponent – Büro (…)“ ohne Rufnamen; alte Form „Otto – Disponent – Betrieb“ (2035, Chef 19:47), bis Otto umbenannt ist; nie „Disponent-Starter“, „Wache – Disponent (…)“
 
 def disponent():
-    """2035: der laufende Disponent, die jüngste Zeile in ARBEIT-BESETZUNG.md mit Titel „Rufname – Disponent – …“ (lauf.besetzung_text
+    """2035: der laufende Disponent, die jüngste Zeile in ARBEIT-BESETZUNG.md mit Titel „Disponent – Büro …“ oder alt „Rufname – Disponent – …“ (lauf.besetzung_text
     sortiert nach Start); keine Handzeile in ARBEIT-BETRIEB.md (2001 „Disponent (aktuell)“ entfällt). Leer, bis der neue Disponent sein
     erstes `lauf.py` gelaufen ist."""
     try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()

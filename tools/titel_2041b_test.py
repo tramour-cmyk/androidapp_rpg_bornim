@@ -79,8 +79,8 @@ soll("routine_titel Rundblick unverändert", isinstance(t, str) and t.startswith
 
 # kosten.rolle: Prüfer, Tester, Arbeitsplaner am Titel, nicht der Bereich des Vorgangs (2035-Ü38)
 for t, r in (("Ralf – 2035: Prüfung Disponent erkennen (25.11., 21:00)", "Prüfer"), ("Ralf – beim Prüfer – 2035 – Prüfung Disponent", "Prüfer"),
-             ("Timo – 2035: Test Disponent erkennen (25.11., 21:00)", "Tester"), ("Bruno – Auftrag 2036 (25.11., 18:07)", "Arbeitsplaner"),
-             ("Bruno – Auftrag 2036: Rufnamen (25.11., 18:07)", "Arbeitsplaner"),
+             ("Timo – 2035: Test Disponent erkennen (25.11., 21:00)", "Tester"), ("Vera – Auftrag 2036 (25.11., 18:07)", "Arbeitsplaner"),
+             ("Vera – Auftrag 2036: Rufnamen (25.11., 18:07)", "Arbeitsplaner"),
              ("Nora – 2041: Abläufe (25.11., 21:09)", "Werkzeug"), ("Nora – beim Prüfer – 2041 – Abläufe", "Werkzeug")):
     soll("kosten.rolle %s: %s" % (r, t), kosten.rolle(t) == r, kosten.rolle(t))
 soll("guthaben.ober_rolle Prüfer weiter", guthaben.ober_rolle(kosten.rolle("Ralf – 2035: Prüfung x"), "Ralf – 2035: Prüfung x") == "Prüfer")
