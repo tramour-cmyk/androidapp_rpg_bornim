@@ -32,7 +32,7 @@ soll("aus_titel Rufname", rn.aus_titel("Anna – 1739: Werkzeuge (21.11., 21:30)
 soll("aus_titel alte Rolle: None", rn.aus_titel("Spike – 1739: Werkzeuge") is None)
 soll("aus_titel Sokrates: None", rn.aus_titel("Sokrates – 1763 C: offene Zeilen") is None)
 soll("aus_titel Teilwort: None", rn.aus_titel("Annabell – 1") is None)
-soll("Titelform", rn.titel("Anna", "1739", "Werkzeuge", J) == "Anna – 1739: Werkzeuge (21.11., 21:30)", rn.titel("Anna", "1739", "Werkzeuge", J))
+soll("Titelform (2041 d)", rn.titel("Anna", "1739", "Werkzeuge") == "Anna – in Arbeit – 1739 – Werkzeuge", rn.titel("Anna", "1739", "Werkzeuge"))
 
 S = [("Anna – 1: a", "2026-11-21T06:00:00Z"), ("Spike – 2: b", "2026-11-21T07:00:00Z"),
      ("Britta – 3: c", "2026-11-21T22:59:00Z"),   # 23:59 Berlin, noch heute

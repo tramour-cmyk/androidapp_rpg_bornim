@@ -391,6 +391,13 @@ def annehmen(kennung, frist=FRIST_MIN, nur_verlaengern=False):
                "FEST": "steckt fest (zweimal Frist abgelaufen oder abgebrochen, 1782): nichts tun, Sokrates klärt",
                "NICHT DEINE": "nur eigene Zeilen verlängern"}[wort]
     print("%s %s (%s): %s" % (wort, kennung, rest, hinweis))
+    if wort == "ANGENOMMEN":  # 2041 d: Titel „<Rufname> – in Arbeit – <Nr> – <Betreff>“; Büro, Leitung, Abnahme behalten ihren
+        try:
+            import rufname
+            z = rufname.titel_zeile(sid, nr, "in Arbeit")
+            if z: print(z); print(rufname.TITEL_HINWEIS)
+        except Exception as e:
+            print("TITEL nicht gebaut (%s)" % e)
     return wort
 
 def erledigt(kennung):

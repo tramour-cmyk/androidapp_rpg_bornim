@@ -753,9 +753,13 @@ def start_titel(kopf, nr):
     return "%s%s (%s)" % (kopf, (": " + th) if th else "", berlin(JETZT))
 
 def auftrag_aus_titel(titel):
-    """1932: Nummer aus einem Planer-Titel „<Name> – Auftrag <Nr> (…)“, sonst None."""
+    """1932: Nummer aus einem Planer-Titel „<Name> – Auftrag <Nr> (…)“; 2041 d: auch „<Name> – <Status> – <Nr> – <Betreff>“
+    (rufname.teile; der Aufrufer prüft die Rolle Planer); sonst None."""
     m = re.search(r"\bAuftrag (\d[0-9a-zA-Z.]*[0-9a-zA-Z]|\d)\b", titel or "")
-    return m.group(1) if m else None
+    if m: return m.group(1)
+    import rufname
+    t = rufname.teile(titel)
+    return t["nr"] if t and t["status"] else None
 
 def planer_in_arbeit(leb):
     """1932: Nummern der Aufträge, die eine Planer-Sitzung gerade schreibt (tätig oder kürzlich); 1957: Rufnamen-Planer über die Startsperre."""

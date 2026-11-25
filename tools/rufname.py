@@ -5,7 +5,8 @@ Jede Sitzung bekommt beim Start einen Vornamen aus fester Liste: je Tag (Berline
 nie doppelt am Tag, nie der Name einer Spielfigur oder einer alten Rolle (Sperrliste, RF:13). Sokrates behält seinen Namen.
 Vergeben wird von einem Werkzeug (`lauf.py`), nicht von einer Sitzung (P20:12).
 
-Titelform: „<Rufname> – <Nr>: <Thema> (TT.MM., HH:MM)“ (wie 436, Rufname statt Rolle, stets mit Vorgang). Der Bereich
+Titelform START: „<Rufname> – <Nr>: <Thema> (TT.MM., HH:MM)“ (wie 436); 2041 d: „<Rufname> – <Status> – <Nr> – <Betreff>“
+(titel(), Zeile TITEL aus vorgang.py). Der Bereich
 einer Rufnamen-Sitzung ist der Besitzer des ersten Vorgangs im Titel (`bereich()`); so bleiben Kosten und Besetzung
 ohne eigenes Verzeichnis zählbar.
 
@@ -97,10 +98,62 @@ def naechster(vergeben, docs=None):
     return None
 
 
-def titel(rufname, nr, thema, jetzt=None):
-    """„<Rufname> – <Nr>: <Thema> (TT.MM., HH:MM)“ (Berliner Zeit)."""
-    j = (jetzt or datetime.datetime.now(BERLIN)).astimezone(BERLIN)
-    return "%s – %s: %s (%s)" % (rufname, nr, thema, j.strftime("%d.%m., %H:%M"))
+STATUS = ("in Arbeit", "beim Prüfer", "wartet", "frei")  # 2041 d, Lesart A (Sokrates 25.11., 21:01): aus der Übergabezeile der Sitzung
+_NEU = re.compile(r"\s*(?P<name>[A-ZÄÖÜ][a-zäöüß]+) – (?P<status>%s) – (?P<nr>\d[0-9a-zA-Z.]*) – (?P<betreff>.*?)\s*$" % "|".join(STATUS))
+_ALT = re.compile(r"\s*(?P<name>[A-ZÄÖÜ][a-zäöüß]+) – (?P<nr>\d[0-9a-zA-Z.]*): (?P<betreff>.*?)(?: \(\d\d\.\d\d\., \d\d:\d\d\))?\s*$")
+# Sitzungen ohne Vorgang oder mit fremdem Vorgang behalten ihren Titel (DISPONENT_TITEL, FREI_TITEL, Prüfer am Titel R11)
+BEHALTEN = {"Disponent", "Arbeitsplaner", "Planer", "Prüfer", "Tester", "Sokrates", "Alter Ego", "Wache", "Rundblick", "Ideenlauf",
+            "Tagesbericht", "Wochenzählung", "Ford", "Diogenes", "Perikles"}
+BESETZUNG = None  # Pfad zu ARBEIT-BESETZUNG.md; Tests setzen ihn
+
+
+def titel(rufname, nr, thema, status="in Arbeit"):
+    """2041 d (Chef 25.11., 20:36): „<Rufname> – <Status> – <Nr> – <Betreff>“; None bei unbekanntem Status.
+    Alte Form „<Rufname> – <Nr>: <Thema> (TT.MM., HH:MM)“ lesen alle Leser weiter (teile())."""
+    return "%s – %s – %s – %s" % (rufname, status, nr, thema) if status in STATUS else None
+
+
+def teile(titel_):
+    """Name, Status (None in alter Form), Nr, Betreff eines Rufnamen-Titels alt oder neu; None sonst (Disponent, Sokrates, fremd)."""
+    m = _NEU.match(titel_ or "") or _ALT.match(titel_ or "")
+    if not m or m.group("name") not in ALLE: return None
+    g = m.groupdict()
+    return {"name": g["name"], "status": g.get("status"), "nr": g["nr"], "betreff": g["betreff"]}
+
+
+def besetzt(sid, pfad=None):
+    """(Rolle, Rufname) der Sitzung sid aus ARBEIT-BESETZUNG.md; (None, None), wenn sie dort fehlt."""
+    try: t = open(pfad or BESETZUNG or os.path.join(DOCS, "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+    except OSError: return None, None
+    for z in t.splitlines():
+        f = [x.strip() for x in z.split("|")]
+        if sid and len(f) > 3 and re.search(r"\b%s\b" % re.escape(sid), f[2]):
+            return f[1], aus_titel(f[2].lstrip("["))
+    return None, None
+
+
+def betreff(nr):
+    """Betreff aus dem Vorgangstitel (lauf.thema wie der START-Titel, 1960); sonst die Nummer allein."""
+    try:
+        sys.path.insert(0, HIER)
+        import lauf, startbar
+        t = next((d["titel"] for d in (_ZEILEN.get("liste") or startbar.zeilen_liste()) if d.get("nr") == nr), "")
+        return lauf.thema(t) if t else ""
+    except Exception:
+        return ""
+
+
+def titel_zeile(sid, nr, status, fuer=False, pfad=None, rolle=None):
+    """2041 d: „TITEL <Titel>“ für die eigene Sitzung (fuer: „TITEL <Kennung> <Titel>“ für eine andere, Prüfer bei ja/nein).
+    None für Sitzungen, die ihren Titel behalten (BEHALTEN, aus --sitzung oder Besetzung). Rufname aus der Besetzung, sonst
+    der Platzhalter „<Rufname>“ (nie ein Name aus dem Text: „Nachfolger Mira“ hieße sonst Mira)."""
+    r, name = besetzt(sid, pfad)
+    if (rolle or r) in BEHALTEN: return None
+    t = titel(name or "<Rufname>", nr, betreff(nr) or "Vorgang %s" % nr, status)
+    return ("TITEL %s %s" % (sid, t)) if fuer else ("TITEL %s" % t) if t else None
+
+
+TITEL_HINWEIS = "→ Titel setzen: set_session_title mit dem Text nach „TITEL“; steht davor eine Kennung, an jener Sitzung (2041 d)"
 
 
 def bereich(titel_, zeilen=None):

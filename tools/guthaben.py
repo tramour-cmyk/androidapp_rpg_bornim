@@ -171,7 +171,7 @@ def fachkraft(rolle):
     return re.sub(r" \d+$", "", rolle or "") not in FREI_OBER
 
 
-TITEL_ROLLE = re.compile(r" – \d[0-9a-zA-Z.]*: (Prüfung|Test(?:er)?)\b")
+TITEL_ROLLE = re.compile(r" – \d[0-9a-zA-Z.]*(?::| –) (Prüfung|Test(?:er)?)\b")  # 2041 d: auch „Ralf – beim Prüfer – 2035 – Prüfung …“
 
 
 def ober_rolle(rolle, titel):

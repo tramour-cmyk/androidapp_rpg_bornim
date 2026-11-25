@@ -64,12 +64,12 @@ d = tempfile.mkdtemp()
 open(os.path.join(d, "ARBEIT-BESETZUNG.md"), "w").write(
     "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n"
     "| Werkzeug | [%s](https://claude.ai/code/session_N) | 2041 | – | x |\n| Werkzeug | [%s](https://claude.ai/code/session_A) | 2041 | – | x |\n"
-    "| Prüfer | [%s](https://claude.ai/code/session_P) | 2035 | – | x |\n| Disponent | [%s](https://claude.ai/code/session_D) | Betrieb | – | x |\n" % (NEU, ALT.replace("Nora", "Mira"), P_ALT, DISP))
+    "| Prüfer | [%s](https://claude.ai/code/session_P) | 2035 | – | x |\n| Disponent | [%s](https://claude.ai/code/session_D) | Betrieb | – | x |\n" % (NEU, ALT.replace("Nora", "Nils"), P_ALT, DISP))
 os.makedirs(os.path.join(d, "docs")); os.rename(os.path.join(d, "ARBEIT-BESETZUNG.md"), os.path.join(d, "docs", "ARBEIT-BESETZUNG.md"))
 w_alt = ue.WURZEL; ue.WURZEL = d
 try:
     soll("Leser uebergabe.besetzung neu", ue.besetzung("Nora") == ["session_N"], ue.besetzung("Nora")); leser.add("uebergabe.besetzung")
-    soll("Leser uebergabe.besetzung alt", ue.besetzung("Mira") == ["session_A"], ue.besetzung("Mira"))
+    soll("Leser uebergabe.besetzung alt", ue.besetzung("Nils") == ["session_A"], ue.besetzung("Nils"))
 finally:
     ue.WURZEL = w_alt
 sp = importlib.util.spec_from_file_location("neustart_haken", os.path.join(HIER, "neustart-haken.py")); nh = importlib.util.module_from_spec(sp); sp.loader.exec_module(nh)
@@ -86,8 +86,8 @@ for t, r in ((NEU, ""), (ALT, ""), (DISP, "Disponent")):
 B = os.path.join(d, "docs", "ARBEIT-BESETZUNG.md")
 tz = fn(rn, "titel_zeile")
 soll("d TITEL annehmen (Fachkraft)", tz("session_N", "2041", "in Arbeit", pfad=B) == "TITEL " + NEU, tz("session_N", "2041", "in Arbeit", pfad=B))
-soll("d TITEL alter Titel: Name aus Besetzung", tz("session_A", "2041", "wartet", pfad=B) == "TITEL Mira – wartet – 2041 – Abläufe a–d jetzt", tz("session_A", "2041", "wartet", pfad=B))
-soll("d TITEL für andere Sitzung mit Kennung", tz("session_A", "2041", "frei", fuer=True, pfad=B) == "TITEL session_A Mira – frei – 2041 – Abläufe a–d jetzt")
+soll("d TITEL alter Titel: Name aus Besetzung", tz("session_A", "2041", "wartet", pfad=B) == "TITEL Nils – wartet – 2041 – Abläufe a–d jetzt", tz("session_A", "2041", "wartet", pfad=B))
+soll("d TITEL für andere Sitzung mit Kennung", tz("session_A", "2041", "frei", fuer=True, pfad=B) == "TITEL session_A Nils – frei – 2041 – Abläufe a–d jetzt")
 soll("d Prüfer behält Titel", tz("session_P", "2035", "in Arbeit", pfad=B) is None, tz("session_P", "2035", "in Arbeit", pfad=B))
 soll("d Disponent behält Titel", tz("session_D", "2041", "in Arbeit", pfad=B) is None)
 soll("d Sitzung ohne Besetzung: Platzhalter statt fremdem Namen", tz("session_X", "2041", "in Arbeit", pfad=B) == "TITEL <Rufname> – in Arbeit – 2041 – Abläufe a–d jetzt", tz("session_X", "2041", "in Arbeit", pfad=B))
@@ -102,8 +102,8 @@ try:
     soll("d rueckmeldung Frage → wartet", tn("2041", "Frage: Lesart A oder B?", VORHER, "session_N", "unbekannt") == ["TITEL Nora – wartet – 2041 – Abläufe a–d jetzt"])
     soll("d rueckmeldung Laufanforderung → wartet", tn("2041", "Laufanforderung: Ursache x, Commit abc1234", VORHER, "session_N", "unbekannt") == ["TITEL Nora – wartet – 2041 – Abläufe a–d jetzt"])
     soll("d rueckmeldung fertig ohne Commit → kein Titel", tn("2041", "fertig", VORHER, "session_N", "unbekannt") == [])
-    soll("d Prüfer ja → Fachkraft frei", tn("2041", "ja: alle Prüffragen", VORHER, "session_P", "unbekannt") == ["TITEL session_A Mira – frei – 2041 – Abläufe a–d jetzt"], tn("2041", "ja: alle Prüffragen", VORHER, "session_P", "unbekannt"))
-    soll("d Prüfer nein → Fachkraft in Arbeit", tn("2041", "nein: Prüffrage 2", VORHER, "session_P", "unbekannt") == ["TITEL session_A Mira – in Arbeit – 2041 – Abläufe a–d jetzt"])
+    soll("d Prüfer ja → Fachkraft frei", tn("2041", "ja: alle Prüffragen", VORHER, "session_P", "unbekannt") == ["TITEL session_A Nils – frei – 2041 – Abläufe a–d jetzt"], tn("2041", "ja: alle Prüffragen", VORHER, "session_P", "unbekannt"))
+    soll("d Prüfer nein → Fachkraft in Arbeit", tn("2041", "nein: Prüffrage 2", VORHER, "session_P", "unbekannt") == ["TITEL session_A Nils – in Arbeit – 2041 – Abläufe a–d jetzt"])
     soll("d Prüfer ja ohne fertig in der Datei → nichts", tn("2041", "ja", "# 2041 · x\n\n## Rückmeldungen\n\n", "session_P", "unbekannt") == [])
     soll("d Hinweis → nichts", tn("2041", "Hinweis: x", VORHER, "session_N", "unbekannt") == [])
 finally:

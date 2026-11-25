@@ -378,6 +378,42 @@ def weitergabe(w, t, zeit, wer, text, vorher, routine=False, werkzeug=False):
     return None, None
 
 
+def macher_sid(text):
+    """2041 d: Kennung der Sitzung, die zuletzt „fertig“ oder „Laufanforderung“ meldete (Rückmeldungen der Datei); None ohne."""
+    ms = [m for m in BLOCK.finditer(ue.abschnitt(text or "", "Rückmeldungen")) if worte(m.group("text")) & {"fertig", "Laufanforderung"}]
+    return (ms[-1].group("sid") or None) if ms else None
+
+
+def titel_zeilen(nr, text, vorher, sid, wer):
+    """2041 d, Lesart A (Sokrates 25.11., 21:01): Zeilen „TITEL …“ nach einer Rückmeldung. Eigene Sitzung: „fertig“ mit Commit →
+    „beim Prüfer“; „Frage“, „Laufanforderung“, „steckt fest“ → „wartet“. Prüfer: „ja“ → Fachkraft „frei“, „nein“/„Beleg fehlt“ →
+    „in Arbeit“, als „TITEL <Kennung> <Titel>“ für die Sitzung des letzten „fertig“. Sitzungen in rufname.BEHALTEN bekommen keine."""
+    import rufname
+    w = worte(text)
+    aus = []
+    if w & {"ja", "nein", "Beleg fehlt"}:
+        if "Lauf frei" in w or "nein, Auftrag" in w: return []
+        m = macher_sid(vorher)
+        z = rufname.titel_zeile(m, nr, "frei" if "ja" in w else "in Arbeit", fuer=True) if m and m != sid else None
+        return [z] if z else []
+    if "fertig" in w and COMMIT.search(text or ""): st = "beim Prüfer"
+    elif w & {"Frage", "Laufanforderung", "steckt fest"}: st = "wartet"
+    else: return []
+    z = rufname.titel_zeile(sid, nr, st, rolle=wer if wer not in (None, "", "unbekannt") else None) if sid else None
+    return [z] if z else []
+
+
+def titel_aus(nr, text, vorher, sid, wer, grund):
+    """2041 d: TITEL-Zeilen ausgeben, mit Hinweis set_session_title; nie bei doppeltem Eintrag; Fehler halten nichts an."""
+    if grund == "schon eingetragen": return
+    try:
+        import rufname
+        for z in titel_zeilen(nr, text, vorher, sid, wer):
+            print(z); print(rufname.TITEL_HINWEIS)
+    except Exception as e:
+        print("TITEL nicht gebaut (%s)" % e)
+
+
 def lauf_offen(text):
     """1952: die jüngste Meldung der Fachkraft („fertig“ oder „Laufanforderung“ mit Commit) ist eine Laufanforderung."""
     ms = [worte(m.group("text")) for m in BLOCK.finditer(ue.abschnitt(text, "Rückmeldungen"))
@@ -592,6 +628,7 @@ def haupt(a):
     sid = ""
     try: sid = ue.sitzung()
     except ue.Fehler: pass
+    vorher = _datei(a[0])  # 2041 d: macher_sid vor dem Eintrag
     if wer is None:
         import chefwort
         wer = chefwort._rolle_aus_besetzung(sid) or "unbekannt"
@@ -609,9 +646,11 @@ def haupt(a):
     if not k:
         print("EINGETRAGEN %s: %s" % (a[0], grund))
         if grund != "schon eingetragen": nein_waechter(a[0], a[1])
+        titel_aus(a[0], a[1], vorher, sid, wer, grund)
         u = unbekannt(a[1], wer) if grund != "schon eingetragen" else None
         if u: sys.exit("vorgang.py rueckmeldung %s: ZURÜCKGEWIESEN, %s" % (a[0], u))
         return
+    titel_aus(a[0], a[1], vorher, sid, wer, grund)
     zeile = [x for x in ue.zeilen(_datei(a[0])) if x["k"] == k]
     an = zeile[0]["an"] if zeile else "?"
     if grund == RUHT_SCHON:  # 1976: Liste bleibt „ruht“ (kein liste_fest), keine zweite Obergrenze
