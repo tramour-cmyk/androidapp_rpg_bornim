@@ -236,6 +236,35 @@ static func setzt_ab(id: String) -> bool:
 	return not id in STUR
 
 
+## 1589.4 (Chef 25.11., 09:55: „der Umriss jeder Figur folgt ihrer Form“): Umriss als Kapsel [p, q, r] am Boden: Strecke p–q,
+## Halbmesser r; ein Kreis ist eine Kapsel mit p = q. Abstand zweier Kapseln = Abstand Strecke zu Strecke minus beide Halbmesser
+## (Ericson, Real-Time Collision Detection, 2005, 4.5 und 5.1.9; Godot CapsuleShape2D). Ein Weg ist eine Kapsel entlang der Strecke.
+## Aus dem Kasten am Boden [groesse] (lange und kurze Seite): r = halbe kurze Seite, Länge = lang − kurz, Achse [achse] längs der
+## langen Seite
+static func kapsel(mitte: Vector2, achse: Vector2, laenge: float, r: float) -> Array:
+	var h := achse.normalized() * 0.5 * maxf(laenge, 0.0)
+	return [mitte - h, mitte + h, r]
+
+
+static func strecke_strecke(p1: Vector2, q1: Vector2, p2: Vector2, q2: Vector2) -> float:
+	if Geometry2D.segment_intersects_segment(p1, q1, p2, q2) != null:
+		return 0.0
+	return minf(minf(p1.distance_to(Geometry2D.get_closest_point_to_segment(p1, p2, q2)),
+			q1.distance_to(Geometry2D.get_closest_point_to_segment(q1, p2, q2))),
+			minf(p2.distance_to(Geometry2D.get_closest_point_to_segment(p2, p1, q1)),
+			q2.distance_to(Geometry2D.get_closest_point_to_segment(q2, p1, q1))))
+
+
+## Abstand der Ränder zweier Kapseln (negativ: sie stecken ineinander)
+static func kapsel_abstand(k1: Array, k2: Array) -> float:
+	return strecke_strecke(k1[0], k1[1], k2[0], k2[1]) - float(k1[2]) - float(k2[2])
+
+
+## Abstand des Punkts [c] zur Strecke der Kapsel [k] (liegt c im Umriss: kleiner als k[2])
+static func punkt_kapsel(c: Vector2, k: Array) -> float:
+	return c.distance_to(Geometry2D.get_closest_point_to_segment(c, k[0], k[1]))
+
+
 ## F1: ist die Strecke [a] → [b] für einen Kreis mit [r] frei? [andere]: [[Mitte, Umriss], …] der anderen Stehenden
 ## Steht er am Start schon im Umriss eines anderen, sperrt der nur einen Weg, der ihm noch näher kommt (heraus darf er immer)
 static func strecke_frei(a: Vector2, b: Vector2, r: float, andere: Array) -> bool:

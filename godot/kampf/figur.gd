@@ -4128,6 +4128,26 @@ func umriss_r() -> float:
 	return maxf(0.5 * Vector2(box.size.x, box.size.z).length(), 0.1)
 
 
+func kapsel_laenge() -> float:
+	if fighter.monster == null:
+		return 0.0
+	var box := footprint()
+	return absf(box.size.x - box.size.z)
+
+
+## Achse der Kapsel am Boden (Welt, x und z), längs der langen Seite des Kastens, gedreht mit der Figur
+func kapsel_achse() -> Vector2:
+	var box := footprint() if fighter.monster != null else AABB()
+	var lok := Vector3.RIGHT if box.size.x >= box.size.z else Vector3.BACK
+	var w := Basis(Vector3.UP, rotation.y) * lok
+	return Vector2(w.x, w.z)
+
+
+## die eigene Kapsel jetzt in der Welt [p, q, r] (Arena.kapsel)
+func umriss_kapsel() -> Array:
+	return Arena.kapsel(Vector2(position.x, position.z), kapsel_achse(), kapsel_laenge(), HERO_R if fighter.monster == null else maxf(0.5 * minf(footprint().size.x, footprint().size.z), 0.1))
+
+
 func own_r() -> float:
 	if fighter.monster == null:
 		return HERO_R

@@ -1,6 +1,7 @@
 # 1589.4 (DESIGN-GEGNER.md 5, 11.3; Antworten Sokrates 24.11., 19:10, F1–F5): Wege im Kampf, ohne Bild, an allen Arten Kapitel 1 und
 # gemischten Gruppen (Probekampf, Autopilot). Je Bild jede Figur: Punkt am Boden, Blick, Bewegung. Geprüft wird:
-#  durch   kein Weg durch einen Umriss: die Mitte einer gehenden Figur liegt nie im Umriss (arena.umriss) einer anderen Stehenden
+#  durch   kein Weg durch einen Umriss: die Mitte einer gehenden Figur liegt nie im Umriss einer anderen Stehenden (dieselbe Kapsel
+#          wie im Spiel, figur.umriss_kapsel; Chef 25.11., 09:55)
 #  quer    kein Querlauf: beim Gehen liegt der Weg höchstens 45° neben Blick oder Rücken (F2), außer dem einzelnen Seitschritt
 #          (1284a, F4: höchstens ZUR_SEITE_M weit), dem Ausweichen (Antwort auf einen Angriff, Bewegung „Ausweichen…“) und der Flucht
 #  heran   geradewegs heran (Chef 18.11., 14:33, Ratte quer): im Anlauf zum Biss oder Hieb liegt der Weg nie mehr als 45° quer zur
@@ -10,7 +11,7 @@
 #          außer beim Ausweichen)
 #  1526    wer vorn Platz macht (außer Untoten und Krogg, die bleiben) (Reihe vorn → hinten, ein anderer hinten → vorn), weicht nur so
 #          weit, dass der Nachrücker vorbeikommt (Sokrates 24.11., 21:50, 1526 (b)): steht danach höchstens sein Umriss plus der des
-#          Nachrückers (figur.umriss_r) von seinem Punkt beim Tausch, wenn er nach dem Tausch zuerst gegangen ist
+#          Nachrückers plus seine halbe Länge (Kapsel quer zum Weg) von seinem Punkt beim Tausch, wenn er nach dem Tausch zuerst gegangen ist
 # Aufruf: godot --headless --path godot --fixed-fps 30 -s res://tests/wege_15894.gd (Exit 0 = gut); WEGE=RATS,WOLVES nur diese;
 # WEGE_LOG=1 je Verstoß eine Zeile mit Bild, Figur, Bewegung.
 extends SceneTree
@@ -110,7 +111,7 @@ func _kampf(foe: String) -> void:
 		if nach_hinten.size() == 1 and nach_vorn.size() == 1 and not String(kf.figures[nach_hinten[0]].fighter.monster.get("id", "")) in STUR:
 			var hf = kf.figures[nach_hinten[0]]
 			tausch[nach_hinten[0]] = [Vector2(hf.position.x, hf.position.z), bild, false,
-				Vector2(hf.position.x, hf.position.z), hf.umriss_r() + kf.figures[nach_vorn[0]].umriss_r()]
+				Vector2(hf.position.x, hf.position.z), float(hf.umriss_kapsel()[2]) + float(kf.figures[nach_vorn[0]].umriss_kapsel()[2]) + 0.5 * hf.kapsel_laenge()]
 		for o in figs:
 			var id: String = o.fighter.id
 			var p3: Vector3 = o.position
@@ -139,7 +140,7 @@ func _kampf(foe: String) -> void:
 					tausch.erase(id)
 				continue
 			s.ruhig = 0
-			if tausch.has(id) and p2.distance_to(tausch[id][3]) > Arena.umriss(o.fighter):
+			if tausch.has(id) and p2.distance_to(tausch[id][3]) > float(o.umriss_kapsel()[2]):
 				tausch[id][2] = true     # 717.1 A: er rückt in seinem Zug; geprüft wird, wo er nach dem ersten Weg steht
 			var flieht: bool = o.flieht or o.fighter.fled
 			var nm := String(o.anim.current_animation) if o.anim else ""
@@ -147,10 +148,11 @@ func _kampf(foe: String) -> void:
 			# durch: Mitte im Umriss einer anderen Stehenden
 			for x in figs:
 				if x != o and not x.falling():
-					var px := Vector2(x.position.x, x.position.z)
-					if p2.distance_to(px) < Arena.umriss(x.fighter) and (not _geht(st, x) or x.fighter.id < id):
+					var kx: Array = x.umriss_kapsel()
+					var nah := Arena.punkt_kapsel(p2, kx)
+					if nah < float(kx[2]) and (not _geht(st, x) or x.fighter.id < id):
 						befund.durch += 1
-						_melde(foe, bild, o, "durch", "Mitte %.2f m in %s (Umriss %.2f), %s" % [p2.distance_to(px), x.fighter.id, Arena.umriss(x.fighter), nm])
+						_melde(foe, bild, o, "durch", "Mitte %.2f m in %s (Kapsel r %.2f, Länge %.2f), %s" % [nah, x.fighter.id, kx[2], x.kapsel_laenge(), nm])
 			# quer: Winkel Weg zu Blick
 			var w := rad_to_deg(blick.angle_to(d.normalized()))
 			if not flieht and not weicht and absf(w) > QUER_GRAD and absf(w) < 180.0 - QUER_GRAD:
