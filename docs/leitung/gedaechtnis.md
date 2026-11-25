@@ -22,7 +22,7 @@
 
 ## Offene Fäden
 
-- Konferenz: Alter Ego `session_01Hmoj77coHozxLd4WLoTXMn` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
+- Konferenz: Alter Ego `session_01Hmoj78egvYz1pP981xLHs5` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
 - Nach main: CLAUDE.md 8 (Chef 25.11., 17:37, 17:44); mischt Sokrates.
 - Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Werkzeug nur 2035, 2036, 2039, 2041. Sa vorlegen: --sperre-Teile, Testbuild Sa (Technik Fr).
 - Täglich Modell, Umgebung, Aufwand je Sitzung.
