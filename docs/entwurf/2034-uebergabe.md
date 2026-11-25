@@ -40,3 +40,8 @@ Befund: Toon-Stufen 1 statt 3 (weißes Stück 0,98): Kampfort-Sonne ohne Tonwert
 Sokrates 21:39 (Archiv 96b91cc84): Lauf 4 für 2034 frei; Antwort wörtlich in `docs/vorgang/2034.md` (zuerst lesen, auch zu den 19 breiten Stücken). Frage war 2034-Ü18 (20:43).
 Nachfolger: Edda – 2034 Teil 0: Probe-Lauf 4 (Figur)
 Weiter: Pakete neu laden und `abzug_mh.py` wie Nachtrag 20:42 (Skript `lade.sh`-Weg: Paketseite → `files.makehumancommunity.org`-Zip, `p/M<n>`), `abzug_2034_liste.py` für `zeichnen`, dann genau ein Lauf `SIGNATUR=1 NUR=M36-05,M57-09,M29-04` an 1806d5665 (oder Behebung nach Sokrates), danach `abzug_2034_signatur.py`, `abzug_2034_seiten.py`, `abzug_2034.sh … probe`; prüfen: Toon-Stufen wieder 3, Tusche Schatten breiter als Licht; alt (d0ed0dc33) gegen neu; dann Prüfer, dann Probe an den Chef.
+
+## Nachtrag 22:10 (Edda): Probe-Lauf 4 an 1806d5665
+
+Lauf `PROBE=2034 SIGNATUR=1 NUR=M36-05,M57-09,M29-04` 22:06–22:07 (Freigabe Archiv „2034, Lauf frei“ 22:05), OpenGL 3 nach Vulkan-Fehlschlag, Tonemap 2 (Filmic) aus `Sig.einrichten`. Bilder `probe/<Nr>.webp`, `<Nr>_abzug.webp`, `<Nr>_licht_schatten.webp`, alt (Probe 3) gegen neu `<Nr>_alt_neu4.webp`, Messung `probe/messung-1806d5665.json`, Lauf `probe/marke-1806d5665.txt`.
+Befund: Tusche gelingt (Linie Schattenseite 1,69 / 1,82 / 1,80 px gegen Lichtseite 1,00 / 1,11 / 1,00 px bei Robe, Stiefel, Helm). Toon-Stufen nicht behoben: weißes Prüfstück jetzt überall 1,00 (vorher 0,98), Stufenmessung leer (NaN); Helm im Bild heller und flacher als in Probe 3; an Stiefel und Robe Licht-Schatten-Grenze sichtbar. Ursache offen (Filmic/Kontrast aus `Sig.einrichten` übersteuert Weiß, Belichtung der Bühne fehlt?). Kein weiterer Lauf ohne Freigabe.

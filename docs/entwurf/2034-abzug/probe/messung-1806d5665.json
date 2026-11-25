@@ -1,0 +1,128 @@
+{
+ "M36-05": {
+  "umriss_px": 5962,
+  "umriss_tusche": 0.635,
+  "umriss_sichtbar": 0.606,
+  "kontrast_grund": 0.325,
+  "kontrast_stueck": 0.083,
+  "grund_hell": 0.347,
+  "kanten_innen_px": 912,
+  "stufen": 1,
+  "stufen_hell": [
+   NaN
+  ],
+  "streuung": [
+   NaN
+  ],
+  "stufen_gegen_bild": 0.0,
+  "hellster": 0.819,
+  "glanz_px": 0,
+  "licht_stufen": [
+   NaN
+  ],
+  "satz": "Messung (vorn): Umriss 5962 px, davon 63 % mit Tusche, 61 % sichtbar (Linie gegen Grund und Stück je mindestens 0.05 dunkler; Median Linie gegen Grund 0.33, gegen Stück 0.08, Grund 0.35); Kanten innen 912 px Tusche; Tonstufen 1 (Helligkeit nan); Lichtstufen weiß nan; Stufen gegen Bild 0.00 (kleinster Stufenabstand / Streuung des Bildes); hellster Pixel 0.819; Pixel über Glanzgrenze (heller als weißes mattes Stück) 0",
+  "seiten": {
+   "licht": {
+    "punkte": 1078,
+    "deckung": 0.869,
+    "breite_px": 1.0,
+    "tiefe": 0.161
+   },
+   "schatten": {
+    "punkte": 1127,
+    "deckung": 0.918,
+    "breite_px": 1.69,
+    "tiefe": 0.112
+   }
+  },
+  "sonne_bild": [
+   0.579,
+   0.707
+  ],
+  "seiten_satz": "Tusche nach Licht (vorn, Umriss; Sonne im Bild rechts oben): Lichtseite 1078 Punkte, Linie an 87 %, Breite 1.0 px, Tiefe 0.16; Schattenseite 1127 Punkte, Linie an 92 %, Breite 1.7 px, Tiefe 0.11; Schatten gegen Licht: Breite 1.7-fach, Tiefe 0.7-fach"
+ },
+ "M57-09": {
+  "umriss_px": 10433,
+  "umriss_tusche": 0.613,
+  "umriss_sichtbar": 0.63,
+  "kontrast_grund": 0.263,
+  "kontrast_stueck": 0.099,
+  "grund_hell": 0.347,
+  "kanten_innen_px": 487,
+  "stufen": 1,
+  "stufen_hell": [
+   NaN
+  ],
+  "streuung": [
+   NaN
+  ],
+  "stufen_gegen_bild": 0.0,
+  "hellster": 0.727,
+  "glanz_px": 0,
+  "licht_stufen": [
+   NaN
+  ],
+  "satz": "Messung (vorn): Umriss 10433 px, davon 61 % mit Tusche, 63 % sichtbar (Linie gegen Grund und Stück je mindestens 0.05 dunkler; Median Linie gegen Grund 0.26, gegen Stück 0.10, Grund 0.35); Kanten innen 487 px Tusche; Tonstufen 1 (Helligkeit nan); Lichtstufen weiß nan; Stufen gegen Bild 0.00 (kleinster Stufenabstand / Streuung des Bildes); hellster Pixel 0.727; Pixel über Glanzgrenze (heller als weißes mattes Stück) 0",
+  "seiten": {
+   "licht": {
+    "punkte": 2018,
+    "deckung": 0.955,
+    "breite_px": 1.11,
+    "tiefe": 0.271
+   },
+   "schatten": {
+    "punkte": 2121,
+    "deckung": 0.947,
+    "breite_px": 1.82,
+    "tiefe": 0.122
+   }
+  },
+  "sonne_bild": [
+   0.579,
+   0.707
+  ],
+  "seiten_satz": "Tusche nach Licht (vorn, Umriss; Sonne im Bild rechts oben): Lichtseite 2018 Punkte, Linie an 96 %, Breite 1.1 px, Tiefe 0.27; Schattenseite 2121 Punkte, Linie an 95 %, Breite 1.8 px, Tiefe 0.12; Schatten gegen Licht: Breite 1.6-fach, Tiefe 0.5-fach"
+ },
+ "M29-04": {
+  "umriss_px": 5042,
+  "umriss_tusche": 0.702,
+  "umriss_sichtbar": 0.702,
+  "kontrast_grund": 0.221,
+  "kontrast_stueck": 0.427,
+  "grund_hell": 0.347,
+  "kanten_innen_px": 2271,
+  "stufen": 1,
+  "stufen_hell": [
+   NaN
+  ],
+  "streuung": [
+   NaN
+  ],
+  "stufen_gegen_bild": 0.0,
+  "hellster": 0.919,
+  "glanz_px": 0,
+  "licht_stufen": [
+   NaN
+  ],
+  "satz": "Messung (vorn): Umriss 5042 px, davon 70 % mit Tusche, 70 % sichtbar (Linie gegen Grund und Stück je mindestens 0.05 dunkler; Median Linie gegen Grund 0.22, gegen Stück 0.43, Grund 0.35); Kanten innen 2271 px Tusche; Tonstufen 1 (Helligkeit nan); Lichtstufen weiß nan; Stufen gegen Bild 0.00 (kleinster Stufenabstand / Streuung des Bildes); hellster Pixel 0.919; Pixel über Glanzgrenze (heller als weißes mattes Stück) 0",
+  "seiten": {
+   "licht": {
+    "punkte": 1020,
+    "deckung": 0.945,
+    "breite_px": 1.0,
+    "tiefe": 0.638
+   },
+   "schatten": {
+    "punkte": 896,
+    "deckung": 0.998,
+    "breite_px": 1.8,
+    "tiefe": 0.387
+   }
+  },
+  "sonne_bild": [
+   0.579,
+   0.707
+  ],
+  "seiten_satz": "Tusche nach Licht (vorn, Umriss; Sonne im Bild rechts oben): Lichtseite 1020 Punkte, Linie an 94 %, Breite 1.0 px, Tiefe 0.64; Schattenseite 896 Punkte, Linie an 100 %, Breite 1.8 px, Tiefe 0.39; Schatten gegen Licht: Breite 1.8-fach, Tiefe 0.6-fach"
+ }
+}
