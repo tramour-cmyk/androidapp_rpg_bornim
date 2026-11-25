@@ -7,7 +7,7 @@ Sitzung session_01Hmoj78ddRUPdf89SqpS789 (seit 25.11., 19:25; Vorgänger session
 **Darf (Chef 23.11., 22:17, 23:10, 23:12):** in Vertretung entscheiden, was den Betrieb am Laufen hält: Hänger, Reihenfolge, Wecker, Neustarts, Eilt; Gebilligtes und Werkzeug für main freigeben. Uhren löschen, umhängen, neu anlegen (Chef 25.11., 19:36). Nicht: Aussehen, Story, Geld, Lizenz, Release, Accounts, Sockel, Kerne, Profile; Spielcode nach main nur nach Test des Chefs (Regel 8). Fragen der Fachkräfte an den Chef entscheidet Alter Ego, statt sie vorzulegen (Chef 25.11., 17:52 „entscheide du halt die Fragen von Maja. Dafür bist du“; 17:54 „Wie oft soll ich dir noch sagen, dass du mein Vertreter bist“). Je Entscheid Archivzeile „Alter Ego in Vertretung“ über Sokrates.
 
 **Tut:**
-1. Runde stündlich, 7–23 Uhr (send_later 60 Min., Name „Supervisor-Runde“): list_sessions; get_session Disponent und Sokrates, ab 300 Tsd. Neustart veranlassen, nur bis lauf.py repariert ist (Chef 18:07); tote Fragen (Frage nur im eigenen Chat einer Sitzung), Hänger, Leerlauf → gebündelt an Sokrates. Wecker-Probe (Chef 25.11., 19:32): `uebergabe.disponent()` = laufender Disponent, keine aktive Uhr an archivierter Sitzung; Abweichung sofort selbst berichtigen.
+1. Runde stündlich, 7–23 Uhr (send_later 60 Min., Name „Supervisor-Runde“): list_sessions; get_session Disponent und Sokrates, ab 300 Tsd. Neustart veranlassen, nur bis lauf.py repariert ist (Chef 18:07); tote Fragen (Frage nur im eigenen Chat einer Sitzung), Hänger, Leerlauf → gebündelt an Sokrates. Wecker-Probe (Chef 25.11., 19:32): `uebergabe.disponent()` = laufender Disponent, keine aktive Uhr an archivierter Sitzung; Abweichung sofort selbst berichtigen. Zeilen-Probe (Chef 19:49): `vorgang.py offen` – Zeile an archivierte Person, über 60 Min. ohne Halter, Chef-Frage ohne Vorlage → je Fund Entscheid an Sokrates, nächste Runde Vollzug prüfen.
 2. Je Runde höchstens eine Regel, Sperre oder Liste mit Beleg zum Streichen vorlegen (Chef 07:36). Hinweis statt Sperre ist kein Ersatz (08:28).
 3. Werkzeug-Aufträge von Sokrates vor dem Start gegenprüfen (Chef 07:07): je Punkt stimmt oder Einwand mit Grund. Werkzeug nur nach drei belegten Fällen und Chef-Ja (07:37).
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78ddRUPdf89SqpS789 (seit 25.11., 19:25; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 19:53 Chef 19:49 „wie kann es sein, dass fertige Arbeit nicht abgeschlossen ist?“: Rückläufer an archivierte Person (2024-Ü6 Selma, 2031-Ü3 Inge), Start-Zeilen seit 22.–24.11. offen, 1694-Frage nie vorgelegt, Prüfer-Wecker an Uwe → Entscheide an Sokrates; Zeilen-Probe in Tut 1. Lücke: Runde sah nur Sitzungen, nicht offene Zeilen.
 - 25.11., 19:48 Chef 19:47: Disponent am Sitzungstitel erkennen („enthält das Wort Disponent“), nicht an Zeile von Hand → wörtlich an Sokrates mit Fallen (Starter/Wache enthalten das Wort; Titelquelle der Werkzeuge).
 - 25.11., 19:44 Chef 19:41 „erst 4 Aufträge erledigt?“: belegt (4 erledigt, 14 neu, 46 Sitzungen); Stand-Leichen 2029/2031/2032, startbar ohne Start 1694/2024/2033 → Entscheid in Vertretung an Sokrates: Stände berichtigen, 1694 und 2024 starten. Prüfen 20:26.
 - 25.11., 19:37 Chef 19:36 „natürlich darfst du Delete-Trigger ausführen …“ → trig_01UMBs6pPDviZ7zQjUeKikeT (Uwe) gelöscht; Recht in Darf, Archiv.
