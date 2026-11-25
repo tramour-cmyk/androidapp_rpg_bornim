@@ -4433,6 +4433,41 @@ func blut_anker(angreifer: Variant, von := Vector3.INF, dauer := 3.0) -> Node3D:
 	return k
 
 
+## 1708 B (Chef 25.11., 19:22: „irgendein Wolfsbiss sah mal wieder aus, als ob er ins Schild geht und dann Blut spritzt, was komisch
+## ist“; blut_1708: Treffer, _bite_plan fand keinen Platz, an dem die Schnauze am Schild vorbei an den Körper reicht, sie endete am
+## Schild; im Bild des Aufschlags Schnauze 0,10 Körperhöhen vor dem Schild, 0,15 vor dem Körper, 6 Bilder später am Schild): berührt
+## der Angriff von [angreifer] beim Aufschlag den Körper nicht (weiter als AM_SCHILD Körperhöhen) und ist der eigene Schild näher als
+## der Körper, endet er am Schild, sichtbar abgewehrt: kein Blut. Ohne Schild, Gerüst oder Angriffsteil nie
+const AM_SCHILD := 0.05
+func endet_am_schild(angreifer: Variant) -> bool:
+	if angreifer == null or not is_instance_valid(angreifer):
+		return false
+	var schild: Array = schild_kapseln()
+	var teile: Array = angreifer.angriffs_kapseln()
+	var ks: Array = koerper()
+	if schild.is_empty() or teile.is_empty() or ks.is_empty():
+		return false
+	var lo := INF
+	var hi := -INF
+	for c: Array in ks:
+		lo = minf(lo, minf((c[0] as Vector3).y, (c[1] as Vector3).y) - float(c[2]))
+		hi = maxf(hi, maxf((c[0] as Vector3).y, (c[1] as Vector3).y) + float(c[2]))
+	var h := maxf(hi - lo, 0.1)
+	var dk := _luecke_zu(teile, ks) / h
+	var ds := _luecke_zu(teile, schild) / h
+	return ds < dk and dk > AM_SCHILD
+
+
+## kleinster Abstand (m) der Strecken [teile] zur Oberfläche der Kapseln [ks]
+static func _luecke_zu(teile: Array, ks: Array) -> float:
+	var best := INF
+	for w: Array in teile:
+		for c: Array in ks:
+			var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(w[0], w[1], c[0], c[1])
+			best = minf(best, pq[0].distance_to(pq[1]) - float(c[2]) - float(w[2]))
+	return best
+
+
 ## 1708: koerper() mit dem Knochen, mit dem jede Kapsel geht, als [a, b, r, Knochen] (Mensch: MENSCH_KAPSELN, Tier: der Elternknochen
 ## der Strecke); in der Haltung, die das Gerüst gerade hat
 func _koerper_knochen() -> Array:

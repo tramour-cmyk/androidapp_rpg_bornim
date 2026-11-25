@@ -1542,7 +1542,8 @@ func _play_say(e: Dictionary) -> void:
 				var z0_: float = cam_z if not hit.is_empty() or rand_z >= 1.0 else rand_z
 				var p0_: Vector2 = cam_p if not hit.is_empty() or rand_z >= 1.0 else rand_p
 				hit = {"by": actor, "on": target, "w": w, "t0": clock_ms, "z0": z0_, "p0": p0_}
-			if wound:
+			# 1708 B: endet der Biss oder Hieb sichtbar am Schild, blutet nichts (Figur.endet_am_schild)
+			if wound and (fx != null or not figures.has(target) or not figures.has(actor) or not figures[target].endet_am_schild(figures[actor])):
 				# 1708: das Blut beginnt, wo der Angriff den Körper trifft, und geht mit ihm
 				ui.bleed(actor, target, w == Wucht.CRIT or (w == Wucht.KILL and crit), gore, tg.monster.id if tg.monster != null else "",
 					blut_anker(actor, target, fx != null)))
