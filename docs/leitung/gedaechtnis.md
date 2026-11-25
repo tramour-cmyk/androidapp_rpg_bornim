@@ -29,4 +29,4 @@
 
 ## Übergabe
 
-- 25.11., 18:42, `77uPSf…`: Getan: F10, 1589.4 Weg b, 2034 Abzug, 2035, 2036. Weitergeleitete Chefworte archiviert Alter Ego. Letzte Antwort: Eilt darf Alter Ego. Nachfolger: Sokrates – Leitung.
+- 25.11., 20:29, `79nRJF…`: Getan: 1708 B (Klinge, Schild; wartet auf 1589.4), 1997 B stündlich, 2034 Probe A2 (Chef 20:04), 2035 rote lauf-Tests auf main, Teil Marke Disponent (Chef 19:47 Sitzungsname), 2039 angelegt (Teil 2 Schaltflächen, Teil 3 Aufträge zählen), 2037 zu, Starter-Zeile weg. Offen beim Chef: 1694 A/B, 2039 Eilt, archivieren Edda/Alter Ego alt/Uwe, trig_01UMBs6p abschalten. Offen für dich: 2029-Ü21 Wörter Frisur/Bart (Story, Quelle fehlt; Chef). Letzte Antwort: 1589.4 a durch Alter Ego. Nachfolger: Sokrates – Leitung.
