@@ -64,7 +64,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1588 | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | 2 | E Kampf | M | 1589.4 | 1556 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1589.2 | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit und Versperren, Flucht … | 2 | E Kampf | M | – | 1600, 1589.1, 444, 1589.6 | – | *ruht, beim Chef (Obergrenze B)* | *–* | *0* | *22,66 $* |
 | 1589.3 | Stufe 2 Gegnerverhalten, Bewegung Menschengestalten: Rückwärtsgehen gerade und schräg, Seitschritt aus UAL2, einmal für … | 2 | E Kampf | M | – | 1600, 1589.1 | – | *erledigt* | *–* | *0* | *11,90 $* |
-| 1589.4 | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nach Abschnitt 5 mit 1526, alte … | 2 | E Kampf | M | – | 1600, 1589.1, 1526, 438, 709 | – | *startbar, Deckel 36 $, Halt 32 $ (Chef 25.11., 10:26)* | *–* | *0* | *23,16 $* |
+| 1589.4 | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nach Abschnitt 5 mit 1526, alte … | 2 | E Kampf | M | – | 1600, 1589.1, 1526, 438, 709 | – | *startbar, Deckel 36 $, Halt 32 $ (Chef 25.11., 10:26)* | *–* | *0* | *24,07 $* |
 | 1589.5 | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Zahlen aus 444 … | 2 | E Kampf | M | 1589.4, 1589.6 | 1600, 1589.1, 444 | – | *startbar* | *–* | *0* | *–* |
 | 1589.6 | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt nah, fern, weit | 2 | E Kampf | M | 1589.2 | 1589.2, 444, 1589.1, 1486 | – | *startbar* | *–* | *0* | *–* |
 | 1603 | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in kerbe.gd | 2 | E Kampf | M | – | 1600 | – | *gebaut, Geprüft an: 80a423815; Chef 19:37 „1603 A“, Testbuild* | *–* | *0* | *41,74 $* |
@@ -77,7 +77,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1650 | Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin, Bram, Garrick, Jorin, Pim … | 3 | E Figuren | M | 1535 | 1631 | claude/tom-1650-stiefel | *gebaut, Geprüft an: 6ab87322b (Bild 👍 17:12)* | *–* | *0* | *17,24 $* |
 | 1652 | Durchstechprüfung: Osric innere Stücke stechen durch die Robe (1,2 m, bis 267 Ecken) | 3 | E Figuren | M | – | 1631 | – | *erledigt* | *–* | *0* | *4,87 $* |
 | 1653 | Durchstechprüfung: Thessa Kleid sticht durch den Kragen (1,4–1,5 m, bis 224 Ecken) | 3 | E Figuren | M | – | 1631 | – | *erledigt* | *–* | *0* | *13,30 $* |
-| 1654 | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m, bis 305 Ecken in Ruhe_Tresen) | 3 | E Figuren | M | Sokrates | 1631 | – | *startbar, steckt fest* | *–* | *0* | *3,48 $* |
+| 1654 | Durchstechprüfung: Rowena Kleid sticht auf Hüfthöhe durch (0,9 m, bis 305 Ecken in Ruhe_Tresen) | 3 | E Figuren | M | Sokrates | 1631 | – | *startbar, steckt fest* | *–* | *0* | *6,19 $* |
 | 1655 | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, bis 135 Ecken) | 3 | E Figuren | M | – | 1631 | claude/tom-1655-kapuze | *gebaut, Geprüft an: 10d4710c0 (Bild neu offen, Lauf 20:58 nur alt)* | *–* | *0* | *5,33 $* |
 | 1657 | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dreiecke | 3 | E Figuren | M | 1694 | 1631 | – | *startbar, Robe gilt; Stab durch die Knöchel (Chef 16:56)* | *–* | *0* | *–* |
 | 1785 | Weg aus 4fd7055c8 … | 3 | E Figuren | M | – | 1535 | – | *startbar* | *–* | *0* | *0,95 $* |
