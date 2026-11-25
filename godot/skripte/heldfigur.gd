@@ -1911,6 +1911,8 @@ class Haltung extends SkeletonModifier3D:
 	const GRUND_FUSS := 1.25
 	const GRUND_STRECK := 0.997   # Hueftgelenk bis Knoechel in Beinlaengen: Knie etwa 9 Grad gebeugt
 	const ARM_RUHE := ["Stehen", "Stehen_2"]
+	const HUEFTE_VOR := 0.8    # 2032: Fingerrichtung der Hand in der Hüfte (vorn, abwärts)
+	const HUEFTE_AB := 0.6
 	func _grund(sk: Skeleton3D) -> void:
 		var jetzt := Time.get_ticks_msec()
 		var cur := String(anim.current_animation) if anim else "Stehen"
@@ -1998,6 +2000,20 @@ class Haltung extends SkeletonModifier3D:
 						ziel = su - Vector3.UP * (0.95 * la) + aussen * (0.08 * la) + vorn * (0.03 * la); pol = -vorn + aussen * 0.3
 				var h0: Vector3 = g.call("hand" + e)
 				_zwei(sk, b["upperarm" + e], b["lowerarm" + e], b["hand" + e], h0.lerp(ziel, aw), pol)
+				# 2032 (Prüfer 25.11., 17:00: Rowenas rechte Finger auf dem Gürtel dunkel, Kleid-Innenseite): die Hand behielt die Drehung
+				# der Bewegung; an der Hüfte zeigten die Finger waagrecht in den Leib (Spitzen 7-8 cm einwärts, Rowena bis 6 cm in Gürtel
+				# und Rock, guertel_2032.gd). Hand in die Hüfte: Finger nach vorn unten, Zeigefinger oben, Handfläche zum Leib
+				if art == "huefte" and sk.find_bone("middle_01" + e) >= 0 and sk.find_bone("index_01" + e) >= 0 and sk.find_bone("pinky_01" + e) >= 0:
+					var hp: Vector3 = g.call("hand" + e)
+					var fd: Vector3 = sk.get_bone_global_pose(sk.find_bone("middle_01" + e)).origin - hp
+					var sd: Vector3 = sk.get_bone_global_pose(sk.find_bone("index_01" + e)).origin - sk.get_bone_global_pose(sk.find_bone("pinky_01" + e)).origin
+					var soll_f := (vorn * HUEFTE_VOR - Vector3.UP * HUEFTE_AB).normalized()
+					var soll_s := (Vector3.UP - soll_f * Vector3.UP.dot(soll_f)).normalized()
+					if fd.length() > 1e-4 and sd.length() > 1e-4:
+						var ist := Basis.looking_at(-fd, sd).orthonormalized()
+						var soll_b := Basis.looking_at(-soll_f, soll_s).orthonormalized()
+						var q := Quaternion(soll_b * ist.inverse())
+						_drehe(sk, b["hand" + e], Basis(Quaternion.IDENTITY.slerp(q, aw)))
 		var fl: Vector3 = g.call("foot_l"); var fr: Vector3 = g.call("foot_r")
 		var knie := func(e: String) -> float:
 			var a: Vector3 = g.call("thigh" + e); var m: Vector3 = g.call("calf" + e); var c: Vector3 = g.call("foot" + e)
