@@ -335,17 +335,38 @@ S = {pb.name: np.array((qa.matrix_world @ pb.matrix) @ (qa.matrix_world @ pb.bon
 SA = np.stack([S[n] for n in Q_KN])                    # Knochen x 4 x 4
 qmi = np.array(qkoerper.matrix_world.inverted().to_3x3())
 rein = 0
+# 2028 (Fund Prüfer 1654-Ü11, 25.11.: fast schwarze Flecken an Rowenas Handgelenken): in dieser Haltung hängen die Hände neben Rock und
+# Schürze; der Strahl entlang der Normale traf sie binnen VERDECKT, Haut an Hand und Fingern fiel weg (Rowena: 540 Ecken, davon 9 unter dem
+# Ärmel), ebenso die Haut des Unterarms bis ans Handgelenk unter dem Ärmelende; die Hand war ein löchriger, offener Schlauch. Hob die
+# Person die Hand (Hüfte, Gürtel), sah man in sie hinein, die Tusche zog die Tiefensprünge schwarz nach (handgelenk_2028.gd). Haut an
+# Hand, Fingern und Unterarm binnen HANDGELENK vor dem Handknochen bleibt darum immer; sticht sie durch Ärmel oder Stulpe (ARM_KLEID),
+# geht sie wie bisher dahinter zurück. Alle anderen Ecken wie bisher
+ARM_KLEID = ('sleeves', 'cuff')
+HANDGELENK = float(os.environ.get('HANDGELENK', '0.05'))
+_frei = np.array([Q_KN[int(WQ[i].argmax())].startswith(('hand_', 'thumb', 'index', 'middle', 'ring', 'pinky')) for i in range(len(QV))])
+for _s in ('l', 'r'):
+    if 'hand_' + _s not in QP_MAT or 'lowerarm_' + _s not in Q_KN: continue
+    _hp = np.array(QP_MAT['hand_' + _s].translation)
+    _frei |= (WQ.argmax(1) == Q_KN.index('lowerarm_' + _s)) & (np.linalg.norm(np.asarray(QV) - _hp, axis=1) < HANDGELENK)
+_kfl = [f_ for f_ in KF if not _kf_aus[list(f_)].any()] or KF
+_arm_f = [f_ for f_ in _kfl if TEILNAMEN[int(tl[ist_kleid][f_[0]])] in ARM_KLEID]
+kbvh_arm = BVHTree.FromPolygons([Vector(v) for v in VK2], _arm_f) if _arm_f else None
+_frei_n = 0
 for i, v in enumerate(QV):
     n = Vector(qn[i]).normalized()
-    hit = kbvh.ray_cast(Vector(v) + n * 0.001, n, VERDECKT)
-    if hit[0] is not None: verdeckt[i] = True
-    h2 = kbvh.ray_cast(Vector(v) - n * 0.001, -n, 0.04)
+    bv = kbvh_arm if _frei[i] else kbvh
+    if _frei[i]:
+        _frei_n += kbvh.ray_cast(Vector(v) + n * 0.001, n, VERDECKT)[0] is not None
+        if bv is None: continue
+    elif bv.ray_cast(Vector(v) + n * 0.001, n, VERDECKT)[0] is not None: verdeckt[i] = True
+    h2 = bv.ray_cast(Vector(v) - n * 0.001, -n, 0.04)
     if h2[0] is not None and h2[1].dot(n) > 0:
-        verdeckt[i] = True
+        verdeckt[i] |= not _frei[i]
         d = np.array(h2[0] - n * RAND) - v
         A = np.tensordot(WQ[i], SA, axes=1)[:3, :3]
         qkoerper.data.vertices[i].co += Vector(qmi @ (np.linalg.inv(A) @ d)); rein += 1
 print('KOERPER ZURUECK', rein)
+print('HAND FREI 2028', _frei_n, 'Ecken an Hand, Fingern und Handgelenk bleiben trotz Kleidung binnen VERDECKT (%d Ecken frei)' % int(_frei.sum()))
 # Pruefer 21:17 (Hautsplitter am Oberarm in der Spielansicht), pruef_haut.py: am Oberarm liegt die Haut 0-7 mm auf oder vor Kettenhemd
 # und Umhang; kein Strahl trifft, sie blieb und stach in der Bewegung durch. Unter der Kleidung (Rumpf, Oberarm, Oberschenkel) gilt auch
 # als verdeckt, was naeher als VERDECKT_NAH an der Kleidung liegt; Kopf, Hals, Haende, Unterarme, Fuesse nicht (Raender von Kragen, Aermel, Stiefel)
