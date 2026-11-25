@@ -382,3 +382,5 @@ STARTSPERRE - 17:18 25.11.: Startsperre 17:18 Start Kampf (lauf.py, Kampf 1708 A
 STARTSPERRE - 17:35 25.11.: Startsperre 17:35 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2035 Anna)
 - 17:38 25.11.: Planerin Clara 2035 (session_01Hmoj76hq8e8pFbUVhViJFL); Figur 2029 durch Laufsperre (Marke Kampf 17:35 aus lauf.py-Vorschlag) angehalten, nachholen ab 17:56; Fund und Rückfrage (sechs Muss-Aufträge Werkzeug) an Sokrates.
 - 17:38 25.11.: Notstart Alter Ego (Nr. 2013, kein Profil, Sokrates 17:37, Übergabe c4b182bd0): session_01Hmoj78S1BS7Gx4Jksc3zTh; alter (…75PCSH) wird nach Meldung der Kennung archiviert.
+- 17:38 25.11.: START Figur Dora 2029 von Hand (session_01Hmoj79WtehTiJaAd5sb7FC, Deckel 50 $; Sokrates 17:40: Marke für nicht ausgeführten Vorschlag zählt nicht); Reihenfolge weiter 2034 Teil 0, 2032, 2033.
+STARTSPERRE - 17:38 25.11.: Startsperre 17:38 Start Figur (Handstart, Figur 2029 Dora)
