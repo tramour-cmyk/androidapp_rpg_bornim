@@ -311,12 +311,14 @@ def mit_rufnamen(ausgabe, sitzungen, jetzt=None, namen=None):
     2041 d: ohne Rufnamen bleiben Sokrates, Disponent, Wache (FESTER_TITEL) und die Routinen (ROUTINE_ROLLEN)."""
     import rufname
     belegt = rufname.heute_vergeben([(s.get("title", ""), s.get("created_at", "")) for s in sitzungen], jetzt or JETZT)
+    laufend = rufname.laufende() | {rufname.aus_titel(s.get("title", "")) for s in sitzungen  # 2041 d: Doppel gegen laufende Sitzungen
+                                    if s.get("session_status") != "SESSION_STATUS_ARCHIVED"} - {None}
     aus = []
     for l in ausgabe:
         teile = l.split(" | ", 6)
         if not l.startswith("START ") or len(teile) < 7 or teile[0][6:].strip() in OHNE_RUFNAMEN | ROUTINE_ROLLEN:
             aus.append(l); continue
-        n = rufname.naechster(belegt)
+        n = rufname.naechster(belegt, laufend=laufend)
         if not n:
             aus.append(l); aus.append("WARNUNG Rufname: alle Namen heute vergeben, Titel mit Rolle (1739)"); continue
         belegt.append(n)

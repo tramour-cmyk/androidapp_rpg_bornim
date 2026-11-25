@@ -86,10 +86,17 @@ def heute_vergeben(sitzungen, jetzt=None):
     return [n for _, t in heute for n in [aus_titel(t)] if n]
 
 
-def naechster(vergeben, docs=None):
+def laufende(pfad=None):
+    """2041 d (Fall Anna …78AKMt und …779idR, Chef 21:39): Rufnamen der laufenden Sitzungen aus ARBEIT-BESETZUNG.md, gleich welcher Tag."""
+    try: t = open(pfad or BESETZUNG or os.path.join(DOCS, "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+    except OSError: return set()
+    return {n for z in t.splitlines() for f in [[x.strip() for x in z.split("|")]] if len(f) > 3 for n in [aus_titel(f[2].lstrip("["))] if n}
+
+
+def naechster(vergeben, docs=None, laufend=()):
     """Nächster Rufname: Buchstabe nach Zahl der heute vergebenen (A, B, C …, nach Z wieder A), erster freier Name dort;
     ist der Buchstabe erschöpft oder gesperrt, der nächste Buchstabe. None nur, wenn die ganze Liste vergeben ist."""
-    belegt = set(vergeben)
+    belegt = set(vergeben) | set(laufend)  # 2041 d: nie der Name einer laufenden Sitzung
     gesperrt = sperrliste(docs)
     start = len(vergeben) % len(BUCHSTABEN)
     for i in range(len(BUCHSTABEN)):
