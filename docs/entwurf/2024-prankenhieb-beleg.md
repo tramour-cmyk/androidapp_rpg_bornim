@@ -1,5 +1,7 @@
 # 2024 Kroggs Prankenhieb: Beleg (Selma, 25.11.)
 
+[Film von 25.11., 13:40](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261125-134054-2024/2026-11/25-1340-2024-Selma.mp4) (eingetragen von meldung.sh, Selma)
+
 - Zweig `claude/selma-2024-prankenhieb`; rot `4d4bfac47` (Test stiel_2024: 1885 Bilder, 20 über 0,04 m, Hieb Krogg 0,753 m, Grak 0,744 m), grün `acb701fbd` (1976 Bilder, 0 über 0,04 m).
 - Film alt (Lauf 593, 80a4238) gegen neu (acb701f), von der Seite, dreimal Prankenhieb, 7,2 s: Zweig `bilder`, Ablage durch meldung.sh.
 - Standbild am Aufschlag alt gegen neu, Faust gelb markiert: Zweig `bilder`, Ablage durch meldung.sh.
