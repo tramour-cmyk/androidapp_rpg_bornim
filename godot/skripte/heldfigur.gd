@@ -127,8 +127,14 @@ static func volk_kopf(a: Dictionary, volk: String) -> Dictionary:
 	var g := String(a.get("geschlecht", "m")).to_lower()
 	for teil in ["frisur", "bart"]:
 		var erlaubt: Array = VOLK_KOPF.get(volk_modell(volk), {}).get(g, {}).get(teil, [])
-		if not erlaubt.is_empty() and String(a.get(teil, "")) not in erlaubt: a[teil] = erlaubt[0]
+		if not erlaubt.is_empty() and String(a.get(teil, "")) not in erlaubt and not _probe_teil(String(a.get(teil, ""))): a[teil] = erlaubt[0]
 	return a
+
+# 2029: neue starre Kopfteile (KOPFTEILE ausser dem Zopf) stehen in keiner Vorgabe und keiner Wahl; gesetzt (Probe, Beleg) bleiben sie
+static func _probe_teil(v: String) -> bool:
+	for n in v.split(",", false):
+		if KOPFTEILE.has(n) and KOPFTEILE[n] != ZOPF: return true
+	return false
 
 # Angaben zum Kopf des Geschlechts (held_klassen.py haare): kopf, haut_bild, haar_bild, haare, baerte; ohne „geschlechter“ wie bisher oben
 static func geschlecht_info(g: String) -> Dictionary:
@@ -238,6 +244,7 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 	kapuze(m, t["kapuze"])
 	var kl := kleide(m, w, String(t["modell"]))   # 431h: was in den Plaetzen steht; Kapuze nur mit Stueck auf dem Kopf
 	if kl.has("kapuze"): t["kapuze"] = kl["kapuze"]
+	if String(a.get("helm", "")) != "": t["kapuze"] = true   # 2029: starrer Helm (KOPFTEILE) deckt das Haar wie KNIGHT_HELM
 	if t["kapuze"]: a["frisur"] = ""   # langes Haar unter der Kapuze verborgen (Archiv 376.1)
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 	if sk == null:   # 680: Datei ohne Skelett (verschluesselt ohne Schluessel, beschaedigt): nichts liegen lassen, alte Figur
@@ -488,9 +495,13 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 	var eigen: Array = tr.get("eigen", [])
 	var sch: Dictionary = lade_info().get("schrank", {}).get(String(tr.get("geschlecht", "M")), {})
 	var fremd := []   # Kennungen der Schrankteile
+	var helm := String((w.get("aussehen", {}) as Dictionary).get("helm", ""))   # 2029: starrer Helm (KOPFTEILE) statt Teil am Kopf
 	for p in KLEID_PLAETZE:
 		var st = aus.get(p)
 		zeig[p] = st is Dictionary and teile.has(p)
+		if p == "HEAD" and helm != "":
+			zeig[p] = false
+			continue
 		if not (st is Dictionary) or eigen.is_empty() or w.get("stufe1", false): continue   # „stufe1“: Vergleichsfilm alt
 		var b := String(st.get("base", ""))
 		# Robe (held-klassen.json „rock“: CHEST): unter dem eigenen Rock bleiben die eigenen Beine (sonst stechen fremde Hosen durch);
@@ -584,7 +595,26 @@ static func kapuze(m: Node3D, an: bool) -> void:
 
 # 431 (Sokrates 25.11., 08:08): Doppelzopf aus MakeHuman hair01 „elvs_double_mh_braid“ (Elvaerwyn, CC0), tools/blender348/v3/zopf_mh.py
 const ZOPF := "res://figuren/zopf_zwergin.glb"
-static var zopf_szene: Node3D
+# 2029 (Systemfrage): starre Kopfteile aus eigenen Dateien (MakeHuman-Pakete, CC0; tools/blender348/v3/kopfteil_mh.py), Kennung -> Datei.
+# Kennung als frisur, bart (auch in der Kommaliste) oder helm (aussehen „helm“, deckt das Haar). Netz „<Kennung>_<M|W>“ in der Ruhelage
+# der Bezugsfigur des Geschlechts, sonst „<Kennung>“ (Zopf). Fehlt die Datei, bleibt der Kopf ohne das Teil (Held laedt weiter)
+const KOPFTEILE := {
+	"Zopf_Zwergin": ZOPF,
+	"Haar_MH01": "res://figuren/haar_mh01.glb",          # hair01 culturalibre_hair_01
+	"Bart_Wikinger": "res://figuren/bart_wikinger.glb",  # bodyparts05 rehmanpolanski_beard_viking
+	"Helm_Templer": "res://figuren/helm_templer.glb",    # hats02 javherre templar_knight_helmet
+}
+static var kopfteil_szenen := {}
+static func kopfteil(n: String, g: String) -> MeshInstance3D:
+	var datei := String(KOPFTEILE.get(n, ""))
+	if datei == "" or not ResourceLoader.exists(datei): return null
+	if not kopfteil_szenen.has(datei):
+		var ps := load(datei) as PackedScene
+		kopfteil_szenen[datei] = ps.instantiate() as Node3D if ps else null
+	var s: Node3D = kopfteil_szenen[datei]
+	if s == null: return null
+	var q := s.find_child("%s_%s" % [n, g.to_upper()], true, false) as MeshInstance3D
+	return q if q else s.find_child(n, true, false) as MeshInstance3D
 static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Array) -> void:
 	var g := String(a.get("geschlecht", "m")).to_lower()
 	var datei := "res://daten/haare.bin" if g == "m" else "res://daten/haare_%s.bin" % g
@@ -602,14 +632,13 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 	var vers := Vector3(ich[0] - ref[0], ich[1] - ref[1], ich[2] - ref[2])
 	var ruhe := im_raum(m, sk) * sk.get_bone_global_rest(kb)
 	# 475 Lauf 2: Bart auch als Liste mit Komma (Schnauzer und Kinnbart), weitere Formen aus held_klassen.py baerte_mehr
-	for n in [String(a.get("frisur", ""))] + Array(String(a.get("bart", "")).split(",", false)):
+	for n in [String(a.get("frisur", ""))] + Array(String(a.get("bart", "")).split(",", false)) + [String(a.get("helm", ""))]:
 		if n == "": continue
 		var q := hs.find_child(n, true, false) as MeshInstance3D
 		var qs := hs
-		if q == null and ResourceLoader.exists(ZOPF):   # 431: Zoepfe der Zwergin (eigene Datei, CC0, Ruhelage wie haare_w.bin; importiert, im APK)
-			if zopf_szene == null: zopf_szene = (load(ZOPF) as PackedScene).instantiate() as Node3D
-			qs = zopf_szene
-			q = zopf_szene.find_child(n, true, false) as MeshInstance3D if zopf_szene else null
+		if q == null:   # 2029: starre Kopfteile (eigene Dateien, Ruhelage wie haare*.bin; importiert, im APK)
+			q = kopfteil(n, g)
+			qs = kopfteil_szenen.get(String(KOPFTEILE.get(n, "")))
 		if q == null: continue
 		var ba := BoneAttachment3D.new()
 		ba.name = "Haar_" + n
