@@ -18,7 +18,7 @@
 - Werkzeug erst nach drei belegten Fällen und Chef-Ja; jeden Handfix sofort `vorgang.py lehre roh`. Widerspruch im Vorgang: vorlegen, nicht bauen (Chef 24.11., 07:26/07:37).
 - Notizkopie nur über `tools/notiz.sh`; keine Team- oder Organisations-Einstellungen; vor Vorschlag zum Kaufrepo Archiv und Git nach Versuchen absuchen; Geschäftsmodell nie ins Repo ([Modell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj)).
 
-- Geld bis 50 $ je Vorgang selbst, nicht fragen (Chef 25.11., 16:34).
+- Deckel mindestens 50 $, darunter nie fragen (Chef 25.11., 16:38).
 
 ## Offene Fäden
 
