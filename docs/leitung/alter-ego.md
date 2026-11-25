@@ -25,6 +25,7 @@ Sitzung session_01Hmoj77coHozxLd4WLoTXMn (seit 25.11., 21:54). Sokrates session_
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 22:01 Gegenprüfung 2042 (Sokrates 22:00): Belege stimmen (e0118ebd5 18:49; Karl 283 Tsd. nach 18 Min., 7,24 $); Einwände: Übergang bis A, Disponent auf opus trotz Chef 19:24 „Sonnet“ → an Sokrates; A/B dem Chef im Chat.
 - 25.11., 21:55 Nachfolger übernommen, umbenannt; Uhr trig_01M79hDGn24dPP13MYwuEWBd (22:56); alte trig_01M6moeLfjzYYkQFB3TEC2VY abgeschaltet (Löschen sperrt Auto-Modus); Vorgänger …78GVgr archiviert; Kennung an Sokrates.
 - 25.11., 21:52 Chef 21:51 „Alle alten Uhren, die keinen Zweck erfüllen, darfst du bearbeiten, also auch löschen.“ → gelöscht: trig_01MzbqijpDaS2FnXSUosLB4T, trig_01RDJvETEx6wog5bGvsETLSD, trig_011EUfQde4D24gb9vxy8xuud, trig_01Jog7nqdG9EM9EeKddJnPfQ, trig_01WwgDX6v9zEHodcqmxqaJeK. Recht in Darf.
 - 25.11., 21:51 Chef 21:49 „Wann wird mal archiviert? … Dich gibt es 2x“ → Vorgänger …ddRUPd und Hedwig archiviert. Uhren an Karl …78AKMt: trig_01EnZnzJ99Ho5QeNGn2hMv6t (Lauf), trig_01MhEFwaQDUWzW1tHX43VByh (Testbuild B, zwei zusammengelegt); aus: trig_01RDJvET… (Otto), trig_011EUfQd… (Detlef); trig_01MzbqijpDaS2FnXSUosLB4T (Otto, Fr) sperrt Auto-Modus → Chef. Sokrates 21:44 an mich kam nicht an (Auto-Modus), im Verlauf gelesen.
