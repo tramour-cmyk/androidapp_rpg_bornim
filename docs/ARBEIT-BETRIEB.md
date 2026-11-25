@@ -304,3 +304,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:28 25.11.: Startsperre 10:27 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1589.4 Berta)
 - 10:29 25.11.: Planerin Berta 1589.4 (session_01Hmoj77DVatH7TJh9zEk9JC, Chef „Machen“ 10:26: Deckel 36 $, Halt 32 $); danach neue Kampf-Sitzung, Carla (…75pqY4, idle) archivieren (2,31 $).
 - 10:32 25.11.: Startsperre 10:31 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2026 Frieda)
+- 10:33 25.11.: Planerin Frieda 2026 „MakeHuman-Pakete sichten“ (session_01Hmoj76CeDDBi8Cv6QmHfZv, Chef 10:29, nur Sichten; Rang Figur nach 1694, vor 2024/1654).
