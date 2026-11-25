@@ -12,7 +12,8 @@ extends SceneTree
 #   NOTIFICATION_TRANSFORM_CHANGED, so bekommt der RenderingServer sie) im selben Augenblick; je Glied (16) Haut zum Holz cm (+ Luft,
 #   − im Holz) gegen griff.gd intern (Griff.netz_finger starr, Pose nach Tragen); je Modifikator nach modification_processed
 #   hand_r, index_01_r, pinky_01_r in Waffenkoordinaten (cm). Bild mit Handausschnitt: griff_folge_bild_1694.gd (nur Großaxt Stehen Spielweg, BILDAUS=<pfad.png>).
-#   MESS=1694 xvfb-run -a godot --path . --resolution 540x1170 -s res://tests/griff_folge_1694.gd
+#   MESS=1694 xvfb-run -a godot --path . --resolution 540x1170 -s res://tests/griff_folge_1694.gd -- --bild1694
+#   (ohne Argument hinter „--“ liegt das Hauptmenü über der Welt; die Messung betrifft das nicht, das Bild schon)
 #   WEG=spiel|pruef, FALL=greataxe|quarterstaff, BEW=Gehen_axt (sonst Stehen), BILDER=60
 # Befund 24.11., 22:07 (bb359430a, 6 Fälle, je 3 Läufe): im Spielweg zeigt bake im Signal in jedem Aufruf die Pose des vorigen Aufrufs
 # (Abstand 0,00 cm), gegen die Pose dieses Aufrufs bis 47 cm; Prüfaufbau ruht (nicht unterscheidbar). NetzMess paart so das Netz des vorigen
@@ -301,6 +302,9 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 	for f in bilder:
 		await process_frame
 		if mit_bild and f == bild_bei:
+			var cam := root.get_viewport().get_camera_3d()
+			var hp = _rs_knochen(sk, netze, "hand_r")
+			print("BILD1694 Kamera %s, hand_r im Bild %s, Fenster %s" % [cam.get_path() if cam else "FEHLT", cam.unproject_position(hp) if cam and hp != null else "FEHLT", root.get_viewport().get_visible_rect().size])
 			await RenderingServer.frame_post_draw
 			var img = _nimm_bild()
 			if img != null: zeilen_b[zeilen_b.size() - 1]["bild"] = img
