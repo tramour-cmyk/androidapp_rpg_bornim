@@ -372,3 +372,4 @@ STARTSPERRE - 17:01 25.11.: Startsperre 17:01 Start Arbeitsplaner (lauf.py, Arbe
 - 17:06 25.11.: Takt 17:04: Planer Moritz 2028 gestartet (…7A4gb2); 1708-Ü1 erledigt, Ü2 angenommen, Handstart Kampf 1708 durch Laufsperre (Startsperre-Marke 16:58 + Planer als Sonstige gezählt) angehalten, nachholen ca. 17:20; Maja blockiert (zwei Entscheide) an Sokrates; Tagesbericht/Planer 887/Kampf Olga nicht gestartet.
 - 17:07 25.11.: Hanna (2029) archiviert, 1,89 $; 2029-Ü10 war schon erledigt (Sokrates will sie offen bis Chefantwort: Nacken/.import als eigene Zeile an Figur nach Chef-Entscheid).
 - 17:09 25.11.: Planer Moritz: Auftrag 2032 (Rowena Gürtel, Figur) und 2033 (Thessa Faust-Tusche, Technik) steht, 2028-Ü6 erledigt; Starts 1708, 2032, 2033 wegen Laufsperre ab ca. 17:20 nacheinander (Deckel je 50 $).
+STARTSPERRE - 17:09 25.11.: Startsperre 17:09 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2034 Anna)
