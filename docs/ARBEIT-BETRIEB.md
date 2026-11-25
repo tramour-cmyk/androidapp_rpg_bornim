@@ -176,3 +176,4 @@ STARTSPERRE - 18:02 25.11.: Startsperre 18:02 Start Disponent (lauf.py, Disponen
 - 19:43 25.11.: Startsperre 19:43 Start Figur (lauf.py, Figur 2031 Anna)
 - 19:46 25.11.: Kurz vier arbeitende Fachkräfte (Sabine 2035, Greta 2031, Helga 2029, Eddas Nachfolger 2034 wartet mit Probe-Lauf auf freien Platz): Sokrates 19:44 gab 2029 und 2034 zugleich frei, Sokrates trägt den Fehler; sobald Sabine fertig ist, gebe ich Eddas Nachfolger "Platz frei". Greta …77tXdj? siehe session_01Hmoj779v32dPawDXUscfQp, Helga session_01Hmoj77dYgeRnKtSuzVv8p1 (Handstart R53).
 - 19:48 25.11.: Startsperre 19:48 Start Prüfer (lauf.py, Prüfer 2032 Anna)
+- 19:51 25.11.: Sabine …76YyLN archiviert (4,82 $ auf 2035). Nachfolger Tilda …77BeDb (Werkzeug, 2035 Marke Disponent Fassung 2, Notstart ohne Startblock, Platz von Sabine). Rita …78tXNR neuer Prüfer (2032, 2035). Greta …779v32 (2031), Helga …77dYge (2029), Eddas Nachfolger …76crkB (2034 Probe-Lauf).
