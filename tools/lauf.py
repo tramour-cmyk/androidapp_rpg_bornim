@@ -8,6 +8,7 @@ SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more f
   Letzte Zeile der Kurzform: `# has_more: nein` (erst nach der letzten Seite von list_sessions); fehlt sie oder steht „ja“, warnt lauf.py „Seite abgeschnitten“ (261.4).
   2042: statt dessen `# bis: <created_at der letzten Zeile>`, sobald diese vor der Zeitgrenze liegt (früher von heute 00:00 und jetzt − 3 h);
   fehlt dann eine Sitzung aus ARBEIT-BESETZUNG.md: Zeile GET_SESSION <ids> (Kurzzeile nachtragen, lauf.py neu), kein Plan.
+  Erster Lauf ab 7 Uhr (Zeitmarke der Besetzung vor 07:00) mit `# bis:`: nur Zeile VOLLER LAUF (alle Seiten holen, lauf.py neu), kein Plan.
 Ausgabe, Zeile für Zeile auszuführen:
   START <Rolle> | model | [effort high] | environment_id | source_url | source_revision | Titel | erste Nachricht   → create_session mit allen Feldern, source_url (187) und source_revision main (382) Pflicht (Startsperre vorher pushen: --sperre schreibt sie)
   ARCHIVIERE <session_id> | <Rolle> | <Kosten $> | <Vorgang>        → archive_session, danach --kosten (siehe unten)
@@ -1001,6 +1002,16 @@ def vorgang_texte(docs=None):
     except OSError: return []
 
 
+def start_sitzungen(seiten):
+    """2042 Teil 6 (4): (Titel, created_at) aller Sitzungen der Seiten für den Rufnamen beim Handstart, JSON von list_sessions wie
+    Kurzform, archivierte mit (ein Name gilt den ganzen Tag); rufname.lies_sitzungen las nur die Kurzform, bei JSON kam immer „Anna“."""
+    aus = []
+    for p in seiten:
+        try: aus += [(x.get("title", ""), x.get("created_at", "")) for x in kosten.sitzungen(p, [])]
+        except (OSError, ValueError): pass
+    return aus
+
+
 def sitzungen_lesen(seiten):
     """2002: lebende Sitzungen aus gespeicherten Seiten von list_sessions oder der Kurzform (wie der Takt)."""
     alle = {}; offen = []
@@ -1014,6 +1025,20 @@ def zeitgrenze(jetzt=None):
     Beleg: BUCHE nur heute, Rufnamen nur heute (rufname.heute_vergeben), START_PRUEF_STD 3, WAECHTER_STUNDEN 3."""
     j = (jetzt or JETZT).astimezone(BERLIN)
     return min(j.replace(hour=0, minute=0, second=0, microsecond=0), j - datetime.timedelta(hours=3))
+
+
+def voller_lauf_faellig(besetzung, jetzt=None):
+    """2042 (Sokrates 23:00 (3)): kein Takt mit „# bis:“ archiviert ruhende Sitzungen vor der Zeitgrenze; darum ist der erste Lauf
+    ab 7 Uhr voll (alle Seiten bis has_more falsch). Fällig, wenn jetzt ab 07:00 und die Zeitmarke „**Stand:**“ der Besetzung vor
+    heute 07:00 liegt oder fehlt."""
+    j = (jetzt or JETZT).astimezone(BERLIN); sieben = j.replace(hour=7, minute=0, second=0, microsecond=0)
+    if j < sieben: return False
+    m = re.search(r"\*\*Stand:\*\* (\d\d)\.(\d\d)\., (\d\d):(\d\d)", besetzung or "")
+    if not m: return True
+    try: st = datetime.datetime(j.year, int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4)), tzinfo=BERLIN)
+    except ValueError: return True
+    if st > j + datetime.timedelta(days=1): st = st.replace(year=j.year - 1)  # Jahreswechsel
+    return st < sieben
 
 
 BIS = re.compile(r"^#\s*bis:\s*(\S+)\s*$", re.M | re.I)
@@ -1068,11 +1093,10 @@ def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None, bremse=None, z
     aus = [mit_kern(mit_kaufrepo(l), docs)]
     namen = {}
     if ist_scharf():
-        if sitzungen is None:
-            import rufname
-            try: e = rufname.sperr_eintraege(lesen(os.path.join(docs or DOCS, "ARBEIT-BETRIEB.md")), JETZT.year)
-            except Exception: e = []
-            sitzungen = [("%s – x" % n, d.replace(tzinfo=BERLIN).isoformat()) for d, _, n, *_ in e if n and d.date() == JETZT.date()]
+        import rufname  # 2042 Teil 6 (4): heutige Startsperren immer dazu, nicht nur ohne Seiten (Fall Anna 22:15/22:31/22:49)
+        try: e = rufname.sperr_eintraege(lesen(os.path.join(docs or DOCS, "ARBEIT-BETRIEB.md")), JETZT.year)
+        except Exception: e = []
+        sitzungen = list(sitzungen or []) + [("%s – x" % n, d.replace(tzinfo=BERLIN).isoformat()) for d, _, n, *_ in e if n and d.date() == JETZT.date()]
         aus = mit_rufnamen(aus, [{"title": a, "created_at": b} for a, b in sitzungen], namen=namen)
     aus += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
     aus.append("STARTSPERRE " + startsperre_zeile([rolle], {rolle: nr}, rufnamen=namen))
@@ -1622,9 +1646,7 @@ def main():
         r = [x for x in a[1:] if x != "--sperre" and x != "--ohne-pull"]
         if len(r) < 3: sys.exit('lauf.py --start ROLLE NR "Nachricht" [SEITE …] [--sperre]')
         ss = None
-        if r[3:]:
-            import rufname as _r2; ss = []
-            for p in r[3:]: ss += _r2.lies_sitzungen(lesen(p))
+        if r[3:]: ss = start_sitzungen(r[3:])
         br = None
         if ist_scharf():  # 2002 (e): Handstart prüft die Obergrenze wie der Takt; Laufende aus den übergebenen Seiten (Kurzform), sonst unbekannt → kein Start
             import guthaben
@@ -1677,6 +1699,9 @@ def main():
     offen, bis = grenze_offen(offen)  # 2042 (1): Kurzform bis zur Zeitgrenze gilt als vollständig
     if offen: ausgabe.append("WARNUNG Seite abgeschnitten (has_more) in %s: Plan unvollständig, weitere Seite bis created_at vor %s holen (2042)" % (", ".join(offen), zeitgrenze().strftime("%d.%m., %H:%M")))
     if bis:
+        if voller_lauf_faellig(lesen(os.path.join(DOCS, "ARBEIT-BESETZUNG.md"))):
+            return print("VOLLER LAUF | 2042: erster Lauf ab 7 Uhr: list_sessions alle Seiten bis has_more falsch, Kurzform mit „# has_more: nein“, "
+                         "lauf.py neu (archiviert auch ruhende Sitzungen vor der Zeitgrenze)")
         fehlt = besetzung_fehlt(lesen(os.path.join(DOCS, "ARBEIT-BESETZUNG.md")), set(alle))
         if fehlt:  # laut statt still falsch: vor der Grenze gestartete laufende Sitzung fehlt, sonst doppelter START
             return print("GET_SESSION %s | 2042: vor der Zeitgrenze gestartet, steht in ARBEIT-BESETZUNG.md: get_session, Kurzzeile vor „# bis:“ anhängen, lauf.py neu" % ",".join(fehlt))

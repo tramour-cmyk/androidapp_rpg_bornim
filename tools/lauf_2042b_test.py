@@ -127,5 +127,27 @@ soll("(9) Zahl je Art und Abruf", k and k[0].startswith("LIEGT 4 ") and "startba
 soll("(9) Abruf je Art: nur startbar", liegt.nach_art(zs, "startbar") == zs[:2], liegt.nach_art(zs, "startbar"))
 soll("(9) ohne LIEGT keine Zeile", liegt.kurz([]) == [])
 
+# (1c) täglich ein voller Lauf (Sokrates 23:00 (3)): erster Lauf ab 7 Uhr mit Kurzform „# bis:“ verlangt alle Seiten
+import datetime, lauf
+BL = lauf.BERLIN
+def bes(stand): return "# Besetzung\n\n**Stand:** %s (lauf.py)\n\n| Rolle | Sitzung | Vorgang | Zweig | seit |\n" % stand
+soll("(1c) Stand 06:55, jetzt 07:02 → voller Lauf fällig", lauf.voller_lauf_faellig(bes("26.11., 06:55"), datetime.datetime(2026, 11, 26, 7, 2, tzinfo=BL)))
+soll("(1c) Stand gestern 23:50, jetzt 09:00 → fällig", lauf.voller_lauf_faellig(bes("25.11., 23:50"), datetime.datetime(2026, 11, 26, 9, 0, tzinfo=BL)))
+soll("(1c) Stand 07:05 (voller Lauf war), jetzt 07:40 → nicht fällig", not lauf.voller_lauf_faellig(bes("26.11., 07:05"), datetime.datetime(2026, 11, 26, 7, 40, tzinfo=BL)))
+soll("(1c) Nacht 03:00, Stand 02:40 → nicht fällig", not lauf.voller_lauf_faellig(bes("26.11., 02:40"), datetime.datetime(2026, 11, 26, 3, 0, tzinfo=BL)))
+soll("(1c) ohne Stand → fällig (laut statt still)", lauf.voller_lauf_faellig("# Besetzung\n", datetime.datetime(2026, 11, 26, 8, 0, tzinfo=BL)))
+
+# Teil 6 (4) Rufname beim Handstart (Fall Anna 22:15/22:31/22:49, Britta, Carla, Dora gestartet): Seite als JSON wie als Kurzform lesen,
+# heutige Startsperren immer dazu; nie ein heute schon vergebener Name
+import json as _j
+jp = os.path.join(d, "seite.json")
+_j.dump({"ccr": {"data": [{"id": "session_B", "title": "Anna – Disponent – Betrieb", "created_at": "2026-11-25T20:37:00Z", "updated_at": "2026-11-25T21:30:00Z", "session_status": "SESSION_STATUS_IDLE"},
+                          {"id": "session_C", "title": "Britta – in Arbeit – 2042 – x", "created_at": "2026-11-25T21:16:00Z", "updated_at": "2026-11-25T21:30:00Z", "session_status": "SESSION_STATUS_ARCHIVED"}],
+                 "has_more": False}}, open(jp, "w"))
+hs = lauf.start_sitzungen([jp])
+soll("(6-4) Handstart-Seite als JSON: Titel und created_at gelesen (auch archiviert)", ("Britta – in Arbeit – 2042 – x", "2026-11-25T21:16:00Z") in hs and len(hs) >= 2, hs)
+kp = os.path.join(d, "seite.txt"); open(kp, "w").write("session_C | archived | 2026-11-25T21:30:00Z | Britta – in Arbeit – 2042 – x | - | 2026-11-25T21:16:00Z | -\n# bis: 2026-11-24T22:00:00Z\n")
+soll("(6-4) Handstart-Seite als Kurzform", ("Britta – in Arbeit – 2042 – x", "2026-11-25T21:16:00Z") in lauf.start_sitzungen([kp]), lauf.start_sitzungen([kp]))
+
 print("LAUF2042B %d Fehler" % fehl)
 sys.exit(1 if fehl else 0)
