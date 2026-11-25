@@ -10,6 +10,7 @@
 - Bild selbst ansehen, Spielkamera; Waffe: Griff je Hand (1650, 1621).
 - Umbau nur von der alten Datei aus, jede Übernahme prüfen (98). Kerne, Profile, Abgenommenes nur in der Quelle, mit Chefwort und Byte, nur die genannte Stelle (D205.3, 1931).
 - Befund, der den Auftrag erledigt, vorher nennen (1638); Ablauf als Raster Einheit × Auslöser, „komplett“ per grep.
+- Keine Regel gegen Praktisches vorschieben (Kapsel 25.11.).
 - Chefentscheid nie selbst zurücknehmen oder gegen Chefwort ablehnen: raten, Regel nennen, fragen (1609, 23.11.).
 - Gegenlesen: erst die Art jeder Zeile, dann Inhalt; nur gegen gültige Texte prüfen (t299, 1933).
 - Keine Meldung oder Hinweis ohne Empfänger, der damit handelt; sonst streichen (Chef 24.11., 08:28).
@@ -19,12 +20,12 @@
 
 ## Offene Fäden
 
-- Konferenz: Alter Ego `session_01Hmoj76MLqXxxrREpwoxksZ` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
+- Konferenz: Alter Ego `session_01Hmoj796ziGfneFcCRZG7J7` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
 - Spielcode nach main nur Sokrates nach Chef-👍 (Dauerwort 23.11., 23:10).
 - Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt; Guthaben 50 % (06:53), über 0,6 %/h zwei
-- Chef 12:48: kein neues Werkzeug (2020, 2021 ruhen), Spiel vor, keine Meldung bis Sa; 1716, 1725 ruhen; 1694 A: Messung 15 $; 1589.4 A, 431 A. Offen: Vorlage --sperre-Teile; 1301/1387/1642/1643 mit Alter Ego entscheiden; 1603 A: Testbuild Sa (Technik Fr), 2024.
+- Chef 12:48: Spiel vor, kein Werkzeug (1716, 1725, 2020, 2021 ruhen); fragt der Chef, jetzt vorlegen (25.11., 09:52). 1694, 431, 1589.4, 1603 A (19:3x). Sa vorlegen: 1589.4 Kapsel, --sperre-Teile; Testbuild Sa (Technik Fr). Offen: 1301/1387/1642/1643 mit Alter Ego.
 - Täglich Modell, Umgebung, Aufwand aller Sitzungen. Kopiertexte: `kopiertexte-uhren.md`
 
 ## Übergabe
 
-- 24.11., 12:47, `76yxzD…` (400 Tsd.): Getan: 1589.3 auf main, 2017 fertig, 2019 Eilt, Kern Daumenregel. Letzte Antwort: Thema zu, Ruhe bis Sa. Nachfolger: Sokrates – Leitung.
+- 24.11., 21:50, `77ZdYK…`: Letzte Antwort: 1589.4 Kosten, Rest Sa. Nachfolger: Sokrates – Leitung.
