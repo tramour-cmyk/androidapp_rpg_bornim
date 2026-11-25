@@ -363,3 +363,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 STARTSPERRE - 16:38 25.11.: Startsperre 16:38 Start Sokrates (lauf.py, 1988)
 - 16:40 25.11.: Sokrates neu session_01Hmoj77uPSfmHFTcgkb3sHW (Nr. 1988); alter (…77b3dQ) wartet auf dessen Meldung.
 - 16:41 25.11.: Chef 16:38 (über Sokrates): Deckel mindestens 50 $ je Vorgang, darunter kein Halt; 2029 Hanna Deckel 50 $ (Halt 45 $) gemeldet; 1708 Frauke 50 $.
+- 16:41 25.11.: Sokrates alt (…77b3dQ) archiviert (1988: 18,12 $); neuer …77uPSf meldet sich.
