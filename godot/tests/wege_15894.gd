@@ -160,7 +160,7 @@ func _kampf(foe: String) -> void:
 				s.quer += d.length()
 				if s.quer > ZUR_SEITE_M * o._scale() and s.quer - d.length() <= ZUR_SEITE_M * o._scale():
 					befund.quer += 1
-					_melde(foe, bild, o, "quer", "%.0f° neben dem Blick, %.2f m, %s" % [w, s.quer, nm])
+					_melde(foe, bild, o, "quer", "%.0f° neben dem Blick, %.2f m, %s, gang %s" % [w, s.quer, nm, o.gang])
 			else:
 				s.quer = 0.0
 			if o.fighter.side != "FOES" or flieht:
@@ -189,7 +189,7 @@ func _kampf(foe: String) -> void:
 				s.rueck += d.length()
 				if s.rueck > RUECKEN_M and s.rueck - d.length() <= RUECKEN_M:
 					befund.ruecken += 1
-					_melde(foe, bild, o, "ruecken", "%.0f° vom Helden weg, %s" % [rad_to_deg(blick.angle_to(zu)), nm])
+					_melde(foe, bild, o, "ruecken", "%.0f° vom Helden weg, %s, gang %s, %s" % [rad_to_deg(blick.angle_to(zu)), nm, o.gang, String(o.fighter.monster.get("id", ""))])
 			else:
 				s.rueck = 0.0
 			# stur: Untote und Krogg entfernen sich nicht vom Helden
