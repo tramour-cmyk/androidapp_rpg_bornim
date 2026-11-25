@@ -30,4 +30,4 @@
 
 ## Übergabe
 
-- 25.11., 16:40, `77b3dQ…` (400 Tsd.): 431 main; 1589.4 80 $; 1708, 2031 laufen. Letzte Antwort: „2024 nach main“ offen. Nachfolger: Sokrates – Leitung.
+- 25.11., 16:40, `77b3dQ…`: Letzte Antwort: „2024 nach main“ offen. Nachfolger: Sokrates – Leitung.
