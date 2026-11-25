@@ -692,6 +692,44 @@ if UNTER_WEG:
         bm = bmesh.new(); bm.from_mesh(kme); bm.faces.ensure_lookup_table()
         bmesh.ops.delete(bm, geom=[bm.faces[i] for i in sorted(unter_weg)], context='FACES'); bm.to_mesh(kme); bm.free()
 
+# 2032 (Prüfer 25.11., 21:04, Rowena: gelbe Kleid-Innenseite neben der Faust am Gürtel und am Rockrand; guertel_2032 UMKREIS2032):
+# offene Ränder (Oberkante von Rock und Band, auch die Kanten, die UNTER_WEG oben schneidet) zeigen von schräg oben die Innenseite
+# der Lage; sie lag im Schatten ohne Licht und wirkte als dunkle Sprenkel. Stoff hat zwei Seiten: Flächen binnen INNEN_RAND m von
+# einem offenen Rand und alle Flächen der Teile INNEN_TEILE (Gürtel faltet sich am Leib) bekommen eine Innenlage, gewendet und
+# INNEN_AB m nach innen, mit denselben Gewichten, UV und Farben; von innen sieht man so Stoff in Kleidfarbe (Vorderseite), von
+# außen bleibt sie hinter der Lage (toon.gdshader rueck). INNEN_RAND=0: aus
+INNEN_RAND = float(os.environ.get('INNEN_RAND', '0.05'))
+INNEN_AB = float(os.environ.get('INNEN_AB', '0.0015'))
+INNEN_TEILE = [t for t in os.environ.get('INNEN_TEILE', 'belt,buckle').split(',') if t in TEILNAMEN]
+if INNEN_RAND > 0:
+    LT4 = np.zeros(len(kme.vertices), dtype=int); kme.attributes['teil'].data.foreach_get('value', LT4)
+    bm = bmesh.new(); bm.from_mesh(kme); bm.verts.ensure_lookup_table(); bm.faces.ensure_lookup_table()
+    rand_v = {v.index for e in bm.edges if e.is_boundary for v in e.verts}
+    kd = KDTree(max(1, len(rand_v)))
+    for i in rand_v: kd.insert(bm.verts[i].co, i)
+    kd.balance()
+    ti = {TEILNAMEN.index(t) for t in INNEN_TEILE}
+    innen = []
+    bm.normal_update()
+    # umgeklappte Flächen (Falte: alle Eckennormalen gegen die Fläche) zeigen sonst ihre Innenseite nach außen: wenden
+    um = [f_ for f_ in bm.faces if all(v.normal.dot(f_.normal) < 0 for v in f_.verts)]
+    if um: bmesh.ops.reverse_faces(bm, faces=um); bm.normal_update()
+    for f_ in bm.faces:
+        # nur wo die Eckennormalen zur Fläche passen (umgeklappte Stellen hätten die Innenlage vor der Außenlage)
+        if any(v.normal.dot(f_.normal) < 0.2 for v in f_.verts): continue
+        if LT4[f_.verts[0].index] in ti: innen.append(f_); continue
+        if not rand_v: continue
+        if min(kd.find(v.co)[2] for v in f_.verts) <= INNEN_RAND: innen.append(f_)
+    if innen:
+        nv = {v.index: v.normal.copy() for f_ in innen for v in f_.verts}
+        neu = bmesh.ops.duplicate(bm, geom=innen)
+        vmap = neu['vert_map']
+        for v in {v for f_ in innen for v in f_.verts}:
+            vmap[v].co = v.co - nv[v.index] * INNEN_AB
+        bmesh.ops.reverse_faces(bm, faces=[g for g in neu['geom'] if isinstance(g, bmesh.types.BMFace)])
+        bm.to_mesh(kme)
+    bm.free()
+    print('INNENLAGE 2032', len(innen), 'Flaechen (Rand %.3f m, Teile %s), offene Randecken %d, gewendet %d' % (INNEN_RAND, INNEN_TEILE, len(rand_v), len(um)))
 dr = sum(len(o.data.polygons) for o in qnetze + [kleid])
 info = {'kennung': KENNUNG, 'koerper': KOERPER, 'kopf': KOPF or KOERPER, 'haar': HAAR, 'bart': BART, 'form': KO.form_aus(FORM), 'haut': HAUT, 'stoppeln': STOPPELN, 'farbe': FARBE,
         'hoehe_m': round(float(hoehe_q), 3), 'kleidung_hinaus': raus, 'koerper_verdeckt': int(verdeckt.sum()), 'flaechen': dr}
