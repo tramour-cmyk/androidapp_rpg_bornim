@@ -29,3 +29,8 @@ Offen: Probe-Lauf (Robe M36-05, Stiefel M57-09, dazu M29-04) nach Prüfer-Ja; bp
 ## Nachtrag 19:52 (Edda): Probe-Lauf 2 (Sokrates 19:44) an 860900ac4
 
 Lauf: abzug_mh.py (bpy 5.2.3, venv ~/bl neu) NUR=M29-04,M36-05,M57-09, dann `SIGNATUR=1 … abzug_2034.gd` (xvfb, OpenGL 3 nach Vulkan-Fehlschlag wie zuvor), Bilder `probe/M29-04|M36-05|M57-09.webp`, alt gegen neu `probe/M36-05_alt_neu.webp`, `probe/M57-09_alt_neu.webp`, Messung `probe/messung-860900ac4.json`, MARKE `probe/marke-860900ac4.txt`. Nach dem Lauf nur das Zusammensetzen geändert (Schrift: Ansichtszeile kleiner, Rand passt sich dem Messsatz an; Lizenz der Paketseite aus der Liste). Wartet auf Prüfer; Abzug erst nach Ja.
+
+## Nachtrag 20:42 (Edda): Probe-Lauf 3 nach DESIGN-STIL A2 (2034-Ü14) an d0ed0dc33
+
+Lauf `SIGNATUR=1 NUR=M36-05,M57-09,M29-04` an d0ed0dc33 (Lauf 3 von 3, kein weiterer ohne Freigabe). Sonne und Tusche aus `kampf/signatur.gd` (`sonne_wie_kampf`: −45, 55; `tusche_licht` Gruppe: px 0,8, dick 1,5, umriss_dick 1,3), Lampe auf der Sonnenseite. Bilder `probe/<Nr>.webp` (vorn mit | ohne), `probe/<Nr>_abzug.webp` (vorn | Seite wie im Abzug), `probe/<Nr>_licht_schatten.webp` (Ausschnitt 3-fach), Messung `probe/messung-d0ed0dc33.json`, Lauf `probe/marke-d0ed0dc33.txt`. Rahmen aller 194 Netze ohne Bildlauf: `2034-abzug/rahmen.tsv` (`abzug_2034_rahmen.py`, stimmt bei den drei Stücken mit dem Lauf überein).
+Befund: Toon-Stufen 1 statt 3 (weißes Stück 0,98): Kampfort-Sonne ohne Tonwerte des Kampforts. Behebung ohne Lauf im Folgecommit (`Sig.einrichten` statt Einzelteilen), wartet auf Laufanforderung beim Prüfer.

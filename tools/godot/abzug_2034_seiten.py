@@ -89,9 +89,10 @@ for nr in NUR:
     bm = Image.open('%s/%s_vorn.png' % (R, nr)).convert('RGB')
     bo = Image.open('%s/%s_vorn_ohne.png' % (R, nr)).convert('RGB')
     can = Image.new('RGB', (2048, 1124), (0, 0, 0))
-    ub = bm.copy(); dr = ImageDraw.Draw(ub)
+    ox = (bm.size[0] - 1024) // 2   # Uebersicht: mittlere 1024 px des 2048 breiten Bildes (Stueck mittig, Zuschnitt <= 1024)
+    ub = bm.crop((ox, 0, ox + 1024, bm.size[1])); dr = ImageDraw.Draw(ub)
     for seite, farbe in (('licht', GOLD), ('schatten', BLAU)):
-        x, y = wo[seite]; dr.rectangle([x - 3, y - 3, x + A + 2, y + A + 2], outline=farbe, width=3)
+        x, y = wo[seite]; dr.rectangle([x - ox - 3, y - 3, x - ox + A + 2, y + A + 2], outline=farbe, width=3)
     can.paste(ub, (0, 0))
     dc = ImageDraw.Draw(can)
     f18, f16 = ImageFont.truetype(F, 18), ImageFont.truetype(F, 16)
