@@ -312,3 +312,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:51 25.11.: 431-Ü20 Kostenstand an Hilde (173,82 $ gebucht, Nachbesserung 17,13 $ Britta, Halt 30 $).
 - 11:03 25.11.: Startsperre 11:03 Start Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Gerda, Tagesbericht 448)
 - 11:06 25.11.: Startsperre 11:05 Start Kampf (lauf.py, Kampf 1589.4 Maja)
+- 11:07 25.11.: START Kampf Maja 1589.4 (session_01Hmoj75uanUH4gifTfo3NKJ, Deckel 36 $, Halt 32 $, gebucht 24,07 $); Dana (1654, 2,71 $) und Berta (0,91 $) archiviert; Kostenstand 1694 an Greta (6,01 $ Sitzung, Halt 8 $); Greta und Dana warten auf Bildlauf-Freigabe (Sokrates 1654-Ü8, 1694-Ü32). Fachkräfte jetzt: Hilde 431, Greta 1694 (wartet), Maja 1589.4. Planerin Tilda 2024 noch offen.
