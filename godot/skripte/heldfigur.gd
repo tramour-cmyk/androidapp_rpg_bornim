@@ -608,7 +608,7 @@ static var kopfteil_szenen := {}
 # 2029: Helm seitlich weiter fuer Voelker mit Ohren ueber der Stirnlinie (Spitzohren der Elfen, Ohren von Huegelvolk und Orkbluetigen
 # stachen seitlich durch den Helm; tests/kopfteil_2029.gd). Kennung -> Volk des Modells -> Geschlecht -> [Breite, Hoehe, Tiefe] gegen den Menschen
 static var kopfteil_breite := {
-	"Helm_Templer": {"ELF": {"M": [1.3, 1.0, 1.2], "W": [1.2, 1.0, 1.0]}, "HALFLING": {"M": [1.15, 1.0, 1.0]}, "HALF_ORC": {"M": [1.15, 1.0, 1.0]}},
+	"Helm_Templer": {"ELF": {"M": [1.35, 1.0, 1.0], "W": [1.2, 1.0, 1.0]}, "HALFLING": {"M": [1.15, 1.0, 1.0]}, "HALF_ORC": {"M": [1.15, 1.0, 1.0]}},
 }
 static func kopfteil(n: String, g: String) -> MeshInstance3D:
 	var datei := String(KOPFTEILE.get(n, ""))

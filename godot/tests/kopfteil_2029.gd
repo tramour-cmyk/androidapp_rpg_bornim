@@ -16,6 +16,11 @@ const BILD := 1024
 const MITTEL := 0.15
 const FLECKEN := 0.05
 const LIPPE_X := 0.03
+# Helm sitzt (Pruefer 25.11., 14:06): Luft zwischen Kopfhaut ueber der Stirnlinie und Helminnenseite, Nasenschutz am Gesicht. Am Stand
+# 711ab74f2 (Helm schwebte im Bild) Luft im Mittel 1,8 bis 2,9 cm in allen 10 Faellen; nach der Behebung 0,6 bis 1,4 cm
+const LUFT_MAX := 0.045
+const LUFT_MITTEL := 0.015
+const NASE := 0.010
 var fehler := 0
 var stueck_ok := {}   # Kennung_G -> Text, leer = gut
 # Pose, wie sie gezeichnet wird: nach den Modifikatoren (KopfHeben), festgehalten in skeleton_updated; danach setzt das Skelett die Pose
@@ -133,10 +138,14 @@ func fall(art: String, v: String, g: String, hieb: Animation) -> String:
 		lage.append(mitte / maxf(1.0, nk))
 		var stueck_v := netz(m, mi, ki)
 		if art == "helm":
-			var raus := helm_raus(m, sk, ki, stueck_v, mi)
-			zahlen.append("%s: Kopfhaut ueber der Stirn %d Ecken, ausserhalb %d" % [pose, raus.x, raus.y])
-			if raus.x == 0: r.append("%s keine Kopfhaut ueber der Stirn gefunden" % pose)
-			if raus.y > 0: r.append("%s Kopfhaut sticht durch den Helm (%d Ecken)" % [pose, raus.y])
+			var hm := helm_mass(m, sk, ki, stueck_v, mi)
+			zahlen.append("%s: Kopfhaut ueber der Stirn %d Ecken, ausserhalb %d, Luft groesste %.1f cm, mittlere %.1f cm, Nasenschutz zur Haut %.1f cm" % [
+				pose, hm["n"], hm["raus"], hm["luft_max"] * 100.0, hm["luft_mittel"] * 100.0, hm["nase"] * 100.0])
+			if hm["n"] == 0: r.append("%s keine Kopfhaut ueber der Stirn gefunden" % pose)
+			if hm["raus"] > 0: r.append("%s Kopfhaut sticht durch den Helm (%d Ecken)" % [pose, hm["raus"]])
+			if hm["luft_max"] > LUFT_MAX: r.append("%s Helm schwebt (Luft bis %.1f cm)" % [pose, hm["luft_max"] * 100.0])
+			if hm["luft_mittel"] > LUFT_MITTEL: r.append("%s Helm sitzt locker (Luft im Mittel %.1f cm)" % [pose, hm["luft_mittel"] * 100.0])
+			if hm["nase"] > NASE: r.append("%s Nasenschutz steht vom Gesicht ab (%.1f cm)" % [pose, hm["nase"] * 100.0])
 		elif art == "bart":
 			var ms := m.find_child("Haar_Hair_Moustache", true, false)
 			if ms == null: r.append("ohne Schnauzbart"); continue
@@ -175,6 +184,18 @@ func netz(m: Node3D, x: MeshInstance3D, ki: Transform3D, nur_kopf := false, sk: 
 	for s in x.mesh.get_surface_count():
 		var a := x.mesh.surface_get_arrays(s)
 		var V: PackedVector3Array = a[Mesh.ARRAY_VERTEX]
+		# Formschluessel wie gezeichnet (Gesicht, Statur, unter_*): Ecke + Gewicht * (Form - Grund) bzw. * Form (relativ)
+		var am := x.mesh as ArrayMesh
+		if am and am.get_blend_shape_count() > 0:
+			var bs := x.mesh.surface_get_blend_shape_arrays(s)
+			V = V.duplicate()
+			var basis0: PackedVector3Array = a[Mesh.ARRAY_VERTEX]
+			for bi in mini(bs.size(), am.get_blend_shape_count()):
+				var wt := x.get_blend_shape_value(bi)
+				if absf(wt) < 0.0001: continue
+				var BV: PackedVector3Array = bs[bi][Mesh.ARRAY_VERTEX]
+				var rel := am.blend_shape_mode == Mesh.BLEND_SHAPE_MODE_RELATIVE
+				for j in mini(V.size(), BV.size()): V[j] += (BV[j] if rel else BV[j] - basis0[j]) * wt
 		if tr.is_empty():
 			for p in V: out.append(tm * p)
 			continue
@@ -207,30 +228,54 @@ func haut_netze(m: Node3D) -> Array:
 		if rn.contains("Regular") or rn.contains("Superhero"): l.append(mi)
 	return l
 
-# Helm: Ecken der Kopfhaut ueber der Stirnlinie (x) und davon ausserhalb der aeussersten Helmflaeche (y), Strahl aus der Kopfmitte
-func helm_raus(m: Node3D, sk: Skeleton3D, ki: Transform3D, hv: PackedVector3Array, hm: MeshInstance3D) -> Vector2i:
+# Helm, gemessen ueber der Stirnlinie (Oberkante der Brauen) an den Ecken der Kopfhaut, Strahl aus der Kopfmitte:
+#   raus: Ecken ausserhalb der aeussersten Helmflaeche (Durchstechen)
+#   luft_max, luft_mittel: Abstand Kopfhaut bis zur naechsten Helmflaeche dahinter (Innenseite), groesster und mittlerer (Pruefer
+#     25.11., 14:06: im Bild 711ab74f2 schwebte der Helm, Durchstechen allein belegt den Sitz nicht)
+#   nase: groesster Abstand einer Ecke des Nasenschutzes (|x| < 1,2 cm, unter der Stirnlinie, vorn) zur naechsten Ecke der Kopfhaut
+func helm_mass(m: Node3D, sk: Skeleton3D, ki: Transform3D, hv: PackedVector3Array, hm: MeshInstance3D) -> Dictionary:
 	var stirn := -9.0
 	for x in m.find_children("Eyebrows*", "MeshInstance3D", true, false):
 		if (x as MeshInstance3D).is_visible_in_tree():
 			for p in netz(m, x as MeshInstance3D, ki, false, sk): stirn = maxf(stirn, p.y)
+	var alle := PackedVector3Array()
 	var haut := PackedVector3Array()
 	for mi in haut_netze(m):
-		for p in netz(m, mi, ki, true, sk): if p.y > stirn: haut.append(p)
-	if haut.is_empty() or stirn < -8.0: return Vector2i(0, 0)
+		for p in netz(m, mi, ki, true, sk):
+			alle.append(p)
+			if p.y > stirn: haut.append(p)
+	var r := {"n": haut.size(), "raus": 0, "luft_max": 0.0, "luft_mittel": 0.0, "nase": 0.0}
+	if haut.is_empty() or stirn < -8.0: return r
 	var c := Vector3.ZERO
 	for p in haut: c += p
 	c /= haut.size()
 	c.y = stirn
 	var ix: PackedInt32Array = hm.mesh.surface_get_arrays(0)[Mesh.ARRAY_INDEX]
-	var raus := 0
+	var summe := 0.0
+	var innen := 0
 	for p in haut:
 		var d := (p - c).normalized()
+		var l := (p - c).length()
 		var weit := -1.0
+		var nah := 9.0
 		for i in range(0, ix.size(), 3):
 			var t = Geometry3D.ray_intersects_triangle(c, d, hv[ix[i]], hv[ix[i + 1]], hv[ix[i + 2]])
-			if t != null: weit = maxf(weit, ((t as Vector3) - c).length())
-		if weit < (p - c).length(): raus += 1
-	return Vector2i(haut.size(), raus)
+			if t == null: continue
+			var e := ((t as Vector3) - c).length()
+			weit = maxf(weit, e)
+			if e >= l - 0.001: nah = minf(nah, e)
+		if weit < l: r["raus"] += 1
+		elif nah < 8.0:
+			r["luft_max"] = maxf(r["luft_max"], nah - l)
+			summe += nah - l
+			innen += 1
+	r["luft_mittel"] = summe / maxf(1.0, innen)
+	for q in hv:
+		if absf(q.x) > 0.012 or q.y > stirn - 0.01 or q.z < 0.0: continue
+		var best := 9.0
+		for p in alle: best = minf(best, p.distance_to(q))
+		r["nase"] = maxf(r["nase"], best)
+	return r
 
 # Kampfbewegung „Hieb“ aus kampf-bewegungen.bin, wie kampf/figur.gd _kaufheld auf das Geruest des Helden umgesetzt
 func hieb_laden() -> Animation:
