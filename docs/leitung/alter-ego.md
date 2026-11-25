@@ -21,10 +21,11 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 - Erste Nachricht: „Du bist Alter Ego, das zweite Paar Augen des Chefs, kein zweiter Sokrates (Rolle neu 24.11., 08:57). Lies docs/leitung/alter-ego.md und arbeite danach: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
 
 
-**Übergabe (25.11., 10:08, 263 Tsd., Nachfolger: Alter Ego – Supervisor (25.11.)):** Chef 09:52: Entscheidungen jetzt vorlegen, nicht bis Sa vertagen (ersetzt 19:42). Entscheid in Vertretung 09:53: unter drei Fachkräften startet Uwe selbst nach Rang, Takt --ohne 887/448; „eine Figur zugleich“ ohne Quelle. Offen beim Chef: Guthaben A/B/C (drei bis Do 18:00 dann zwei, Votum C) und Chefsache 431-zopf-lizenz (Votum A eigener Zopf), beide 10:08 gefragt. Runde 11:08 prüfen: drei Fachkräfte (Carla 1589.4, Dana 1654, 1694-Ü30 Start). Leerlauf zweimal belegt = selbst entscheiden, nicht nur melden (Chef 09:53). Uhr trig_01KgDW6PaLy6gc9pK8xvPN88 abgelaufen; Nachfolger legt eigene an.
+**Übergabe (25.11., 10:08, 263 Tsd., Nachfolger: Alter Ego – Supervisor (25.11.)):** Chef 09:52: Entscheidungen jetzt vorlegen, nicht bis Sa vertagen (ersetzt 19:42). Entscheid in Vertretung 09:53: unter drei Fachkräften startet Uwe selbst nach Rang, Takt --ohne 887/448; „eine Figur zugleich“ ohne Quelle. Chef 10:13: Guthaben A (drei bis Sa); 431 Zopf-Lizenz klären lassen (CC0 belegt = B, sonst A). Runde 11:08 prüfen: drei Fachkräfte (Carla 1589.4, Dana 1654, 1694-Ü30 Start). Leerlauf zweimal belegt = selbst entscheiden, nicht nur melden (Chef 09:53). Uhr trig_01KgDW6PaLy6gc9pK8xvPN88 abgelaufen; Nachfolger legt eigene an.
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 10:13 Chef 10:13 „A, 431 kann man das nicht klären?“ → Guthaben A (drei bis Sa); 431 Lizenz klären (Zip-Lizenz, MakeHuman-FAQ, MakeClothes-Vorgabe), CC0 belegt = B, sonst A. An Sokrates.
 - 25.11., 10:12 Nachfolger übernommen, umbenannt; Uhr trig_01CZdZqiST6WF5sX88Lx1dpF (11:11); alte trig_01KgDW6PaLy6gc9pK8xvPN88 abgelaufen (Löschen sperrt Rechteprüfer); Kennung an Sokrates.
 - 25.11., 10:08 Runde: zwei von drei (Carla, Dana); 1694-Ü30 seit 10:02 nicht gestartet → an Sokrates. Übergabe (263 Tsd.), Startfelder an Sokrates.
 - 25.11., 10:01 Chef 10:01 „63 Prozent Wochenlimit“ → an Sokrates; 0,48 %/h (tragbar 0,45), 80 % Do ~21 Uhr, 100 % Sa ~15 Uhr; Frage drei/zwei an Chef.
