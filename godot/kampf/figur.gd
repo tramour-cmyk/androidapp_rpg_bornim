@@ -1651,7 +1651,7 @@ func _wechsel_gehen(rueck: bool, n: int) -> void:
 		return
 	if not _strecke_frei(position, home) and n < WARTE_MAX * 2:
 		if n == 0 and not rueck:
-			var sp := Arena.seitlich(Vector2(position.x, position.z), Vector2(home.x, home.z), umriss_r(), _kreise())
+			var sp := Arena.seitlich(Vector2(position.x, position.z), Vector2(home.x, home.z), kapsel_laenge(), umriss_r(), _kreise())
 			if sp != Vector2(position.x, position.z):
 				var nach := Vector3(sp.x, position.y, sp.y)
 				var v := _wechsel_mps(true) * WECHSEL_LANGSAM
@@ -1830,17 +1830,17 @@ func _zum_feind(p: Vector3) -> Vector2:
 	return best
 
 
-## 1589.4: die Kreise der anderen Stehenden für die Arena ([[Mitte, Umriss], …]), ohne [skip]
+## 1589.4: die Kapseln der anderen Stehenden für die Arena ([[p, q, r], …], umriss_kapsel), ohne [skip]
 func _kreise(skip = null) -> Array:
 	var aus := []
 	for o in kampfort.figures.values():
 		if o != self and o != skip and o.visible and not o.down and o.dead_at < 0:
-			aus.append([Vector2(o.position.x, o.position.z), o.umriss_r()])
+			aus.append(o.umriss_kapsel())
 	return aus
 
 
 func _strecke_frei(a: Vector3, b: Vector3, skip = null) -> bool:
-	return Arena.strecke_frei(Vector2(a.x, a.z), Vector2(b.x, b.z), umriss_r(), _kreise(skip))
+	return Arena.strecke_frei(Vector2(a.x, a.z), Vector2(b.x, b.z), kapsel_laenge(), umriss_r(), _kreise(skip))
 
 
 func _andere_gehen() -> bool:
@@ -1857,9 +1857,10 @@ func _gasse(von: Vector3, nach: Vector3, skip) -> float:
 				or (o.tween and o.tween.is_running() and not o._nur_dreh()) or (o.fighter.monster != null and not o.weg.has("Gehen")):
 			continue
 		var c := Vector2(o.position.x, o.position.z)
-		if Arena.strecke_frei(a, b, umriss_r(), [[c, o.umriss_r()]]):
+		var ok: Array = o.umriss_kapsel()
+		if Arena.strecke_frei(a, b, kapsel_laenge(), umriss_r(), [ok]):
 			continue
-		var p := Arena.beiseite(a, b, c, umriss_r() + o.umriss_r(), o.umriss_r(), o._kreise(self), \
+		var p := Arena.beiseite(a, b, kapsel_laenge(), umriss_r(), ok, o.kapsel_laenge(), o._kreise(self), \
 				String(o.fighter.monster.get("id", "")) if o.fighter.monster != null else "")
 		if p == c:
 			continue
@@ -2166,8 +2167,9 @@ func _gefaehrte_macht_platz(other: Variant, leap: bool, weiter: float, t_warte: 
 			var n2 := Vector2(n.position.x, n.position.z)
 			var kr: Array = n._kreise(null)
 			var nr2: float = n.umriss_r()
+			var nl2: float = n.kapsel_laenge()
 			var q2 := Arena.absetzen(n2, Vector2(other.position.x, other.position.z), ABSETZEN * n._scale(), String(n.fighter.monster.get("id", "")),
-					func(x: Vector2) -> bool: return Arena.strecke_frei(n2, x, nr2, kr))
+					func(x: Vector2) -> bool: return Arena.strecke_frei(n2, x, nl2, nr2, kr))
 			if q2 == n2:
 				continue
 			var q := Vector3(q2.x, n.position.y, q2.y)
@@ -2507,7 +2509,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		var kreise := _kreise(other)
 		var r := umriss_r()
 		var ab2 := Arena.absetzen(von2, Vector2(other.position.x, other.position.z), ABSETZEN * _scale(), id,
-				func(q: Vector2) -> bool: return Arena.strecke_frei(von2, q, r, kreise))
+				func(q: Vector2) -> bool: return Arena.strecke_frei(von2, q, kapsel_laenge(), r, kreise))
 		if ab2 != von2:
 			var ab0 := ende
 			ende = Vector3(ab2.x, ende.y, ab2.y)
@@ -2722,7 +2724,7 @@ func _hieb(other, weiter := 0.0) -> int:
 		var kreise := _kreise(other)
 		var r := umriss_r()
 		var ab2 := Arena.absetzen(s2, Vector2(other.position.x, other.position.z), ABSETZEN * _scale(), String(fighter.monster.get("id", "")),
-				func(q: Vector2) -> bool: return Arena.strecke_frei(s2, q, r, kreise))
+				func(q: Vector2) -> bool: return Arena.strecke_frei(s2, q, kapsel_laenge(), r, kreise))
 		var ab := Vector3(ab2.x, start.y, ab2.y)
 		back = [ab]
 		weit = start.distance_to(ab)
@@ -3266,7 +3268,7 @@ func _tier_heim(back: float, skip, absetzen := true) -> void:
 		var kreise := _kreise(skip)
 		var r := umriss_r()
 		var z2 := Arena.absetzen(f2, zum, ABSETZEN * _scale(), String(fighter.monster.get("id", "")),
-				func(q: Vector2) -> bool: return Arena.strecke_frei(f2, q, r, kreise))
+				func(q: Vector2) -> bool: return Arena.strecke_frei(f2, q, kapsel_laenge(), r, kreise))
 		var ziel := Vector3(z2.x, from.y, z2.y)
 		tween = create_tween()
 		tween.tween_property(self, "position", ziel, minf(back, 0.4)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
@@ -4117,15 +4119,14 @@ func bahn_punkte() -> Array:
 	return out
 
 
-## Eigener Rand quer zum Weg: die Heldin HERO_R, ein Tier die halbe Breite seines Umrisses (399.2: Wölfe weichen jetzt auch aus)
-## 1589.4 (Sokrates 24.11., 20:47 zu F2 und 21:08, DESIGN-GEGNER 1 „Umriss als Kreis“): Kreis um den Kasten der Netze in Ruhe am
-## Boden, Halbmesser = halbe Diagonale (der Kasten liegt ganz im Kreis; gemessen 24.11.: Wolf 1,09, Grimmzahn 1,91, Ratte 0,90 m;
-## werte.json „arena“)
+## 1589.4 (Chef 25.11., 09:55: „der Umriss jeder Figur folgt ihrer Form“, ersetzt den Kreis um die halbe Diagonale): Umriss als
+## Kapsel aus dem Kasten der Netze in Ruhe am Boden (footprint): Halbmesser = halbe kurze Seite, Länge = lange minus kurze Seite,
+## Achse längs der langen Seite im eigenen Raum, Mitte im Punkt der Figur. Held und Söldner: Kreis HERO_R (348.7, Länge 0)
 func umriss_r() -> float:
 	if fighter.monster == null:
 		return HERO_R
 	var box := footprint()
-	return maxf(0.5 * Vector2(box.size.x, box.size.z).length(), 0.1)
+	return maxf(0.5 * minf(box.size.x, box.size.z), 0.1)
 
 
 func kapsel_laenge() -> float:
@@ -4145,7 +4146,7 @@ func kapsel_achse() -> Vector2:
 
 ## die eigene Kapsel jetzt in der Welt [p, q, r] (Arena.kapsel)
 func umriss_kapsel() -> Array:
-	return Arena.kapsel(Vector2(position.x, position.z), kapsel_achse(), kapsel_laenge(), HERO_R if fighter.monster == null else maxf(0.5 * minf(footprint().size.x, footprint().size.z), 0.1))
+	return Arena.kapsel(Vector2(position.x, position.z), kapsel_achse(), kapsel_laenge(), umriss_r())
 
 
 func own_r() -> float:

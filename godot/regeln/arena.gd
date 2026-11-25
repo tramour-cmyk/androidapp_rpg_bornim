@@ -265,15 +265,28 @@ static func punkt_kapsel(c: Vector2, k: Array) -> float:
 	return c.distance_to(Geometry2D.get_closest_point_to_segment(c, k[0], k[1]))
 
 
-## F1: ist die Strecke [a] → [b] für einen Kreis mit [r] frei? [andere]: [[Mitte, Umriss], …] der anderen Stehenden
-## Steht er am Start schon im Umriss eines anderen, sperrt der nur einen Weg, der ihm noch näher kommt (heraus darf er immer)
-static func strecke_frei(a: Vector2, b: Vector2, r: float, andere: Array) -> bool:
+## die Kapsel des Wegs [a] → [b] einer Figur mit [laenge] und [r]: sie geht längs (vorwärts oder rückwärts), ihre Strecke ragt
+## an beiden Enden um die halbe Länge hinaus
+static func weg_kapsel(a: Vector2, b: Vector2, laenge: float, r: float) -> Array:
+	var d := (b - a).normalized() if a.distance_to(b) > GLEICH else Vector2.ZERO
+	return [a - d * 0.5 * laenge, b + d * 0.5 * laenge, r]
+
+
+## F1: ist der Weg [a] → [b] einer Figur mit Kapsel [laenge], [r] frei? [andere]: Kapseln [p, q, r] der anderen Stehenden
+## Steckt sie am Start schon in einem anderen, sperrt der nur einen Weg, der ihm noch näher kommt (heraus darf sie immer)
+static func strecke_frei(a: Vector2, b: Vector2, laenge: float, r: float, andere: Array) -> bool:
+	var weg := weg_kapsel(a, b, laenge, r)
+	var start := weg_kapsel(a, a + (b - a) * GLEICH, laenge, r) if a.distance_to(b) > GLEICH else weg
 	for x: Array in andere:
-		var c: Vector2 = x[0]
-		var nah := c.distance_to(Geometry2D.get_closest_point_to_segment(c, a, b))
-		if nah < float(x[1]) + r - GLEICH and nah < c.distance_to(a) - GLEICH:
+		var nah := kapsel_abstand(weg, x)
+		if nah < -GLEICH and nah < kapsel_abstand(start, x) - GLEICH:
 			return false
 	return true
+
+
+## eine Kapsel [k] um [v] verschoben
+static func schieb(k: Array, v: Vector2) -> Array:
+	return [(k[0] as Vector2) + v, (k[1] as Vector2) + v, k[2]]
 
 
 ## Abschnitt 5: geht ein Gegner den Weg [weg] rückwärts? Ja, wenn er vom Feind ([zum_feind]) wegführt: dann das Gesicht zum Feind
@@ -316,39 +329,54 @@ static func bissplatz_winkel(w: float) -> bool:
 
 
 ## Abschnitt 5 „der hintere wartet seitlich, bis der Weg frei ist“: Punkt einen Seitschritt quer zum Weg [von] → [nach], so weit,
-## dass die Strecke des Entgegenkommenden ([nach] → [von]) an ihm vorbeigeht (Umriss [r] plus der des anderen, aus [andere]);
-## links, sonst rechts, wo der Platz frei ist; sonst [von]
-static func seitlich(von: Vector2, nach: Vector2, r: float, andere: Array) -> Vector2:
+## dass der Weg des Entgegenkommenden ([nach] → [von]) an ihm vorbeigeht (eigener Halbmesser [r] plus der Halbmesser des Kommenden,
+## aus [andere]); links, sonst rechts, wo der Platz frei ist; sonst [von]. [laenge]: eigene Kapsel
+static func seitlich(von: Vector2, nach: Vector2, laenge: float, r: float, andere: Array) -> Vector2:
 	var w := nach - von
 	if w.length() < GLEICH:
 		return von
 	var r2 := r
 	for x: Array in andere:
-		if (x[0] as Vector2).distance_to(nach) < float(x[1]) + r:
-			r2 = r + float(x[1])
+		if punkt_kapsel(nach, x) < float(x[2]) + r:
+			r2 = r + float(x[2])
 	var quer := Vector2(-w.y, w.x).normalized()
+	var start := kapsel(von, quer, laenge, r)
 	for sg: float in [1.0, -1.0]:
 		var p := von + quer * sg * r2
-		if strecke_frei(von, p, r, andere.filter(func(x: Array) -> bool: return (x[0] as Vector2).distance_to(von) >= float(x[1]) + r - GLEICH)):
+		if strecke_frei(von, p, laenge, r, andere.filter(func(x: Array) -> bool: return kapsel_abstand(start, x) >= -GLEICH)):
 			return p
 	return von
 
 
-## F1 „der Vordere macht Platz“: wohin ein Stehender mit Mitte [c] beiseite tritt, damit die Strecke [a] → [b] an ihm vorbeigeht
-## ([abstand]: Umriss des Gehenden plus der eigene): quer zur Strecke auf die Seite, auf der er schon steht, nur so weit, bis die
-## Strecke frei ist (Sokrates 24.11., 21:08: höchstens bis zum nächsten freien Platz; nie auf die andere Seite, alt bis 5,2 m);
-## frei gegen [andere] (wie strecke_frei, Umriss [r]); sonst [c] (der Gehende wartet). Untote und Krogg treten nicht beiseite
-## ([id], Abschnitt 5: sie weichen nicht)
-static func beiseite(a: Vector2, b: Vector2, c: Vector2, abstand: float, r: float, andere: Array, id := "") -> Vector2:
-	var q := Geometry2D.get_closest_point_to_segment(c, a, b)
+## F1 „der Vordere macht Platz“: wohin ein Stehender mit Kapsel [k] beiseite tritt, damit der Weg [a] → [b] (Kapsel [laenge_w],
+## [r_w] des Gehenden) an ihm vorbeigeht: quer zur Strecke auf die Seite, auf der er schon steht, nur so weit, bis der Weg frei ist
+## (Sokrates 24.11., 21:08: höchstens bis zum nächsten freien Platz; nie auf die andere Seite); sein eigener Weg frei gegen
+## [andere] (strecke_frei, Länge [laenge], Halbmesser k[2]); gibt die neue Mitte zurück, sonst die alte (der Gehende wartet).
+## Untote und Krogg treten nicht beiseite ([id], Abschnitt 5: sie weichen nicht)
+static func beiseite(a: Vector2, b: Vector2, laenge_w: float, r_w: float, k: Array, laenge: float, andere: Array, id := "") -> Vector2:
+	var c: Vector2 = ((k[0] as Vector2) + (k[1] as Vector2)) * 0.5
 	var w := b - a
 	if w.length() < GLEICH or not setzt_ab(id):
 		return c
 	var quer := Vector2(-w.y, w.x).normalized()
-	var ab := (c - q).dot(quer)
+	var ab := (c - Geometry2D.get_closest_point_to_segment(c, a, b)).dot(quer)
 	var sg := 1.0 if ab >= 0.0 else -1.0
-	var p := c + quer * sg * maxf(0.0, abstand + GLEICH - absf(ab))
-	if p != c and strecke_frei(c, p, r, andere):
+	# der Rand der eigenen Strecke, der dem Weg am nächsten liegt, rückt bis Halbmesser beider vom Weg weg
+	var innen := minf(((k[0] as Vector2) - a).dot(quer) * sg, ((k[1] as Vector2) - a).dot(quer) * sg)
+	var s := maxf(0.0, r_w + float(k[2]) + GLEICH - innen)
+	var weg := weg_kapsel(a, b, laenge_w, r_w)
+	if kapsel_abstand(weg, schieb(k, quer * sg * s)) > 0.0:     # endlicher Weg: oft genügt weniger
+		var lo := 0.0
+		var hi := s
+		for i in 12:
+			var m := 0.5 * (lo + hi)
+			if kapsel_abstand(weg, schieb(k, quer * sg * m)) >= GLEICH * 0.5:
+				hi = m
+			else:
+				lo = m
+		s = hi
+	var p := c + quer * sg * s
+	if p != c and strecke_frei(c, p, laenge, float(k[2]), andere):
 		return p
 	return c
 
