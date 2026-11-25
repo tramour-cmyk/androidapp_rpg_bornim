@@ -1,20 +1,26 @@
 extends SceneTree
 # 2034 Teil 0 (Chef 25.11., 17:27; Sokrates 17:29): Abzug der MakeHuman-Stuecke in unserer Signatur, je Stueck ein Einzelbild.
 # Jedes Stueck (.glb aus tools/blender348/v3/abzug_mh.py) mit dem Spiel-Shader wie der Held: toon.gdshader (Schablone 2, fill 0,42,
-# kein Glanz: metall 0), Tusche aus tusche.gdshader als Bildschirmflaeche vor der Kamera wie kamera.gd (Held: px 0,8, dick 1,5,
-# nach der Lichtrichtung), Schatten an. Licht: warme Sonne von vorn oben links, die Quelle als warme Lampe oben links im Bild
-# (DESIGN-STIL Signatur 1), Umgebung und Grund kaltes Blauschwarz. Kamera orthogonal wie im Dorf, Stueck fuellt die Hoehe.
-#   <nr>_vorn.png, <nr>_seite.png (1024x924): mit Tusche; Seite = Stueck 90 Grad gedreht, Blick nach rechts
+# kein Glanz: metall 0), Tusche nach Licht und Sonne mit Schatten wie im Kampfort (kampf/signatur.gd, 2034-Ue14), die Quelle als
+# warme Lampe oben auf der Seite der Sonne (DESIGN-STIL Signatur 1), Umgebung kaltes Blauschwarz, Grund mit Lichthof (Chef 20:04: bleibt). Kamera orthogonal wie im Dorf, Stueck fuellt die Hoehe.
+#   <nr>_vorn.png, <nr>_seite.png (2048x924): mit Tusche; Seite = Stueck 90 Grad gedreht, Blick nach rechts
 #   SIGNATUR=1 dazu: <nr>_vorn_ohne.png (ohne Tusche), <nr>_vorn_weiss.png (Bild weiss, ohne Tusche: Lichtstufen),
 #     <nr>_vorn_maske.png (Hintergrund durchsichtig, ohne Tusche: Umriss), ebenso _seite_*
 #   MARKE <nr> <ansicht> px_je_m <wert>: Bildpunkte je Meter (Massstab im Rand, tools/godot/abzug_2034.sh)
+#   LICHT <nr> <ansicht> x y: Richtung zur Sonne im Bild (Lichtseite fuer abzug_2034_signatur.py); TUSCHE: Werte der Linie im Lauf
 # Aufruf: LISTE=<liste.json> GLB=<ordner> AUS=<ordner> [NUR=M29-04,...] [SIGNATUR=1] godot --path . --rendering-method mobile -s res://tests/abzug_2034.gd
-const B := 1024
+# 2034-Ue14 (5): je Ansicht 2048 breit gerendert; tools/godot/abzug_2034.sh schneidet nach der Breite des Stuecks zu und teilt die
+# 2048 Bildpunkte nach Bedarf auf (breites Stueck mehr Platz), damit auch breite Stuecke die Hoehe fuellen
+const B := 2048
 const H := 924
 const GRUND := Color(0.035, 0.045, 0.075)        # kaltes Blauschwarz
 const UMGEBUNG := Color(0.32, 0.36, 0.48)         # kaltes Streulicht im Schatten
-const SONNE := Color(1.0, 0.86, 0.66)             # warm
-const SONNE_DREH := Vector3(-40, -30, 0)          # wie Drehteller: von vorn oben links
+# 2034-Ue14 (Chef 20:04: „beim Licht duenner, abgewandt dicker“; Planer Vera 20:07, DESIGN-STIL A2): Sonne und Tusche wie im Kampfort,
+# gelesen aus kampf/signatur.gd (sonne_wie_kampf: SONNE_LICHT -45, 55, schraeg von der Seite; tusche_licht: Gruppe Schablone 2 mit
+# px 0,8, dick 1,5, umriss_dick 1,3 = „Linienstaerke 1,3“ aus A2 / Chef 28.10. r9). Nicht abgeschrieben: aendert sich der Kampfort, folgt der Abzug.
+const Sig := preload("res://kampf/signatur.gd")
+# Paare (Stiefel, Handschuhe): in der Seitenansicht nur ein Stueck (Ruecklaeufer 2034-Ue14 (5), Pruefer 19:59 (3)); vorn beide
+const PAARE := ["Stiefel", "Handschuhe"]
 # 2034-Ue6 (Pruefer 18:42): dunkle Stuecke (Robe, Stiefel, Helligkeit 0,09-0,16) lagen auf GRUND, die Tusche war unsichtbar. Hinter dem
 # Stueck eine kalte, unbeleuchtete Wand mit Lichthof: in der Mitte HOF (kaltes Graublau), nach aussen weich bis GRUND; das Stueck selbst
 # bleibt unveraendert (nicht aufgehellt), die Tusche liegt am Umriss zwischen Stueck und hellerem Grund
@@ -24,7 +30,6 @@ const HOF_AUSSEN := 0.95   # bis hier GRUND
 const WAND := "shader_type spatial;\nrender_mode unshaded, cull_disabled, fog_disabled, shadows_disabled;\nuniform vec3 hof : source_color;\nuniform vec3 grund : source_color;\nuniform vec2 mitte;\nuniform float r0;\nuniform float r1;\nvarying vec3 w;\nvoid vertex() { w = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz; }\nvoid fragment() { float d = length(w.xy - mitte); ALBEDO = mix(hof, grund, smoothstep(r0, r1, d)); }\n"
 var aus := OS.get_environment("AUS")
 var toon2: Shader
-var tusche2: Shader
 var weiss: ImageTexture
 
 func _initialize() -> void: _lauf.call_deferred()
@@ -38,9 +43,6 @@ func _lauf() -> void:
 	var t: Shader = load("res://shader/toon.gdshader")
 	toon2 = Shader.new()
 	toon2.code = t.code.replace("render_mode cull_disabled, specular_disabled;", "render_mode cull_disabled, specular_disabled;\nstencil_mode write, compare_always, 2;")
-	var tu: Shader = load("res://shader/tusche.gdshader")
-	tusche2 = Shader.new()
-	tusche2.code = tu.code.replace("stencil_mode read, compare_equal, 0;", "stencil_mode read, compare_equal, 2;")
 	var wi := Image.create(4, 4, false, Image.FORMAT_RGBA8)
 	wi.fill(Color(1, 1, 1, 1))
 	weiss = ImageTexture.create_from_image(wi)
@@ -49,12 +51,15 @@ func _lauf() -> void:
 		var nr := String(e["nummer"])
 		if nur.size() > 0 and nr not in nur: continue
 		if String(e.get("glb", "")) == "" or not String(e["glb"]).ends_with(".glb"): continue
+		var paar: bool = String(e.get("art", "")) in PAARE
+		var gr := _groessen(glb.path_join(String(e["glb"])), paar, probe)
 		for ansicht in ["vorn", "seite"]:
-			await _bild(glb.path_join(String(e["glb"])), nr, ansicht, "", true)
+			var eins: bool = ansicht == "seite" and paar
+			await _bild(glb.path_join(String(e["glb"])), nr, ansicht, "", true, false, false, eins, gr[ansicht])
 			if probe:
-				await _bild(glb.path_join(String(e["glb"])), nr, ansicht, "_ohne", false)
-				await _bild(glb.path_join(String(e["glb"])), nr, ansicht, "_weiss", false, true)
-				await _bild(glb.path_join(String(e["glb"])), nr, ansicht, "_maske", false, false, true)
+				await _bild(glb.path_join(String(e["glb"])), nr, ansicht, "_ohne", false, false, false, eins, gr[ansicht])
+				await _bild(glb.path_join(String(e["glb"])), nr, ansicht, "_weiss", false, true, false, eins, gr[ansicht])
+				await _bild(glb.path_join(String(e["glb"])), nr, ansicht, "_maske", false, false, true, eins, gr[ansicht])
 		n += 1
 	print("ABZUG2034 fertig ", n)
 	quit(0)
@@ -92,6 +97,27 @@ func _weiss_wie(t: Texture2D) -> Texture2D:
 		for x in im.get_width(): im.set_pixel(x, y, Color(1, 1, 1, im.get_pixel(x, y).a))
 	return ImageTexture.create_from_image(im)
 
+# Paar: nur das rechte Stueck (Dreiecke mit Mitte x > 0; abzug_mh.py schiebt die Teile bis 2 cm Luft um x = 0 zusammen)
+func _nur_eins(n: Node) -> void:
+	if n is MeshInstance3D:
+		var mi := n as MeshInstance3D
+		var neu := ArrayMesh.new()
+		for i in mi.mesh.get_surface_count():
+			var ar: Array = mi.mesh.surface_get_arrays(i)
+			var v: PackedVector3Array = ar[Mesh.ARRAY_VERTEX]
+			var idx: PackedInt32Array = ar[Mesh.ARRAY_INDEX]
+			if idx.is_empty():
+				idx = PackedInt32Array(range(v.size()))
+			var bleibt := PackedInt32Array()
+			for t in range(0, idx.size(), 3):
+				if (v[idx[t]].x + v[idx[t + 1]].x + v[idx[t + 2]].x) > 0.0:
+					bleibt.append_array([idx[t], idx[t + 1], idx[t + 2]])
+			ar[Mesh.ARRAY_INDEX] = bleibt
+			neu.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, ar)
+			neu.surface_set_material(i, mi.mesh.surface_get_material(i))
+		mi.mesh = neu
+	for c in n.get_children(): _nur_eins(c)
+
 func _aabb(n: Node, a: AABB, erst: bool) -> Array:
 	if n is MeshInstance3D:
 		var mi := n as MeshInstance3D
@@ -103,7 +129,29 @@ func _aabb(n: Node, a: AABB, erst: bool) -> Array:
 		a = r[0]; erst = r[1]
 	return [a, erst]
 
-func _bild(p: String, nr: String, ansicht: String, art: String, tusche: bool, mit_weiss := false, maske := false) -> void:
+# Kamerahoehe (m) je Ansicht: Stueck fuellt die Hoehe (Rand 4 %), wenn die Breite es zulaesst; die beiden Zuschnitte (Breite des
+# Stuecks + 8 % der Bildhoehe) teilen sich 2048 Bildpunkte; passen sie nicht, werden beide Ansichten gleich verkleinert.
+# Probe: links und rechts dieselbe Ansicht vorn (mit, ohne Tusche), dazu das Abzugsbild vorn|Seite aus denselben Bildern.
+func _groessen(p: String, paar: bool, probe: bool) -> Dictionary:
+	var g := {}
+	var w := {}
+	for ansicht in ["vorn", "seite"]:
+		var m := _lade(p)
+		if m == null: return {"vorn": 1.0, "seite": 1.0}
+		if ansicht == "seite" and paar: _nur_eins(m)
+		root.add_child(m)
+		if ansicht == "seite": m.rotation.y = PI / 2.0
+		var a: AABB = _aabb(m, AABB(), true)[0]
+		m.queue_free()
+		g[ansicht] = maxf(a.size.y, a.size.x * float(H) / float(B)) * 1.08
+		w[ansicht] = a.size.x * float(H) / g[ansicht] + 0.08 * H
+	var summe: float = w["vorn"] + w["seite"]
+	if probe: summe = maxf(summe, w["vorn"] * 2.0)   # Probe: dieselben Bilder fuer vorn|vorn ohne und vorn|Seite
+	var k := minf(1.0, float(B) / summe)
+	for ansicht in g: g[ansicht] /= k
+	return g
+
+func _bild(p: String, nr: String, ansicht: String, art: String, tusche: bool, mit_weiss := false, maske := false, eins := false, groesse := 0.0) -> void:
 	var sv := SubViewport.new()
 	sv.size = Vector2i(B, H)
 	sv.own_world_3d = true
@@ -120,14 +168,13 @@ func _bild(p: String, nr: String, ansicht: String, art: String, tusche: bool, mi
 	welt.environment.ambient_light_energy = 0.5
 	sv.add_child(welt)
 	var sonne := DirectionalLight3D.new()
-	sonne.light_color = SONNE
-	sonne.rotation_degrees = SONNE_DREH
-	sonne.shadow_enabled = true
+	Sig.sonne_wie_kampf(sonne, true)
 	sv.add_child(sonne)
 	var licht := Basis.from_euler(sonne.rotation).z   # zur Sonne wie Licht.richtung
 	var m := _lade(p)
 	if m == null:
 		print("FEHLT ", p); sv.queue_free(); return
+	if eins: _nur_eins(m)
 	_male(m, licht, mit_weiss)
 	sv.add_child(m)
 	if ansicht == "seite": m.rotation.y = PI / 2.0   # Blick nach rechts im Bild
@@ -136,29 +183,20 @@ func _bild(p: String, nr: String, ansicht: String, art: String, tusche: bool, mi
 	var kam := Camera3D.new()
 	kam.projection = Camera3D.PROJECTION_ORTHOGONAL
 	kam.keep_aspect = Camera3D.KEEP_HEIGHT
-	kam.size = maxf(a.size.y, a.size.x * float(H) / float(B)) * 1.08   # Stueck fuellt die Hoehe, wenn die Breite es zulaesst
+	kam.size = groesse if groesse > 0.0 else maxf(a.size.y, a.size.x * float(H) / float(B)) * 1.08   # _groessen
 	var c := a.get_center()
 	kam.position = Vector3(c.x, c.y, a.end.z + 2.0)
 	kam.near = 0.05
 	kam.far = a.size.z + 6.0
+	sonne.directional_shadow_max_distance = kam.far   # Buehne 2-3 m statt Lichtung 40 m: Schattenkarte fein genug fuer kleine Stuecke
 	sv.add_child(kam)
-	if tusche:
-		var q := MeshInstance3D.new()
-		var qm := QuadMesh.new(); qm.size = Vector2(2, 2)
-		q.mesh = qm
-		q.extra_cull_margin = 16384.0
-		q.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		var tm := ShaderMaterial.new()
-		tm.shader = tusche2
-		tm.render_priority = 126
-		tm.set_shader_parameter("px", 0.8)
-		tm.set_shader_parameter("dick", 1.5)
-		tm.set_shader_parameter("richtung", 1.0)
-		tm.set_shader_parameter("licht_dir", licht)
-		tm.set_shader_parameter("breite_m", kam.size)
-		q.material_override = tm
-		q.position = Vector3(0, 0, -1)
-		kam.add_child(q)
+	if tusche:   # Tusche nach Licht wie im Kampfort; nur die Linie der Gruppe (Schablone 2), Welt (0) und Gegner (3) haben hier nichts
+		var ms: Array[ShaderMaterial] = Sig.tusche_licht(kam)
+		Sig.nachfuehren(ms, kam, sonne, c, Vector2(B, H), true)
+		for q in kam.get_children():
+			if q is MeshInstance3D and (q as MeshInstance3D).material_override != ms[1]: q.queue_free()
+		ms[1].render_priority = 126
+		print("TUSCHE %s %s px %.2f dick %.2f umriss_dick %.2f sonne %s" % [nr, ansicht, ms[1].get_shader_parameter("px"), ms[1].get_shader_parameter("dick"), ms[1].get_shader_parameter("umriss_dick"), sonne.rotation_degrees])
 	if not maske:   # 2034-Ue6: Wand mit Lichthof hinter dem Stueck (und hinter der Lampe)
 		var wd := MeshInstance3D.new()
 		var wq := QuadMesh.new(); wq.size = Vector2(kam.size * 4.0, kam.size * 4.0)
@@ -184,8 +222,8 @@ func _bild(p: String, nr: String, ansicht: String, art: String, tusche: bool, mi
 		sp.material = lm
 		la.mesh = sp
 		la.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		var w := kam.size * float(B) / float(H)
-		la.position = Vector3(c.x - w / 2.0 + kam.size * 0.06, c.y + kam.size * 0.44, a.position.z - 1.0)
+		var seite_x := signf(licht.x) if absf(licht.x) > 0.05 else -1.0   # Lampe an der oberen Ecke des Stuecks auf der Seite der Sonne
+		la.position = Vector3(c.x + seite_x * a.size.x / 2.0, c.y + minf(a.size.y / 2.0, kam.size * 0.46), a.position.z - 1.0)   # bleibt im Zuschnitt
 		sv.add_child(la)
 		var hof := MeshInstance3D.new()   # Schein um die Lampe
 		var hs := SphereMesh.new(); hs.radius = kam.size * 0.05; hs.height = kam.size * 0.1
@@ -202,7 +240,8 @@ func _bild(p: String, nr: String, ansicht: String, art: String, tusche: bool, mi
 	await RenderingServer.frame_post_draw
 	var ziel := aus.path_join("%s_%s%s.png" % [nr, ansicht, art])
 	sv.get_texture().get_image().save_png(ziel)
-	if art == "": print("MARKE %s %s px_je_m %.1f hoehe_m %.3f breite_m %.3f fuellt %.3f" % [nr, ansicht, float(H) / kam.size, a.size.y, a.size.x, a.size.y / kam.size])
+	if art == "": print("LICHT %s %s %.4f %.4f" % [nr, ansicht, licht.x, licht.y])   # zur Sonne im Bild (x rechts, y oben)
+	if art == "": print("MARKE %s %s px_je_m %.1f hoehe_m %.3f breite_m %.3f fuellt %.3f zuschnitt %d" % [nr, ansicht, float(H) / kam.size, a.size.y, a.size.x, a.size.y / kam.size, int(ceil(a.size.x * float(H) / kam.size + 0.08 * H))])
 	print("BILD ", ziel)
 	sv.queue_free()
 	await process_frame
