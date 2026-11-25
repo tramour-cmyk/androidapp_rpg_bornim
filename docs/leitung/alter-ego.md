@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78egvYz1pP981xLHs5 (seit 25.11., 22:48). Sokrates session_
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 23:37 Karl 510 Tsd. → Lutz …79RVi3 (sonnet). Testbuild-Uhr neu trig_01GVFR1YsEP26r1zK3NZuQwi, alte aus; Disponent-Lauf anlegen und Nachricht an Lutz sperrt Auto-Modus → Chef (create_trigger frei oder Lutz selbst); alte trig_01EnZnzJ… danach abschalten. 2042 Teile 1–6, 9 auf main (e46512a53). Ü27 (3. Nein Teil 7): keine Chefsache, A in Vertretung (Profilsätze → Startweg Fachkraft → frei frisch), Dora ab 07:00, Halt 46 $.
 - 25.11., 23:05 Chef 23:00 „Wieso blieb es stehen?“ (2034): Sokrates schrieb Antwort statt Löschen; meldung.sh --bild schiebt Absender aus Z. 1–2, ueberholt blind → 2044 Eilt, R72. Sokrates 400 Tsd. → Übergabe sofort (neu …79MGDR). Chef 23:02 „2032 A“ selbst eingetragen (d295c75af), Wecker ging falsch an Paula → an Sokrates.
 - 25.11., 22:58 Chef 22:48/22:53 Titelstand selbst, Ralf „frei“ beim Prüfen → wörtlich an Sokrates, Ralf von Hand „prüft 2042“. Chef 22:54 „läuft der Umbau?“: nein, nur 300/450 auf main; Ralf 22:56 nein zu Teilen 1–5; Ü15 an archivierte Carla → Entscheid in Vertretung: Nachfolger übernimmt. Gegenprüfung Hebel Sokrates 23:00: Teil 6 zuerst, Rechnung x h vor Bau, offen 10.080 statt 13 KB.
 - 25.11., 22:48 Nachfolger übernommen, umbenannt; Uhr trig_01NdYUgPya6E344diyid2VZB (23:49); alte trig_01M79hDGn24dPP13MYwuEWBd abgeschaltet (Löschen sperrt Auto-Modus); Vorgänger …77coHo archiviert; Kennung an Sokrates.
