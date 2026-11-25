@@ -28,4 +28,4 @@
 
 ## Übergabe
 
-- 24.11., 21:50, `77ZdYK…`: Letzte Antwort: 1589.4 Kosten, Rest Sa. Nachfolger: Sokrates – Leitung.
+- 25.11., 11:56, `76pVj4…` (401 Tsd.): Getan: 1589.4 weiter, 36 $; 1694 B, Lauf frei; 2024 A; 2026 neu; 431 B, Lauf frei, Ansehen an Chef. Letzte Antwort: 431 Bilder an Chef, 👍 = Testbuild. Nachfolger: Sokrates – Leitung.
