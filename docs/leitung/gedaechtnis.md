@@ -24,9 +24,9 @@
 
 - Konferenz: Alter Ego `session_01Hmoj78S1BS7Gx4Jksc3zTh` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
 - Nach main: CLAUDE.md 8 (Chef 25.11., 17:37 und 17:44); mischen tut Sokrates.
-- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt. Chef 12:48: Spiel vor, kein Werkzeug (außer 2035, 2036). Sa vorlegen: --sperre-Teile; Testbuild Sa (Technik Fr). Offen: 1301/1387/1642/1643 mit Alter Ego.
+- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Chef 12:48: Spiel vor, kein Werkzeug (außer 2035, 2036). Sa vorlegen: --sperre-Teile; Testbuild Sa (Technik Fr). Offen: 1301/1387/1642/1643 mit Alter Ego.
 - Täglich Modell, Umgebung, Aufwand aller Sitzungen. Kopiertexte: `kopiertexte-uhren.md`
 
 ## Übergabe
 
-- 25.11., 18:42, `77uPSf…`: Getan: F10, 1589.4 Weg b, 2034 Abzug, 2035, 2036. Weitergeleitete Chefworte archiviert Alter Ego. Letzte Antwort: „Eilt darf Alter Ego“. Nachfolger: Sokrates – Leitung.
+- 25.11., 18:42, `77uPSf…`: Getan: F10, 1589.4 Weg b, 2034 Abzug, 2035, 2036. Weitergeleitete Chefworte archiviert Alter Ego. Letzte Antwort: Eilt darf Alter Ego. Nachfolger: Sokrates – Leitung.
