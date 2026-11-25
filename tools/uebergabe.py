@@ -287,18 +287,20 @@ def uebergabe(nr, an, was):
 DISPONENT_ALT = "Ford"  # 1739: bis zur Umschaltung (lauf.ALT_EMPFAENGER)
 ALT = {"Prüfer": "Diogenes", "Disponent": DISPONENT_ALT, "Arbeitsplaner": DISPONENT_ALT}
 
-def disponent_aktuell():
-    """2001 (Prüfer 23.11., 14:43): Kennung aus „**Disponent (aktuell)** <Name> `session_…`“ in ARBEIT-BETRIEB.md (bei jedem Neustart
-    gesetzt; ARBEIT-BESETZUNG.md hinkt bis zu einer Stunde nach), sonst None."""
-    try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BETRIEB.md"), encoding="utf-8").read()
-    except OSError: return None
-    m = re.search(r"\*\*Disponent \(aktuell\)\*\*[^`\n]*`(session_\w+)`", t)
-    return m.group(1) if m else None
+DISPONENT_TITEL = re.compile(r"^\w+ – Disponent – ")  # 2035 (Chef 25.11., 19:47): „Detlef – Disponent – Betrieb“; nie „Disponent-Starter“, „Wache – Disponent (…)“
 
 def disponent():
-    """2001: der laufende Disponent, „Disponent (aktuell)“ vor der Tabelle."""
-    d = disponent_aktuell()
-    return [d] if d else besetzung("Disponent")
+    """2035: der laufende Disponent, die jüngste Zeile in ARBEIT-BESETZUNG.md mit Titel „Rufname – Disponent – …“ (lauf.besetzung_text
+    sortiert nach Start); keine Handzeile in ARBEIT-BETRIEB.md (2001 „Disponent (aktuell)“ entfällt). Leer, bis der neue Disponent sein
+    erstes `lauf.py` gelaufen ist."""
+    try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+    except OSError: return []
+    aus = []
+    for z in t.splitlines():
+        f = [x.strip() for x in z.split("|")]
+        if len(f) > 3 and DISPONENT_TITEL.match(f[2].lstrip("[")):
+            aus = re.findall(r"code/(session_\w+)", f[2])[-1:]
+    return aus
 
 def wecker(nr, k, an, alt=None, scharf=None):
     """WECKER an die laufenden Sitzungen von AN (sonst der alten Rolle ALT); läuft keine, WECKER an den Disponenten, der den Start

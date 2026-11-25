@@ -77,28 +77,6 @@ def text(stufe, plus, gesamt, ab=AB, ford=False):
 ROLLEN = r"(Perikles|Homer|Sokrates|Diogenes|Disponent|Tom|Jerry|Spike|Tuffy)( \d)?"
 
 
-def ist_disponent():
-    """1574, 2035: diese Sitzung ist der aktuelle Disponent laut ARBEIT-BETRIEB.md („**Disponent (aktuell)**“, dasselbe Muster wie
-    uebergabe.disponent_aktuell()), auch wenn die erste Nachricht keine Rolle nennt (Handstart des Chefs 17.11., 18:24)."""
-    kennung = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "")
-    if not kennung:
-        return False
-    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    import uebergabe
-    alt = uebergabe.WURZEL
-    try:
-        for d in (os.environ.get("BORNIM_WURZEL"), "/home/user/bornim-main", os.environ.get("CLAUDE_PROJECT_DIR") or "."):
-            if not d or not os.path.isfile(os.path.join(d, "docs", "ARBEIT-BETRIEB.md")):
-                continue
-            uebergabe.WURZEL = d
-            k = uebergabe.disponent_aktuell()
-            if k:
-                return k.split("_", 1)[-1] == kennung.split("_", 1)[-1]
-    finally:
-        uebergabe.WURZEL = alt
-    return False
-
-
 def name(pfad, sitzung):
     """462: Rolle aus der ersten Nachricht („Wer man ist, sagt die erste Nachricht“), je Sitzung zwischengespeichert."""
     import re
@@ -123,7 +101,8 @@ def name(pfad, sitzung):
                 inhalt = " ".join(t.get("text", "") for t in inhalt if isinstance(t, dict))
             if not isinstance(inhalt, str) or not inhalt.strip():
                 continue
-            m = re.match(r"\W*(?:[A-ZÄÖÜ][a-zäöüß]+ – )?" + ROLLEN + r"\b", inhalt.strip())  # 2035: auch „Detlef – Disponent – Betrieb“
+            m = re.match(r"\W*" + ROLLEN + r"(?![\w-])", inhalt.strip())  # 2035: nicht „Disponent-Starter“
+            m = m or re.match(r"\w+ – (Disponent)() – ", inhalt.strip())  # 2035: Titel „Detlef – Disponent – Betrieb“ (uebergabe.DISPONENT_TITEL), nie „Wache – Disponent (…)“
             # 1683: Startnachricht mit Kern beginnt mit „## Kern … Du bist **Spike**“, nicht mit dem Namen (Haken grüßten mit „Tom“)
             m = m or re.search(r"Du bist \*\*" + ROLLEN + r"\*\*", inhalt[:2000])
             m = m or re.search(r"^Dein Rufname: \w+ \(Rolle " + ROLLEN + r"\b", inhalt.strip())  # 1739 (lauf.mit_rufnamen)
@@ -229,7 +208,7 @@ def prompt(eingabe):
     ab = schwellen(rolle(pfad, sitzung), kauf())[0]  # 1520: je Rolle (818 Kaufrepo, 1643 Sokrates)
     ford = False
     try:  # 1574 (Chef 17.11., 18:31): der Disponent bleibt eine Sitzung, kein Selbstneustart; die Verdichtung hält sein Gespräch klein, keine Erinnerung
-        if name(pfad, sitzung).startswith("Disponent") or ist_disponent():
+        if name(pfad, sitzung).startswith("Disponent"):
             return
     except Exception:
         pass
@@ -369,7 +348,7 @@ def werkzeug(eingabe, art):
         return 0
     gesamt = letzte_groesse(pfad)
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
-    ford = name(pfad, sitzung).startswith("Disponent") or ist_disponent()
+    ford = name(pfad, sitzung).startswith("Disponent")
     if ford:  # 1574: der Disponent bleibt eine Sitzung, weder Erinnerung noch Sperre
         return 0
     ab, sperre = schwellen(rolle(pfad, sitzung), kauf())  # 1520: Tabelle je Rolle (818 Kaufrepo, 1643 Sokrates)

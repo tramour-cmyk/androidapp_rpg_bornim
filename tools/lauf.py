@@ -2270,7 +2270,9 @@ def besetzung_text(t, leb):
     for s in sorted(leb, key=lambda x: x["created_at"]):
         r, laufend, ruhig, hinder = s["_info"]
         titel = s.get("title", s["id"])
-        if r == "Sonstige" and not titel.startswith("Ford"): continue
+        import uebergabe as _ue
+        if _ue.DISPONENT_TITEL.match(titel): r = "Disponent"  # 2035: „Detlef – Disponent – Betrieb“ zählt kosten.rolle als Sonstige
+        elif r == "Sonstige" and not titel.startswith("Ford"): continue
         zl = nummer_aus_titel(titel) or "Betrieb"
         zw = ((s.get("external_metadata") or {}).get("current_branches") or {}).get("") or vz.get(zl) or "–"
         zeilen.append("| %s | [%s](https://claude.ai/code/%s) | %s | %s | %s |" % (r, titel, s["id"], zl, zw, berlin(z(s["created_at"]))))
