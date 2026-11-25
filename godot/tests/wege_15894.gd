@@ -6,7 +6,8 @@
 #          (1284a, F4: höchstens ZUR_SEITE_M weit), dem Ausweichen (Antwort auf einen Angriff, Bewegung „Ausweichen…“) und der Flucht
 #  heran   geradewegs heran (Chef 18.11., 14:33, Ratte quer): im Anlauf zum Biss oder Hieb liegt der Weg nie mehr als 45° quer zur
 #          Richtung zum Ziel (über ZUR_SEITE_M Weg)
-#  ruecken Absetzen mit Gesicht: ein Gegner, der sich vom nächsten Helden entfernt, blickt zu ihm (nie der Rücken außer auf der Flucht)
+#  ruecken Absetzen mit Gesicht: ein Gegner, der sich vom nächsten Helden entfernt, blickt zu ihm (nie der Rücken außer auf der Flucht);
+#          nur beim Absetzen und im Stand, nicht im Anlauf zu einem ferneren Ziel (Sokrates 25.11., 15:26 zu Ü21: das ist vorwärts gehen)
 #  stur    Untote (Skelett, Wiedergänger, Grabhund) und Krogg setzen sich nicht ab (entfernen sich nicht vom nächsten Helden,
 #          außer beim Ausweichen)
 #  1526    wer vorn Platz macht (außer Untoten und Krogg, die bleiben) (Reihe vorn → hinten, ein anderer hinten → vorn), weicht nur so
@@ -185,7 +186,7 @@ func _kampf(foe: String) -> void:
 			var zu := Vector2(held.position.x, held.position.z) - p2
 			var weg_vom := zu.dot(d) < 0.0
 			# ruecken: entfernt sich vom Helden, Blick über 90° vom Helden weg
-			if weg_vom and absf(rad_to_deg(blick.angle_to(zu))) > 90.0:
+			if weg_vom and absf(rad_to_deg(blick.angle_to(zu))) > 90.0 and not o.gang in ["anlauf", "hin"]:
 				s.rueck += d.length()
 				if s.rueck > RUECKEN_M and s.rueck - d.length() <= RUECKEN_M:
 					befund.ruecken += 1

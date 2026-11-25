@@ -335,9 +335,11 @@ static func platz_machen(steht: Vector2) -> Vector2:
 	return steht
 
 
-## geradewegs heran (Chef 18.11., 14:33, Ratte quer): ein Bissplatz liegt höchstens so weit um das Ziel herum (Grad)
-static func bissplatz_winkel(w: float) -> bool:
-	return absf(w) <= QUER_GRAD
+## geradewegs heran (Chef 18.11., 14:33, Ratte quer): ein Bissplatz liegt höchstens so weit um das Ziel herum (Grad); Flieger
+## ([flieger]) bis FLIEGER_GRAD (Sokrates 25.11., 15:26 zu Ü21: flatternd, „beißt und löst sich“)
+const FLIEGER_GRAD := 90.0
+static func bissplatz_winkel(w: float, flieger := false) -> bool:
+	return absf(w) <= (FLIEGER_GRAD if flieger else QUER_GRAD)
 
 
 ## Abschnitt 5 „der hintere wartet seitlich, bis der Weg frei ist“: Punkt einen Seitschritt quer zum Weg [von] → [nach], so weit,

@@ -3026,12 +3026,27 @@ func strike(other, e: Dictionary) -> int:
 	if not hero and reach.length() > 0.12 and not _arena_biss(there, reach.normalized(), other):
 		var tg := Vector3(to.x, position.y, to.z)
 		var vor := tg - there     # vom Platz zum Ziel, gleicher Abstand
-		for w in [15.0, -15.0, 30.0, -30.0, 45.0, -45.0]:
+		for w in [15.0, -15.0, 30.0, -30.0, 45.0, -45.0, 60.0, -60.0, 75.0, -75.0, 90.0, -90.0]:
 			var s2 := tg - vor.rotated(Vector3.UP, deg_to_rad(w))
-			if Arena.bissplatz_winkel(w) and Arena.geradewegs(Vector2(position.x, position.z), Vector2(s2.x, s2.z), Vector2(tg.x, tg.z)) \
+			if Arena.bissplatz_winkel(w, not weg.has("Gehen")) and Arena.geradewegs(Vector2(position.x, position.z), Vector2(s2.x, s2.z), Vector2(tg.x, tg.z)) \
 					and _arena_biss(s2, (tg - s2).normalized(), other):
 				there = s2
 				break
+		# Flieger ohne freien Platz (Sokrates 15:26 zu Ü21: er wartet mit dem Biss, bis einer frei wird): wer vor dem Ziel steht, geht
+		# erst in seinem eigenen Zug (717.1); so weit heran, wie es frei ist, und dort warten (kein Flug durch einen anderen)
+		if not weg.has("Gehen") and not _arena_biss(there, (tg - there).normalized(), other):
+			var lo := 0.0
+			var hi := 1.0
+			for i in 10:
+				var m := 0.5 * (lo + hi)
+				var q := position.lerp(there, m)
+				if _arena_biss(q, (tg - q).normalized(), other):
+					lo = m
+				else:
+					hi = m
+			there = position.lerp(there, lo)
+	if OS.get_environment("SCHAU_MESS") != "":
+		print("1589.4 Ausfall %s an %s: von %s nach %s frei %s%s" % [fighter.id, other.fighter.id, position, there, _arena_biss(there, (Vector3(to.x, position.y, to.z) - there).normalized(), other), _wer_sperrt(there, (Vector3(to.x, position.y, to.z) - there).normalized(), other)])
 	gang = "hin"
 	_face(to - position)
 	_play("Sprung" if leap else ("Biss" if fighter.monster != null else "Hieb"), 0.05)
