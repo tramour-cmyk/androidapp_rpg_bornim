@@ -6,7 +6,7 @@ Fords Vorrat (`ROLLE-BETRIEB.md`). Oben Zähler, Stellung und Kennungen; darunte
 
 Jede Startnachricht für Figur, Bild oder Film: „`LISTE-HANDWERK-FIGUR-PRUEFBILD.md` vor dem Lauf lesen und das Bild danach dagegen prüfen“ (1625, Sokrates 07:20).
 
-**Nächste freie Vorgangsnummer: 2031** (zuletzt 2030 Figur 25.11. 13:07:52 5943) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
+**Nächste freie Vorgangsnummer: 2036** (zuletzt 2035 Werkzeug 25.11. 17:34:36 69a7) (wer einen Vorgang anlegt, zählt hier hoch, trägt ihn in `LISTE-VORGAENGE.md` mit Bereich und Klasse ein, pusht und nennt dann die Nummer)
 
 **Niederlassung ruht seit 17.10., 19:58** (Schalter, 159; Chef: „Habe Pro gekündigt, steht nur noch auf Free“): Ford 2 entfällt (650.1, Chef 08.11., 13:36; Regeln in `alt/LISTE-FORD2.md`), Niederlassung bleibt als Gedanke; Guthaben nur Max. Wiedereinschalten = Zeile streichen, Einrichtung aus Git (`LISTE-NIEDERLASSUNG.md` bis `f3ec7200`)
 
@@ -337,3 +337,50 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:12 25.11.: START Figur Nora 2028 (session_01Hmoj76SFWSo5MsovSNZmPq, Rowena Handgelenke); Planerin Jana archiviert, 0,97 $.
 - 13:15 25.11.: Startsperre 13:14 Start Figur (lauf.py, Figur 2029 Ute)
 - 13:16 25.11.: START Figur Ute 2029 (session_01Hmoj786YAM5Vmzh67eAwme, Deckel 30 $, Halt 24 $); Planerin Mia archiviert, 1,47 $. Fachkräfte: Selma 2024, Nora 2028, Ute 2029 (3); Maja 1589.4 wartet (Geld, Chef).
+- 13:19 25.11.: Startsperre 13:18 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1694 Tina)
+- 13:20 25.11.: Planerin Tina 1694-Ü38 (session_01Hmoj78vc9GH1HniSV9vok4, Auftrag neu: Nahkamera/Behebung, Chefwort-Fragen an Sokrates); 1589.4-Ü15 erledigt; 1589.4 Deckel beim Chef (entscheiden/15894-deckel-50.md, Telegram 13:18).
+- 13:24 25.11.: 1694-Ü40 (Frage Tina: A Nahkamera-Beleg / B Behebung / C ruht) an Sokrates per Nachricht; Tina wartet auf Chefwort, noch nicht archiviert.
+- 13:25 25.11.: 1694 Entscheid Sokrates 13:24 (c6e257691): C, ruht bis Vorlage Sa 28.11., kein Auftrag; Tina (0,94 $) archiviert; 1694-Ü38 erledigt. Platz frei für nächsten Spielvorgang nach Vorrang.
+- 13:46 25.11.: 2024 Prüfer nein (Ü6: Ring/Aufschlag, ausholen.gd, Standbild); Selma 11,79 $ (+1,43 $) = 13,22 $, Halt 12 $ überschritten, Deckel 15 $: Selma nicht geweckt, Entscheid Sokrates.
+- 13:57 25.11.: 2024-Ü9 (Frage Selma: Ring/Aufschlag A so lassen / B eigener Vorgang) an Sokrates per Nachricht.
+- 14:04 25.11.: Startsperre 14:04 Start Arbeitsplaner, Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Karla, Arbeitsplaner 2031 Lutz, Tagesbericht 448)
+- 14:07 25.11.: Takt Uwe 14:04: Planerin Lutz 2031 Kutte/Robe und Haut (session_01Hmoj7A8UJChisXSPLpsx5L, Chef 👍 13:40); Prüfer 2029-Ü3 (Laufanforderung Helm) weitergereicht; Fachkräfte Maja 1589.4, Nora 2028, Selma 2024 (3); 887/448 nicht.
+- 15:04 25.11.: Startsperre 15:04 Start Arbeitsplaner, Kampf, Tagesbericht (lauf.py, Arbeitsplaner 887 Lotte, Kampf 1589.4 Marta, Tagesbericht 448)
+- 15:08 25.11.: Takt 15:04: Prüfer 2029-Ü5; Ute (2029, 12,60 $) und Lutz (2031, 1,82 $) archiviert; START Kampf Marta/Planer Lotte 887/Tagesbericht und NACHRICHT 2029-Ü4 an Nora nicht (veraltet bzw. ruht bzw. Chef-Ruhe); 2031 Figur wartet auf Sokrates-Wort (Deckel 60 $).
+- 15:09 25.11.: Startsperre 15:08 Start Figur (lauf.py, Figur 2029 Vera)
+- 15:10 25.11.: 2029-Ü6 (Prüfer ja, Lauf frei Helm): Figur-Start von lauf.py angehalten (3 laufen inkl. Startsperre-Marken); Wiedervorlage 15:37 per send_later; Zeile 15:09 „Startsperre Figur 2029 Vera“ war kein Start.
+- 15:35 25.11.: Startsperre 15:34 Start Figur (lauf.py, Figur 2029 Vera)
+- 15:36 25.11.: START Figur Vera 2029 Helm-Bildlauf (session_01Hmoj77vQTHukmT1xcgH9Ja, Prüfer ja Lauf frei 15:05); Fachkräfte Maja 1589.4, Selma 2024, Vera 2029 = 3; 2031 wartet auf Platz; Nora (2028, 13,11 $) idle, nicht archiviert (Prüferstand 2028 offen).
+- 16:04 25.11.: Startsperre 16:04 Start Arbeitsplaner, Kampf, Tagesbericht (lauf.py, Arbeitsplaner 887 Marta, Kampf 1589.4 Nils, Tagesbericht 448)
+- 16:08 25.11.: Startsperre 16:07 Start Figur (lauf.py, Figur 2031 Inge)
+- 16:08 25.11.: Takt 16:04: Vera (2029, 1,25 $ -> 2029 gesamt 15,32 $) und Selma (2024, 20,44 $ -> gesamt 21,87 $, Chef 👍 16:04) archiviert; 2028-Ü3 (Prüfer nein) an Nora; 2031-Start von lauf.py angehalten (Startsperre-Marken, Zeile 16:07 oben war kein Start), Wiedervorlage 16:35; Kampf-START Nils/887/448 nicht.
+- 16:26 25.11.: Startsperre 16:25 Start Figur (lauf.py, Figur 2031 Inge)
+- 16:27 25.11.: Startsperre 16:26 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1708 Frauke); Figur Inge 2031 gestartet (session_01Hmoj77df8z9qQNfMEs9AZr, Deckel 60 $, Halt 54 $)
+- 16:28 25.11.: Startsperre 16:27 Start Figur (lauf.py, Figur 2029 Hanna)
+- 16:29 25.11.: Sokrates-Takt 16:28: START Figur Inge 2031 (session_01Hmoj77df8z9qQNfMEs9AZr), Figur Hanna 2029 Helm neu (session_01Hmoj75a9zo2aDj5uEwse7b, nach --import), Planerin Frauke 1708 Blut am Trefferpunkt (session_01Hmoj77B3VKcZAquD9rRUKf, Chef 👍 16:04); 2031-Ü1 und 1708-Ü1 angenommen/erledigt; Fachkräfte Maja 1589.4, Inge, Hanna (3). 2028-Ü4 beim Prüfer.
+- 16:38 25.11.: Notstart Alter Ego (Nr. 2013, kein Profil, Sokrates 16:40): session_01Hmoj75PCSHUvX4ZVftYC3X; alter (…796ziG) wird nach Meldung des neuen archiviert.
+- 16:39 25.11.: Alter Ego alt (…796ziG) archiviert (2013: 9,43 $, gesamt 24,70 $); Handstart Sokrates (Nr. 1988, Neustart Kontext 400 Tsd.), alter Sokrates (…77b3dQ) bleibt bis Meldung des neuen.
+STARTSPERRE - 16:38 25.11.: Startsperre 16:38 Start Sokrates (lauf.py, 1988)
+- 16:40 25.11.: Sokrates neu session_01Hmoj77uPSfmHFTcgkb3sHW (Nr. 1988); alter (…77b3dQ) wartet auf dessen Meldung.
+- 16:41 25.11.: Chef 16:38 (über Sokrates): Deckel mindestens 50 $ je Vorgang, darunter kein Halt; 2029 Hanna Deckel 50 $ (Halt 45 $) gemeldet; 1708 Frauke 50 $.
+- 16:41 25.11.: Sokrates alt (…77b3dQ) archiviert (1988: 18,12 $); neuer …77uPSf meldet sich.
+- 16:58 25.11.: Startsperre 16:58 Start Arbeitsplaner, Kampf, Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Nils, Kampf 1589.4 Olga, Arbeitsplaner 1484 Paula, Tagesbericht 448)
+- 17:00 25.11.: Takt 16:58: Nora (2028, 16,47 $) archiviert; Prüfer (…75ccpj) 2028-Ü4 und 2029-Ü8 per Nachricht geweckt (Sokrates 16:58); START Planer Nils 887, Planer Paula 1484, Kampf Olga 1589.4, Tagesbericht nicht ausgeführt (ruht/Werkzeug/Maja läuft/Chef-Ruhe); lauf.py-Startsperre-Marken irrtümlich gesetzt.
+STARTSPERRE - 17:01 25.11.: Startsperre 17:01 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2028 Moritz)
+- 17:03 25.11.: Prüfer 17:00: 2029 ja (Vorlage über Sokrates, Ü9/Ü10 erledigt), 2028 nein, Auftrag → Planer Moritz session_01Hmoj7A4gb2iWB6Stj3R5Bh (Deckel 50 $).
+- 17:04 25.11.: Startsperre 17:04 Start Tagesbericht (lauf.py, 448)
+- 17:06 25.11.: Takt 17:04: Planer Moritz 2028 gestartet (…7A4gb2); 1708-Ü1 erledigt, Ü2 angenommen, Handstart Kampf 1708 durch Laufsperre (Startsperre-Marke 16:58 + Planer als Sonstige gezählt) angehalten, nachholen ca. 17:20; Maja blockiert (zwei Entscheide) an Sokrates; Tagesbericht/Planer 887/Kampf Olga nicht gestartet.
+- 17:07 25.11.: Hanna (2029) archiviert, 1,89 $; 2029-Ü10 war schon erledigt (Sokrates will sie offen bis Chefantwort: Nacken/.import als eigene Zeile an Figur nach Chef-Entscheid).
+- 17:09 25.11.: Planer Moritz: Auftrag 2032 (Rowena Gürtel, Figur) und 2033 (Thessa Faust-Tusche, Technik) steht, 2028-Ü6 erledigt; Starts 1708, 2032, 2033 wegen Laufsperre ab ca. 17:20 nacheinander (Deckel je 50 $).
+STARTSPERRE - 17:09 25.11.: Startsperre 17:09 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2034 Anna)
+- 17:11 25.11.: Planerin Anna session_01Hmoj77kiHyjP2FKgnYKEmP für 2034 (Rest MakeHuman-Pakete) und 2029-Ü11 (Chef 17:07 „alles“) gestartet; Maja geweckt (Sokrates, Ü23); Figur-Start 2029 nach Auftrag, Handstarts 1708/2032/2033 nach Laufsperre.
+- 17:19 25.11.: Prüfer Jonas (…75ccpj, 2017: 43,58 $) archiviert (Alter Ego Vertretung 7415afc91: jede Prüfung ein frischer Prüfer); nächste Prüfer-Zeile startet neuen Prüfer über lauf.py.
+STARTSPERRE - 17:18 25.11.: Startsperre 17:18 Start Kampf (lauf.py, Kampf 1708 Anna)
+- 17:20 25.11.: START Kampf Berit 1708 (session_01Hmoj76EdmopCkFv7PLLpSS, Deckel 50 $); 1708-Ü2 erledigt; 2029-Ü12 und 2034-Ü1 (Auftrag steht, Anna) angenommen, Starts Figur 2029, 2034-A, 2032, 2033 folgen, sobald Plätze frei (Inge, Maja, Berit = 3).
+- 17:31 25.11.: 2034-Ü1 (Teil A Helme) auf Sokrates 17:29 nicht gestartet, erledigt; 2034-Ü4 (Teil 0 Signatur-Probe und Abzug, Figur) angenommen; Start nach Laufsperre, Reihenfolge 2029, 2034-Teil 0, 2032, 2033.
+- 17:35 25.11.: Startsperre 17:35 Start Kampf, Arbeitsplaner, Tagesbericht (lauf.py, Kampf 1589.4 Paula, Arbeitsplaner 887 Rita, Tagesbericht 448)
+STARTSPERRE - 17:35 25.11.: Startsperre 17:35 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2035 Anna)
+- 17:38 25.11.: Planerin Clara 2035 (session_01Hmoj76hq8e8pFbUVhViJFL); Figur 2029 durch Laufsperre (Marke Kampf 17:35 aus lauf.py-Vorschlag) angehalten, nachholen ab 17:56; Fund und Rückfrage (sechs Muss-Aufträge Werkzeug) an Sokrates.
+- 17:38 25.11.: Notstart Alter Ego (Nr. 2013, kein Profil, Sokrates 17:37, Übergabe c4b182bd0): session_01Hmoj78S1BS7Gx4Jksc3zTh; alter (…75PCSH) wird nach Meldung der Kennung archiviert.
+- 17:38 25.11.: START Figur Dora 2029 von Hand (session_01Hmoj79WtehTiJaAd5sb7FC, Deckel 50 $; Sokrates 17:40: Marke für nicht ausgeführten Vorschlag zählt nicht); Reihenfolge weiter 2034 Teil 0, 2032, 2033.
+STARTSPERRE - 17:38 25.11.: Startsperre 17:38 Start Figur (Handstart, Figur 2029 Dora)

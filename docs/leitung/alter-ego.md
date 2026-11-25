@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session_01Hmoj76MLqXxxrREpwoxksZ). Sokrates session_01Hmoj77b3dQK5zpocRJsWFB (seit 25.11., 11:51). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj75PCSHUvX4ZVftYC3X (seit 25.11., 16:37; Vorgänger session_01Hmoj796ziGfneFcCRZG7J7). Sokrates session_01Hmoj77uPSfmHFTcgkb3sHW (seit 25.11., 16:39). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -21,10 +21,44 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 - Erste Nachricht: „Du bist Alter Ego, das zweite Paar Augen des Chefs, kein zweiter Sokrates (Rolle neu 24.11., 08:57). Lies docs/leitung/alter-ego.md und arbeite danach: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
 
 
-**Übergabe (25.11., 10:08, 263 Tsd., Nachfolger: Alter Ego – Supervisor (25.11.)):** Chef 09:52: Entscheidungen jetzt vorlegen, nicht bis Sa vertagen (ersetzt 19:42). Entscheid in Vertretung 09:53: unter drei Fachkräften startet Uwe selbst nach Rang, Takt --ohne 887/448; „eine Figur zugleich“ ohne Quelle. Chef 10:13: Guthaben A (drei bis Sa); 431 Zopf-Lizenz klären lassen (CC0 belegt = B, sonst A). Runde 11:08 prüfen: drei Fachkräfte (Carla 1589.4, Dana 1654, 1694-Ü30 Start). Leerlauf zweimal belegt = selbst entscheiden, nicht nur melden (Chef 09:53). Uhr trig_01KgDW6PaLy6gc9pK8xvPN88 abgelaufen; Nachfolger legt eigene an.
+**Übergabe (25.11., 17:35, 262 Tsd., Nachfolger: Alter Ego – Supervisor (25.11.)):** Geld: Deckel 50 $ je Vorgang = einziger Halt und Fragegrenze, Schätzung ist Ziel (Chef 16:47). Fehlschlag zeigt immer Abwehr oder Ausweichen (F10, Chef 17:02). Chef 17:33 auf Ablaufprüfung: 1 ja (Disponent startet selbst, zählt nur arbeitende Fachkräfte, „eine je Rolle“ gestrichen), 3 Nachtruhe bleibt, 4 ja (Auftrag „Übergaben schlanker“), 5 ja (Prüfer weiter bis 200 Tsd./60 Min., lauf.py nach jedem Start/Archiv). **Chef 17:37 „Ja zur main-Regel“; CLAUDE.md-Änderung bei Sokrates gesperrt (Billigung nur über Alter Ego), Chef soll im Chat Sokrates bestätigen; prüfen. War offen: 2 main-Regel (vier Fassungen: CLAUDE.md 8, Disponent Z. 11, Kern Leitung Z. 12, Gedächtnis Z. 25; 431 per 👍 vor Test auf main), er will reden. Vorschlag 17:37 im Chat beim Chef: eine Regel in CLAUDE.md 8 („nach main, was der Chef gebilligt hat: 👍 Telegram oder Wort zu Bild/Film/Testbuild; ohne Chef nur Werkzeug ohne Spielinhalt und kleine Korrekturen an Gebilligtem, nach grünem Test und Prüfer-Ja; Prüfer entscheidet Kleinigkeit, im Zweifel Chef“), drei andere Stellen verweisen.** Runde prüfen: Sokrates hat 17:33 eingetragen (Archiv, Profil Disponent)? Prüfer frisch nach Jonas (archiviert 17:19), Wartezeit nächste Prüfung? 2034 Anna Auftrag Signatur-Probe; 1589.4 Maja Ü22–Ü23. Disponent-Uhr: bleibt stündlich plus Weckmeldung; zeigen Runden weiter Wartezeiten >30 Min. bis zur vollen Stunde, in Vertretung auf 15 Min. (Chef 17:38 fragt Rhythmus). Lehre heute: Chefwort wörtlich, ohne eigene Folgerung; vor Vorschlag Ursache prüfen. Uhr trig_01VLLzUkLeriMf7xZS52Sjw8 (17:38) feuert in diese Sitzung; Nachfolger legt eigene an.
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 17:39 Chef 17:38 fragt Rhythmus Disponent: Weckmeldung + Stundenuhr; 15 Min. erst nach Befund (Nachfolger misst).
+- 25.11., 17:38 Chef 17:37 „Ja zur main-Regel, so machen wir es.“ → Wortlaut der Regel an Sokrates (CLAUDE.md 8, drei Verweise). Nichts mehr offen beim Chef.
+- 25.11., 17:38 Profil Disponent f18c06720: beide Einwände eingebaut, stimmt. Vorschlag main-Regel dem Chef (17:37).
+- 25.11., 17:37 Profil Disponent 5b65a8d70 geprüft: Einwände „jede Zeile seiner Ausgabe“ widerspricht „Starts selbst“; „eine je Rolle“ nicht gestrichen → an Sokrates. 2035 „Übergaben schlanker“ angelegt.
+- 25.11., 17:35 Übergabe (262 Tsd.), Startfelder an Sokrates.
+- 25.11., 17:33 Chef 17:33 „1 Jahr, 3 bleibt, 4 Jahr, 5 Jahr. Zu 2 müssen wir uns noch unterhalten.“ → mit Inhalt je Punkt an Sokrates. Offen beim Chef: 2 (main-Regel, Gespräch).
+- 25.11., 17:31 Unabhängige Ablaufprüfung fertig (8 Funde: Plätze falsch gezählt, main-Regel vierfach, Nachtsperre, Rückläufer falsche Sitzung, Leichen offen, Quittungen, Chefwort weckt Planer, Schub statt Zug). Geprüft: 431 main per Chef-👍 12:37 vor Test (Archiv Z. 23), Nachtsperre Sokrates (Archiv Z. 44). Geprüfte Liste dem Chef vorgelegt.
+- 25.11., 17:27 Chef 17:27 zu 2034 (Signatur prüfen, dann Abzug je Teil zoombar, er schließt aus) → wörtlich an Sokrates, Chefwort von Hand. 17:24 unabhängige Ablaufprüfung (Unteragent) gestartet auf Chef 17:23; drei Profilsätze bis dahin zurückgehalten.
+- 25.11., 17:22 Chef 17:21: Prüfer wie Fachkraft weiter bis voll. Entscheid 17:17 berichtigt: Jonas archivieren, sonst WEITER-Grenze (200 Tsd., 60 Min. Ruhe); Profilsatz Disponent beim Chef. Ursache Jonas: uebergabe.py Z. 303–312 weckt die eingetragene Sitzung ohne Grenze. Jonas 28 Übergaben, 43,58 $.
+- 25.11., 17:17 Chef 17:16 zum Prüfer: Jonas seit 24.11., 12:06, 548 Tsd., 43,58 $, getrennt; Profil „einen Auftrag“. Entscheid in Vertretung: archivieren, je Prüfung frischer Prüfer, Besetzung umstellen → an Sokrates. Offen beim Chef: 1990, A/B Starts.
+- 25.11., 17:07 Chef 17:07 zu 2029 „alles“ (Rest aus 2026 A kommt: Kopfteile, Ausrüstung, Aussehen Held/NPC) → wörtlich an Sokrates, Chefwort von Hand (Haken D). 17:06 Wartezeiten erklärt (Stundenuhr, 1990, Leerlauf, Platz je Rolle); Frage 1990 trotz Baustopp beim Chef.
+- 25.11., 17:02 Chef 17:02: Fehlwurf = Abwehr oder Ausweichen für alle Gegner → wörtlich an Sokrates (DESIGN-KAMPF). Chefwort 17:00 von Hand in 1589.4 (f02c256f6, Haken D).
+- 25.11., 17:00 Chef 17:00 zu 1589.4 (Fehlwurf: kein Danebenbeißen, nur Schild, Waffe, Ausweichen) → wörtlich an Sokrates; beantwortet Telegram-Frage A/B.
+- 25.11., 16:59 Chef 16:56 fragt Wartezeiten: aus 361 Übergaben seit 23.11. (Tag) Median Prüfer 19, Sokrates 10, Disponent Start 72 Min.; 2029: 3 h 20, davon ~2 h Warten. Prüfer 2028-Ü4/2029-Ü8 offen → an Sokrates.
+- 25.11., 16:58 Ü22 (c380c8780) geprüft: stimmt zu Chef 16:54; Nachsatz 16:55 (Fehlschlag als Luftbiss?) fehlt → an Sokrates.
+- 25.11., 16:55 Chef 16:54 (Wolf beißt in die Luft, bekannt?) → wörtlich an Sokrates; bekannt: 709/506.2 ruhen auf 1589.4, Ü22 treffen_709 10 Luftschläge (vorher 9).
+- 25.11., 16:50 Sokrates 507cbea78 geprüft: Auftragszeilen 1708/2029 auf 50 $, Hanna informiert. Erledigt. Lehre: Chefwort wörtlich, ohne eigene Folgerung.
+- 25.11., 16:49 Sokrates 7613d7cf7/9fd8a025d geprüft: Archiv, Gedächtnis, Herkunft stimmen; Auftragszeilen 1708 Z. 12 (20/18 $) und 2029 Z. 18 (30/24 $) alt → an Sokrates.
+- 25.11., 16:48 Chef 16:47 „wieso … wieder bei 20 und $30?“: eigener Fehler 16:43 (16:42 als Deckel = Schätzung gelesen). An Sokrates: Deckel 50 $ = einziger Halt, Schätzung = Ziel. Lehre: Fragegrenze und Ausgabeziel getrennt weitergeben.
+- 25.11., 16:46 Sokrates 2328d4467 geprüft: Archiv „50 $ nur Fragegrenze“, Gedächtnis Z. 21, 1708 20/18 $, 2029 30/24 $ stimmen.
+- 25.11., 16:43 Chef 16:42: 50 $ nur Fragegrenze, ausgegeben wird nach Schätzung → wörtlich an Sokrates, Archiv 723356bb3 berichtigen.
+- 25.11., 16:41 Chef 16:41 fragt, ob 50 $ verstanden: bis 50 $ nie fragen, darüber fragen. Archiv 723356bb3 stimmt; Folge 1708/2029 Deckel auf 50 $ dem Chef genannt.
+- 25.11., 16:38 Nachfolger übernommen, umbenannt; Uhr trig_01VLLzUkLeriMf7xZS52Sjw8 (17:38); alte trig_01DAga3N7xaRwSNotkCT4Pyd (17:25) nicht löschbar (Rechteprüfer); Kennung an Sokrates.
+- 25.11., 16:37 Übergabe (259 Tsd.), Startfelder an Sokrates.
+- 25.11., 16:34 Chef 16:34 Grundsatz „Alles bis $50 einfach machen … nicht mehr nachfragen“ → wörtlich an Sokrates (Regel eintragen). Eigener Fehler 15:22: Leerlauf gemeldet, obwohl 3 liefen (Uwe 15:09); dem Chef 16:25 berichtigt.
+- 25.11., 16:24 Runde: Entscheid 15:22 nicht ausgeführt (2031 ohne Fachkraft seit 14:10), Leerlauf dritte Runde; 2029-Ü7 steckt fest bei Sokrates (15:43). An Sokrates: Grund/Sperre nennen. 1708 A/B beim Chef (Telegram 16:07). Uhr trig_01DAga3N7xaRwSNotkCT4Pyd (17:25).
+- 25.11., 16:03 Chef 16:03 zu 2024: Timing fast gut; Blut muss am Trefferpunkt entstehen, nicht im Raum → wörtlich an Sokrates.
+- 25.11., 15:22 Runde: Leerlauf (nur Selma 2024). Entscheid in Vertretung: Uwe startet 2029 (Ü4, Lauf frei) und 2031 (Bau, Lauf nach 2029). 2031-Beleg 13:40 stimmt (Einwand 14:21 zurückgezogen). 1589.4-Ü21 bei Sokrates. Uhr trig_013WNP6SpvWuumSLYvY9tTux (16:23).
+- 25.11., 14:21 Runde: Ute 2029, Nora 2028, Selma 2024 laufen. Einwand 2031: Deckel 60 $ mit Beleg „Chef 👍 13:40“ vor der Frage 13:43, unbelegt → Sperre bis Chef-Ja. 1589.4-Ü20 bei Sokrates. Uhr trig_01NjLkVexYifoBq2161irbAh (15:21).
+- 25.11., 13:45 Chef 13:45 zu 2024: Faust durch den Helden kein Mangel; nur Reaktion ~1 s zu spät → wörtlich an Sokrates. Eigener Fehler 13:44: „Befund Faust geht durch“ als Mangel gelesen.
+- 25.11., 13:44 Chef 13:44 zu 2024 (Prankenhieb passt; Reaktion Zucken/Blut deutlich zu spät; Faust geht durch) → wörtlich an Sokrates.
+- 25.11., 13:39 Chef 13:39 „MakeHuman nehmen und testen … Kutte/Robe als Alternative, Helme, Haut“ → wörtlich an Sokrates (Erweiterung 2029).
+- 25.11., 13:33 Chef 13:33 „1589.4 auf Telegram erkedigt. Deckel 80 Dollar.  Das ist sehr wichtig.“ → wörtlich an Sokrates.
+- 25.11., 13:17 Runde: Ute 2029 (Kopfteile-Probe, Chef 12:37 👍 2026 A), Nora 2028 laufen; Maja 1589.4-Ü18 und Selma 2024-Ü4 warten ~1 h auf Sokrates. Einwand: Chef 09:55 deckt Form je Art, Wolf Kapsel → (a) nötig, gesamt etwa 42–49 $ gegen 36 $ → Geldfrage jetzt vorlegen. Uhr trig_016bgmDm9MzbLrxVnQLgpJ5Y (14:17).
 - 25.11., 12:15 Runde: Leerlauf dritter Mal (keine Fachkraft arbeitet; Maja wartet auf 1589.4-Ü17 seit 11:21). Entscheid in Vertretung: Uwe startet 1654 und 2024. 2026 fertig (65 von 65, ja 5), Kontaktbogen angesehen, dem Chef vorgelegt. An neuen Sokrates: Prüfer 2026-Ü4/1694-Ü37, 431-Ü18/19, 431-Testbuild-Frage tot? Uhr trig_014TnWv1VTesznAVisuhrskJ (13:15).
 - 25.11., 11:12 Runde: Leerlauf zweimal (10:08, 11:12), nur Maja 1589.4 arbeitet, Hilde 431 wartet bis 11:42. Entscheid in Vertretung: Uwe startet 2026 jetzt. An Sokrates offen: 1654-Ü8 steckt fest (10:22), 1694-Ü32/33, 1589.4-Ü14/15 überholt; 2026.md Chefwort mit falscher Sitzungskennung. Uhr trig_01FYMv6b5H1KUbRxUrB3Zons (12:13).
 - 25.11., 10:30 Chef 10:30 „Nee, wir bauen keinen eigenen Zopf.“ (= 431 B) → wörtlich an Sokrates.

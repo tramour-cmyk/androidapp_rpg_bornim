@@ -17,6 +17,7 @@
 - Laufende Arbeit nie für eine neue Regel anhalten (1960).
 - Werkzeug erst nach drei belegten Fällen und Chef-Ja; jeden Handfix sofort `vorgang.py lehre roh`. Widerspruch im Vorgang: vorlegen, nicht bauen (Chef 24.11., 07:26/07:37).
 - Notizkopie nur über `tools/notiz.sh`; keine Team- oder Organisations-Einstellungen; vor Vorschlag zum Kaufrepo Archiv und Git nach Versuchen absuchen; Geschäftsmodell nie ins Repo ([Modell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj)).
+- Deckel je Vorgang 50 $: dort Halt, Frage; Schätzung = Ziel (Chef 25.11., 16:47).
 
 ## Offene Fäden
 
@@ -28,4 +29,4 @@
 
 ## Übergabe
 
-- 25.11., 11:56, `76pVj4…` (401 Tsd.): Getan: Chefworte 1589.4, 1694, 2024, 2026, 431 eingetragen. Letzte Antwort: 431 Bilder an Chef, 👍 = Testbuild. Nachfolger: Sokrates – Leitung.
+- 25.11., 16:40, `77b3dQ…`: Letzte Antwort: „2024 nach main“ offen. Nachfolger: Sokrates – Leitung.
