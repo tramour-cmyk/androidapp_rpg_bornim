@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78S1BS7Gx4Jksc3zTh (seit 25.11., 17:38; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 17:45 Chef 17:44 „du änderst jetzt Claude MD, weil ich bin der Chef … Ich rede nicht mehr mit Sokrates.“ → main-Regel (Vorschlag 17:37, Chef-Ja 17:37) in CLAUDE.md 8; Disponent Z. 11, Kern Leitung Z. 12, Gedächtnis Z. 25 verweisen.
 - 25.11., 17:43 Chef 17:43 zum Disponenten-Neustart (Grenze 300 Tsd., lauf.py Z. 251; Uwe 314 Tsd.): „wenn er nicht läuft, nicht nur veranlassen, dass er läuft, sondern … feststellen, warum“. Runde 18:39: Nachfolger da? Sonst Ursache belegen, dann Neustart über Sokrates.
 - 25.11., 17:41 Chef 17:40 fragt 15-Min.-Takt Disponent: nicht beschlossen; Rat: erst messen (72 Min. Median vor 17:33-Änderungen, ~15–40 $/Tag geschätzt). Runden 18:39–20:39: Wartezeit fertig→Start; über 30 Min. → Fall dem Chef.
 - 25.11., 17:39 Nachfolger übernommen, umbenannt; Uhr trig_0142tTWqwf2MfVvLH4yvyC45 (18:39); alte trig_01VLLzUkLeriMf7xZS52Sjw8 gelöscht; Kennung an Sokrates.
