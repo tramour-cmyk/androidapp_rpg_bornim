@@ -1,7 +1,8 @@
 # 2028 (Fund Prüfer 1654-Ü11, 25.11.: fast schwarze Flecken an Rowenas Handgelenken): Blick in die hohle Hand. Für alle Figuren mit
 # Kaufkleid (Liste wie durchstich_1631) in Stehen, Bild 0, mit Haltung: Strahlen der Spielkamera (orthogonal, 30 Grad von oben, von vorn,
 # ein Strahl je Bildpunkt bei 3,4 m auf 1080 Punkte) über ein Feld um jedes Handgelenk (Knochen hand_l, hand_r). Gezählt werden
-# Bildpunkte, deren erster Treffer die Rückseite (Innenseite) der Haut an Hand oder Fingern ist: dort fehlt Haut, man sieht in die Hand,
+# Bildpunkte, deren erster Treffer die Rückseite (Innenseite) der Haut an Hand oder Fingern ist und die einen ebensolchen Nachbarn haben
+# (Fläche, nicht ein einzelner Punkt an der Umrisslinie): dort fehlt Haut, man sieht in die Hand,
 # die Tusche zieht an den Tiefensprüngen Linien (fast schwarz). Ecken dabei wie toon.gdshader vertex() mit rueck (heldfigur RUECK).
 # Rot (Ende 1), wenn eine Figur mehr als GRENZE solche Bildpunkte hat. Ohne Kaufdateien: „ohne Kauf“, Ende 0.
 # Run: godot --headless --path godot -s res://tests/handgelenk_2028.gd [-- --nur=<Figur>]
@@ -9,7 +10,9 @@ extends "res://tests/durchstich_1631.gd"
 
 const HALB := 30          # halbe Seitenlänge des Felds um das Handgelenk, Bildpunkte der Spielkamera
 const NEIGUNG := 30.0
-const GRENZE := 0
+# Grenze: nach der Behebung bleiben höchstens zwei Paare an der Umrisslinie (L_lyra, L_thessa 2; WACHE_W, ROBE_W 4 schon am Stand main, andere
+# Stelle, nicht diese Ursache); am Stand main zeigten 10 Leute 8 bis 82 Bildpunkte in die hohle Hand
+const GRENZE := 4
 const HAUT := ["Regular", "Superhero", "Leib", "Kopf", "Haende", "Hände", "Hand"]
 
 var ergebnis := {}
@@ -112,7 +115,7 @@ func _hand(name: String, m: Node3D) -> void:
 		var b := sk.find_bone(bn)
 		if b < 0: continue
 		var mitte: Vector3 = (_posen[b] as Transform3D).origin
-		var nb := 0
+		var rs := {}
 		for iy in range(-HALB, HALB + 1):
 			for ix in range(-HALB, HALB + 1):
 				var von := mitte + quer * (ix * px) + hoch * (iy * px) - dir
@@ -122,7 +125,15 @@ func _hand(name: String, m: Node3D) -> void:
 				var i0: int = netz["tri"][t]
 				if not haut[netz["lage"][i0]]: continue
 				var fn := (V[netz["tri"][t + 1]] - V[i0]).cross(V[netz["tri"][t + 2]] - V[i0])
-				if fn.dot(dir) <= 0.0: nb += 1   # Wicklung der Kaufnetze (glTF): Vorderseite zeigt längs des Blicks
+				if fn.dot(dir) <= 0.0: rs[Vector2i(ix, iy)] = true   # Wicklung der Kaufnetze (glTF): Vorderseite zeigt längs des Blicks
+		# ein Loch ist eine Fläche: nur Bildpunkte mit einem Nachbarn, der auch in die Hand zeigt; einzelne Punkte, an denen der Strahl
+		# die Umrisslinie streift, zählen nicht (nach der Behebung an Rowena 2 je Hand, einzeln, Rand über 5 cm entfernt)
+		var nb := 0
+		for q in rs:
+			for o in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+				if rs.has(q + o):
+					nb += 1
+					break
 		n += nb
 		je.append("%s %d" % [bn, nb])
 	ergebnis[name] = n

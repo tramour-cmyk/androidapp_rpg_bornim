@@ -52,6 +52,17 @@ func _zerlege() -> void:
 	var V2 := V.duplicate()
 	for i in V.size(): V2[i] = V[i] + dir * rueck * smoothstep(0.0, 0.2, N[i].dot(dir))
 	var g2 := _gitter(V2, netz["tri"])
+	# Drehung der Hand gegen den Unterarm (um die Achse des Unterarms) und Beugung, Ruhe gegen Pose
+	for e in ["_l", "_r"]:
+		var ua := sk.find_bone("lowerarm" + e); var ha := sk.find_bone("hand" + e)
+		var rel_r := sk.get_bone_global_rest(ua).basis.inverse() * sk.get_bone_global_rest(ha).basis
+		var rel_p := (_posen[ua] as Transform3D).basis.inverse() * (_posen[ha] as Transform3D).basis
+		var d := rel_r.inverse() * rel_p
+		var q := d.get_rotation_quaternion()
+		var ach := q.get_axis(); var w := rad_to_deg(q.get_angle())
+		print("ZERLEG2028 Handgelenk%s: Pose gegen Ruhe %.0f Grad um %s (Knochenachse y)" % [e, w, ach])
+		var ua0 := (_posen[ua] as Transform3D).basis; var ha0 := (_posen[ha] as Transform3D).basis
+		print("ZERLEG2028 Handgelenk%s: Beugung Unterarm/Hand %.0f Grad, Drehung um den Unterarm %.0f Grad" % [e, rad_to_deg(ua0.y.angle_to(ha0.y)), rad_to_deg(atan2(ua0.x.cross(ha0.x).dot(ua0.y), ua0.x.dot(ha0.x)))])
 	# je Stück: Knochen mit dem größten Gewicht (häufigster), Ecken, offene Randecken
 	var dom := {}; var rand_n := {}
 	var randset := {}
@@ -76,7 +87,7 @@ func _zerlege() -> void:
 		var mitte: Vector3 = (_posen[b] as Transform3D).origin
 		for fall in [["ohne rueck", V, g], ["mit rueck", V2, g2]]:
 			var VV: PackedVector3Array = fall[1]
-			var tief := {}; var lage_px := {}; var vorn_px := {}
+			var tief := {}; var lage_px := {}; var vorn_px := {}; var rueck_info := {}
 			for iy in range(-HALB, HALB + 1):
 				for ix in range(-HALB, HALB + 1):
 					var von := mitte + quer * (ix * px) + hoch * (iy * px) - dir * 1.0
@@ -88,7 +99,14 @@ func _zerlege() -> void:
 					tief[Vector2i(ix, iy)] = (p - von).dot(dir)
 					lage_px[Vector2i(ix, iy)] = String(netz["lname"][netz["lage"][i0]])
 					var fn := (VV[i1] - VV[i0]).cross(VV[i2] - VV[i0])
-					vorn_px[Vector2i(ix, iy)] = fn.dot(dir) > 0.0   # Wicklung der Kaufnetze: vorn, wenn das Dreieck längs des Blicks zeigt (gemessen: 288 zu 8)
+					vorn_px[Vector2i(ix, iy)] = fn.dot(dir) > 0.0
+					if fn.dot(dir) <= 0.0 and String(netz["lname"][netz["lage"][i0]]).begins_with("Female") and fall[0] == "mit rueck":
+						var rd := INF
+						for r in netz["rand"]:
+							if netz["lage"][r] == netz["lage"][i0]: rd = minf(rd, VV[r].distance_to(p))
+						var kb := _knochen(netz, sk, i0)
+						var dk := "%s Rand %s cm, Ecke vor rueck %.1f cm, NormaleZurKamera %.2f" % [kb, "%.0f" % (rd * 100.0) if rd < 0.05 else ">5", (V[i0] - VV[i0]).length() * 100.0, -N[i0].dot(dir)]
+						rueck_info[dk] = rueck_info.get(dk, 0) + 1   # Wicklung der Kaufnetze: vorn, wenn das Dreieck längs des Blicks zeigt (gemessen: 288 zu 8)
 			# Tusche wie tusche.gdshader: Laplace der Tiefe mit Abstand e Bildpunkte, Linie ab knick 0,06 m (voll ab 0,15)
 			for e in [2, 3, 5]:
 				var tinte := 0; var je := {}
@@ -125,6 +143,7 @@ func _zerlege() -> void:
 						if ok and smoothstep(0.06, 0.15, absf(lap)) >= 0.5: c = "#" if vorn_px[k] else "*"
 						z += c
 					print("KARTE %s |%s|" % [bn, z])
+			for dk in rueck_info: print("RUECK %s %s: %d" % [bn, dk, rueck_info[dk]])
 			var rs := {}
 			for k in tief:
 				var lk := "%s %s" % [lage_px[k], "vorn" if vorn_px[k] else "RUECKSEITE"]
@@ -199,3 +218,14 @@ func _sammle_farben(sk: Skeleton3D) -> void:
 				farben.append(cs[i] if cs != null and not (cs as PackedColorArray).is_empty() else Color(1, 1, 1))
 				uvs.append(us[i] if us != null and not (us as PackedVector2Array).is_empty() else Vector2.ZERO)
 				bilder.append(bi)
+
+func _knochen(netz: Dictionary, sk: Skeleton3D, i: int) -> String:
+	for tl in netz["teile"]:
+		var b0: int = tl[0]; var anz: int = tl[1]
+		if i < b0 or i >= b0 + anz: continue
+		var bs = tl[2]; var ws = tl[3]; var nn: int = tl[4]; var bb: PackedInt32Array = tl[5]
+		var j := i - b0; var best := 0
+		for q in nn:
+			if ws[j * nn + q] > ws[j * nn + best]: best = q
+		return sk.get_bone_name(bb[bs[j * nn + best]])
+	return "?"
