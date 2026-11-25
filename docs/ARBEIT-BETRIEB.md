@@ -144,3 +144,4 @@ STARTSPERRE - 17:38 25.11.: Startsperre 17:38 Start Figur (Handstart, Figur 2029
 - 17:53 25.11.: Disponent-Starter …79aK2Z archiviert (0,51 $, ohne Nummer).
 STARTSPERRE - 18:00 25.11.: Startsperre 18:00 Start Figur, Figur (Handstart, Figur 2034 Edda, Figur 2032 Finja)
 - 18:02 25.11.: START Figur Edda 2034 Teil 0 (session_01Hmoj77GxC2suK6CZCePZ2Y, Deckel 40 $) und Figur Finja 2032 (session_01Hmoj75yn4RXoAgS3pGhzE3, Deckel 50 $) von Hand; Fachkräfte arbeitend: Dora, Edda, Finja (Berit, Inge, Maja untätig, zählen nicht); 2033 (Technik) und 2035 (Werkzeug) folgen bei freiem Platz.
+STARTSPERRE - 18:02 25.11.: Startsperre 18:02 Start Disponent (lauf.py, Disponent 1997 Anna)
