@@ -25,6 +25,8 @@ Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 09:51 Chef 09:51 „1589.4 weiter“ (auf Frage 09:50: weiter bis 26 $, dann Film) → wörtlich an Sokrates.
+- 25.11., 09:50 Chef 09:50 fragt, was er entscheiden muss: nur 1589.4 (weiter bis 26 $); sonst 1639 in Vertretung auf Kampf-Platz.
 - 25.11., 09:05 Runde: Leerlauf hält (Takte 08:06, 09:05 nur 887 und 448, nicht ausgeführt; kein Kampf-Vorschlag). An Sokrates: Takt mit --ohne 887/448 wie 23./24.11. Uhr trig_01KgDW6PaLy6gc9pK8xvPN88 (10:06).
 - 25.11., 08:09 Sokrates: 431-Ü15 beantwortet; Kampf-Platz besetzt Disponent nach Vorrang.
 - 25.11., 08:03 Runde: Leerlauf, 1 von 3 Fachkräften (Britta 431), Kampf-Platz frei seit 1589.4-Halt; Kandidaten 1639, 1634, 785.x an Sokrates. 431-Ü15 frisch. Neustart-Haken mahnt ab 200 Tsd., Rollendatei sagt 280 Tsd.: Rolle gilt. Uhr trig_014uwhdWkq4wS9U2cULgFcqq (09:04).
