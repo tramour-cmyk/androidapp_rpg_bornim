@@ -122,13 +122,13 @@
    "platz": "kopf",
    "stufe": 2,
    "preis": 15,
-   "netz": "Kappe",
+   "netz": "Helm_Templer (godot/figuren/helm_templer.glb)",
    "teil": [
-    "RANGER_HOOD"
+    "Helm_Templer"
    ],
    "material": "Eisen",
    "zeichen": "Farbe",
-   "modell": "Eigenbau, fehlt (LISTE-NETZE.md)",
+   "modell": "MakeHuman hats02 templar_knight_helmet (javherre, CC0; godot/figuren/QUELLE.txt), 2029",
    "bezug": [
     {
      "weg": "laden",

@@ -7,7 +7,7 @@
 # Haare (HeldFigur.toene toent Materialien mit „Hair“), nie linear aufgehellt (Fehler 431: Gamma 0,4, halb gespannt); Helm in seinem
 # eigenen Eisengrau, matt (kein Glanz, Signatur 302.3). Je Stueck zwei Netze <Kennung>_M und <Kennung>_W (Kopf Mann, Frau).
 # Aufruf: bl/bin/python -I tools/blender348/v3/kopfteil_mh.py <stueck> <paketordner> <base.obj> <ausgabe.glb>
-#   <stueck>: haar | bart | helm (STUECKE unten); <paketordner>: Ordner mit hair01/, bodyparts05/, hats02/ (ausgepackte *_cc0.zip von
+#   <stueck>: haar | bart | helm | helm_b (STUECKE unten; helm_b: Helm mit Nackenschirm, NACKEN); <paketordner>: Ordner mit hair01/, bodyparts05/, hats02/ (ausgepackte *_cc0.zip von
 #   https://static.makehumancommunity.org/assets/assetpacks/<paket>.html); <base.obj>: makehuman/data/3dobjs/base.obj (CC0, Repo
 #   makehumancommunity/makehuman)
 import sys, os, glob
@@ -22,19 +22,43 @@ STUECKE = {
     'bart': ('Bart_Wikinger', 'bodyparts05/clothes/rehmanpolanski_beard_viking', 'beardviking.obj', 'BeardViking.png', 'Hair_Bart_Wikinger', True),
     'helm': ('Helm_Templer', 'hats02/clothes/javherre_casco_caballero_templario_templar_knight_helmet', 'casco_templario.obj', 'casco.jpg', 'Helm_Templer', False),
 }
+STUECKE['helm_b'] = ('Helm_Templer_B',) + STUECKE['helm'][1:]
 DREIECKE, BILD = 800, 1024
 # Unser Kopf in der Ruhelage der Bezugsfigur (Mensch Wachsoldat, Haut RegularMale / Female_Regular und Eyes, gemessen 25.11. am
 # Kaufcache figur 5b0a834e4 mit denselben Regeln wie kopf_grundnetz): Scheitel, Augenmitte, Kinn, halbe Breite, Hinterkopf, Nasenspitze,
 # Stirnlinie (Oberkante der Brauen)
 KOPF = {
-    'M': dict(top=1.8101, eye=1.6985, kinn=1.5869, w=0.0906, hinten=-0.1061, nase=0.1152, stirn=1.725),
-    'W': dict(top=1.7664, eye=1.6559, kinn=1.5565, w=0.0889, hinten=-0.1129, nase=0.1119, stirn=1.687),
+    'M': dict(top=1.8101, eye=1.6985, kinn=1.5869, w=0.0906, hinten=-0.1061, nase=0.1152, stirn=1.725, nacken=1.627),
+    'W': dict(top=1.7664, eye=1.6559, kinn=1.5565, w=0.0889, hinten=-0.1129, nase=0.1119, stirn=1.687, nacken=1.577),
 }
+# „nacken“: Haaransatz hinten = Unterkante der kuerzesten Frisur Hair_Buzzed (haare.bin, haare_w.bin; 2029 Teil 2, gemessen 25.11.)
 # Sitz je Stueck: Massstab um die Kopfmitte auf Hoehe der Stirnlinie (Oberkante der Brauen, „stirn“). Helm: im Paket fuer einen Kopf
 # mit Kappe gebaut, auf unserem Kopf rundum 2 bis 3 cm Luft (Beleglauf 25.11., 13:41: Helm schwebte, Stirn frei). 0,85 = kleinster
 # Massstab, bei dem jede Ecke der Kopfhaut ueber der Stirnlinie mindestens 3 mm innerhalb des Helms bleibt (Strahl aus der Kopfmitte,
 # Mann 0,85, Frau 0,84); der Rand liegt dann vorn auf den Brauen
-SITZ = {'helm': 0.85}
+SITZ = {'helm': 0.85, 'helm_b': 0.85}
+# 2029 Teil 2 Variante B (Nackenschirm): der Rand hinten wird bis zum Haaransatz („nacken“) nach unten gezogen. Je Richtung um die
+# Kopfachse (Winkel, 24 Stufen, dazwischen gleitend) liegt der Rand auf anderer Hoehe; unter der Stirnlinie wird jede Ecke so gestreckt,
+# dass der Rand dieser Richtung auf „nacken“ faellt. Gewicht gleitend nach der Tiefe (z ueber Z_VORN gar nicht, unter Z_HINTEN ganz);
+# gleiche Dreiecke (Verschiebung nach dem Ausduennen, an den Ecken des Helms ohne Schirm). EIN: Schirm unten um diesen Anteil zur Nackenmitte gezogen (liegt am Nacken an)
+NACKEN = {'helm_b': dict(z_vorn=0.04, z_hinten=-0.02, ein=0.25)}
+
+def nackenschirm(W, k, n):
+    W = W.copy()
+    wz = np.clip((n['z_vorn'] - W[:, 2]) / (n['z_vorn'] - n['z_hinten']), 0, 1)
+    wz = wz * wz * (3 - 2 * wz)
+    mz = 0.5 * (k['hinten'] + k['nase'])
+    win = np.arctan2(W[:, 0], W[:, 2] - mz)
+    st = np.linspace(-np.pi, np.pi, 25)
+    rand = np.array([W[(win >= a) & (win < b), 1].min() if ((win >= a) & (win < b)).any() else k['stirn'] for a, b in zip(st[:-1], st[1:])])
+    mitte = 0.5 * (st[:-1] + st[1:])
+    r = np.interp(win, mitte, rand, period=2 * np.pi)
+    f = (k['stirn'] - k['nacken']) / np.maximum(k['stirn'] - r, 0.005)
+    d = np.maximum(k['stirn'] - W[:, 1], 0)
+    t = wz * np.clip(d / np.maximum(k['stirn'] - r, 0.005), 0, 1)
+    W[:, 1] = np.where(W[:, 1] < k['stirn'], k['stirn'] - d * (1 + wz * (f - 1)), W[:, 1])
+    W[:, 2] -= t * t * n['ein'] * (W[:, 2] - k['hinten'] * 0.5)
+    return W
 
 def lies_obj(p):
     V, VT, F, G, g = [], [], [], {}, None
@@ -174,6 +198,10 @@ for gs, k in KOPF.items():
     tm = ob.modifiers.new('tri', 'TRIANGULATE')
     bpy.ops.object.modifier_apply(modifier='tri')
     nach = len(me.polygons)
+    if STUECK in NACKEN:   # nach dem Ausduennen: oben derselbe Helm wie ohne Schirm (gleiche Ecken, gleiche Dreiecke), nur der Rand gezogen
+        X = np.array([(v.co.x, v.co.z, -v.co.y) for v in me.vertices])
+        X = nackenschirm(X, k, NACKEN[STUECK])
+        for v, (x, y, z) in zip(me.vertices, X): v.co = (x, -z, y)
     print('KOPFTEIL %s: Dreiecke %d -> %d, Bild %dx%d, Hoehe %.3f..%.3f m, Breite %.3f m, Tiefe %.3f..%.3f m' % (
         name, vor, nach, im.size[0], im.size[1], W[:, 1].min(), W[:, 1].max(), np.ptp(W[:, 0]), W[:, 2].min(), W[:, 2].max()))
     assert nach <= DREIECKE

@@ -47,7 +47,7 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | `hood` | Kapuze | kopf | 1 | 2 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | – |
 | `circlet` | Stirnreif | kopf | 2 | 15 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | – |
 | `leather_cap` | Lederkappe | kopf | 1 | 5 | Eigenbau, fehlt (LISTE-NETZE.md) | Laden Thessa; Beute | – |
-| `helmet` | Helm | kopf | 2 | 15 | Eigenbau, fehlt (LISTE-NETZE.md) | Laden Thessa; Beute | – |
+| `helmet` | Helm | kopf | 2 | 15 | MakeHuman hats02 templar_knight_helmet (javherre, CC0; godot/figuren/QUELLE.txt), 2029 | Laden Thessa; Beute | – |
 | `great_helm` | Topfhelm | kopf | 4 | 40 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | – |
 | `robe` | Robe | oberkoerper | 1 | 5 | unser Netz auf dem Kaufkörper (held3.py, kauf_kleid.py; 376.1) | Laden Thessa; Beute | – |
 | `leather` | Lederrüstung | oberkoerper | 1 | 10 | Quaternius Modular Character Outfits – Fantasy (gekauft, CC0; LISTE-BESTAND.md Figuren) | Laden Thessa; Beute | – |
@@ -121,8 +121,8 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
-| `potion` | Heiltrank | – | 1 | 25 | – | Laden Thessa; Laden Morwen; Herstellen Morwen (2× Heilkräuter, 5 Gold); Beute Riesenratte; Beute Wolf; Beute Wildschwein; Beute Riesen-Hundertfüßer; Beute Riesenfledermaus; Beute Blutflügler; Beute Goblin; Beute Goblin-Späher; Beute Goblin-Schamane; Beute Kobold; Beute Skelett; Beute Zombie | – |
-| `greater_potion` | Großer Heiltrank | – | 1 | 75 | – | Laden Thessa; Laden Morwen; Herstellen Morwen (3× Heilkräuter, 1× Fledermausflügel, 15 Gold); Beute Riesenspinne; Beute Goblin-Schamane; Beute Ghul; Beute Ockerschleim; Beute Grimmzahn | – |
+| `potion` | Heiltrank | – | 1 | 25 | – | Laden Thessa; Laden Morwen; Herstellen Morwen (2× Heilkräuter, 5 Gold); Beute Riesenratte; Beute Wolf; Beute Wildschwein; Beute Riesen-Hundertfüßer; Beute Riesenfledermaus; Beute Riesenegel; Beute Goblin; Beute Goblin-Späher; Beute Goblin-Schamane; Beute Kobold; Beute Skelett; Beute Wiedergänger | – |
+| `greater_potion` | Großer Heiltrank | – | 1 | 75 | – | Laden Thessa; Laden Morwen; Herstellen Morwen (3× Heilkräuter, 1× Fledermausflügel, 15 Gold); Beute Riesenspinne; Beute Goblin-Schamane; Beute Grabhund; Beute Säureschnecke; Beute Grimmzahn | – |
 | `superior_potion` | Überragender Heiltrank | – | 1 | 200 | – | Laden Thessa | – |
 | `remedy` | Kräutertrank | – | 1 | 20 | – | Laden Thessa; Laden Morwen; Herstellen Morwen (2× Heilkräuter, 2 Gold) | – |
 | `stamina_potion` | Ausdauertrank | – | 1 | 25 | – | Laden Thessa; Laden Morwen | – |
@@ -133,7 +133,7 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | Kennung | Name | Platz | Stufe | Preis | Modell | Bezug | offen |
 |---|---|---|---|---|---|---|---|
 | `alchemist_fire` | Alchemistenfeuer | – | 1 | 30 | – | Laden Thessa; Herstellen Morwen (1× Giftdrüse, 5 Gold); Beute Goblin; Beute Goblin-Späher; Beute Kobold | – |
-| `holy_water` | Weihwasser | – | 1 | 25 | – | Laden Thessa; Laden Morwen; Beute Skelett; Beute Zombie; Beute Ghul | – |
+| `holy_water` | Weihwasser | – | 1 | 25 | – | Laden Thessa; Laden Morwen; Beute Skelett; Beute Wiedergänger; Beute Grabhund | – |
 
 ### Nahrung (1)
 
@@ -191,15 +191,15 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 - **Wildschwein:** Heiltrank, Rohes Fleisch, Keilerhauer
 - **Riesen-Hundertfüßer:** Heiltrank
 - **Riesenfledermaus:** Heiltrank, Fledermausflügel
-- **Blutflügler:** Heiltrank
+- **Riesenegel:** Heiltrank
 - **Goblin:** Heiltrank, Alchemistenfeuer
 - **Goblin-Späher:** Heiltrank, Alchemistenfeuer
 - **Goblin-Schamane:** Heiltrank, Großer Heiltrank
 - **Kobold:** Heiltrank, Alchemistenfeuer
 - **Skelett:** Heiltrank, Weihwasser
-- **Zombie:** Heiltrank, Weihwasser
-- **Ghul:** Großer Heiltrank, Weihwasser
-- **Ockerschleim:** Großer Heiltrank
+- **Wiedergänger:** Heiltrank, Weihwasser
+- **Grabhund:** Großer Heiltrank, Weihwasser
+- **Säureschnecke:** Großer Heiltrank
 - **Riesenspinne (870.6; Feuer verbrennt sie, LISTE-BESTIARIUM.md):** Spinnseide
 
 ### Herstellen
@@ -237,7 +237,7 @@ Aus `tools/gegenstaende/gegenstaende.json` mit `python3 tools/gegenstaende.py` (
 | `stufe` | nein | Heldenstufe ab der erhaeltlich (BRS); null = offen |
 | `preis` | nein | Grundpreis in Gold (BRS, vor Ruf); 0 = unverkaeuflich; null = offen |
 | `netz` | nein | Modellnetz (455), z. B. Datei im Kaufrepo |
-| `teil` | nein | 431h Stufe 2: Teile im Kleiderschrank (held_klassen.py SCHRANK_TEILE), Liste; leer = am Helden unsichtbar |
+| `teil` | nein | 431h Stufe 2: Teile im Kleiderschrank (held_klassen.py SCHRANK_TEILE), Liste; leer = das Teil der eigenen Tracht (1569) |
 | `material` | nein | Material des Netzes (455) |
 | `zeichen` | nein | Zeichnung/Tusche des Netzes (455) |
 | `modell` | nein | Quelle und Lizenz des Modells (LISTE-BESTAND.md) |

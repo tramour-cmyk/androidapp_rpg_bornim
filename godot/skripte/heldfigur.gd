@@ -115,8 +115,8 @@ static func baerte(g := "m", volk := "HUMAN") -> Array: return _volk_filter([""]
 # Elf langes Haar, nie Bart; Zwerg Vollbart bis aufs Brustbein mit Schnauzbart (held_klassen.py Bart_Breit, Hair_Moustache), Zwergin ohne
 # Bart, zwei Zoepfe von den Schlaefen bis auf die Brust (ZOPF); Huegelvolk hoechstens kurzer Bart
 const VOLK_KOPF := {
-	"ELF": {"m": {"frisur": ["Hair_Long", "Hair_LongDreads"], "bart": [""]}, "w": {"frisur": ["Hair_Long", "Hair_LongDreads"], "bart": [""]}},
-	"DWARF": {"m": {"bart": ["Bart_Breit,Hair_Moustache"]}, "w": {"frisur": ["Zopf_Zwergin"], "bart": [""]}},
+	"ELF": {"m": {"frisur": ["Hair_Long", "Hair_LongDreads", "Haar_MH01"], "bart": [""]}, "w": {"frisur": ["Hair_Long", "Hair_LongDreads"], "bart": [""]}},
+	"DWARF": {"m": {"bart": ["Bart_Breit,Hair_Moustache", "Bart_Wikinger,Hair_Moustache"]}, "w": {"frisur": ["Zopf_Zwergin"], "bart": [""]}},
 	"HALFLING": {"m": {"bart": ["", "Hair_Moustache"]}},
 }
 static func _volk_filter(l: Array, volk: String, g: String, teil: String) -> Array:
@@ -130,7 +130,8 @@ static func volk_kopf(a: Dictionary, volk: String) -> Dictionary:
 		if not erlaubt.is_empty() and String(a.get(teil, "")) not in erlaubt and not _probe_teil(String(a.get(teil, ""))): a[teil] = erlaubt[0]
 	return a
 
-# 2029: neue starre Kopfteile (KOPFTEILE ausser dem Zopf) stehen in keiner Vorgabe und keiner Wahl; gesetzt (Probe, Beleg) bleiben sie
+# 2029: starre Kopfteile (KOPFTEILE ausser dem Zopf) ohne Eintrag in der Liste dieses Volks und Geschlechts (Teil 2: Haar_MH01 Elf Mann,
+# Bart_Wikinger Zwerg Mann) stehen in keiner Wahl; gesetzt (Probe, Beleg, tests/kopfteil_2029.gd) bleiben sie
 static func _probe_teil(v: String) -> bool:
 	for n in v.split(",", false):
 		if KOPFTEILE.has(n) and KOPFTEILE[n] != ZOPF: return true
@@ -244,8 +245,10 @@ static func baue(w: Dictionary, mats: Array) -> Node3D:
 	kapuze(m, t["kapuze"])
 	var kl := kleide(m, w, String(t["modell"]))   # 431h: was in den Plaetzen steht; Kapuze nur mit Stueck auf dem Kopf
 	if kl.has("kapuze"): t["kapuze"] = kl["kapuze"]
+	if kl.has("helm") and String(a.get("helm", "")) == "": a["helm"] = kl["helm"]   # 2029 Teil 2: Gegenstand mit starrem Helm (helmet)
 	if String(a.get("helm", "")) != "": t["kapuze"] = true   # 2029: starrer Helm (KOPFTEILE) deckt das Haar wie KNIGHT_HELM
 	if t["kapuze"]: a["frisur"] = ""   # langes Haar unter der Kapuze verborgen (Archiv 376.1)
+	if String(a.get("helm", "")) != "": nacken_unter_helm(a)
 	var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
 	if sk == null:   # 680: Datei ohne Skelett (verschluesselt ohne Schluessel, beschaedigt): nichts liegen lassen, alte Figur
 		m.free()
@@ -496,6 +499,10 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 	var sch: Dictionary = lade_info().get("schrank", {}).get(String(tr.get("geschlecht", "M")), {})
 	var fremd := []   # Kennungen der Schrankteile
 	var helm := String((w.get("aussehen", {}) as Dictionary).get("helm", ""))   # 2029: starrer Helm (KOPFTEILE) statt Teil am Kopf
+	var hk = aus.get("HEAD")   # 2029 Teil 2: Stueck auf dem Kopf, dessen Teil ein starrer Helm ist (helmet: Helm_Templer)
+	if helm == "" and hk is Dictionary:
+		for tl in teil_von(String(hk.get("base", ""))):
+			if KOPFTEILE.has(tl): helm = String(tl)
 	for p in KLEID_PLAETZE:
 		var st = aus.get(p)
 		zeig[p] = st is Dictionary and teile.has(p)
@@ -546,7 +553,7 @@ static func kleide(m: Node3D, w: Dictionary, modell: String) -> Dictionary:
 			for i in me.get_blend_shape_count():
 				var bn := String(me.get_blend_shape_name(i))
 				if bn.begins_with("unter_"): x.set_blend_shape_value(i, 1.0 if fremd_platz.has(bn.substr(6)) else 0.0)
-	return {"kapuze": kap}
+	return {"kapuze": kap, "helm": helm} if helm != "" else {"kapuze": kap}
 
 # 431h Stufe 2: Teile eines Stuecks (Grundform; Einzelstuecke ueber ihre Grundform); leer (Mantel, Umhang): kleide zeigt das Teil der
 # eigenen Tracht (1569)
@@ -603,7 +610,21 @@ const KOPFTEILE := {
 	"Haar_MH01": "res://figuren/haar_mh01.glb",          # hair01 culturalibre_hair_01
 	"Bart_Wikinger": "res://figuren/bart_wikinger.glb",  # bodyparts05 rehmanpolanski_beard_viking
 	"Helm_Templer": "res://figuren/helm_templer.glb",    # hats02 javherre templar_knight_helmet
+	"Helm_Templer_B": "res://figuren/helm_templer_b.glb",  # 2029 Teil 2 Variante B: Rand hinten bis zum Haaransatz (Nackenschirm)
 }
+# 2029 Teil 2 (Sokrates 25.11., 17:11; Auftrag 2029 Feld 2): unter einem starren Helm nie Glatze im Nacken, eine Regel fuer alle Helme.
+# „A“ (Vorgabe): statt keiner Frisur die kuerzeste aus haare.bin, die nicht durch den Helm sticht (Hair_Buzzed, tests/kopfteil_2029.gd);
+# „B“: Helm mit Nackenschirm (<Kennung>_B, kopfteil_mh.py helm_b), ohne Frisur; nur fuer den Beleg, bis der Chef am Bild waehlt
+const UNTER_HELM := "Hair_Buzzed"
+const UNTER_HELM_MASS := 0.98
+static var nacken := "A"
+static func nacken_unter_helm(a: Dictionary) -> void:
+	var h := String(a["helm"])
+	if nacken == "B" and KOPFTEILE.has(h + "_B"):
+		a["helm"] = h + "_B"
+		a["frisur"] = ""
+	elif nacken != "alt":   # „alt“: wie vor Teil 2 (ohne Frisur), nur fuer Vergleich und Pruefung
+		a["frisur"] = UNTER_HELM
 static var kopfteil_szenen := {}
 # 2029: Helm seitlich weiter fuer Voelker mit Ohren ueber der Stirnlinie (Spitzohren der Elfen, Ohren von Huegelvolk und Orkbluetigen
 # stachen seitlich durch den Helm; tests/kopfteil_2029.gd). Kennung -> Volk des Modells -> Geschlecht -> [Breite, Hoehe, Tiefe] gegen den Menschen
@@ -653,12 +674,17 @@ static func haare(m: Node3D, sk: Skeleton3D, k: String, a: Dictionary, mats: Arr
 		mi.name = n
 		mi.mesh = q.mesh
 		mi.transform = ruhe.affine_inverse() * gk * Transform3D(Basis(), vers) * im_raum(qs, q)
-		var br: Dictionary = kopfteil_breite.get(n, {})
+		var br: Dictionary = kopfteil_breite.get(n.trim_suffix("_B"), {})
 		for vo in br:   # Modell der Figur beginnt mit dem Volk (ELF_WACHE_M), Geschlecht am Ende
 			if k.begins_with(String(vo) + "_") and (br[vo] as Dictionary).has(k.right(1)):
 				var f: Array = br[vo][k.right(1)]   # Breite, Hoehe, Tiefe; um die Mittellinie des Kopfes auf Hoehe der Unterkante des Stuecks
-				var u := Vector3(0, q.mesh.get_aabb().position.y, 0)
+				var qa := kopfteil(n.trim_suffix("_B"), g) if n.ends_with("_B") else q   # B um denselben Punkt wie der Helm ohne Schirm
+				var u := Vector3(0, (qa if qa else q).mesh.get_aabb().position.y, 0)
 				mi.transform = mi.transform * Transform3D(Basis(), u) * Transform3D(Basis.from_scale(Vector3(float(f[0]), float(f[1]), float(f[2]))), Vector3.ZERO) * Transform3D(Basis(), -u)
+		if n == UNTER_HELM and String(a.get("helm", "")) != "":   # 2029 Teil 2 A: unter dem Helm um den Haaransatz eingezogen (stach oben 0,7 mm durch)
+			var ab := q.mesh.get_aabb()
+			var u := Vector3(0, ab.position.y, ab.get_center().z)
+			mi.transform = mi.transform * Transform3D(Basis(), u) * Transform3D(Basis.from_scale(Vector3.ONE * UNTER_HELM_MASS), Vector3.ZERO) * Transform3D(Basis(), -u)
 		ba.add_child(mi)
 		Gebiet.male(mi, null, 2, mats)
 

@@ -2,9 +2,9 @@
 # 2029 Beleg aus den Rohbildern von godot/tests/kopfteil_bild_2029.gd (ImageMagick): je Art ein Bild 2029-<art>.png, alt links, neu rechts.
 #   oben: Erschaffung am Handy (540x1170, halb), roter Pfeil von rechts neben den Kopf; darunter Ausschnitt des Kopfes aus demselben Bild
 #   (zweifach); dann Kopfausschnitt vorn und von der Seite (Spielfigur, Toon-Licht, Tusche). Schrift im schwarzen Rand.
-# Aufruf: tools/godot/kopfteil_bild_2029.sh <roh mit marken.txt> <ziel> <commit> <commit alt>
+# Aufruf: tools/godot/kopfteil_bild_2029.sh <roh mit marken.txt> <ziel> <commit> <commit alt> [<Dreiecke je Variante, Text>]
 set -e
-R=$1; Z=$2; C=$3; M=$4
+R=$1; Z=$2; C=$3; M=$4; DV=${5:-}
 mkdir -p $Z
 T=$(mktemp -d)
 GOLD='#D4AF6A'
@@ -43,4 +43,37 @@ for a in haar bart helm; do
   convert $T/g.png -bordercolor black -border 6 $Z/2029-$a.png
   echo "BILD $Z/2029-$a.png"
 done
+# 2029 Teil 2: Nacken unter dem Helm, drei Spalten alt, A, B (Spielkamera von hinten schraeg, Ausschnitt, Kopf vorn, Seite, hinten);
+# roter Pfeil von rechts unten neben den Nacken (MARKE nacken). Aufruf wie oben, fuenftes Argument: Dreiecke je Variante als Text
+pfeil() {   # Bild, x, y, Ausgabe: Pfeil von rechts unten, Spitze 14 px rechts neben der Stelle
+  local x=$2 y=$3
+  convert "$1" -stroke red -strokewidth 3 -draw "line $((x+70)),$((y+40)) $((x+22)),$((y+6))" \
+    -fill red -draw "polygon $((x+14)),$((y+1)) $((x+30)),$((y+2)) $((x+20)),$((y+16))" "$4"
+}
+declare -A NWO=([alt]="alt: ohne Frisur unter dem Helm (Stand 685a45298)" [A]="A (Vorgabe): Hair_Buzzed unter dem Helm" [B]="B: Helm mit Nackenschirm")
+if [ -f $R/nacken_alt_spiel.png ]; then
+  sp=(); au=(); vo=(); se=(); hi=()
+  for w in alt A B; do
+    set -- $(grep -a "^MARKE nacken_${w}_spiel.png nacken " $R/marken.txt | tail -1); nx=$4; ny=$5
+    pfeil $R/nacken_${w}_spiel.png $nx $ny $T/p.png
+    convert $T/p.png -resize 50% $T/k.png; schild $T/k.png "Spielkamera (Handy 540x1170) ${NWO[$w]}, $C" $T/sp_$w.png 60
+    convert $R/nacken_${w}_spiel.png -crop 150x150+$((nx-75))+$((ny-75)) +repage -resize 270x270 $T/a0.png
+    pfeil $T/a0.png 135 135 $T/a.png; schild $T/a.png "Ausschnitt Spielkamera, Nacken" $T/au_$w.png
+    for an in vorn seite hinten; do
+      f=$R/nacken_${w}_${an}.png
+      set -- $(grep -a "^MARKE nacken_${w}_${an}.png nacken " $R/marken.txt | tail -1)
+      if [ $an = vorn ]; then cp $f $T/x.png; else pfeil $f $4 $5 $T/x.png; fi
+      convert $T/x.png -resize 270x270 $T/v.png; schild $T/v.png "Kopf $an ($w)" $T/${an}_$w.png
+    done
+    sp+=($T/sp_$w.png); au+=($T/au_$w.png); vo+=($T/vorn_$w.png); se+=($T/seite_$w.png); hi+=($T/hinten_$w.png)
+  done
+  for r in sp au vo se hi; do eval "convert \"\${$r[@]}\" -background black -gravity north +append $T/z_$r.png"; done
+  convert $T/z_sp.png $T/z_au.png $T/z_vo.png $T/z_se.png $T/z_hi.png -background black -append $T/ganz0.png
+  w=$(identify -format %w $T/ganz0.png)
+  convert -background black -fill "$GOLD" -pointsize 14 -size $((w - 12))x -gravity west caption:"Gegenstand helmet (Helm_Templer, MakeHuman hats02, CC0). alt: Helm ohne Frisur darunter, Nacken kahl (Stand 685a45298, hier mit Schalter nacken=alt nachgestellt). A: Helm_Templer und darunter Hair_Buzzed (kuerzeste Frisur aus haare.bin, um 2 % eingezogen). B: Helm_Templer_B (Rand hinten bis zum Haaransatz gezogen), ohne Frisur. Dreiecke: $DV. Stand $C" -bordercolor black -border 6x6 $T/fuss.png
+  convert $T/ganz0.png $T/fuss.png -background black -append $T/ganz.png
+  schild $T/ganz.png "2029 Nacken unter dem Helm: Mensch Mann, Wachsoldat; links alt, Mitte A, rechts B; Spiel-Shader mit Tusche" $T/g.png
+  convert $T/g.png -bordercolor black -border 6 $Z/2029-helm-nacken.png
+  echo "BILD $Z/2029-helm-nacken.png"
+fi
 rm -rf $T

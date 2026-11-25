@@ -9,6 +9,13 @@ extends SceneTree
 #         (Strahl aus der Kopfmitte, aeusserste Helmflaeche); Haar unter dem Helm weg (keine Frisur am Kopf)
 #   Bart: keine Ecke im Gesicht ueber der Oberlippe (Oberkante Hair_Moustache, |x| < 3 cm)
 #   Stueck: Dreiecke <= 800, Bild <= 1024 px, Bildmittel >= 0,15, Flecken (wie zopf_431) < 5 %
+# 2029 Teil 2 (Auftrag 25.11., 17:16): Helm je Fall in beiden Nackenvarianten (HeldFigur.nacken „A“ kurze Frisur darunter, „B“
+# Nackenschirm Helm_Templer_B), also 10 Haar + 5 Bart + 2 x 10 Helm = 35 Faelle, dazu je Helmfall:
+#   Nacken: Ecken der Kopfhaut hinten (Tiefe unter NACKEN_Z, ueberwiegend am Kopf; Kopfhaut = was die kuerzeste Frisur Hair_Buzzed an
+#           derselben Figur deckt), die weder Helm noch Frisur deckt (Strahl waagrecht aus der Kopfachse) = 0, Ruhe und Hieb
+#   A: Ecken der Frisur unter dem Helm ausserhalb der aeussersten Helmflaeche (Durchstechen) = 0
+# Gegenstand (4 Faelle): helmet zeigt Helm_Templer, hood, leather_cap, great_helm nicht
+# Erschaffung (10 Faelle, 5 Voelker x Mann/Frau): Haar_MH01 nur bei Elf Mann, Bart_Wikinger nur bei Zwerg Mann, alte Wahlen vollzaehlig
 # Ohne Kaufmodelle: nur die Stuecke (Bild, Dreiecke), Ende ohne Fehler. Aufruf im Ordner godot: godot --headless -s res://tests/kopfteil_2029.gd
 const VOELKER := ["Mensch", "Elf", "Zwerg", "Hügelvolk", "Orkblütiger"]
 const DREIECKE := 800
@@ -21,6 +28,11 @@ const LIPPE_X := 0.03
 const LUFT_MAX := 0.045
 const LUFT_MITTEL := 0.015
 const NASE := 0.010
+const NACKEN_Z := -0.03
+# Wahl der Erschaffung vor 2029 Teil 2 (main 8f07379a6, HeldFigur.VOLK_KOPF); die uebrigen Voelker ohne Liste: alle Frisuren und Baerte
+const ALT_WAHL := {"ELF_m_frisur": ["Hair_Long", "Hair_LongDreads"], "DWARF_m_bart": ["Bart_Breit,Hair_Moustache"]}
+const NEU_WAHL := {"ELF_m_frisur": "Haar_MH01", "DWARF_m_bart": "Bart_Wikinger,Hair_Moustache"}
+var haaransatz := {}
 var fehler := 0
 var stueck_ok := {}   # Kennung_G -> Text, leer = gut
 # Pose, wie sie gezeichnet wird: nach den Modifikatoren (KopfHeben), festgehalten in skeleton_updated; danach setzt das Skelett die Pose
@@ -37,7 +49,7 @@ func pose(sk: Skeleton3D, i: int) -> Transform3D:
 func _initialize() -> void: _lauf.call_deferred()
 
 func _lauf() -> void:
-	for n in ["Haar_MH01", "Bart_Wikinger", "Helm_Templer"]:
+	for n in ["Haar_MH01", "Bart_Wikinger", "Helm_Templer", "Helm_Templer_B"]:
 		for g in ["M", "W"]:
 			stueck_ok[n + "_" + g] = stueck(n, g)
 	if not HeldFigur.da():
@@ -49,12 +61,19 @@ func _lauf() -> void:
 	for art in ["haar", "helm", "bart"]:
 		for v in VOELKER:
 			for g in (["m"] if art == "bart" else ["m", "w"]):
-				n += 1
-				var r := await fall(art, v, g, hieb)
-				var falsch := r.begins_with("!")
-				if falsch: fehler += 1
-				print("%s %s %s %s%s" % ["FALSCH" if falsch else "FALL", art, v, g, r.trim_prefix("!")])
-	print("KOPFTEIL2029 %d Faelle, %d falsch" % [n, fehler])
+				# NACKEN=alt,A,B: Varianten (alt = ohne Frisur unter dem Helm wie 685a45298, zum Gegenbeweis); Vorgabe A und B
+				for nv in (Array(OS.get_environment("NACKEN").split(",", false)) if OS.get_environment("NACKEN") != "" else ["A", "B"]) if art == "helm" else ["A"]:
+					if OS.get_environment("NUR") != "" and OS.get_environment("NUR") != "%s %s %s" % [art, v, g]: continue   # ein Fall (Suche)
+					n += 1
+					HeldFigur.nacken = nv
+					var r := await fall(art, v, g, hieb)
+					HeldFigur.nacken = "A"
+					var falsch := r.begins_with("!")
+					if falsch: fehler += 1
+					print("%s %s%s %s %s%s" % ["FALSCH" if falsch else "FALL", art, " " + nv if art == "helm" else "", v, g, r.trim_prefix("!")])
+	var ne := erschaffung()
+	var ng := gegenstand()
+	print("KOPFTEIL2029 %d Faelle, %d Erschaffung, %d Gegenstand, %d falsch" % [n, ne, ng, fehler])
 	quit(1 if fehler > 0 else 0)
 
 # Bild und Netz eines Stuecks: Text mit den Zahlen; „ FALSCH: …“ am Ende, wenn eine Grenze reisst
@@ -98,7 +117,10 @@ func fall(art: String, v: String, g: String, hieb: Animation) -> String:
 	match art:
 		"haar": a["frisur"] = kenn
 		"bart": a["bart"] = "Bart_Wikinger,Hair_Moustache"
-		"helm": a["helm"] = kenn
+		"helm":
+			a["helm"] = kenn
+			if HeldFigur.nacken == "B": kenn += "_B"
+	var ansatz: Dictionary = await haaransatz_von(v, g, b) if art == "helm" else {}
 	var m := HeldFigur.baue({"herkunft": "Wachsoldat", "volk": vm, "aussehen": a, "ausruestung": b.ausruestung}, [])
 	if m == null: return "!, FALSCH: keine Figur"
 	root.add_child(m)
@@ -115,7 +137,9 @@ func fall(art: String, v: String, g: String, hieb: Animation) -> String:
 	if art == "helm":
 		for x in m.find_children("Haar_*", "BoneAttachment3D", true, false):
 			var hn := String(x.name).substr(5)
-			if hn != kenn and not (hn.begins_with("Bart") or hn in ["Hair_Beard", "Hair_Moustache", "Hair_MuttonChops"]): r.append("Haar %s unter dem Helm" % hn)
+			if hn != kenn and not (hn.begins_with("Bart") or hn in ["Hair_Beard", "Hair_Moustache", "Hair_MuttonChops"]):
+				if not (HeldFigur.nacken == "A" and hn == HeldFigur.UNTER_HELM): r.append("Haar %s unter dem Helm" % hn)
+		if HeldFigur.nacken == "A" and m.find_child("Haar_" + HeldFigur.UNTER_HELM, true, false) == null: r.append("A ohne %s unter dem Helm" % HeldFigur.UNTER_HELM)
 	if hieb and not ap.has_animation("Hieb_2029"):
 		ap.get_animation_library("").add_animation("Hieb_2029", hieb_fuer(hieb, m, sk))
 	var lage := []
@@ -146,6 +170,17 @@ func fall(art: String, v: String, g: String, hieb: Animation) -> String:
 			if hm["luft_max"] > LUFT_MAX: r.append("%s Helm schwebt (Luft bis %.1f cm)" % [pose, hm["luft_max"] * 100.0])
 			if hm["luft_mittel"] > LUFT_MITTEL: r.append("%s Helm sitzt locker (Luft im Mittel %.1f cm)" % [pose, hm["luft_mittel"] * 100.0])
 			if hm["nase"] > NASE: r.append("%s Nasenschutz steht vom Gesicht ab (%.1f cm)" % [pose, hm["nase"] * 100.0])
+			var deck := [mi]
+			var fr := m.find_child("Haar_" + HeldFigur.UNTER_HELM, true, false)
+			if fr: deck.append(fr.get_child(0))
+			var nk2 := nacken_mass(m, sk, ki, deck, ansatz)
+			var sticht := 0
+			if fr: sticht = durchstechen(netz(m, fr.get_child(0) as MeshInstance3D, ki), stueck_v, mi, hm["mitte"])
+			zahlen.append("Nacken %s: Kopfhaut hinten unter der Frisur %s (Haaransatz %.1f cm ueber dem Kopfknochen) %d Ecken, kahl %d; Frisur durch den Helm %d" % [
+				HeldFigur.nacken, HeldFigur.UNTER_HELM, float(ansatz["y"]) * 100.0, nk2["n"], nk2["kahl"], sticht])
+			if nk2["n"] == 0: r.append("%s keine Kopfhaut im Nacken gefunden" % pose)
+			if nk2["kahl"] > 0: r.append("%s Nacken kahl (%d Ecken)" % [pose, nk2["kahl"]])
+			if sticht > 0: r.append("%s Frisur sticht durch den Helm (%d Ecken)" % [pose, sticht])
 		elif art == "bart":
 			var ms := m.find_child("Haar_Hair_Moustache", true, false)
 			if ms == null: r.append("ohne Schnauzbart"); continue
@@ -244,12 +279,13 @@ func helm_mass(m: Node3D, sk: Skeleton3D, ki: Transform3D, hv: PackedVector3Arra
 		for p in netz(m, mi, ki, true, sk):
 			alle.append(p)
 			if p.y > stirn: haut.append(p)
-	var r := {"n": haut.size(), "raus": 0, "luft_max": 0.0, "luft_mittel": 0.0, "nase": 0.0}
+	var r := {"n": haut.size(), "raus": 0, "luft_max": 0.0, "luft_mittel": 0.0, "nase": 0.0, "mitte": Vector3.ZERO}
 	if haut.is_empty() or stirn < -8.0: return r
 	var c := Vector3.ZERO
 	for p in haut: c += p
 	c /= haut.size()
 	c.y = stirn
+	r["mitte"] = c
 	var ix: PackedInt32Array = hm.mesh.surface_get_arrays(0)[Mesh.ARRAY_INDEX]
 	var summe := 0.0
 	var innen := 0
@@ -276,6 +312,150 @@ func helm_mass(m: Node3D, sk: Skeleton3D, ki: Transform3D, hv: PackedVector3Arra
 		for p in alle: best = minf(best, p.distance_to(q))
 		r["nase"] = maxf(r["nase"], best)
 	return r
+
+# Kopfhaut im Nacken (Raum des Kopfknochens) = was die kuerzeste Frisur HeldFigur.UNTER_HELM deckt: ihre Dreiecke an derselben Figur
+# (Helm, Variante A), Ruhepose wie gezeichnet (starr am Kopf, in jeder Pose gleich), und ihre Unterkante hinten (|x| < 3 cm) als Haaransatz
+func haaransatz_von(v: String, g: String, b: BrsHeld) -> Dictionary:
+	var k := v + g
+	if haaransatz.has(k): return haaransatz[k]
+	var vm := HeldFigur.volk_modell(v)
+	var a := HeldFigur.vorgabe("Wachsoldat", g, vm)
+	a["helm"] = "Helm_Templer"   # ohne Helm setzte die Volksregel (Elf, Zwergin) eine andere Frisur; Lage der Frisur haengt nicht am Helm
+	var nv := HeldFigur.nacken
+	HeldFigur.nacken = "A"
+	var m := HeldFigur.baue({"herkunft": "Wachsoldat", "volk": vm, "aussehen": a, "ausruestung": b.ausruestung}, [])
+	HeldFigur.nacken = nv
+	var r := {"y": 9.0, "tri": []}
+	if m:
+		root.add_child(m)
+		var sk := Gebiet.finde(m, "Skeleton3D") as Skeleton3D
+		var ap := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+		sk.skeleton_updated.connect(posen_merken.bind(sk))   # Raum des Kopfknochens wie gezeichnet, wie in fall()
+		ap.play("Stehen")
+		ap.seek(0.0, true)
+		ap.pause()
+		for i in 3: await process_frame
+		var ki := (m.global_transform.affine_inverse() * sk.global_transform * pose(sk, sk.find_bone("Head"))).affine_inverse()
+		var fr := m.find_child("Haar_" + HeldFigur.UNTER_HELM, true, false)
+		if fr:
+			r["tri"] = dreiecke(m, [fr.get_child(0)], ki)
+			for p in netz(m, fr.get_child(0) as MeshInstance3D, ki):
+				if p.z < NACKEN_Z and absf(p.x) < 0.03: r["y"] = minf(r["y"], p.y)
+		m.free()
+	haaransatz[k] = r
+	return r
+
+# Dreiecke von Netzen im Raum ki (netz() reiht die Flaechen aneinander)
+func dreiecke(m: Node3D, netze: Array, ki: Transform3D) -> Array:
+	var tri := []
+	for d in netze:
+		var v := netz(m, d as MeshInstance3D, ki)
+		var am := (d as MeshInstance3D).mesh
+		var o := 0
+		for s in am.get_surface_count():
+			var ix: PackedInt32Array = am.surface_get_arrays(s)[Mesh.ARRAY_INDEX]
+			if ix.is_empty(): ix = PackedInt32Array(range(am.surface_get_array_len(s)))
+			for i in range(0, ix.size(), 3): tri.append([v[o + ix[i]], v[o + ix[i + 1]], v[o + ix[i + 2]]])
+			o += am.surface_get_array_len(s)
+	return tri
+
+# Strahl aus o in Richtung d trifft ein Dreieck an oder hinter dem Abstand l
+func trifft(tri: Array, o: Vector3, d: Vector3, l: float) -> bool:
+	for t in tri:
+		var h = Geometry3D.ray_intersects_triangle(o, d, t[0], t[1], t[2])
+		if h != null and ((h as Vector3) - o).length() >= l - 0.001: return true
+	return false
+
+# Nacken: Ecken der Kopfhaut hinten (Tiefe unter NACKEN_Z), die die kuerzeste Frisur decken wuerde (ref); kahl = kein Dreieck der
+# deckenden Netze dieser Figur (Helm, Frisur) auf dem waagrechten Strahl aus der Kopfachse durch die Ecke an oder hinter ihr
+func nacken_mass(m: Node3D, sk: Skeleton3D, ki: Transform3D, deck: Array, ref: Dictionary) -> Dictionary:
+	var tri := dreiecke(m, deck, ki)
+	var alle := PackedVector3Array()
+	var c := Vector3.ZERO
+	for hm in haut_netze(m):
+		for p in netz(m, hm, ki, true, sk):
+			if p.y > float(ref["y"]):
+				c += p
+				alle.append(p)
+	c /= maxf(1.0, alle.size())
+	var n := 0
+	var kahl := 0
+	for p in alle:
+		if p.z >= NACKEN_Z: continue
+		var o := Vector3(c.x, p.y, c.z)
+		var d := (p - o).normalized()
+		var l := (p - o).length()
+		if not trifft(ref["tri"], o, d, l): continue   # keine Kopfhaut (Hals unter dem Haaransatz, Inneres)
+		n += 1
+		if not trifft(tri, o, d, l):
+			kahl += 1
+			if OS.has_environment("NACKEN_ZEIGEN"): print("KAHL %.3f %.3f %.3f l %.3f" % [p.x, p.y, p.z, l])
+	return {"n": n, "kahl": kahl}
+
+# Ecken der Frisur ausserhalb der aeussersten Helmflaeche (Strahl aus der Kopfmitte auf Hoehe der Stirnlinie wie helm_mass); Ecken, deren
+# Strahl den Helm nicht trifft (unter dem Rand), zaehlen nicht
+func durchstechen(fv: PackedVector3Array, hv: PackedVector3Array, hm: MeshInstance3D, c: Vector3) -> int:
+	var ix: PackedInt32Array = hm.mesh.surface_get_arrays(0)[Mesh.ARRAY_INDEX]
+	var raus := 0
+	for p in fv:
+		var d := (p - c).normalized()
+		var l := (p - c).length()
+		var weit := -1.0
+		for i in range(0, ix.size(), 3):
+			var t = Geometry3D.ray_intersects_triangle(c, d, hv[ix[i]], hv[ix[i + 1]], hv[ix[i + 2]])
+			if t != null: weit = maxf(weit, ((t as Vector3) - c).length())
+		if weit >= 0.0 and weit < l:
+			raus += 1
+			if OS.has_environment("NACKEN_ZEIGEN"): print("STICHT %.3f %.3f %.3f um %.1f mm" % [p.x, p.y, p.z, (l - weit) * 1000.0])
+	return raus
+
+# Erschaffung: Wahl je Volk und Geschlecht (HeldFigur.frisuren, baerte wie erschaffung_brs.gd); neue Stuecke nur bei Elf Mann (Haar) und
+# Zwerg Mann (Bart), alte Wahlen vollzaehlig
+func erschaffung() -> int:
+	var n := 0
+	for v in VOELKER:
+		var vm := HeldFigur.volk_modell(v)
+		for g in ["m", "w"]:
+			n += 1
+			var r := []
+			var zahl := []
+			for teil in ["frisur", "bart"]:
+				var l: Array = HeldFigur.frisuren(g, vm) if teil == "frisur" else HeldFigur.baerte(g, vm)
+				var key := "%s_%s_%s" % [vm, g, teil]
+				var neu := String(NEU_WAHL.get(key, ""))
+				var alt: Array = ALT_WAHL.get(key, [])
+				if alt.is_empty():   # ohne Liste: Wahl wie vor Teil 2 aus held-klassen.json (geschlechter haare, baerte)
+					alt = (Array(HeldFigur.geschlecht_info(g).get("haare", [])) + [""]) if teil == "frisur" else ([""] + Array(HeldFigur.geschlecht_info(g).get("baerte", [])))
+					alt = HeldFigur._volk_filter(alt, vm, g, teil) if not ALT_WAHL.has(key) and HeldFigur.VOLK_KOPF.get(vm, {}).get(g, {}).has(teil) else alt
+				for x in alt: if x not in l: r.append("%s %s fehlt" % [teil, x])
+				for x in l:
+					if x in alt: continue
+					if x != neu: r.append("%s %s neu, nicht erwartet" % [teil, x])
+				if neu != "" and neu not in l: r.append("%s %s fehlt (neu)" % [teil, neu])
+				zahl.append("%s alt %d neu %d" % [teil, alt.size(), l.size()])
+			if not r.is_empty(): fehler += 1
+			print("%s erschaffung %s %s %s%s" % ["FALSCH" if not r.is_empty() else "FALL", v, g, ", ".join(zahl), "" if r.is_empty() else ", FALSCH: " + "; ".join(r)])
+	return n
+
+# Gegenstand auf dem Kopf (Mensch Mann Wachsoldat, ohne aussehen „helm“): helmet zeigt Helm_Templer mit der Frisur der Nackenregel,
+# die anderen Kopfgegenstaende keinen starren Helm
+func gegenstand() -> int:
+	var n := 0
+	for kopf in ["helmet", "hood", "leather_cap", "great_helm"]:
+		n += 1
+		var b := BrsHeld.neu("Mensch", "Wachsoldat")
+		b.ausstatten()
+		var aus := b.ausruestung.duplicate()
+		aus["HEAD"] = {"base": kopf}
+		var m := HeldFigur.baue({"herkunft": "Wachsoldat", "volk": "HUMAN", "aussehen": HeldFigur.vorgabe("Wachsoldat", "m"), "ausruestung": aus}, [])
+		if m == null: fehler += 1; print("FALSCH gegenstand %s keine Figur" % kopf); continue
+		var helm := m.find_child("Haar_Helm_Templer", true, false) != null
+		var fr := m.find_child("Haar_" + HeldFigur.UNTER_HELM, true, false) != null
+		var gut: bool = helm == (kopf == "helmet") and (fr or kopf != "helmet")
+		if not gut: fehler += 1
+		print("%s gegenstand %s: Helm_Templer %s, %s %s" % ["FALL" if gut else "FALSCH", kopf, "ja" if helm else "nein", HeldFigur.UNTER_HELM, "ja" if fr else "nein"])
+		m.free()
+	return n
 
 # Kampfbewegung „Hieb“ aus kampf-bewegungen.bin, wie kampf/figur.gd _kaufheld auf das Geruest des Helden umgesetzt
 func hieb_laden() -> Animation:

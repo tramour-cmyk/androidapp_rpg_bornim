@@ -5,14 +5,19 @@ extends SceneTree
 #   MARKE-Zeilen: Kopf im Bildschirm (fuer den Pfeil neben dem Kopf, kopfteil_bild_2029.sh)
 # haar: Elf Mann, alt Hair_Long, neu Haar_MH01; bart: Zwerg Mann, alt Bart_Breit,Hair_Moustache, neu Bart_Wikinger,Hair_Moustache;
 # helm: Mensch Mann, alt great_helm (Schrankteil KNIGHT_HELM), neu helmet mit Helm_Templer (aussehen „helm“)
-# Aufruf: AUS=<ordner> godot --path . --rendering-method mobile --resolution 540x1170 -s res://tests/kopfteil_bild_2029.gd
+# nacken (2029 Teil 2, ARTEN=nacken): Mensch Mann mit helmet (Helm_Templer), alt (ohne Frisur unter dem Helm wie 685a45298, Schalter
+#   HeldFigur.nacken „alt“), A (kurze Frisur darunter, Vorgabe), B (Nackenschirm); Held von hinten schraeg (DREH_NACKEN), Ausschnitte
+#   vorn, Seite, hinten; MARKE nacken: Nacken im Bild (Kopfknochen + 3 cm, hinten) fuer den Pfeil
+# Aufruf: [ARTEN=haar,bart,helm,nacken] AUS=<ordner> godot --path . --rendering-method mobile --resolution 540x1170 -s res://tests/kopfteil_bild_2029.gd
 const DREH := 25.0
 const ZEIT := 0.4
 const FAELLE := {
 	"haar": {"volk": "Elf", "g": "m", "alt": {"frisur": "Hair_Long"}, "neu": {"frisur": "Haar_MH01"}},
 	"bart": {"volk": "Zwerg", "g": "m", "alt": {"bart": "Bart_Breit,Hair_Moustache"}, "neu": {"bart": "Bart_Wikinger,Hair_Moustache"}},
 	"helm": {"volk": "Mensch", "g": "m", "alt": {"kopf": "great_helm"}, "neu": {"kopf": "helmet", "helm": "Helm_Templer"}},
+	"nacken": {"volk": "Mensch", "g": "m", "alt": {"kopf": "helmet", "nacken": "alt"}, "A": {"kopf": "helmet", "nacken": "A"}, "B": {"kopf": "helmet", "nacken": "B"}},
 }
+const DREH_NACKEN := 150.0
 var aus := OS.get_environment("AUS")
 
 func _initialize() -> void: _lauf.call_deferred()
@@ -22,9 +27,11 @@ func _lauf() -> void:
 		print("KOPFTEILBILD2029 ohne AUS oder ohne Kaufmodelle"); quit(0); return
 	DirAccess.make_dir_recursive_absolute(aus)
 	Sprache.lang = "de"
-	for art in ["haar", "bart", "helm"]:
-		for wie in ["alt", "neu"]:
+	var arten := OS.get_environment("ARTEN").split(",", false) if OS.get_environment("ARTEN") != "" else PackedStringArray(["haar", "bart", "helm"])
+	for art in arten:
+		for wie in (["alt", "A", "B"] if art == "nacken" else ["alt", "neu"]):
 			var f: Dictionary = FAELLE[art]
+			HeldFigur.nacken = String((f[wie] as Dictionary).get("nacken", "A"))
 			var e := ErschaffungBrs.new()
 			root.add_child(e)
 			await process_frame
@@ -36,24 +43,26 @@ func _lauf() -> void:
 			for i in 3: await process_frame
 			var t := e.teller
 			t.dreht = false
-			t.teller.rotation.y = deg_to_rad(DREH)
+			t.teller.rotation.y = deg_to_rad(DREH_NACKEN if art == "nacken" else DREH)
 			_pose(t.teller)
 			for i in 4: await process_frame
 			await RenderingServer.frame_post_draw
 			var p := aus.path_join("%s_%s_spiel.png" % [art, wie])
 			root.get_texture().get_image().save_png(p)
-			_marke(p, t)
+			_marke(p, t, art == "nacken")
 			print("BILD ", p, " Modell ", t.teller.get_child(0).get_meta("tracht", "-"), " Kopf ", _kopf(t.teller.get_child(0)))
 			e.queue_free()
 			await process_frame
-			for ansicht in ["vorn", "seite"]:
+			for ansicht in (["vorn", "seite", "hinten"] if art == "nacken" else ["vorn", "seite"]):
 				await _ausschnitt(w, art, wie, ansicht)
+			HeldFigur.nacken = "A"
 	print("KOPFTEILBILD2029 fertig")
 	quit(0)
 
 func wahl(w: Dictionary, x: Dictionary) -> Dictionary:
 	w = w.duplicate(true)
 	for k in x:
+		if k == "nacken": continue
 		if k == "kopf":
 			var st: Dictionary = (w["ausruestung"].get("CHEST", {}) as Dictionary).duplicate()
 			st["base"] = x[k]
@@ -67,7 +76,7 @@ func _kopf(m: Node) -> String:
 	for mi in m.find_children("Teil_*", "MeshInstance3D", true, false): if (mi as MeshInstance3D).is_visible_in_tree(): l.append(String(mi.name))
 	return ",".join(l)
 
-func _marke(p: String, t: Drehteller) -> void:
+func _marke(p: String, t: Drehteller, nacken := false) -> void:
 	var held := t.teller.get_child(0) as Node3D
 	var sk := Gebiet.finde(held, "Skeleton3D") as Skeleton3D
 	var vp := t.get_child(0) as SubViewport
@@ -77,6 +86,9 @@ func _marke(p: String, t: Drehteller) -> void:
 	var kopf := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head"))
 	var k := tf * (cam.unproject_position(kopf.origin + Vector3(0, 0.08, 0)) * f)
 	print("MARKE %s kopf %d %d" % [p.get_file(), k.x, k.y])
+	if nacken:
+		var n := tf * (cam.unproject_position(kopf * Vector3(0, 0.03, -0.09)) * f)
+		print("MARKE %s nacken %d %d" % [p.get_file(), n.x, n.y])
 
 func _pose(n: Node) -> void:
 	for ap in n.find_children("*", "AnimationPlayer", true, false):
@@ -114,6 +126,7 @@ func _ausschnitt(w: Dictionary, art: String, wie: String, ansicht: String) -> vo
 	if ap and ap.has_animation("Stehen"): ap.play("Stehen")
 	sv.add_child(m)
 	if ansicht == "seite": m.rotation.y = PI / 2.0   # Blick nach rechts im Bild
+	if ansicht == "hinten": m.rotation.y = PI
 	for k in 3: await process_frame
 	_pose(sv)
 	for k in 3: await process_frame
@@ -130,5 +143,8 @@ func _ausschnitt(w: Dictionary, art: String, wie: String, ansicht: String) -> vo
 	var p := aus.path_join("%s_%s_%s.png" % [art, wie, ansicht])
 	sv.get_texture().get_image().save_png(p)
 	print("BILD ", p)
+	if art == "nacken":   # Nacken im Ausschnitt (Kopfknochen + 3 cm, hinten)
+		var nk := kam.unproject_position(sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head")) * Vector3(0, 0.03, -0.09))
+		print("MARKE %s nacken %d %d" % [p.get_file(), nk.x, nk.y])
 	sv.queue_free()
 	await process_frame

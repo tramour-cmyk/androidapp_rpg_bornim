@@ -6,4 +6,5 @@ bart_wikinger.glb (2029): aus MakeHuman-Asset-Paket bodyparts05, "rehmanpolanski
 https://static.makehumancommunity.org/assets/assetpacks/bodyparts05.html (gelesen 25.11.2026)
 helm_templer.glb (2029): aus MakeHuman-Asset-Paket hats02, "javherre_casco_caballero_templario_templar_knight_helmet" (javherre), CC0 laut Paketseite und packs/hats02.json;
 https://static.makehumancommunity.org/assets/assetpacks/hats02.html (gelesen 25.11.2026); Kopf der .mhclo "author Unknown, license AGPL3" = Vorgabe von MakeClothes
-alle drei gebaut mit tools/blender348/v3/kopfteil_mh.py, gesetzt auf das MakeHuman-Grundnetz base.obj (CC0, makehumancommunity/makehuman, makehuman/data/3dobjs/base.obj)
+helm_templer_b.glb (2029 Teil 2, Variante B Nackenschirm): dasselbe Stueck wie helm_templer.glb (hats02, javherre, CC0), Rand hinten gezogen
+alle vier gebaut mit tools/blender348/v3/kopfteil_mh.py, gesetzt auf das MakeHuman-Grundnetz base.obj (CC0, makehumancommunity/makehuman, makehuman/data/3dobjs/base.obj)

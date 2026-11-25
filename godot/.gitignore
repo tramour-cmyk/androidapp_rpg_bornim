@@ -20,6 +20,16 @@ daten/klang/liste.json
 kampf/daten/
 .godot/
 *.import
+# 2029 (Sokrates 25.11., 16:27): Import der starren Kopfteile (KOPFTEILE in heldfigur.gd) eingecheckt, damit ein frischer Klon und der
+# Bau die Stuecke laden; nur diese Dateien
+!figuren/haar_mh01.glb.import
+!figuren/haar_mh01__Haar_MH01.png.import
+!figuren/bart_wikinger.glb.import
+!figuren/bart_wikinger__Bart_Wikinger.png.import
+!figuren/helm_templer.glb.import
+!figuren/helm_templer__Helm_Templer.jpg.import
+!figuren/helm_templer_b.glb.import
+!figuren/helm_templer_b__Helm_Templer_B.jpg.import
 # 415 (Jerry): Beams Free Sample (reeboolabs), Lizenz verbietet Weitergabe; im Bau aus bornim-kaufmodelle (godot.yml)
 addons/reeboo_beams/
 # 804 (Spike): Grass & Wind Kit (REEBOO, gekauft), Lizenz verbietet Weitergabe; im Bau aus bornim-kaufmodelle stufe1 (godot.yml)
