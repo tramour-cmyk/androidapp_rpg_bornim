@@ -1,13 +1,14 @@
 extends SceneTree
 # 431 Schritt 3 (Auftrag 24.11., 08:31): Bilder zum Beleglauf, Renderer wie am Handy (mobile), Bildschirm 540x1170.
 #   erschaffung_<volk>_<m|w>_<alt|neu>.png: die echte Erschaffung (ErschaffungBrs) mit Volk und Geschlecht, Herkunft Wachsoldat,
-#     Held angehalten in derselben Drehung und Pose; alt = Menschenkoerper wie vor 431 (HeldFigur.ohne_volk), neu = Volkskoerper
+#     Held angehalten in derselben Drehung und Pose; v1/v2 = wahre Groesse mit Massstab V1/V2 (431 Nachbesserung); MARKE-Zeilen fuer die Markierung
 #   reihe_vorn.png, reihe_seite.png, reihe_hinten.png: alle zehn Figuren nebeneinander in wahrer Groesse (Spielfigur, Toon-Licht, Tusche),
 #     vorn und von der Seite in der Startausruestung, hinten der Wachsoldat in Platte (Brustplatte, Panzerhandschuhe, Beinschienen; ohne Umhang, Sokrates 24.11., 09:39)
 # Beschriftung setzt godot.yml (ImageMagick). Aufruf: AUS=<ordner> godot --path . --rendering-method mobile --resolution 540x1170 -s res://tests/voelker_bild_431.gd
 const VOELKER := ["Mensch", "Elf", "Zwerg", "Hügelvolk", "Orkblütiger"]
 const DREH := 25.0       # Grad: Drehung des Helden im Teller (leicht von der Seite, Umriss)
 const ZEIT := 0.4        # s in „Stehen“
+const ARTEN := ["v1", "v2"]   # 431 Nachbesserung: Massstab V1 (Groessenlinie) und V2 (Menschenumriss); alt kommt aus 5df25b2af (godot.yml)
 var aus := OS.get_environment("AUS")
 
 func _initialize() -> void: _lauf.call_deferred()
@@ -17,10 +18,12 @@ func _lauf() -> void:
 		print("VOELKERBILD431 ohne AUS oder ohne Kaufmodelle"); quit(0); return
 	DirAccess.make_dir_recursive_absolute(aus)
 	Sprache.lang = "de"   # deutsch wie beim Chef, ohne die Einstellung zu speichern
+	var nur := OS.get_environment("NUR")   # Probe am Rechner: nur dieses Volk
 	for v in VOELKER:
+		if nur != "" and _datei(v) != nur: continue
 		for g in ["m", "w"]:
-			for art in ["alt", "neu"]:
-				HeldFigur.ohne_volk = art == "alt"
+			for art in ARTEN:
+				ErschaffungBrs.MASSSTAB = 2 if art == "v2" else 1
 				var e := ErschaffungBrs.new()
 				root.add_child(e)
 				await process_frame
@@ -37,14 +40,31 @@ func _lauf() -> void:
 				var p := aus.path_join("erschaffung_%s_%s_%s.png" % [_datei(v), g, art])
 				img.save_png(p)
 				print("BILD ", p, " Modell ", _modell(t.teller))
+				_marken(p, t)
 				e.queue_free()
 				await process_frame
-	HeldFigur.ohne_volk = false
+	ErschaffungBrs.MASSSTAB = 1
+	if nur != "": quit(0); return
 	await _reihe("vorn")
 	await _reihe("seite")
 	await _reihe("hinten")
 	print("VOELKERBILD431 fertig")
 	quit(0)
+
+# Bildpunkte fuer die Markierung (voelker_bild_431.sh): Kopf (Bart, Haar, Zoepfe, Haut) und Schild, im Fenster
+func _marken(p: String, t: Drehteller) -> void:
+	var held := t.teller.get_child(0) as Node3D
+	var sk := Gebiet.finde(held, "Skeleton3D") as Skeleton3D
+	var vp := t.get_child(0) as SubViewport
+	var cam := vp.get_camera_3d()
+	var tf := t.get_viewport().get_final_transform() * t.get_global_transform_with_canvas()
+	var f := t.size / Vector2(vp.size)
+	var kopf := sk.global_transform * sk.get_bone_global_pose(sk.find_bone("Head"))
+	var k := tf * (cam.unproject_position(kopf.origin + Vector3(0, 0.05, 0)) * f)
+	var sch := Vector2(-1, -1)
+	var sn := held.find_child("*shield*", true, false) as Node3D
+	if sn: sch = tf * (cam.unproject_position(sn.global_position) * f)
+	print("MARKE %s kopf %d %d schild %d %d" % [p.get_file(), k.x, k.y, sch.x, sch.y])
 
 func _datei(v: String) -> String: return HeldFigur.kennung(v).to_lower()
 

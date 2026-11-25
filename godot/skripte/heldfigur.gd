@@ -107,8 +107,28 @@ static func wort(k: String) -> String:
 	return String(w[0] if Sprache.aktiv() == "de" else w[1])
 
 static func formen() -> Array: return [""] + Array(lade_info().get("formen", []))
-static func frisuren(g := "m") -> Array: return Array(geschlecht_info(g).get("haare", [])) + [""]
-static func baerte(g := "m") -> Array: return [""] + Array(geschlecht_info(g).get("baerte", []))
+static func frisuren(g := "m", volk := "HUMAN") -> Array: return _volk_filter(Array(geschlecht_info(g).get("haare", [])) + [""], volk, g, "frisur")
+static func baerte(g := "m", volk := "HUMAN") -> Array: return _volk_filter([""] + Array(geschlecht_info(g).get("baerte", [])), volk, g, "bart")
+
+# 431 (LISTE-FIGUREN.md „Völker“ Punkt 3; Systemfrage 431: die Volksregel geht ueber die Herkunft, ein Filter je Volk fuer Held, Leute
+# und Soeldner): erlaubte Frisuren und Baerte je Volk und Geschlecht, das erste ist der Ersatz, wenn Herkunft oder Wahl anderes bringt.
+# Elf langes Haar, nie Bart; Zwerg Vollbart bis aufs Brustbein mit Schnauzbart (held_klassen.py Bart_Breit, Hair_Moustache), Zwergin ohne
+# Bart; Huegelvolk hoechstens kurzer Bart. Zwergin zwei Schlaefenzoepfe: kein Netz im Bestand (Frage 431, 25.11.)
+const VOLK_KOPF := {
+	"ELF": {"m": {"frisur": ["Hair_Long", "Hair_LongDreads"], "bart": [""]}, "w": {"frisur": ["Hair_Long", "Hair_LongDreads"], "bart": [""]}},
+	"DWARF": {"m": {"bart": ["Bart_Breit,Hair_Moustache"]}, "w": {"bart": [""]}},
+	"HALFLING": {"m": {"bart": ["", "Hair_Moustache"]}},
+}
+static func _volk_filter(l: Array, volk: String, g: String, teil: String) -> Array:
+	var erlaubt: Array = VOLK_KOPF.get(volk_modell(volk), {}).get(g.to_lower(), {}).get(teil, [])
+	return l if erlaubt.is_empty() else erlaubt
+
+static func volk_kopf(a: Dictionary, volk: String) -> Dictionary:
+	var g := String(a.get("geschlecht", "m")).to_lower()
+	for teil in ["frisur", "bart"]:
+		var erlaubt: Array = VOLK_KOPF.get(volk_modell(volk), {}).get(g, {}).get(teil, [])
+		if not erlaubt.is_empty() and String(a.get(teil, "")) not in erlaubt: a[teil] = erlaubt[0]
+	return a
 
 # Angaben zum Kopf des Geschlechts (held_klassen.py haare): kopf, haut_bild, haar_bild, haare, baerte; ohne „geschlechter“ wie bisher oben
 static func geschlecht_info(g: String) -> Dictionary:
@@ -158,12 +178,12 @@ static func vorgabe(herkunft_: String, geschlecht := "m", volk := "HUMAN") -> Di
 	v["geschlecht"] = geschlecht
 	if geschlecht == "w":
 		v["frisur"] = String(FRAU_FRISUR.get(k, "Hair_Long")); v["bart"] = ""
-	return v
+	return volk_kopf(v, volk)
 
 static func aussehen_voll(a: Dictionary, herkunft_ := "", volk := "HUMAN") -> Dictionary:
 	var v := vorgabe(herkunft_, String(a.get("geschlecht", "m")), volk)
 	for k in a: v[k] = a[k]
-	return v
+	return volk_kopf(v, volk)
 
 # 416.4: Tempo ohne Gleiten der Bewegung n in der Bewegungsdatei (held-klassen.json; Pakete unter gang.<art>), vor dem Umtakten
 static func _eigen(n: String) -> float:

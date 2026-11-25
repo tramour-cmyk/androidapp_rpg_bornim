@@ -409,21 +409,8 @@ func _fell_nr() -> int:
 ## 348.12f eingebaut (Chef 28.10., 11:50, Archiv: Kaufwolf und Ratte abgenommen): gekaufte Modelle liegen im APK nur verschlüsselt
 ## (348.12i: verschluesseln.sh „BKV1“, IV, AES-256-CBC mit PKCS7; wie Toms gebiet.gd entschluessele); unverschlüsselte gehen durch
 static func lade_bin(p: String) -> PackedByteArray:
-	var b := FileAccess.get_file_as_bytes(p)
-	if b.size() < 36 or b.slice(0, 4).get_string_from_ascii() != "BKV1":
-		return b
-	if Schluessel.KAUF.length() != 64 or (b.size() - 20) % 16 != 0:
-		push_error("verschlüsselt, ohne Schlüssel: %s" % p)
-		return PackedByteArray()
-	var aes := AESContext.new()
-	aes.start(AESContext.MODE_CBC_DECRYPT, Schluessel.KAUF.hex_decode(), b.slice(4, 20))
-	var d := aes.update(b.slice(20))
-	aes.finish()
-	var pad := d[d.size() - 1]
-	if pad < 1 or pad > 16:
-		push_error("falscher Schlüssel: %s" % p)
-		return PackedByteArray()
-	return d.slice(0, d.size() - pad)
+	# 431 (Hinweis Pruefer 24.11., 16:06): ein Weg fuer alle Modelle, entschluesselt und packt aus (Gebiet.entschluessele, entpacke)
+	return Gebiet.entschluessele(FileAccess.get_file_as_bytes(p), p)
 
 
 ## 387: Felle eines gekauften Tiers (Schlüssel in <art>-info.json, wie kauftier.py sie baut); einmal gelesen je Art
