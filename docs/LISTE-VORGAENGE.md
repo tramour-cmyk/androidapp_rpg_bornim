@@ -178,8 +178,8 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2028 | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 25.11., 12:32) | 3 | E Figuren | M | – | – | claude/figur-2028-handgelenk | *gebaut, Geprüft an: cf7d57d45 (Prüfer 25.11., 17:00 Ja zur Ursache; Reste in 2032, 2033)* | *–* | *0* | *18,76 $* |
 | 2029 | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielkamera (2026 A) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *24,32 $* |
 | 2031 | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt gegen neu (Chef 13:39) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *17,98 $* |
-| 2032 | Rowena: rechte Finger auf dem Gürtel dunkel, gelbe Kleid-Innenseite sichtbar (Rest aus 2028, Prüfer 25.11., 17:00) | 3 | E Figuren | M | – | – | – | *in Arbeit, Prüfer prüft (2032-Ü2)* | *–* | *0* | *–* |
-| 2034 | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NPCs, als zusätzliche Auswahl (Chef 25.11., 17:07 zu 2029 „alles“) | 3 | E Figuren | M | – | – | – | *in Arbeit, steckt fest* | *–* | *0* | *9,76 $* |
+| 2032 | Rowena: rechte Finger auf dem Gürtel dunkel, gelbe Kleid-Innenseite sichtbar (Rest aus 2028, Prüfer 25.11., 17:00) | 3 | E Figuren | M | – | – | – | *in Arbeit, Prüfer prüft (2032-Ü2)* | *–* | *0* | *7,66 $* |
+| 2034 | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NPCs, als zusätzliche Auswahl (Chef 25.11., 17:07 zu 2029 „alles“) | 3 | E Figuren | M | Disponent | – | – | *startbar, nächster freier Platz (Chef 20:04 beantwortet)* | *–* | *0* | *14,56 $* |
 | 1632 | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtempo, je Waffe und Gangart (1619) | 3 | E Figuren | K | t301 | 1619 | claude/spike-1619-gang-main | *gebaut, Geprüft an: bad5be71b* | *–* | *0* | *–* |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | 3 | E Figuren | K | – | – | – | *aufgeteilt* | *–* | *0* | *1,06 $* |
 | 417.1 | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, Stabgang) | 3 | E Figuren | K | 23.11. | 417 | claude/tom-417-tragart | *ruht* | *–* | *0* | *–* |
@@ -338,4 +338,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 2036 | Rufnamen: Fachkräfte weiblich, alle anderen Rollen männlich; Sokrates und Alter Ego bleiben (Chef 25.11., 18:04) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *3,72 $* |
 | 2038 | Von Werkzeug (Startwarnung Pflege, 1642, seit 25.11., 12:20): ARBEIT-TAGESBERICHT.md: Tagesbericht 35 Stunden alt (höchstens 26, 341 Z1, 448): Perikles setzt ihn neu | 7 | B Abläufe | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 2039 | Chefsache: nichts zum Angucken; Filme auf Telegram ohne Abstimmschaltfläche (Chef 25.11., 19:25) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 2039 | Chefsache: nichts zum Angucken; Filme auf Telegram ohne Abstimmschaltfläche (Chef 25.11., 19:25) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *4,10 $* |
