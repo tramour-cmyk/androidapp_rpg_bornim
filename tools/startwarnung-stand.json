@@ -14,8 +14,13 @@
  "groesse:docs/ARBEIT-BETRIEB.md": {
   "besitzer": "Disponent",
   "seit": "2026-11-24T07:50+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 50479 Bytes (Grenze 30000), Erledigtes streichen",
+  "text": "docs/ARBEIT-BETRIEB.md hat 66140 Bytes (Grenze 30000), Erledigtes streichen",
   "vorgang": "2023"
+ },
+ "regel:ARBEIT-TAGESBERICHT.md:Tagesbericht N Stunden alt (höchstens N ": {
+  "besitzer": "Arbeitsplaner",
+  "seit": "2026-11-25T12:20+01:00",
+  "text": "ARBEIT-TAGESBERICHT.md: Tagesbericht 28 Stunden alt (höchstens 26, 341 Z1, 448): Perikles setzt ihn neu"
  },
  "regel:ARBEIT-TEAM-JERRY.md:Übergabe über N Zeichen (nur Getanes und": {
   "besitzer": "Arbeitsplaner",
@@ -26,6 +31,7 @@
  "regel:startbar.py:UNLESBAR N: Besitzer „Wochenzählung“ (nu": {
   "besitzer": "Disponent",
   "seit": "2026-11-24T18:41+01:00",
-  "text": "startbar.py: UNLESBAR 2018: Besitzer „Wochenzählung“ (nur Homer, Tom, Jerry, Spike, Perikles, Diogenes, Sokrates, Ford, Ideen, Arbeitsplaner, Regeln, Kampf, Figur, Kataloge, Welt, Klang, Oberfläche, Story, Technik"
+  "text": "startbar.py: UNLESBAR 2018: Besitzer „Wochenzählung“ (nur Homer, Tom, Jerry, Spike, Perikles, Diogenes, Sokrates, Ford, Ideen, Arbeitsplaner, Regeln, Kampf, Figur, Kataloge, Welt, Klang, Oberfläche, Story, Technik",
+  "vorgang": "2027"
  }
 }
