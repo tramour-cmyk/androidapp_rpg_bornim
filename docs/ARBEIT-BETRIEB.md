@@ -335,3 +335,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:11 25.11.: Planerin Mia 2029 Kopfteile-Probe (session_01Hmoj77zLbPT9mxRvfvoUKB, Deckel 30 $, Halt 24 $); alter Sokrates (…76pVj4) war schon archiviert; Sokrates läuft als …77b3dQ (START/ARCHIVIERE Sokrates von lauf.py nicht ausführen).
 - 13:11 25.11.: Startsperre 13:10 Start Figur (lauf.py, Figur 2028 Nora)
 - 13:12 25.11.: START Figur Nora 2028 (session_01Hmoj76SFWSo5MsovSNZmPq, Rowena Handgelenke); Planerin Jana archiviert, 0,97 $.
+- 13:15 25.11.: Startsperre 13:14 Start Figur (lauf.py, Figur 2029 Ute)
