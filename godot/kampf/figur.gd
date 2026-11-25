@@ -4187,23 +4187,64 @@ func bahn_punkte() -> Array:
 func umriss_r() -> float:
 	if fighter.monster == null:
 		return HERO_R
-	var box := footprint()
+	var box := kapsel_kasten()
 	return maxf(0.5 * minf(box.size.x, box.size.z), 0.1)     # der Kasten ist im eigenen Raum, die Figur steht skaliert
 
 
 func kapsel_laenge() -> float:
 	if fighter.monster == null:
 		return 0.0
-	var box := footprint()
+	var box := kapsel_kasten()
 	return absf(box.size.x - box.size.z)
 
 
 ## Achse der Kapsel am Boden (Welt, x und z), längs der langen Seite des Kastens, gedreht mit der Figur
 func kapsel_achse() -> Vector2:
-	var box := footprint() if fighter.monster != null else AABB()
+	var box := kapsel_kasten() if fighter.monster != null else AABB()
 	var lok := Vector3.RIGHT if box.size.x >= box.size.z else Vector3.BACK
 	var w := Basis(Vector3.UP, rotation.y) * lok
 	return Vector2(w.x, w.z)
+
+
+## 1589.4 (Sokrates 25.11., 14:24 zu Ü20): der Kasten, aus dem die Kapsel kommt. Tiere: der Kasten der Netze in Ruhe (footprint);
+## Zweibeiner (Goblin, Kobold, Späher, Schamane, Skelett, Wiedergänger, Krogg, Grak): ihr Netz trägt Waffe, Bodenschatten oder ruht in
+## T-Haltung, darum wie beim Kaufhelden (438) der Kasten der Rumpf- und Beinknochen in Ruhe, um KAUF_RAND erweitert (ohne Arme ab
+## Schlüsselbein oder Schulter, ohne IK- und Waffenknochen)
+var _kk := AABB()
+var _kk_ok := false
+func kapsel_kasten() -> AABB:
+	if not _zweibeiner():
+		return footprint()
+	if not _kk_ok:
+		_kk_ok = true
+		_kk = footprint()
+		var sk := _find(model, "Skeleton3D") as Skeleton3D if model else null
+		if sk:
+			var inv := global_transform.affine_inverse()
+			var first := true
+			for bi in sk.get_bone_count():
+				if _arm_oder_waffe(sk, bi):
+					continue
+				var q: Vector3 = inv * (sk.global_transform * sk.get_bone_global_rest(bi).origin)
+				var bb := AABB(q - Vector3(KAUF_RAND, 0.0, KAUF_RAND), Vector3(2 * KAUF_RAND, 0.0, 2 * KAUF_RAND))
+				_kk = bb if first else _kk.merge(bb)
+				first = false
+			_kk.position.y = 0.0
+			_kk.size.y = 1.8
+	return _kk
+
+
+func _arm_oder_waffe(sk: Skeleton3D, bi: int) -> bool:
+	var n := sk.get_bone_name(bi).to_lower()
+	if n.begins_with("ik_") or n == "axt" or n.contains("weapon"):
+		return true
+	var b := bi
+	while b >= 0:
+		var m := sk.get_bone_name(b).to_lower()
+		if m.contains("clavicle") or m.begins_with("chesttop-sh"):
+			return true
+		b = sk.get_bone_parent(b)
+	return false
 
 
 ## die eigene Kapsel jetzt in der Welt [p, q, r] (Arena.kapsel), um die Mitte des Körpers (Kasten), gedreht mit der Figur
@@ -4215,7 +4256,7 @@ func umriss_kapsel() -> Array:
 func kapsel_bei(p: Vector2, yaw: float) -> Array:
 	if fighter.monster == null:
 		return Arena.kapsel(p, Vector2.RIGHT, 0.0, HERO_R)
-	var box := footprint()
+	var box := kapsel_kasten()
 	var c := Basis(Vector3.UP, yaw) * box.get_center()
 	var lok := Vector3.RIGHT if box.size.x >= box.size.z else Vector3.BACK
 	var w := Basis(Vector3.UP, yaw) * lok
@@ -4244,7 +4285,7 @@ func kapsel_am_ziel(b: Vector2) -> Array:
 func weg_laenge() -> float:
 	if fighter.monster == null:
 		return 0.0
-	var box := footprint()
+	var box := kapsel_kasten()
 	var c := box.get_center()
 	return kapsel_laenge() + 2.0 * absf(c.x if box.size.x >= box.size.z else c.z)
 

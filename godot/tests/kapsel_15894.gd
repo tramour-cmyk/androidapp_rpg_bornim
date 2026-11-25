@@ -34,11 +34,18 @@ func _lauf() -> void:
 				if gesehen.has(art):
 					continue
 				gesehen[art] = true
-				var b: AABB = o.footprint()
+				var b: AABB = o.kapsel_kasten()
 				var r: float = o.umriss_r()
 				var l: float = o.kapsel_laenge()
 				var z := [art, b.position.x, b.position.z, b.end.x, b.end.z, r, l, "x" if b.size.x >= b.size.z else "z"]
 				zeilen.append(z)
+				if OS.get_environment("KNOCHEN") != "" and o._zweibeiner():
+					var sk = o._find(o.model, "Skeleton3D")
+					if sk:
+						var nm := []
+						for i in sk.get_bone_count():
+							nm.append(sk.get_bone_name(i))
+						print("KNOCHEN %s %s" % [art, nm])
 				print("KAPSEL %s kasten %.2f %.2f %.2f %.2f (%.2f x %.2f) Maßstab %.2f r %.2f laenge %.2f achse %s" % [art, z[1], z[2], z[3], z[4], b.size.x, b.size.z, o.scale.x, r, l, z[7]])
 			kf.queue_free()
 		p.queue_free()
