@@ -368,3 +368,4 @@ STARTSPERRE - 16:38 25.11.: Startsperre 16:38 Start Sokrates (lauf.py, 1988)
 - 17:00 25.11.: Takt 16:58: Nora (2028, 16,47 $) archiviert; Prüfer (…75ccpj) 2028-Ü4 und 2029-Ü8 per Nachricht geweckt (Sokrates 16:58); START Planer Nils 887, Planer Paula 1484, Kampf Olga 1589.4, Tagesbericht nicht ausgeführt (ruht/Werkzeug/Maja läuft/Chef-Ruhe); lauf.py-Startsperre-Marken irrtümlich gesetzt.
 STARTSPERRE - 17:01 25.11.: Startsperre 17:01 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2028 Moritz)
 - 17:03 25.11.: Prüfer 17:00: 2029 ja (Vorlage über Sokrates, Ü9/Ü10 erledigt), 2028 nein, Auftrag → Planer Moritz session_01Hmoj7A4gb2iWB6Stj3R5Bh (Deckel 50 $).
+- 17:04 25.11.: Startsperre 17:04 Start Tagesbericht (lauf.py, 448)
