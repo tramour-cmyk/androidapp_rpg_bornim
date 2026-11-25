@@ -67,7 +67,7 @@ func einrichten(h: Animation, ap: AnimationPlayer, sk: Skeleton3D) -> bool:
 			k = sk.get_bone_parent(k)
 		if k == wurzel and dreh.has(b):
 			_spuren.append([b, dreh[b], ort.get(b, -1)])
-	_axt = sk.find_bone("axt") if sk.find_bone("axt") >= 0 else sk.find_bone("waffe")     # 2024: auch Kroggs Morgenstern
+	_axt = sk.find_bone("axt")     # nur Graks Axt; Kroggs Knochen „waffe“ hält faustgriff.gd (2024, Fund)
 	_hand = sk.find_bone("hand_r")
 	_kette_hand.clear()
 	_kette_axt.clear()
