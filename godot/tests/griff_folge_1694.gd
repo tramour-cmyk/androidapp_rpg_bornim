@@ -248,6 +248,9 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 	var sch := Griff.schaft(ding, halt)
 	var fu := Fuehler.new(); ding.add_child(fu)
 	var netze := _hand_netze(sk)
+	var probe := _probe_menge(sk, netze)
+	print("BILD1694 griff.gd-Probe: Handfläche Säule %d Ecken (r %.2f cm, Haut %.2f cm, Eindruck %.1f cm); Finger %d Ecken aus Griff.netz_finger" % [
+		probe.saeule_n, probe.r * 100.0, probe.hm.x * 100.0, Griff.EINDRUCK * 100.0, probe.finger_n])
 	var mods := _mods(sk)
 	var schritt := []   # je Modifikator im laufenden Bild: [name, {glied: Vector3 cm in Waffe}, Waffe Ursprung Welt]
 	var intern := {}   # Inhalt wird ersetzt (Lambda fängt die Variable als Wert)
@@ -258,7 +261,13 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 			var Wi := W.affine_inverse(); var G := sk.global_transform
 			var l := {}
 			for g in DREI: l[g] = Wi * (G * sk.get_bone_global_pose(sk.find_bone(g)).origin) * 100.0 * W.basis.y.length()
-			schritt.append([xn, l, ding.global_position])
+			var extra := ""
+			if x is Tragen:
+				var tr := x as Tragen
+				var mo = tr.merk.get("o"); var md = tr.merk.get("d")
+				extra = " zwei_winkel %.1f° merk.o %s merk.d %s" % [tr.zwei_winkel, "FEHLT" if mo == null else _v((mo as Vector3) * 100.0, 2), "FEHLT" if md == null else _v(md, 3)]
+			elif x.get_class() == "SkeletonModifier3D" and x.has_method("get_skeleton"): pass
+			schritt.append([xn + extra, l, ding.global_position])
 			if x == mods[mods.size() - 1]:
 				intern.clear(); intern.merge(_intern(sk, ding, halt, sch, R)))
 	var zeilen_b := []
@@ -271,8 +280,8 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 		schritt.clear()
 		z["netz"] = _gezeichnet(sk, netze, Wg * R, sch)
 		z["netz_rs"] = _gezeichnet(sk, netze, fu.xf * R, sch)
-		var zl := _zerlegt(sk, netze, Wg * R, sch)
-		z["starr"] = zl[0]; z["lbs"] = zl[1]
+		var zl := _zerlegt(sk, netze, Wg * R, sch, probe)
+		z["starr"] = zl[0]; z["lbs"] = zl[1]; z["tief"] = zl[2]; z["probe"] = zl[3]
 		# gezeichnete Knochenlage (RenderingServer) von hand_r, index_01_r, pinky_01_r in Waffenkoordinaten
 		var Wi := (Wg * R).affine_inverse(); var k := (Wg * R).basis.y.length()
 		var dl := {}
@@ -309,6 +318,11 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 		var hz := ""
 		for gl in GLIEDER: hz += " %s %s/%s/%s" % [gl.trim_suffix("_r"), _z(z.starr.get(gl)), _z(z.lbs.get(gl)), _z(z.netz.get(gl))]
 		print("BILD1694 P%3d Haut starr(Hauptknochen, wie griff.gd)/gewichtet(ohne Formschlüssel)/gezeichnet |%s" % [z.p - start, hz])
+		var tz := ""
+		for gl in ["hand_r", "pinky_01_r", "index_01_r"]:
+			var t0 = z.tief.get(gl)
+			tz += " %s tiefste Ecke %s %s, in griff.gd-Probe tiefste %s;" % [gl, _z(t0[0]) if t0 != null else "FEHLT", t0[1] if t0 != null else "", _z(z.probe.get(gl))]
+		print("BILD1694 P%3d Lage%s" % [z.p - start, tz])
 		for g in DREI:
 			if z.rs[g] == null: continue
 			var v: Vector3 = z.rs[g]
@@ -399,9 +413,9 @@ func _gezeichnet(sk: Skeleton3D, netze: Array, W: Transform3D, sch: Dictionary) 
 
 # dieselben Ecken aus den Knochenlagen des RenderingServers (T_k = Pose · Bindpose): starr am Hauptknochen (so rechnet griff.gd,
 # Griff.netz_finger) und gewichtet Σ w·T_k (wie der Renderer, ohne Formschlüssel)
-func _zerlegt(sk: Skeleton3D, netze: Array, W: Transform3D, sch: Dictionary) -> Array:
+func _zerlegt(sk: Skeleton3D, netze: Array, W: Transform3D, sch: Dictionary, probe: Dictionary) -> Array:
 	var Wi := W.affine_inverse(); var k := W.basis.y.length()
-	var st := {}; var lb := {}
+	var st := {}; var lb := {}; var tief := {}; var pr := {}
 	for n in netze:
 		var m3: MeshInstance3D = n.mi
 		var sr := m3.get_skin_reference()
@@ -427,7 +441,57 @@ func _zerlegt(sk: Skeleton3D, netze: Array, W: Transform3D, sch: Dictionary) -> 
 				var d2 = _holz(sch, Wi * (m3.global_transform * sum), k)
 				if d1 != null: st[gl] = minf(st.get(gl, INF), d1)
 				if d2 != null: lb[gl] = minf(lb.get(gl, INF), d2)
-	return [st, lb]
+				if d2 != null and (not tief.has(gl) or d2 < tief[gl][0]):
+					tief[gl] = [d2, (probe.lage[gl] as Dictionary).get([m3, su, vi], "") if probe.lage.has(gl) else ""]
+				if d1 != null and probe.drin.has([m3, su, vi]): pr[gl] = minf(pr.get(gl, INF), d1)
+	return [st, lb, tief, pr]
+
+# griff.gd-Probe: welche Ecken griff.gd sieht. Handfläche: Säule aus Griff.hand_mass (Ruhelage, Hauptgewicht hand_r, seitlich unter
+# 1,2 cm·u um die Linie durch basis = mp − lang·(r + Grundglied) längs fl); Finger: Punkte aus Griff.netz_finger (Ab einem Viertel der
+# Länge, ausgedünnt). lage: je Ecke Beschreibung (Handfläche: seitlicher Abstand zur Säule cm; Finger: Anteil der Gliedlänge)
+func _probe_menge(sk: Skeleton3D, netze: Array) -> Dictionary:
+	var u := Griff.einheit(sk, "r")
+	var r := 0.0; var hm := Vector2.ZERO
+	for m in sk.get_meta_list():
+		if String(m).begins_with("griff_r_"): r = float(String(m).substr(8)) / 10000.0; hm = sk.get_meta(m)
+	var f := Griff.flaeche(sk, "r", true)
+	var mp: Vector3 = f[0]; var lang: Vector3 = f[1]; var fl: Vector3 = f[2]
+	var basis := mp - lang * (r + hm.y)
+	var ih := sk.find_bone("hand_r")
+	var ne := Griff.netz_finger(sk, "r")
+	var drin := {}; var lage := {}; var sn := 0; var fn := 0
+	for n in netze:
+		var m3: MeshInstance3D = n.mi
+		for su in n.su.size():
+			var e: Dictionary = n.su[su]
+			if e.idx.is_empty(): continue
+			var roh := m3.mesh.surface_get_arrays(su)
+			var pos = roh[Mesh.ARRAY_VERTEX]; var kn = roh[Mesh.ARRAY_BONES]; var gw = roh[Mesh.ARRAY_WEIGHTS]
+			var je: int = kn.size() / pos.size()
+			for i in e.idx.size():
+				var vi: int = e.idx[i]; var b: int = e.b[i]
+				var best := -1; var bw := 0.0
+				for kk in je:
+					if gw[vi * je + kk] > bw: bw = gw[vi * je + kk]; best = int(kn[vi * je + kk])
+				var lok: Vector3 = m3.skin.get_bind_pose(best) * (pos[vi] as Vector3)
+				var gl := sk.get_bone_name(b)
+				if not lage.has(gl): lage[gl] = {}
+				if b == ih:
+					var rel := sk.get_bone_global_rest(ih) * lok - basis
+					var t := rel.dot(fl); var seit := (rel - fl * t).length()
+					var ja := t > 0.0 and seit < 0.012 * u
+					if ja: drin[[m3, su, vi]] = true; sn += 1
+					lage[gl][[m3, su, vi]] = "%.1f cm neben der Säule" % (100.0 * maxf(0.0, seit - 0.012 * u)) if not ja else "in der Säule"
+				else:
+					var ch := sk.get_bone_children(b)
+					var ln := sk.get_bone_rest(ch[0]).origin if ch.size() > 0 else Vector3.ZERO
+					var anteil := lok.dot(ln) / ln.length_squared() if ln != Vector3.ZERO else -1.0
+					var ja := false
+					for q in ne.get(b, PackedVector3Array()):
+						if q.distance_to(lok) < 1e-6: ja = true; break
+					if ja: drin[[m3, su, vi]] = true; fn += 1
+					lage[gl][[m3, su, vi]] = "bei %.0f %% der Gliedlänge, %s" % [100.0 * anteil, "in der Probe" if ja else ("vor dem Viertel" if anteil <= 0.25 else "ausgedünnt")]
+	return {"drin": drin, "lage": lage, "saeule_n": sn, "finger_n": fn, "r": r, "hm": hm}
 
 func _holz(sch: Dictionary, q: Vector3, k: float):
 	var sc := int(floor(q.y / Griff.SCHEIBE))
