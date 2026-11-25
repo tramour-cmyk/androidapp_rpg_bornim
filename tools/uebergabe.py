@@ -7,7 +7,7 @@ Aufruf über vorgang.py (oder direkt):
   vorgang.py annehmen KENNUNG [--frist MIN]  Quittung: offen → angenommen (diese Sitzung, Frist, Vorgabe 30 Minuten); ANGENOMMEN = jetzt tun;
                                               SCHON DEINE = doppelter Wecker, nichts neu beginnen; BELEGT (Exit 3) = eine andere Sitzung hat sie
   vorgang.py verlaengern KENNUNG [--frist MIN]   eigene Frist neu setzen (langer Zug)
-  vorgang.py erledigt KENNUNG                angenommen → erledigt (nur der Halter; ein zweites Mal: nichts)
+  vorgang.py erledigt KENNUNG [SITZUNG]      angenommen → erledigt (nur der Halter; ein zweites Mal: nichts)
   vorgang.py freigeben                       alle von dieser Sitzung angenommenen Zeilen wieder offen (vor „Nachfolger:“, schneller als die Frist)
   vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen (Büro-Liste: Eilt, Fund des Chefs, Themenblock, Eingangszeit; 1796); mit --sitzungen
                                               (list_sessions-Seiten oder Kurzform wie lauf.py) wird jede abgelaufene Frist eines Halters, der
@@ -215,17 +215,21 @@ def nr_aus(kennung):
     if not m: raise Fehler("Kennung „%s“ ungültig (Form NR-Ük, etwa 1760-Ü1)" % kennung)
     return m.group(1)
 
-def besetzung(an):
-    """Kennungen laufender Sitzungen der Rolle AN, frisch aus ARBEIT-BESETZUNG.md (beim Senden, nie aus dem Gedächtnis)."""
+def besetzung(an, nr=None):
+    """Kennungen laufender Sitzungen der Rolle AN, frisch aus ARBEIT-BESETZUNG.md (beim Senden, nie aus dem Gedächtnis).
+    2042 Teil 6 (Fall 2042-Ü6: Wecker an Olga/Ralf zu 2041 statt an Carla zu 2042): mit nr und einer Fachrolle nur die Sitzungen,
+    deren Spalte „Vorgang“ nr ist; keine solche: alle der Rolle wie bisher (kein Wecker fällt still weg). Rollen ohne Vorgang
+    (Disponent, Prüfer, …) unverändert."""
     try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
     except OSError: return []
-    aus = []
+    aus = []; mit_nr = []
     for z in t.splitlines():
         f = [x.strip() for x in z.split("|")]
         # Rolle bzw. Bereich (Spalte 1; Rufnamen-Sitzungen trägt lauf.py über den Vorgang ein) oder Rufname im Titel (1739)
         if len(f) > 3 and (f[1].lower() == an.lower() or f[2].startswith("[%s – " % an)):
-            aus += re.findall(r"code/(session_\w+)", f[2])
-    return aus
+            ids = re.findall(r"code/(session_\w+)", f[2]); aus += ids
+            if nr and an in FACHPROFILE + ["Fachkraft"] and f[3] == str(nr): mit_nr += ids
+    return mit_nr or aus
 
 # ---- Befehle -------------------------------------------------------------
 
@@ -338,7 +342,7 @@ def wecker(nr, k, an, alt=None, scharf=None):
     kein Ford-Ersatz mehr (auch nicht, wenn rueckmeldung.py oder chefwort.py ALT mitgeben); Disponent über disponent()."""
     scharf = _scharf() if scharf is None else scharf
     alt = "" if scharf else ALT.get(an, "") if alt is None else alt
-    ss = (disponent() if an == "Disponent" and scharf else besetzung(an)) or (besetzung(alt) if alt else [])
+    ss = (disponent() if an == "Disponent" and scharf else besetzung(an, nr)) or (besetzung(alt, nr) if alt else [])
     if ss and an == "Disponent" and _gebuendelt_zeile(k, an): return ss
     for s in ss: print("WECKER %s | sieh in %s (%s)" % (s, nr, k))
     if ss: return ss
@@ -432,13 +436,18 @@ def annehmen(kennung, frist=FRIST_MIN, nur_verlaengern=False):
             print("TITEL nicht gebaut (%s)" % e)
     return wort
 
-def erledigt(kennung):
+START_ZEILE = re.compile(r"\s*Fachkraft starten\b")  # 2042 Teil 6 (5): Otto schloss 1708-Ü10 ohne Start (0ea352814)
+
+def erledigt(kennung, gestartet=None):
     nr, sid = nr_aus(kennung), sitzung()
+    if gestartet and not re.fullmatch(r"session_\w+", gestartet): raise Fehler("„%s“ ist keine Sitzungskennung (session_…)" % gestartet)
     def f(alt):
         z = _finde(alt, kennung); zu = z["z"]; m = ANG.match(zu)
         if zu.startswith("erledigt"): return alt, "SCHON ERLEDIGT"
         if not m or m.group("sid") != sid: return alt, "NICHT DEINE"
-        return _ersetzen(alt, z, "erledigt %s %s" % (fmt(jetzt()), sid)), "ERLEDIGT"
+        if START_ZEILE.match(z["was"]) and not gestartet:
+            raise Fehler("„Fachkraft starten“ erledigt nur mit der Kennung der gestarteten Sitzung: vorgang.py erledigt %s session_… (2042)" % kennung)
+        return _ersetzen(alt, z, "erledigt %s %s" % (fmt(jetzt()), sid) + (" Start %s" % gestartet if gestartet else "")), "ERLEDIGT"
     w = atomar(nr, f, "Übergabe %s erledigt (1760)" % kennung)
     print("%s %s%s" % (w, kennung, "" if w != "NICHT DEINE" else ": erst annehmen (vorgang.py annehmen %s)" % kennung))
     return w
@@ -591,7 +600,7 @@ def haupt(a):
         if b == "uebergabe" and len(a) == 4: return uebergabe(a[1], empfaenger(a[2]), a[3])  # 1946
         if b == "annehmen" and len(a) == 2: return annehmen(a[1], frist)
         if b == "verlaengern" and len(a) == 2: return annehmen(a[1], frist, True)
-        if b == "erledigt" and len(a) == 2: return erledigt(a[1])
+        if b == "erledigt" and len(a) in (2, 3): return erledigt(*a[1:])
         if b == "freigeben" and len(a) == 1: return freigeben()
         if b == "offen":
             s = []

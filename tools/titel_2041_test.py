@@ -90,7 +90,7 @@ soll("d TITEL alter Titel: Name aus Besetzung", tz("session_A", "2041", "wartet"
 soll("d TITEL für andere Sitzung mit Kennung", tz("session_A", "2041", "frei", fuer=True, pfad=B) == "TITEL session_A Nils – frei – 2041 – Abläufe a–d jetzt")
 soll("d Prüfer behält Titel", tz("session_P", "2035", "in Arbeit", pfad=B) is None, tz("session_P", "2035", "in Arbeit", pfad=B))
 soll("d Disponent behält Titel", tz("session_D", "2041", "in Arbeit", pfad=B) is None)
-soll("d Sitzung ohne Besetzung: Platzhalter statt fremdem Namen", tz("session_X", "2041", "in Arbeit", pfad=B) == "TITEL <Rufname> – in Arbeit – 2041 – Abläufe a–d jetzt", tz("session_X", "2041", "in Arbeit", pfad=B))
+soll("d Sitzung ohne Besetzung: kein fremder Name, kein Platzhalter (2042 Teil 6: Warnung)", tz("session_X", "2041", "in Arbeit", pfad=B).startswith("WARNUNG TITEL session_X"), tz("session_X", "2041", "in Arbeit", pfad=B))
 soll("d Rolle aus --sitzung Prüfer behält Titel", tz("session_X", "2041", "in Arbeit", pfad=B, rolle="Prüfer") is None)
 
 # rueckmeldung: Status aus der Meldung
@@ -99,7 +99,7 @@ tn = fn(rueckmeldung, "titel_zeilen")
 rn.BESETZUNG = B
 try:
     soll("d rueckmeldung fertig mit Commit → beim Prüfer", tn("2041", "fertig a–c, Kopf 741186fd77", VORHER, "session_N", "unbekannt") == ["TITEL Nora – beim Prüfer – 2041 – Abläufe a–d jetzt"], tn("2041", "fertig a–c, Kopf 741186fd77", VORHER, "session_N", "unbekannt"))
-    soll("d rueckmeldung Frage → wartet", tn("2041", "Frage: Lesart A oder B?", VORHER, "session_N", "unbekannt") == ["TITEL Nora – wartet – 2041 – Abläufe a–d jetzt"])
+    soll("d rueckmeldung Frage mit Anhalten → wartet (2042 Teil 6)", tn("2041", "Frage: Lesart A oder B? Ich warte.", VORHER, "session_N", "unbekannt") == ["TITEL Nora – wartet – 2041 – Abläufe a–d jetzt"])
     soll("d rueckmeldung Laufanforderung → wartet", tn("2041", "Laufanforderung: Ursache x, Commit abc1234", VORHER, "session_N", "unbekannt") == ["TITEL Nora – wartet – 2041 – Abläufe a–d jetzt"])
     soll("d rueckmeldung fertig ohne Commit → kein Titel", tn("2041", "fertig", VORHER, "session_N", "unbekannt") == [])
     soll("d Prüfer ja → Fachkraft frei", tn("2041", "ja: alle Prüffragen", VORHER, "session_P", "unbekannt") == ["TITEL session_A Nils – frei – 2041 – Abläufe a–d jetzt"], tn("2041", "ja: alle Prüffragen", VORHER, "session_P", "unbekannt"))

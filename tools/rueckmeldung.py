@@ -384,9 +384,12 @@ def macher_sid(text):
     return (ms[-1].group("sid") or None) if ms else None
 
 
+ANHALTEN = re.compile(r"\b(warte|halte an|angehalten|bis zur Antwort)\b", re.I)  # 2042 Teil 6: „wartet“ nur, wenn die Sitzung anhält
+
+
 def titel_zeilen(nr, text, vorher, sid, wer):
     """2041 d, Lesart A (Sokrates 25.11., 21:01): Zeilen „TITEL …“ nach einer Rückmeldung. Eigene Sitzung: „fertig“ mit Commit →
-    „beim Prüfer“; „Frage“, „Laufanforderung“, „steckt fest“ → „wartet“. Prüfer: „ja“ → Fachkraft „frei“, „nein“/„Beleg fehlt“ →
+    „beim Prüfer“; „Laufanforderung“, „steckt fest“ → „wartet“; „Frage“ → „wartet“ nur mit ANHALTEN, sonst „in Arbeit“ (2042). Prüfer: „ja“ → Fachkraft „frei“, „nein“/„Beleg fehlt“ →
     „in Arbeit“, als „TITEL <Kennung> <Titel>“ für die Sitzung des letzten „fertig“. Sitzungen in rufname.BEHALTEN bekommen keine."""
     import rufname
     w = worte(text)
@@ -397,7 +400,8 @@ def titel_zeilen(nr, text, vorher, sid, wer):
         z = rufname.titel_zeile(m, nr, "frei" if "ja" in w else "in Arbeit", fuer=True) if m and m != sid else None
         return [z] if z else []
     if "fertig" in w and COMMIT.search(text or ""): st = "beim Prüfer"
-    elif w & {"Frage", "Laufanforderung", "steckt fest"}: st = "wartet"
+    elif w & {"Laufanforderung", "steckt fest"}: st = "wartet"
+    elif "Frage" in w: st = "wartet" if ANHALTEN.search(text or "") else "in Arbeit"  # 2042 Teil 6 (Carla 22:46: fragt und baut weiter)
     else: return []
     z = rufname.titel_zeile(sid, nr, st, rolle=wer if wer not in (None, "", "unbekannt") else None) if sid else None
     return [z] if z else []

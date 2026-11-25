@@ -1072,7 +1072,7 @@ def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None, bremse=None, z
             import rufname
             try: e = rufname.sperr_eintraege(lesen(os.path.join(docs or DOCS, "ARBEIT-BETRIEB.md")), JETZT.year)
             except Exception: e = []
-            sitzungen = [("%s – x" % n, d.replace(tzinfo=BERLIN).isoformat()) for d, _, n in e if n and d.date() == JETZT.date()]
+            sitzungen = [("%s – x" % n, d.replace(tzinfo=BERLIN).isoformat()) for d, _, n, *_ in e if n and d.date() == JETZT.date()]
         aus = mit_rufnamen(aus, [{"title": a, "created_at": b} for a, b in sitzungen], namen=namen)
     aus += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
     aus.append("STARTSPERRE " + startsperre_zeile([rolle], {rolle: nr}, rufnamen=namen))
@@ -2159,7 +2159,7 @@ def main():
     if ist_scharf():  # 1799: Wächter der Fristen nach Grobablauf 14.2, erst nach der Umschaltung
         try:
             import liegt as _liegt
-            ausgabe += _liegt.liegt(JETZT, True)
+            ausgabe += _liegt.kurz(_liegt.liegt(JETZT, True))  # 2042 Teil 9: Zahl je Art, Einzelheiten mit liegt.py [Art]
         except Exception as e: ausgabe.append("WARNUNG LIEGT nicht geprüft: %s (1799)" % str(e)[:120])
     # 1472: Chefwort zum Kaufrepo an jede Startnachricht (START: letztes Feld), bei WEITER vor dem Hinweis auf send_message
     ausgabe = [mit_kaufrepo(l) for l in ausgabe]

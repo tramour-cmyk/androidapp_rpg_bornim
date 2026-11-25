@@ -18,6 +18,7 @@ Rückwärtsverträglich: Titel mit altem Rollennamen liefern `aus_titel() is Non
 """
 import datetime
 import glob
+import json
 import os
 import re
 import sys
@@ -150,13 +151,55 @@ def betreff(nr):
         return ""
 
 
+PROTOKOLL = None  # 2042 Teil 6: Protokoll (jsonl) der eigenen Sitzung; Tests setzen ihn, sonst BORNIM_PROTOKOLL oder das jüngste unter ~/.claude/projects
+
+
+def _eigenes_protokoll():
+    if PROTOKOLL or os.environ.get("BORNIM_PROTOKOLL"): return PROTOKOLL or os.environ.get("BORNIM_PROTOKOLL")
+    if os.environ.get("BORNIM_SITZUNG"): return None  # Test oder Handaufruf mit fremder Kennung: nie das Protokoll dieses Rechners
+    p = sorted(glob.glob(os.path.expanduser("~/.claude/projects/*/*.jsonl")), key=os.path.getmtime)
+    return p[-1] if p else None
+
+
+def eigene_sitzung():
+    s = os.environ.get("BORNIM_SITZUNG") or os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "")
+    return "session_" + s[4:] if s.startswith("cse_") else s
+
+
+def eigener_start(pfad=None):
+    """2042 Teil 6 (Nachtrag Sokrates 22:36 (1)): (Rolle, Rufname) aus der ersten Startnachricht der eigenen Sitzung
+    („Dein Rufname: X (Rolle Y …“ aus lauf.mit_rufnamen, „Du bist **Disponent**“); (None, None) ohne Protokoll oder Treffer."""
+    p = pfad or _eigenes_protokoll()
+    if not p: return None, None
+    kopf = ""
+    try:
+        with open(p, encoding="utf-8", errors="replace") as f:
+            for i, l in enumerate(f):  # nur die erste Nachricht des Nutzers: spätere Zitate (START-Zeilen, Tests) zählen nicht
+                if i > 200: break
+                try: d = json.loads(l)
+                except ValueError: continue
+                if d.get("type") != "user": continue
+                c = (d.get("message") or {}).get("content")
+                kopf = c if isinstance(c, str) else " ".join(x.get("text", "") for x in c or [] if isinstance(x, dict))
+                break
+    except OSError: return None, None
+    m = re.search(r"Dein Rufname: (\w+) \(Rolle (\w+)", kopf)
+    if m: return m.group(2), m.group(1)  # auch ein Name außerhalb NAMEN (Dora 25.11., 22:49): die Startnachricht gilt
+    m = re.search(r"Du bist \*\*(\w+)\*\*", kopf)
+    return (m.group(1), None) if m else (None, None)
+
+
 def titel_zeile(sid, nr, status, fuer=False, pfad=None, rolle=None):
     """2041 d: „TITEL <Titel>“ für die eigene Sitzung (fuer: „TITEL <Kennung> <Titel>“ für eine andere, Prüfer bei ja/nein).
-    None für Sitzungen, die ihren Titel behalten (BEHALTEN, aus --sitzung oder Besetzung). Rufname aus der Besetzung, sonst
-    der Platzhalter „<Rufname>“ (nie ein Name aus dem Text: „Nachfolger Mira“ hieße sonst Mira)."""
+    None für Sitzungen, die ihren Titel behalten (BEHALTEN). 2042 Teil 6: für die eigene Sitzung Rolle und Rufname aus der
+    Startnachricht (eigener_start), erst danach aus der Besetzung; nie ein Platzhalter: ohne Rufname „WARNUNG TITEL …“ (laut)."""
     r, name = besetzt(sid, pfad)
+    if not fuer and sid and sid == eigene_sitzung():
+        sr, sn = eigener_start()
+        r, name = sr or r, sn or name
     if (rolle or r) in BEHALTEN: return None
-    t = titel(name or "<Rufname>", nr, betreff(nr) or "Vorgang %s" % nr, status)
+    if not name: return "WARNUNG TITEL %s: Rufname unbekannt (keine Startnachricht, nicht in ARBEIT-BESETZUNG.md); Titel nicht gesetzt (2042)" % sid
+    t = titel(name, nr, betreff(nr) or "Vorgang %s" % nr, status)
     return ("TITEL %s %s" % (sid, t)) if fuer else ("TITEL %s" % t) if t else None
 
 
@@ -188,7 +231,7 @@ _SPERREN = {}  # (Pfad, mtime, Größe) → Einträge
 
 
 def sperr_eintraege(text, jahr):
-    """1957: (Zeitpunkt naiv, Rolle, Rufname) aus Startsperren „… Start <Rollen> (lauf.py, <Rolle> <Nr> <Rufname>, …)“.
+    """1957: (Zeitpunkt naiv, Rolle, Rufname, Nr oder None; 2042 Teil 6) aus Startsperren „… Start <Rollen> (lauf.py, <Rolle> <Nr> <Rufname>, …)“.
     Ein Eintrag nur, wo im selben Abschnitt der Klammer (bis Komma/Semikolon) eine Rolle der Zeile und ein Rufname stehen."""
     aus = []
     for l in text.splitlines():
@@ -201,7 +244,8 @@ def sperr_eintraege(text, jahr):
         for teil in re.split(r"[,;]", m.group(4)):
             w = re.findall(r"[\wÄÖÜäöüß]+", teil)
             r = next((x for x in w if x in rollen), None); n = next((x for x in w if x in ALLE), None)
-            if r and n: aus.append((d, r, n))
+            nr = re.search(r"\b(\d[0-9a-zA-Z.]*)\b", teil)
+            if r and n: aus.append((d, r, n, nr.group(1) if nr else None))
     return aus
 
 
@@ -211,6 +255,7 @@ def rolle(titel_, created_at=None, betrieb=None):
     oder ohne passende Sperre (dann wie bisher bereich()). Ohne created_at die jüngste Sperre mit diesem Rufnamen."""
     n = aus_titel(titel_)
     if not n: return None
+    if re.search(r"\bPrüf(er|ung)\b", titel_): return "Prüfer"  # 2042 Teil 6 (Ralf „– 2041: Prüfer Ü15“), R11; Teil 7 „Name – Prüfer – …“
     p = betrieb or BETRIEB or os.path.join(DOCS, "ARBEIT-BETRIEB.md")
     c = None
     if created_at:
@@ -226,7 +271,9 @@ def rolle(titel_, created_at=None, betrieb=None):
     except OSError:
         return None
     e = [x for x in e if x[2] == n and (c is None or (x[0].date() == c.date() and x[0] <= c + datetime.timedelta(minutes=5)))]
-    return max(e)[1] if e else None
+    t = teile(titel_)  # 2042 Teil 6 (Paula 21:44 „Kampf 1589.4“ vor nie ausgeführter 21:47 „Arbeitsplaner 2031“): Sperre mit der Nr des Titels
+    mit_nr = [x for x in e if t and len(x) > 3 and x[3] == t["nr"]]
+    return max(mit_nr or e)[1] if e else None
 
 
 def lies_sitzungen(text):
