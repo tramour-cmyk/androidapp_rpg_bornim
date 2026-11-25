@@ -9,7 +9,11 @@ extends SceneTree
 #  - Blutfleck (TrefferFx „treffer“, kampfort _fx_szene2) zum Berührungspunkt, im selben Bild, wenn das Effektpaket da ist;
 #  - geht mit: 0,6 s danach je Bild der Beginn der Tropfen zum Berührungspunkt, der mit dem nächsten Knochen des Getroffenen geht.
 # Grenze BLUT_AB je Treffer. Messung (sperrt nicht): Weite der Tropfen vom Beginn (Körperhöhen), Treffer ohne Gerüst oder Angriffsteil.
-# Ausgabe „BLUT1708 n Treffer, k über …“. Ohne Kaufmodelle (kampf/daten): übersprungen.
+# 1708 B (Chef 19:22, 16:03): auch das Angriffsteil selbst: beim Aufschlag eines Treffers mit Blut reicht es bis an den Körper
+# (Lücke Angriffsteil–Körper höchstens BLUT_AB Körperhöhen, Körperhöhe aus den Kapseln des Getroffenen); je Biss oder Prankenhieb
+# an einer Figur mit Schild der nächste Augenblick an ihr: endet er am Schild (Schild näher als der Körper, Körper nicht berührt),
+# darf kein Blut kommen. Fall je Schildbiss: Treffer mit Schaden (Blut), Biss endet am Schild; oder Fehlschlag ohne Blut.
+# Ausgabe „BLUT1708 n Treffer, k über …“, „LUECKE1708 …“, „SCHILD1708 …“. Ohne Kaufmodelle (kampf/daten): übersprungen.
 # Aufruf im Ordner godot: --headless --fixed-fps 30 -s res://tests/blut_1708.gd   (GEGNER1708=WOLVES,KROGG … nur diese)
 
 const Probe = preload("res://kampf/probe.gd")
@@ -32,6 +36,12 @@ var n_ueber := 0
 var n_fleck := 0
 var n_fleck_ueber := 0
 var n_ohne := 0
+var n_luecke := 0          # 1708 B: Treffer mit Blut, Angriffsteil weiter als BLUT_AB Körperhöhen vom Körper
+var n_nah := 0             # Nahtreffer mit gemessener Lücke
+var luecke_max := 0.0
+var n_schildbiss := 0      # Bisse und Prankenhiebe, die am Schild enden
+var n_schildblut := 0      # davon mit Blut (Treffer mit Schaden)
+var schild_zeilen := []
 var mit_max := 0.0
 var weiten := []
 var zeilen := []
@@ -60,7 +70,9 @@ func _lauf() -> void:
 	if not weiten.is_empty():
 		weiten.sort()
 		print("MESSUNG1708 Weite der Tropfen vom Beginn: Mitte %.2f, größte %.2f Körperhöhen (%d Treffer)" % [weiten[weiten.size() / 2], weiten[-1], weiten.size()])
-	var fehler := n_ueber + n_fleck_ueber + (1 if n_treffer == 0 else 0) + (1 if mit_max > BLUT_AB else 0)
+	print("LUECKE1708 %d Nahtreffer mit Blut, %d mit Angriffsteil über %.2f Körperhöhen vom Körper (größte %.2f)" % [n_nah, n_luecke, BLUT_AB, luecke_max])
+	print("SCHILD1708 %d Bisse am Schild, davon %d mit Blut (Treffer mit Schaden, Biss endet am Schild)" % [n_schildbiss, n_schildblut])
+	var fehler := n_luecke + n_schildblut + n_ueber + n_fleck_ueber + (1 if n_treffer == 0 else 0) + (1 if mit_max > BLUT_AB else 0)
 	print("BLUT1708 %d Treffer, %d über %.2f Körperhöhen, %s" % [n_treffer, n_ueber, BLUT_AB, "gut" if fehler == 0 else "FEHLER %d" % fehler])
 	quit(1 if fehler > 0 else 0)
 
@@ -99,7 +111,9 @@ func _art(art: String) -> void:
 	var hier := 0
 	var mit: Array = []        # [Getroffener, Knochen, Versatz im Knochen, bis Bild]
 	var pranken := 0
-	while n < int(FPS * ZEIT_S) and (hier < JE_ART or art == "KROGG" and pranken == 0 and hier < 4 * JE_ART):
+	var bisse := {}            # 1708 B: Angreifer -> {an, bild, koerper, schild, hoch, blut}
+	var je: int = int(OS.get_environment("JE1708")) if OS.get_environment("JE1708") != "" else JE_ART
+	while n < int(FPS * ZEIT_S * je / JE_ART) and (hier < je or art == "KROGG" and pranken == 0 and hier < 4 * je):
 		await process_frame
 		n += 1
 		if Mars.test_gegnerzug == "" and zug != "":
@@ -107,6 +121,7 @@ func _art(art: String) -> void:
 		# das Blut kommt im Zeitgeber des Aufschlags, vor dem Stellen der Gerüste in diesem Bild: gemessen im nächsten Bild, mit der
 		# Haltung, wie sie im Bild des Aufschlags zu sehen war (skeleton_updated)
 		var bl: Dictionary = kf.ui.bleeding
+		_bisse(art, kf, bisse, bl if not bl.is_empty() and int(bl.t0) != t0_blut else {})
 		if not bl.is_empty() and int(bl.t0) != t0_blut and kf.figures.has(bl.by) and kf.figures.has(bl.on):
 			t0_blut = int(bl.t0)
 			hier += 1
@@ -140,6 +155,8 @@ func _art(art: String) -> void:
 				var ts: Array = kf.mars.targets(kf.mars.current())
 				kf.order(["attack", ts[0].id] if not ts.is_empty() else ["wait"])
 	Mars.test_gegnerzug = ""
+	for by in bisse.keys():
+		_biss_ende(art, by, bisse[by])
 	if hier == 0:
 		print("1708 %s: kein Treffer mit Blut in %.0f s" % [art, n / FPS])
 	p.queue_free()
@@ -267,6 +284,16 @@ func _messe(art: String, kf, by, on, fx0) -> Array:
 		print("1708 schau: Test %s, Figur jetzt %s, Anker %s (Knochen %s); Teile Test %d, Figur %d; Haltung von Bild %d/%d, jetzt %d" % [punkt, on.treffpunkt(by), (an as Node3D).global_position if an is Node3D else "-", (an as Node3D).get_meta("knochen", "–") if an is Node3D else "-", (hb.teile as Array).size(), by.angriffs_kapseln().size(), hb.bild, ho.bild, Engine.get_process_frames()])
 	var zu: bool = d1 > BLUT_AB
 	n_ueber += 1 if zu else 0
+	var lk := ""
+	if not fern:
+		var lh: float = maxf(luecke, 0.0) / _hoehe_m(ho.koerper)
+		n_nah += 1
+		luecke_max = maxf(luecke_max, lh)
+		var sl: float = _abstand(hb.teile, ho.schild)
+		lk = ", Lücke %.2f Körperhöhen%s" % [lh, (", Schild %.2f" % (maxf(sl, 0.0) / _hoehe_m(ho.koerper))) if sl < INF else ""]
+		if lh > BLUT_AB:
+			n_luecke += 1
+			zu = true
 	var fl := ""
 	var fx: Variant = TrefferFx.zuletzt
 	if fx != fx0 and fx is Node3D and is_instance_valid(fx):
@@ -275,8 +302,8 @@ func _messe(art: String, kf, by, on, fx0) -> Array:
 		n_fleck_ueber += 1 if d2 > BLUT_AB else 0
 		fl = ", Fleck %.2f" % d2
 		zu = zu or d2 > BLUT_AB
-	print("%s 1708 %s %s %s an %s: Tropfen ab %.2f Körperhöhen vom Berührungspunkt%s (Angriffsteil %.2f m vom Körper)" % [
-		"FEHLER" if zu else "gut", art, teil, by.fighter.id, on.fighter.id, d1, fl, luecke if luecke < INF else 0.0])
+	print("%s 1708 %s %s %s an %s: Tropfen ab %.2f Körperhöhen vom Berührungspunkt%s (Angriffsteil %.2f m vom Körper%s)" % [
+		"FEHLER" if zu else "gut", art, teil, by.fighter.id, on.fighter.id, d1, fl, luecke if luecke < INF else 0.0, lk])
 	return [on, best, aus, Engine.get_process_frames() + int(MIT_S * FPS), int(kf.ui.bleeding.get("t0", -1))]
 
 
@@ -287,7 +314,7 @@ func _haltung(f) -> Dictionary:
 	if sk != null:
 		for i in sk.get_bone_count():
 			pose.append(sk.global_transform * sk.get_bone_global_pose(i))
-	return {"teile": _teile(f), "koerper": f.koerper(), "pose": pose, "anim": String(f.anim.current_animation) if f.anim != null else "", "bild": Engine.get_process_frames()}
+	return {"teile": _teile(f), "koerper": f.koerper(), "schild": f.schild_kapseln() if f.has_method("schild_kapseln") else [], "pose": pose, "anim": String(f.anim.current_animation) if f.anim != null else "", "bild": Engine.get_process_frames()}
 
 
 ## weiteste Strecke eines Tropfens vom Beginn (px), wie _draw_blood (gleiche Würfel), bis er landet
@@ -331,3 +358,76 @@ func _haut(f, p: Vector3) -> float:
 	for c in f.koerper():
 		best = minf(best, Geometry3D.get_closest_point_to_segment(p, c[0], c[1]).distance_to(p) - float(c[2]))
 	return best
+
+
+## Körperhöhe (m) aus den Kapseln
+func _hoehe_m(koerper: Array) -> float:
+	var lo := INF
+	var hi := -INF
+	for c in koerper:
+		lo = minf(lo, minf((c[0] as Vector3).y, (c[1] as Vector3).y) - float(c[2]))
+		hi = maxf(hi, maxf((c[0] as Vector3).y, (c[1] as Vector3).y) + float(c[2]))
+	return maxf(hi - lo, 0.1)
+
+
+## kleinster Abstand (m) der Strecken [teile] zur Oberfläche der Kapseln [ks] (< 0: darin), INF ohne
+func _abstand(teile: Array, ks: Array) -> float:
+	var best := INF
+	for w in teile:
+		for c in ks:
+			var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(w[0], w[1], c[0], c[1])
+			best = minf(best, pq[0].distance_to(pq[1]) - float(c[2]) - float(w[2]))
+	return best
+
+
+## 1708 B: je Bild jeder Biss oder Prankenhieb an einer Figur mit Schild; gemerkt wird der Augenblick, in dem das Angriffsteil ihr
+## (Körper oder Schild) am nächsten ist, und ob in dem Biss Blut kam
+func _bisse(art: String, kf, bisse: Dictionary, blut: Dictionary) -> void:
+	if OS.get_environment("SCHAU1708B") != "":
+		for f in kf.figures.values():
+			if f.fighter.side == "FOES" or f.anim == null or not sichtbar.has(f) or not String(f.anim.current_animation).contains("Attack") and String(f.anim.current_animation) != "Hieb":
+				continue
+			for o in kf.figures.values():
+				if o.fighter.side == "FOES" and not o.down and sichtbar.has(o):
+					print("1708B Bild %d %s %s %.2f s an %s: Lücke %.2f m, %s%s" % [Engine.get_process_frames(), f.fighter.id, f.anim.current_animation, f.anim.current_animation_position, o.fighter.id,
+						_abstand((sichtbar[f] as Array)[-1].teile, (sichtbar[o] as Array)[-1].koerper), o.anim.current_animation, " BLUT" if not blut.is_empty() else ""])
+	for f in kf.figures.values():
+		if f.fighter.side != "FOES" or f.anim == null or not sichtbar.has(f):
+			continue
+		var an := String(f.anim.current_animation)
+		var beisst: bool = an.to_lower().contains("biss") or an == "Prankenhieb"
+		if not beisst:
+			if bisse.has(f):
+				_biss_ende(art, f, bisse[f])
+				bisse.erase(f)
+			continue
+		var hb: Dictionary = (sichtbar[f] as Array)[-1]
+		var b: Dictionary = bisse.get(f, {"an": null, "naechst": INF, "blut": false, "anim": an})
+		for o in kf.figures.values():
+			if o.fighter.side == "FOES" or o.down or not sichtbar.has(o):
+				continue
+			var ho: Dictionary = (sichtbar[o] as Array)[-1]
+			if (ho.schild as Array).is_empty():
+				continue
+			var dk := _abstand(hb.teile, ho.koerper)
+			var ds := _abstand(hb.teile, ho.schild)
+			if minf(dk, ds) < float(b.naechst):
+				b.merge({"an": o, "naechst": minf(dk, ds), "koerper": dk, "schild": ds, "hoch": _hoehe_m(ho.koerper), "bild": Engine.get_process_frames()}, true)
+		if not blut.is_empty() and kf.figures.get(blut.by) == f:
+			b.blut = true
+		bisse[f] = b
+
+
+func _biss_ende(art: String, by, b: Dictionary) -> void:
+	if b.get("an") == null or not is_instance_valid(by):
+		return
+	var h: float = float(b.hoch)
+	var dk: float = float(b.koerper) / h
+	var ds: float = float(b.schild) / h
+	var am_schild: bool = ds <= BLUT_AB and ds < dk and dk > BLUT_AB
+	if not am_schild:
+		return
+	n_schildbiss += 1
+	n_schildblut += 1 if b.blut else 0
+	print("%s 1708 Schild %s %s %s an %s (Bild %d): Schild %.2f, Körper %.2f Körperhöhen; %s" % ["FEHLER" if b.blut else "gut", art, b.anim,
+		by.fighter.id, b.an.fighter.id, int(b.bild), ds, dk, "Treffer mit Schaden, Blut, Biss endet am Schild" if b.blut else "ohne Blut"])
