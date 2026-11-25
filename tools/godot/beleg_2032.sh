@@ -14,8 +14,9 @@ bild() {   # Stand, Figur, Karte, Zusatz
   (cd "$R/godot" && xvfb-run -a ~/godot/godot --rendering-driver opengl3 --path . --resolution 1080x2340 -s res://tests/bild_2028.gd -- \
     --aus="$A/$2_$1$4.png" --wer=$2 --karte=$3 ${4:+--${4#_}} 2>&1 | grep '^BILD2028' | tee "$A/$2_$1$4.txt")
 }
+# 2032-Ü3 (Ines): Rowena im Spiel, ohne Tusche und als Lagenbild; Bram nicht mehr (Haltung beim Chef)
 for s in alt neu; do
   bild $s rowena inn ""
+  bild $s rowena inn _ohnetusche
   bild $s rowena inn _lagen
-  bild $s bram village ""
 done
