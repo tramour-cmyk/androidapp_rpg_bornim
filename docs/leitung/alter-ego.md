@@ -25,6 +25,7 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 14:21 Runde: Ute 2029, Nora 2028, Selma 2024 laufen. Einwand 2031: Deckel 60 $ mit Beleg „Chef 👍 13:40“ vor der Frage 13:43, unbelegt → Sperre bis Chef-Ja. 1589.4-Ü20 bei Sokrates. Uhr trig_01NjLkVexYifoBq2161irbAh (15:21).
 - 25.11., 13:45 Chef 13:45 zu 2024: Faust durch den Helden kein Mangel; nur Reaktion ~1 s zu spät → wörtlich an Sokrates. Eigener Fehler 13:44: „Befund Faust geht durch“ als Mangel gelesen.
 - 25.11., 13:44 Chef 13:44 zu 2024 (Prankenhieb passt; Reaktion Zucken/Blut deutlich zu spät; Faust geht durch) → wörtlich an Sokrates.
 - 25.11., 13:39 Chef 13:39 „MakeHuman nehmen und testen … Kutte/Robe als Alternative, Helme, Haut“ → wörtlich an Sokrates (Erweiterung 2029).
