@@ -2220,3 +2220,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 2013 | Laufsperre: Alter Ego und Disponent-Starter zählen als Fachkraft (Rolle Sonstige), sollen frei sein wie Leitung und Disponent (Hinweis Prüfer 2001, 24.11., 00:15) | B Werkzeuge | M | 45,90 $ | Werkzeug | erledigt |
 | 2015 | Von Tagesbericht (24.11., 07:55): 1653 ist erledigt und gebilligt (23.11., 22:07, Commit „Chefsache gelöscht“), aber docs/chefsache/ansehen/1653-thessa-kragen-altneu.md liegt noch; die Übersicht zeigt dir „1653 ansehen“, Tagesbericht Zeile 4 „1 anzusehen“ | B Abläufe | K | – | Werkzeug | erledigt |
 | 2017 | 400-Zeichen-Grenze der Vorgangsliste ersatzlos streichen (Chef 08:28) | B Abläufe | M | 44,86 $ | Werkzeug | erledigt |
+| 2023 | Von Werkzeug (Startwarnung Größe, 1642, seit 24.11., 07:50): docs/ARBEIT-BETRIEB.md hat 50479 Bytes (Grenze 30000), Erledigtes streichen | B Abläufe | K | – | Werkzeug | erledigt, Warnung weg (Werkzeug 1642) |
