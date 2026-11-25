@@ -87,7 +87,7 @@ func _zerlege() -> void:
 		var mitte: Vector3 = (_posen[b] as Transform3D).origin
 		for fall in [["ohne rueck", V, g], ["mit rueck", V2, g2]]:
 			var VV: PackedVector3Array = fall[1]
-			var tief := {}; var lage_px := {}; var vorn_px := {}; var rueck_info := {}
+			var tief := {}; var lage_px := {}; var vorn_px := {}; var rueck_info := {}; var kn_px := {}
 			for iy in range(-HALB, HALB + 1):
 				for ix in range(-HALB, HALB + 1):
 					var von := mitte + quer * (ix * px) + hoch * (iy * px) - dir * 1.0
@@ -98,6 +98,7 @@ func _zerlege() -> void:
 					var p := VV[i0] * bc.x + VV[i1] * bc.y + VV[i2] * bc.z
 					tief[Vector2i(ix, iy)] = (p - von).dot(dir)
 					lage_px[Vector2i(ix, iy)] = String(netz["lname"][netz["lage"][i0]])
+					kn_px[Vector2i(ix, iy)] = _knochen(netz, sk, i0)
 					var fn := (VV[i1] - VV[i0]).cross(VV[i2] - VV[i0])
 					vorn_px[Vector2i(ix, iy)] = fn.dot(dir) > 0.0
 					if fn.dot(dir) <= 0.0 and String(netz["lname"][netz["lage"][i0]]).begins_with("Female") and fall[0] == "mit rueck":
@@ -127,8 +128,25 @@ func _zerlege() -> void:
 					je[lk] = je.get(lk, 0) + 1
 				var ks := je.keys(); ks.sort_custom(func(x, y): return je[x] > je[y])
 				print("ZERLEG2028 %s %s %s e=%d: %d Bildpunkte, Tusche %d  %s" % [nur, bn, fall[0], e, tief.size(), tinte, ", ".join(ks.slice(0, 6).map(func(x): return "%s: %d" % [x, je[x]]))])
+			# Tusche innerhalb der Hand: Bildpunkt und tiefster Nachbar (Abstand 3) beide Haut, vorn; Knochen beider und Tiefensprung
+			if "--innen" in OS.get_cmdline_user_args() and fall[0] == "mit rueck":
+				var paare := {}
+				for k in tief:
+					if not String(lage_px[k]).begins_with("Female") or not vorn_px[k]: continue
+					var nb2 := [k + Vector2i(3, 0), k - Vector2i(3, 0), k + Vector2i(0, 3), k - Vector2i(0, 3)]
+					var lap := -4.0 * float(tief[k]); var ok := true; var ts: Vector2i = k
+					for q in nb2:
+						if not tief.has(q): ok = false; break
+						lap += float(tief[q])
+						if float(tief[q]) > float(tief[ts]): ts = q
+					if not ok or smoothstep(0.06, 0.15, absf(lap)) < 0.5: continue
+					if not String(lage_px[ts]).begins_with("Female"): continue
+					var pk := "%s vor %s %s" % [kn_px[k], kn_px[ts], "vorn" if vorn_px[ts] else "RUECK"]
+					if not paare.has(pk): paare[pk] = [0, 0.0]
+					paare[pk][0] += 1; paare[pk][1] = maxf(paare[pk][1], float(tief[ts]) - float(tief[k]))
+				for pk in paare: print("INNEN %s %s: %d Bildpunkte Tusche, Tiefensprung bis %.1f cm" % [bn, pk, paare[pk][0], paare[pk][1] * 100.0])
 			if "--karte" in OS.get_cmdline_user_args() and fall[0] == "mit rueck":
-				for iy in range(HALB, -HALB - 1, -2):
+				for iy in range(HALB, -HALB - 1, -1 if "--fein" in OS.get_cmdline_user_args() else -2):
 					var z := ""
 					for ix in range(-HALB, HALB + 1):
 						var k := Vector2i(ix, iy)

@@ -48,6 +48,30 @@ func _lauf() -> void:
 	k.zoom = Kamera.NAH
 	k.gieren_ziel = 0.0
 	k.springe()
+	# 2028-Ü3: --ohnetusche: Tusche-Durchgang aus (Linienbreite 0), sonst wie im Spiel
+	if "--ohnetusche" in OS.get_cmdline_user_args():
+		for m in k.tusche_mats: m.set_shader_parameter("px", 0.0)
+	# 2028-Ü3: --lagen: Haut grün, Kleid blau, Rückseiten von Haut magenta, von Kleid gelb, unbeleuchtet, ohne Tusche;
+	# --farbe: Bildfarbe (Textur mal Eckfarbe) unbeleuchtet, ohne Tusche; beide mit rueck wie toon.gdshader (heldfigur RUECK 0,04)
+	var modus := ""
+	for a in OS.get_cmdline_user_args():
+		if a in ["--lagen", "--farbe"]: modus = a.substr(2)
+	if modus != "":
+		for m in k.tusche_mats: m.set_shader_parameter("px", 0.0)
+		var sh := Shader.new()
+		if modus == "lagen":
+			sh.code = "shader_type spatial;\nrender_mode unshaded, cull_disabled;\nuniform float haut = 0.0;\nuniform float rueck = 0.04;\nvoid vertex() { vec4 vv = MODELVIEW_MATRIX * vec4(VERTEX, 1.0); vec3 blick = vec3(0.0, 0.0, -1.0); vv.xyz += blick * rueck * smoothstep(0.0, 0.2, dot(normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), blick)); POSITION = PROJECTION_MATRIX * vv; }\nvoid fragment() { ALBEDO = FRONT_FACING ? (haut > 0.5 ? vec3(0.0, 0.8, 0.0) : vec3(0.0, 0.0, 0.8)) : (haut > 0.5 ? vec3(1.0, 0.0, 1.0) : vec3(1.0, 1.0, 0.0)); }"
+		else:
+			sh.code = "shader_type spatial;\nrender_mode unshaded, cull_disabled;\nuniform sampler2D tex : source_color;\nuniform float rueck = 0.04;\nvoid vertex() { vec4 vv = MODELVIEW_MATRIX * vec4(VERTEX, 1.0); vec3 blick = vec3(0.0, 0.0, -1.0); vv.xyz += blick * rueck * smoothstep(0.0, 0.2, dot(normalize((MODELVIEW_MATRIX * vec4(NORMAL, 0.0)).xyz), blick)); POSITION = PROJECTION_MATRIX * vv; }\nvoid fragment() { ALBEDO = texture(tex, UV).rgb * COLOR.rgb; }"
+		for mi in wer.find_children("*", "MeshInstance3D", true, false):
+			var me := mi as MeshInstance3D
+			for i in me.mesh.get_surface_count():
+				var alt = me.get_active_material(i)
+				var neu := ShaderMaterial.new()
+				neu.shader = sh
+				neu.set_shader_parameter("haut", 0.0 if String(me.name).begins_with("Kleid") else 1.0)
+				if alt is ShaderMaterial and alt.get_shader_parameter("tex") != null: neu.set_shader_parameter("tex", alt.get_shader_parameter("tex"))
+				me.set_surface_override_material(i, neu)
 	for i in 6: await process_frame
 	await RenderingServer.frame_post_draw
 	var bild := root.get_texture().get_image()
