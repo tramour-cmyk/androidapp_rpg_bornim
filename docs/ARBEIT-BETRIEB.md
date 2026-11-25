@@ -281,3 +281,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 04:04 25.11.: Takt Uwe: nichts zu tun (Nacht).
 - 05:05 25.11.: Takt Uwe: nichts zu tun (Nacht).
 - 06:04 25.11.: Takt Uwe: nichts zu tun (Nacht).
+- 07:04 25.11.: Startsperre 07:04 Start Arbeitsplaner, Figur (lauf.py, Arbeitsplaner 887 Anna, Figur 431 Britta)
