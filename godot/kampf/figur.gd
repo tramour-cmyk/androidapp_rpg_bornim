@@ -3232,11 +3232,21 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		start -= Basis(Vector3.UP, atan2(blick.x, blick.z)) * Vector3(seit, 0.0, 0.0)
 	# 717 C (wolf_mess_438: der abgesetzte Wolf stand dort, wo der Held zum Hieb auf einen anderen hintrat, 22 cm ineinander): steht am
 	# Platz des Hiebs ein anderer, tritt der Held seitlich versetzt an das Ziel heran
-	if flat.length() > 0.01 and not _stand_frei(start, other):
+	# 1589.4 (Chef 25.11., 09:55): der Held steht nicht im Umriss seines Ziels (Kapsel; seitlich versetzt am niedrigen, langen Ziel
+	# stand er sonst bis 0,39 m in der Säureschnecke): so weit zurück, bis die Kapseln frei sind
+	if flat.length() > 0.01:
+		var zk: Array = other.umriss_kapsel()
+		var zur := flat.normalized()
+		for i in 40:
+			if Arena.kapsel_abstand(kapsel_bei(Vector2(start.x, start.z), rotation.y), zk) >= 0.0:
+				break
+			start -= zur * 0.05
+	# 1589.4 (F1, Versperren): auch der Weg dorthin frei nach den Kapseln der Arena (nicht durch einen anderen hindurch)
+	if flat.length() > 0.01 and not (_stand_frei(start, other) and _arena_biss(start, flat.normalized(), other)):
 		var off := start - to
 		for w in [25.0, -25.0, 50.0, -50.0, 75.0, -75.0]:
 			var p2 := to + off.rotated(Vector3.UP, deg_to_rad(w))
-			if _stand_frei(p2, other):
+			if _stand_frei(p2, other) and _arena_biss(p2, (to - p2).normalized(), other):
 				start = p2
 				break
 	if tween and tween.is_running():

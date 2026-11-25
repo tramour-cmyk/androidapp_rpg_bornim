@@ -12,7 +12,8 @@
 #          außer beim Ausweichen)
 #  1526    wer vorn Platz macht (außer Untoten und Krogg, die bleiben) (Reihe vorn → hinten, ein anderer hinten → vorn), weicht nur so
 #          weit, dass der Nachrücker vorbeikommt (Sokrates 24.11., 21:50, 1526 (b)): steht danach höchstens sein Umriss plus der des
-#          Nachrückers plus seine halbe Weglänge (Kapsel quer zum Weg, figur.weg_laenge) von seinem Punkt beim Tausch, wenn er nach dem Tausch zuerst gegangen ist
+#          Nachrückers plus seine halbe Weglänge (Kapsel quer zum Weg, figur.weg_laenge) von seinem Punkt beim Tausch (ist sein erster
+#          Weg danach ein Angriff, zählt er nicht), wenn er nach dem Tausch zuerst gegangen ist
 # Aufruf: godot --headless --path godot --fixed-fps 30 -s res://tests/wege_15894.gd (Exit 0 = gut); WEGE=RATS,WOLVES nur diese;
 # WEGE_LOG=1 je Verstoß eine Zeile mit Bild, Figur, Bewegung.
 extends SceneTree
@@ -141,6 +142,8 @@ func _kampf(foe: String) -> void:
 					tausch.erase(id)
 				continue
 			s.ruhig = 0
+			if tausch.has(id) and not tausch[id][2] and o.gang in ["anlauf", "hin"]:
+				tausch.erase(id)     # sein erster Weg nach dem Tausch ist ein Angriff, kein Platzmachen
 			if tausch.has(id) and p2.distance_to(tausch[id][3]) > float(o.umriss_kapsel()[2]):
 				tausch[id][2] = true     # 717.1 A: er rückt in seinem Zug; geprüft wird, wo er nach dem ersten Weg steht
 			var flieht: bool = o.flieht or o.fighter.fled
@@ -154,7 +157,7 @@ func _kampf(foe: String) -> void:
 					var nah := Arena.punkt_kapsel(((ko[0] as Vector2) + (ko[1] as Vector2)) * 0.5, kx)
 					if nah < float(kx[2]) and (not _geht(st, x) or x.fighter.id < id):
 						befund.durch += 1
-						_melde(foe, bild, o, "durch", "Mitte %.2f m in %s (Kapsel r %.2f, Länge %.2f), %s" % [nah, x.fighter.id, kx[2], x.kapsel_laenge(), nm])
+						_melde(foe, bild, o, "durch", "Mitte %.2f m in %s (Kapsel r %.2f, Länge %.2f), %s, gang %s, bei %s, %s bei %s" % [nah, x.fighter.id, kx[2], x.kapsel_laenge(), nm, o.gang, o.position, x.fighter.id, x.position])
 			# quer: Winkel Weg zu Blick
 			var w := rad_to_deg(blick.angle_to(d.normalized()))
 			if not flieht and not weicht and absf(w) > QUER_GRAD and absf(w) < 180.0 - QUER_GRAD:
