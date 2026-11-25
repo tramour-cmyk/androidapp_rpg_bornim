@@ -81,3 +81,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:04 25.11.: Otto: Takt 21:02 (eine Seite, Besetzung gepusht). Prüfzeilen 1535-Ü1, 1674-Ü1, 1398-Ü1, 1710-Ü1 an Ralf; 2035-Teil Disponent erkennen gebaut (Mira, aa45cb42e), Ralf prüft Ü35/Ü36; Mira danach 2041. Uhr weiter offen (create_trigger).
 - 21:06 25.11.: Disponent-Uhr: trig_01RDJvETEx6wog5bGvsETLSD (3 * * * *, auf Otto …79qsAJ, von Alter Ego umgehängt, Sokrates 21:05); alte trig_01Jog7nq… aus. Testbuild-Erinnerung trig_01MzbqijpDaS2FnXSUosLB4T (Fr 27.11., 17:30) auf Otto. Detlef …78E4LW archiviert (12,83 $ auf 1997).
 - 21:05 25.11.: Startsperre 21:05 Start Prüfer (lauf.py, Prüfer 1992 Anna)
+- 21:09 25.11.: Startsperre 21:09 Start Werkzeug (selbst, Nachfolger Mira 2041-Ü3, Handstart mit Ja Sokrates 20:51, R53, Otto).
