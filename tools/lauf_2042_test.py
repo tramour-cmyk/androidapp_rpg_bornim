@@ -82,5 +82,15 @@ wurzel("25.11., 22:30", [("9001-Ü1", "Disponent", "25.11., 22:35", "erledigt 25
 a = weck("9001-Ü2", "Disponent")
 soll("(2) frühere Zeile erledigt → WECKER", "WECKER session_DISP" in a, a)
 
+# (5) Startnachricht (Sokrates 2042-Ü5, 22:37): Auftrag nur in der Vorgangsdatei, in der START-Zeile nur der Verweis
+import shutil
+dd = tempfile.mkdtemp(); os.makedirs(os.path.join(dd, "vorgang")); shutil.copytree(os.path.join(lauf.DOCS, "profile"), os.path.join(dd, "profile"))
+LANG = "GEHEIMER-LANGTEXT " * 300
+open(os.path.join(dd, "vorgang", "9002.md"), "w").write("# 9002 · Probe\n\n## Auftrag (25.11., 22:00)\n\n1. **Ziel:** %s\n4. **Beachte:** Profil Werkzeug\n\n## Chefworte\n" % LANG)
+st = next((z for z in lauf.start_zeilen("Werkzeug", "9002", "Probe.", [], docs=dd) if z.startswith("START ")), "")
+soll("(5) START Werkzeug: Auftrag nicht wörtlich", "GEHEIMER-LANGTEXT" not in st, len(st))
+soll("(5) START Werkzeug: Verweis auf docs/vorgang/9002.md", "docs/vorgang/9002.md" in st and "vorgang.py auftrag 9002" in st, st[-400:])
+soll("(5) START Werkzeug: Ladetext Werkzeug bleibt", "**Werkzeug**" in st, st[:300])
+
 print("lauf_2042_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
