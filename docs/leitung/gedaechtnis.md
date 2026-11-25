@@ -24,10 +24,9 @@
 
 - Konferenz: Alter Ego `session_01Hmoj78S1BS7Gx4Jksc3zTh` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
 - Nach main: CLAUDE.md 8 (Chef 25.11., 17:37 und 17:44); mischen tut Sokrates.
-- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt; 63 % am 25.11.
-- Chef 12:48: Spiel vor, kein Werkzeug (1716, 1725, 2020, 2021 ruhen); fragt der Chef, jetzt vorlegen (25.11., 09:52). Sa vorlegen: --sperre-Teile; Testbuild Sa (Technik Fr). Offen: 1301/1387/1642/1643 mit Alter Ego.
+- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt. Chef 12:48: Spiel vor, kein Werkzeug (Ausnahmen 2035, 2036). Sa vorlegen: --sperre-Teile; Testbuild Sa (Technik Fr). Offen: 1301/1387/1642/1643 mit Alter Ego.
 - Täglich Modell, Umgebung, Aufwand aller Sitzungen. Kopiertexte: `kopiertexte-uhren.md`
 
 ## Übergabe
 
-- 25.11., 18:42, `77uPSf…` (369 Tsd.): Getan: Deckel 50 $/Ziel; F10 (kein Angriff in die Luft); 1589.4 Weg b; 2029 alles, 2034 erst Abzug, 2035, 2036 Rufnamen angelegt. Archivzeilen zu Chefworten über Alter Ego sperrt die Sicherheitsprüfung: die schreibt Alter Ego. Letzte Antwort: „Eilt darf Alter Ego“. Nachfolger: Sokrates – Leitung.
+- 25.11., 18:42, `77uPSf…`: Getan: F10, 1589.4 Weg b, 2034 Abzug, 2035, 2036. Archivzeilen zu weitergeleiteten Chefworten schreibt Alter Ego (Sperre). Letzte Antwort: „Eilt darf Alter Ego“. Nachfolger: Sokrates – Leitung.
