@@ -1382,3 +1382,4 @@
 2026-11-25 10:15:29	probelauf	1702: Bild oder Film an den Chef nur aus dem gepushten Stand; nicht committet: godot/tests/griff_folge_1694.gd. Erst committen und pushen; eigene Messläufe ohne Bild mit `MESS=`.	claude/figur-1694-griff
 2026-11-25 10:17:47	probelauf	1702: Bild oder Film an den Chef nur aus dem gepushten Stand; nicht committet: godot/tests/bild_1654.gd. Erst committen und pushen; eigene Messläufe ohne Bild mit `MESS=`.	claude/jerry-1653-kleid
 2026-11-25 10:20:30	probelauf	Laufbremse (1766, Chef 19.11., 13:02: je Runde ein Bild- oder Filmlauf): für 1694 schon 1 Lauf seit der Freigabe 2026-11-25 09:54:00. Den nächsten gibt der Prüfer frei: seine Rückmeldung („ja“, „nein“	claude/figur-1694-griff
+2026-11-25 10:46:19	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/wiebke-431-volkskoerper
