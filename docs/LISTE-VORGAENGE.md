@@ -226,7 +226,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2024 | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schwebt heute daneben) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *1,43 $* |
 | 2025 | Systemlösung? Axt: 3 frühere Vorgänge (280.2, 348.12j, 1314), neu 1694; einmal grundsätzlich lösen? (654) | 3 | E Figuren | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2028 | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 25.11., 12:32) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *0,97 $* |
-| 2029 | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielkamera (2026 A) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 2029 | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielkamera (2026 A) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *1,47 $* |
 | 2030 | Systemlösung? Haar: 2 frühere Vorgänge (2026, 1423b), neu 2029; einmal grundsätzlich lösen? (654) | 3 | E Figuren | K | – | – | – | *erledigt, keine Systemfrage: 2029 setzt 2026 fort, 1423b ist anderes (Sokrates 25.11., 13:10)* | *–* | *0* | *–* |
 | 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel … | 4 | E Kataloge | K | 644.1, 644.2, 644.4 | 458 | – | *wartet, entschieden A B C (Chef 14:28)* | *–* | *0* | *32,25 $* |
 | 644.1 | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit 649.2 | 4 | E Kataloge | K | 649.2 | 644, 649.2 | – | *wartet, Build 3 nach 649b A* | *–* | *0* | *–* |

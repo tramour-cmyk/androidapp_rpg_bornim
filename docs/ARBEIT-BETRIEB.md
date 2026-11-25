@@ -336,3 +336,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:11 25.11.: Startsperre 13:10 Start Figur (lauf.py, Figur 2028 Nora)
 - 13:12 25.11.: START Figur Nora 2028 (session_01Hmoj76SFWSo5MsovSNZmPq, Rowena Handgelenke); Planerin Jana archiviert, 0,97 $.
 - 13:15 25.11.: Startsperre 13:14 Start Figur (lauf.py, Figur 2029 Ute)
+- 13:16 25.11.: START Figur Ute 2029 (session_01Hmoj786YAM5Vmzh67eAwme, Deckel 30 $, Halt 24 $); Planerin Mia archiviert, 1,47 $. Fachkräfte: Selma 2024, Nora 2028, Ute 2029 (3); Maja 1589.4 wartet (Geld, Chef).
