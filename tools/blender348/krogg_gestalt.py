@@ -752,15 +752,20 @@ def gegen(b):     # Knochen der anderen Seite (hand_r <-> hand_l)
     return b[:-2] + ('_l' if b.endswith('_r') else '_r') if b[-2:] in ('_r', '_l') else b
 
 
-def lokal(q_name, tempo=1.0, halt=False, spiegeln=False):
+def lokal(q_name, tempo=1.0, halt=False, spiegeln=False, raffer=None):
     # Bewegung q_name als lokale Drehungen je Bild und Knochen auf Kroggs Gerüst (ohne Schlüssel)
     # spiegeln (2024): links und rechts getauscht, an der Ebene quer zur Welt-X gespiegelt (Drehung (w, x, y, z) -> (w, x, -y, -z))
+    # raffer (2024): (von s, bis s, Bilder) im Takt der fertigen Bewegung: der Teil dazwischen läuft in so vielen Bildern
     q = bpy.data.actions[q_name]; binde(UA, q)
     a0, a1 = q.frame_range
     n = int(round((a1 - a0) / tempo))
+    zeiten = [a0 + f * tempo for f in range(0, n + 1)]
+    if raffer:
+        v_, b_, k_ = raffer
+        zeiten = [t for t in zeiten if t < a0 + v_ * FPS * tempo] + \
+            [a0 + (v_ + (b_ - v_) * i / k_) * FPS * tempo for i in range(0, k_ + 1)] + [t for t in zeiten if t > a0 + b_ * FPS * tempo]
     bilder = []
-    for f in range(0, n + 1):
-        t = a0 + f * tempo
+    for t in zeiten:
         sc.frame_set(int(t), subframe=t % 1)
         D = {}
         for b in reihen:
@@ -786,9 +791,9 @@ def seite(s_):     # Arm einer Seite mit Hand und Fingern
 ARM_R, ARM_L = seite('r'), seite('l')
 
 
-def uebertrage(q_name, z_name, tempo=1.0, kurz=None, halt=True, arme=(), spiegeln=False):
+def uebertrage(q_name, z_name, tempo=1.0, kurz=None, halt=True, arme=(), spiegeln=False, raffer=None):
     # arme: [(Knochen, Bilder einer anderen Bewegung)], z. B. der Waffenarm aus Sword_Idle (Bild f mod Länge)
-    bilder = lokal(q_name, tempo, spiegeln=spiegeln)
+    bilder = lokal(q_name, tempo, spiegeln=spiegeln, raffer=raffer)
     if kurz: bilder = bilder[:kurz + 1]
     z = bpy.data.actions.new(z_name); z.use_fake_user = True; ARM.animation_data.action = z
     for f, R in enumerate(bilder):
@@ -823,11 +828,14 @@ ZU = [('Idle_Loop', 'Stehen', 1.0, None, WA), ('Walk_Loop', 'Gehen', 1.0, None, 
 # Pranke: der Hieb gespiegelt (der linke Arm holt aus und schlägt, der Rumpf dreht mit), der rechte Arm hält den Morgenstern
 # kampfbereit wie in Stehen (Sword_Idle), die linken Finger offen wie in Idle_Loop (Krallen statt Faust)
 FINGER_L = [b for b in ARM_L if b.split('_')[0] in FINGERN]
-ZU += [(HIEB_Q, 'Prankenhieb', float(os.environ.get('HIEB_TEMPO', '1.35')), None, [(ARM_R, SWORD), (FINGER_L, IDLE)], True)]
+# Chef 13:45 (Film acb701f): die Pranke kam bei 0,3 s seitlich vorn an und strich bis 0,67 s quer zum Ziel, der Treffer wirkte
+# 1 s zu spät; dieser Strich läuft jetzt in 3 Bildern (PRANKE_RAFFER), Ankommen und Aufschlag fallen zusammen
+RAFFER = tuple(float(x) for x in os.environ.get('PRANKE_RAFFER', '0.27,0.66').split(',')) + (3,)
+ZU += [(HIEB_Q, 'Prankenhieb', float(os.environ.get('HIEB_TEMPO', '1.35')), None, [(ARM_R, SWORD), (FINGER_L, IDLE)], True, RAFFER)]
 if os.environ.get('UAL'):
     ZU += [('Jog_Fwd_Loop', 'Rennen', 1.0, None, WA), ('Jog_Bwd_Loop', 'Zurück', 1.0, None, WA), ('Jog_Right_Loop', 'Ausweichen', 1.0, 9, WA),
            ('Jog_Left_Loop', 'Ausweichen links', 1.0, 9, WA)]
-BEWEGT = {e_[1]: uebertrage(*e_[:4], arme=e_[4], halt=e_[1] != 'Tod', spiegeln=len(e_) > 5 and e_[5]) for e_ in ZU}
+BEWEGT = {e_[1]: uebertrage(*e_[:4], arme=e_[4], halt=e_[1] != 'Tod', spiegeln=len(e_) > 5 and e_[5], raffer=e_[6] if len(e_) > 6 else None) for e_ in ZU}
 print('BEWEGUNG Hieb aus %s' % HIEB_Q)
 # 2024 (Prüfer 13:42 (3): am Aufschlag lag der rechte Arm mit dem Morgenstern hinter Krogg, die Drehung des Rumpfs warf ihn nach
 # hinten): im Prankenhieb steht der rechte Arm ab dem Oberarm je Bild zum Becken wie in Stehen, der Morgenstern bleibt vorn
@@ -1053,15 +1061,16 @@ f_auf, vor, kp = best
 HIEB = [round(math.hypot(kp.x, kp.y), 3), round(f_auf / FPS, 3), round(-math.degrees(math.atan2(kp.x, -kp.y)), 1), round(kp.z, 2)]
 print('HIEB Aufschlag Bild %d (%.2f s von %.2f s): Kopf %.2f m vor dem Ursprung, %.0f Grad, %.2f m hoch' % (
     f_auf, f_auf / FPS, nh / FPS, HIEB[0], -HIEB[2], HIEB[3]))
-# 2024: Aufschlag des Prankenhiebs: Bild, in dem die linke Pranke (Mittelfingerknöchel) am weitesten vor Krogg ist
+# 2024: Aufschlag des Prankenhiebs: erstes Bild, in dem die linke Pranke (Mittelfingerknöchel) 90 % ihrer größten Weite vor Krogg
+# erreicht (Chef 13:45, Film acb701f: die Pranke kam bei 0,3 s seitlich vorn an und strich erst bei 0,67 s quer zum Ziel; der
+# Treffer kam spät). Winkel und Weite aus diesem Bild: Krogg dreht sich so, dass die Pranke beim ersten Ankommen das Ziel trifft
 pr_, npr = BEWEGT['Prankenhieb']
 ARM.animation_data.action = pr_
-best = None
+spur_ = []
 for f in range(0, npr + 1):
     sc.frame_set(f); bpy.context.view_layer.update()
-    kp = AW @ PB['middle_01_l'].matrix.translation
-    if best is None or -kp.y > best[1]: best = (f, -kp.y, kp)
-f_auf, vor, kp = best
+    spur_.append((f, AW @ PB['middle_01_l'].matrix.translation))
+f_auf, kp = max(spur_, key=lambda e: -e[1].y)
 PRANKE = [round(math.hypot(kp.x, kp.y), 3), round(f_auf / FPS, 3), round(-math.degrees(math.atan2(kp.x, -kp.y)), 1), round(kp.z, 2)]
 print('PRANKE Aufschlag Bild %d (%.2f s von %.2f s): Pranke %.2f m vor dem Ursprung, %.0f Grad, %.2f m hoch' % (
     f_auf, f_auf / FPS, npr / FPS, PRANKE[0], -PRANKE[2], PRANKE[3]))

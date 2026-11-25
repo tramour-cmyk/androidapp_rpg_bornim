@@ -3397,6 +3397,8 @@ func _hieb(other, weiter := 0.0, nm := "Hieb") -> int:
 	tween.tween_callback(func(): gang = "heim"; _turn_home())
 	busy_ms = int((t_run + bl + t_back + 180.0 / TURN_DPS) * 1000.0)
 	anlauf_ms = int(t_run * 1000.0)
+	if OS.get_environment("SCHAU_2024") != "":
+		print("2024 %s %s: Anlauf %.2f s, Aufschlag %.2f s, Länge %.2f s, Uhr %d" % [fighter.id, nm, t_run, auf, bl, Engine.get_process_frames()])
 	return int((t_run + auf) * 1000.0 / 0.42)
 
 
