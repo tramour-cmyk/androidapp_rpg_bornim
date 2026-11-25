@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session_01Hmoj76MLqXxxrREpwoxksZ). Sokrates session_01Hmoj77b3dQK5zpocRJsWFB (seit 25.11., 11:51). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj75PCSHUvX4ZVftYC3X (seit 25.11., 16:37; Vorgänger session_01Hmoj796ziGfneFcCRZG7J7). Sokrates session_01Hmoj77b3dQK5zpocRJsWFB (seit 25.11., 11:51). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 16:38 Nachfolger übernommen, umbenannt; Uhr trig_01VLLzUkLeriMf7xZS52Sjw8 (17:38); alte trig_01DAga3N7xaRwSNotkCT4Pyd (17:25) nicht löschbar (Rechteprüfer); Kennung an Sokrates.
 - 25.11., 16:37 Übergabe (259 Tsd.), Startfelder an Sokrates.
 - 25.11., 16:34 Chef 16:34 Grundsatz „Alles bis $50 einfach machen … nicht mehr nachfragen“ → wörtlich an Sokrates (Regel eintragen). Eigener Fehler 15:22: Leerlauf gemeldet, obwohl 3 liefen (Uwe 15:09); dem Chef 16:25 berichtigt.
 - 25.11., 16:24 Runde: Entscheid 15:22 nicht ausgeführt (2031 ohne Fachkraft seit 14:10), Leerlauf dritte Runde; 2029-Ü7 steckt fest bei Sokrates (15:43). An Sokrates: Grund/Sperre nennen. 1708 A/B beim Chef (Telegram 16:07). Uhr trig_01DAga3N7xaRwSNotkCT4Pyd (17:25).
