@@ -153,3 +153,4 @@ STARTSPERRE - 18:02 25.11.: Startsperre 18:02 Start Disponent (lauf.py, Disponen
 - 18:07 25.11.: Disponent alt (…75wHERa, 107,92 $, nicht gebucht, Nachfolger bucht) archiviert; Nachfolger …77CqtJv im Dienst seit 18:03.
 - 18:07 25.11.: Startsperre 18:07 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2036 Anna)
 - 18:08 25.11.: 2036 (Sokrates 18:07): Arbeitsplaner Bruno von Hand (session_01Hmoj783tfLMMcAjTyXD4BG), Rufname männlich nach Chef 18:04 statt lauf.py „Anna“; Reihenfolge 2033, 2036, 2035. Kosten alter Disponent …75wHERa 107,92 $ auf 1997 gebucht.
+- 18:09 25.11.: Reihenfolge neu (Sokrates 18:11, Alter Ego in Vertretung, steht in 2035.md): 2035 Teil TOKEN-Zeile Eilt beim nächsten freien Platz, dann 2033, 2036, Rest 2035.
