@@ -126,3 +126,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:50 25.11.: 2042-Ü12 ja Ralf 22:48 an 4d112f0c1 (claude/2042-uebergang-300, Übergang 300/450 Tsd.) an Sokrates zum Mischen.
 - 22:49 25.11.: Startsperre 22:49 Start Werkzeug (lauf.py, Werkzeug 2042 Anna)
 - 22:52 25.11.: Carla …75mPRi übergab (67daeea38e, 224 Tsd. nach 17 Min.; Teile 1, 2, 5 auf britta-2042), archiviert, 6,86 $ auf 2042. Teile 1–5 beim Prüfer Ralf (Sokrates 22:53). Nachfolgerin Dora …75ru4A für Teile 6 und 9 (Teil 7 beim Chef), Startsperre 22:49.
+- 22:53 25.11.: 2042-Ü12 gemischt (9072e9421; Zeile schon 22:50 erledigt). Mahnung Werkzeug/Prüfer/Arbeitsplaner jetzt 300, Sperre 450 Tsd. (nach Pull). Dora schon 22:50 wie lauf.py (opus) gestartet.
