@@ -33,6 +33,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   (1989) lauf.py --start ROLLE NR "Nachricht" [SEITE …] [--sperre]: Handstart außerhalb des Takts → START-Zeile mit Startblock und
                                                                      STARTSPERRE <Protokollzeile> (mit --sperre selbst gepusht); von Hand nur so starten
   NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1739) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
+  TITEL <session_id> <Titel>                                        → (2042) laufende Einzelrolle (Disponent, Wache) mit altem Titel: set_session_title
   (1739) offene Übergabezeile an eine Rolle ohne Sitzung → START dieser Rolle (Titel „<Rolle> – <Nr>: offene Übergabe“) oder angehängt an ihre START-Zeile; mit --sperre gibt der Lauf abgelaufene Fristen ruhender Halter frei (Zeile „NICHTS Übergabe: …“, schon gepusht)
   HÖCHSTDAUER <session_id> | <Rolle> | <Nr> | <Text>                → (1766, erst mit tools/1727-SCHARF und Wert in HOECHSTDAUER_MIN) interrupt_session, dann `vorgang.py rueckmeldung <Nr> "<Text>" --sitzung Ford`, pushen
   GUTHABEN … / LAUFSPERRE …                                         → (1804, erst mit tools/1727-SCHARF; tools/guthaben.py) Stufe nach 287 und Laufsperre aus Chefwort; lauf.py hält die Starts selbst an („NICHTS <Rolle>: Guthaben …“), Disponent startet nicht von Hand vorbei; lauf.py jeden Takt, nur START-Zeilen ruhen (1978)
@@ -302,6 +303,18 @@ def warnung_einmal_je_stunde(zeilen, pfad=None, jetzt=None):
 FESTER_TITEL = {"Disponent": "Disponent – Büro", "Wache": "Wache – Betrieb"}  # 2041 d (Chef 25.11., 21:11, 21:14): Einzelrollen ohne Rufnamen
 OHNE_RUFNAMEN = {"Sokrates"} | set(FESTER_TITEL)  # mit ROUTINE_ROLLEN; Alter Ego startet lauf.py nie
 
+
+def titel_zeilen(sitzungen):
+    """2042 (4) (Fund Alter Ego 25.11., 22:07: Karl behielt „Karl – Disponent – Betrieb“): je laufender Einzelrolle (FESTER_TITEL) mit
+    anderem Titel eine Zeile „TITEL <Kennung> <fester Titel> (TT.MM., HH:MM)“, Zeit aus created_at; der Disponent setzt sie mit set_session_title."""
+    import kosten as _k
+    aus = []
+    for s in sitzungen:
+        if s.get("session_status") == "SESSION_STATUS_ARCHIVED" or not s.get("created_at"): continue
+        r = _k.rolle(s.get("title", ""), s["created_at"])
+        if r not in FESTER_TITEL or (s.get("title") or "").startswith(FESTER_TITEL[r] + " ("): continue
+        aus.append("TITEL %s %s (%s)" % (s["id"], FESTER_TITEL[r], berlin(z(s["created_at"]).astimezone(BERLIN))))
+    return aus
 
 def mit_rufnamen(ausgabe, sitzungen, jetzt=None, namen=None):
     """1739 Rufnamen (erst mit tools/1727-SCHARF): jede START-Zeile außer Sokrates bekommt den nächsten freien Rufnamen des
@@ -2124,6 +2137,7 @@ def main():
     ausgabe += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
     rufnamen = {}  # 1957: Rolle → Rufnamen der STARTs, für die Startsperre
     if ist_scharf(): ausgabe = mit_rufnamen(ausgabe, alle.values(), namen=rufnamen)
+    ausgabe.extend(titel_zeilen(alle.values()))  # 2042 (4)
     try:  # 1688 (Chef 23.11., 08:39): offene „streichen:“-Übergaben an den Disponenten als erste Zeilen, Pflicht vor jedem Start
         import streichen
         ausgabe = streichen.zuerst(streichen.lauf_zeilen(DOCS) + ausgabe)
