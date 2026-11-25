@@ -25,6 +25,7 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 10:30 Chef 10:30 „Nee, wir bauen keinen eigenen Zopf.“ (= 431 B) → wörtlich an Sokrates.
 - 25.11., 10:29 Chef 10:27/10:29 MakeHuman-Asset-Packs „Pakete sichten auf jeden Fall“ → wörtlich an Sokrates (Auftrag anlegen); Übersicht und Lizenzlage CC0/CC-BY dem Chef 10:28 belegt.
 - 25.11., 10:26 Chef 10:26 „Vorgang 1589.4. Machen.“ (auf Meldung 10:15, Deckel Kapsel-Umbau, Votum 36 $) → wörtlich an Sokrates.
 - 25.11., 10:13 Chef 10:13 „A, 431 kann man das nicht klären?“ → Guthaben A (drei bis Sa); 431 Lizenz klären (Zip-Lizenz, MakeHuman-FAQ, MakeClothes-Vorgabe), CC0 belegt = B, sonst A. An Sokrates.
