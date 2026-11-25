@@ -361,3 +361,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:38 25.11.: Notstart Alter Ego (Nr. 2013, kein Profil, Sokrates 16:40): session_01Hmoj75PCSHUvX4ZVftYC3X; alter (…796ziG) wird nach Meldung des neuen archiviert.
 - 16:39 25.11.: Alter Ego alt (…796ziG) archiviert (2013: 9,43 $, gesamt 24,70 $); Handstart Sokrates (Nr. 1988, Neustart Kontext 400 Tsd.), alter Sokrates (…77b3dQ) bleibt bis Meldung des neuen.
 STARTSPERRE - 16:38 25.11.: Startsperre 16:38 Start Sokrates (lauf.py, 1988)
+- 16:40 25.11.: Sokrates neu session_01Hmoj77uPSfmHFTcgkb3sHW (Nr. 1988); alter (…77b3dQ) wartet auf dessen Meldung.
