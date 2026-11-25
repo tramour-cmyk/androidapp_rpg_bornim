@@ -8,8 +8,10 @@ R=$1; Z=$2; C=$3; M=${4:-main}
 mkdir -p $Z
 T=$(mktemp -d)
 GOLD='#D4AF6A'
-schild() {   # Bild, Text, Ausgabe: Text oben auf schwarzem Streifen
-  convert "$1" -background black -fill "$GOLD" -gravity north -splice 0x34 -pointsize 16 -annotate +0+7 "$2" "$3"
+schild() {   # Bild, Text, Ausgabe: Text oben auf schwarzem Streifen, umbrochen innerhalb der Bildbreite (Prüfer 25.11., 09:58: lief über den Rand)
+  local w; w=$(identify -format %w "$1")
+  convert -background black -fill "$GOLD" -pointsize 16 -size $((w - 16))x -gravity center caption:"$2" -bordercolor black -border 8x6 $T/cap.png
+  convert $T/cap.png "$1" -background black -gravity center -append "$3"
 }
 declare -A NAME=([mensch]=Mensch [elf]=Elf [zwerg]=Zwerg [huegelvolk]=Hügelvolk [orkbluetiger]=Orkblütiger)
 declare -A MERK=([mensch]="" [elf]="Haar lang, kein Bart" [zwerg]="Bart/Zöpfe" [huegelvolk]="Bart kurz, Schild" [orkbluetiger]="Haut")
@@ -37,7 +39,7 @@ for v in mensch elf zwerg huegelvolk orkbluetiger; do
       teile+=($T/s_${a}.png); aus+=($T/a_${a}.png)
     done
     [ ${#teile[@]} -gt 0 ] || continue
-    convert "${teile[@]}" +append $T/o_$g.png; convert "${aus[@]}" +append $T/u_$g.png
+    convert "${teile[@]}" -background black -gravity north +append $T/o_$g.png; convert "${aus[@]}" -background black -gravity north +append $T/u_$g.png
     convert $T/o_$g.png $T/u_$g.png -background black -append $T/z_$g.png; zeilen+=($T/z_$g.png)
   done
   [ ${#zeilen[@]} -gt 0 ] || continue
