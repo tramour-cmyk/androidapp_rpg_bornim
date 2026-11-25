@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78egvYz1pP981xLHs5 (seit 25.11., 22:48). Sokrates session_
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 22:58 Chef 22:48/22:53 Titelstand selbst, Ralf „frei“ beim Prüfen → wörtlich an Sokrates, Ralf von Hand „prüft 2042“. Chef 22:54 „läuft der Umbau?“: nein, nur 300/450 auf main; Ralf 22:56 nein zu Teilen 1–5; Ü15 an archivierte Carla → Entscheid in Vertretung: Nachfolger übernimmt. Gegenprüfung Hebel Sokrates 23:00: Teil 6 zuerst, Rechnung x h vor Bau, offen 10.080 statt 13 KB.
 - 25.11., 22:48 Nachfolger übernommen, umbenannt; Uhr trig_01NdYUgPya6E344diyid2VZB (23:49); alte trig_01M79hDGn24dPP13MYwuEWBd abgeschaltet (Löschen sperrt Auto-Modus); Vorgänger …77coHo archiviert; Kennung an Sokrates.
 - 25.11., 22:49 Chef 22:43 „umbenennen“ → Ralf „Ralf – Prüfer – frei“, Regel an Sokrates; Chef 22:45 „1 ja, 2 auch temporär“ → wörtlich an Sokrates. Übergabe (264 Tsd.), Startfelder an Sokrates.
 - 25.11., 22:44 Chef 22:40 „gegenprüfen … dann machen wir es so mit Alt (Eilt)“: Unteragent 22:42 bestätigt Befunde, Ursache rufname.py Z. 229, Einwand Disponent.md Z. 5 → Prüfer-Ablauf und Teil-6-Fix an Sokrates in 2042. Übergabe geschrieben.
