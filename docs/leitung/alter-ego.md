@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78S1BS7Gx4Jksc3zTh (seit 25.11., 17:38; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 17:51 Querprüfung (Chef 17:48): 1589.4-Ü25/26 offen, Maja wartet seit 17:13, F10 gegen „geradewegs heran“ → Chef; 5 fertige Sitzungen nicht archiviert (Frauke, Anna, Moritz, Clara, Disponent-Starter seit 23.11.), 1708 Kosten fehlen; Liste 2029/1708/2031 „startbar“ trotz laufender Fachkraft, Spalten Sitzung/Runde leer; Uwe 314 Tsd. → an Sokrates.
 - 25.11., 17:45 Chef 17:44 „du änderst jetzt Claude MD, weil ich bin der Chef … Ich rede nicht mehr mit Sokrates.“ → main-Regel (Vorschlag 17:37, Chef-Ja 17:37) in CLAUDE.md 8; Disponent Z. 11, Kern Leitung Z. 12, Gedächtnis Z. 25 verweisen.
 - 25.11., 17:43 Chef 17:43 zum Disponenten-Neustart (Grenze 300 Tsd., lauf.py Z. 251; Uwe 314 Tsd.): „wenn er nicht läuft, nicht nur veranlassen, dass er läuft, sondern … feststellen, warum“. Runde 18:39: Nachfolger da? Sonst Ursache belegen, dann Neustart über Sokrates.
 - 25.11., 17:41 Chef 17:40 fragt 15-Min.-Takt Disponent: nicht beschlossen; Rat: erst messen (72 Min. Median vor 17:33-Änderungen, ~15–40 $/Tag geschätzt). Runden 18:39–20:39: Wartezeit fertig→Start; über 30 Min. → Fall dem Chef.
