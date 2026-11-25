@@ -55,7 +55,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Profil | als Nächstes |
 |---|---|
-| **Chef** | [2034](entscheiden/2034-abzug-grund.md) entscheiden |
+| **Chef** | [2032](entscheiden/2032-guertel-falte.md) entscheiden; dann 1 weitere |
 | Arbeitsplaner | läuft: 1589.4 (Besetzung); 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | 1589.4 Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur… (Muss); dann 1 weitere |
@@ -102,6 +102,7 @@ Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Kl
 
 | Nr. | Vorrang | Bereich | Seit | Was | Wer |
 |---|---|---|---|---|---|
+| [2032](entscheiden/2032-guertel-falte.md) | **Muss** | B Figur | 25.11., 22:08 | Durchscheinende Kleid-Innenseite an Rowenas Hand halb behoben (90 → 33 Punkte), Rest ist eine Falte; A weiter in 2032, B halben Stand nehmen und Falte später. | Sokrates |
 | [2034](entscheiden/2034-abzug-grund.md) | **Muss** | E Figuren | 25.11., 20:00 | Grund des Abzugs graublau mit Lichthof statt Blauschwarz; A so lassen, B sichtbare Lichtquelle bauen. |  |
 
 ## Zu billigen
