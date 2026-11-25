@@ -23,10 +23,10 @@
 ## Offene Fäden
 
 - Konferenz: Alter Ego `session_01Hmoj78GVgrp48SUhwspQ4U` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
-- Nach main: CLAUDE.md 8 (Chef 25.11., 17:37 und 17:44); mischen tut Sokrates.
-- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Chef 12:48: Spiel vor, kein Werkzeug (außer 2035, 2036). Sa vorlegen: --sperre-Teile; Testbuild Sa (Technik Fr).
-- Täglich Modell, Umgebung, Aufwand aller Sitzungen.
+- Nach main: CLAUDE.md 8 (Chef 25.11., 17:37, 17:44); mischt Sokrates.
+- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Chef 12:48: Spiel vor, kein Werkzeug (außer 2035, 2036). Sa vorlegen: --sperre-Teile, Werkzeug a–d und Profile Wache/Disponent (Alter Ego 20:41); Testbuild Sa (Technik Fr).
+- Täglich Modell, Umgebung, Aufwand je Sitzung.
 
 ## Übergabe
 
-- 25.11., 20:36, `75bAmZ`: 2039 Eilt, 1694 A (Chef-👍) eingetragen. Offen Chef: Wochenkontingent in %, Sperre Disponent über 300 Tsd. (A/B, 20:31), drei archivieren, trig_01UMBs6p ab. Offen dir: 2029-Ü21 Wörter Frisur/Bart. Letzte Antwort: 20:31 Sperre A/B.
+- 25.11., 20:36, `75bAmZ`: 2039 Eilt, 1694 A eingetragen. Offen Chef: Wochenkontingent %, Sperre 300 Tsd. (Rat jetzt B, 20:41), drei archivieren, trig_01UMBs6p ab. Offen: 2029-Ü21 Frisur/Bart. Letzte Antwort: 20:42.
