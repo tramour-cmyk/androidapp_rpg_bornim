@@ -142,3 +142,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:09 25.11.: Sokrates 23:05: 2032-Ü10 (Chefwort „2032 A“ 23:02, Wecker an Paula) an Oda, Lehre R74. 2044: Auftrag zuerst Alter Ego, Start nach Ja, nicht vor 07:00. 2031: Ü15 Frage Greta 23:01 (Orkgesicht dunkler, Behebung f097e3347) bei Sokrates; Ü13 hält.
 - 23:09 25.11.: 2042-Ü21 Auftrag Fassung 2 (Oda 23:06) an Dora, nach Sokrates zu Ü19. Fund Oda (Disponent nicht erkannt) als Lehre.
 - 23:10 25.11.: Sokrates 23:07: Ü19 beantwortet (R75), Ü20 per Weiter an Dora (Reihenfolge Ralf). Ü19 erledigt. Sokrates 23:08: Rundblick 23.11. ausgelassen; URTEIL 5024 durch „2032 A“ erledigt.
+- 23:10 25.11.: 2032-Ü11 Auftrag Fassung 2 (Oda 23:07) per Weiter an Ines …77NKuN (kein Start); alter Rückläufer 2032-Ü3 (19:51) damit überholt, erledigt.
