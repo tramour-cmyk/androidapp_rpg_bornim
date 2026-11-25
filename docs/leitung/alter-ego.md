@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session_01Hmoj76MLqXxxrREpwoxksZ). Sokrates session_01Hmoj76pVj4STr1hPTJC56p (seit 24.11., 21:52). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session_01Hmoj76MLqXxxrREpwoxksZ). Sokrates session_01Hmoj77b3dQK5zpocRJsWFB (seit 25.11., 11:51). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 12:15 Runde: Leerlauf dritter Mal (keine Fachkraft arbeitet; Maja wartet auf 1589.4-Ü17 seit 11:21). Entscheid in Vertretung: Uwe startet 1654 und 2024. 2026 fertig (65 von 65, ja 5), Kontaktbogen angesehen, dem Chef vorgelegt. An neuen Sokrates: Prüfer 2026-Ü4/1694-Ü37, 431-Ü18/19, 431-Testbuild-Frage tot? Uhr trig_014TnWv1VTesznAVisuhrskJ (13:15).
 - 25.11., 11:12 Runde: Leerlauf zweimal (10:08, 11:12), nur Maja 1589.4 arbeitet, Hilde 431 wartet bis 11:42. Entscheid in Vertretung: Uwe startet 2026 jetzt. An Sokrates offen: 1654-Ü8 steckt fest (10:22), 1694-Ü32/33, 1589.4-Ü14/15 überholt; 2026.md Chefwort mit falscher Sitzungskennung. Uhr trig_01FYMv6b5H1KUbRxUrB3Zons (12:13).
 - 25.11., 10:30 Chef 10:30 „Nee, wir bauen keinen eigenen Zopf.“ (= 431 B) → wörtlich an Sokrates.
 - 25.11., 10:29 Chef 10:27/10:29 MakeHuman-Asset-Packs „Pakete sichten auf jeden Fall“ → wörtlich an Sokrates (Auftrag anlegen); Übersicht und Lizenzlage CC0/CC-BY dem Chef 10:28 belegt.
