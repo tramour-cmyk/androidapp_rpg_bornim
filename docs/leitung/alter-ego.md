@@ -25,6 +25,7 @@ Sitzung session_01Hmoj75PCSHUvX4ZVftYC3X (seit 25.11., 16:37; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 17:22 Chef 17:21: Prüfer wie Fachkraft weiter bis voll. Entscheid 17:17 berichtigt: Jonas archivieren, sonst WEITER-Grenze (200 Tsd., 60 Min. Ruhe); Profilsatz Disponent beim Chef. Ursache Jonas: uebergabe.py Z. 303–312 weckt die eingetragene Sitzung ohne Grenze. Jonas 28 Übergaben, 43,58 $.
 - 25.11., 17:17 Chef 17:16 zum Prüfer: Jonas seit 24.11., 12:06, 548 Tsd., 43,58 $, getrennt; Profil „einen Auftrag“. Entscheid in Vertretung: archivieren, je Prüfung frischer Prüfer, Besetzung umstellen → an Sokrates. Offen beim Chef: 1990, A/B Starts.
 - 25.11., 17:07 Chef 17:07 zu 2029 „alles“ (Rest aus 2026 A kommt: Kopfteile, Ausrüstung, Aussehen Held/NPC) → wörtlich an Sokrates, Chefwort von Hand (Haken D). 17:06 Wartezeiten erklärt (Stundenuhr, 1990, Leerlauf, Platz je Rolle); Frage 1990 trotz Baustopp beim Chef.
 - 25.11., 17:02 Chef 17:02: Fehlwurf = Abwehr oder Ausweichen für alle Gegner → wörtlich an Sokrates (DESIGN-KAMPF). Chefwort 17:00 von Hand in 1589.4 (f02c256f6, Haken D).
