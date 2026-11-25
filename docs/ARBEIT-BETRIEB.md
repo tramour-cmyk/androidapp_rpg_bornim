@@ -316,3 +316,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:16 25.11.: Sokrates 11:17: 2026 und 1694 starten; Greta (1694) mit Bildlauf frei per Weiter-Nachricht wieder an der Arbeit; Handstart 2026 von lauf.py angehalten (3 laufen: Hilde, Maja, Greta); Sokrates gefragt, startet sobald ein Platz frei ist.
 - 11:46 25.11.: 431-Ü22 Kostenstand an Hilde: Sitzung 5,64 $, Nachbesserung ~22,77 $ von 30 $.
 - 11:48 25.11.: Startsperre 11:47 Start Figur (lauf.py, Figur 2026 Isolde)
+- 11:49 25.11.: START Figur Isolde 2026 (session_01Hmoj75xTvgZg8MZDCyzdNz, nur Sichten); Hilde (431) archiviert, 7,10 $ (431 gesamt 180,92 $); Prüfer 431 „ja“ (431-Ü24): keine Testbitte wegen Chef-Ruhe, 431 kommt in den Testbuild Fr abends; Sokrates informieren.
