@@ -149,3 +149,4 @@ STARTSPERRE - 18:02 25.11.: Startsperre 18:02 Start Disponent (lauf.py, Disponen
 - 18:03 25.11.: Startsperre 18:03 Start Arbeitsplaner, Arbeitsplaner, Tagesbericht, Prüfer (lauf.py, Arbeitsplaner 887 Rita, Arbeitsplaner 1484 Sabine, Tagesbericht 448, Prüfer 2031 Tanja)
 - 18:04 25.11.: Startsperre 18:04 Start Tagesbericht (lauf.py, 448)
 - 18:05 25.11.: Startsperre 18:05 Start Prüfer (lauf.py, Prüfer 2031 Anna)
+- 18:06 25.11.: Takt 18:03 (Uwe, Nachfolger): START Prüfer Anna 2031-Ü2 von Hand (session_01Hmoj75cYryQ9PkT5EBjFQV); Vorschläge Planer 887 Rita, Planer 1484 Sabine, Tagesbericht 448 wie bisher nicht gestartet; Fachkräfte arbeitend: Dora, Edda, Finja (Laufsperre voll); 2033, 2035 warten; Vorgänger …75wHERa zum Archivieren benachrichtigt.
