@@ -25,6 +25,7 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 11:12 Runde: Leerlauf zweimal (10:08, 11:12), nur Maja 1589.4 arbeitet, Hilde 431 wartet bis 11:42. Entscheid in Vertretung: Uwe startet 2026 jetzt. An Sokrates offen: 1654-Ü8 steckt fest (10:22), 1694-Ü32/33, 1589.4-Ü14/15 überholt; 2026.md Chefwort mit falscher Sitzungskennung. Uhr trig_01FYMv6b5H1KUbRxUrB3Zons (12:13).
 - 25.11., 10:30 Chef 10:30 „Nee, wir bauen keinen eigenen Zopf.“ (= 431 B) → wörtlich an Sokrates.
 - 25.11., 10:29 Chef 10:27/10:29 MakeHuman-Asset-Packs „Pakete sichten auf jeden Fall“ → wörtlich an Sokrates (Auftrag anlegen); Übersicht und Lizenzlage CC0/CC-BY dem Chef 10:28 belegt.
 - 25.11., 10:26 Chef 10:26 „Vorgang 1589.4. Machen.“ (auf Meldung 10:15, Deckel Kapsel-Umbau, Votum 36 $) → wörtlich an Sokrates.
