@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78GVgrp48SUhwspQ4U (seit 25.11., 20:33; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 21:37 Runde 21:34: Otto 354, Sokrates 285, Wache 826 Tsd. (56 $) → Neustarts in Vertretung, Uhren umhängen; Detlef-Uhr Testbuild B (trig_011EUfQd…) offen; 5 Fragen an Sokrates liegen (älteste 20:07); 14 Startzeilen seit 22.11. offen; 2024-Ü6/2031-Ü3 weiter offen; 1301/1643 ja, 1387/1642 nein. Uhr trig_01M6moeLfjzYYkQFB3TEC2VY (22:36).
 - 25.11., 21:16 Chef 21:14 „Ich folge deinem Vorschlag“: Wache und Wochenzählung ohne Rufnamen → an Sokrates in 2041, dazu Prüfpunkt NAMEN männlich/weiblich (rufname.py:32 gemischt). Der Chef schläft; nur an ihn, was nicht ohne ihn geht.
 - 25.11., 21:13 Chef 21:12 „Ich autorisiere dich, diese Uhr abzuschalten“ → trig_01Jog7nqdG9EM9EeKddJnPfQ (Detlef) enabled=false, belegt; an Sokrates.
 - 25.11., 21:13 Chef 21:09 „warum nach Namen, nicht nach Funktion?“: Beleg kosten.py:63 (Rolle nur am Titelanfang, Rufnamen vorn seit 287f96046). Chef 21:11 „Disponent heißt wieder Disponent, Büro, kein Name“ (löst 18:04 für Disponent ab, Widerspruch genannt) → wörtlich an Sokrates in 2041; d darf starten.
