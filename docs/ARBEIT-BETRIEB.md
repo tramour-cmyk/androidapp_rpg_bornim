@@ -300,3 +300,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:09 25.11.: Startsperre 10:08 Start Figur (lauf.py, Figur 1694 Greta)
 - 10:10 25.11.: START Figur Greta 1694 (session_01Hmoj76sFv9GqX7amHet5WK, Chef „1694 B“ Deckel 10 $, Halt 8 $; Kosten 1694 jetzt 79,30 $, Greta-Kosten je Runde lesen); Planerin Anna archiviert, 1,61 $ gebucht. Carla meldet Kapsel-Umbau 8–10 $ über Deckel 26 $: Frage liegt bei Sokrates (1589.4-Ü14).
 - 10:11 25.11.: Notstart Alter Ego (Nr. 2013, kein Profil, Sokrates 10:09): session_01Hmoj796ziGfneFcCRZG7J7; alter (…76MLqX) wird nach Meldung des neuen archiviert.
+- 10:15 25.11.: Alter Ego alt (…76MLqX) archiviert, 13,15 $ (2013); neuer hat sich 10:12 gemeldet. Chef 10:13: drei Fachkräfte bis Sa 20:00. Carla: kein Code bis Deckelentscheid (Chefsache 15894-kapsel-deckel), darf enden.
