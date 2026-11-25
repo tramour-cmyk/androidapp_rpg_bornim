@@ -11,7 +11,7 @@
 #          außer beim Ausweichen)
 #  1526    wer vorn Platz macht (außer Untoten und Krogg, die bleiben) (Reihe vorn → hinten, ein anderer hinten → vorn), weicht nur so
 #          weit, dass der Nachrücker vorbeikommt (Sokrates 24.11., 21:50, 1526 (b)): steht danach höchstens sein Umriss plus der des
-#          Nachrückers plus seine halbe Länge (Kapsel quer zum Weg) von seinem Punkt beim Tausch, wenn er nach dem Tausch zuerst gegangen ist
+#          Nachrückers plus seine halbe Weglänge (Kapsel quer zum Weg, figur.weg_laenge) von seinem Punkt beim Tausch, wenn er nach dem Tausch zuerst gegangen ist
 # Aufruf: godot --headless --path godot --fixed-fps 30 -s res://tests/wege_15894.gd (Exit 0 = gut); WEGE=RATS,WOLVES nur diese;
 # WEGE_LOG=1 je Verstoß eine Zeile mit Bild, Figur, Bewegung.
 extends SceneTree
@@ -111,7 +111,7 @@ func _kampf(foe: String) -> void:
 		if nach_hinten.size() == 1 and nach_vorn.size() == 1 and not String(kf.figures[nach_hinten[0]].fighter.monster.get("id", "")) in STUR:
 			var hf = kf.figures[nach_hinten[0]]
 			tausch[nach_hinten[0]] = [Vector2(hf.position.x, hf.position.z), bild, false,
-				Vector2(hf.position.x, hf.position.z), float(hf.umriss_kapsel()[2]) + float(kf.figures[nach_vorn[0]].umriss_kapsel()[2]) + 0.5 * hf.kapsel_laenge()]
+				Vector2(hf.position.x, hf.position.z), float(hf.umriss_kapsel()[2]) + float(kf.figures[nach_vorn[0]].umriss_kapsel()[2]) + 0.5 * hf.weg_laenge()]
 		for o in figs:
 			var id: String = o.fighter.id
 			var p3: Vector3 = o.position

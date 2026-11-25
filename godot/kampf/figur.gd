@@ -1872,7 +1872,7 @@ func _gasse(von: Vector3, nach: Vector3, skip, ziel_k := []) -> float:
 	var b := Vector2(nach.x, nach.z)
 	for o in kampfort.figures.values():
 		if o == self or o == skip or not o.visible or o.down or o.dead_at >= 0 or o.fighter.side != fighter.side or o.unterwegs() \
-				or (o.tween and o.tween.is_running() and not o._nur_dreh()) or (o.fighter.monster != null and not o.weg.has("Gehen")):
+				or (o.tween and o.tween.is_running() and not o._nur_dreh()):
 			if OS.get_environment("SCHAU_MESS") != "" and o != self and o.fighter.side == fighter.side and not o.down:
 				print("1589.4 gasse %s übersprungen: unterwegs %s tween %s dreh %s gehen %s gang %s" % [o.fighter.id, o.unterwegs(), o.tween != null and o.tween.is_running(), o._nur_dreh(), o.weg.has("Gehen"), o.gang])
 			continue
@@ -1884,7 +1884,8 @@ func _gasse(von: Vector3, nach: Vector3, skip, ziel_k := []) -> float:
 		var p := Arena.beiseite(a, b, weg_laenge(), umriss_r(), ok, o.weg_laenge(), o._kreise(self), \
 				String(o.fighter.monster.get("id", "")) if o.fighter.monster != null else "", \
 				func(v: Vector2) -> Array: return o.kapsel_bei(c + v, o.rotation.y) if v.length() <= ZUR_SEITE_M * o._scale() else o.kapsel_am_ziel(c + v), zk) + c
-		if p == c:
+		var flieger: bool = o.fighter.monster != null and not o.weg.has("Gehen")
+		if p == c or flieger and p.distance_to(c) > ZUR_SEITE_M * o._scale():     # wer nicht geht (Flieger), nur den Seitschritt
 			if OS.get_environment("SCHAU_MESS") != "":
 				print("1589.4 %s kann nicht beiseite für %s (%s -> %s)" % [o.fighter.id, fighter.id, von, nach])
 			continue
@@ -1898,9 +1899,10 @@ func _gasse(von: Vector3, nach: Vector3, skip, ziel_k := []) -> float:
 			print("1589.4 %s geht beiseite für %s: %s -> %s" % [o.fighter.id, fighter.id, o.position, ziel])
 		if p.distance_to(c) <= ZUR_SEITE_M * o._scale() and o.fighter.monster != null:
 			# F4: ein einzelner Seitschritt, ohne zu drehen (gedreht schwenkte der lange Rumpf in den Weg, wolf_mess_438)
-			var v: float = o._wechsel_mps(true) * WECHSEL_LANGSAM
+			var v: float = (o._mps("Gehen") if not flieger else WALK_MPS) * WECHSEL_LANGSAM
 			var nm: String = o._gang_ss("Gehen")
-			o.tween.tween_callback(func(): o.anim.play(nm, 0.15, WECHSEL_LANGSAM))
+			if not flieger:
+				o.tween.tween_callback(func(): o.anim.play(nm, 0.15, WECHSEL_LANGSAM))
 			var dauer := p.distance_to(c) / maxf(v, 0.1)
 			o._lauf_gerade(o.tween, o.position, ziel, dauer)
 			o.tween.tween_callback(o._idle)
@@ -2695,6 +2697,18 @@ func _hieb(other, weiter := 0.0) -> int:
 			stand = pl[0]
 			auf = float(pl[1]) / maxf(float(tempo.get("Hieb", 1.0)), 0.1) + HIEB_VERZUG
 	var start := position + dir * (flat.length() - stand)
+	# 1589.4 (F1; Chef 25.11., 09:55): steht vor dem Ziel schon ein anderer (Kapseln der Arena), ein Platz um das Ziel herum, so weit
+	# geradewegs heran (Arena.bissplatz_winkel, geradewegs); sonst der Platz vor dem Ziel (der Vordere macht Platz, _gasse)
+	if not _arena_biss(start, dir, other):
+		var tg := Vector3(other.position.x, position.y, other.position.z)
+		for w in [15.0, -15.0, 30.0, -30.0, 45.0, -45.0]:
+			var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
+			var s2 := tg - d2 * stand
+			if Arena.bissplatz_winkel(w) and Arena.geradewegs(Vector2(position.x, position.z), Vector2(s2.x, s2.z), Vector2(tg.x, tg.z)) \
+					and _arena_biss(s2, d2, other):
+				start = s2
+				dir = d2
+				break
 	var schlag := atan2(dir.x, dir.z) + deg_to_rad(float(hieb[2]))
 	angriff_von = start     # die Schneide, nicht die Körperachse zum Ziel
 	var t_gasse := _gasse(position, start, other) if start.distance_to(position) > 0.12 else 0.0     # 1589.4: ein Eigener im Weg geht beiseite
@@ -3007,6 +3021,17 @@ func strike(other, e: Dictionary) -> int:
 		hold = ms * (STEP_BACK - STEP_HOLD) / 1000.0
 		back = clampf(reach.length() / HERO_BACK_MPS, HERO_BACK_S, HERO_BACK_MAX_S)
 	var there := position + reach
+	# 1589.4 (F1; Chef 25.11., 09:55, Fledermaus nach der Kapsel): ist der Platz am Ziel nach den Kapseln der Arena besetzt, ein Platz
+	# um das Ziel herum, so weit geradewegs heran (wie _hieb); sonst der Platz vor dem Ziel (der Vordere macht Platz, _gasse)
+	if not hero and reach.length() > 0.12 and not _arena_biss(there, reach.normalized(), other):
+		var tg := Vector3(to.x, position.y, to.z)
+		var vor := tg - there     # vom Platz zum Ziel, gleicher Abstand
+		for w in [15.0, -15.0, 30.0, -30.0, 45.0, -45.0]:
+			var s2 := tg - vor.rotated(Vector3.UP, deg_to_rad(w))
+			if Arena.bissplatz_winkel(w) and Arena.geradewegs(Vector2(position.x, position.z), Vector2(s2.x, s2.z), Vector2(tg.x, tg.z)) \
+					and _arena_biss(s2, (tg - s2).normalized(), other):
+				there = s2
+				break
 	gang = "hin"
 	_face(to - position)
 	_play("Sprung" if leap else ("Biss" if fighter.monster != null else "Hieb"), 0.05)
