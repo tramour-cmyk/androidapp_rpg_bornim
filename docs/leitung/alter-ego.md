@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78S1BS7Gx4Jksc3zTh (seit 25.11., 17:38; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 17:54 Chef 17:53: „Kein Angriff geht daneben“ klingt nach 100 % Treffer, falsch; abwehren/ausweichen bleibt, angegriffen wird, wo der Held steht. F10-Kopf in DESIGN-KAMPF neu gefasst, Inhalt unverändert; an Sokrates.
 - 25.11., 17:53 Chef 17:52 „entscheide du halt die Fragen von Maja. Dafür bist du“ → in „Darf“; 1589.4 (b) in Vertretung bestätigt; an Sokrates: solche Fragen an Alter Ego.
 - 25.11., 17:52 Chef 17:50 zu 1589.4 „… vorliegen, neu entscheiden. Kein Angriff geht daneben, gilt …“ → wörtlich an Sokrates (keine Option gewählt). Lehre: neueres Chefwort geht vor älterem; Widerspruch zu Altem nicht vorlegen.
 - 25.11., 17:51 Querprüfung (Chef 17:48): 1589.4-Ü25/26 offen, Maja wartet seit 17:13, F10 gegen „geradewegs heran“ → Chef; 5 fertige Sitzungen nicht archiviert (Frauke, Anna, Moritz, Clara, Disponent-Starter seit 23.11.), 1708 Kosten fehlen; Liste 2029/1708/2031 „startbar“ trotz laufender Fachkraft, Spalten Sitzung/Runde leer; Uwe 314 Tsd. → an Sokrates.
