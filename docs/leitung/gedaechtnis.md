@@ -21,7 +21,7 @@
 
 ## Offene Fäden
 
-- Konferenz: Alter Ego `session_01Hmoj796ziGfneFcCRZG7J7` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
+- Konferenz: Alter Ego `session_01Hmoj78S1BS7Gx4Jksc3zTh` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
 - Spielcode nach main nur Sokrates nach Chef-👍 (Dauerwort 23.11., 23:10).
 - Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel und Eilt; 63 % am 25.11.
 - Chef 12:48: Spiel vor, kein Werkzeug (1716, 1725, 2020, 2021 ruhen); fragt der Chef, jetzt vorlegen (25.11., 09:52). Sa vorlegen: --sperre-Teile; Testbuild Sa (Technik Fr). Offen: 1301/1387/1642/1643 mit Alter Ego.
