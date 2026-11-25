@@ -1,4 +1,4 @@
-# Gedächtnis der Leitung · Fassung 5 (Sokrates 24.11., 08:15): auf 3 KB gekürzt, „Fehler 341“ aus `ARBEIT-BERATUNG.md` eingearbeitet; ältere Fassungen und Wortlaute in Git
+# Gedächtnis der Leitung · Fassung 5 (24.11.); ältere Fassungen in Git
 
 ## Geltende Lehren
 
@@ -10,6 +10,7 @@
 - Bild selbst ansehen, Spielkamera; Waffe: Griff je Hand (1650, 1621).
 - Umbau nur von der alten Datei aus, jede Übernahme prüfen (98). Kerne, Profile, Abgenommenes nur in der Quelle, mit Chefwort und Byte, nur die genannte Stelle (D205.3, 1931).
 - Befund, der den Auftrag erledigt, vorher nennen (1638); Ablauf als Raster Einheit × Auslöser, „komplett“ per grep.
+- Keine Regel gegen Praktisches vorschieben (Kapsel 25.11.).
 - Neueres Chefwort gilt; widerspricht es Älterem, Chef darauf hinweisen, er löst (17:54).
 - Chefentscheid nie selbst zurücknehmen oder gegen Chefwort ablehnen: raten, Regel nennen, fragen (1609, 23.11.).
 - Gegenlesen: erst die Art jeder Zeile, dann Inhalt; nur gegen gültige Texte prüfen (t299, 1933).
