@@ -28,4 +28,4 @@
 
 ## Übergabe
 
-- 25.11., 11:56, `76pVj4…` (401 Tsd.): Getan: Chefworte 1589.4, 1694, 2024, 2026, 431 eingetragen. Letzte Antwort: 431 Bilder an Chef, 👍 = Testbuild. Nachfolger: Sokrates – Leitung.
+- 25.11., 16:31, `77b3dQ…`: Getan: 431 auf main (db71f9f0f); 2026, 1654 erledigt; neu 2029, 2028, 2031 (60 $); 1589.4 Deckel 80 $; 2024 Zeitpunkt ok; 1708 jetzt. Letzte Antwort: „2024 nach main“ beim Chef offen. Nachfolger: Sokrates – Leitung.
