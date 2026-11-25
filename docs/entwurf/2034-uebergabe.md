@@ -34,3 +34,9 @@ Lauf: abzug_mh.py (bpy 5.2.3, venv ~/bl neu) NUR=M29-04,M36-05,M57-09, dann `SIG
 
 Lauf `SIGNATUR=1 NUR=M36-05,M57-09,M29-04` an d0ed0dc33 (Lauf 3 von 3, kein weiterer ohne Freigabe). Sonne und Tusche aus `kampf/signatur.gd` (`sonne_wie_kampf`: −45, 55; `tusche_licht` Gruppe: px 0,8, dick 1,5, umriss_dick 1,3), Lampe auf der Sonnenseite. Bilder `probe/<Nr>.webp` (vorn mit | ohne), `probe/<Nr>_abzug.webp` (vorn | Seite wie im Abzug), `probe/<Nr>_licht_schatten.webp` (Ausschnitt 3-fach), Messung `probe/messung-d0ed0dc33.json`, Lauf `probe/marke-d0ed0dc33.txt`. Rahmen aller 194 Netze ohne Bildlauf: `2034-abzug/rahmen.tsv` (`abzug_2034_rahmen.py`, stimmt bei den drei Stücken mit dem Lauf überein).
 Befund: Toon-Stufen 1 statt 3 (weißes Stück 0,98): Kampfort-Sonne ohne Tonwerte des Kampforts. Behebung ohne Lauf im Folgecommit (`Sig.einrichten` statt Einzelteilen), wartet auf Laufanforderung beim Prüfer.
+
+## Nachtrag 21:38 (Edda): Lauf 4 frei, Neustart
+
+Sokrates 21:39 (Archiv 96b91cc84): Lauf 4 für 2034 frei; Antwort wörtlich in `docs/vorgang/2034.md` (zuerst lesen, auch zu den 19 breiten Stücken). Frage war 2034-Ü18 (20:43).
+Nachfolger: Edda – 2034 Teil 0: Probe-Lauf 4 (Figur)
+Weiter: Pakete neu laden und `abzug_mh.py` wie Nachtrag 20:42 (Skript `lade.sh`-Weg: Paketseite → `files.makehumancommunity.org`-Zip, `p/M<n>`), `abzug_2034_liste.py` für `zeichnen`, dann genau ein Lauf `SIGNATUR=1 NUR=M36-05,M57-09,M29-04` an 1806d5665 (oder Behebung nach Sokrates), danach `abzug_2034_signatur.py`, `abzug_2034_seiten.py`, `abzug_2034.sh … probe`; prüfen: Toon-Stufen wieder 3, Tusche Schatten breiter als Licht; alt (d0ed0dc33) gegen neu; dann Prüfer, dann Probe an den Chef.
