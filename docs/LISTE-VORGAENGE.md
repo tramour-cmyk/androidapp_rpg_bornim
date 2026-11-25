@@ -226,7 +226,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2024 | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schwebt heute daneben) | 3 | E Figuren | M | – | – | – | *startbar, Chefwort 25.11., 16:03* | *–* | *0* | *21,87 $* |
 | 2025 | Systemlösung? Axt: 3 frühere Vorgänge (280.2, 348.12j, 1314), neu 1694; einmal grundsätzlich lösen? (654) | 3 | E Figuren | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2028 | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 25.11., 12:32) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *17,44 $* |
-| 2029 | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielkamera (2026 A) | 3 | E Figuren | M | – | – | – | *startbar, steckt fest* | *–* | *0* | *15,32 $* |
+| 2029 | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielkamera (2026 A) | 3 | E Figuren | M | – | – | – | *startbar, steckt fest* | *–* | *0* | *17,21 $* |
 | 2030 | Systemlösung? Haar: 2 frühere Vorgänge (2026, 1423b), neu 2029; einmal grundsätzlich lösen? (654) | 3 | E Figuren | K | – | – | – | *erledigt, keine Systemfrage: 2029 setzt 2026 fort, 1423b ist anderes (Sokrates 25.11., 13:10)* | *–* | *0* | *–* |
 | 2031 | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt gegen neu (Chef 13:39) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *1,82 $* |
 | 2032 | Rowena: rechte Finger auf dem Gürtel dunkel, gelbe Kleid-Innenseite sichtbar (Rest aus 2028, Prüfer 25.11., 17:00) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *–* |

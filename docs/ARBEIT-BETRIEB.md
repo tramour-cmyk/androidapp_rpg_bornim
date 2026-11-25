@@ -370,3 +370,4 @@ STARTSPERRE - 17:01 25.11.: Startsperre 17:01 Start Arbeitsplaner (lauf.py, Arbe
 - 17:03 25.11.: Prüfer 17:00: 2029 ja (Vorlage über Sokrates, Ü9/Ü10 erledigt), 2028 nein, Auftrag → Planer Moritz session_01Hmoj7A4gb2iWB6Stj3R5Bh (Deckel 50 $).
 - 17:04 25.11.: Startsperre 17:04 Start Tagesbericht (lauf.py, 448)
 - 17:06 25.11.: Takt 17:04: Planer Moritz 2028 gestartet (…7A4gb2); 1708-Ü1 erledigt, Ü2 angenommen, Handstart Kampf 1708 durch Laufsperre (Startsperre-Marke 16:58 + Planer als Sonstige gezählt) angehalten, nachholen ca. 17:20; Maja blockiert (zwei Entscheide) an Sokrates; Tagesbericht/Planer 887/Kampf Olga nicht gestartet.
+- 17:07 25.11.: Hanna (2029) archiviert, 1,89 $; 2029-Ü10 war schon erledigt (Sokrates will sie offen bis Chefantwort: Nacken/.import als eigene Zeile an Figur nach Chef-Entscheid).
