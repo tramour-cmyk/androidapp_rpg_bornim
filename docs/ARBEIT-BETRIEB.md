@@ -344,3 +344,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:46 25.11.: 2024 Prüfer nein (Ü6: Ring/Aufschlag, ausholen.gd, Standbild); Selma 11,79 $ (+1,43 $) = 13,22 $, Halt 12 $ überschritten, Deckel 15 $: Selma nicht geweckt, Entscheid Sokrates.
 - 13:57 25.11.: 2024-Ü9 (Frage Selma: Ring/Aufschlag A so lassen / B eigener Vorgang) an Sokrates per Nachricht.
 - 14:04 25.11.: Startsperre 14:04 Start Arbeitsplaner, Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Karla, Arbeitsplaner 2031 Lutz, Tagesbericht 448)
+- 14:07 25.11.: Takt Uwe 14:04: Planerin Lutz 2031 Kutte/Robe und Haut (session_01Hmoj7A8UJChisXSPLpsx5L, Chef 👍 13:40); Prüfer 2029-Ü3 (Laufanforderung Helm) weitergereicht; Fachkräfte Maja 1589.4, Nora 2028, Selma 2024 (3); 887/448 nicht.
