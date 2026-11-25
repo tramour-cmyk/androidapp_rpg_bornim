@@ -310,3 +310,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:34 25.11.: Carla (1589.4) archiviert, 2,31 $. Reihe nächster freier Platz (Sokrates 10:35): Kampf 1589.4 nach Berta „Auftrag steht“, dann 2026, 2024; keiner weicht.
 - 10:37 25.11.: Frieda (2026) archiviert, 1,26 $; Auftrag steht (cbf4b6764); Figur 2026 wartet auf Platz (Reihe: Kampf 1589.4, dann 2026, dann 2024); 2026-Ü2/Ü3 angenommen (Übersicht HTTP 503: erster Schritt der Fachkraft Erreichbarkeit).
 - 10:51 25.11.: 431-Ü20 Kostenstand an Hilde (173,82 $ gebucht, Nachbesserung 17,13 $ Britta, Halt 30 $).
+- 11:03 25.11.: Startsperre 11:03 Start Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 887 Gerda, Tagesbericht 448)
