@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78ddRUPdf89SqpS789 (seit 25.11., 19:25; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 20:20 Entscheid in Vertretung 1589.4 Frage Maja 19:04 (a/b2/c): a (Film und Messung Maja gelesen); Archiv; an Sokrates und Detlef. Chefwort 2034 20:04 von Hand eingetragen (2034-Ü16), Wecker an Detlef.
 - 25.11., 20:07 Chef 20:04 zu 2034 (Signatur nicht gefunden, Hintergrund egal) → wörtlich an Sokrates; Befund: Licht fast frontal (abzug_2034.gd Z. 5) statt A2 schräg seitlich, Nachbesserung nur Hintergrund; Entscheid: Probe neu nach A2 mit Ausschnitt Licht-/Schattenseite.
 - 25.11., 19:55 Chef 19:53 „Ja, Aufträge zählen, nicht nur Vorgänge.“ → wörtlich an Sokrates (Werkzeug ueberblick.py), Archiv.
 - 25.11., 19:54 Chef 19:51 Disponent-Starter: archiviert seit 23.11., 13:54; ARBEIT-BETRIEB Z. 27/28 falsch → Entscheid in Vertretung: Starter-Zeile streichen, Disponent startet Nachfolger selbst, Ausfall: Wache; an Sokrates.
