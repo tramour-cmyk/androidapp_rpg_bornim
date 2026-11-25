@@ -23,7 +23,7 @@ spalte() {   # Fall, Titel, Ansichten..., Ausgabe ist $T/sp_<fall>.png
   local kx=$1 ky=$2; shift 2
   convert $R/${f}_spiel.png -stroke red -strokewidth 4 -draw "line $((kx+130)),$((ky-40)) $((kx+60)),$((ky-6))" \
     -fill red -draw "polygon $((kx+48)),$((ky)) $((kx+66)),$((ky+4)) $((kx+62)),$((ky-14))" -resize 50% $T/s.png
-  schild $T/s.png "$titel; Spielkamera (Handy 540x1170); $(dreieck $f) Dreiecke sichtbar${ABW:+ $ABW}" $T/a_$f.png 100
+  schild $T/s.png "$titel; Spielkamera (Handy 540x1170); $(dreieck $f) Dreiecke sichtbar${ABW:+ $ABW}" $T/a_$f.png 110
   local teile=($T/a_$f.png)
   for an in "$@"; do
     convert $R/${f}_${an}.png -resize 270x $T/v.png
