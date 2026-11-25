@@ -318,3 +318,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 11:48 25.11.: Startsperre 11:47 Start Figur (lauf.py, Figur 2026 Isolde)
 - 11:49 25.11.: START Figur Isolde 2026 (session_01Hmoj75xTvgZg8MZDCyzdNz, nur Sichten); Hilde (431) archiviert, 7,10 $ (431 gesamt 180,92 $); Prüfer 431 „ja“ (431-Ü24): keine Testbitte wegen Chef-Ruhe, 431 kommt in den Testbuild Fr abends; Sokrates informieren.
 - 11:52 25.11.: Startsperre 11:51 Start Sokrates (selbst, Neustart Kontext 401 Tsd., Übergabe 8baebbf2b)
+- 11:53 25.11.: Nachfolger Sokrates gestartet (session_01Hmoj77b3dQK5zpocRJsWFB); alter (…76pVj4) erst nach Meldung des neuen archivieren. 431-Bilder hat Sokrates selbst an den Chef gesendet (ansehen/431-voelker.md); von mir keine Vorlage.
