@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj78egvYz1pP981xLHs5 (seit 25.11., 22:48). Sokrates session_01Hmoj79sfZCCTcafJDfrfK4 (seit 25.11., 21:43). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj78egvYz1pP981xLHs5 (seit 25.11., 22:48). Sokrates session_01Hmoj79MGDRiuPhzwz77AMf (seit 25.11., 23:03). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78egvYz1pP981xLHs5 (seit 25.11., 22:48). Sokrates session_
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 23:05 Chef 23:00 „Wieso blieb es stehen?“ (2034): Sokrates schrieb Antwort statt Löschen; meldung.sh --bild schiebt Absender aus Z. 1–2, ueberholt blind → 2044 Eilt, R72. Sokrates 400 Tsd. → Übergabe sofort (neu …79MGDR). Chef 23:02 „2032 A“ selbst eingetragen (d295c75af), Wecker ging falsch an Paula → an Sokrates.
 - 25.11., 22:58 Chef 22:48/22:53 Titelstand selbst, Ralf „frei“ beim Prüfen → wörtlich an Sokrates, Ralf von Hand „prüft 2042“. Chef 22:54 „läuft der Umbau?“: nein, nur 300/450 auf main; Ralf 22:56 nein zu Teilen 1–5; Ü15 an archivierte Carla → Entscheid in Vertretung: Nachfolger übernimmt. Gegenprüfung Hebel Sokrates 23:00: Teil 6 zuerst, Rechnung x h vor Bau, offen 10.080 statt 13 KB.
 - 25.11., 22:48 Nachfolger übernommen, umbenannt; Uhr trig_01NdYUgPya6E344diyid2VZB (23:49); alte trig_01M79hDGn24dPP13MYwuEWBd abgeschaltet (Löschen sperrt Auto-Modus); Vorgänger …77coHo archiviert; Kennung an Sokrates.
 - 25.11., 22:49 Chef 22:43 „umbenennen“ → Ralf „Ralf – Prüfer – frei“, Regel an Sokrates; Chef 22:45 „1 ja, 2 auch temporär“ → wörtlich an Sokrates. Übergabe (264 Tsd.), Startfelder an Sokrates.
