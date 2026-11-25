@@ -25,6 +25,7 @@ Sitzung session_01Hmoj75PCSHUvX4ZVftYC3X (seit 25.11., 16:37; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 17:37 Profil Disponent 5b65a8d70 geprüft: Einwände „jede Zeile seiner Ausgabe“ widerspricht „Starts selbst“; „eine je Rolle“ nicht gestrichen → an Sokrates. 2035 „Übergaben schlanker“ angelegt.
 - 25.11., 17:35 Übergabe (262 Tsd.), Startfelder an Sokrates.
 - 25.11., 17:33 Chef 17:33 „1 Jahr, 3 bleibt, 4 Jahr, 5 Jahr. Zu 2 müssen wir uns noch unterhalten.“ → mit Inhalt je Punkt an Sokrates. Offen beim Chef: 2 (main-Regel, Gespräch).
 - 25.11., 17:31 Unabhängige Ablaufprüfung fertig (8 Funde: Plätze falsch gezählt, main-Regel vierfach, Nachtsperre, Rückläufer falsche Sitzung, Leichen offen, Quittungen, Chefwort weckt Planer, Schub statt Zug). Geprüft: 431 main per Chef-👍 12:37 vor Test (Archiv Z. 23), Nachtsperre Sokrates (Archiv Z. 44). Geprüfte Liste dem Chef vorgelegt.
