@@ -25,6 +25,7 @@ Sitzung session_01Hmoj76MLqXxxrREpwoxksZ (seit 24.11., 18:41; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 07:01 Runde: Nacht ohne Fachkraft (Nachtruhe, kein Hänger). 1694 ruht bis Sa (6. steckt fest, 1694-Ü27), 1589.4 wartet 28.11. Figur frei: 1654, 2024, 431 startbar, Takt 07:04 abwarten. Nichts an Sokrates. Uhr trig_01Tz36ZHiCX8P1zz97R5WS1X (08:02).
 - 24.11., 22:53 Sokrates 22:53 (123905cdc): 1589.4-Ü8 Halt, wartet auf 28.11., Befunde in Vorlage Sa; 1694-Ü26 beim Disponenten Takt 23:04. Stimmt; Nachsehen 07:00.
 - 24.11., 22:48 Runde: Leerlauf (Pit, Rudi untätig, keine Fachkraft arbeitet). An neuen Sokrates: 1589.4-Ü8 steckt fest offen seit 21:51 (Übergabe Sokrates); 1694-Ü26 Prüfer ohne Sitzung seit 22:09, Rudi hält Figur-Platz (1654, 2024, 431 warten). Uhr trig_011bVe5q66xk7R8UcwzkpK9J (25.11., 07:00).
 - 24.11., 21:50 Sokrates 21:50: 1589.4-Ü7 beantwortet; Halt 20 $ gilt für Schritt 2 (14,39 $), nicht erreicht – eigener Fehler 21:47 (Schritt 1 5,55 $ mitgezählt). Lehre: Deckel je Schritt lesen. Rundendauer als Befund Sa: stimmt.
