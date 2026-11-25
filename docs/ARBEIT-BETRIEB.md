@@ -374,3 +374,4 @@ STARTSPERRE - 17:01 25.11.: Startsperre 17:01 Start Arbeitsplaner (lauf.py, Arbe
 - 17:09 25.11.: Planer Moritz: Auftrag 2032 (Rowena Gürtel, Figur) und 2033 (Thessa Faust-Tusche, Technik) steht, 2028-Ü6 erledigt; Starts 1708, 2032, 2033 wegen Laufsperre ab ca. 17:20 nacheinander (Deckel je 50 $).
 STARTSPERRE - 17:09 25.11.: Startsperre 17:09 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2034 Anna)
 - 17:11 25.11.: Planerin Anna session_01Hmoj77kiHyjP2FKgnYKEmP für 2034 (Rest MakeHuman-Pakete) und 2029-Ü11 (Chef 17:07 „alles“) gestartet; Maja geweckt (Sokrates, Ü23); Figur-Start 2029 nach Auftrag, Handstarts 1708/2032/2033 nach Laufsperre.
+- 17:19 25.11.: Prüfer Jonas (…75ccpj, 2017: 43,58 $) archiviert (Alter Ego Vertretung 7415afc91: jede Prüfung ein frischer Prüfer); nächste Prüfer-Zeile startet neuen Prüfer über lauf.py.
