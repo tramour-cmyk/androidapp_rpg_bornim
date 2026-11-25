@@ -329,3 +329,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:27 25.11.: Greta (1694) archiviert, 8,93 $ (1694 gesamt 88,23 $, Halt 8 $ um 0,93 $ überschritten); Kostenstand an Prüfer; 1694-Ü38 (nein, Auftrag) wartet auf Planer-START im Takt 13:03; 2026-Ü5 (Prüfer ja) Vorlage an den Chef bei Sokrates (mein Telegram von Auto-Prüfung abgelehnt).
 - 12:28 25.11.: 1694-Ü39 (Hinweis Prüfer: Kosten nachgetragen, nur Bildausschnitt für Planer offen) erledigt.
 - 12:34 25.11.: 1654 Prüfer ja (16c516564) und Hinweis Handgelenke schwarz an Sokrates (Vorlage, Fund); Lena (1654) archiviert, 2,52 $.
+- 13:04 25.11.: Startsperre 13:04 Start Arbeitsplaner, Figur, Arbeitsplaner, Tagesbericht, Sokrates (lauf.py, Arbeitsplaner 887 Heike, Figur 2026 Ida, Arbeitsplaner 2028 Jana, Tagesbericht 448, Sokrates 1589.4)
