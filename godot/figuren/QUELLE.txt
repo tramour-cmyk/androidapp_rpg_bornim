@@ -9,6 +9,9 @@ haut_mh/*.jpg, *.json (2031, Probe hinter Schalter HeldFigur.mh_haut), gebacken 
   ghosts_jung, ghosts_mitte, ghosts_alt: skins01 "onlytheghosts_young/middle_aged/old_eurasian_female" (OnlyTheGhosts)
   CC0 laut Paketseite und packs/skins01.json, packs/skins02.json; .mhmat ohne Lizenzzeile (rehmanpolanski: nur AGPL-Text der Materialvorlage)
   https://static.makehumancommunity.org/assets/assetpacks/skins01.html, skins02.html (gelesen 25.11.2026)
+  danach (2031, Pruefer 21:53, Bild 22:53) tools/blender348/v3/haut_mh_flecken.py: rote Flecken getilgt, dunkle Stellen gestaucht,
+  Helligkeit im Grossen (Ortsmittel 20 px) weichgezeichnet aus der Kaufhaut UBC derselben UV (Quaternius, Universal Base Characters,
+  CC0, LISTE-QUELLEN.md Z. 147, 470); Bezug der Toenung neu mit tools/godot/haut_bezug_2031.gd
 Grundkoerper hm08 fuer beide Skripte: base.obj aus MPFB 2.0.18 (extensions.blender.org/add-ons/mpfb, Datei mpfb/data/3dobjs/base.obj,
 geladen 25.11.2026), Kopf der Datei: "This asset was explicitly released as CC0 in september 2020" (Data Collection AB, Joel Palmius,
 Jonas Hauquier); https://static.makehumancommunity.org/about/license.html "All core assets are shared under Creative Commons, CC0" (gelesen 25.11.2026).

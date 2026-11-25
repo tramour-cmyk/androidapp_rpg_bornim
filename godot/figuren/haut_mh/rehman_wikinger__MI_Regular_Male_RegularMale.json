@@ -1,20 +1,21 @@
 {
+ "bezug": "tools/godot/haut_bezug_2031.gd nach haut_mh_flecken.py (Bild 22:53)",
+ "bild": 1024.0,
+ "gesicht_ecken": 544,
+ "gesicht_hell_linear": 0.0964,
+ "gesicht_srgb": [
+  0.464,
+  0.3054,
+  0.2398
+ ],
+ "hell_linear": 0.219,
  "material": "MI_Regular_Male_RegularMale",
  "mittel_srgb": [
   0.5978,
   0.4783,
   0.3872
  ],
- "hell_linear": 0.219,
- "texel": 550871,
- "ohne_treffer": 0,
+ "ohne_treffer": 0.0,
  "quelle": "viking_male_diffuse.png",
- "bild": 1024,
- "gesicht_srgb": [
-  0.5783,
-  0.4015,
-  0.31
- ],
- "gesicht_hell_linear": 0.1639,
- "gesicht_ecken": 3124
+ "texel": 550871.0
 }

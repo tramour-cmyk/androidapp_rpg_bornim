@@ -1,20 +1,21 @@
 {
+ "bezug": "tools/godot/haut_bezug_2031.gd nach haut_mh_flecken.py (Bild 22:53)",
+ "bild": 1024.0,
+ "gesicht_ecken": 570,
+ "gesicht_hell_linear": 0.3984,
+ "gesicht_srgb": [
+  0.8322,
+  0.6185,
+  0.4853
+ ],
+ "hell_linear": 0.4069,
  "material": "MI_Superhero_Female_Superhero_Female",
  "mittel_srgb": [
   0.8075,
   0.6269,
   0.5147
  ],
- "hell_linear": 0.4069,
- "texel": 732870,
- "ohne_treffer": 0,
+ "ohne_treffer": 0.0,
  "quelle": "old_eurasian_female_diffuse.png",
- "bild": 1024,
- "gesicht_srgb": [
-  0.8196,
-  0.625,
-  0.4932
- ],
- "gesicht_hell_linear": 0.3998,
- "gesicht_ecken": 3276
+ "texel": 732870.0
 }

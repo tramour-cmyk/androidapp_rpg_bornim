@@ -1,20 +1,21 @@
 {
+ "bezug": "tools/godot/haut_bezug_2031.gd nach haut_mh_flecken.py (Bild 22:53)",
+ "bild": 1024.0,
+ "gesicht_ecken": 569,
+ "gesicht_hell_linear": 0.2773,
+ "gesicht_srgb": [
+  0.7343,
+  0.5119,
+  0.4129
+ ],
+ "hell_linear": 0.4645,
  "material": "MI_Regular_Female_Female_Regular",
  "mittel_srgb": [
   0.8431,
   0.6764,
   0.5664
  ],
- "hell_linear": 0.4645,
- "texel": 581096,
- "ohne_treffer": 0,
+ "ohne_treffer": 0.0,
  "quelle": "middleage_eurasian_female_diffuse.png",
- "bild": 1024,
- "gesicht_srgb": [
-  0.8136,
-  0.5783,
-  0.4633
- ],
- "gesicht_hell_linear": 0.3566,
- "gesicht_ecken": 3272
+ "texel": 581096.0
 }

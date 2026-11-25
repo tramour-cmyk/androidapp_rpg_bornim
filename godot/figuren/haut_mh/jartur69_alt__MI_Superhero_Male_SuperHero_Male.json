@@ -1,20 +1,21 @@
 {
+ "bezug": "tools/godot/haut_bezug_2031.gd nach haut_mh_flecken.py (Bild 22:53)",
+ "bild": 1024.0,
+ "gesicht_ecken": 538,
+ "gesicht_hell_linear": 0.2975,
+ "gesicht_srgb": [
+  0.6823,
+  0.5572,
+  0.4752
+ ],
+ "hell_linear": 0.3577,
  "material": "MI_Superhero_Male_SuperHero_Male",
  "mittel_srgb": [
   0.711,
   0.6048,
   0.5266
  ],
- "hell_linear": 0.3577,
- "texel": 701888,
- "ohne_treffer": 0,
+ "ohne_treffer": 0.0,
  "quelle": "Jartur_old_Slavic_Male_with_Genitals_and_beard_lsdif.png",
- "bild": 1024,
- "gesicht_srgb": [
-  0.717,
-  0.5911,
-  0.498
- ],
- "gesicht_hell_linear": 0.3363,
- "gesicht_ecken": 3080
+ "texel": 701888.0
 }

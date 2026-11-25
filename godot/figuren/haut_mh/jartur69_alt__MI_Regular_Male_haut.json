@@ -1,20 +1,21 @@
 {
+ "bezug": "tools/godot/haut_bezug_2031.gd nach haut_mh_flecken.py (Bild 22:53)",
+ "bild": 1024.0,
+ "gesicht_ecken": 544,
+ "gesicht_hell_linear": 0.1674,
+ "gesicht_srgb": [
+  0.5634,
+  0.4118,
+  0.3521
+ ],
+ "hell_linear": 0.2313,
  "material": "MI_Regular_Male_haut",
  "mittel_srgb": [
   0.595,
   0.4819,
   0.4108
  ],
- "hell_linear": 0.2313,
- "texel": 157824,
- "ohne_treffer": 0,
+ "ohne_treffer": 0.0,
  "quelle": "Jartur_old_Slavic_Male_with_Genitals_and_beard_lsdif.png",
- "bild": 1024,
- "gesicht_srgb": [
-  0.6661,
-  0.5078,
-  0.4398
- ],
- "gesicht_hell_linear": 0.2554,
- "gesicht_ecken": 3124
+ "texel": 157824.0
 }
