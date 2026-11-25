@@ -32,4 +32,4 @@ Volle Größe (2048 × 1024, zum Zoomen): `docs/entwurf/2034-abzug/probe/M36-05.
 
 **Folgerungen:** Bei A: Fachkraft behebt Maßstab und Stiefel-Seite, Prüfer, dann Abzug (243 Bilder) in die Chefsache. Bei B: Auftrag ergänzt, neue Probe.
 
-Antwort: …
+Antwort: Chef 25.11., 20:04 an Alter Ego: Hintergrund „völlig wurscht“, Signatur links „nicht so richtig gefunden“ → Grund bleibt, neue Probe mit Sonne schräg seitlich (Alter Ego 20:07).
