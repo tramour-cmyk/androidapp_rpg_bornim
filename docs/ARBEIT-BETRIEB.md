@@ -144,3 +144,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 23:10 25.11.: Sokrates 23:07: Ü19 beantwortet (R75), Ü20 per Weiter an Dora (Reihenfolge Ralf). Ü19 erledigt. Sokrates 23:08: Rundblick 23.11. ausgelassen; URTEIL 5024 durch „2032 A“ erledigt.
 - 23:10 25.11.: 2032-Ü11 Auftrag Fassung 2 (Oda 23:07) per Weiter an Ines …77NKuN (kein Start); alter Rückläufer 2032-Ü3 (19:51) damit überholt, erledigt.
 - 23:11 25.11.: Sokrates 23:09: 2031-Ü15 beantwortet, Greta per Weiter (Hautbilder ins Repo, ein Bildlauf, dann Prüfer); Ü13 hält. 2044: Alter Ego Ja 23:07, an Dora ab 07:00 nach 2042.
+- 23:16 25.11.: 2042-Ü22 (fertig Dora, dora-2042 92a094995) weckt Dora selbst bei Ralf; Ü23 (auf main) ohne Push geschlossen (CLAUDE.md 8). Titel auf „Disponent – Büro (25.11., 21:38)“ gesetzt, weil uebergabe.disponent() den Titel ohne Zeit nicht fand (Fund Dora, wie R76/R77).
