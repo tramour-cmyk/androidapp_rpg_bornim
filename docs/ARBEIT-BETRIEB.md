@@ -118,3 +118,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:25 25.11.: Startsperre 22:25 Start Kampf (lauf.py, Kampf 1708 Anna)
 - 22:27 25.11.: Chef 22:24 „B soll jetzt auch starten“ (Archiv 908839331, Sokrates 22:25): Tanja …7A54ew für 1708 B gestartet (Startsperre 22:25), neben Paula, oberhalb der Laufsperre. 1708-Ü11 erledigt (Auftrag B steht).
 - 22:31 25.11.: Startsperre 22:31 Start Werkzeug (lauf.py, Werkzeug 2042 Anna)
+- 22:33 25.11.: Britta …7ABjVr übergab (faf67978de, 212 Tsd. nach 15 Min.; Teile 3, 4 auf britta-2042), archiviert, 6,37 $ auf 2042. Nachfolgerin Carla …75mPRi (Teile 1, 2, 5; Startsperre 22:31).
