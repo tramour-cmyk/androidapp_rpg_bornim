@@ -51,5 +51,36 @@ besetz = "| Disponent | [Karl](https://claude.ai/code/session_A) | Betrieb | –
 soll("(1) Besetzung ohne Seite → fehlt session_W", lauf.besetzung_fehlt(besetz, {"session_A"}) == ["session_W"], lauf.besetzung_fehlt(besetz, {"session_A"}))
 soll("(1) Besetzung vollständig → nichts", lauf.besetzung_fehlt(besetz, {"session_A", "session_W"}) == [])
 
+# (2) Wecker an den Disponenten gebündelt: weckte ihn schon eine Zeile seit dem letzten Takt (Stand), kein zweiter Wecker
+import io, contextlib, uebergabe as ue
+w = tempfile.mkdtemp(); os.makedirs(os.path.join(w, "docs", "vorgang"))
+def wurzel(stand, zeilen):
+    open(os.path.join(w, "docs", "ARBEIT-BESETZUNG.md"), "w").write("**Stand:** %s (lauf.py)\n\n| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n"
+        "| Disponent | [Disponent – Büro (25.11., 21:58)](https://claude.ai/code/session_DISP) | Betrieb | – | x |\n" % stand)
+    open(os.path.join(w, "docs", "vorgang", "9001.md"), "w").write("## Übergaben\n\n" + ue.KOPF + "".join("| %s | %s | x | %s | %s |\n" % z for z in zeilen))
+def weck(k, an):
+    o = io.StringIO()
+    with contextlib.redirect_stdout(o): ue.wecker("9001", k, an, scharf=True)
+    return o.getvalue()
+ue.WURZEL = w; ue.jetzt = lambda: datetime.datetime(2026, 11, 25, 22, 40)
+wurzel("25.11., 22:30", [("9001-Ü1", "Disponent", "25.11., 22:35", "offen"), ("9001-Ü2", "Disponent", "25.11., 22:40", "offen")])
+a = weck("9001-Ü2", "Disponent")
+soll("(2) Ü1 nach Stand weckte schon → kein WECKER, Zeile gebündelt", "WECKER" not in a and "gebündelt" in a, a)
+wurzel("25.11., 22:36", [("9001-Ü1", "Disponent", "25.11., 22:35", "offen"), ("9001-Ü2", "Disponent", "25.11., 22:40", "offen")])
+a = weck("9001-Ü2", "Disponent")
+soll("(2) Takt nach Ü1 → WECKER", "WECKER session_DISP" in a, a)
+wurzel("25.11., 22:30", [("9001-Ü1", "Werkzeug", "25.11., 22:35", "offen"), ("9001-Ü2", "Werkzeug", "25.11., 22:40", "offen")])
+a = weck("9001-Ü2", "Werkzeug")
+soll("(2) keine Sitzung Werkzeug, Ü1 weckte schon → gebündelt", "WECKER" not in a and "gebündelt" in a, a)
+wurzel("25.11., 22:00", [("9001-Ü1", "Disponent", "25.11., 22:20", "offen"), ("9001-Ü2", "Disponent", "25.11., 22:40", "offen")])
+a = weck("9001-Ü2", "Disponent")
+soll("(2) frühere Zeile älter als 15 Min. → doch WECKER (kein Dauerschweigen)", "WECKER session_DISP" in a, a)
+wurzel("25.11., 22:00", [("9001-Ü1", "Disponent", "25.11., 22:20", "offen"), ("9001-Ü3", "Disponent", "25.11., 22:30", "offen"), ("9001-Ü2", "Disponent", "25.11., 22:40", "offen")])
+a = weck("9001-Ü2", "Disponent")
+soll("(2) Kette: älteste Zeile seit Takt über 15 Min. → WECKER, auch wenn eine jüngere gebündelt war", "WECKER session_DISP" in a, a)
+wurzel("25.11., 22:30", [("9001-Ü1", "Disponent", "25.11., 22:35", "erledigt 25.11., 22:36 x"), ("9001-Ü2", "Disponent", "25.11., 22:40", "offen")])
+a = weck("9001-Ü2", "Disponent")
+soll("(2) frühere Zeile erledigt → WECKER", "WECKER session_DISP" in a, a)
+
 print("lauf_2042_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

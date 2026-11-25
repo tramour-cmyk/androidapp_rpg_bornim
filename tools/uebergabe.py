@@ -302,6 +302,36 @@ def disponent():
             aus = re.findall(r"code/(session_\w+)", f[2])[-1:]
     return aus
 
+BUENDEL_MIN = 15  # 2042 (2): so lange bündelt eine offene Zeile weitere Wecker an den Disponenten; danach wieder Wecker (nie Dauerschweigen)
+
+def gebuendelt(k):
+    """2042 (2, Chef 25.11., 22:03 „A“): Kennung einer anderen offenen Zeile, die den Disponenten seit seinem letzten Takt
+    (Zeitmarke „**Stand:**“ in ARBEIT-BESETZUNG.md) schon geweckt hat (an Disponent oder an eine Rolle ohne Sitzung), höchstens
+    BUENDEL_MIN alt; sonst None. Der Disponent liest im nächsten Takt alle offenen Zeilen (lauf.py NACHRICHT, vorgang.py offen)."""
+    import herzschlag
+    try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+    except OSError: return None
+    j = jetzt(); st = herzschlag.marke(t, j.replace(tzinfo=herzschlag.BERLIN))
+    if st is None: return None
+    st = st.replace(tzinfo=None)
+    d = os.path.join(WURZEL, ORDNER); frueh = []
+    for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+        if not n.endswith(".md"): continue
+        try: text = open(os.path.join(d, n), encoding="utf-8").read()
+        except OSError: continue
+        for z in zeilen(text):
+            if z["k"] == k or not ist_offen(z["z"]): continue
+            try: s = _zeit(z["seit"], j.year)
+            except ValueError: continue
+            if st < s <= j and (z["an"] == "Disponent" or not besetzung(z["an"])): frueh.append((s, z["k"]))
+    # die älteste Zeile seit dem Takt hat sicher geweckt; ist sie älter als BUENDEL_MIN, hängt der Disponent: wieder wecken
+    return min(frueh)[1] if frueh and (j - min(frueh)[0]).total_seconds() <= BUENDEL_MIN * 60 else None
+
+def _gebuendelt_zeile(k, an):
+    g = gebuendelt(k)
+    if g: print("NICHTS Wecker gebündelt (2042): %s weckte den Disponenten seit seinem letzten Takt; er liest %s (an %s) im nächsten Takt" % (g, k, an))
+    return g
+
 def wecker(nr, k, an, alt=None, scharf=None):
     """WECKER an die laufenden Sitzungen von AN (sonst der alten Rolle ALT); läuft keine, WECKER an den Disponenten, der den Start
     ausgibt (1760, Sokrates 22.11., 07:08). Gibt die geweckten Kennungen zurück. 2001 (Chef 23.11., 14:38): mit tools/1727-SCHARF
@@ -309,11 +339,13 @@ def wecker(nr, k, an, alt=None, scharf=None):
     scharf = _scharf() if scharf is None else scharf
     alt = "" if scharf else ALT.get(an, "") if alt is None else alt
     ss = (disponent() if an == "Disponent" and scharf else besetzung(an)) or (besetzung(alt) if alt else [])
+    if ss and an == "Disponent" and _gebuendelt_zeile(k, an): return ss
     for s in ss: print("WECKER %s | sieh in %s (%s)" % (s, nr, k))
     if ss: return ss
     print("KEINE SITZUNG %s läuft (ARBEIT-BESETZUNG.md): die Zeile wartet; Start über den Disponenten, die neue Sitzung liest `vorgang.py offen %s`" % (an, an))
     if scharf: ds = [] if an == "Disponent" else disponent()
     else: ds = [] if DISPONENT_ALT in (an, alt) or an == "Disponent" else (besetzung("Disponent") or besetzung(DISPONENT_ALT))
+    if ds and _gebuendelt_zeile(k, an): return ds
     for s in ds: print("WECKER %s | sieh in %s (%s): keine Sitzung %s, Start ausgeben" % (s, nr, k, an))
     if not ds: print("KEIN DISPONENT läuft: Wache bzw. Herzschlag meldet (1764)")
     return ds
