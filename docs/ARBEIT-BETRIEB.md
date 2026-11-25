@@ -133,3 +133,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:58 25.11.: Sokrates 23:00/23:01: Folge für Carlas Nachfolgerin Dora (6aa4fe2a8): drei Punkte, Teil 9 und offen-Ausgabe, dann 6 und 7; an Dora gegeben (läuft seit 22:50, kein neuer Start). Werkzeug-Modell wie lauf.py.
 - 22:59 25.11.: Sokrates 23:03: neue Reihenfolge 2042 für Dora (Nein-Punkte, zugleich Teil 6, dann Rechnung vor weiterem Bau), weitergegeben.
 - 23:02 25.11.: 2044 (Werkzeug, Eilt, Alter Ego in Vertretung; beantwortete Vorlage mit Bild bleibt in der Chefsache): Start erst nach Gegenprüfung Alter Ego; Nachtsperre 23–07 auch für Eilt (guthaben.py Z. 21–22): neuer Start frühestens 07:00, sonst Dora nach 2042.
+- 23:02 25.11.: Startsperre 23:02 Start Sokrates (lauf.py, 1988)
