@@ -57,8 +57,9 @@ if [ -f $R/nacken_alt_spiel.png ]; then
     set -- $(grep -a "^MARKE nacken_${w}_spiel.png nacken " $R/marken.txt | tail -1); nx=$4; ny=$5
     pfeil $R/nacken_${w}_spiel.png $nx $ny $T/p.png
     convert $T/p.png -resize 50% $T/k.png; schild $T/k.png "Spielkamera (Handy 540x1170) ${NWO[$w]}, $C" $T/sp_$w.png 60
-    convert $R/nacken_${w}_spiel.png -crop 150x150+$((nx-75))+$((ny-75)) +repage -resize 270x270 $T/a0.png
-    pfeil $T/a0.png 135 135 $T/a.png; schild $T/a.png "Ausschnitt Spielkamera, Nacken" $T/au_$w.png
+    # 2029-Ü17: Ausschnitt 60x60 um den Nacken, 4,5-fach (vorher 150x150, 1,8-fach: Nacken nicht erkennbar, Schrift der Oberflaeche im Rand)
+    convert $R/nacken_${w}_spiel.png -crop 60x60+$((nx-30))+$((ny-30)) +repage -filter Mitchell -resize 270x270 $T/a0.png
+    pfeil $T/a0.png 135 135 $T/a.png; schild $T/a.png "Ausschnitt Spielkamera, Nacken (4,5-fach)" $T/au_$w.png
     for an in vorn seite hinten; do
       f=$R/nacken_${w}_${an}.png
       set -- $(grep -a "^MARKE nacken_${w}_${an}.png nacken " $R/marken.txt | tail -1)
@@ -70,7 +71,7 @@ if [ -f $R/nacken_alt_spiel.png ]; then
   for r in sp au vo se hi; do eval "convert \"\${$r[@]}\" -background black -gravity north +append $T/z_$r.png"; done
   convert $T/z_sp.png $T/z_au.png $T/z_vo.png $T/z_se.png $T/z_hi.png -background black -append $T/ganz0.png
   w=$(identify -format %w $T/ganz0.png)
-  convert -background black -fill "$GOLD" -pointsize 14 -size $((w - 12))x -gravity west caption:"Gegenstand helmet (Helm_Templer, MakeHuman hats02, CC0). alt: Helm ohne Frisur darunter, Nacken kahl (Stand 685a45298, hier mit Schalter nacken=alt nachgestellt). A: Helm_Templer und darunter Hair_Buzzed (kuerzeste Frisur aus haare.bin, um 2 %% eingezogen). B: Helm_Templer_B (Rand hinten bis zum Haaransatz gezogen), ohne Frisur; das Randband des Paketbilds wird mitgestreckt (Streifen am Schirm). Dreiecke: $DV. Stand $C" -bordercolor black -border 6x6 $T/fuss.png
+  convert -background black -fill "$GOLD" -pointsize 14 -size $((w - 12))x -gravity west caption:"Gegenstand helmet (Helm_Templer, MakeHuman hats02, CC0). alt: Helm ohne Frisur darunter, Nacken kahl (Stand 685a45298, hier mit Schalter nacken=alt nachgestellt). A: Helm_Templer und darunter Hair_Buzzed (kuerzeste Frisur aus haare.bin, um 2 %% eingezogen). B: Helm_Templer_B (Rand hinten bis zum Haaransatz gezogen), ohne Frisur; der Schirm hat eigene Bildkoordinaten aus einer ruhigen Stelle des Helmbilds (vorher Randband gestreckt). Dreiecke: $DV. Stand $C" -bordercolor black -border 6x6 $T/fuss.png
   convert $T/ganz0.png $T/fuss.png -background black -append $T/ganz.png
   schild $T/ganz.png "2029 Nacken unter dem Helm: Mensch Mann, Wachsoldat; links alt, Mitte A, rechts B; Spiel-Shader mit Tusche" $T/g.png
   convert $T/g.png -bordercolor black -border 6 $Z/2029-helm-nacken.png

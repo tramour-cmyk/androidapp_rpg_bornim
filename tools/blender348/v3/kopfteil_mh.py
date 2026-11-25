@@ -112,6 +112,49 @@ def kopf_grundnetz(B, G):
         kinn = y
     return dict(top=top, eye=eye, kinn=kinn, w=w, hinten=hinten, nase=nase)
 
+# 2029-Ü14 (Pruefer 18:43: Schirm zeigt gestreckte Streifen): die Flaechen des Schirms (jedes Dreieck mit einer gezogenen Ecke) bekommen
+# eigene Bildkoordinaten, abgewickelt um die Kopfachse (Bogen x Hoehe) in derselben Bilddichte wie der uebrige Helm, aus der ruhigsten
+# Stelle des Helmbilds (Fenster in Schirmgroesse, Helligkeit nahe dem Mittel des Helms, kleinste Streuung); sonst streckt der Schirm das
+# schmale Randband des Bilds ueber den ganzen Nacken
+def schirm_uv(me, X0, X, k, im):
+    uv = me.uv_layers.active.data
+    zug = np.linalg.norm(X - X0, axis=1) > 0.001
+    L = np.asarray(im.convert('L')).astype(float) / 255
+    H, B = L.shape
+    sch, rest = [], []
+    for p in me.polygons: (sch if zug[list(p.vertices)].any() else rest).append(p)
+    def flaeche(a, b, c): return 0.5 * np.linalg.norm(np.cross(b - a, c - a))
+    fu = f3 = 0.0
+    m = []
+    for p in rest:
+        t = [np.array(uv[li].uv) * [B, H] for li in p.loop_indices]
+        v = [X[i] for i in p.vertices]
+        fu += flaeche(np.append(t[0], 0), np.append(t[1], 0), np.append(t[2], 0)); f3 += flaeche(*v)
+        for q in t: m.append(L[int(np.clip((1 - q[1] / H) * H, 0, H - 1)), int(np.clip(q[0], 0, B - 1))])
+    dichte = np.sqrt(fu / f3)   # Bildpunkte je Meter
+    mz = 0.5 * (k['hinten'] + k['nase'])
+    ecken = sorted({i for p in sch for i in p.vertices})
+    rad = np.hypot(X[ecken, 0], X[ecken, 2] - mz).mean()
+    def ab(i): return np.array([np.arctan2(X[i, 0], -(X[i, 2] - mz)) * rad, X[i, 1]]) * dichte
+    A = np.array([ab(i) for i in ecken])
+    lo, hi = A.min(0), A.max(0)
+    gw, gh = int(min(B - 2, hi[0] - lo[0] + 1)), int(min(H - 2, hi[1] - lo[1] + 1))
+    ziel, best = np.mean(m), None
+    for y in range(0, H - gh, 8):
+        for x in range(0, B - gw, 8):
+            w = L[y:y + gh, x:x + gw]
+            g = abs(w.mean() - ziel) + w.std()
+            if best is None or g < best[0]: best = (g, x, y)
+    _, x0, y0 = best
+    for p in sch:
+        for li, i in zip(p.loop_indices, p.vertices):
+            q = ab(i) - lo
+            uv[li].uv = ((x0 + q[0]) / B, 1 - (y0 + gh - q[1]) / H)
+    n0 = np.array([np.cross(X0[p.vertices[1]] - X0[p.vertices[0]], X0[p.vertices[2]] - X0[p.vertices[0]]) for p in me.polygons])
+    n1 = np.array([np.cross(X[p.vertices[1]] - X[p.vertices[0]], X[p.vertices[2]] - X[p.vertices[0]]) for p in me.polygons])
+    print('KOPFTEIL Schirm: %d Dreiecke, %d Ecken gezogen, Bilddichte %.0f px/m, Fenster %dx%d bei %d,%d (Mittel %.3f, Helm %.3f), umgeklappt %d' % (
+        len(sch), zug.sum(), dichte, gw, gh, x0, y0, L[y0:y0 + gh, x0:x0 + gw].mean(), ziel, int(((n0 * n1).sum(1) < 0).sum())))
+
 def abbilden(P, b, k):
     W = np.empty_like(P)
     W[:, 0] = P[:, 0] * k['w'] / b['w']
@@ -199,9 +242,10 @@ for gs, k in KOPF.items():
     bpy.ops.object.modifier_apply(modifier='tri')
     nach = len(me.polygons)
     if STUECK in NACKEN:   # nach dem Ausduennen: oben derselbe Helm wie ohne Schirm (gleiche Ecken, gleiche Dreiecke), nur der Rand gezogen
-        X = np.array([(v.co.x, v.co.z, -v.co.y) for v in me.vertices])
-        X = nackenschirm(X, k, NACKEN[STUECK])
+        X0 = np.array([(v.co.x, v.co.z, -v.co.y) for v in me.vertices])
+        X = nackenschirm(X0, k, NACKEN[STUECK])
         for v, (x, y, z) in zip(me.vertices, X): v.co = (x, -z, y)
+        schirm_uv(me, X0, X, k, im)
     print('KOPFTEIL %s: Dreiecke %d -> %d, Bild %dx%d, Hoehe %.3f..%.3f m, Breite %.3f m, Tiefe %.3f..%.3f m' % (
         name, vor, nach, im.size[0], im.size[1], W[:, 1].min(), W[:, 1].max(), np.ptp(W[:, 0]), W[:, 2].min(), W[:, 2].max()))
     assert nach <= DREIECKE

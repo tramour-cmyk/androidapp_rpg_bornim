@@ -15,7 +15,8 @@ extends SceneTree
 #           derselben Figur deckt), die weder Helm noch Frisur deckt (Strahl waagrecht aus der Kopfachse) = 0, Ruhe und Hieb
 #   A: Ecken der Frisur unter dem Helm ausserhalb der aeussersten Helmflaeche (Durchstechen) = 0
 # Gegenstand (4 Faelle): helmet zeigt Helm_Templer, hood, leather_cap, great_helm nicht
-# Erschaffung (10 Faelle, 5 Voelker x Mann/Frau): Haar_MH01 nur bei Elf Mann, Bart_Wikinger nur bei Zwerg Mann, alte Wahlen vollzaehlig
+# Erschaffung (10 Faelle, 5 Voelker x Mann/Frau): Haar_MH01 nur bei Elf Mann, Bart_Wikinger nur bei Zwerg Mann, alte Wahlen vollzaehlig,
+#   jede Wahl mit Wort in HeldFigur.WORTE (2029-Ü17; Zahl der Wahlen und ohne Wort)
 # Ohne Kaufmodelle: nur die Stuecke (Bild, Dreiecke), Ende ohne Fehler. Aufruf im Ordner godot: godot --headless -s res://tests/kopfteil_2029.gd
 const VOELKER := ["Mensch", "Elf", "Zwerg", "Hügelvolk", "Orkblütiger"]
 const DREIECKE := 800
@@ -413,6 +414,8 @@ func durchstechen(fv: PackedVector3Array, hv: PackedVector3Array, hm: MeshInstan
 # Zwerg Mann (Bart), alte Wahlen vollzaehlig
 func erschaffung() -> int:
 	var n := 0
+	var wahlen := 0
+	var ohne_wort := 0
 	for v in VOELKER:
 		var vm := HeldFigur.volk_modell(v)
 		for g in ["m", "w"]:
@@ -432,9 +435,15 @@ func erschaffung() -> int:
 					if x in alt: continue
 					if x != neu: r.append("%s %s neu, nicht erwartet" % [teil, x])
 				if neu != "" and neu not in l: r.append("%s %s fehlt (neu)" % [teil, neu])
+				for x in (l if l.size() >= 2 else []):   # 2029-Ü17: jede Wahl zeigt ein Wort aus WORTE, nie die Kennung (Knoepfe nur ab 2 Wahlen, erschaffung_brs.gd)
+					wahlen += 1
+					if not HeldFigur.WORTE.has(teil + ":" + x):
+						ohne_wort += 1
+						r.append("%s %s ohne Wort" % [teil, x])
 				zahl.append("%s alt %d neu %d" % [teil, alt.size(), l.size()])
 			if not r.is_empty(): fehler += 1
 			print("%s erschaffung %s %s %s%s" % ["FALSCH" if not r.is_empty() else "FALL", v, g, ", ".join(zahl), "" if r.is_empty() else ", FALSCH: " + "; ".join(r)])
+	print("KOPFTEIL2029 Erschaffung: %d Wahlen, %d ohne Wort" % [wahlen, ohne_wort])
 	return n
 
 # Gegenstand auf dem Kopf (Mensch Mann Wachsoldat, ohne aussehen „helm“): helmet zeigt Helm_Templer mit der Frisur der Nackenregel,
