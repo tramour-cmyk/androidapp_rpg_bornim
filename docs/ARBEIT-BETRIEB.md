@@ -167,3 +167,4 @@ STARTSPERRE - 18:02 25.11.: Startsperre 18:02 Start Disponent (lauf.py, Disponen
 - 19:02 25.11.: Startsperre 19:02 Start Werkzeug (lauf.py, Werkzeug 2035 Anna)
 - 19:04 25.11.: Detlef: Start Werkzeug Sabine 2035 Teil rote lauf-Tests (session_01Hmoj76YyLNmo9KWFhoyAGr, Deckel 50 $ statt 10 $ im Auftrag nach Chef 16:38). Edda 2034 (…77GxC2) archivieren vom Auto-Modus verweigert, Nachfolger wartet auf Chef-Freigabe; Kosten Edda 6,69 $ auf 2034 gebucht. Carsten (…75bSt8) bleibt als Arbeitsplaner (167 Tsd. Token, 1,84 $ noch ungebucht).
 - 19:04 25.11.: Startsperre 19:04 Start Kampf, Arbeitsplaner, Tagesbericht (lauf.py, Kampf 1589.4 Tanja, Arbeitsplaner 887 Ulla, Tagesbericht 448)
+- 19:06 25.11.: Handstart Figur 2034 (Edda-Nachfolger, session_01Hmoj76crkBHd9ELteDQFD4) mit Ja Sokrates 19:05, Grund R53 (Zählfehler Laufsperre); alte Edda (…77GxC2) bleibt untätig stehen bis Chef archiviert (archive_session im Auto-Modus verweigert).
