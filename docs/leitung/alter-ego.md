@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78S1BS7Gx4Jksc3zTh (seit 25.11., 17:38; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 18:10 Entscheid in Vertretung: 2035 TOKEN-Teil Eilt (Sokrates 18:10 „Eilt setzt nur der Chef“ widerspricht Darf) → an Sokrates, Archiv.
 - 25.11., 18:09 Chef 18:07 „Lässt sich das Werkzeug denn nicht reparieren?“ → Entscheid in Vertretung: lauf.py reparieren statt streichen (TOKEN-Zeile, wenn used_tokens fehlt; Kurzform trägt es schon, kosten.py Z. 55) → an Sokrates.
 - 25.11., 18:06 Chef 18:04 Rufnamen: Fachkräfte weiblich, übrige Rollen männlich, Alter Ego/Sokrates bleiben → wörtlich an Sokrates mit Stelle (rufname.py NAMEN Z. 32, naechster Z. 88; lauf.py Z. 311). Prüfe Auftrag und Vollzug.
 - 25.11., 18:05 Chef 18:03 Disponent-Neustart „warum, darfst du klären“: Ursache belegt: lauf.py-Zeile NEUSTART (Z. 260–270) braucht used_tokens, list_sessions liefert keine (Felder geprüft, Probe: ohne Token leer, mit 314 Tsd. Zeile); Uwe wartete darauf trotz Sokrates 17:52. Kam nie automatisch (kein Fund im Protokoll). Entscheid in Vertretung: Token-Prüfung in meiner Runde; Fund lauf.py an Sokrates.
