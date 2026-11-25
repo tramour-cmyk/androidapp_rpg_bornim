@@ -9,7 +9,8 @@
 # Haeute (HeldFigur.mh_haut, tools/blender348/v3/haut_mh.py): 3 je Geschlecht x 5 Voelker (Wachsoldat): kein Texel ohne gebackenen Wert,
 #  Bildmittel >= 0,15, Flecken < 5 % (wie zopf_431), Hautton am Gesicht nach toene hoechstens 10 % vom heutigen (Abweichung genannt);
 #  ganzes Gesicht (Kinn bis Stirn, Pruefer 18:08 „roeter und dunkler“): Saettigung hoechstens 10 % ueber heute, Helligkeit 10 % ab,
-#  dunkles Fuenftel hoechstens 15 % dunkler; Flecken (Pruefer 21:53): rote Punkte hoechstens 0,1, dunkle Stirnpunkte 3 Punkte ueber heute.
+#  dunkles Fuenftel hoechstens 15 % dunkler; Flecken (Pruefer 21:53): rote Punkte hoechstens 0,1 Punkte ueber heute, dunkle Stirnpunkte
+#  hoechstens 5,4 % (Ausnahme Taetowierung rehman_wikinger).
 # Ausgabe: „KH2031 <Fall> …“, am Ende „KH2031 Faelle N, falsch F“ (Ende 1 bei F > 0). Ohne Kaufdateien „ohne Kauf“, 0.
 # Run: godot --headless --path godot -s res://tests/kutte_haut_2031.gd [-- --nur=kutte|haut]
 extends "res://tests/durchstich_1631.gd"
@@ -20,10 +21,12 @@ const KNOECHEL_UEBER := 0.12  # m ueber dem Boden (Knoechel)
 const FLANKE_PLUS := 0.10     # Stoffdicke und Falten seitlich ueber der halben Schulterbreite
 const RUMPF := ["pelvis", "spine_01", "spine_02", "spine_03"]
 const SATT_PLUS := 0.10   # Pruefer 18:08: Saettigung am ganzen Gesicht hoechstens 10 % ueber heute
-const HELL_AB := 0.10     # Helligkeit (mittlere Farbe) am ganzen Gesicht hoechstens 10 % ab
+const HELL_AB := 0.10     # Helligkeit (Median wie der Hautton im Band; Sokrates 22:05/Greta: das Mittel zieht die hellen Stellen der
+                          # heutigen Orkhaut hoch, Ork Mann Mittel -14 %, Median -4..-7 %) am ganzen Gesicht hoechstens 10 % ab
 const DUNKEL_AB := 0.15   # dunkles Fuenftel hoechstens 15 % dunkler
 const ROT_PLUS := 0.001   # Pruefer 21:53: roter Fleck (Gruen/Rot unter 0,6 des Medians) hoechstens 0,1 Punkte mehr als heute
-const STIRN_PLUS := 0.03  # Stirn: dunkle Punkte (unter 0,7 des Stirnmedians) hoechstens 3 Punkte mehr als heute
+const STIRN_GRENZE := 0.055   # Stirn: dunkle Punkte (unter 0,7 des Stirnmedians) bei Fotohaeuten hoechstens 5,5 % (Sokrates 22:05: auf den gemessenen Wert, hoechster 5,41 %)
+const STIRN_AUSNAHME := ["rehman_wikinger"]   # Taetowierung an den Schlaefen bleibt (Sokrates 22:05), nur fuer die Stirn
 
 var faelle := 0
 var falsch := 0
@@ -204,13 +207,13 @@ func _haeute() -> void:
 				for k in 3: ab = maxf(ab, absf(neu["ton"][k] - alt["ton"][k]) / maxf(alt["ton"][k], 0.001))
 				# Pruefer 18:08: ganzes Gesicht nicht roeter (Saettigung) und nicht dunkler (Median, dunkles Fuenftel) als heute
 				var sa: float = neu["satt"] / maxf(alt["satt"], 0.001) - 1.0
-				var he: float = neu["hell"] / maxf(alt["hell"], 0.001) - 1.0
+				var he: float = neu["hmed"] / maxf(alt["hmed"], 0.001) - 1.0
 				var du: float = neu["dunkel"] / maxf(alt["dunkel"], 0.001) - 1.0
 				var ok: bool = neu["leer"] == 0 and neu["mittel"] >= 0.15 and neu["flecken"] < 0.05 and ab <= 0.10 \
 					and sa <= SATT_PLUS and absf(he) <= HELL_AB and du >= -DUNKEL_AB \
-					and neu["rot"] <= alt["rot"] + ROT_PLUS and neu["fleck"] <= alt["fleck"] + STIRN_PLUS
+					and neu["rot"] <= alt["rot"] + ROT_PLUS and (neu["fleck"] <= STIRN_GRENZE or String(kenn) in STIRN_AUSNAHME)
 				print("KH2031 FLECK %s rot %.2f %% gegen %.2f %%, Stirn dunkel %.2f %% gegen %.2f %%" % [name, neu["rot"] * 100, alt["rot"] * 100, neu["fleck"] * 100, alt["fleck"] * 100])
-				_fall(name, ok, "ohne Wert %d von %d Proben, Bildmittel %.3f, Flecken %.1f %%, Hautton Gesicht %s gegen heute %s (Abweichung %.1f %%); ganzes Gesicht: Saettigung %.3f gegen %.3f (%+.0f %%), Helligkeit %.3f gegen %.3f (%+.0f %%), dunkles Fuenftel %.3f gegen %.3f (%+.0f %%)" % [
+				_fall(name, ok, "ohne Wert %d von %d Proben, Bildmittel %.3f, Flecken %.1f %%, Hautton Gesicht %s gegen heute %s (Abweichung %.1f %%); ganzes Gesicht: Saettigung %.3f gegen %.3f (%+.0f %%), Helligkeit Mittel %.3f gegen %.3f, Median %+.0f %%, dunkles Fuenftel %.3f gegen %.3f (%+.0f %%)" % [
 					neu["leer"], neu["proben"], neu["mittel"], neu["flecken"] * 100.0, _v(neu["ton"]), _v(alt["ton"]), ab * 100.0,
 					neu["satt"], alt["satt"], sa * 100.0, neu["hell"], alt["hell"], he * 100.0, neu["dunkel"], alt["dunkel"], du * 100.0])
 
@@ -325,7 +328,7 @@ func _haut_werte(volk: String, g: String, kenn: String) -> Dictionary:
 	for h_ in stirn:
 		if h_ < 0.7 * sm_: dun += 1
 	return {"leer": leer, "proben": proben, "mittel": mittel, "flecken": float(fl) / hell.size(), "ton": [ton[0][ton[0].size() / 2], ton[1][ton[1].size() / 2], ton[2][ton[2].size() / 2]],
-		"satt": (mx - minf(mf.x, minf(mf.y, mf.z))) / maxf(mx, 0.001), "hell": 0.2126 * mf.x + 0.7152 * mf.y + 0.0722 * mf.z, "dunkel": glanz[glanz.size() / 5],
+		"satt": (mx - minf(mf.x, minf(mf.y, mf.z))) / maxf(mx, 0.001), "hell": 0.2126 * mf.x + 0.7152 * mf.y + 0.0722 * mf.z, "hmed": gm, "dunkel": glanz[glanz.size() / 5],
 		"rot": float(rot) / satt.size(), "fleck": float(dun) / maxf(stirn.size(), 1)}
 
 # Farbe nach toon.gdshader (toen_hell > 0) samt Maske „haut“ (431c B1: weit vom Bezug bleibt das Bild ungetoent), linear

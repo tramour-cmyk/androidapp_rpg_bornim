@@ -5,13 +5,13 @@
 #  dunkel: Helligkeit unter dem Ortsmittel gestaucht (Verhaeltnis hoch DUNKEL), hell bleibt; Zeichnung bleibt, Flecken flacher
 # Mittel und Bezug in der .json bleiben (Median des Gesichts aendert sich kaum; kutte_haut_2031 misst den Hautton nach).
 # Aufruf: python3 -I haut_mh_flecken.py <bild.jpg> [...]   (ueberschreibt; Bild aus haut_mh.py)
-import sys
+import os, sys
 import numpy as np
 from PIL import Image
 
-RADIUS = 40      # px bei 1024: groesser als ein Fleck, kleiner als ein Gesicht
+RADIUS = int(os.environ.get('RADIUS', '40'))      # px bei 1024: groesser als ein Fleck, kleiner als ein Gesicht
 ROT = 0.8
-DUNKEL = 0.4
+DUNKEL = float(os.environ.get('DUNKEL', '0.4'))
 
 def glaetten(p):
     im = Image.open(p).convert('RGB')
