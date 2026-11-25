@@ -331,7 +331,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.11.; „star
 | 568 | K | Ernten als Handlung statt Einsaugen | startbar |
 | 954a.12 | K | Erschaffung: nicht wählbare Fertigkeiten … | startbar |
 
-**Story** – offen 9, Muss 0, startbar 5
+**Story** – offen 10, Muss 1, startbar 6
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -344,6 +344,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.11.; „star
 | 839 | K | Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY-MENUE.md [817.…] | startbar |
 | 1235 | K | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fer | Chef Gespräch (großes Vorhaben, Sokrates bündelt in der Chefrunde, 1236) |
 | 168.1 | K | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | nach dem Meilenstein |
+| 2040 | M | Wörter für Frisur und Bart aus 2029 (Elf Mann Haar_MH01, Zwerg Mann Bart_Breit und Bart_Wi | startbar |
 
 **Technik** – offen 26, Muss 14, startbar 15
 
@@ -376,10 +377,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 119, Muss 86, startbar 39
+**Werkzeug** – offen 120, Muss 87, startbar 40
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 1148 | M | lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen Render-Lauf in der idle S | wartet auf Diogenes (greift?) |
+| 2041 | M | Abläufe a–d jetzt: Prüfzeile bei gebaut, Rückläufer an Rolle, Zeilen auf main schließen, T | startbar |
 | 1992 | M | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit | wartet auf Diogenes (greift?) |
 | 1961 | M | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann | wartet auf Sokrates |
 | 1716 | M | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten B | wartet auf Prüfer |
@@ -388,7 +391,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 25.11.; „star
 | 1965 | M | WEITER nur für Nachbesserung des eigenen Auftrags, nie an Planer, Prüfer, Tester (Chef 22. | wartet auf Sokrates |
 | 2005 | M | lauf.py startet Planer für ruhende Vorgänge (513 am 23.11. 18-mal) | wartet auf Sokrates |
 | 2019 | M | Wochenzählung in Betrieb bis Mo 30.11.: Profil anlegen, Wochentermin ohne --sperre anlegen | ruht |
-| 1148 | M | lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen Render-Lauf in der idle S | wartet auf Diogenes (greift?) |
 | 1414 | M | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | wartet auf Diogenes (greift?) |
 | 1520 | M | An den Läufen sparen | startbar |
 | 1572 | M | Ford hing ab 16:04 zwei Stunden (Rebase-Abbruch abgelehnt), keiner startete, kein Telegram | wartet auf 1610 (gebaut) |

@@ -11,12 +11,12 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 2041 | Abläufe a–d jetzt: Prüfzeile bei gebaut, Rückläufer an Rolle, Zeilen auf main schließen, Titel Name – Status – Nr – Betreff (Chef 25.11., 20:48) | 7 | B Werkzeuge | M | – | – | – | *startbar, Eilt (Chef 25.11., 20:48)* | *–* | *0* | *–* |
 | 1992 | lauf.py stürzt ab: Schleifenvariable z in main() überdeckt Funktion z() (Zeile 1399, seit 1989) | 7 | B Werkzeuge | Eilt | – | – | – | *gebaut, Geprüft an: c431b9c1d* | *–* | *0* | *1,25 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | Eilt | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
-| 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer, 23.11. | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |
-| 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | 7 | B Werkzeuge | Eilt | 23.11. | – | – | *ruht, 887a zurückgestellt (Chef 16:53)* | *–* | *0* | *–* |
+| 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | Eilt | Prüfer | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |
+| 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust … | 7 | B Abläufe | Eilt | 1387 | 1110, 1128 | – | *wartet, 1129.4 ausgewertet, Punkt 6 gerissen* | *–* | *0* | *26,46 $* |
+| 1965 | WEITER nur für Nachbesserung des eigenen Auftrags, nie an Planer, Prüfer, Tester (Chef 22.11., 17:25) | 7 | B Werkzeuge | Eilt | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11.: Chefwunsch bis Rundblick* | *–* | *0* | *1,14 $* |
 | 513 | Ein Figurenstand für alle Zweige | 3 | E Figuren | Eilt | – | – | claude/figurenstand-513 | *ruht, bis nach dem Durchspielen (Chef 04.11., 13:18 „513a nach dem Durchspielen“; Sokrates 23.11., 10:02)* | *–* | *0* | *15,28 $* |
 | 1589 | Motor des Kampfs: Gegnerverhalten nach Regeln … | 2 | E Kampf | M | 1589.5 | 1589.1, 1526, 1589.4, 1532 | – | *startbar* | *–* | *0* | *–* |
 | 1627 | Trefferbild je Angriff: Kontaktpunkt, Zucken, Treffer/Abwehr/Fehlschlag unterscheidbar, Kerntest über alle Angreifer | 2 | E Kampf | M | 1589.4 | 1589 | – | *startbar* | *–* | *0* | *–* |
@@ -32,13 +32,13 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1205b | in Grafik Niedrig nur die Blumen des Kits, Kleckse überall weg, Gras in Niedrig unser altes | 5 | E Welt | M | 1535 | 698a | claude/tom-1205-wiese | *gebaut, Geprüft an: fdbacd715 (Bild 👍 17:12)* | *–* | *0* | *1,64 $* |
 | 1398 | Prüfliste mischt wieder Bild/Film mit APK-Wegen | 6 | Q QS | M | – | 1128, 1217 | – | *gebaut, Geprüft an: 68b53e087* | *–* | *0* | *2,25 $* |
 | 1710 | Bildvergleich-Wächter in meldung.sh: Meldung alt gegen neu ohne messbaren Unterschied im markierten Ausschnitt hält an | 6 | E Technik | M | – | – | – | *gebaut, Geprüft an: 46922ae71* | *–* | *0* | *6,23 $* |
-| 1965 | WEITER nur für Nachbesserung des eigenen Auftrags, nie an Planer, Prüfer, Tester (Chef 22.11., 17:25) | 7 | B Werkzeuge | Eilt | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11.: Chefwunsch bis Rundblick* | *–* | *0* | *1,14 $* |
 | 2005 | lauf.py startet Planer für ruhende Vorgänge (513 am 23.11. 18-mal) | 7 | B Werkzeuge | Eilt | Sokrates | – | – | *ruht, Daten 513 berichtigt 24.11., kein Start mehr* | *–* | *0* | *1,12 $* |
 | 2019 | Wochenzählung in Betrieb bis Mo 30.11.: Profil anlegen, Wochentermin ohne --sperre anlegen und starten, Laufsperre frei; Probelauf zählt Woche 16.–23.11. nach (Chef 12:29, 12:30) | 7 | B Abläufe | Eilt | – | – | – | *ruht* | *–* | *0* | *4,74 $* |
-| 1414 | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | 7 | B Werkzeuge | M | 23.11. | – | – | *gebaut, Geprüft an: 5307f68d3* | *–* | *0* | *2,44 $* |
+| 2035 | Übergaben schlanker: nur Bestehendes ändern oder streichen, kein neues Werkzeug; Rückläufer an die Sitzung mit der Vorgangsnummer, sonst Disponent; „fertig“ und „ja“ schließen alte Rückläufer-Zeilen; Chefwort weckt Arbeitsplaner nur bei Auftragsänderung; „ja“ und „Hinweis“ ohne Quittung erledigt (Chef 25.11., 17:33) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *22,00 $* |
+| 2041 | Abläufe a–d jetzt: Prüfzeile bei gebaut, Rückläufer an Rolle, Zeilen auf main schließen, Titel Name – Status – Nr – Betreff (Chef 25.11., 20:48) | 7 | B Werkzeuge | M | – | – | – | *startbar, Eilt (Chef 25.11., 20:48)* | *–* | *0* | *–* |
+| 1414 | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | 7 | B Werkzeuge | M | – | – | – | *gebaut, Geprüft an: 5307f68d3* | *–* | *0* | *2,44 $* |
 | 1520 | An den Läufen sparen | 7 | B Steuerung | M | – | – | – | *startbar, Rückläufer Sokrates 18:12: Startlast und Dauer neu messen* | *–* | *0* | *29,69 $* |
-| 1572 | Ford hing ab 16:04 zwei Stunden (Rebase-Abbruch abgelehnt), keiner startete, kein Telegram | 7 | B Abläufe | M | 1610, 23.11. | – | – | *gebaut, Geprüft an: 239b6745a* | *–* | *0* | *1,38 $* |
-| 1715 | Laufzahl täglich im Tagesbericht Perikles: Läufe der Build-Zweige grün, rot, abgebrochen mit verlorener Bauzeit | 7 | B Abläufe | M | 23.11. | – | – | *gebaut, Geprüft an: a3fe7a452* | *–* | *0* | *0,72 $* |
+| 1572 | Ford hing ab 16:04 zwei Stunden (Rebase-Abbruch abgelehnt), keiner startete, kein Telegram | 7 | B Abläufe | M | 1610 | – | – | *gebaut, Geprüft an: 239b6745a* | *–* | *0* | *1,38 $* |
 | 506.2 | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, 506; Chef 10.11., 19:26) | 2 | E Kampf | M | 709.1, 1589.4 | 506 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen … | 2 | E Kampf | M | 1589.4 | – | claude/jerry-709-treffen | *ruht, Block 2 (1605)* | *–* | *0* | *64,31 $* |
 | 709.1 | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar … | 2 | E Kampf | M | 1589.4 | 709 | claude/jerry-709-1-wolfsbiss-c | *ruht, Block 2 (1605)* | *–* | *0* | *83,22 $* |
@@ -77,30 +77,31 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1702 | vier Läufe zu 1655 an einem Tag, zuletzt alte Fassung des Bildskripts am Rechner | 6 | E Technik | M | – | 1655 | – | *gebaut, Geprüft an: fbf1063d1* | *–* | *0* | *–* |
 | 1719 | Buildzweige 24 h 3 grün, 4 rot, 3 abgebrochen (70 min Bauzeit verloren), rot über grün | 6 | E Technik | M | – | 1715 | – | *gebaut, Geprüft an: e09973f76* | *–* | *0* | *–* |
 | 1720 | Vordergrund deckt bis zur halben Bildfläche schwarz ab (Baumkronen, Felswand) | 6 | E Technik | M | 1871 | – | claude/spike-1720-vordergrund | *ruht, bis nach dem Umschalten* | *–* | *0* | *0,67 $* |
+| 1715 | Laufzahl täglich im Tagesbericht Perikles: Läufe der Build-Zweige grün, rot, abgebrochen mit verlorener Bauzeit | 7 | B Abläufe | M | – | – | – | *gebaut, Geprüft an: a3fe7a452* | *–* | *0* | *0,72 $* |
 | 1725 | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | 7 | B Abläufe | M | – | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *1,21 $* |
 | 1933 | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halbwegs auf, fehlt etwas, das Fehler … | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1954 | Chefsache-README als kurzes Dashboard: laufende Sitzungen, wer woran, als Nächstes, Quoten netto Vorgänge und Aufträge … | 7 | B Werkzeuge | M | Sokrates | – | – | *startbar* | *–* | *0* | *–* |
 | D75 | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1) | 7 | B Werkzeuge | M | – | 511, 572 | – | *Dauer, bis zum nächsten echten Film (D75.1 gebaut, D75.2 dann prüfen)* | *–* | *0* | *–* |
-| 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht … | 7 | B Abläufe | M | 1388, 23.11. | – | – | *gebaut, Geprüft an: fcf9ab215* | *–* | *0* | *–* |
-| 1125 | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie vorher (8), LEERLAUF nie … | 7 | B Abläufe | M | 23.11. | 1100.1, 1100 | – | *gebaut, Geprüft an: 377a1a533* | *–* | *0* | *–* |
-| 1128.3 | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am Lauf bestätigen … | 7 | Q QM | M | 23.11. | 1128, 285 | – | *startbar* | *–* | *0* | *5,59 $* |
-| 1137 | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf Telegram, Stichtag beim … | 7 | B Abläufe | M | 23.11. | 1128.1, 1128.2, 1129.2 | – | *ruht, G und K greifen (Diogenes Lauf 298), Schließen 23.11. vorschlagen* | *–* | *0* | *62,09 $* |
-| 1148 | lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen Render-Lauf in der idle Sitzung läuft | 7 | B Abläufe | M | 23.11. | 882.1 | – | *gebaut, Geprüft an: 304660d8e* | *–* | *0* | *4,15 $* |
-| 1172 | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte | 7 | Q QM | M | 23.11. | – | – | *startbar* | *–* | *0* | *–* |
-| 1173 | Regel Kleinkram ohne Chef auf main … | 7 | B Abläufe | M | 23.11. | 1128 | – | *gebaut, Geprüft an: 3eb8bf088* | *–* | *0* | *0,36 $* |
+| 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht … | 7 | B Abläufe | M | 1388 | – | – | *gebaut, Geprüft an: fcf9ab215* | *–* | *0* | *–* |
+| 1125 | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie vorher (8), LEERLAUF nie … | 7 | B Abläufe | M | – | 1100.1, 1100 | – | *gebaut, Geprüft an: 377a1a533* | *–* | *0* | *–* |
+| 1128.3 | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am Lauf bestätigen … | 7 | Q QM | M | – | 1128, 285 | – | *startbar* | *–* | *0* | *5,59 $* |
+| 1137 | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf Telegram, Stichtag beim … | 7 | B Abläufe | M | – | 1128.1, 1128.2, 1129.2 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *62,09 $* |
+| 1148 | lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen Render-Lauf in der idle Sitzung läuft | 7 | B Abläufe | M | – | 882.1 | – | *gebaut, Geprüft an: 304660d8e* | *–* | *0* | *4,15 $* |
+| 1172 | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte | 7 | Q QM | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1173 | Regel Kleinkram ohne Chef auf main … | 7 | B Abläufe | M | – | 1128 | – | *gebaut, Geprüft an: 3eb8bf088* | *–* | *0* | *0,36 $* |
 | 1189 | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes nachhalten … | 7 | B Abläufe | M | 27.11. | 1186 | – | *startbar* | *–* | *0* | *–* |
-| 1301 | 👎 ohne Wort auf Telegram, wer es einträgt (1228), fragt im selben Zug nach, was falsch ist | 7 | B Abläufe | M | 23.11., Prüfer | 760, 1228 | – | *gebaut, Geprüft an: a5e00783f* | *–* | *0* | *13,29 $* |
-| 1387 | Übersicht-Commits 15.11. 193 (14.11.: 37), Ursache 1313 | 7 | B Werkzeuge | M | Prüfer, 23.11. | 1129.4, 193, 1313 | – | *gebaut, Geprüft an: 4ab0c0655* | *–* | *0* | *–* |
-| 1388 | D257.1 von Diogenes (464): rote Godot-Läufe 09.–15.11. 93 von 159 (58 %) gegen 52 von 185 (28 %) der Messwoche | 7 | B Abläufe | M | 23.11. | 464, 748 | – | *wartet, Ursachen zugeordnet* | *–* | *0* | *–* |
-| 1400 | D261.1 von Diogenes: „Geprüft an“ nennt Commits, die es nicht gibt: 1392 c28c2e3d9 (echt 23cba5e17), 654.2 48bb6c487 … | 7 | B Werkzeuge | M | 23.11. | 1392, 654.2 | – | *gebaut, Geprüft an: 795ae6325* | *–* | *0* | *–* |
+| 1301 | 👎 ohne Wort auf Telegram, wer es einträgt (1228), fragt im selben Zug nach, was falsch ist | 7 | B Abläufe | M | Prüfer | 760, 1228 | – | *gebaut, Geprüft an: a5e00783f* | *–* | *0* | *13,29 $* |
+| 1387 | Übersicht-Commits 15.11. 193 (14.11.: 37), Ursache 1313 | 7 | B Werkzeuge | M | Prüfer | 1129.4, 193, 1313 | – | *gebaut, Geprüft an: 4ab0c0655* | *–* | *0* | *–* |
+| 1388 | D257.1 von Diogenes (464): rote Godot-Läufe 09.–15.11. 93 von 159 (58 %) gegen 52 von 185 (28 %) der Messwoche | 7 | B Abläufe | M | – | 464, 748 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 1400 | D261.1 von Diogenes: „Geprüft an“ nennt Commits, die es nicht gibt: 1392 c28c2e3d9 (echt 23cba5e17), 654.2 48bb6c487 … | 7 | B Werkzeuge | M | – | 1392, 654.2 | – | *gebaut, Geprüft an: 795ae6325* | *–* | *0* | *–* |
 | 1462 | Liegengebliebenes in derselben Sitzung als Vorgang beim Besitzer, eigenes Hindernis sofort melden | 7 | B Abläufe | M | 30.11. | 1463 | – | *gebaut, Geprüft an: 592d5840f* | *–* | *0* | *–* |
-| 1506 | startbar.py zeigt Kür am Aussehen als startbar, obwohl 488 sie einfriert … | 7 | B Abläufe | M | 23.11. | 488, 816, 507 | – | *gebaut, Geprüft an: 43582e9b0* | *–* | *0* | *3,68 $* |
+| 1506 | startbar.py zeigt Kür am Aussehen als startbar, obwohl 488 sie einfriert … | 7 | B Abläufe | M | – | 488, 816, 507 | – | *gebaut, Geprüft an: 43582e9b0* | *–* | *0* | *3,68 $* |
 | 1507 | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tuffy, nicht Diogenes, Perikles, Homer | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *1,89 $* |
-| 1537 | Neustart-Haken zusätzlich an jeden Werkzeugaufruf (PreToolUse/PostToolUse): ab 200 Tsd. Erinnerung, ab 300 Tsd. Sperre … | 7 | B Steuerung | M | 23.11. | 1520, 400, 865 | – | *gebaut, Geprüft an: efa589bde* | *–* | *0* | *1,68 $* |
-| 1610 | D305.1 von Diogenes (1572): Hängeralarm kam 15 bis 75 statt 15 Minuten nach dem Hängen … | 7 | B Abläufe | M | 23.11. | 1572 | – | *gebaut, Geprüft an: fa6d0a289* | *–* | *0* | *5,73 $* |
-| 1642 | Änderung 1 Rollenspiegel: jede Startwarnung mit festem Besitzer im Werkzeug, nach 6 h legt das Werkzeug selbst einen … | 7 | B Abläufe | M | 25.11., Prüfer | 340.12, 340.3 | – | *gebaut, Geprüft an: a6d23dcbb* | *–* | *0* | *1,84 $* |
-| 1643 | Änderung 3 Rollenspiegel, Rest neben 1624: derselbe Vorgang nach zwei Neustarts in einer Nacht angehalten, Zeile für … | 7 | B Abläufe | M | 25.11., Prüfer | 340.12, 1624 | – | *gebaut, Geprüft an: ae67f8b3c* | *–* | *0* | *1,84 $* |
-| 1662 | lauf.py startete Jerry für Nachfolger 1595 (Schlussbuild 299), obwohl die Zeile seit 1633 Spike gehört | 7 | B Abläufe | M | 23.11. | 1595, 299, 1633 | – | *gebaut, Geprüft an: b74f9d0f6* | *–* | *0* | *0,49 $* |
+| 1537 | Neustart-Haken zusätzlich an jeden Werkzeugaufruf (PreToolUse/PostToolUse): ab 200 Tsd. Erinnerung, ab 300 Tsd. Sperre … | 7 | B Steuerung | M | – | 1520, 400, 865 | – | *gebaut, Geprüft an: efa589bde* | *–* | *0* | *1,68 $* |
+| 1610 | D305.1 von Diogenes (1572): Hängeralarm kam 15 bis 75 statt 15 Minuten nach dem Hängen … | 7 | B Abläufe | M | – | 1572 | – | *gebaut, Geprüft an: fa6d0a289* | *–* | *0* | *5,73 $* |
+| 1642 | Änderung 1 Rollenspiegel: jede Startwarnung mit festem Besitzer im Werkzeug, nach 6 h legt das Werkzeug selbst einen … | 7 | B Abläufe | M | Prüfer | 340.12, 340.3 | – | *gebaut, Geprüft an: a6d23dcbb* | *–* | *0* | *1,84 $* |
+| 1643 | Änderung 3 Rollenspiegel, Rest neben 1624: derselbe Vorgang nach zwei Neustarts in einer Nacht angehalten, Zeile für … | 7 | B Abläufe | M | Prüfer | 340.12, 1624 | – | *gebaut, Geprüft an: ae67f8b3c* | *–* | *0* | *1,84 $* |
+| 1662 | lauf.py startete Jerry für Nachfolger 1595 (Schlussbuild 299), obwohl die Zeile seit 1633 Spike gehört | 7 | B Abläufe | M | – | 1595, 299, 1633 | – | *gebaut, Geprüft an: b74f9d0f6* | *–* | *0* | *0,49 $* |
 | 1728 | Teilprojekte im Projektplan durch Verweis auf chefsache/themenbloecke.md ersetzen (eine Quelle für Themenblöcke) | 7 | B Abläufe | M | – | 1727 | – | *startbar* | *–* | *0* | *–* |
 | 1739 | Werkzeuge der Bauliste ab 21.11., 20:00 bauen … | 7 | B Werkzeuge | M | Sokrates | 1727, 1765 | – | *startbar* | *–* | *0* | *36,69 $* |
 | 1762 | Haken D trägt Chefwort aus fremder Sitzung in die Vorgangsdatei (Freigabe, Antwort auf Frage) | 7 | B Werkzeuge | M | – | 1727 | – | *gebaut, Geprüft an: 34de71832* | *–* | *0* | *3,15 $* |
@@ -116,7 +117,6 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1793 | startbar.py:196–198 Feld „nach“ legt den Rundblick nur an, wenn die Wochenzählung am selben Montag erledigt ist | 7 | B Werkzeuge | M | – | 1727 | claude/spike-1871-umschalten | *gebaut, Geprüft an: 69abfefa0* | *–* | *0* | *–* |
 | 1794 | Profil Disponent :20 und Kern Büro „fertig ohne Commit nimmst du nicht an“: Ausnahmen fehlen: Werkzeug nach grünem Lauf … | 7 | B Abläufe | M | – | 1773, 1311, 1789 | – | *startbar* | *–* | *0* | *–* |
 | 1858 | Testbitte-Schreiber: Testbitte aus dem Build-Auftrag als chefsache/ansehen/t<n>.md und Telegram auf Grundlage … | 7 | B Werkzeuge | M | Sokrates | 1739 | – | *startbar* | *–* | *0* | *–* |
-| 1859 | .claude/settings.json: Haken weiter-haken, zug-haken, autoMode-Sätze (ARBEIT-*, Ford archiviert, startet) auf neue … | 7 | B Werkzeuge | M | 1871 | 1739, 797, 222, 235 | – | *gebaut, Geprüft an: e47128837* | *–* | *0* | *2,67 $* |
 | 1402 | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel | 2 | E Kampf | K | – | 1284a, 1236, 673 | – | *startbar, gelöst 21.11.: 21.11. 20:00* | *–* | *0* | *–* |
 | 1404 | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UAL2/Protofactor (Spike), Waffe links an … | 2 | E Kampf | K | – | 1291a, 444, 1236 | – | *startbar, gelöst 21.11.: 21.11. 20:00* | *–* | *0* | *–* |
 | 1526 | vorderer Wolf weicht nach Angriff eines hinteren ganz nach hinten und läuft als Nächster wieder ganz vor … | 2 | E Kampf | K | 1589.4 | 1072 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
@@ -129,27 +129,27 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1563 | Teich in der Höhle am Ufer noch eckig und kantig | 5 | G Stil | K | 1564 | 1155, 623.9 | – | *startbar* | *–* | *0* | *10,06 $* |
 | 1630 | alle Lichtquellen der Höhle (Fackeln, Glut, Funken) nach Dunkelheit am Ort statt Uhrzeit, Erweiterung von 1211 … | 5 | E Welt | K | – | 1211 | claude/spike-1630-hoehlenlicht | *zu testen, ohne Rückmeldung t300* | *–* | *0* | *–* |
 | 1534 | Gegnerkunde: Reiter „Gegner“ in der Chronik, füllt sich mit eigener Erfahrung (Angriffe, Schwäche, Stärke), im Kampf … | 12 | E Oberfläche | K | – | – | – | *ruht, Vorlage nach Test Kerbensystem (zur Kenntnis 10:51)* | *–* | *0* | *–* |
+| 2040 | Wörter für Frisur und Bart aus 2029 (Elf Mann Haar_MH01, Zwerg Mann Bart_Breit und Bart_Wikinger mit Schnurrbart), Vorschlag de/en an den Chef | 13 | G Story | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1628 | Kräutersammler-Handlung vor der Blutzahnhöhle, braut aus Kräutern einen Trank für den Bosskampf … | 13 | G Story | K | – | 100, 1486 | – | *startbar* | *–* | *0* | *0,31 $* |
 | 1636 | Gnade: schwer verwundeter Goblin allein, verschonen oder töten | 13 | G Story | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1637 | Lyras Fährte zwischen Wald und Höhle (Saum, Gebetsperlen, Schleifspur), wer sie liest, findet einen verborgenen zweiten … | 13 | G Story | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 1638 | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus, im Kampf Blenden als Zauber des … | 13 | G Story | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 48 | Zufallsgenerierte Dungeons, auch Questhöhlen | 10 | G Balance | K | – | – | – | *Idee* | *–* | *0* | *–* |
-| 59e | Händler: Vorrat je Laden | 10 | G Balance | K | 23.11. | – | claude/jerry-59e-haendlervorrat | *ruht* | *–* | *0* | *–* |
+| 59e | Händler: Vorrat je Laden | 10 | G Balance | K | – | – | claude/jerry-59e-haendlervorrat | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 84.4 | Lauschen beim Stehen: Welle zur Quelle | 10 | G Balance | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 954a.11 | Jagd: Tiere geben öfter Fell, Fleisch, Hauer (tabellen.json), Aufträge Thessa und Borin nehmen es ab | 10 | G Balance | K | – | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1486 | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Begegnungen bis Grak, Grak 92–100 % außer … | 10 | G Balance | K | Sokrates | 1411.1, 1403 | claude/jerry-1486-bosse | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1487 | Heiler wächst in Kapitel 1 nie im Willen (Heilmagie 12/13 am Kapitelende, übt Stumpfe Waffen) | 10 | G Balance | K | – | 1411.1 | – | *startbar, gelöst 21.11.: 21.11. 20:00* | *–* | *0* | *–* |
-| 39 | Schwierigkeitsgrad im Menü | 2 | E Kampf | K | 23.11. | – | claude/jerry-39-schwierigkeit | *ruht* | *–* | *0* | *3,80 $* |
+| 39 | Schwierigkeitsgrad im Menü | 2 | E Kampf | K | – | – | claude/jerry-39-schwierigkeit | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *3,80 $* |
 | 52 | Feinarbeit an den Kampfanimationen | 2 | E Kampf | K | – | – | – | *Idee* | *–* | *0* | *–* |
-| 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | 2 | E Kampf | K | 23.11. | – | claude/jerry-344-2-fackel | *ruht* | *–* | *0* | *–* |
+| 344.2 | Kampf mit der Fackel: Feuerschaden, Verscheuchen, beide Systeme (Chef 23.10., 18:27) | 2 | E Kampf | K | – | – | claude/jerry-344-2-fackel | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 385.2 | Feuer aus der Stabspitze bei Feuerpfeil, Feuerball (aus 385.1, Chef 28.10., 19:1x) | 2 | E Kampf | K | – | – | claude/jerry-385-2-feuer | *startbar, gelöst 21.11.: 21.11. 20:00* | *–* | *0* | *9,99 $* |
 | 406.1 | Schildstoß im MARS: Reaktion oder Konter am Ring, vielleicht Angriff | 2 | E Kampf | K | 469 | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
-| 438a | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv 438a) | 2 | E Kampf | K | 23.11. | – | claude/jerry-438a-sturz-2 | *ruht* | *–* | *0* | *24,62 $* |
+| 438a | Hinfallen und Aufstehen des Kaufhelden aus dem Waffenpaket, Waffe und Schild frei (Archiv 438a) | 2 | E Kampf | K | – | – | claude/jerry-438a-sturz-2 | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *24,62 $* |
 | 460 | Kamerafahrten im Kampfort: Eröffnung wie Drohnenflug je Blende, Wechsel der Perspektive ohne Eingabe | 2 | E Kampf | K | – | – | – | *Idee* | *–* | *0* | *–* |
-| 469 | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | 2 | E Kampf | K | 23.11. | 406.1 | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |
-| 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | 2 | E Kampf | K | 23.11. | 506, 488 | claude/jerry-494-gegner | *ruht, Vorrang 11.11.: kein Neues bis Umzug und Testfehler* | *–* | *0* | *135,26 $* |
-| 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | 2 | E Kampf | K | 23.11. | 492 | claude/jerry-507-hoehle | *ruht, Verdrahtung auf Zweig 0928f2d12* | *–* | *0* | *75,48 $* |
-| 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt … | 2 | E Kampf | K | 23.11. | 494 | claude/jerry-494-gegner | *ruht* | *–* | *0* | *17,92 $* |
+| 469 | Kampf auf BRS: Ring (MARS) ohne Klassen regeln (aus 406.1, Sokrates 02.11.) | 2 | E Kampf | K | – | 406.1 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 494 | Gegner von Kapitel 1 im Kampf außer den Untoten (506), je Gegner höchstens ein Lauf (Wochenziel 03.11., 488) | 2 | E Kampf | K | – | 506, 488 | claude/jerry-494-gegner | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *135,26 $* |
+| 507 | Kampforte Höhle: Eingang, Gang, Halle, Teich, Lager (Orte O10; aus 492) | 2 | E Kampf | K | – | 492 | claude/jerry-507-hoehle | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *75,48 $* |
+| 510 | Fledermaus: freies Modell (OGA „Vampire Bat“, CC0) neben der eigenen im Film, Chef wählt … | 2 | E Kampf | K | – | 494 | claude/jerry-494-gegner | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *17,92 $* |
 | 623.9 | Aus 623.2 (Jerry): Effekte Szene 3 Höhle einbauen (623.8 A, Chef 09.11., 22:23): Nebel R8, Teich R10, Kristalle R4 … | 2 | E Kampf | K | – | 623.2, 623.8 | – | *startbar, gelöst 21.11.: 21.11. 20:00* | *–* | *0* | *–* |
 | 785.9 | MARS-Probekampf im Systemmenü mit Regelseite … | 2 | E Kampf | K | – | 785, 192 | – | *startbar, gelöst 21.11.: 21.11. 20:00* | *–* | *0* | *–* |
 | 785.13 | Eingebung beim ersten Schlag von hinten (SK 571–573) | 2 | E Kampf | K | – | 785, 836 | – | *startbar, gelöst 21.11.: 21.11. 20:00* | *–* | *0* | *–* |
@@ -163,7 +163,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 954a.8 | Wurfwaffen: Grundform Wurfmesser (auch für die Elstern, Truhe cave_3, aus 935), als Bündel bei Thessa, Jägerkind … | 2 | E Kampf | K | – | 935, 444, 447.4 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 954a.10 | Tiere beruhigen vor dem Kampf: Wolf, Wildschwein, Riesenfledermaus | 2 | E Kampf | K | – | 841 | – | *ruht* | *–* | *0* | *–* |
 | 954a.13 | Volksmerkmal Glückskind (Hügelvolk) wirkt nur im alten Kampf klassisch.gd, der entfällt (870a 2) | 2 | E Kampf | K | – | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
-| 999.2 | Armbrust als Waffenmodell im Kampf (Ersatzwaffe der Probehelden, light_crossbow) | 2 | E Kampf | K | 23.11. | 999 | – | *ruht, Kaufrepo da (818)* | *–* | *0* | *–* |
+| 999.2 | Armbrust als Waffenmodell im Kampf (Ersatzwaffe der Probehelden, light_crossbow) | 2 | E Kampf | K | – | 999 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 1165 | Prüferbefunde Kampforte in Godot nachprüfen: Baum fast schwarz ohne Moos, Felsen ohne Schatten, Waldrand ungleich … | 2 | E Kampf | K | 496 | 490, 493 | – | *ruht* | *–* | *0* | *–* |
 | 1224 | Berührungsprüfung beim Platztausch (Netze beider Figuren von oben) sperrend machen, sobald 1072 die Bahnen trennt | 2 | E Kampf | K | 1589.4 | 1041, 1072 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1319 | Kampfmeldung MSG532_CURED „von allen Leiden befreit“ stimmt nicht (Rausch bleibt) | 2 | E Kampf | K | t301 | 1318 | claude/jerry-1319-geheilt | *gebaut, Geprüft an: 1a1c4e751* | *–* | *0* | *0,71 $* |
@@ -179,14 +179,14 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2028 | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 25.11., 12:32) | 3 | E Figuren | M | – | – | claude/figur-2028-handgelenk | *gebaut, Geprüft an: cf7d57d45 (Prüfer 25.11., 17:00 Ja zur Ursache; Reste in 2032, 2033)* | *–* | *0* | *18,76 $* |
 | 2029 | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielkamera (2026 A) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *28,01 $* |
 | 2031 | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt gegen neu (Chef 13:39) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *17,98 $* |
-| 2032 | Rowena: rechte Finger auf dem Gürtel dunkel, gelbe Kleid-Innenseite sichtbar (Rest aus 2028, Prüfer 25.11., 17:00) | 3 | E Figuren | M | – | – | – | *in Arbeit, Prüfer prüft (2032-Ü2)* | *–* | *0* | *7,66 $* |
+| 2032 | Rowena: rechte Finger auf dem Gürtel dunkel, gelbe Kleid-Innenseite sichtbar (Rest aus 2028, Prüfer 25.11., 17:00) | 3 | E Figuren | M | – | – | – | *startbar, Nachbesserung (Sokrates 25.11., 21:06)* | *–* | *0* | *7,66 $* |
 | 2034 | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NPCs, als zusätzliche Auswahl (Chef 25.11., 17:07 zu 2029 „alles“) | 3 | E Figuren | M | Disponent | – | – | *startbar, nächster freier Platz (Chef 20:04 beantwortet)* | *–* | *0* | *14,56 $* |
 | 1632 | Gangprüfung im Bautest: Fußgleiten je Bodenkontakt und Schrittzahl gegen Gehtempo, je Waffe und Gangart (1619) | 3 | E Figuren | K | t301 | 1619 | claude/spike-1619-gang-main | *gebaut, Geprüft an: bad5be71b* | *–* | *0* | *–* |
 | 134 | Leute mit Neuem: Ausrufezeichen und Mikrogesten (Idee Chef) | 3 | E Figuren | K | – | – | – | *aufgeteilt* | *–* | *0* | *1,06 $* |
-| 417.1 | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, Stabgang) | 3 | E Figuren | K | 23.11. | 417 | claude/tom-417-tragart | *ruht* | *–* | *0* | *–* |
-| 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | 3 | E Figuren | K | 23.11. | – | claude/spike-455-1-baukasten | *ruht* | *–* | *0* | *30,05 $* |
-| 558.1 | Prüferrest Robe Probe 5 nachhalten, nicht bauen | 3 | E Figuren | K | 23.11. | – | claude/tom-558-robe | *ruht* | *–* | *0* | *–* |
-| 691 | Platzwechsel mit Leuten und Tieren: beide gleiten ineinander … | 3 | E Figuren | K | 23.11. | 416.2, 675 | – | *ruht, nach dem Durchspielen (488)* | *–* | *0* | *–* |
+| 417.1 | Restmängel Tragart nach „417 passt“ (Schildabstand, Rumpfdrehen, Fußrutschen, Kornfeld, Stabgang) | 3 | E Figuren | K | – | 417 | claude/tom-417-tragart | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 455.1 | Probeblatt Baukasten: Roben, Umhänge, Stiefel je Netz × Material × Zeichen (Chef 01.11., 11:24) | 3 | E Figuren | K | – | – | claude/spike-455-1-baukasten | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *30,05 $* |
+| 558.1 | Prüferrest Robe Probe 5 nachhalten, nicht bauen | 3 | E Figuren | K | – | – | claude/tom-558-robe | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 691 | Platzwechsel mit Leuten und Tieren: beide gleiten ineinander … | 3 | E Figuren | K | – | 416.2, 675 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 861 | Umhang des Kämpfers im Kampf rechts am Rücken stark gewölbt (Handaxt und Schild, Rückenansicht) | 3 | E Figuren | K | 431 | 656 | claude/tom-861-umhang | *ruht, Umhang als Prüfstück in 431 (Chef 15.11., 11:59)* | *–* | *0* | *29,25 $* |
 | 1174 | Körperregler in der Erschaffung je Volk in Grenzen: Brust, Bauch, Ober-/Unterarm, Oberschenkel, Wade … | 3 | E Figuren | K | 431 | 431 | – | *wartet, nach 431* | *–* | *0* | *–* |
 | 1613 | Waffen episch und höher mit Effekt statt Färbung (Chef 02.11.), Schwarzstahl liest sich fast schwarz | 3 | E Figuren | K | – | 458.3 | – | *startbar, Fassung A statt C (Chef 13:09)* | *–* | *0* | *13,06 $* |
@@ -199,21 +199,21 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2037 | Systemlösung? Haar: 2 frühere Vorgänge (1423b, 2026), neu 2029; einmal grundsätzlich lösen? (654) | 3 | E Figuren | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel … | 4 | E Kataloge | K | 644.1, 644.2, 644.4 | 458 | – | *wartet, entschieden A B C (Chef 14:28)* | *–* | *0* | *32,25 $* |
 | 644.1 | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit 649.2 | 4 | E Kataloge | K | 649.2 | 644, 649.2 | – | *wartet, Build 3 nach 649b A* | *–* | *0* | *–* |
-| 644.2 | Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 Seltenheitsdecke je Kapitel in … | 4 | E Kataloge | K | 23.11. | 644, 644a | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |
+| 644.2 | Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 Seltenheitsdecke je Kapitel in … | 4 | E Kataloge | K | – | 644, 644a | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 644.4 | Gegenstandskatalog: Ladenbestand und Rezepte aus texte.json und Kotlin in den Katalog umstellen (644 A, Ablösung) | 4 | E Kataloge | K | 644.1 | 644 | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |
 | 644.5 | Abnahme Gegenstands- und Figurenkatalog: Prüfungen des Werkzeugs grün, Godot liest nur noch aus den Katalogen … | 4 | E Kataloge | K | 644.1, 644.2, 644.4, 649.2, 649.3 | – | – | *startbar* | *–* | *0* | *–* |
 | 649.3 | Figurenkatalog: Bewohner, Händler, Lehrmeister, Söldner füllen … | 4 | E Kataloge | K | 649.2 | 649 | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |
-| 649.4 | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo eine Bewegung da ist … | 4 | E Kataloge | K | 23.11. | 444, 649 | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |
-| 145 | Karten je Kapitel zum Drucken | 5 | E Welt | K | 23.11. | – | claude/tom-145-kartenmappe | *ruht* | *–* | *0* | *6,22 $* |
-| 292.4 | Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (aus 292.3 zurückgestellt, Chef 22.10., 15:10) | 5 | G Stil | K | 23.11. | 292.3 | claude/tom-2923-titelmodus | *ruht* | *–* | *0* | *–* |
-| 344 | Fackel: brennt überall außer in hellen Grundrissen | 5 | E Welt | K | 23.11. | – | – | *ruht, ohne Vorratszeile, Liste „entschieden“ (275.2)* | *–* | *0* | *–* |
+| 649.4 | Zwei bis drei Handlungen je gewöhnlicher Monsterart vorschlagen und in 444 messen, nur wo eine Bewegung da ist … | 4 | E Kataloge | K | – | 444, 649 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 145 | Karten je Kapitel zum Drucken | 5 | E Welt | K | – | – | claude/tom-145-kartenmappe | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *6,22 $* |
+| 292.4 | Hauptmenü B am Feuer: Feuerlicht, Animation, Klang (aus 292.3 zurückgestellt, Chef 22.10., 15:10) | 5 | G Stil | K | – | 292.3 | claude/tom-2923-titelmodus | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 344 | Fackel: brennt überall außer in hellen Grundrissen | 5 | E Welt | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 508 | Lehrmeister in Kapitel 1 erreichbar (Geselle), Magie-Pflicht Paladin/Kriegsmagier, Wachsoldat zu Wächter (aus 447.4) | 5 | G Stil | K | – | 447.4 | – | *startbar* | *–* | *0* | *–* |
-| 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot … | 5 | E Welt | K | 23.11. | – | claude/jerry-509-teich | *ruht* | *–* | *0* | *–* |
-| 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | 5 | E Welt | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
-| 688 | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: Truhen, Kräuter, Verstecktes) … | 5 | E Welt | K | 23.11. | 491, 675 | – | *ruht, nach dem Durchspielen (688 A, Chef 18:30)* | *–* | *0* | *–* |
-| 689 | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Laternenpfahl am Steg … | 5 | E Welt | K | 23.11. | 348.6, 675 | – | *ruht, nach dem Durchspielen (488)* | *–* | *0* | *–* |
-| 816 | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s nie schlechter als heute, an … | 5 | E Welt | K | 23.11. | 623.8, 698 | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |
-| 852 | Aschgeborene bauen: Modell Mensch mit aschgrauer Strähne und goldenem Iris-Ring (nie leuchtend), sechstes Volk in der … | 5 | E Welt | K | 23.11. | 432a, 432.2, 423, 432.3, 444 | – | *ruht, bis Kapitel 1 fertig (432a A)* | *–* | *0* | *–* |
+| 509 | Frösche und Libellen an den Teichen im Flüsterwald fehlen in Godot … | 5 | E Welt | K | – | – | claude/jerry-509-teich | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 515 | Truhen: 3–4 je Karte halb versteckt, verschlossene nach BRS (Dietrich, Aufbrechen) (Chef 03.11., 16:07) | 5 | E Welt | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 688 | Frage des Chefs je Karte: wie viel Sammelbares offen und versteckt liegt (alt gegen neu: Truhen, Kräuter, Verstecktes) … | 5 | E Welt | K | – | 491, 675 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 689 | Dorf, Urteil Chef 25.10., 12:11 (aus 348.6, offen geblieben): Büsche über Dachfirsten, Laternenpfahl am Steg … | 5 | E Welt | K | – | 348.6, 675 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 816 | Effekte Szene 1 Dorf am Abend nach LISTE-EFFEKTE (Reihenfolge 623.8): gedämpft, Bilder/s nie schlechter als heute, an … | 5 | E Welt | K | – | 623.8, 698 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 852 | Aschgeborene bauen: Modell Mensch mit aschgrauer Strähne und goldenem Iris-Ring (nie leuchtend), sechstes Volk in der … | 5 | E Welt | K | – | 432a, 432.2, 423, 432.3, 444 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 954a.5 | Schleichen auf der Gebietskarte: Schleichtaste, geduckt und langsamer, Jäger bemerken später (werte.json bemerken_*) … | 5 | E Welt | K | – | 870.14 | – | *startbar* | *–* | *0* | *–* |
 | 954a.7 | Spähen durch Verweilen: Ring zeigt Heilkräuter abseits der Wiesen, Fallen an Truhen und halb versteckte Truhen (515) … | 5 | E Welt | K | – | 515, 423 | – | *startbar* | *–* | *0* | *–* |
 | 954a.9 | Schmiedelehrling flickt selbst an Borins Amboss mit dem Ring wie beim Knacken (515), dazu Auftrag Griffschalen … | 5 | E Welt | K | 515 | 515 | – | *startbar* | *–* | *0* | *–* |
@@ -226,51 +226,52 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1564 | Systemlösung? Wasser: 4 frühere Vorgänge (1155, 221, 623.6, 1218), neu 1563 | 5 | G Stil | K | – | 1155, 221, 623.6, 1218, 1563, 654 | – | *startbar* | *–* | *0* | *–* |
 | 1705 | Leveldesign Kapitel 1, Bestandsaufnahme: alle Gebietskarten, Anordnung, Übergänge, Grundrisse von Ruinen und Höhlen als … | 5 | E Welt | K | – | 1679 | – | *startbar* | *–* | *0* | *1,03 $* |
 | 1745 | Ausrichtung von Orten bei drehbarer Sicht (kamera.gd) | 5 | G Stil | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | 11 | E Klang | K | 23.11. | – | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |
-| 681 | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | 11 | E Klang | K | 23.11. | – | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |
+| 598 | Umweltklang je Ort, Tageszeit, Wind und Wetter, lebendige Welt (Chef 05.11., 19:2x; Abnahme 6) | 11 | E Klang | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 681 | Trinkgeräusch in drei Varianten beim Met und anderen Getränken (Chef 08.11., 16:16) | 11 | E Klang | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 1748 | LISTE-KLANG-ALT-NEU nachziehen, Stand 11.11. | 11 | E Klang | K | – | 1727, 939 | – | *startbar* | *–* | *0* | *–* |
 | 1754 | Stufe 1: tools/klang/QUELLEN.md zur Quelle erweitern (Kennung, Art, Grundpegel, Schleife, Herstellung) | 11 | E Klang | K | – | 1727 | – | *startbar* | *–* | *0* | *–* |
 | 1755 | Klangkatalog Stufe 2: Spiel liest nur den Katalog (Figur, Ort nach Tag, Nacht, Wetter, Handlung per Kennung), Seite … | 11 | E Klang | K | 649.3 | 649b | – | *startbar* | *–* | *0* | *–* |
 | 470.1 | Erschaffung: Held auf Antippen bildschirmgroß (Idee Chef 02.11., 18:37) | 12 | E Oberfläche | K | – | – | – | *Idee* | *–* | *0* | *–* |
-| 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | 12 | E Oberfläche | K | 458.3, 23.11. | – | – | *ruht, bis 458.3 auf main (Modelle fehlen dort, kein Neues 10.11.)* | *–* | *0* | *–* |
-| 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | 12 | E Oberfläche | K | 23.11. | – | – | *ruht, ohne Vorratszeile, Liste „wartet“ (275.2)* | *–* | *0* | *–* |
-| 568 | Ernten als Handlung statt Einsaugen | 12 | E Oberfläche | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
+| 476 | Symbole der Gegenstände aus den 3D-Modellen statt Pixelbild (Chef 02.11., 14:43) | 12 | E Oberfläche | K | 458.3 | – | – | *ruht, bis 458.3 auf main (Modelle fehlen dort, kein Neues 10.11.)* | *–* | *0* | *–* |
+| 531a | Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast kaufen? (Chef 04.11., 19:27) | 12 | E Oberfläche | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 568 | Ernten als Handlung statt Einsaugen | 12 | E Oberfläche | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 954a.12 | Erschaffung: nicht wählbare Fertigkeiten … | 12 | E Oberfläche | K | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1638 | Leuchtfunke vorschicken: außerhalb des Kampfs werfen als Köder und Sicht voraus, im Kampf Blenden als Zauber des … | 13 | G Story | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | 13 | G Story | K | 1235 | – | – | *wartet* | *–* | *0* | *–* |
 | 447.4.1 | Bau Lehrmeister, Meisterschaften, Ruf Kapitel 1 (447.4) | 13 | G Story | K | 508 | 447.4 | – | *wartet* | *–* | *0* | *–* |
-| 839 | Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY-MENUE.md [817.…] | 13 | G Story | K | 23.11. | 817 | – | *ruht, bis Test 825 (620, Perikles)* | *–* | *0* | *–* |
-| 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem … | 13 | G Story | K | Chef Gespräch | – | – | *ruht, bis Kapitel 1 fertig (Chef 18.11., 09:51)* | *–* | *0* | *6,54 $* |
+| 839 | Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY-MENUE.md [817.…] | 13 | G Story | K | – | 817 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 1955 | Von Spike (1871): LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Liste“; auf Build-Macher und Prüfer umstellen; werkzeuge.md :74 veraltet (1858) | 6 | Q QS | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2033 | Thessa: fast schwarzes Loch in der rechten Faust, Tusche zieht die Faustöffnung nach (Rest aus 2028, Prüfer 25.11., 17:00) | 6 | E Technik | M | – | – | – | *startbar* | *–* | *0* | *–* |
-| 26.1 | Durchspielbogen auswerten, Rest von 26: Gegenprobe je Klasse, neuer Bogen auf Godot (Chef 24.10., 16:56) | 6 | Q QS | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
-| 30 | Abstürze beim Testen | 6 | Q QS | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
-| 186.3 | Ausgefüllte Prüfbögen auswerten | 6 | Q QS | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
-| 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | 6 | E Technik | K | 23.11. | – | – | *ruht* | *–* | *0* | *89,13 $* |
-| 416.6 | Spuren des Helden, auch bei Regen | 6 | E Technik | K | 23.11. | – | claude/jerry-416-6-blut | *ruht* | *–* | *0* | *–* |
-| 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build … | 6 | E Technik | K | 23.11. | – | – | *ruht* | *–* | *0* | *8,66 $* |
-| 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | 6 | E Technik | K | 23.11. | 488 | – | *ruht, Kampf zuerst (338.1)* | *–* | *0* | *–* |
+| 26.1 | Durchspielbogen auswerten, Rest von 26: Gegenprobe je Klasse, neuer Bogen auf Godot (Chef 24.10., 16:56) | 6 | Q QS | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 30 | Abstürze beim Testen | 6 | Q QS | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 186.3 | Ausgefüllte Prüfbögen auswerten | 6 | Q QS | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 348.13 | Tusche nach Licht wie entschieden (Chef 26.10.) | 6 | E Technik | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *89,13 $* |
+| 416.6 | Spuren des Helden, auch bei Regen | 6 | E Technik | K | – | – | claude/jerry-416-6-blut | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 474 | Debug-Schlüssel der Godot-Builds aus dem Cache verdrängt, neu 02.11., 05:13 (aus 399.1a, Meldung Tuffy): nächster Build … | 6 | E Technik | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *8,66 $* |
+| 496 | Durchspiel-Build: Kapitel 1 von Anfang bis Ende am Handy (Wochenziel 03.11., 488) | 6 | E Technik | K | – | 488 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 1270 | Grafik-Engine Godot ausschöpfen: Laden, Sichtweite, Shader vorab, Glühen, Abziehbilder | 6 | E Technik | K | – | – | – | *startbar* | *–* | *0* | *3,04 $* |
 | 1270.8 | nur wenn die Messung es verlangt: Tusche halbe Auflösung (Nr. 4, Vorlage), halbe Rechengenauigkeit (Nr. 7) … | 6 | E Technik | K | – | 1270.5 | – | *startbar* | *–* | *0* | *–* |
 | 1396 | lauf.py startet Tuffy auf Zeile 1393, die Jerry schon in seiner Sitzung baut (Stand „wartet auf 1394“ war veraltet) | 6 | E Technik | K | – | 1394 | – | *gebaut, Geprüft an: fd2637cd5* | *–* | *0* | *–* |
 | 1711 | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), 760 … | 6 | E Technik | K | – | 1694, 760, 1535 | – | *startbar* | *–* | *0* | *6,23 $* |
 | 1738 | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildschirm mit Skriptsteuerung … | 6 | Q QS | K | – | 1727 | – | *startbar* | *–* | *0* | *–* |
-| 142.3 | Tester öffentlich suchen (Chef 27.10., 19:32) | 8 | M Veröffentlichung | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
-| 142.4 | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | 8 | M Veröffentlichung | K | 24.11. | – | – | *ruht, Wiedervorlage 24.11. mit 366 (Chef 11:14)* | *–* | *0* | *–* |
-| 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | 8 | M Markt | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
-| 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | 8 | M Markt | K | 24.11. | – | – | *ruht, Wiedervorlage 24.11. mit 142.4 (Chef 11:14)* | *–* | *0* | *–; +25,65 $* |
-| 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften … | 8 | M Veröffentlichung | K | 23.11. | 623.1 | – | *wartet, Protofactor ja 10.11., 04:48; offen Janpec* | *–* | *0* | *–* |
+| 142.3 | Tester öffentlich suchen (Chef 27.10., 19:32) | 8 | M Veröffentlichung | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 142.4 | Rückfrage: D-U-N-S jetzt, Organisationskonto statt Pflichttest (Chef 07.11.) | 8 | M Veröffentlichung | K | – | – | – | *startbar, gelöst 25.11.: 24.11.* | *–* | *0* | *–* |
+| 253 | BornWire (vorher WireStorm): Firmensachen BornWire TCS in eigener Sitzung, Kosten hierauf (Chef 20.10.) | 8 | M Markt | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 366 | bornwire.de: Abschnitt „Stand“ und „Tester gesucht“ (Chef 25.10., 18:39) | 8 | M Markt | K | – | – | – | *startbar, gelöst 25.11.: 24.11.* | *–* | *0* | *–; +25,65 $* |
+| 780 | Unity-Asset-Store-EULA 2.2.1 (keine Assets als Eingabe für KI-Programme): gilt sie für unsere gekauften … | 8 | M Veröffentlichung | K | – | 623.1 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 1979 | Randlinie am Höhlenwasser außer Sicht (türkis, je Drehung, 270° hellster 58), Rest aus 1566 (Chef 23.11., 06:40 B) | 5 | G Stil | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 72c | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunden) | 2 | E Kampf | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 1629 | epische Beute (höchste Stufe) zeigt beim Fund einmal Glanz und Funken am Fundort, kurz, ohne Lichtsäule | 5 | E Welt | K | – | 1613 | – | *nach Meilenstein, episch erst ab Kap. 3 (Spike: werte.json decke_besonders, 644 C2)* | *–* | *0* | *1,03 $* |
 | 1280 | Funde und Abgleich alt, Team Tom (1271a A, Chef 15.11., 11:23): 569, 570, 589, 590, 665, 668, 678, 687, 613.2, 713 … | 5 | E Welt | K | – | 1271a, 569, 570, 589, 590, 665, 668, 678, 687, 613.2, 713, 1023, 1164, 614, 637, 638, 639, 640 | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 1281 | Funde und Abgleich alt, Team Jerry (1271a A, Chef 15.11., 11:23): 551, 289, 628, 634, 936, 937, 938, 1002 | 5 | E Kampf | K | – | 1271a, 551, 289, 628, 634, 936, 937, 938, 1002 | – | *nach Meilenstein* | *–* | *0* | *–* |
+| 1235 | Texte Kapitel 2 bauen (Rest aus 41; Entwurf kapitel2/STORY-K2-ENTWURF.md, Storyplan K2 fertig seit 18.10.), nach dem … | 13 | G Story | K | Chef Gespräch | – | – | *ruht, bis Kapitel 1 fertig (Chef 18.11., 09:51)* | *–* | *0* | *6,54 $* |
 | 168.1 | Umsetzung 168: Garrick fest in Kapitel 2, Söldner ab Kapitel 3 (Texte Homer) | 13 | G Story | K | – | 168 | – | *nach Meilenstein, Kapitel 2/3 nach Kapitel 1 (Perikles 17.11.)* | *–* | *0* | *–* |
-| 2040 | Wörter für Frisur und Bart aus 2029 (Elf Mann Haar_MH01, Zwerg Mann Bart_Breit und Bart_Wikinger mit Schnurrbart), Vorschlag de/en an den Chef | 13 | G Story | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 45 | Geschäftsmodell und Umsetzung (Play Store) | 8 | M Veröffentlichung | K | – | – | – | *nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür* | *–* | *0* | *4,68 $* |
 | 109 | Repo öffentlich | 8 | M Veröffentlichung | K | – | – | – | *nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür* | *–* | *0* | *–* |
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | 8 | M Veröffentlichung | K | – | – | – | *nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür* | *–* | *0* | *19,96 $* |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung … | 8 | M Markt | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–; +1,26 $* |
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere … | 8 | M Veröffentlichung | K | – | 142.4 | – | *nach Meilenstein* | *–* | *0* | *2,91 $* |
+| 1859 | .claude/settings.json: Haken weiter-haken, zug-haken, autoMode-Sätze (ARBEIT-*, Ford archiviert, startet) auf neue … | 7 | B Werkzeuge | M | 1871 | 1739, 797, 222, 235 | – | *gebaut, Geprüft an: e47128837* | *–* | *0* | *2,67 $* |
 | 1871 | Umschalt-Commit (werkzeuge.md Schritt 8) samt Umzug „Zu <Nr>“ in Vorgangsdateien (aus 1865) an einer Kopie bauen und … | 7 | B Werkzeuge | M | – | 1727, 1865, 1739 | – | *gebaut, Geprüft an: d8956b678* | *–* | *0* | *23,21 $* |
 | 1894 | herzschlag.yml prüft nur bei Push auf docs/ (nachts fast nur von Ford) und per Zeitplan (seit 21.11., 20:50 nur 1 Lauf) | 7 | B Werkzeuge | M | 1871 | 1764 | – | *gebaut, Geprüft an: 85966407c* | *–* | *0* | *–* |
 | 1937 | Probelauf-Haken bleibt | 7 | B Werkzeuge | M | 1871 | 1727k, 513, 799, 647, 464, 748, 822 | – | *wartet, Rest im Umschalt-Commit* | *–* | *1* | *12,55 $* |
@@ -284,7 +285,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1868 | Kennzahlen Wochenzählung: Liegezeit (Median je Übergabe, Fälle über 6 h) aus den Übergabezeilen der Vorgangsdateien … | 7 | B Werkzeuge | M | Sokrates | 1739, 490 | – | *startbar* | *–* | *0* | *–* |
 | 1956 | lauf.py pusht die Startsperre schon ohne --sperre; zweiter Lauf setzt zweite Sperre (Ford 22.11., 16:18) | 7 | B Werkzeuge | M | Sokrates | – | – | *startbar* | *–* | *0* | *–* |
 | 1958 | Von Chef (20.11., 15:52; Rest aus 1727): Leistungsstufe je Auftrag, nach Ergebnis 1742 Fassung 2 (Gesamtbild 4.2) dem Chef vorlegen | 7 | B Abläufe | M | 1742 | – | – | *startbar* | *–* | *0* | *–* |
-| 1966 | Vorlage KISS im neuen Ablauf: kleiner Werkzeugfehler mit klarem Befund ohne Planer direkt an die Fachkraft; Rückmeldung höchstens etwa 600 Zeichen; mit Zahlen des ersten Tages gegenprüfen, mit dem Rundblick Mo 23.11. vorlegen (Chef 22.11., 17:27) | 7 | B Abläufe | M | 23.11. 08:00 | – | – | *startbar* | *–* | *0* | *–* |
+| 1966 | Vorlage KISS im neuen Ablauf: kleiner Werkzeugfehler mit klarem Befund ohne Planer direkt an die Fachkraft; Rückmeldung höchstens etwa 600 Zeichen; mit Zahlen des ersten Tages gegenprüfen, mit dem Rundblick Mo 23.11. vorlegen (Chef 22.11., 17:27) | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1969 | Von Tagesbericht (22.11., 17:43): Tabelle je Rolle im Tagesbericht zeigt nach der Umstellung 1727 nur alte Rollen (Tom, Jerry, Homer, Sokrates, Perikles, Diogenes) mit offen 0 überall, obwohl der Überblick 22.11., 17:27 z. B. Block 7 mit 105 offen zählt (tools/tagesbericht.py) | 7 | B Werkzeuge | M | Sokrates | – | – | *startbar* | *–* | *0* | *–* |
 | 1970 | Von Welt (Emil 22.11., 17:43, zu 1566; Sokrates 18:07): tools/godot/bau_am_rechner.py holt das R10-Wasserkit nicht | 7 | B Werkzeuge | M | Sokrates | – | – | *startbar* | *–* | *0* | *–* |
 | 1972 | Von Chef (22.11., 18:39): Kennzahlen Kosten, Sitzungen, Vorgänge, Aufträge je Stunde, Tag, gestern, Woche, Monat und je Vorgang (Sitzungen, Aufträge, Kosten); Bestand kostenbericht.py, KOSTEN-GEBUCHT.tsv, tagesbericht.py | 7 | B Werkzeuge | M | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *–* |
@@ -302,22 +303,23 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2010 | Alter Ego (Supervisor): Kosten der Sitzungen; Werkzeug kennt die Rolle nicht (zählt als Fachkraft, kein Archivieren der Vorgängersitzung, keine Buchung) | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *39,32 $* |
 | 2020 | Gebilligtes geht über GitHub nach main: Ablauf führt Zweig nach main bei 👍 des Chefs, Ja des Prüfers und grünen Tests am Mischstand (Chef 12:45) | 7 | B Abläufe | M | – | – | – | *ruht* | *–* | *0* | *–* |
 | 2021 | Rundblick und Ideenlauf starten nie: rundblick_zeilen verlangt Besitzer Sokrates, neue Liste gibt Blockbesitzer (Fund Anna 2019, 24.11., 12:48); dazu lauf_1964_test, lauf_2006_test, lauf_kern_test rot | 7 | B Abläufe | M | – | – | – | *ruht* | *–* | *0* | *–* |
-| 2035 | Übergaben schlanker: nur Bestehendes ändern oder streichen, kein neues Werkzeug; Rückläufer an die Sitzung mit der Vorgangsnummer, sonst Disponent; „fertig“ und „ja“ schließen alte Rückläufer-Zeilen; Chefwort weckt Arbeitsplaner nur bei Auftragsänderung; „ja“ und „Hinweis“ ohne Quittung erledigt (Chef 25.11., 17:33) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *17,54 $* |
-| 1625 | feste Startprompts je Rolle statt Startlektüre | 7 | B Abläufe | K | 25.11. | – | – | *ruht, 1625 A, Probe bis 25.11.* | *–* | *0* | *38,14 $* |
+| 2036 | Rufnamen: Fachkräfte weiblich, alle anderen Rollen männlich; Sokrates und Alter Ego bleiben (Chef 25.11., 18:04) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *3,72 $* |
+| 2039 | Chefsache: nichts zum Angucken; Filme auf Telegram ohne Abstimmschaltfläche (Chef 25.11., 19:25) | 7 | B Werkzeuge | M | – | – | – | *startbar, Eilt (Chef 25.11., 19:37)* | *–* | *0* | *7,99 $* |
+| 1625 | feste Startprompts je Rolle statt Startlektüre | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 25.11.* | *–* | *0* | *38,14 $* |
 | 1734 | Forschung und Entwicklung bei Sokrates, wöchentlich oder auf Bedarf: wie arbeiten andere … | 7 | B Steuerung | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1175,12 $* |
 | 102 | Dokumente BornWire TCS nachziehen | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
-| 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | 7 | B Abläufe | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
-| 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | 7 | B Abläufe | K | 23.11. | – | – | *ruht* | *–* | *0* | *6,19 $* |
+| 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 296 | Checkliste je großem System (MARS zuerst): umgesetzt, offen, was zwischen klassisch und MARS fehlt (Chef 22.10., 07:50) | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *6,19 $* |
 | 340 | Rollenspiegel: zehn Fragen Ist-Soll an alle Rollen, Antwort am Sitzungsende mit Beleg (Chef 23.10., 09:34) | 7 | B Abläufe | K | 26.11. | – | – | *ruht, fällt mit Umsetzung 1727 (Chef 10:53)* | *–* | *0* | *6,39 $* |
-| 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes … | 7 | B Abläufe | K | 23.11. | – | – | *startbar, gelöst 09.11.: 09.11.* | *–* | *0* | *–* |
-| 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | 7 | B Werkzeuge | K | 23.11. | – | – | *ruht* | *–* | *0* | *–* |
-| 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | 7 | B Werkzeuge | K | 23.11. | 423 | – | *ruht* | *–* | *0* | *–* |
-| 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | 7 | B Abläufe | K | 23.11. | – | – | *startbar* | *–* | *0* | *79,98 $* |
-| 654 | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, wöchentliche Runde über die … | 7 | B Abläufe | K | 23.11. | – | – | *ruht, fällt mit Umsetzung 1727 (Chef 20.11., 10:27); 23.11. nur 1564, 1635, 1656 anstoßen* | *–* | *0* | *60,67 $* |
-| 1100 | Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde | 7 | B Abläufe | K | 1125, 23.11. | 1098 | – | *gebaut, Geprüft an: 70a4467fe* | *–* | *0* | *10,55 $* |
-| 1188 | Wächter gegen still veraltete Zeilen: ruhende oder alte Kür ohne Bewegung einmal dem Besitzer zum Urteil gilt/schließen … | 7 | B Abläufe | K | 23.11. | 1186 | – | *gebaut, Geprüft an: 24b01a1d5* | *–* | *0* | *6,25 $* |
+| 341 | Zielvereinbarung Perikles bis zum Marktstart: sechs messbare Ziele, geprüft von Werkzeug und Diogenes … | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 09.11.: 09.11.* | *–* | *0* | *–* |
+| 383.2 | Kosten: dieselbe Aufgabe frisch gegen groß messen (Chef 27.10., 19:24) | 7 | B Werkzeuge | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 423.1 | Spielerhandbuch BRS als Seite im Spiel, Platzhalter aus der Datendatei (Archiv 423) | 7 | B Werkzeuge | K | – | 423 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
+| 620 | Stärken ausbauen, Schwächen verkleinern: nachhalten, Lagebild und Wiederholquote je Build (Chef 07.11.) | 7 | B Abläufe | K | – | – | – | *startbar* | *–* | *0* | *79,98 $* |
+| 654 | Mitdenken vor dem Bauen: Systemfrage je Fund („kommt das wieder?“), Wiederholungswächter, wöchentliche Runde über die … | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *60,67 $* |
+| 1100 | Ford-Lauf verbraucht 80–130 Tsd. Token je Stunde | 7 | B Abläufe | K | 1125 | 1098 | – | *gebaut, Geprüft an: 70a4467fe* | *–* | *0* | *10,55 $* |
+| 1188 | Wächter gegen still veraltete Zeilen: ruhende oder alte Kür ohne Bewegung einmal dem Besitzer zum Urteil gilt/schließen … | 7 | B Abläufe | K | – | 1186 | – | *gebaut, Geprüft an: 24b01a1d5* | *–* | *0* | *6,25 $* |
 | 1469 | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB seit 04.11. | 7 | B Abläufe | K | – | 1463, 108, 415 | – | *startbar* | *–* | *0* | *–* |
 | 1666 | bau_am_rechner.py --cache bricht ohne Blender ab, sobald nur Block klassen fehlt (Leute brauchen ihn) | 7 | B Werkzeuge | K | t301 | 1652 | claude/spike-1666-ohne-blender | *gebaut, Geprüft an: 542827cdb* | *–* | *0* | *–* |
 | 1690 | ARBEIT-TEAM-TOM.md: 5 „Zu“ zu Erledigtem (1569, 1569, 1515, 1515, 1515), beim Übergeben streichen | 7 | B Abläufe | K | – | 1425, 1642, 1569, 1515 | – | *startbar* | *–* | *0* | *–* |
@@ -329,15 +331,12 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1802 | ARBEIT-TEAM-JERRY.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | 7 | B Abläufe | K | – | 1642, 700, 121, 165 | – | *startbar* | *–* | *0* | *–* |
 | 1870 | PreToolUse-Sperre Keystore, Zugangsdaten, Force-Push, Spielcode auf main | 7 | B Werkzeuge | K | Sokrates | 1739, 908 | – | *startbar* | *–* | *0* | *–* |
 | 1939 | ARBEIT-TEAM-JERRY.md: 1 „Zu“ zu Erledigtem (1776), beim Übergeben streichen | 7 | B Abläufe | K | – | 1425, 1642, 1776 | – | *startbar* | *–* | *0* | *–* |
+| 2018 | Wochentermin 23.11.: Wochenzählung (Routine, Auftrag docs/entwurf/1727-muster/routine-wochenzaehlung.md) (719) | 7 | Q QM | M | – | – | – | *ruht* | *–* | *0* | *–* |
 | 1940 | ARBEIT-PROJEKT.md: 2 „Zu“ zu Erledigtem (1624, 1605), beim Übergeben streichen | 7 | B Abläufe | K | – | 1425, 1642, 1624, 1605 | – | *startbar* | *–* | *0* | *–* |
 | 1977 | Von Werkzeug (Startwarnung 650.2, 1642, seit 22.11., 18:32): Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: LISTE-LEHREN.md | 7 | B Abläufe | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 2018 | Wochentermin 23.11.: Wochenzählung (Routine, Auftrag docs/entwurf/1727-muster/routine-wochenzaehlung.md) (719) | 7 | Q QM | M | – | – | – | *ruht* | *–* | *0* | *–* |
 | 1998 | Von Werkzeug (Startwarnung 108, 1642, seit 23.11., 06:39): Datei über 60 KB: docs/chefsache/bilder/1566-hoehlenwasser-drehungen.webp; verkleinern (800 px, WebP) oder über Telegram (--datei) | 7 | B Abläufe | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2014 | Sitzungstitel: 8 Themen bleiben ein Wort wegen Zahlenschnitt (aus 1960) | 7 | B Werkzeuge | K | – | – | – | *ruht, Werkzeug-Schnitt 24.11.: heute keine neuen Werkzeuge* | *–* | *0* | *–* |
 | 2016 | Von Tagesbericht (24.11., 07:55): tagesbericht.py Zeile 2 zählt erledigt 24 h 0 und abgenommen 0, ueberblick.py (24.11., 07:38) zählt erledigt heute 16, gestern 20, abgenommen wurden 1653 und 1675; die Rollentabelle führt noch Tom, Jerry, Homer mit überall 0 offen | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 2023 | Von Werkzeug (Startwarnung Größe, 1642, seit 24.11., 07:50): docs/ARBEIT-BETRIEB.md hat 50479 Bytes (Grenze 30000), Erledigtes streichen | 7 | B Abläufe | K | – | – | – | *erledigt, Warnung weg (Werkzeug 1642)* | *–* | *0* | *–* |
 | 2027 | Von Werkzeug (Startwarnung Pflege, 1642, seit 24.11., 18:41): startbar.py: UNLESBAR 2018: Besitzer „Wochenzählung“ (nur Homer, Tom, Jerry, Spike, Perikles, Diogenes, Sokrates, Ford, Ideen, Arbeitsplaner, Regeln, Kampf, Figur, Kataloge, Welt, Klang, Oberfläche, Story, Technik | 7 | B Abläufe | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
-| 2036 | Rufnamen: Fachkräfte weiblich, alle anderen Rollen männlich; Sokrates und Alter Ego bleiben (Chef 25.11., 18:04) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *3,72 $* |
 | 2038 | Von Werkzeug (Startwarnung Pflege, 1642, seit 25.11., 12:20): ARBEIT-TAGESBERICHT.md: Tagesbericht 35 Stunden alt (höchstens 26, 341 Z1, 448): Perikles setzt ihn neu | 7 | B Abläufe | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 2039 | Chefsache: nichts zum Angucken; Filme auf Telegram ohne Abstimmschaltfläche (Chef 25.11., 19:25) | 7 | B Werkzeuge | M | – | – | – | *startbar, Eilt (Chef 25.11., 19:37)* | *–* | *0* | *7,99 $* |
+| 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
