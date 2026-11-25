@@ -11,7 +11,7 @@ extends SceneTree
 #   Netz backen (bake liest die Knochenlagen, die der RenderingServer zeichnet) und Waffe (global_transform und Lage beim letzten
 #   NOTIFICATION_TRANSFORM_CHANGED, so bekommt der RenderingServer sie) im selben Augenblick; je Glied (16) Haut zum Holz cm (+ Luft,
 #   − im Holz) gegen griff.gd intern (Griff.netz_finger starr, Pose nach Tragen); je Modifikator nach modification_processed
-#   hand_r, index_01_r, pinky_01_r in Waffenkoordinaten (cm). BILDAUS=<pfad.png>: ein Bild mit Handausschnitt (nur Großaxt Stehen Spielweg).
+#   hand_r, index_01_r, pinky_01_r in Waffenkoordinaten (cm). Bild mit Handausschnitt: griff_folge_bild_1694.gd (nur Großaxt Stehen Spielweg, BILDAUS=<pfad.png>).
 #   MESS=1694 xvfb-run -a godot --path . --resolution 540x1170 -s res://tests/griff_folge_1694.gd
 #   WEG=spiel|pruef, FALL=greataxe|quarterstaff, BEW=Gehen_axt (sonst Stehen), BILDER=60
 # Befund 24.11., 22:07 (bb359430a, 6 Fälle, je 3 Läufe): im Spielweg zeigt bake im Signal in jedem Aufruf die Pose des vorigen Aufrufs
@@ -250,7 +250,7 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 	var netze := _hand_netze(sk)
 	var mods := _mods(sk)
 	var schritt := []   # je Modifikator im laufenden Bild: [name, {glied: Vector3 cm in Waffe}, Waffe Ursprung Welt]
-	var intern := {}
+	var intern := {}   # Inhalt wird ersetzt (Lambda fängt die Variable als Wert)
 	for x in mods:
 		var xn := String(x.name)
 		x.modification_processed.connect(func():
@@ -259,7 +259,8 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 			var l := {}
 			for g in DREI: l[g] = Wi * (G * sk.get_bone_global_pose(sk.find_bone(g)).origin) * 100.0 * W.basis.y.length()
 			schritt.append([xn, l, ding.global_position])
-			if x == mods[mods.size() - 1]: intern = _intern(sk, ding, halt, sch, R))
+			if x == mods[mods.size() - 1]:
+				intern.clear(); intern.merge(_intern(sk, ding, halt, sch, R)))
 	var zeilen_b := []
 	var bild_n := [0]
 	var cb := func():
@@ -270,6 +271,8 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 		schritt.clear()
 		z["netz"] = _gezeichnet(sk, netze, Wg * R, sch)
 		z["netz_rs"] = _gezeichnet(sk, netze, fu.xf * R, sch)
+		var zl := _zerlegt(sk, netze, Wg * R, sch)
+		z["starr"] = zl[0]; z["lbs"] = zl[1]
 		# gezeichnete Knochenlage (RenderingServer) von hand_r, index_01_r, pinky_01_r in Waffenkoordinaten
 		var Wi := (Wg * R).affine_inverse(); var k := (Wg * R).basis.y.length()
 		var dl := {}
@@ -283,10 +286,10 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 	var bild_bei := 30
 	for f in bilder:
 		await process_frame
-		if mit_bild and f == bild_bei and OS.get_environment("BILDAUS") != "":
+		if mit_bild and f == bild_bei:
 			await RenderingServer.frame_post_draw
-			var img := root.get_viewport().get_texture().get_image()
-			zeilen_b[zeilen_b.size() - 1]["bild"] = img
+			var img = _nimm_bild()
+			if img != null: zeilen_b[zeilen_b.size() - 1]["bild"] = img
 	RenderingServer.frame_post_draw.disconnect(cb)
 	print("BILD1694 Fall %s, %d Bilder; Spalten je Glied: Netz (gezeichnet, frame_post_draw, Waffe global_transform) / Netz mit Waffe beim RS / griff.gd intern; cm, + Luft, − Holz" % [fall, zeilen_b.size()])
 	var sprung_max := 0.0; var wmin := {}; var wmax := {}
@@ -303,6 +306,9 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 		st += " | gezeichnet(RS):"
 		for g in DREI: st += " %s%s" % [g.substr(0, 1), "FEHLT" if z.rs[g] == null else _v(z.rs[g])]
 		print("BILD1694 P%3d Schritte%s" % [z.p - start, st])
+		var hz := ""
+		for gl in GLIEDER: hz += " %s %s/%s/%s" % [gl.trim_suffix("_r"), _z(z.starr.get(gl)), _z(z.lbs.get(gl)), _z(z.netz.get(gl))]
+		print("BILD1694 P%3d Haut starr(Hauptknochen, wie griff.gd)/gewichtet(ohne Formschlüssel)/gezeichnet |%s" % [z.p - start, hz])
 		for g in DREI:
 			if z.rs[g] == null: continue
 			var v: Vector3 = z.rs[g]
@@ -319,8 +325,12 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 			else: a.append(z.netz[gl])
 			if z.intern.get(gl) != null: b.append(z.intern[gl])
 		a.sort(); b.sort()
-		print("BILD1694 ERGEBNIS %-11s Netz %s (FEHLT %d) | intern %s" % [gl, "FEHLT" if a.is_empty() else "%.2f…%.2f" % [a[0], a[-1]], fehlt,
-			"FEHLT" if b.is_empty() else "%.2f…%.2f" % [b[0], b[-1]]])
+		var c := []; var e := []
+		for z in zeilen_b:
+			if z.starr.get(gl) != null: c.append(z.starr[gl])
+			if z.lbs.get(gl) != null: e.append(z.lbs[gl])
+		c.sort(); e.sort()
+		print("BILD1694 ERGEBNIS %-11s Netz %s (FEHLT %d) | intern %s | starr %s | gewichtet %s" % [gl, _sp(a), fehlt, _sp(b), _sp(c), _sp(e)])
 	var sp := ""
 	for g in DREI: if wmin.has(g): sp += " %s Spanne %s" % [g, _v(wmax[g] - wmin[g], 2)]
 	print("BILD1694 ERGEBNIS gezeichnete Knochen in Waffe (cm):%s; größter Abstand gezeichnet gegen nach letztem Modifikator %.2f cm; Waffe global_transform gegen RS-Lage bis %.2f cm" % [sp, dif_max, sprung_max])
@@ -387,6 +397,38 @@ func _gezeichnet(sk: Skeleton3D, netze: Array, W: Transform3D, sch: Dictionary) 
 				aus[gl] = minf(aus.get(gl, INF), d)
 	return aus
 
+# dieselben Ecken aus den Knochenlagen des RenderingServers (T_k = Pose · Bindpose): starr am Hauptknochen (so rechnet griff.gd,
+# Griff.netz_finger) und gewichtet Σ w·T_k (wie der Renderer, ohne Formschlüssel)
+func _zerlegt(sk: Skeleton3D, netze: Array, W: Transform3D, sch: Dictionary) -> Array:
+	var Wi := W.affine_inverse(); var k := W.basis.y.length()
+	var st := {}; var lb := {}
+	for n in netze:
+		var m3: MeshInstance3D = n.mi
+		var sr := m3.get_skin_reference()
+		if sr == null: continue
+		var T := {}
+		for kk in m3.skin.get_bind_count(): T[kk] = RenderingServer.skeleton_bone_get_transform(sr.get_skeleton(), kk)
+		for su in n.su.size():
+			var e: Dictionary = n.su[su]
+			if e.idx.is_empty(): continue
+			var roh := m3.mesh.surface_get_arrays(su)
+			var pos = roh[Mesh.ARRAY_VERTEX]; var kn = roh[Mesh.ARRAY_BONES]; var gw = roh[Mesh.ARRAY_WEIGHTS]
+			var je: int = kn.size() / pos.size()
+			for i in e.idx.size():
+				var vi: int = e.idx[i]
+				var best := -1; var bw := 0.0; var sum := Vector3.ZERO
+				for kk in je:
+					var w: float = gw[vi * je + kk]
+					if w <= 0.0: continue
+					sum += w * ((T[int(kn[vi * je + kk])] as Transform3D) * (pos[vi] as Vector3))
+					if w > bw: bw = w; best = int(kn[vi * je + kk])
+				var gl := sk.get_bone_name(e.b[i])
+				var d1 = _holz(sch, Wi * (m3.global_transform * ((T[best] as Transform3D) * (pos[vi] as Vector3))), k)
+				var d2 = _holz(sch, Wi * (m3.global_transform * sum), k)
+				if d1 != null: st[gl] = minf(st.get(gl, INF), d1)
+				if d2 != null: lb[gl] = minf(lb.get(gl, INF), d2)
+	return [st, lb]
+
 func _holz(sch: Dictionary, q: Vector3, k: float):
 	var sc := int(floor(q.y / Griff.SCHEIBE))
 	if q.y < float(sch.lo) or q.y > float(sch.hi) or not Griff.frei(sch, sc): return null
@@ -410,21 +452,14 @@ func _intern(sk: Skeleton3D, ding: Node3D, halt: Dictionary, sch: Dictionary, R:
 			if d != null: aus[gl] = minf(aus.get(gl, INF), d)
 	return aus
 
-func _bild_speichern(z: Dictionary, sk: Skeleton3D, ding: Node3D) -> void:
-	var img: Image = z.bild
-	var cam := root.get_viewport().get_camera_3d()
-	var hp = _rs_knochen(sk, _hand_netze(sk), "hand_r")
-	var mitte := cam.unproject_position(hp) if hp != null and cam != null else Vector2(img.get_width(), img.get_height()) * 0.5
-	var r := 70
-	var ra := Rect2i(Vector2i(mitte) - Vector2i(r, r), Vector2i(2 * r, 2 * r)).intersection(Rect2i(Vector2i.ZERO, img.get_size()))
-	var aus := img.get_region(ra); aus.resize(ra.size.x * 4, ra.size.y * 4, Image.INTERPOLATE_NEAREST)
-	var pfad := OS.get_environment("BILDAUS")
-	aus.save_png(pfad); img.save_png(pfad.replace(".png", "_ganz.png"))
-	print("BILD1694 BILD %s: Prozessbild %d, Ausschnitt %s um hand_r %s; Handfläche (hand_r) %s, Kleinfinger-Grundglied %s cm" % [pfad, z.p, ra, mitte, _z(z.netz.get("hand_r")), _z(z.netz.get("pinky_01_r"))])
+# Bild nur in griff_folge_bild_1694.gd (Unterklasse; dieser Test legt kein Bild ab)
+func _nimm_bild(): return null
+func _bild_speichern(_z: Dictionary, _sk: Skeleton3D, _ding: Node3D) -> void: pass
 
 func _mods(sk: Skeleton3D) -> Array:
 	return sk.get_children().filter(func(x): return x is SkeletonModifier3D)
 
 static func _v(v: Vector3, st := 1) -> String: return ("(%." + str(st) + "f,%." + str(st) + "f,%." + str(st) + "f)") % [v.x, v.y, v.z]
 static func _z(x) -> String: return "FEHLT" if x == null else "%.2f" % float(x)
+static func _sp(a: Array) -> String: return "FEHLT" if a.is_empty() else "%.2f…%.2f" % [a[0], a[-1]]
 static func _spanne(a: float, b: float) -> String: return "FEHLT" if a == INF else "%.2f…%.2f (%.2f)" % [a, b, b - a]
