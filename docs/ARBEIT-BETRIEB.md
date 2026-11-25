@@ -58,3 +58,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:33 25.11.: Startsperre 20:33 Start Sokrates (selbst, Nr 1988, Otto). Startsperre 20:33 Start Alter Ego (selbst, Nr 2013, Otto).
 - 20:38 25.11.: Otto: Protokoll auf 14 KB gekürzt (Zeilen vor 19:00 und alte Startsperren raus, stehen in Git; war 34,6 KB). Vera: 1694 Auftrag steht (Ü41), wartet auf Figur-Platz; 2039 Eilt wartet auf Werkzeug-Platz. Sokrates alt …79nRJF archiviert (11,43 $ auf 1988).
 - 20:43 25.11.: Startsperre 20:43 Start Arbeitsplaner (selbst, 2035-Ü32, Otto).
+- 20:52 25.11.: Startsperre 20:52 Start Werkzeug (selbst, 2035-Ü33, dann 2041; Handstart mit Ja Sokrates 20:51, R53, Otto).
