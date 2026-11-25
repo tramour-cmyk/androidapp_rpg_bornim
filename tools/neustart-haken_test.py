@@ -60,9 +60,18 @@ S = "Sokrates – 1727: Leitung"
 soll("Sokrates 450 Tsd.: frei", vor(S, 450000) == 0)
 soll("Sokrates 510 Tsd.: gesperrt", vor(S, 510000) == 2)
 
-# Ford nie gesperrt (1574)
-soll("Ford 900 Tsd.: frei", vor("Ford – Betriebsleiter", 900000) == 0)
-soll("Ford 2 900 Tsd.: frei", vor("Ford 2 – Betrieb", 900000) == 0)
+# Disponent nie gesperrt (1574; 2035: eine Marke „**Disponent (aktuell)**“, kein „Ford (aktuell)“ mehr)
+soll("Disponent 900 Tsd.: frei", vor("Disponent – Betrieb", 900000) == 0)
+soll("Titel mit Rufnamen „Detlef – Disponent – Betrieb“ 900 Tsd.: frei", vor("Detlef – Disponent – Betrieb", 900000) == 0)
+soll("Rufnamen-Start Rolle Disponent 900 Tsd.: frei", vor("Dein Rufname: Detlef (Rolle Disponent; Titel)\n\nAuftrag", 900000) == 0)
+os.makedirs(os.path.join(tmp, "wurzel", "docs"))
+open(os.path.join(tmp, "wurzel", "docs", "ARBEIT-BETRIEB.md"), "w", encoding="utf-8").write(
+    "# Betrieb\n\n**Disponent (aktuell)** Detlef `session_01Test2035X` (seit 25.11., 19:31)\n")
+ENV.update(BORNIM_WURZEL=os.path.join(tmp, "wurzel"), CLAUDE_CODE_REMOTE_SESSION_ID="session_01Test2035X")
+soll("Marke „Disponent (aktuell)“ mit eigener Kennung, ohne Rolle in der ersten Nachricht, 900 Tsd.: frei", vor("Weiter: Betrieb", 900000) == 0)
+ENV["CLAUDE_CODE_REMOTE_SESSION_ID"] = "session_01Test2035Y"
+soll("Marke nennt eine andere Kennung, 900 Tsd.: gesperrt", vor("Weiter: Betrieb", 900000) == 2)
+for k in ("BORNIM_WURZEL", "CLAUDE_CODE_REMOTE_SESSION_ID"): ENV.pop(k)
 
 # Übergabe, Push, Nachricht an Ford ab der Sperre frei (1537)
 soll("Übergabe (Edit ARBEIT-*.md) frei", vor(W, 900000, "Edit", {"file_path": "/home/user/x/docs/ARBEIT-TEAM-SPIKE.md"}) == 0)
