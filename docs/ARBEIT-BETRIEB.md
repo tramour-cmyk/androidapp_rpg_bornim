@@ -120,3 +120,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:31 25.11.: Startsperre 22:31 Start Werkzeug (lauf.py, Werkzeug 2042 Anna)
 - 22:33 25.11.: Britta …7ABjVr übergab (faf67978de, 212 Tsd. nach 15 Min.; Teile 3, 4 auf britta-2042), archiviert, 6,37 $ auf 2042. Nachfolgerin Carla …75mPRi (Teile 1, 2, 5; Startsperre 22:31).
 - 22:37 25.11.: Sokrates 22:40 (b8f0442fd, Vertretung Alter Ego): Fachkräfte übergeben bis 2042 auf main nicht auf die Mahnung bei 200 Tsd., Sperre 300 Tsd. bleibt; an Carla, Tanja, Paula, Edda weitergegeben, gilt für jeden weiteren Start.
+- 22:38 25.11.: Zurückgenommen (Alter Ego 6e1518d5c, Sokrates 22:41): Mahnung 200 Tsd. gilt für Fachkräfte wie bisher; Widerruf an Carla, Tanja, Paula, Edda. Für den Disponenten weiter NEUSTART ausgesetzt bis 2042, Grenze 500 Tsd.
