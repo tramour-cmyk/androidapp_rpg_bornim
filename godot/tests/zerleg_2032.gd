@@ -54,6 +54,11 @@ func _guertel(name: String, m: Node3D) -> void:
 	var px := 3.4 / 1080.0 / maxf(m.scale.x, 0.01)
 	var tri: PackedInt32Array = netz["tri"]
 	var legende := {}
+	var randset := {}
+	for i in (netz["rand"] as PackedInt32Array): randset[i] = true
+	var rz := {}
+	for i in randset: rz[lname[netz["lage"][i]]] = rz.get(lname[netz["lage"][i]], 0) + 1
+	print("ZERLEG2032 offene Randecken je Stück %s" % str(rz))
 	for bn in ["hand_r", "hand_l"]:
 		var b := sk.find_bone(bn)
 		if b < 0: continue
@@ -73,13 +78,24 @@ func _guertel(name: String, m: Node3D) -> void:
 					var innen := fn.dot(dir) <= 0.0
 					var ln: String = lname[netz["lage"][i0]]
 					if ln.begins_with("Kleid"):
-						if innen: z = "*"
-						else:
-							if not legende.has(ln): legende[ln] = String.chr(48 + legende.size())
-							z = legende[ln]
+						if not legende.has(ln): legende[ln] = String.chr(48 + legende.size())
+						z = legende[ln]
+						if innen: z = String.chr(97 + legende[ln].unicode_at(0) - 48) if "--stueck" in OS.get_cmdline_user_args() else "*"
 					else:
 						z = String.chr(art[i0])
 						if innen: z = z.to_lower()
+				if z == "*" or (z.length() == 1 and z >= "a" and z <= "j"):
+					var t2: int = e[0][1]
+					var ar := false
+					for q in 3:
+						if randset.has(tri[t2 + q]): ar = true
+					var naechst := "nichts"
+					if e.size() > 1:
+						var t3: int = e[1][1]
+						var fn3 := (V[tri[t3 + 1]] - V[tri[t3]]).cross(V[tri[t3 + 2]] - V[tri[t3]])
+						naechst = "%s %s %.3f" % [lname[netz["lage"][tri[t3]]], "innen" if fn3.dot(dir) <= 0.0 else "vorn", e[1][0] - e[0][0]]
+					var nn3 := N[tri[t2]]
+					print("INNEN %s %s %d %d %s rand=%s n.dir=%.2f danach %s" % [name, bn, ix, iy, lname[netz["lage"][tri[t2]]], ar, nn3.dot(dir), naechst])
 				zahl[z] = zahl.get(z, 0) + 1
 				zeile += z
 			print("ZK " + zeile)

@@ -3,11 +3,13 @@
 # ein Strahl je Bildpunkt bei 3,4 m auf 1080 Punkte) über ein Feld um jedes Handgelenk. Gezählt werden Bildpunkte an Hand und Fingern
 # (der Strahl trifft irgendwo Haut mit Hand- oder Fingerknochen), deren erster Treffer die Rückseite (Innenseite) eines Kleidstücks ist und
 # die einen ebensolchen Nachbarn haben (Fläche). Ecken wie toon.gdshader vertex() mit rueck (heldfigur RUECK).
-# Rot (Ende 1), wenn eine Figur mehr als GRENZE solche Bildpunkte hat. Ohne Kaufdateien: „ohne Kauf“, Ende 0.
+# Rot (Ende 1), wenn eine Figur mehr als GRENZE solche Bildpunkte hat. 2032-Ü7: ebenso Innenseite als erster Treffer im ganzen Feld
+# (Umkreis der Hand, auch ohne Haut dahinter: Gürtel neben der Faust, Rockrand), Zeilen UMKREIS2032. Ohne Kaufdateien: „ohne Kauf“, Ende 0.
 # Run: godot --headless --path godot -s res://tests/guertel_2032.gd [-- --nur=<Figur>]
 extends "res://tests/handgelenk_2028.gd"
 
 const GRENZE_2032 := 4
+var umkreis := {}   # 2032-Ü7 (Prüfer 25.11., 21:04): Innenseite im ganzen Feld um das Handgelenk (Faust, Gürtel daneben, Rockrand), Fläche
 const FINGER := ["hand_", "thumb", "index", "middle", "ring", "pinky"]
 
 func _messe() -> void:
@@ -54,6 +56,15 @@ func _messe() -> void:
 		if int(ergebnis[k]) > GRENZE_2032:
 			print("FEHLER %s: %d Bildpunkte an Hand und Fingern zeigen die Innenseite des Kleids (Grenze %d)" % [k, ergebnis[k], GRENZE_2032])
 			rot += 1
+	var rot_um := 0
+	var summe_um := 0
+	for k in umkreis:
+		summe_um += int(umkreis[k])
+		if int(umkreis[k]) > GRENZE_2032:
+			print("FEHLER %s: %d Bildpunkte Kleid-Innenseite im Umkreis der Hand (Grenze %d)" % [k, umkreis[k], GRENZE_2032])
+			rot_um += 1
+	print("UMKREIS2032 %d Figuren, %d Bildpunkte Kleid-Innenseite im Umkreis, %d Fehler" % [umkreis.size(), summe_um, rot_um])
+	rot += rot_um
 	print("GUERTEL2032 %d Figuren, %d Bildpunkte Kleid-Innenseite an der Hand, %d Fehler" % [ergebnis.size(), summe, rot])
 	quit(1 if rot else 0)
 
@@ -110,11 +121,14 @@ func _guertel(name: String, m: Node3D) -> void:
 	var tri: PackedInt32Array = netz["tri"]
 	var n := 0
 	var je := []
+	var je_um := []
+	var umkreis_n := 0
 	for bn in ["hand_l", "hand_r"]:
 		var b := sk.find_bone(bn)
 		if b < 0: continue
 		var mitte: Vector3 = (_posen[b] as Transform3D).origin
 		var rs := {}
+		var um := {}
 		var stueck := {}
 		for iy in range(-HALB, HALB + 1):
 			for ix in range(-HALB, HALB + 1):
@@ -130,6 +144,7 @@ func _guertel(name: String, m: Node3D) -> void:
 				for e in alle:
 					var tt: int = e[1]
 					if not kleid[netz["lage"][tri[tt]]] and hand[tri[tt]] == 1: an_hand = true; break
+				um[Vector2i(ix, iy)] = String(netz["lname"][netz["lage"][i0]])
 				if not an_hand: continue
 				rs[Vector2i(ix, iy)] = true
 				var ln: String = netz["lname"][netz["lage"][i0]]
@@ -141,8 +156,20 @@ func _guertel(name: String, m: Node3D) -> void:
 					nb += 1
 					break
 		n += nb
+		var nu := 0
+		var us := {}
+		for q in um:
+			for o in [Vector2i(1, 0), Vector2i(-1, 0), Vector2i(0, 1), Vector2i(0, -1)]:
+				if um.has(q + o):
+					nu += 1
+					us[um[q]] = us.get(um[q], 0) + 1
+					break
+		umkreis_n += nu
+		je_um.append("%s %d%s" % [bn, nu, (" " + str(us)) if nu > 0 else ""])
 		je.append("%s %d%s" % [bn, nb, (" " + str(stueck)) if nb > 0 else ""])
 	ergebnis[name] = n
+	umkreis[name] = umkreis_n
+	print("UMKREIS2032 %s: %d Bildpunkte Kleid-Innenseite im Umkreis der Hand (%s)" % [name, umkreis_n, ", ".join(je_um)])
 	print("GUERTEL2032 %s: %d Bildpunkte Kleid-Innenseite an der Hand (%s)" % [name, n, ", ".join(je)])
 	m.queue_free()
 	await process_frame
