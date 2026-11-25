@@ -1379,3 +1379,4 @@
 2026-11-25 10:14:17	commit-pruefung	VORGANGSARCHIV.md: neuer Entscheid zu 287, 431 berührt B1, B2; im selben Commit die Zeile(n) in DESIGN-STIL/-KAMPF/-ABNAHME ändern und am alten Eintrag „→ ersetzt durch …“ anhängen (461b); ändert er n	main
 2026-11-25 10:14:58	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/jerry-1653-kleid
 2026-11-25 10:15:23	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/figur-1694-griff
+2026-11-25 10:15:29	probelauf	1702: Bild oder Film an den Chef nur aus dem gepushten Stand; nicht committet: godot/tests/griff_folge_1694.gd. Erst committen und pushen; eigene Messläufe ohne Bild mit `MESS=`.	claude/figur-1694-griff
