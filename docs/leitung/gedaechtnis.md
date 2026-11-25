@@ -24,9 +24,9 @@
 
 - Konferenz: Alter Ego `session_01Hmoj78S1BS7Gx4Jksc3zTh` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
 - Nach main: CLAUDE.md 8 (Chef 25.11., 17:37 und 17:44); mischen tut Sokrates.
-- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Chef 12:48: Spiel vor, kein Werkzeug (außer 2035, 2036). Sa vorlegen: --sperre-Teile; Testbuild Sa (Technik Fr). Offen: 1301/1387/1642/1643 mit Alter Ego.
+- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Chef 12:48: Spiel vor, kein Werkzeug (außer 2035, 2036). Sa vorlegen: --sperre-Teile; Testbuild Sa (Technik Fr).
 - Täglich Modell, Umgebung, Aufwand aller Sitzungen. Kopiertexte: `kopiertexte-uhren.md`
 
 ## Übergabe
 
-- 25.11., 20:29, `79nRJF…`: Getan: 1708 B (Klinge, Schild; wartet auf 1589.4), 1997 B stündlich, 2034 Probe A2 (Chef 20:04), 2035 rote lauf-Tests auf main, Teil Marke Disponent (Chef 19:47 Sitzungsname), 2039 angelegt (Teil 2 Schaltflächen, Teil 3 Aufträge zählen), 2037 zu, Starter-Zeile weg. Offen beim Chef: 1694 A/B, 2039 Eilt, archivieren Edda/Alter Ego alt/Uwe, trig_01UMBs6p abschalten. Offen für dich: 2029-Ü21 Wörter Frisur/Bart (Story, Quelle fehlt; Chef). Letzte Antwort: 1589.4 a durch Alter Ego. Nachfolger: Sokrates – Leitung.
+- 25.11., 20:29, `79nRJF…`: Getan: 1708, 1997, 2034, 2035, 2037, 2039. Offen Chef: 1694, 2039 Eilt, drei archivieren, trig_01UMBs6p ab. Offen dir: 2029-Ü21 Wörter Frisur/Bart (Story, Chef). Letzte Antwort: 1589.4 a durch Alter Ego. Nachfolger: Sokrates – Leitung.
