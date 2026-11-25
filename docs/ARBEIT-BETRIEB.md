@@ -358,3 +358,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:27 25.11.: Startsperre 16:26 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1708 Frauke); Figur Inge 2031 gestartet (session_01Hmoj77df8z9qQNfMEs9AZr, Deckel 60 $, Halt 54 $)
 - 16:28 25.11.: Startsperre 16:27 Start Figur (lauf.py, Figur 2029 Hanna)
 - 16:29 25.11.: Sokrates-Takt 16:28: START Figur Inge 2031 (session_01Hmoj77df8z9qQNfMEs9AZr), Figur Hanna 2029 Helm neu (session_01Hmoj75a9zo2aDj5uEwse7b, nach --import), Planerin Frauke 1708 Blut am Trefferpunkt (session_01Hmoj77B3VKcZAquD9rRUKf, Chef 👍 16:04); 2031-Ü1 und 1708-Ü1 angenommen/erledigt; Fachkräfte Maja 1589.4, Inge, Hanna (3). 2028-Ü4 beim Prüfer.
+- 16:38 25.11.: Notstart Alter Ego (Nr. 2013, kein Profil, Sokrates 16:40): session_01Hmoj75PCSHUvX4ZVftYC3X; alter (…796ziG) wird nach Meldung des neuen archiviert.
