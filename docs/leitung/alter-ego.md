@@ -25,10 +25,11 @@ Sitzung session_01Hmoj78S1BS7Gx4Jksc3zTh (seit 25.11., 17:38; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 17:56 Chef 17:54 „… ein neueres Wort gilt vor einem älteren im Zweifelsfall mich darauf hinweisen, dass wir da konträre Festlegungen haben … Das machen Berater so.“ → wörtlich an Sokrates; Lehre 17:52 berichtigt.
 - 25.11., 17:55 Chef 17:54 „Warum muss ich das jetzt schon wieder entscheiden? … dass du mein Vertreter bist“ → Fragen aller Fachkräfte entscheidet Alter Ego (Vorbehalt bleibt). Lehre: was die Rolle deckt, nicht nachfragen.
 - 25.11., 17:54 Chef 17:53: „Kein Angriff geht daneben“ klingt nach 100 % Treffer, falsch; abwehren/ausweichen bleibt, angegriffen wird, wo der Held steht. F10-Kopf in DESIGN-KAMPF neu gefasst, Inhalt unverändert; an Sokrates.
 - 25.11., 17:53 Chef 17:52 „entscheide du halt die Fragen von Maja. Dafür bist du“ → in „Darf“; 1589.4 (b) in Vertretung bestätigt; an Sokrates: solche Fragen an Alter Ego.
-- 25.11., 17:52 Chef 17:50 zu 1589.4 „… vorliegen, neu entscheiden. Kein Angriff geht daneben, gilt …“ → wörtlich an Sokrates (keine Option gewählt). Lehre: neueres Chefwort geht vor älterem; Widerspruch zu Altem nicht vorlegen.
+- 25.11., 17:52 Chef 17:50 zu 1589.4 „… vorliegen, neu entscheiden. Kein Angriff geht daneben, gilt …“ → wörtlich an Sokrates (keine Option gewählt). Lehre: neueres Chefwort geht vor älterem (berichtigt 17:55: im Zweifel den Chef auf den Widerspruch hinweisen, damit er ihn löst).
 - 25.11., 17:51 Querprüfung (Chef 17:48): 1589.4-Ü25/26 offen, Maja wartet seit 17:13, F10 gegen „geradewegs heran“ → Chef; 5 fertige Sitzungen nicht archiviert (Frauke, Anna, Moritz, Clara, Disponent-Starter seit 23.11.), 1708 Kosten fehlen; Liste 2029/1708/2031 „startbar“ trotz laufender Fachkraft, Spalten Sitzung/Runde leer; Uwe 314 Tsd. → an Sokrates.
 - 25.11., 17:45 Chef 17:44 „du änderst jetzt Claude MD, weil ich bin der Chef … Ich rede nicht mehr mit Sokrates.“ → main-Regel (Vorschlag 17:37, Chef-Ja 17:37) in CLAUDE.md 8; Disponent Z. 11, Kern Leitung Z. 12, Gedächtnis Z. 25 verweisen.
 - 25.11., 17:43 Chef 17:43 zum Disponenten-Neustart (Grenze 300 Tsd., lauf.py Z. 251; Uwe 314 Tsd.): „wenn er nicht läuft, nicht nur veranlassen, dass er läuft, sondern … feststellen, warum“. Runde 18:39: Nachfolger da? Sonst Ursache belegen, dann Neustart über Sokrates.
