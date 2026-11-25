@@ -25,3 +25,7 @@ Laufbremse: Lauf 1 für 2034 ist verbraucht, nächster Bildlauf erst nach Prüfe
 4. Höhe: Paare (Stiefel, Handschuhe) zusammengeschoben; M57-09 rechnerisch 42 % → 86 %. Je Stück `fuellt.tsv`, `UNTER80` gemeldet. Flache, breite Stücke (Hutkrempe, Handschuhe in T-Pose) können bei 2048×1024 mit vorn und Seite unter 80 % bleiben; dann Frage.
 5. Häute: Bild mit Randtext und Vermerk im Skript ergänzt (9. Argument GLB-Ordner).
 Offen: Probe-Lauf (Robe M36-05, Stiefel M57-09, dazu M29-04) nach Prüfer-Ja; bpy-venv ~/bl fehlt in diesem Behälter (neu anlegen).
+
+## Nachtrag 19:52 (Edda): Probe-Lauf 2 (Sokrates 19:44) an 860900ac4
+
+Lauf: abzug_mh.py (bpy 5.2.3, venv ~/bl neu) NUR=M29-04,M36-05,M57-09, dann `SIGNATUR=1 … abzug_2034.gd` (xvfb, OpenGL 3 nach Vulkan-Fehlschlag wie zuvor), Bilder `probe/M29-04|M36-05|M57-09.webp`, alt gegen neu `probe/M36-05_alt_neu.webp`, `probe/M57-09_alt_neu.webp`, Messung `probe/messung-860900ac4.json`, MARKE `probe/marke-860900ac4.txt`. Nach dem Lauf nur das Zusammensetzen geändert (Schrift: Ansichtszeile kleiner, Rand passt sich dem Messsatz an; Lizenz der Paketseite aus der Liste). Wartet auf Prüfer; Abzug erst nach Ja.

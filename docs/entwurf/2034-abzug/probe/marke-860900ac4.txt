@@ -1,0 +1,6 @@
+MARKE M29-04 vorn px_je_m 3146.9 hoehe_m 0.272 breite_m 0.204 fuellt 0.926
+MARKE M29-04 seite px_je_m 3146.9 hoehe_m 0.272 breite_m 0.264 fuellt 0.926
+MARKE M36-05 vorn px_je_m 593.3 hoehe_m 1.442 breite_m 1.034 fuellt 0.926
+MARKE M36-05 seite px_je_m 593.3 hoehe_m 1.442 breite_m 0.379 fuellt 0.926
+MARKE M57-09 vorn px_je_m 4364.1 hoehe_m 0.183 breite_m 0.217 fuellt 0.863
+MARKE M57-09 seite px_je_m 3784.1 hoehe_m 0.183 breite_m 0.251 fuellt 0.749

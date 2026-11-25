@@ -1,0 +1,89 @@
+{
+ "M29-04": {
+  "umriss_px": 5042,
+  "umriss_tusche": 0.741,
+  "umriss_sichtbar": 0.742,
+  "kontrast_grund": 0.185,
+  "kontrast_stueck": 0.292,
+  "grund_hell": 0.279,
+  "kanten_innen_px": 4231,
+  "stufen": 3,
+  "stufen_hell": [
+   0.375,
+   0.449,
+   0.518
+  ],
+  "streuung": [
+   0.065,
+   0.086,
+   0.102
+  ],
+  "stufen_gegen_bild": 0.83,
+  "hellster": 0.729,
+  "glanz_px": 0,
+  "licht_stufen": [
+   0.85,
+   0.927,
+   0.996
+  ],
+  "satz": "Messung (vorn): Umriss 5042 px, davon 74 % mit Tusche, 74 % sichtbar (Linie gegen Grund und Stück je mindestens 0.05 dunkler; Median Linie gegen Grund 0.18, gegen Stück 0.29, Grund 0.28); Kanten innen 4231 px Tusche; Tonstufen 3 (Helligkeit 0.38, 0.45, 0.52); Lichtstufen weiß 0.85, 0.93, 1.00; Stufen gegen Bild 0.83 (kleinster Stufenabstand / Streuung des Bildes); hellster Pixel 0.729; Pixel über Glanzgrenze (heller als weißes mattes Stück) 0"
+ },
+ "M36-05": {
+  "umriss_px": 5962,
+  "umriss_tusche": 0.529,
+  "umriss_sichtbar": 0.51,
+  "kontrast_grund": 0.225,
+  "kontrast_stueck": 0.054,
+  "grund_hell": 0.279,
+  "kanten_innen_px": 345,
+  "stufen": 3,
+  "stufen_hell": [
+   0.09,
+   0.104,
+   0.137
+  ],
+  "streuung": [
+   0.029,
+   0.032,
+   0.04
+  ],
+  "stufen_gegen_bild": 0.44,
+  "hellster": 0.569,
+  "glanz_px": 0,
+  "licht_stufen": [
+   0.85,
+   0.927,
+   0.996
+  ],
+  "satz": "Messung (vorn): Umriss 5962 px, davon 53 % mit Tusche, 51 % sichtbar (Linie gegen Grund und Stück je mindestens 0.05 dunkler; Median Linie gegen Grund 0.23, gegen Stück 0.05, Grund 0.28); Kanten innen 345 px Tusche; Tonstufen 3 (Helligkeit 0.09, 0.10, 0.14); Lichtstufen weiß 0.85, 0.93, 1.00; Stufen gegen Bild 0.44 (kleinster Stufenabstand / Streuung des Bildes); hellster Pixel 0.569; Pixel über Glanzgrenze (heller als weißes mattes Stück) 0"
+ },
+ "M57-09": {
+  "umriss_px": 11144,
+  "umriss_tusche": 0.504,
+  "umriss_sichtbar": 0.516,
+  "kontrast_grund": 0.185,
+  "kontrast_stueck": 0.063,
+  "grund_hell": 0.279,
+  "kanten_innen_px": 52,
+  "stufen": 3,
+  "stufen_hell": [
+   0.112,
+   0.131,
+   0.164
+  ],
+  "streuung": [
+   0.022,
+   0.022,
+   0.027
+  ],
+  "stufen_gegen_bild": 0.79,
+  "hellster": 0.487,
+  "glanz_px": 0,
+  "licht_stufen": [
+   0.85,
+   0.927,
+   0.996
+  ],
+  "satz": "Messung (vorn): Umriss 11144 px, davon 50 % mit Tusche, 52 % sichtbar (Linie gegen Grund und Stück je mindestens 0.05 dunkler; Median Linie gegen Grund 0.18, gegen Stück 0.06, Grund 0.28); Kanten innen 52 px Tusche; Tonstufen 3 (Helligkeit 0.11, 0.13, 0.16); Lichtstufen weiß 0.85, 0.93, 1.00; Stufen gegen Bild 0.79 (kleinster Stufenabstand / Streuung des Bildes); hellster Pixel 0.487; Pixel über Glanzgrenze (heller als weißes mattes Stück) 0"
+ }
+}
