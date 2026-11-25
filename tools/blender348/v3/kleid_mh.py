@@ -27,7 +27,9 @@ DATEI = os.environ.get('DATEI', 'mh_kutte')
 ZIEL_DREIECKE = int(os.environ.get('ZIEL_DREIECKE', '3000'))
 BILD = int(os.environ.get('BILD', '1024'))
 RAND = float(os.environ.get('RAND', '0.012'))      # Stoff mindestens so weit ueber der Kaufhaut (m)
-RAND_KOPF = float(os.environ.get('RAND_KOPF', '0.045'))   # Kapuze ueber dem Kopf weiter (Voelker: Spitzohren, groesserer Kopf; kutte_haut_2031)
+# Kapuze ueber dem Kopf weiter (Voelker: Spitzohren, groesserer Kopf; kutte_haut_2031). Frau (Pruefer 18:08: Kinn vor der Kapuze im
+# Hieb-Endbild, Frau Mensch und Halbling): 0,05 und KAPUZE_WEIT 1,24 (gemessen: 1,21/1,26/1,28 und 0,04/0,06/0,075 lassen je 1-5 Faelle offen)
+RAND_KOPF = float(os.environ.get('RAND_KOPF', '0.05' if os.environ.get('G', 'M') == 'W' else '0.045'))
 RAND_HAND = float(os.environ.get('RAND_HAND', '0.02'))   # Aermel ueber der Hand weiter (groessere Haende von Zwerg und Orkbluetigen)
 LAGE = float(os.environ.get('LAGE', '0.008'))       # aeussere Lage nach dem Ausduennen mindestens so weit vom Hauptstueck (m)
 NAH = float(os.environ.get('NAH', '0.05'))          # aeussere Lage (Kapuzenkragen, Guertel, Strick) naeher als das am Hauptstueck
@@ -417,7 +419,7 @@ for o in koerper:
 print('HINAUS RUHELAGE', hinaus(kl, RAND, 3, BVHTree.FromPolygons([Vector(v) for v in KR], KT)), 'Ecken')
 # Kapuze weiter um die Kopfmitte, nach dem Kopfgewicht (glatt, ohne Falten): Spitzohren der Elfen, Ork- und Zwergenkopf sind
 # groesser als der Kaufkopf des Menschen, an dem die Kapuze sitzt (kutte_haut_2031: je 1 Ecke durch die Kapuze)
-KAPUZE_WEIT = float(os.environ.get('KAPUZE_WEIT', '1.18'))
+KAPUZE_WEIT = float(os.environ.get('KAPUZE_WEIT', '1.24' if G == 'W' else '1.18'))
 vg = kl.vertex_groups.get('Head'); vn = kl.vertex_groups.get('neck_01')   # Hals mit: Kinn von Zwerg, Halbling, Ork am Kragen
 if vg:
     c = AW @ arm.data.bones['Head'].head_local + Vector((0, 0, 0.06))

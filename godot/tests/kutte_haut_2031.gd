@@ -7,7 +7,9 @@
 #  Lagen der Kutte untereinander (Guertel, Strick, Kragen vor oder hinter dem Hauptstueck): nur genannt, kein Koerper
 #  flanke: Stoff am Rumpf (Gewicht ueberwiegend Becken/Ruecken) seitlich weiter als halbe Schulterbreite + FLANKE_PLUS von der Mittellinie = 0
 # Haeute (HeldFigur.mh_haut, tools/blender348/v3/haut_mh.py): 3 je Geschlecht x 5 Voelker (Wachsoldat): kein Texel ohne gebackenen Wert,
-#  Bildmittel >= 0,15, Flecken < 5 % (wie zopf_431), Hautton am Gesicht nach toene hoechstens 10 % vom heutigen (Abweichung genannt).
+#  Bildmittel >= 0,15, Flecken < 5 % (wie zopf_431), Hautton am Gesicht nach toene hoechstens 10 % vom heutigen (Abweichung genannt);
+#  ganzes Gesicht (Kinn bis Stirn, Pruefer 18:08 „roeter und dunkler“): Saettigung hoechstens 10 % ueber heute, Helligkeit 10 % ab,
+#  dunkles Fuenftel hoechstens 15 % dunkler.
 # Ausgabe: „KH2031 <Fall> …“, am Ende „KH2031 Faelle N, falsch F“ (Ende 1 bei F > 0). Ohne Kaufdateien „ohne Kauf“, 0.
 # Run: godot --headless --path godot -s res://tests/kutte_haut_2031.gd [-- --nur=kutte|haut]
 extends "res://tests/durchstich_1631.gd"
@@ -17,6 +19,9 @@ const HALS_UNTER := 0.10      # m unter dem Halsknochen (neck_01) zaehlt als „
 const KNOECHEL_UEBER := 0.12  # m ueber dem Boden (Knoechel)
 const FLANKE_PLUS := 0.10     # Stoffdicke und Falten seitlich ueber der halben Schulterbreite
 const RUMPF := ["pelvis", "spine_01", "spine_02", "spine_03"]
+const SATT_PLUS := 0.10   # Pruefer 18:08: Saettigung am ganzen Gesicht hoechstens 10 % ueber heute
+const HELL_AB := 0.10     # Helligkeit (mittlere Farbe) am ganzen Gesicht hoechstens 10 % ab
+const DUNKEL_AB := 0.15   # dunkles Fuenftel hoechstens 15 % dunkler
 
 var faelle := 0
 var falsch := 0
@@ -195,9 +200,16 @@ func _haeute() -> void:
 					continue
 				var ab := 0.0
 				for k in 3: ab = maxf(ab, absf(neu["ton"][k] - alt["ton"][k]) / maxf(alt["ton"][k], 0.001))
-				var ok: bool = neu["leer"] == 0 and neu["mittel"] >= 0.15 and neu["flecken"] < 0.05 and ab <= 0.10
-				_fall(name, ok, "ohne Wert %d von %d Proben, Bildmittel %.3f, Flecken %.1f %%, Hautton Gesicht %s gegen heute %s (Abweichung %.1f %%)" % [
-					neu["leer"], neu["proben"], neu["mittel"], neu["flecken"] * 100.0, _v(neu["ton"]), _v(alt["ton"]), ab * 100.0])
+				# Pruefer 18:08: ganzes Gesicht nicht roeter (Saettigung) und nicht dunkler (Median, dunkles Fuenftel) als heute
+				var sa: float = neu["satt"] / maxf(alt["satt"], 0.001) - 1.0
+				var he: float = neu["hell"] / maxf(alt["hell"], 0.001) - 1.0
+				var du: float = neu["dunkel"] / maxf(alt["dunkel"], 0.001) - 1.0
+				var ok: bool = neu["leer"] == 0 and neu["mittel"] >= 0.15 and neu["flecken"] < 0.05 and ab <= 0.10 \
+					and sa <= SATT_PLUS and absf(he) <= HELL_AB and du >= -DUNKEL_AB
+				print("KH2031 STREU %s Saettigung %.3f gegen %.3f, Helligkeit %.3f gegen %.3f" % [name, neu["s_streu"], alt["s_streu"], neu["h_streu"], alt["h_streu"]])
+				_fall(name, ok, "ohne Wert %d von %d Proben, Bildmittel %.3f, Flecken %.1f %%, Hautton Gesicht %s gegen heute %s (Abweichung %.1f %%); ganzes Gesicht: Saettigung %.3f gegen %.3f (%+.0f %%), Helligkeit %.3f gegen %.3f (%+.0f %%), dunkles Fuenftel %.3f gegen %.3f (%+.0f %%)" % [
+					neu["leer"], neu["proben"], neu["mittel"], neu["flecken"] * 100.0, _v(neu["ton"]), _v(alt["ton"]), ab * 100.0,
+					neu["satt"], alt["satt"], sa * 100.0, neu["hell"], alt["hell"], he * 100.0, neu["dunkel"], alt["dunkel"], du * 100.0])
 
 func _v(c: Array) -> String: return "%.3f/%.3f/%.3f" % [c[0], c[1], c[2]]
 
@@ -210,7 +222,7 @@ func _haut_werte(volk: String, g: String, kenn: String) -> Dictionary:
 	var m := HeldFigur.baue({"herkunft": "Wachsoldat", "volk": volk, "aussehen": {"geschlecht": g}, "ausruestung": hw.ausruestung.duplicate()}, [])
 	HeldFigur.mh_haut = ""
 	if m == null: return {"fehler": "Figur fehlt"}
-	var leer := 0; var proben := 0; var hell := []; var ton := [[], [], []]
+	var leer := 0; var proben := 0; var hell := []; var ton := [[], [], []]; var satt := []; var glanz := []
 	var augen := Vector3.INF
 	for x in m.find_children("Eyes*", "MeshInstance3D", true, false):
 		augen = (x as MeshInstance3D).mesh.get_aabb().get_center()
@@ -258,10 +270,25 @@ func _haut_werte(volk: String, g: String, kenn: String) -> Dictionary:
 					if vs[i].y > augen.y or vs[i].y < augen.y - 0.09 or (vs[i].z - mz) * vorn < 0.0: continue
 					var c1 := im.get_pixel(clampi(int(uv[i].x * im.get_width()), 0, im.get_width() - 1), clampi(int(uv[i].y * im.get_height()), 0, im.get_height() - 1))
 					var l := c1.srgb_to_linear()
-					var hl := maxf(0.2126 * l.r + 0.7152 * l.g + 0.0722 * l.b, 0.001)
-					var rel := Vector3(l.r, l.g, l.b) / hl / Vector3(maxf(tb.x / th, 0.001), maxf(tb.y / th, 0.001), maxf(tb.z / th, 0.001))
-					var o := t * hl / th * Vector3.ONE.lerp(rel, tf)
+					var o := _shader_ton(Vector3(l.r, l.g, l.b), t, th, tb, tf)
 					for q in 3: ton[q].append(o[q])
+				# Pruefer 18:08 (neue Gesichter roeter und dunkler bei gleichem Median an den Ecken): ganzes Gesicht (Kinn bis Stirn, vordere
+				# Haelfte), dicht im Bild je Dreieck (6 x 6 Punkte; die Fotohaut hat Poren und Bartschatten zwischen den Ecken), Farbe nach der
+				# Formel des Shaders; Saettigung und Helligkeit der mittleren Farbe, dazu das dunkle Fuenftel
+				for k in range(0, idx.size(), 3):
+					var drin := true
+					for j in 3:
+						var v := vs[idx[k + j]]
+						if v.y > augen.y + 0.06 or v.y < augen.y - 0.13 or (v.z - mz) * vorn < 0.0: drin = false
+					if not drin: continue
+					for a_ in 6:
+						for b_ in 6 - a_:
+							var w0 := (a_ + 1.0 / 3.0) / 6.0; var w1 := (b_ + 1.0 / 3.0) / 6.0
+							var q2 := uv[idx[k]] * (1.0 - w0 - w1) + uv[idx[k + 1]] * w0 + uv[idx[k + 2]] * w1
+							var c2 := im.get_pixel(clampi(int(q2.x * im.get_width()), 0, im.get_width() - 1), clampi(int(q2.y * im.get_height()), 0, im.get_height() - 1)).srgb_to_linear()
+							var o2 := _shader_ton(Vector3(c2.r, c2.g, c2.b), t, th, tb, tf)
+							satt.append(o2)
+							glanz.append(0.2126 * o2.x + 0.7152 * o2.y + 0.0722 * o2.z)
 	m.free()
 	if hell.is_empty() or (ton[0] as Array).is_empty(): return {"fehler": "keine Haut oder kein Gesicht gefunden"}
 	for q in 3: (ton[q] as Array).sort()
@@ -270,4 +297,23 @@ func _haut_werte(volk: String, g: String, kenn: String) -> Dictionary:
 	mittel /= hell.size()
 	var fl := 0
 	for h in hell: if h < 0.4 * mittel or h > 1.6 * mittel: fl += 1
-	return {"leer": leer, "proben": proben, "mittel": mittel, "flecken": float(fl) / hell.size(), "ton": [ton[0][ton[0].size() / 2], ton[1][ton[1].size() / 2], ton[2][ton[2].size() / 2]]}
+	var mf := Vector3.ZERO
+	var sl := []
+	for o3 in satt:
+		mf += o3
+		var m3 := maxf(o3.x, maxf(o3.y, o3.z))
+		sl.append((m3 - minf(o3.x, minf(o3.y, o3.z))) / maxf(m3, 0.001))
+	mf /= maxf(satt.size(), 1)
+	var mx := maxf(mf.x, maxf(mf.y, mf.z))
+	glanz.sort(); sl.sort()
+	var gm: float = glanz[glanz.size() / 2]
+	return {"leer": leer, "proben": proben, "mittel": mittel, "flecken": float(fl) / hell.size(), "ton": [ton[0][ton[0].size() / 2], ton[1][ton[1].size() / 2], ton[2][ton[2].size() / 2]],
+		"satt": (mx - minf(mf.x, minf(mf.y, mf.z))) / maxf(mx, 0.001), "hell": 0.2126 * mf.x + 0.7152 * mf.y + 0.0722 * mf.z, "dunkel": glanz[glanz.size() / 5],
+		"s_streu": sl[sl.size() * 9 / 10] - sl[sl.size() / 10], "h_streu": (glanz[glanz.size() * 9 / 10] - glanz[glanz.size() / 10]) / maxf(gm, 0.001)}
+
+# Farbe nach toon.gdshader (toen_hell > 0) samt Maske „haut“ (431c B1: weit vom Bezug bleibt das Bild ungetoent), linear
+static func _shader_ton(l: Vector3, t: Vector3, th: float, tb: Vector3, tf: float) -> Vector3:
+	var hl := maxf(0.2126 * l.x + 0.7152 * l.y + 0.0722 * l.z, 0.001)
+	var rel := l / hl / Vector3(maxf(tb.x / th, 0.001), maxf(tb.y / th, 0.001), maxf(tb.z / th, 0.001))
+	var haut := 1.0 - smoothstep(0.6, 1.0, (rel - Vector3.ONE).length()) if tf > 0.0 else 1.0
+	return l.lerp(t * hl / th * Vector3.ONE.lerp(rel, tf), haut)
