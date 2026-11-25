@@ -333,3 +333,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 13:07 25.11.: Takt Uwe 13:04: Planerin Jana 2028 (Rowena Handgelenke, session_01Hmoj78iTdpNtoFou5SoQda); START Ida 2026 nicht ausgeführt (2026 fertig, Chef 👍 12:37), START/ARCHIVIERE Sokrates nicht (Titel Handstart), 887/448 nicht; Chef-👍 2026, 1654, 431 zur Kenntnis (Sokrates mischt); Selma 2024 läuft; Maja wartet auf Geld (Chef).
 - 13:10 25.11.: Startsperre 13:09 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2029 Mia)
 - 13:11 25.11.: Planerin Mia 2029 Kopfteile-Probe (session_01Hmoj77zLbPT9mxRvfvoUKB, Deckel 30 $, Halt 24 $); alter Sokrates (…76pVj4) war schon archiviert; Sokrates läuft als …77b3dQ (START/ARCHIVIERE Sokrates von lauf.py nicht ausführen).
+- 13:11 25.11.: Startsperre 13:10 Start Figur (lauf.py, Figur 2028 Nora)
