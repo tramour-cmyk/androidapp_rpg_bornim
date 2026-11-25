@@ -338,8 +338,10 @@ static func platz_machen(steht: Vector2) -> Vector2:
 ## geradewegs heran (Chef 18.11., 14:33, Ratte quer): ein Bissplatz liegt höchstens so weit um das Ziel herum (Grad); Flieger
 ## ([flieger]) bis FLIEGER_GRAD (Sokrates 25.11., 15:26 zu Ü21: flatternd, „beißt und löst sich“)
 const FLIEGER_GRAD := 90.0
-static func bissplatz_winkel(w: float, flieger := false) -> bool:
-	return absf(w) <= (FLIEGER_GRAD if flieger else QUER_GRAD)
+## [am_schild]: am Schild vorbei bis BISS_SCHILD_GRAD (F10, Chef 25.11., 17:02: kein Biss daneben; alt 709 bis 60°), der Weg bleibt geradewegs
+const BISS_SCHILD_GRAD := 60.0
+static func bissplatz_winkel(w: float, flieger := false, am_schild := false) -> bool:
+	return absf(w) <= (FLIEGER_GRAD if flieger else (BISS_SCHILD_GRAD if am_schild else QUER_GRAD))
 
 
 ## Abschnitt 5 „der hintere wartet seitlich, bis der Weg frei ist“: Punkt einen Seitschritt quer zum Weg [von] → [nach], so weit,
@@ -403,10 +405,10 @@ static func beiseite(a: Vector2, b: Vector2, laenge_w: float, r_w: float, k: Arr
 
 ## geradewegs heran (Chef 18.11., 14:33): liegt der Weg von [von] zum Angriffsplatz [platz] höchstens QUER_GRAD neben der Richtung
 ## zum Ziel [ziel], am Anfang wie am Ende? (kurzer Weg unter [kurz] Metern zählt nicht)
-static func geradewegs(von: Vector2, platz: Vector2, ziel: Vector2, kurz := 0.15) -> bool:
+static func geradewegs(von: Vector2, platz: Vector2, ziel: Vector2, kurz := 0.15, nur_anfang := false) -> bool:
 	var w := platz - von
 	if w.length() < kurz:
 		return true
 	# am Anfang und am Ende des Wegs (dazwischen liegt der Winkel zwischen beiden): wer neben dem Ziel ankommt, liefe zuletzt quer
 	return absf(rad_to_deg(w.angle_to(ziel - von))) <= QUER_GRAD and \
-			(platz.distance_to(ziel) < GLEICH or absf(rad_to_deg(w.angle_to(ziel - platz))) <= QUER_GRAD)
+			(nur_anfang or platz.distance_to(ziel) < GLEICH or absf(rad_to_deg(w.angle_to(ziel - platz))) <= QUER_GRAD)

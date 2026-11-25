@@ -2355,7 +2355,9 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 			var klein := hoehe_oben() < BISS_KLEIN_M
 			# 1589.4 (Chef 18.11., 14:33 Ratte quer): nur Plätze, zu denen der Weg geradewegs heran führt (Arena.bissplatz_winkel);
 			# alt bis 60°, für Kleine bis 90° (1284, damit die Zähne im Bild nicht hinter dem Ziel liegen: Bildregel, fällt)
-			var winkel := [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0].filter(func(x: float) -> bool: return Arena.bissplatz_winkel(x))
+			# F10 (Chef 25.11., 17:02, kein Biss daneben): am Schild vorbei bis 60° um das Ziel (alt 709), solange der Weg geradewegs heran
+			# führt (Arena.geradewegs prüft Anfang und Ende des Wegs, unten)
+			var winkel := [0.0, 20.0, -20.0, 40.0, -40.0, 60.0, -60.0].filter(func(x: float) -> bool: return Arena.bissplatz_winkel(x, false, true))
 			for w: float in winkel:
 				var d2 := dir.rotated(Vector3.UP, deg_to_rad(w))
 				var pl: Array = hieb_plan(bb, ziel, other.position, d2, soll, BISS_LUFT, hind)
@@ -2427,6 +2429,8 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 						for j in 3:
 							var q := tr2 * Vector3(lerpf(fb2.position.x, fb2.end.x, j / 2.0), 0.0, lerpf(fb2.position.z, fb2.end.z, i / 6.0))
 							r2 = minf(r2, other.clearance(q, Vector3.INF, atan2(zum.x, zum.z), hoehe_oben()))
+				if OS.get_environment("SCHAU_709") != "" and voll:
+					print("709 Platz %s %.0f°: luft %.2f weg %.2f rumpf %.2f/%.2f heim %.2f arena %s" % [fighter.id, w, l2, w2, r2, r_soll, h2, _arena_biss(s2, d2, other)])
 				if l2 < PLATZ_LUFT or w2 < WEG_LUFT or r2 < r_soll or h2 < -BISS_UMRISS or not _arena_biss(s2, d2, other):
 					continue
 				var bt := float(pl[1]) / maxf(float(tempo.get(nm, 1.0)), 0.1) + HIEB_VERZUG

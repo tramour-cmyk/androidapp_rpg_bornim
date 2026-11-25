@@ -1502,9 +1502,13 @@ func _play_say(e: Dictionary) -> void:
 			if af != null:
 				von = to_global(af.angriff_von) if af.angriff_von != Vector3.INF else af.global_position
 			figures[id].abwehr(lands, art, von, true, af != null and af.niedrig())
+			if OS.get_environment("SCHAU_FEHL") != "":
+				print("FEHLWURF %s -> %s: Abwehr" % [actor, id])
 		elif target == id and _missed(e) and across:
 			# 438 (Prüfer Film r2: Klinge durch Wolf 2 ohne Treffer): wer ausweicht, ist schon weg, wenn der Hieb ankommt
 			figures[id].dodge(maxi(0, lands - AUSWEICH_VOR_MS) if lunge_ms > 0 and fx == null else lands)
+			if OS.get_environment("SCHAU_FEHL") != "":
+				print("FEHLWURF %s -> %s: Ausweichen" % [actor, id])
 	_fx_szene2(e, actor, target, by, tg, across, lands, lunge_ms, fx)
 	# 249 (wie im alten MARS, SkirmishScreen.kt): beim Aufschlag rückt ein kritischer oder tödlicher Schlag die Szene heran
 	# und ruckt sie in Schlagrichtung; ein Hieb, Biss oder Schuss, der trifft, lässt Blut spritzen, weg vom Schlagenden

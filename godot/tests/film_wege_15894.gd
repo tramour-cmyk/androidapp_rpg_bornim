@@ -14,6 +14,7 @@ var lb: Label
 var bild := 0
 var bis := 25.0
 var text := ""
+var roll_vor = null
 
 
 func _initialize() -> void:
@@ -67,6 +68,9 @@ func _lauf() -> void:
 		for c in kf.find_children("*", "CanvasLayer", true, false):     # nur die Szene, ohne Oberfläche
 			c.visible = false
 		lb.text = "%s   %.1f s" % [text, bild / 30.0]
+		if kf.ui.roll_at != roll_vor:     # Kampfzeile mit Spielzeit (Beleg je Fehlwurf: Abwehr oder Ausweichen, FEHLWURF aus kampfort)
+			roll_vor = kf.ui.roll_at
+			print("KAMPFZEILE %.1f %s" % [bild / 30.0, String(kf.shown.get("text", ""))])
 		for o in kf.figures.values():
 			if o.visible and not o.down:
 				print("WEGEFILM %.1f %s %s %s (%.2f, %.2f)" % [bild / 30.0, o.fighter.id, o.gang, String(o.anim.current_animation) if o.anim else "", o.position.x, o.position.z])
