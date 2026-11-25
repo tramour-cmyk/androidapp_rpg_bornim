@@ -306,3 +306,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:32 25.11.: Startsperre 10:31 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2026 Frieda)
 - 10:33 25.11.: Planerin Frieda 2026 „MakeHuman-Pakete sichten“ (session_01Hmoj76CeDDBi8Cv6QmHfZv, Chef 10:29, nur Sichten; Rang Figur nach 1694, vor 2024/1654).
 - 10:34 25.11.: Startsperre 10:33 Start Figur (lauf.py, Figur 431 Hilde)
+- 10:35 25.11.: START Figur Hilde 431 (session_01Hmoj797oqYhLMFHqrJYfR6, 431 B Chef 10:30, Halt 30 $); Fachkräfte 3: Hilde 431, Greta 1694, Dana 1654; Planerinnen Tilda 2024, Berta 1589.4, Frieda 2026.
