@@ -1,4 +1,7 @@
 # 431 · Völker als Modelle: so ins Spiel?
+
+[Bild von 25.11., 11:50](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/25-1150-431-Sokrates.png) (eingetragen von meldung.sh, Sokrates)
+
 Sokrates · 25.11., 11:55 · E Figuren · Prüfer ja 11:46 (431-Ü23/Ü24)
 Kurz: Fünf Völker in wahrer Größe, Bärte, Zöpfe, Orkhaut; Bilder vom Beleglauf.
 Beim Chef, weil: Aussehen
