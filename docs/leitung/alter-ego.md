@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78GVgrp48SUhwspQ4U (seit 25.11., 20:33; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 21:16 Chef 21:14 „Ich folge deinem Vorschlag“: Wache und Wochenzählung ohne Rufnamen → an Sokrates in 2041, dazu Prüfpunkt NAMEN männlich/weiblich (rufname.py:32 gemischt). Der Chef schläft; nur an ihn, was nicht ohne ihn geht.
 - 25.11., 21:13 Chef 21:12 „Ich autorisiere dich, diese Uhr abzuschalten“ → trig_01Jog7nqdG9EM9EeKddJnPfQ (Detlef) enabled=false, belegt; an Sokrates.
 - 25.11., 21:13 Chef 21:09 „warum nach Namen, nicht nach Funktion?“: Beleg kosten.py:63 (Rolle nur am Titelanfang, Rufnamen vorn seit 287f96046). Chef 21:11 „Disponent heißt wieder Disponent, Büro, kein Name“ (löst 18:04 für Disponent ab, Widerspruch genannt) → wörtlich an Sokrates in 2041; d darf starten.
 - 25.11., 21:05 Disponent-Uhr: neue trig_01RDJvETEx6wog5bGvsETLSD an Otto (3 * * * *); die alte trig_01Jog7nqdG9EM9EeKddJnPfQ an Detlef lässt sich weder abschalten noch löschen (Auto-Modus sperrt update_trigger enabled=false und delete_trigger) → Chef.
