@@ -113,3 +113,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:07 25.11.: Startsperre 22:04 Arbeitsplaner (vom zweiten lauf.py-Aufruf geschrieben) nicht ausgeführt; Planerin Oda …766S9u lebt.
 - 22:14 25.11.: Sokrates 22:12 (b1bb320e0): 2042 Eilt (Chef 22:03 „A mit Eilt“), Laufsperre gilt nicht: Arbeitsplanerin Oda …766S9u per Weiter auf 2042 (statt Neustart), danach Werkzeug. Disponent-Neustart ausgesetzt bis 2042 auf main (Alter Ego in Vertretung, Chef 22:07/22:08), Grenze 500 Tsd., Nachfolger sonnet, Titel „Disponent – Büro“ (Chef 22:04 „Disponent immer Sonnet“). 2041 auf main (8abd10517): Titel jetzt „Disponent – Büro“. 2034: Lauf 4 gelaufen, Laufanforderung Ü21 an Prüfer Ralf. 2043 ergänzt (Ford→Disponent, Laufbremse-Regex).
 - 22:15 25.11.: 2041-Ü25 Hinweis Ralf (Besetzung führt Prüfer als Werkzeug) in 2043, erledigt.
+- 22:15 25.11.: Startsperre 22:15 Start Werkzeug (lauf.py, Werkzeug 2042 Anna)
