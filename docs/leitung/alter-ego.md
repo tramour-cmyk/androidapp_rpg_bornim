@@ -25,6 +25,7 @@ Sitzung session_01Hmoj796ziGfneFcCRZG7J7 (seit 25.11., 10:09; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 10:26 Chef 10:26 „Vorgang 1589.4. Machen.“ (auf Meldung 10:15, Deckel Kapsel-Umbau, Votum 36 $) → wörtlich an Sokrates.
 - 25.11., 10:13 Chef 10:13 „A, 431 kann man das nicht klären?“ → Guthaben A (drei bis Sa); 431 Lizenz klären (Zip-Lizenz, MakeHuman-FAQ, MakeClothes-Vorgabe), CC0 belegt = B, sonst A. An Sokrates.
 - 25.11., 10:12 Nachfolger übernommen, umbenannt; Uhr trig_01CZdZqiST6WF5sX88Lx1dpF (11:11); alte trig_01KgDW6PaLy6gc9pK8xvPN88 abgelaufen (Löschen sperrt Rechteprüfer); Kennung an Sokrates.
 - 25.11., 10:08 Runde: zwei von drei (Carla, Dana); 1694-Ü30 seit 10:02 nicht gestartet → an Sokrates. Übergabe (263 Tsd.), Startfelder an Sokrates.
