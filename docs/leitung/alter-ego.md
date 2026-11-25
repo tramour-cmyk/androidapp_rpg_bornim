@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78ddRUPdf89SqpS789 (seit 25.11., 19:25; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 19:48 Chef 19:47: Disponent am Sitzungstitel erkennen („enthält das Wort Disponent“), nicht an Zeile von Hand → wörtlich an Sokrates mit Fallen (Starter/Wache enthalten das Wort; Titelquelle der Werkzeuge).
 - 25.11., 19:44 Chef 19:41 „erst 4 Aufträge erledigt?“: belegt (4 erledigt, 14 neu, 46 Sitzungen); Stand-Leichen 2029/2031/2032, startbar ohne Start 1694/2024/2033 → Entscheid in Vertretung an Sokrates: Stände berichtigen, 1694 und 2024 starten. Prüfen 20:26.
 - 25.11., 19:37 Chef 19:36 „natürlich darfst du Delete-Trigger ausführen …“ → trig_01UMBs6pPDviZ7zQjUeKikeT (Uwe) gelöscht; Recht in Darf, Archiv.
 - 25.11., 19:33 Chef 19:32 „was du tust, dass es das nächste Mal funktioniert“: Zeile Disponent (aktuell) = Detlef seit 19:30 (dbd361456), Probe disponent() → Detlef; doppelte Testbuild-Uhr an Uwe (trig_01UMBs6pPDviZ7zQjUeKikeT) löschen sperrt der Auto-Modus → Chef; Wecker-Probe in Tut 1.
