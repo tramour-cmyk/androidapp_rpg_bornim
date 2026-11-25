@@ -148,3 +148,4 @@ STARTSPERRE - 18:02 25.11.: Startsperre 18:02 Start Disponent (lauf.py, Disponen
 - 18:04 25.11.: Neustart Disponent (Kontext über 300 Tsd.): Nachfolger session_01Hmoj77CqtJv41zq9EoMJMF mit Übergabe; neue Uhr trig_01ETQpAvjSVfcdY3oSVpy3xR (:03) an ihn, alte trig_01JyUFnFGzKzNd1KdsU583gN abgeschaltet; alter Disponent (…75wHERa) archiviert sich nach Meldung des Nachfolgers.
 - 18:03 25.11.: Startsperre 18:03 Start Arbeitsplaner, Arbeitsplaner, Tagesbericht, Prüfer (lauf.py, Arbeitsplaner 887 Rita, Arbeitsplaner 1484 Sabine, Tagesbericht 448, Prüfer 2031 Tanja)
 - 18:04 25.11.: Startsperre 18:04 Start Tagesbericht (lauf.py, 448)
+- 18:05 25.11.: Startsperre 18:05 Start Prüfer (lauf.py, Prüfer 2031 Anna)
