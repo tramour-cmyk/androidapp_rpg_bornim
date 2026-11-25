@@ -22,10 +22,11 @@ from mathutils.bvhtree import BVHTree
 
 HIER = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HIER)
-Z = os.environ['Z']
+Z = os.environ.get('Z', '')   # 431: held_voelker.py holt nur die Hilfen (ohne Z)
 ZIEL_V = os.environ.get('ZIEL', os.path.join(Z, 'volk'))
-os.makedirs(ZIEL_V, exist_ok=True)
-os.environ['ZIEL'] = ZIEL_V
+if __name__ == '__main__':
+    os.makedirs(ZIEL_V, exist_ok=True)
+    os.environ['ZIEL'] = ZIEL_V
 import voelker as VO
 QT = VO.QT
 
@@ -339,14 +340,15 @@ def baue(volk, t, g, mensch):
     return r, m2
 
 
-aus = []
-for t in TRACHTEN:
-    for g in ('M', 'W'):
-        if not os.path.exists(os.path.join(Z, 'held_%s_%s.glb' % (t, g))):
-            print('FEHLT held_%s_%s.glb' % (t, g)); continue
-        r, mensch = baue('mensch', t, g, None)
-        aus.append(r)
-        for v in VOELKER:
-            aus.append(baue(v, t, g, mensch)[0])
-json.dump({'figuren': aus}, open(os.path.join(ZIEL_V, 'volk_tracht.json'), 'w'), indent=1, ensure_ascii=False)
-print('VOLKTRACHT OK', len(aus))
+if __name__ == '__main__':   # 431 held_voelker.py holt nur die Hilfen
+    aus = []
+    for t in TRACHTEN:
+        for g in ('M', 'W'):
+            if not os.path.exists(os.path.join(Z, 'held_%s_%s.glb' % (t, g))):
+                print('FEHLT held_%s_%s.glb' % (t, g)); continue
+            r, mensch = baue('mensch', t, g, None)
+            aus.append(r)
+            for v in VOELKER:
+                aus.append(baue(v, t, g, mensch)[0])
+    json.dump({'figuren': aus}, open(os.path.join(ZIEL_V, 'volk_tracht.json'), 'w'), indent=1, ensure_ascii=False)
+    print('VOLKTRACHT OK', len(aus))

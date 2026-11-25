@@ -14,11 +14,23 @@ var _bilder := 0
 var _v: SubViewport
 const HOEHE := 1.8            # Meter: jede Figur so hoch im Teller
 const RAND := 1.14            # Bildhoehe zu Figurhoehe (oben und unten 7 %)
+# 431 (Chef 24.11., 19:39 „431 A“: Erschaffung zeigt die wahre Groesse, Massstab sichtbar): wahre Groesse ohne Normierung; eine
+# Kameraregel fuer alle Voelker: das Bild fasst BILD_HOEHE (groesstes Volk 1,85 m mit Rand), die Figur steht rechts der Mitte, links
+# der Massstab. massstab 1: Groessenlinie mit Marken 1,0 und 1,5 m (V1); 2: grauer Menschenumriss 1,75 m (V2)
+const BILD_HOEHE := 2.1
+const KAM_X := -0.3           # Kamera links der Drehachse: die Figur steht rechts im Bild
+const MASS_X := -0.68         # Massstab links neben der Figur
+var wahre_groesse := false
+var massstab := 0
+var _kam: Camera3D
+var _mass: Node3D
 
 # gross: Kastengroesse (Menue 0,62 wie alt); Erschaffung groesser (Pruefer 376.1 Lauf 2: Held zu klein fuer Gesicht und Bart)
-func _init(w: Dictionary = {}, gross := 0.62, dreht_ := true) -> void:
+func _init(w: Dictionary = {}, gross := 0.62, dreht_ := true, wahr := false, mass := 0) -> void:
 	wahl = w
 	dreht = dreht_
+	wahre_groesse = wahr
+	massstab = mass
 	stretch = true
 	custom_minimum_size = Vector2(150, 230) * gross * DP
 	size_flags_vertical = Control.SIZE_SHRINK_CENTER
@@ -43,7 +55,15 @@ func _init(w: Dictionary = {}, gross := 0.62, dreht_ := true) -> void:
 	# (HeroDollUi): ganz im Bild, waagrecht von vorn; zeige() bringt jede Figur auf HOEHE (Halbling wie Mensch)
 	kam.fov = 26.0
 	kam.position = Vector3(0, HOEHE / 2.0, HOEHE * RAND / 2.0 / tan(deg_to_rad(kam.fov) / 2.0))
+	if wahre_groesse: kam.position = Vector3(KAM_X, BILD_HOEHE / 2.0, BILD_HOEHE / 2.0 / tan(deg_to_rad(kam.fov) / 2.0))
 	v.add_child(kam)
+	_kam = kam
+	if wahre_groesse and massstab > 0:
+		_mass = Node3D.new()
+		_mass.name = "Massstab"
+		v.add_child(_mass)
+		if massstab == 1: _linie(_mass)
+		else: _umriss(_mass)
 	teller = Node3D.new()
 	v.add_child(teller)
 	zeige(wahl)
@@ -63,7 +83,7 @@ func zeige(w: Dictionary) -> void:
 	teller.add_child(modell)
 	var box := huelle(modell, Transform3D.IDENTITY)
 	if box.size.y > 0.01:   # auf HOEHE, Fuesse auf 0, Mitte auf der Drehachse
-		var s := HOEHE / box.size.y
+		var s := 1.0 if wahre_groesse else HOEHE / box.size.y   # 431: in der Erschaffung wahre Groesse
 		modell.scale = Vector3.ONE * s
 		modell.position = Vector3(-box.get_center().x * s, -box.position.y * s, -box.get_center().z * s)
 	for m in mats:
@@ -75,6 +95,48 @@ func zeige(w: Dictionary) -> void:
 		Gebiet.bewegungen(anim, ["Stehen", st])
 		if anim.has_animation(st): anim.play(st)
 		elif anim.has_animation("Stehen"): anim.play("Stehen")
+
+# 431 V1: Groessenlinie vom Boden bis 1,5 m, Marken bei 1,0 und 1,5 m mit Zahl (Gold der Signatur, ohne Licht)
+func _linie(n: Node3D) -> void:
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.albedo_color = Stil.GOLD
+	for t in [[Vector3(0.012, 1.5, 0.012), Vector3(MASS_X, 0.75, 0)], [Vector3(0.1, 0.012, 0.012), Vector3(MASS_X, 1.0, 0)],
+			[Vector3(0.1, 0.012, 0.012), Vector3(MASS_X, 1.5, 0)], [Vector3(0.14, 0.012, 0.012), Vector3(MASS_X, 0.006, 0)]]:
+		var mi := MeshInstance3D.new()
+		var bm := BoxMesh.new(); bm.size = t[0]; bm.material = mat
+		mi.mesh = bm
+		mi.position = t[1]
+		n.add_child(mi)
+	for h in [1.0, 1.5]:
+		var l := Label3D.new()
+		l.text = ("%.1f m" % h).replace(".", ",")
+		l.modulate = Stil.GOLD
+		l.outline_size = 0
+		l.pixel_size = 0.0025
+		l.font_size = 40
+		l.shaded = false
+		l.horizontal_alignment = HORIZONTAL_ALIGNMENT_LEFT
+		l.position = Vector3(MASS_X + 0.06, h + 0.05, 0)
+		n.add_child(l)
+
+# 431 V2: grauer Menschenumriss 1,75 m (Mensch Mann, Tracht des Wanderers ohne Ausruestung), flach grau, steht von vorn
+func _umriss(n: Node3D) -> void:
+	var m := HeldFigur.baue({"herkunft": "Wanderer", "volk": "HUMAN", "aussehen": HeldFigur.vorgabe("Wanderer"), "ausruestung": {}}, [])
+	if m == null: return
+	n.add_child(m)
+	var box := huelle(m, Transform3D.IDENTITY)
+	var s := 1.75 / maxf(box.size.y, 0.01)
+	m.scale = Vector3.ONE * s
+	m.position = Vector3(MASS_X + 0.12 - box.get_center().x * s, -box.position.y * s, -0.25)
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.albedo_color = Color(0.32, 0.31, 0.3)
+	for mi in m.find_children("*", "MeshInstance3D", true, false): (mi as MeshInstance3D).material_override = mat
+	var anim := Gebiet.finde(m, "AnimationPlayer") as AnimationPlayer
+	if anim:
+		Gebiet.bewegungen(anim, ["Stehen"])
+		if anim.has_animation("Stehen"): anim.play("Stehen")
 
 # Umriss aller Netze im Raum von n (Ruhehaltung). 499: ohne Waffe und Schild (getragen: top_level, steht erst nach dem ersten Bild an
 # der Faust; Ruecken*: BoneAttachment ohne Knochenlage) - mit ihnen war der Held 2,0-2,7 m „hoch“ und im Teller zu klein (Massstab 0,68)
