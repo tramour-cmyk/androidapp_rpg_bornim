@@ -29,4 +29,4 @@
 
 ## Übergabe
 
-- 25.11., 20:29, `79nRJF…`: Getan: 1708, 1997, 2034, 2035, 2037, 2039. Offen Chef: 1694, 2039 Eilt, drei archivieren, trig_01UMBs6p ab. Offen dir: 2029-Ü21 Wörter Frisur/Bart (Story, Chef). Letzte Antwort: 1589.4 a durch Alter Ego. Nachfolger: Sokrates – Leitung.
+- 25.11., 20:36, `75jR8L`: Übernahme. 2039 Eilt und 1694 A (Chef-👍 19:37, 19:55) eingetragen, Otto geweckt. Offen Chef: Wochenkontingent in %, Sperre Disponent über 300 Tsd. (A/B, 20:31), drei archivieren, trig_01UMBs6p ab. Offen dir: 2029-Ü21 Wörter Frisur/Bart (Story, Chef). Letzte Antwort: 20:31 Sperre A/B.
