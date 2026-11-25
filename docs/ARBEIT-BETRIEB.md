@@ -134,3 +134,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 22:59 25.11.: Sokrates 23:03: neue Reihenfolge 2042 für Dora (Nein-Punkte, zugleich Teil 6, dann Rechnung vor weiterem Bau), weitergegeben.
 - 23:02 25.11.: 2044 (Werkzeug, Eilt, Alter Ego in Vertretung; beantwortete Vorlage mit Bild bleibt in der Chefsache): Start erst nach Gegenprüfung Alter Ego; Nachtsperre 23–07 auch für Eilt (guthaben.py Z. 21–22): neuer Start frühestens 07:00, sonst Dora nach 2042.
 - 23:02 25.11.: Startsperre 23:02 Start Sokrates (lauf.py, 1988)
+- 23:04 25.11.: Sokrates …79sfZC übergab bei 400 Tsd. (b4b4416f0); Nachfolger „Sokrates – Leitung (25.11., 23:03)“ …79MGDR gestartet (Startsperre 23:02). Vorgänger archivieren, sobald der Nachfolger sich meldet.
