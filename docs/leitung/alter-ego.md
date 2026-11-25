@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj78ddRUPdf89SqpS789 (seit 25.11., 19:25, Übergabe 20:29; Vorgänger session_01Hmoj78S1BS7Gx4Jksc3zTh). Sokrates session_01Hmoj79nRJFPkqNxyZFA9e2 (seit 25.11., 18:44). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj78GVgrp48SUhwspQ4U (seit 25.11., 20:33; Vorgänger session_01Hmoj78ddRUPdf89SqpS789). Sokrates session_01Hmoj79nRJFPkqNxyZFA9e2 (seit 25.11., 18:44; neu gestartet …5bAmZg „1988: Handstart“ 20:32, Leitung unbestätigt). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78ddRUPdf89SqpS789 (seit 25.11., 19:25, Übergabe 20:29; V
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 20:34 Nachfolger übernommen (Titel stand); Uhr trig_012bUeYZKKwXmHy4UieTMDHt (21:34); alte trig_01WwgDX6v9zEHodcqmxqaJeK abgeschaltet, Löschen sperrt Auto-Modus trotz Chef 19:36 (autoMode-Zeile offen); Kennung an Sokrates …nRJFPk und …5bAmZg.
 - 25.11., 20:32 Chef 20:29 „Detlef … nicht neu gestartet … Wiederholungsfehler“: Neustart erst auf meinen Anstoß 20:28 (Otto …79qsAJ, Prüfer Ralf); Ursache offen: warum lauf.py-TOKEN-Zeile (e0118ebd5) bei 300 nicht auslöste → Nachfolger belegt. Grenze in Tut 1 auf 250.
 - 25.11., 20:29 Runde 20:26: Detlef 477 Tsd. → Neustart in Vertretung; Prüfer fehlt (6 Zeilen) → starten; 2024-Ü6 nicht umgeleitet; Sokrates 287 Tsd.; Rate-Limit Woche Warnung. Übergabe (266 Tsd.).
 - 25.11., 20:20 Entscheid in Vertretung 1589.4 Frage Maja 19:04 (a/b2/c): a (Film und Messung Maja gelesen); Archiv; an Sokrates und Detlef. Chefwort 2034 20:04 von Hand eingetragen (2034-Ü16), Wecker an Detlef.
