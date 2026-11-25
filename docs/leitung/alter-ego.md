@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78ddRUPdf89SqpS789 (seit 25.11., 19:25; Vorgänger session
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 25.11., 19:54 Chef 19:51 Disponent-Starter: archiviert seit 23.11., 13:54; ARBEIT-BETRIEB Z. 27/28 falsch → Entscheid in Vertretung: Starter-Zeile streichen, Disponent startet Nachfolger selbst, Ausfall: Wache; an Sokrates.
 - 25.11., 19:53 Chef 19:49 „wie kann es sein, dass fertige Arbeit nicht abgeschlossen ist?“: Rückläufer an archivierte Person (2024-Ü6 Selma, 2031-Ü3 Inge), Start-Zeilen seit 22.–24.11. offen, 1694-Frage nie vorgelegt, Prüfer-Wecker an Uwe → Entscheide an Sokrates; Zeilen-Probe in Tut 1. Lücke: Runde sah nur Sitzungen, nicht offene Zeilen.
 - 25.11., 19:48 Chef 19:47: Disponent am Sitzungstitel erkennen („enthält das Wort Disponent“), nicht an Zeile von Hand → wörtlich an Sokrates mit Fallen (Starter/Wache enthalten das Wort; Titelquelle der Werkzeuge).
 - 25.11., 19:44 Chef 19:41 „erst 4 Aufträge erledigt?“: belegt (4 erledigt, 14 neu, 46 Sitzungen); Stand-Leichen 2029/2031/2032, startbar ohne Start 1694/2024/2033 → Entscheid in Vertretung an Sokrates: Stände berichtigen, 1694 und 2024 starten. Prüfen 20:26.
