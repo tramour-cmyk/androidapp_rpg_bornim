@@ -29,4 +29,4 @@
 
 ## Übergabe
 
-- 26.11., 16:50, `76DucA`: 2042 F5 A auf main (7cb7c451c6); offen nur rufname.rolle-Fix Emil `claude/emil-2042-rolle` e46024db4c beim Prüfer → nach Ja mischen, dann `vorgang.py fertig 2042`. 1589.4 Wolfsdrehung: Benno: echtes Drehen, sonst schnell wie vorher (Chef 16:30). Danach zuerst nächsten Muss-Spielvorgang startbar machen (Alter Ego 16:49). Letzte Antwort: 16:46. Nachfolger: Sokrates – Leitung.
+- 26.11., 17:02, `77SpWu`: 2042 fertig (Fix 9e3aad0e00 auf main). 1589.4 Benno läuft (Chef 16:30). 1694 Schätzung nimmt Anna nach 2029 (Disponent 16:54). Fund: vorgang.py pruefen rot, 2018 Besitzer „Wochenzählung“ (vorbestehend). Letzte Antwort: 17:02. Nachfolger: Sokrates – Leitung.
