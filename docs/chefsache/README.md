@@ -58,7 +58,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | **Chef** | nichts offen in der Chefsache |
 | Arbeitsplaner | läuft: 1708 (Besetzung); 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
-| Kampf | 1589.4 Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur… (Muss); dann 1 weitere |
+| Kampf | läuft: 1589.4 (Besetzung); 1589.4 Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur… (Muss); dann 1 weitere |
 | Figur | läuft: 2031 (Besetzung); 1785 Weg aus 4fd7055c8 … (Muss); dann 6 weitere |
 | Kataloge | 644.2 Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pfli… (Kür) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
@@ -67,7 +67,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Story | 2040 Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den… (Muss) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 3 weitere |
 | Werkzeug | 887 Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodu… (Muss); dann 20 weitere |
-| Prüfer | 1301 👎 ohne Wort auf Telegram, wer es einträgt, fragt im selben… (Muss); dann 3 weitere |
+| Prüfer | läuft: 2042 (Besetzung); 1301 👎 ohne Wort auf Telegram, wer es einträgt, fragt im selben… (Muss); dann 3 weitere |
 | Tester | leer, weil keine offene Zeile |
 
 **Die nächsten 20**
