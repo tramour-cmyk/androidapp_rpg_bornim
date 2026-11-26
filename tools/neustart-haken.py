@@ -339,17 +339,43 @@ def frei(eingabe):
     return False
 
 
+TOOL_RESULTS_HINWEIS = ("Sperre (2042 Fassung 5, Chef 26.11., 13:56): der Disponent liest keine Datei unter tool-results/. "
+                        "Die gespeicherte Sitzungsliste nur als SEITE an lauf.py geben: python3 tools/lauf.py … <Pfad>; "
+                        "was lauf.py nicht druckt, steht in der Restdatei, die seine letzte Zeile nennt.")
+
+
+def liest_tool_results(eingabe):
+    """2042 Fassung 5 (3): liest dieser Aufruf eine Datei unter tool-results/ (Read, Grep, Glob, Bash mit cat/head/sed/grep/jq …)?
+    Erlaubt bleibt ein Bash-Abschnitt, der lauf.py aufruft (die Datei als SEITE). Fehler → False (Haken lässt durch)."""
+    import re
+    try:
+        t = eingabe.get("tool_input") or {}
+        if eingabe.get("tool_name") != "Bash":
+            return any(isinstance(v, str) and "tool-results/" in v for v in t.values())
+        for teil in re.split(r"&&|\|\||[;|&\n]", str(t.get("command", ""))):
+            if "tool-results/" in teil and not re.search(r"\bpython3?\s+(?:-\S+\s+)*\S*lauf\.py\b", teil):
+                return True
+    except Exception:
+        return False
+    return False
+
+
 def werkzeug(eingabe, art):
     """1537 (1520 so, Chef 17.11., 10:00): Neustart-Haken an jedem Werkzeugaufruf, damit lange Züge ohne Nachricht nicht ungemessen bleiben.
     art „vor“ (PreToolUse): ab der Sperre aus schwellen() (1520, je Rolle) Rückgabe 2 = Aufruf gesperrt, außer frei();
     art „nach“ (PostToolUse): ab der Erinnerung aus schwellen() alle WERKZEUG_ALLE Aufrufe eine Erinnerung, zählt die Stufe weiter (Weiter-Haken 195).
     Nie, solange der Chef einen Build der Sitzung testet (812, 865) oder die Sitzung geschützt ist (1531)."""
     pfad = eingabe.get("transcript_path")
-    if not pfad or not os.path.exists(pfad) or geschuetzt():
+    if not pfad or not os.path.exists(pfad):
         return 0
-    gesamt = letzte_groesse(pfad)
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
     ford = name(pfad, sitzung).startswith("Disponent")
+    if art == "vor" and ford and liest_tool_results(eingabe):  # 2042 Fassung 5 (3)
+        print(TOOL_RESULTS_HINWEIS, file=sys.stderr)
+        return 2
+    if geschuetzt():
+        return 0
+    gesamt = letzte_groesse(pfad)
     if ford:  # 1574: der Disponent bleibt eine Sitzung, weder Erinnerung noch Sperre
         return 0
     ab, sperre = schwellen(rolle(pfad, sitzung), kauf())  # 1520: Tabelle je Rolle (818 Kaufrepo, 1643 Sokrates)

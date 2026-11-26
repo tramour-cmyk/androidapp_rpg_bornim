@@ -48,8 +48,9 @@ Build-Aufträge und Testmeldungen (1949): Nummer B<n> für Build n (B300, nie 30
                                        „wirkt nein“ → Zeile an Sokrates, „nein, Auftrag“ → Arbeitsplaner; Obergrenzen A, B → ruht, beim
                                        Chef (1763; Einzelheiten: tools/rueckmeldung.py)
 Auftrag und Schließen (1739, Bauliste 1727 Gesamtbild 7.1; Einzelheiten: tools/auftrag.py):
-  vorgang.py auftrag NR [--datei PFAD|- [--pruefen]]   ohne Datei die Vorlage mit den sieben Feldern; mit Datei prüfen (Felder,
-                                       „Zurück“) und als „## Auftrag“ in docs/vorgang/NR.md eintragen (gepusht); NR muss in
+  vorgang.py auftrag NR [--datei PFAD|- [--pruefen]]   ohne Datei den neuesten Auftrag (ohne Auftrag die Vorlage),
+                                       fünf Lehren voll, Rest als Nummer; mit Datei prüfen (Felder, „Zurück“) und als „## Auftrag“
+                                       in docs/vorgang/NR.md eintragen, ältere Fassungen und erledigte Rückmeldungen ins Archiv (gepusht); NR muss in
                                        der Liste oder im Archiv stehen, auch mit --pruefen (1944), oder B<n> sein (1949)
   vorgang.py schliessen NR "Grund"     Stand „erledigt“ wie fertig, Grund als Zeile „Geschlossen“ in docs/vorgang/NR.md
 Lehrenbuch docs/LISTE-LEHREN.md (1739, Archiv „Lehrenbuch“ 21.11., 14:19; Einzelheiten: tools/lehren.py):

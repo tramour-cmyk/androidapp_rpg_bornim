@@ -266,6 +266,10 @@ def schlank_uebergaben(text, archiv, nr, von_fn=None):
         if not z["z"].strip().startswith("erledigt") or SCHLANK.match(z["was"].strip()): continue
         m = z["m"]; alt.append(m.group(0))
         text = text[:m.start("was")] + "von " + _von(z, nr, von_fn) + text[m.end("was"):]
+    for z in reversed(zeilen(text)):  # Sokrates 16:15 (2042 Fassung 5): Kennungen im Ergebnis kurz (…6 Zeichen wie „von …“)
+        if not z["z"].strip().startswith("erledigt") or "session_" not in z["z"]: continue
+        m = z["m"]; alt.append(m.group(0))
+        text = text[:m.start("z")] + re.sub(r"session_\w*?(\w{6})\b", r"…\1", z["z"]) + text[m.end("z"):]
     for r in reversed(alt):
         if r not in (archiv or ""): archiv = archiv_dazu(archiv, nr, "Übergaben", r)
     return text, archiv
@@ -296,6 +300,9 @@ def aufraeumen(text, archiv, nr, von_fn=None):
         return max(ix, key=lambda i: (rm._zeit(teile[i][0]) or (0, 0, 0, 0), i)) if ix else None
     bleibt = {i for i, (t, _) in enumerate(teile) if t in ("Chefworte", "Rückmeldungen", "Übergaben")}
     bleibt |= {x for x in (neueste("Auftrag ("), neueste("Stand")) if x is not None}
+    a_neu, s_neu = neueste("Auftrag ("), neueste("Stand")  # Sokrates 16:15 (2042 Fassung 5): Stand älter als der neueste Auftrag ist überholt
+    if a_neu is not None and s_neu is not None and (rm._zeit(teile[s_neu][0]) or (0, 0, 0, 0)) < (rm._zeit(teile[a_neu][0]) or (0, 0, 0, 0)):
+        bleibt.discard(s_neu)
     antworten = []
     aus, rein = [], []
     for i, (t, b) in enumerate(teile):
@@ -335,7 +342,32 @@ def aufraeumen(text, archiv, nr, von_fn=None):
     rest = re.sub(r"\n{3,}", "\n\n", neu[i:n if n >= 0 else len(neu)]).strip("\n")
     neu = neu[:i] + ("\n" + rest + "\n" if rest else "") + tab + (neu[n:] if n >= 0 else "")
     neu, archiv = schlank_uebergaben(neu, archiv, nr, von_fn)
-    return neu, archiv
+    return rueck_erledigt(neu, archiv, nr)
+
+RUECK_HALTEN = {"nein", "nein, Auftrag", "wirkt nein", "Beleg fehlt", "steckt fest", "Frage", "Laufanforderung"}
+
+def rueck_erledigt(text, archiv, nr):
+    """2042 Fassung 5 (5c): erledigte Rückmeldungen wörtlich ins Archiv. Erledigt: älter als der neueste Auftrag, nicht vom Chef,
+    kein Nein, kein „Beleg fehlt“, „steckt fest“, keine Frage, keine Laufanforderung; und die Zählung (zaehlen, beleg_als_nein)
+    bleibt gleich (sonst bleibt der Block). Gekürzte Blöcke („voll: archiv/…“) stehen schon voll im Archiv."""
+    import rueckmeldung as rm
+    auf = max((z for z in (rm._zeit(m.group(1)) for m in _ABSCHNITT.finditer(text or "") if m.group(1).startswith("Auftrag (")) if z),
+              default=None)
+    i = ("\n" + (text or "")).find("\n## Rückmeldungen\n")
+    if auf is None or i < 0: return text, archiv
+    ende = text.find("\n## ", i + 1); ende = len(text) if ende < 0 else ende
+    soll = lambda t: (rm.zaehlen(t), rm.beleg_als_nein(t))
+    vorher = soll(text)
+    for m in reversed(list(_RBLOCK.finditer(text, i, ende))):
+        b = rm.BLOCK.match(m.group(0))
+        z = rm._zeit(b.group("zeit")) if b else None
+        if not z or z >= auf or "Chef" in b.group("wer") or rm.worte(b.group("text")) & RUECK_HALTEN: continue
+        neu = text[:m.start()] + text[m.end():]
+        if soll(neu) != vorher: continue
+        if not rm.VOLL.search(m.group(0).rstrip("\n")) and m.group(0).rstrip("\n") not in (archiv or ""):
+            archiv = archiv_dazu(archiv, nr, "Rückmeldungen", m.group(0))
+        text = neu
+    return text, archiv
 
 def nr_aus(kennung):
     m = re.fullmatch(r"(B?\d+(?:\.\d+)?[a-z]?)-Ü\d+", kennung)  # 1949: B<n> = Build-Auftrag
