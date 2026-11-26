@@ -73,6 +73,7 @@ jobs:
           python3 tools/sammelzeile_test.py     # 1971 stündliche Sammelzeile erledigter Vorgänge
           python3 tools/handstart_test.py       # 1989 lauf.py --start mit Startblock, Werkzeugsperre im Startsperre-Haken
           python3 tools/lauf_2049_test.py       # 2049 Start der Leitung ohne Nummer, feste Titel, Alter-Ego-Block, Hinweis statt Doppelstart
+          python3 tools/lauf_2052_test.py       # 2052 Kür ruht, solange irgendwo Muss/Eilt startbar ist (lauf.py, Rollenzeile, vorgang.py --rolle)
           python3 tools/lauf_2042c_test.py      # 2042 (c) Startnachricht nur Aufruf lauf.py --startblock, Haken nimmt ihn an
           python3 tools/lauf_2042d_test.py      # 2042 (d) list_sessions-Datei direkt lesen, je Sitzung eine Zeile SITZUNG, --token, after_id
           python3 tools/projektplan_test.py     # 1860 Themenblöcke statt Wochenziel
