@@ -514,7 +514,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 446 | Wächter Lizenzhinweis SRD: `regelcheck` meldet, solange SRD-Abgeleitetes im Spiel ist; Hinweis fällt erst bei leerer Inventur (Chef 01.11., 09:41, 413a) | B Werkzeuge | M | 2,86 $ | Perikles | erledigt |
 | 449 | Commit-Haken weist gekaufte Rohdateien ab (aus 416.4a, 01.11.) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 450 | Jedes Blatt in der Chefsache mit Link auf Bild und Film; `meldung.sh` trägt ihn selbst ein (Chef 01.11., 10:55) | B Werkzeuge | M | 0,78 $ | Perikles | erledigt |
-| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 82,28 $ | Sokrates | erledigt |
+| 448 | Tagesbericht mit Zahlen statt Ampeln (Chef 01.11., 10:46) | B Abläufe | M | 83,71 $ | Sokrates | erledigt |
 | 448.1 | Erster Tagesbericht jetzt, mit Zahlen und den Meilensteinen (Chef 01.11., 10:59, „jetzt“) | B Abläufe | M | – | Perikles | erledigt |
 | 448.2 | Tagesbericht dauerhaft mit Werkzeug, ersetzt Stand zum Marktstart (Chef 01.11., 11:09) | B Werkzeuge | M | 5,10 $ | Perikles | erledigt |
 | 455 | Ausrüstung am Modell als Baukasten (Netz × Material × Zeichen), nur sichtbare Plätze mit Netz (Chef 01.11., 11:15) | E Figuren | M | – | Sokrates | erledigt |
@@ -2209,7 +2209,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1986 | Leitung umstellen (Chef 23.11., 08:26 A): Kern Leitung als ladbare Datei wörtlich aus 1727-gesamtbild 2.1, lauf.py KERN_VON Sokrates = Sockel + Kern Leitung + Gedächtnis, Startnachricht ohne ROLLE-BERATUNG-START, Start-Haken ohne „Zentrale (Tom, Jerry, Ford …)“ | B Werkzeuge | M | 25,48 $ | Werkzeug | erledigt |
 | 1987 | tools/zug-haken.py 145 nennt weiter ROLLE-BERATUNG-START.md (stumm, da tools/1727-SCHARF vorliegt, kein Startweg); Fund Uta 1986-Ü5 | B Werkzeuge | K | – | Werkzeug | erledigt |
 | 1993 | lauf.py startet seit 06:40 fünfmal einen Planer für 513, obwohl 513 ruht (Chef 04.11., 13:18: ruht bis nach dem Durchspielen); vorgang.py zeigt startbar | B Werkzeuge | M | – | Werkzeug | erledigt |
-| 1997 | Herzschlag fällt nicht mehr aus: lauf.py erneuert die Zeitmarke bei jedem Lauf selbst, ohne Schalter --besetzung (heute zweimal ausgefallen: 1688-Kürzung, Fritz 10:12–13:52) | B Werkzeuge | M | 161,19 $ | Werkzeug | erledigt |
+| 1997 | Herzschlag fällt nicht mehr aus: lauf.py erneuert die Zeitmarke bei jedem Lauf selbst, ohne Schalter --besetzung (heute zweimal ausgefallen: 1688-Kürzung, Fritz 10:12–13:52) | B Werkzeuge | M | 165,00 $ | Werkzeug | erledigt |
 | 1999 | Lehrenbuch für Betrieb und Leitung: Betriebsfehler (Herzschlag-Alarm, abgelehnte Uhr, gescheiterter Neustart) automatisch roh; keine Vorlage der Leitung ohne Lehrenbuch-Suche und Archivtreffer (Sperre) | B Werkzeuge | M | 9,44 $ | Werkzeug | erledigt |
 | 2000 | Von 1997 (Prüfer Hanna 14:27): lauf.py druckt LEERLAUF „Ford endet, nichts zu pushen“ und pusht danach doch die Zeitmarke (lauf.py um Z. 1962, vor herzschlag_pushen): Text widerspricht jedem Lauf; dazu Entscheid, ob Zustand WACHE WARTEN (nicht im Auftrag 1997, drei Ausgaben) bleibt | B Werkzeuge | K | – | Werkzeug | erledigt |
 | 2001 | Laufsperre als Obergrenze: höchstens N Fachkräfte gleichzeitig, wahlweise nur bestimmte Bereiche; Planer, Prüfer, Wache, Sokrates zählen nicht | B Werkzeuge | M | 13,25 $ | Werkzeug | erledigt |

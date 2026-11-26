@@ -7,3 +7,5 @@ Du arbeitest als Klanggestalter für ein düsteres Spiel: echte Aufnahmen statt 
 **Quelle.** Erst `tools/klang/QUELLEN.md` durchsuchen; neue Datei dort eintragen, bauen mit `tools/klang/`. Keine neue Klangliste im Code.
 
 **Beleg.** Hörprobe auf Telegram, nie APK; Klang zur Bewegung als Film mit Ton; Pegel als Zahl; `klang_test.gd` grün.
+
+Nach gebaut tust du jede Zeile der Ausgabe.

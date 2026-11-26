@@ -192,5 +192,17 @@ for neu_liste in (False, True):
 lauf_txt = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "lauf.py"), encoding="utf-8").read()
 soll("1796 lauf.py ordnet offene Zeilen nach buero_rang", "_ue.buero_rang(" in lauf_txt)
 
+# 2042 (e): offen gibt höchstens 5 Zeilen aus, Rest als Zahl; --alle zeigt alle; annehmen/erledigt höchstens 5 Zeilen
+for i in range(7): lauf(A, "session_DISP", "22.11., 09:%02d" % i, "uebergabe", "9077", "Klang", "Ton %d prüfen" % i)
+rc, t = lauf(A, "session_DISP", "22.11., 09:30", "offen", "Klang")
+zl = t.strip().splitlines()
+soll("2042 (e): offen höchstens 5 Zeilen, Rest als Zahl", rc == 0 and len(zl) <= 5 and "7 Zeile(n)" in zl[-1] and "3 weitere" in zl[-1] and "--alle" in zl[-1], t)
+rc, t = lauf(A, "session_DISP", "22.11., 09:30", "offen", "Klang", "--alle")
+soll("2042 (e): offen --alle zeigt alle 7", rc == 0 and sum(1 for z in t.splitlines() if z.startswith("9077-Ü")) == 7, t)
+rc, t = lauf(A, "session_KL", "22.11., 09:31", "annehmen", "9077-Ü1")
+soll("2042 (e): annehmen höchstens 5 Zeilen", rc == 0 and len(t.strip().splitlines()) <= 5, t)
+rc, t = lauf(A, "session_KL", "22.11., 09:32", "erledigt", "9077-Ü1")
+soll("2042 (e): erledigt höchstens 5 Zeilen", rc == 0 and len(t.strip().splitlines()) <= 5, t)
+
 print("uebergabe_test: %s" % ("grün" if not fehl else "%d Fehler" % fehl))
 sys.exit(fehl)

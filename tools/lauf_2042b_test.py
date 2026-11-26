@@ -59,7 +59,7 @@ z = rufname.titel_zeile("session_EIGEN", "1589.4", "in Arbeit")
 soll("(6b) Paula (Kampf) als Arbeitsplaner besetzt: Titel trotzdem", (z or "").startswith("TITEL Paula – in Arbeit – 1589.4"), z)
 open(B, "w").write(KOPF + RALF.replace("session_RALF", "session_EIGEN"))
 protokoll("Dein Rufname: Ralf (Rolle Prüfer; Titel, Besetzung, Meldung).")
-soll("(6b) Ralf (Prüfer) als Werkzeug besetzt: Prüfer behält Titel", rufname.titel_zeile("session_EIGEN", "2041", "in Arbeit") is None)
+soll("(6b) Ralf (Prüfer) als Werkzeug besetzt: Prüfer-Titel (Teil 7), nicht Werkzeug", (rufname.titel_zeile("session_EIGEN", "2041", "in Arbeit") or "").startswith("TITEL Ralf – Prüfer – in Arbeit – 2041"), rufname.titel_zeile("session_EIGEN", "2041", "in Arbeit"))
 open(B, "w").write(KOPF)
 protokoll("Hallo ohne Rufname")
 z = rufname.titel_zeile("session_EIGEN", "2042", "in Arbeit")
@@ -149,5 +149,81 @@ soll("(6-4) Handstart-Seite als JSON: Titel und created_at gelesen (auch archivi
 kp = os.path.join(d, "seite.txt"); open(kp, "w").write("session_C | archived | 2026-11-25T21:30:00Z | Britta – in Arbeit – 2042 – x | - | 2026-11-25T21:16:00Z | -\n# bis: 2026-11-24T22:00:00Z\n")
 soll("(6-4) Handstart-Seite als Kurzform", ("Britta – in Arbeit – 2042 – x", "2026-11-25T21:16:00Z") in lauf.start_sitzungen([kp]), lauf.start_sitzungen([kp]))
 
+# Teil 7 (Chef 22:43, 22:45 (1); Auftrag Fassung 2, 23:06): Prüfer-Titel, Rolle aus dem Titel, Wecker an freien Prüfer
+import guthaben
+open(BT, "a").write("- 22:04 25.11.: Startsperre 22:04 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1484 Tanja)\n"
+                    "- 22:25 25.11.: Startsperre 22:25 Start Kampf (lauf.py, Kampf 1708 Tanja)\n")
+r = rufname.rolle("Tanja – 1708 B: Blut nur bei Berührung (25.11., 22:26)", "2026-11-25T21:26:00Z", BT)
+soll("(7) Tanja (Titel „1708 B:“): Sperre mit Nr 1708 → Kampf, nicht Arbeitsplaner 1484", r == "Kampf", r)
+soll("(7) titel Prüfer frei", rufname.pruefer_titel("Ralf") == "Ralf – Prüfer – frei")
+soll("(7) titel Prüfer in Arbeit", rufname.pruefer_titel("Ralf", "2042", "Disponenten klein") == "Ralf – Prüfer – in Arbeit – 2042 – Disponenten klein")
+soll("(7) teile liest Prüfer-Titel", (rufname.teile("Ralf – Prüfer – in Arbeit – 2042 – x") or {}).get("nr") == "2042" and
+     (rufname.teile("Ralf – Prüfer – frei") or {}).get("status") == "frei", (rufname.teile("Ralf – Prüfer – in Arbeit – 2042 – x"), rufname.teile("Ralf – Prüfer – frei")))
+for t in ("Ralf – Prüfer – frei", "Ralf – Prüfer – in Arbeit – 2042 – x"):
+    soll("(7) guthaben.ober_rolle %s → Prüfer" % t, guthaben.ober_rolle("Werkzeug", t) == "Prüfer", guthaben.ober_rolle("Werkzeug", t))
+os.environ["BORNIM_SITZUNG"] = "session_EIGEN"
+protokoll("Dein Rufname: Ralf (Rolle Prüfer; Titel, Besetzung, Meldung).")
+open(B, "w").write(KOPF)
+soll("(7) annehmen als Prüfer → „Ralf – Prüfer – in Arbeit – Nr – Betreff“",
+     (rufname.titel_zeile("session_EIGEN", "2042", "in Arbeit") or "").startswith("TITEL Ralf – Prüfer – in Arbeit – 2042 – "), rufname.titel_zeile("session_EIGEN", "2042", "in Arbeit"))
+soll("(7) ja/nein als Prüfer → „Ralf – Prüfer – frei“", rufname.titel_zeile("session_EIGEN", "2042", "frei") == "TITEL Ralf – Prüfer – frei", rufname.titel_zeile("session_EIGEN", "2042", "frei"))
+os.environ.pop("BORNIM_SITZUNG")
+z = rueckmeldung.titel_zeilen("2042", "ja. Prüfer Ralf (25.11., 23:20) an 92a094995", "", "session_EIGEN", "Prüfer")
+os.environ["BORNIM_SITZUNG"] = "session_EIGEN"
+z = rueckmeldung.titel_zeilen("2042", "ja. Prüfer Ralf (25.11., 23:20) an 92a094995", "", "session_EIGEN", "Prüfer")
+soll("(7) rueckmeldung ja des Prüfers: eigener Titel frei", "TITEL Ralf – Prüfer – frei" in z, z)
+os.environ.pop("BORNIM_SITZUNG")
+VD = os.path.join(d, "docs", "vorgang"); os.makedirs(VD, exist_ok=True)
+UK = "# x\n\n## Übergaben\n\n| Ü | an | was | seit | Zustand |\n|---|---|---|---|---|\n"
+open(os.path.join(VD, "2041.md"), "w").write(UK + "| 2041-Ü15 | Prüfer | prüfen: d | 25.11., 21:40 | angenommen session_GERD bis 25.11., 23:59 |\n")
+FREI = "| Prüfer | [Ralf – Prüfer – frei](https://claude.ai/code/session_RFREI) | Betrieb | – | 25.11., 21:55 |\n"
+BUSY = "| Prüfer | [Gerd – Prüfer – in Arbeit – 2041 – x](https://claude.ai/code/session_GERD) | 2041 | – | 25.11., 21:00 |\n"
+open(B, "w").write(KOPF + KARL + BUSY + FREI)
+ss, t = ausgabe(uebergabe.wecker, "2042", "2042-Ü30", "Prüfer", scharf=True)
+soll("(7) Wecker an Prüfer: nur der freie (Ralf), nicht Gerd in Arbeit", ss == ["session_RFREI"] and "PRÜFER session_RFREI frei" in t, t)
+# (7) frei aus frischer Quelle (Ralf 23:27 Mangel 3): Zustand der Zeilen an den Prüfer in den Vorgangsdateien, nicht der Titel
+open(B, "w").write(KOPF + KARL + BUSY)
+ss, t = ausgabe(uebergabe.wecker, "2042", "2042-Ü31", "Prüfer", scharf=True)
+soll("(7) kein freier Prüfer (Gerd hält 2041-Ü15): START Prüfer für den Aufrufer, kein Wecker an Gerd, keiner an den Disponenten (Mangel 2)",
+     "session_GERD" not in t and "START Prüfer" in t and "session_KARL" not in t and ss == [], (ss, t))
+open(os.path.join(VD, "2041.md"), "w").write(UK + "| 2041-Ü15 | Prüfer | prüfen: d | 25.11., 21:40 | erledigt 25.11., 22:30 session_GERD |\n")
+ss, t = ausgabe(uebergabe.wecker, "2042", "2042-Ü32", "Prüfer", scharf=True)
+soll("(7) Gerd meldete ja/nein (Zeile erledigt), Titel noch „in Arbeit“: frei, Wecker an Gerd", ss == ["session_GERD"] and "PRÜFER session_GERD frei" in t, (ss, t))
+open(os.path.join(VD, "2042.md"), "w").write(UK + "| 2042-Ü40 | Prüfer | prüfen: x | 25.11., 23:00 | angenommen session_RFREI bis 25.11., 23:59 |\n")
+open(B, "w").write(KOPF + KARL + FREI)
+ss, t = ausgabe(uebergabe.wecker, "2042", "2042-Ü33", "Prüfer", scharf=True)
+soll("(7) Ralf „frei“ im Titel, hält aber 2042-Ü40: nicht frei", ss == [] and "START Prüfer" in t, (ss, t))
+os.remove(os.path.join(VD, "2042.md"))
+open(os.path.join(VD, "2043.md"), "w").write(UK + "| 2043-Ü1 | Prüfer | prüfen: y | 25.11., 23:00 | offen |\n")
+NEU = "| Prüfer | [Hans – Prüfer – in Arbeit – 2043 – y](https://claude.ai/code/session_HANS) | 2043 | – | 25.11., 23:01 |\n"
+ALTT = "| Prüfer | [Tanja – 1708 B: Prüfer Blut (25.11., 22:26)](https://claude.ai/code/session_TANJA) | 1708 | – | 25.11., 22:26 |\n"
+open(B, "w").write(KOPF + KARL + NEU + ALTT)
+ss, t = ausgabe(uebergabe.wecker, "2042", "2042-Ü34", "Prüfer", scharf=True)
+soll("(7) Hans eben für 2043 gestartet (Zeile noch offen): nicht frei; Tanja (alter Titel, Rolle Prüfer, keine Zeile): frei, nur ein Wecker",
+     ss == ["session_TANJA"] and "session_HANS" not in t, (ss, t))
+
+st = lauf.mit_rufnamen(["START Prüfer | sonnet | e | r | main | Prüfer – 2042: Disponenten klein (25.11., 23:20) | Prüfer\\n\\nprüfen"], [], namen={})
+soll("(7) START Prüfer: Titel „Name – Prüfer – in Arbeit – 2042 – Disponenten klein“", " – Prüfer – in Arbeit – 2042 – Disponenten klein | " in st[0], st)
+
+st = lauf.mit_rufnamen(["START Werkzeug | sonnet | e | r | main | Werkzeug – 2042: Teil 7 nachbessern (26.11., 07:06) | Werkzeug\\n\\nlies"], [], namen={})
+soll("(6-2) START Fachkraft: Titel gleich „Name – in Arbeit – 2042 – Teil 7 nachbessern“", " – in Arbeit – 2042 – Teil 7 nachbessern | " in st[0], st)
+st = lauf.mit_rufnamen(["START Kampf | opus | e | r | main | Kampf – 1708 B: Blut nur bei Berührung (26.11., 07:06) | Kampf\\n\\nlies"], [], namen={})
+soll("(6-2) START Kampf 1708 B: Titel „Name – in Arbeit – 1708 – B: Blut …“ nie ohne Nr", " – in Arbeit – 1708" in st[0].split(" | ")[5], st)
+
+# Teil 7 (1) (Antwort 2042-Ü27, 23:37): je Fachprofil der eine Satz, Quelle 1727-muster gleich dem Profil; Disponent.md Prüferstart
+import ladesumme
+SATZ = "Nach gebaut tust du jede Zeile der Ausgabe."
+QUELLE = {p: n for n, (q, p, _) in ladesumme.TEILE.items() if p}
+for p in uebergabe.FACHPROFILE + ["Disponent"]:
+    pt = ladesumme.messtext(open(os.path.join(HIER, "..", "docs", "profile", p + ".md"), encoding="utf-8").read())
+    if p != "Disponent": soll("(7p) Profil %s: Satz „%s“ genau einmal" % (p, SATZ), pt.count(SATZ) == 1)
+    soll("(7p) Profil %s gleich Quelle 1727-muster" % p, ladesumme.entwurf_text(QUELLE[p]) == pt)
+dt = open(os.path.join(HIER, "..", "docs", "profile", "Disponent.md"), encoding="utf-8").read()
+soll("(7p) Disponent.md: „Sitzungen startest nur du“ mit Ausnahme Prüfer", "Sitzungen startest nur du, außer dem Prüfer" in dt)
+
+# Teil 7 Prüfer.md (Nachtrag 22:44, Antwort 2042-Ü31/Ü32): Titelstand frei / in Arbeit über die Ausgabe des Werkzeugs; Quelle gleich
+pt = ladesumme.messtext(open(os.path.join(HIER, "..", "docs", "profile", "Prüfer.md"), encoding="utf-8").read())
+soll("(7p) Prüfer.md: Titel „Name – Prüfer – frei“ / „in Arbeit“ aus der Ausgabe", "– Prüfer – frei" in pt and "TITEL" in pt, pt[-300:])
+soll("(7p) Prüfer.md gleich Quelle 1727-muster", ladesumme.entwurf_text("Profil Prüfer") == pt)
 print("LAUF2042B %d Fehler" % fehl)
 sys.exit(1 if fehl else 0)

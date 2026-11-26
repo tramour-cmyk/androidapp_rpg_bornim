@@ -66,7 +66,8 @@ rufname._SPERRE[rufname.DOCS] = set()
 aus = lauf.mit_rufnamen(["START Werkzeug | o | e | r | main | %s | Werkzeug" % f, "START Arbeitsplaner | o | e | r | main | %s | Arbeitsplaner" % p,
                          "START Arbeitsplaner | o | e | r | main | %s | Arbeitsplaner" % p2], [], J)
 rf, rp, rp2 = [l.split(" | ")[5] for l in aus]
-soll("mit_rufnamen: Rufname vor Thema", rf.startswith("Anna – 1960: Sitzungstitel ohne Thema (") and rp.startswith("Britta – Auftrag 1675: Wachsoldatin"), (rf, rp))
+soll("mit_rufnamen: Rufname vor Thema", rf == "Anna – in Arbeit – 1960 – Sitzungstitel ohne Thema"  # 2042 Teil 6 (2): START setzt gleich „Name – in Arbeit – Nr – Betreff“
+     and rp.startswith("Britta – Auftrag 1675: Wachsoldatin"), (rf, rp))
 alt = {"rf": "Anna – 1960 (22.11., 16:56)", "rp": "Britta – Auftrag 1675 (22.11., 16:56)", "rp2": "Carla – Auftrag 1621 (22.11., 16:56)"}
 D = tempfile.mkdtemp(); B = os.path.join(D, "ARBEIT-BETRIEB.md")
 open(B, "w", encoding="utf-8").write("# Betrieb\n\n- 16:56 22.11.: Startsperre 16:56 Start Werkzeug, Arbeitsplaner, Arbeitsplaner (lauf.py, Werkzeug 1960 Anna, Arbeitsplaner 1675 Britta, Arbeitsplaner 1621 Carla)\n")
@@ -76,6 +77,7 @@ for k, neu in (("rf", rf), ("rp", rp), ("rp2", rp2)):
     a = alt[k]
     for fn in (lauf.nummer_aus_titel, lauf.nummern_aus_titel, lauf.auftrag_aus_titel, lambda t: rufname.rolle(t, C),
                lambda t: rufname.bereich(t, ZEILEN), lambda t: kosten.rolle(t, C), lambda t: kosten.rolle(t)):
+        if k == "rf" and fn is lauf.auftrag_aus_titel: continue  # 2042 Teil 6 (2): neue Form trägt die Nr; Aufrufer prüfen die Rolle Planer
         soll("%s: gleich mit Thema (%s)" % (k, getattr(fn, "__name__", "")), fn(neu) == fn(a), "%r: %r statt %r" % (neu, fn(neu), fn(a)))
 soll("Planer mit Thema zählt als Arbeitsplaner (Kosten)", kosten.rolle(rp, C) == "Arbeitsplaner" and kosten.rolle(rp2, C) == "Arbeitsplaner", (kosten.rolle(rp, C), kosten.rolle(rp2, C)))
 soll("Planer mit Thema bucht nur auf seinen Vorgang", lauf.nummern_aus_titel(rp) == "1675" and lauf.nummern_aus_titel(rp2) == "1621", (lauf.nummern_aus_titel(rp), lauf.nummern_aus_titel(rp2)))

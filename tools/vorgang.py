@@ -39,7 +39,7 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
 Build-Aufträge und Testmeldungen (1949): Nummer B<n> für Build n (B300, nie 300: das ist ein anderer Vorgang); auftrag, rueckmeldung,
   uebergabe nehmen B<n> ohne Zeile in der Vorgangsliste, Datei docs/vorgang/B<n>.md; Empfänger des Build-Auftrags: Technik
   vorgang.py annehmen KENNUNG [--frist MIN] · verlaengern KENNUNG [--frist MIN] · erledigt KENNUNG [SITZUNG: Pflicht bei „Fachkraft starten“, 2042] · freigeben (vor „Nachfolger:“)
-  vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen; abgelaufene Frist eines ruhenden Halters wird wieder offen
+  vorgang.py offen [AN] [--alle] [--sitzungen DATEI …]   offene Zeilen (höchstens 5 Zeilen Ausgabe ohne --alle, 2042 e); abgelaufene Frist eines ruhenden Halters wird wieder offen
                                        (Einzelheiten: tools/uebergabe.py)
   vorgang.py chefwort NR "Wortlaut" [--zeit "TT.MM., HH:MM"] [--sitzung ROLLE]   Chefwort wörtlich in docs/vorgang/NR.md und
                                        offene Zeile an den Arbeitsplaner (1762 Haken D; Einzelheiten: tools/chefwort.py)

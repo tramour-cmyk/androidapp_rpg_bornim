@@ -115,6 +115,14 @@ BEHALTEN = {"Disponent", "Arbeitsplaner", "Planer", "Prüfer", "Tester", "Sokrat
 BESETZUNG = None  # Pfad zu ARBEIT-BESETZUNG.md; Tests setzen ihn
 
 
+_PRUEF = re.compile(r"\s*(?P<name>[A-ZÄÖÜ][a-zäöüß]+) – Prüfer – (?:(?P<frei>frei)|(?P<status>in Arbeit) – (?P<nr>\d[0-9a-zA-Z.]*) – (?P<betreff>.*?))\s*$")
+
+
+def pruefer_titel(rufname, nr=None, betreff=None):
+    """2042 Teil 7 (Chef 22:43): „<Name> – Prüfer – frei“, mit nr „<Name> – Prüfer – in Arbeit – <Nr> – <Betreff>“."""
+    return "%s – Prüfer – in Arbeit – %s – %s" % (rufname, nr, betreff or "Vorgang %s" % nr) if nr else "%s – Prüfer – frei" % rufname
+
+
 def titel(rufname, nr, thema, status="in Arbeit"):
     """2041 d (Chef 25.11., 20:36): „<Rufname> – <Status> – <Nr> – <Betreff>“; None bei unbekanntem Status.
     Alte Form „<Rufname> – <Nr>: <Thema> (TT.MM., HH:MM)“ lesen alle Leser weiter (teile())."""
@@ -123,6 +131,8 @@ def titel(rufname, nr, thema, status="in Arbeit"):
 
 def teile(titel_):
     """Name, Status (None in alter Form), Nr, Betreff eines Rufnamen-Titels alt oder neu; None sonst (Disponent, Sokrates, fremd)."""
+    p = _PRUEF.match(titel_ or "")  # 2042 Teil 7
+    if p: return {"name": p.group("name"), "status": "frei" if p.group("frei") else "in Arbeit", "nr": p.group("nr"), "betreff": p.group("betreff"), "pruefer": True}
     m = _NEU.match(titel_ or "") or _ALT.match(titel_ or "")
     if not m or m.group("name") not in ALLE: return None
     g = m.groupdict()
@@ -197,6 +207,9 @@ def titel_zeile(sid, nr, status, fuer=False, pfad=None, rolle=None):
     if not fuer and sid and sid == eigene_sitzung():
         sr, sn = eigener_start()
         r, name = sr or r, sn or name
+    if (rolle or r) == "Prüfer" and name:  # 2042 Teil 7: annehmen → in Arbeit, ja/nein → frei
+        t = pruefer_titel(name, nr, betreff(nr)) if status == "in Arbeit" else pruefer_titel(name) if status == "frei" else None
+        return None if not t else ("TITEL %s %s" % (sid, t)) if fuer else "TITEL %s" % t
     if (rolle or r) in BEHALTEN: return None
     if not name: return "WARNUNG TITEL %s: Rufname unbekannt (keine Startnachricht, nicht in ARBEIT-BESETZUNG.md); Titel nicht gesetzt (2042)" % sid
     t = titel(name, nr, betreff(nr) or "Vorgang %s" % nr, status)

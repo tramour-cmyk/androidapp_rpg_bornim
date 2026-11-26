@@ -247,7 +247,7 @@ for i, l in enumerate(zl):
         c[sp] = " " + c[sp].strip() + " " + z.split(" (eingetragen")[0] + " "
         zl[i] = "|" + "|".join(c) + "|"
         sys.stdout.write("\n".join(zl)); sys.exit(0)
-n = 2 if os.environ["PRUEF"] else 1
+n = 2 if os.environ["PRUEF"] or (len(zl) > 1 and re.search(r" · \d\d?\.\d\d?\., \d\d?:\d\d", zl[1])) else 1  # 2044: Bild unter die Absenderzeile (Zeile 2) der Vorlage
 sys.stdout.write("\n".join(zl[:n]) + "\n\n" + z + "\n\n" + "\n".join(zl[n:]).lstrip("\n"))' | git -C "$repo" hash-object -w --stdin)
         idx=$(mktemp); rm -f "$idx"
         GIT_INDEX_FILE=$idx git -C "$repo" read-tree "$basis"

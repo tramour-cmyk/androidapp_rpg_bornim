@@ -9,7 +9,7 @@ Aufruf über vorgang.py (oder direkt):
   vorgang.py verlaengern KENNUNG [--frist MIN]   eigene Frist neu setzen (langer Zug)
   vorgang.py erledigt KENNUNG [SITZUNG]      angenommen → erledigt (nur der Halter; ein zweites Mal: nichts)
   vorgang.py freigeben                       alle von dieser Sitzung angenommenen Zeilen wieder offen (vor „Nachfolger:“, schneller als die Frist)
-  vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen (Büro-Liste: Eilt, Fund des Chefs, Themenblock, Eingangszeit; 1796); mit --sitzungen
+  vorgang.py offen [AN] [--alle] [--sitzungen DATEI …]   offene Zeilen, höchstens 5 Zeilen Ausgabe ohne --alle (2042 e; Büro-Liste: Eilt, Fund des Chefs, Themenblock, Eingangszeit; 1796); mit --sitzungen
                                               (list_sessions-Seiten oder Kurzform wie lauf.py) wird jede abgelaufene Frist eines Halters, der
                                               nicht working ist, wieder offen (Stundenrunde, verlorene Wecker); working: es wird gewartet.
                                               1782 (3.3 Nr. 3, 1727d L-S2/L-U8): beim ersten Mal „offen (wieder 1)“ (ein Neustart), beim
@@ -293,6 +293,40 @@ ALT = {"Prüfer": "Diogenes", "Disponent": DISPONENT_ALT, "Arbeitsplaner": DISPO
 
 DISPONENT_TITEL = re.compile(r"^(?:Disponent – Büro(?:$| \()|\w+ – Disponent – )")  # 2041 d (Chef 25.11., 21:11): „Disponent – Büro (…)“ ohne Rufnamen; alte Form „Otto – Disponent – Betrieb“ (2035, Chef 19:47), bis Otto umbenannt ist; nie „Disponent-Starter“, „Wache – Disponent (…)“
 
+PRUEFER_TITEL = re.compile(r"^\[[A-ZÄÖÜ][a-zäöüß]+ – Prüfer – ")
+
+def _pruefer_zeilen():
+    """2042 Teil 7 (3): Zeilen an den Prüfer aus allen Vorgangsdateien, frisch am Stand origin/main (fetch; jeder Prüfer schreibt
+    annehmen/erledigt selbst atomar dorthin); ohne Git die lokalen Dateien."""
+    _git("fetch", "-q", "origin", "main")
+    rc, out, _ = _git("grep", "-h", "-E", r"^\| [^|]+ \| Prüfer \|", "origin/main", "--", ORDNER + "/")
+    if rc not in (0, 1):
+        d = os.path.join(WURZEL, ORDNER); out = ""
+        for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+            if n.endswith(".md"):
+                try: out += open(os.path.join(d, n), encoding="utf-8").read() + "\n"
+                except OSError: pass
+    return [z for z in zeilen(out) if z["an"].strip() == "Prüfer"]
+
+def pruefer_frei():
+    """2042 Teil 7 (Chef 22:43, 22:45; Ralf 23:27 Mangel 3): Kennungen laufender Prüfer (ARBEIT-BESETZUNG.md: Rolle Prüfer oder Titel
+    „Name – Prüfer – …“), die frei sind. Frei heißt aus frischer Quelle, nicht aus dem Titel (der steht bis zum nächsten Takt alt):
+    keine Zeile an den Prüfer „angenommen <Kennung>“, und trägt der Titel „in Arbeit – <Nr>“, keine offene Zeile an den Prüfer zu Nr
+    (eben gestartet, noch nicht angenommen)."""
+    try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+    except OSError: return []
+    zs = None; aus = []
+    for z in t.splitlines():
+        f = [x.strip() for x in z.split("|")]
+        if len(f) < 4 or not (f[1] == "Prüfer" or PRUEFER_TITEL.match(f[2])): continue
+        if zs is None: zs = _pruefer_zeilen()
+        for s in re.findall(r"code/(session_\w+)", f[2]):
+            if any(ANG.match(x["z"]) and ANG.match(x["z"]).group("sid") == s for x in zs): continue
+            m = re.search(r" – Prüfer – in Arbeit – ([^ ]+) – ", f[2])
+            if m and any(nr_aus(x["k"]) == m.group(1) and ist_offen(x["z"]) for x in zs): continue
+            if s not in aus: aus.append(s)
+    return aus
+
 def disponent():
     """2035: der laufende Disponent, die jüngste Zeile in ARBEIT-BESETZUNG.md mit Titel „Disponent – Büro …“ oder alt „Rufname – Disponent – …“ (lauf.besetzung_text
     sortiert nach Start); keine Handzeile in ARBEIT-BETRIEB.md (2001 „Disponent (aktuell)“ entfällt). Leer, bis der neue Disponent sein
@@ -343,6 +377,13 @@ def wecker(nr, k, an, alt=None, scharf=None):
     scharf = _scharf() if scharf is None else scharf
     alt = "" if scharf else ALT.get(an, "") if alt is None else alt
     ss = (disponent() if an == "Disponent" and scharf else besetzung(an, nr)) or (besetzung(alt, nr) if alt else [])
+    if an == "Prüfer" and scharf:  # 2042 Teil 7 (Chef 22:43, 22:45): nur ein freier Prüfer („Name – Prüfer – frei“); sonst Start
+        ss = pruefer_frei()[:1]  # einer genügt; zwei Wecker für eine Zeile hieße doppelt prüfen
+        for x in ss: print("PRÜFER %s frei: Wecker unten senden, wenn get_session unter 200 Tsd. zeigt, sonst lauf.py --start Prüfer %s (2042 Teil 7)" % (x, nr))
+        if not ss:  # Antwort 2042-Ü27 (2): die Fachkraft startet, kein Zusatzwecker an den Disponenten (kein Doppelstart)
+            print("START Prüfer %s | kein freier Prüfer: lauf.py --start Prüfer %s \"sieh in %s (%s)\"; wird dir der Start verweigert: "
+                  "vorgang.py uebergabe %s Disponent \"Prüfer starten: %s\" (2042 Teil 7)" % (nr, nr, nr, k, nr, k))
+            return []
     if ss and an == "Disponent" and _gebuendelt_zeile(k, an): return ss
     for s in ss: print("WECKER %s | sieh in %s (%s)" % (s, nr, k))
     if ss: return ss
@@ -549,7 +590,9 @@ def _main_zeilen_schliessen():
         except Fehler as e:
             print("WARNUNG auf-main-Zeilen %s nicht geschlossen: %s (2041 c)" % (nr, e))
 
-def offen(an=None, sitzungen_dateien=(), still=False):
+OFFEN_MAX = 5  # 2042 (e): Ausgabe von `vorgang.py offen` höchstens 5 Zeilen, Rest als Zahl (--alle zeigt alle)
+
+def offen(an=None, sitzungen_dateien=(), still=False, alle=False):
     """still: nichts drucken (lauf.py ruft es je Lauf, 1739 Befund 1); Rückgabe [(Zeile, Nr, wie)].
     1782: Frist abgelaufen und Halter ruht, oder Halter abgebrochen (auch vor der Frist) → beim ersten Mal „offen (wieder 1)“,
     beim zweiten Mal „steckt fest“ (wie „wieder offen …“ bzw. „steckt fest …“ in wie; lauf.py gibt es an Sokrates)."""
@@ -586,9 +629,12 @@ def offen(an=None, sitzungen_dateien=(), still=False):
     r = buero_rang()
     liste.sort(key=lambda x: r(x[1], x[0]["was"], x[0]["seit"]))
     if still: return liste
-    for z, nr, wie in liste:
+    zeig = liste if alle or len(liste) < OFFEN_MAX else sorted(liste, key=lambda x: x[2] == "offen")[:OFFEN_MAX - 1]  # Neues (wieder offen, steckt fest) zuerst
+    for z, nr, wie in zeig:
         print("%s | an %s | %s | seit %s | %s" % (z["k"], z["an"], z["was"], z["seit"], wie))
-    print("vorgang.py offen: %d Zeile(n)%s" % (len(liste), (" an " + an) if an else ""))
+    rest = len(liste) - len(zeig)
+    print("vorgang.py offen: %d Zeile(n)%s%s" % (len(liste), (" an " + an) if an else "",
+          ", %d weitere: vorgang.py offen%s --alle" % (rest, (" " + an) if an else "") if rest else ""))
     return liste
 
 def haupt(a):
@@ -606,7 +652,9 @@ def haupt(a):
             s = []
             if "--sitzungen" in a:
                 i = a.index("--sitzungen"); s = a[i + 1:]; a = a[:i]
-            return offen(a[1] if len(a) > 1 else None, s)
+            alle = "--alle" in a
+            a = [x for x in a if x != "--alle"]
+            return offen(a[1] if len(a) > 1 else None, s, alle=alle)
     except Fehler as e:
         sys.exit("vorgang.py %s: %s; nichts geschrieben" % (b, e))
     sys.exit(__doc__)

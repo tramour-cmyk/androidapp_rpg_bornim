@@ -132,7 +132,7 @@ MELDEN = _melden
 
 def startblock_fehlt(eingabe):
     """1989 (Chef 23.11., 09:11 „1 bis 3 ja“): Werkzeugsperre. Ein create_session ohne den Startblock aus lauf.py (Kopfzeile
-    „**<Profil>**“ einer Datei docs/profile/<Profil>.md und „Auftrag:“ darunter) wird abgewiesen (Meldung), Routinen ausgenommen.
+    „**<Profil>**“ einer Datei docs/profile/<Profil>.md, 2049: „**Alter Ego**“ mit docs/leitung/alter-ego.md, und „Auftrag:“ darunter) wird abgewiesen (Meldung), Routinen ausgenommen.
     „Notstart: <Grund>“ in der Nachricht: durch, Sokrates bekommt eine Übergabe (Nummer aus dem Titel, sonst 1989). Erst scharf."""
     w = os.path.dirname(os.path.abspath(__file__))
     if not os.path.exists(os.path.join(w, "1727-SCHARF")): return None
@@ -144,7 +144,8 @@ def startblock_fehlt(eingabe):
         MELDEN(nr.group(1) if nr else "1989", "Notstart ohne Startblock (1989): „%s“, Grund: %s" % (titel[:80], m.group(1).strip()[:160]))
         return None
     d = os.path.join(MAIN if os.path.isdir(MAIN) else os.path.join(w, ".."), "docs", "profile")
-    kopf = [k for k in re.findall(r"(?m)^\*\*([^*\n]+)\*\*$", p) if os.path.isfile(os.path.join(d, k + ".md"))]
+    leitung = {"Alter Ego": os.path.join(d, "..", "leitung", "alter-ego.md")}  # 2049 (c): Startblock Alter Ego aus docs/leitung/alter-ego.md
+    kopf = [k for k in re.findall(r"(?m)^\*\*([^*\n]+)\*\*$", p) if os.path.isfile(leitung.get(k) or os.path.join(d, k + ".md"))]
     if kopf and "\n\nAuftrag: " in p: return None
     return ("Startblock fehlt (1989, Chef 23.11., 09:11): die erste Nachricht trägt nicht den Startblock aus lauf.py (Kopfzeile "
             "„**<Profil>**“ und „Auftrag:“). Von Hand nur mit `python3 tools/lauf.py --start ROLLE NR \"Nachricht\" --sperre` starten "

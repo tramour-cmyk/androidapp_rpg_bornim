@@ -8,6 +8,8 @@
 
 **Beleg.** `python3 tools/figurenpruefung.py --pruefen`, `python3 tools/gegenstaende.py --daten` grün; `python3 tools/figuren.py --luecken` vor und nach, jede neue Zeile ein Befund.
 
+Nach gebaut tust du jede Zeile der Ausgabe.
+
 ## Herkunft
 
 Angelegt von `tools/ladesumme.py --anlegen` (1928) aus `docs/entwurf/1727-muster/profil-kataloge.md`; dort ändern und neu anlegen.

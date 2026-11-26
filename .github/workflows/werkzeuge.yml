@@ -30,6 +30,7 @@ jobs:
           python3 tools/liste_neu_test.py
           python3 tools/vorgang_neu_laenge_test.py  # 2017 Vorgangsliste ohne 400-Zeichen-Grenze
           python3 tools/meldung_regel_test.py
+          python3 tools/meldung_bild_2044_test.py     # 2044 Bildzeile unter die Absenderzeile der Vorlage
           python3 tools/auftrag_test.py
           python3 tools/zug_haken_test.py       # 1732 Votum ohne Gegengeprüft
           python3 tools/neustart-haken_test.py  # 1520 Schwellen je Rolle, Ford und Übergabe frei
@@ -69,6 +70,7 @@ jobs:
           python3 tools/leitung_test.py         # 1988 Neustart Leitung und Disponent ab 300 Tsd. Token, Warnung einmal je Stunde
           python3 tools/sammelzeile_test.py     # 1971 stündliche Sammelzeile erledigter Vorgänge
           python3 tools/handstart_test.py       # 1989 lauf.py --start mit Startblock, Werkzeugsperre im Startsperre-Haken
+          python3 tools/lauf_2049_test.py       # 2049 Start der Leitung ohne Nummer, feste Titel, Alter-Ego-Block, Hinweis statt Doppelstart
           python3 tools/projektplan_test.py     # 1860 Themenblöcke statt Wochenziel
           python3 tools/rundblick_test.py       # 1789 Rundblick-Start ohne Kern, Ausnahme „Zurück“
           python3 tools/nachtstarts_test.py     # 1792 Nachtstopp mit Ausnahme aus Chefentscheid
