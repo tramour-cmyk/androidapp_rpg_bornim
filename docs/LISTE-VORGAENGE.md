@@ -80,7 +80,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1125 | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie vorher (8), LEERLAUF nie … | 7 | B Abläufe | M | – | 1100.1, 1100 | – | *gebaut, Geprüft an: 377a1a533* | *–* | *0* | *–* |
 | 1128.3 | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am Lauf bestätigen … | 7 | Q QM | M | – | 1128, 285 | – | *startbar* | *–* | *0* | *6,32 $* |
 | 1148 | lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen Render-Lauf in der idle Sitzung läuft | 7 | B Abläufe | M | – | 882.1 | – | *gebaut, Geprüft an: 304660d8e* | *–* | *0* | *4,15 $* |
-| 1172 | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte | 7 | Q QM | M | – | – | – | *ruht, bis es einen Weg ‚ja, klein‘ nach main gibt; heute nichts zu zählen (Sokrates 16:30 auf Frage Planer 16:26)* | *–* | *0* | *–* |
+| 1172 | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte | 7 | Q QM | M | – | – | – | *ruht, bis es einen Weg ‚ja, klein‘ nach main gibt; heute nichts zu zählen (Sokrates 16:30 auf Frage Planer 16:26)* | *–* | *0* | *2,35 $* |
 | 1173 | Regel Kleinkram ohne Chef auf main … | 7 | B Abläufe | M | – | 1128 | – | *gebaut, Geprüft an: 3eb8bf088* | *–* | *0* | *0,36 $* |
 | 1189 | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes nachhalten … | 7 | B Abläufe | M | 27.11. | 1186 | – | *startbar* | *–* | *0* | *–* |
 | 1387 | Übersicht-Commits 15.11. 193 (14.11.: 37), Ursache 1313 | 7 | B Werkzeuge | M | – | 1129.4, 193, 1313 | – | *startbar, nachbessern nach Nein Ralf 25.11., 20:42 und Doris 26.11., 16:17 (Sokrates 16:19)* | *–* | *0* | *–* |
@@ -304,7 +304,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2054 | Werkzeugtests (1775) auf main 7× rot seit 10:18 (12:28, 12:47, 13:07; Lauf 45816794073); Ursache klären und beheben | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1625 | feste Startprompts je Rolle statt Startlektüre | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 25.11.* | *–* | *0* | *38,14 $* |
 | 1734 | Forschung und Entwicklung bei Sokrates, wöchentlich oder auf Bedarf: wie arbeiten andere … | 7 | B Steuerung | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1215,56 $* |
+| Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1219,68 $* |
 | 102 | Dokumente BornWire TCS nachziehen | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
