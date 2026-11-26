@@ -2,7 +2,7 @@
 
 Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tools/zug-index.py`) bei jedem Push; nicht von Hand ändern.
 
-**Letzter Testbuild:** [Build 300 (APK)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/44386008426/artifacts/14470518789) · 18.11., 22:28 · getestet · Release dagegen nur auf Zuruf
+**Letzter Testbuild:** [Build 301 (APK)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/45887352754/artifacts/15151448895) · 26.11., 18:00 · zum Testen · Release dagegen nur auf Zuruf
 
 ## Wer wofür
 
@@ -55,7 +55,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Profil | als Nächstes |
 |---|---|
-| **Chef** | [1973](ansehen/1973-zweihaender-waffe-in-der-hand.md) ansehen |
+| **Chef** | [t301](ansehen/t301-sammelbuild.md) testen, hält 14 Zeilen; dann 1 weitere |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | 2056 Systemlösung? Klinge: 2 frühere Vorgänge, neu 1589.4; einma… (Kür) |
@@ -111,6 +111,12 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1973](ansehen/1973-zweihaender-waffe-in-der-hand.md) | Zweihänder: trägt der Held die Waffe jetzt in beiden Fäusten? | – | 26.11., 11:28 |
+
+**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
+
+| Folge | Version | Build | Was | Wer | Seit |
+|---|---|---|---|---|---|
+| 1 | [–](ansehen/t301-sammelbuild.md) | [Build 301](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/45887352754/artifacts/15151448895) | Sammelbuild: Einmessen, Gang mit Waffe, Leute an der Bank, Wiese in Niedrig, Ansagen je Art, Zielwahl und Flucht, Figuren in der Arena, Kleider, Waffenstaffel | Tom, Jerry und Technik | 26.11., 18:00 |
 
 ## Zu tun
 
@@ -522,7 +528,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Beantwortet, Datei noch da (383.3: der Absender löscht sofort): ansehen/1973-zweihaender-waffe-in-der-hand.md (Antwort 1973, 26.11., 11:29)
+Format (Muster: „So geht's“ unten): t301-sammelbuild.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
+
+Beantwortet, Datei noch da (383.3: der Absender löscht sofort): ansehen/1973-zweihaender-waffe-in-der-hand.md (Antwort 1973, 26.11., 11:29), ansehen/t301-sammelbuild.md (Antwort t301, 26.11., 21:58)
 
 ## So geht's
 
