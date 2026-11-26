@@ -30,8 +30,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 26.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 4 | 59e (Regeln) Händler: Vorrat je Laden |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 63 (62) | 19 | 2 | 1 | 28 | 1708 (Kampf) Blut beim Biss fliegt bis etwa 1,5 Körperhöhen we… |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 40 (40) | 24 | 2 | 3 | 7 | 1973 (Figur) kein Zweihändermodell in daten/waffen – Gang mit… |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 63 (62) | 19 | 3 | 1 | 28 | 1708 (Kampf) Blut beim Biss fliegt bis etwa 1,5 Körperhöhen we… |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 40 (40) | 24 | 3 | 3 | 7 | 1973 (Figur) kein Zweihändermodell in daten/waffen – Gang mit… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 4 | 644.2 (Kataloge) Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 2 | 0 | 0 | 5 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 0 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
@@ -58,16 +58,16 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | **Chef** | [2031](entscheiden/2031-haeute.md) entscheiden; dann 1 weitere |
 | Arbeitsplaner | läuft: 887 (Besetzung); 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
-| Kampf | 1708 Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an… (Muss); dann 1 weitere |
-| Figur | 1973 kein Zweihändermodell in daten/waffen – Gang mit Zweihänder… (Muss); dann 5 weitere |
+| Kampf | läuft: 2046 (Besetzung); 1708 Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an… (Muss); dann 1 weitere |
+| Figur | läuft: 1973 (Besetzung); 1973 kein Zweihändermodell in daten/waffen – Gang mit Zweihänder… (Muss); dann 5 weitere |
 | Kataloge | 644.2 Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pfli… (Kür) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
 | Oberfläche | 531a Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast k… (Kür) |
 | Story | 2040 Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den… (Muss) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 3 weitere |
-| Werkzeug | 2042 Wieso werden die Disponenten so schnell groß: Token je Takt… (Muss); dann 20 weitere |
-| Prüfer | läuft: Betrieb (Besetzung); 1387 Übersicht-Commits 15.11. 193, Ursache 1313 (Muss); dann 1 weitere |
+| Werkzeug | läuft: 2042 (Besetzung); 2042 Wieso werden die Disponenten so schnell groß: Token je Takt… (Muss); dann 20 weitere |
+| Prüfer | läuft: 1708 (Besetzung); 1387 Übersicht-Commits 15.11. 193, Ursache 1313 (Muss); dann 1 weitere |
 | Tester | leer, weil keine offene Zeile |
 
 **Die nächsten 20**
@@ -75,8 +75,8 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 1708 | Kampf | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleib… | M | 2 Kampf | in Arbeit |
-| 2 | 2046 | Kampf | 1589.4 grün: alte Reihen-Tests und wolf_mess_438 an die Arena anpassen, wege_15… | M | 2 Kampf | startbar |
-| 3 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | startbar |
+| 2 | 2046 | Kampf | 1589.4 grün: alte Reihen-Tests und wolf_mess_438 an die Arena anpassen, wege_15… | M | 2 Kampf | in Arbeit |
+| 3 | 1973 | Figur | kein Zweihändermodell in daten/waffen – Gang mit Zweihänder läuft ohne Waffe; Z… | M | 3 Figuren und Kleidung | in Arbeit |
 | 4 | 2024 | Figur | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der… | M | 3 Figuren und Kleidung | startbar |
 | 5 | 2029 | Figur | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in… | M | 3 Figuren und Kleidung | startbar |
 | 6 | 2031 | Figur | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt geg… | M | 3 Figuren und Kleidung | startbar |
