@@ -158,3 +158,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:05 26.11.: Takt 01:03. START Sokrates nicht ausgeführt: Sokrates …79MGDR idle (240 Tsd.) per Nachricht geweckt (offene Zeilen 1763 C, URTEIL 5027 👍 2031 gebilligt, Mischen bei ihm). Prüfer-Stillstand ausgeschlossen bis 07:00; Nachtsperre.
 - 01:09 26.11.: Sokrates 01:09: 2031-Ü16 Greta (ein Bildlauf 9d64f4842, dann Prüfer), 2034-Ü23 Edda (ein Messlauf MESS=2034), 2032-Ü12 Ines (Alter Ego entscheidet), 2045 neu an Arbeitsplaner: alles ab 07:00, Weiterarbeit. Laufstand 01:03: 0 Fachkräfte laufen (Greta bis 23:14, Ines bis 00:12 trotz Nachtsperre, Fund an Sokrates).
 - 01:10 26.11.: 2032-Ü12 (Alter Ego in Vertretung): A; Ines …77NKuN ab 07:00 genau ein Shader-Versuch, Halt bei 45 $. Vorgemerkt.
+- 02:04 26.11.: Takt 02:03, nichts zu tun (Nachtsperre, 0 Fachkräfte, Prüfer-Stillstand ausgeschlossen bis 07:00).
