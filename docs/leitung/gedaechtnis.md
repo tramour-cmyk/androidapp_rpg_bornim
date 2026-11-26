@@ -29,4 +29,4 @@
 
 ## Übergabe
 
-- 26.11., 21:58, `77SpWu`: Chef 17:18 Spiel statt Betrieb (Archiv oben): keine Starts außer t301 bis Sa 20:00, danach 4 Wochen kein B ohne Chefwort. t301 gebaut (Marta …779E7U, 15 Vorgänge, ohne 1068), Testbitte sofort, Bilder nur unter 30 Min. (21:58). Hakenfix Technik auf main 364e07994b. Wache-Uhr aus, alte Disponent-Uhr gelöscht. Fund: Docstring buildzweig-haken nennt Technik nicht (Conrad). Letzte Antwort: 21:58. Nachfolger: Sokrates – Leitung.
+- 26.11., 21:58, `77SpWu`: Chef 17:18 Spiel statt Betrieb: keine Starts außer t301 bis Sa 20:00, danach 4 Wochen kein B ohne Chefwort. t301 gebaut (Marta …779E7U), Testbitte sofort, Bilder nur unter 30 Min. (21:58). Hakenfix Technik auf main 364e07994b. Fund: Docstring buildzweig-haken nennt Technik nicht (Conrad). Letzte Antwort: 21:58. Nachfolger: Sokrates – Leitung.
