@@ -122,5 +122,16 @@ W = "Dein Rufname: Emil (Rolle Werkzeug; Titel)\n\nAuftrag"
 pruefe(vor(W, "Read", {"file_path": TR})[0] == 0, "andere Rolle Read tool-results → durch")
 pruefe(vor(W, "Bash", {"command": "cat " + TR})[0] == 0, "andere Rolle cat tool-results → durch")
 
+# Sokrates 16:44 (Fund Emil 16:21): Start ohne Startsperre; die Sperre 09:04 „Arbeitsplaner 2031 Emil“ einer anderen Sitzung zählt nicht
+import rufname
+bp = os.path.join(tmp, "ARBEIT-BETRIEB.md")
+open(bp, "w", encoding="utf-8").write("- 09:04 26.11.: Startsperre 09:04 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2031 Emil)\n"
+                                       "- 15:20 26.11.: Startsperre 15:20 Start Werkzeug (lauf.py, Werkzeug 2042 Emil)\n")
+T = "Emil – in Arbeit – 2042 – Wieso werden die Disponenten so schnell groß"
+pruefe(rufname.rolle(T, "2026-11-26T08:10:00Z", betrieb=bp) == "Arbeitsplaner", "Sperre 09:04, Start 09:10: Arbeitsplaner", rufname.rolle(T, "2026-11-26T08:10:00Z", betrieb=bp))
+open(bp, "w", encoding="utf-8").write("- 09:04 26.11.: Startsperre 09:04 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2031 Emil)\n")
+r = rufname.rolle(T, "2026-11-26T14:33:44Z", betrieb=bp)
+pruefe(r is None, "Start 15:33 ohne Sperre: Sperre 09:04 zählt nicht (höchstens 10 Min. vor created_at)", r)
+
 print("LAUF2042E %d Fälle, %d FEHL" % (faelle, fehler))
 sys.exit(1 if fehler else 0)
