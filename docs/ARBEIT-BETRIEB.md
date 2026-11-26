@@ -146,3 +146,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 16:19 26.11.: Startsperre 16:19 Start Disponent (Alter Ego, Wurzel; Übergabe …7A8ig 249c273bba)
 - 16:19 26.11.: Startsperre 16:19 Start Figur, Werkzeug, Arbeitsplaner (lauf.py, Figur 2029 Anna, Werkzeug 2042 Britta, Arbeitsplaner 1172 Carla)
 - 16:50 26.11.: Startsperre 16:50 Start Sokrates (Alter Ego, Wurzel; Übergabe …ptvfj 1960fd7e7b)
+- 17:04 26.11.: Startsperre 17:04 Start Werkzeug, Arbeitsplaner (lauf.py, Werkzeug 2042 Greta, Arbeitsplaner 1387 Hanna)
