@@ -191,3 +191,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:26 26.11.: Startsperre 10:26 Start Prüfer (lauf.py, Prüfer 2042 Elke)
 - 10:26 26.11.: Startsperre 10:26 Start Figur (lauf.py, Figur 1785 Heike)
 - 10:28 26.11.: Startsperre 10:28 Start Werkzeug (lauf.py, Werkzeug 2049 Nils)
+- 10:36 26.11.: Startsperre 10:36 Start Prüfer (lauf.py, Prüfer 887 Hugo)
