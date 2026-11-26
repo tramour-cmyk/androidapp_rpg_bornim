@@ -1772,6 +1772,7 @@ def main():
         if "--ohne-pull" not in a: notizen_frisch()  # alter Stand nur mit Warnung, der Start soll nicht scheitern
         neue_liste()
         t = blocktext(r[0], r[1] if len(r) > 1 else None)
+        if not _block(r[0], r[1] if len(r) > 1 else None)[0]: t = ""  # Hinweis Gustav 12:17: ohne Ladetext kein Startblock, nur Verweis reicht nicht
         if not t: sys.exit("lauf.py --startblock: kein Ladetext für %s (docs/profile/%s.md fehlt?)" % (r[0], r[0]))
         return print(t)
     if "--ohne-pull" not in a and not notizen_frisch(): sys.exit(1)
