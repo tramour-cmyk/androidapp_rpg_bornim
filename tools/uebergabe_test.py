@@ -90,9 +90,9 @@ soll("6 gleichzeitige Quittungen: genau eine ANGENOMMEN, Rest BELEGT", len(an) =
 rc, t = lauf(A, "session_ABS", "21.11., 22:06", "uebergabe", "9002", "Kampf", "Auftrag 9002-1 bauen")
 soll("ohne Sitzung und ohne Disponent: KEIN DISPONENT", rc == 0 and "KEINE SITZUNG Kampf" in t and "KEIN DISPONENT" in t and "WECKER" not in t, t)
 g("pull", "-q", "--no-rebase", "origin", "main", cwd=A)
-# 2001 (Chef 23.11., 14:38): mit tools/1727-SCHARF kein Ford-Ersatz; Disponent aus der Besetzung, „Disponent (aktuell)“ in ARBEIT-BETRIEB.md zuerst
+# 2001 (Chef 23.11., 14:38): mit tools/1727-SCHARF kein Ford-Ersatz; 2035 (Chef 25.11., 19:47): Disponent aus der Besetzungszeile mit Titel „Rufname – Disponent – …“
 soll("2001: tools/1727-SCHARF liegt (Fälle g, i gelten scharf)", os.path.isfile(os.path.join(os.path.dirname(WZ), "1727-SCHARF")))
-with open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "a") as f: f.write("| Disponent | [Disponent – Betrieb](https://claude.ai/code/session_DISP1) | Betrieb | – | 21.11. |\n")
+with open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "a") as f: f.write("| Disponent | [Fritz – Disponent – Betrieb (21.11., 21:00)](https://claude.ai/code/session_DISP1) | Betrieb | – | 21.11. |\n")
 g("commit", "-qam", "Disponent", cwd=A); g("push", "-q", "origin", "main", cwd=A)
 rc, t = lauf(B, "session_ABS", "21.11., 22:07", "uebergabe", "9002", "Kampf", "Auftrag 9002-2 bauen")
 soll("ohne Sitzung: WECKER an den Disponenten", rc == 0 and "WECKER session_DISP1 | sieh in 9002 (9002-Ü2): keine Sitzung Kampf, Start ausgeben" in t, t)
@@ -108,13 +108,24 @@ import io, contextlib, importlib, uebergabe as ue_g; importlib.reload(ue_g)
 g("pull", "-q", "--no-rebase", "origin", "main", cwd=B)
 with contextlib.redirect_stdout(io.StringIO()) as o_g: ue_g.wecker("9002", "9002-Ü5", "Arbeitsplaner", "Ford")
 soll("2001 (g): alter Empfänger „Ford“ aus rueckmeldung.py/chefwort.py ersetzt nicht (scharf)", "WECKER session_DISP1" in o_g.getvalue() and "KEIN DISPONENT" not in o_g.getvalue(), o_g.getvalue())
-# (i) Tabelle alt (Fritz DISP1), ARBEIT-BETRIEB.md „Disponent (aktuell)“ neu (Uwe DISP2) → Wecker an den neuen
-open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md"), "w").write("# Betrieb\n\n- **Disponent (aktuell)** Uwe `session_DISP2` „Disponent – Betrieb (21.11., 22:00)“, Modell sonnet (Vorgänger Fritz archiviert).\n")
-g("pull", "-q", "--no-rebase", "origin", "main", cwd=A); g("add", "-A", cwd=A); g("commit", "-qm", "Betrieb", cwd=A); g("push", "-q", "origin", "main", cwd=A)
+# (i) 2035: Handzeile „Disponent (aktuell)“ in ARBEIT-BETRIEB.md zählt nicht; jüngste Besetzungszeile „Rufname – Disponent – …“ (Uwe DISP2) gilt,
+# nie „Disponent-Starter“, „Wache – Disponent (…)“; 2041 d (Chef 25.11., 21:11): „Disponent – Büro (…)“ ist der Disponent, die ältere Zeile (BUERO) gilt nicht
+open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md"), "w").write("# Betrieb\n\n- **Disponent (aktuell)** Fritz `session_DISP1` „Fritz – Disponent – Betrieb (21.11., 21:00)“.\n")
+g("pull", "-q", "--no-rebase", "origin", "main", cwd=A)
+with open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "a") as f:
+    f.write("| Disponent | [Disponent – Büro (21.11., 21:59)](https://claude.ai/code/session_BUERO) | Betrieb | – | 21.11. |\n"
+            "| Disponent | [Uwe – Disponent – Betrieb (21.11., 22:00)](https://claude.ai/code/session_DISP2) | Betrieb | – | 21.11. |\n"
+            "| Sonstige | [Disponent-Starter (23.11., 10:13)](https://claude.ai/code/session_START) | Betrieb | – | 23.11. |\n"
+            "| Wache | [Wache – Disponent (24.11., 07:01)](https://claude.ai/code/session_WACHE) | Betrieb | – | 24.11. |\n"
+            "| Wache | [Wache – Betrieb (24.11., 07:02)](https://claude.ai/code/session_WACHE2) | Betrieb | – | 24.11. |\n")
+g("add", "-A", cwd=A); g("commit", "-qm", "Betrieb", cwd=A); g("push", "-q", "origin", "main", cwd=A)
 rc, t = lauf(B, "session_ABS", "21.11., 22:09", "uebergabe", "9002", "Arbeitsplaner", "Auftrag 9002-6 schreiben")
-soll("2001 (i): Disponent aus ARBEIT-BETRIEB.md „Disponent (aktuell)“ vor der alten Tabelle", "WECKER session_DISP2 | sieh in 9002 (9002-Ü6)" in t and "DISP1" not in t, t)
+soll("2035 (i): Disponent aus der jüngsten Besetzungszeile „Uwe – Disponent – …“, nicht aus der Handzeile", "WECKER session_DISP2 | sieh in 9002 (9002-Ü6)" in t and "DISP1" not in t, t)
 rc, t = lauf(B, "session_ABS", "21.11., 22:09", "uebergabe", "9002", "Disponent", "Auftrag 9002-7")
-soll("2001 (i): Zeile an den Disponenten geht an den neuen, nicht an den alten", "WECKER session_DISP2" in t and "DISP1" not in t, t)
+soll("2035 (i): Zeile an den Disponenten geht an Uwe, nie an Starter, Wache oder alten Titel", "WECKER session_DISP2" in t and not any(x in t for x in ("DISP1", "START", "WACHE", "BUERO")), t)
+importlib.reload(ue_g)
+soll("2035: uebergabe.disponent() gibt die Kennung aus der Besetzung", ue_g.disponent() == ["session_DISP2"], ue_g.disponent())
+soll("2035: disponent_aktuell() (Handzeile) entfällt", not hasattr(ue_g, "disponent_aktuell"))
 
 # Nachfolger: freigeben macht eigene Zeilen sofort wieder offen
 rc, t = lauf(B, "session_BAU", "21.11., 22:10", "freigeben")
@@ -180,6 +191,29 @@ for neu_liste in (False, True):
          folge == ["6 23:50", "8 17:00", "4 23:00", "3 22:00", "5 23:30", "2 21:00", "1 19:00", "1 20:00", "7 18:00"], folge)
 lauf_txt = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "lauf.py"), encoding="utf-8").read()
 soll("1796 lauf.py ordnet offene Zeilen nach buero_rang", "_ue.buero_rang(" in lauf_txt)
+
+# 2042 (e), Hinweis Fritz 10:36: Büro-Folge bleibt (Eilt zuerst), nicht gezeigte neue Zustände stehen in der Schlusszeile
+import importlib.util as _iu
+_sp = _iu.spec_from_file_location("ue_e", WZ); ue_e = _iu.module_from_spec(_sp); _sp.loader.exec_module(ue_e)
+_li = [({"k": "9-Ü%d" % i, "an": "X", "was": "w", "seit": "s"}, "9", "steckt fest (Frist)") for i in range(1, 5)] + [({"k": "9-Ü9", "an": "X", "was": "Eilt", "seit": "s"}, "9", "offen")]
+_li.insert(0, _li.pop())  # Eilt-Zeile vorn (buero_rang)
+import io, contextlib
+_b = io.StringIO()
+with contextlib.redirect_stdout(_b): ue_e.zeigen(_li, None, False)
+_z = _b.getvalue().strip().splitlines()
+soll("2042 (e): Eilt bleibt vorn, höchstens 5 Zeilen, verdeckter Zustand in der Schlusszeile",
+     len(_z) <= 5 and _z[0].startswith("9-Ü9") and "9-Ü4 steckt fest (Frist)" in _z[-1], _z)
+# 2042 (e): offen gibt höchstens 5 Zeilen aus, Rest als Zahl; --alle zeigt alle; annehmen/erledigt höchstens 5 Zeilen
+for i in range(7): lauf(A, "session_DISP", "22.11., 09:%02d" % i, "uebergabe", "9077", "Klang", "Ton %d prüfen" % i)
+rc, t = lauf(A, "session_DISP", "22.11., 09:30", "offen", "Klang")
+zl = t.strip().splitlines()
+soll("2042 (e): offen höchstens 5 Zeilen, Rest als Zahl", rc == 0 and len(zl) <= 5 and "7 Zeile(n)" in zl[-1] and "3 weitere" in zl[-1] and "--alle" in zl[-1], t)
+rc, t = lauf(A, "session_DISP", "22.11., 09:30", "offen", "Klang", "--alle")
+soll("2042 (e): offen --alle zeigt alle 7", rc == 0 and sum(1 for z in t.splitlines() if z.startswith("9077-Ü")) == 7, t)
+rc, t = lauf(A, "session_KL", "22.11., 09:31", "annehmen", "9077-Ü1")
+soll("2042 (e): annehmen höchstens 5 Zeilen", rc == 0 and len(t.strip().splitlines()) <= 5, t)
+rc, t = lauf(A, "session_KL", "22.11., 09:32", "erledigt", "9077-Ü1")
+soll("2042 (e): erledigt höchstens 5 Zeilen", rc == 0 and len(t.strip().splitlines()) <= 5, t)
 
 print("uebergabe_test: %s" % ("grün" if not fehl else "%d Fehler" % fehl))
 sys.exit(fehl)

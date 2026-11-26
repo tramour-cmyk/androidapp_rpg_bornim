@@ -66,23 +66,27 @@ rufname._SPERRE[rufname.DOCS] = set()
 aus = lauf.mit_rufnamen(["START Werkzeug | o | e | r | main | %s | Werkzeug" % f, "START Arbeitsplaner | o | e | r | main | %s | Arbeitsplaner" % p,
                          "START Arbeitsplaner | o | e | r | main | %s | Arbeitsplaner" % p2], [], J)
 rf, rp, rp2 = [l.split(" | ")[5] for l in aus]
-soll("mit_rufnamen: Rufname vor Thema", rf.startswith("Anna – 1960: Sitzungstitel ohne Thema (") and rp.startswith("Britta – Auftrag 1675: Wachsoldatin"), (rf, rp))
+soll("mit_rufnamen: Rufname vor Thema", rf == "Anna – in Arbeit – 1960 – Sitzungstitel ohne Thema"  # 2042 Teil 6 (2): START setzt gleich „Name – in Arbeit – Nr – Betreff“
+     and rp.startswith("Britta – in Arbeit – 1675 – Wachsoldatin"), (rf, rp))  # 2042 (5) Eilt (b): Planer ebenso
 alt = {"rf": "Anna – 1960 (22.11., 16:56)", "rp": "Britta – Auftrag 1675 (22.11., 16:56)", "rp2": "Carla – Auftrag 1621 (22.11., 16:56)"}
 D = tempfile.mkdtemp(); B = os.path.join(D, "ARBEIT-BETRIEB.md")
 open(B, "w", encoding="utf-8").write("# Betrieb\n\n- 16:56 22.11.: Startsperre 16:56 Start Werkzeug, Arbeitsplaner, Arbeitsplaner (lauf.py, Werkzeug 1960 Anna, Arbeitsplaner 1675 Britta, Arbeitsplaner 1621 Carla)\n")
 rufname.BETRIEB = B
 C = "2026-11-22T15:56:30Z"
+_bereich = lambda t: rufname.bereich(t, ZEILEN); _kr = lambda t: kosten.rolle(t)
 for k, neu in (("rf", rf), ("rp", rp), ("rp2", rp2)):
     a = alt[k]
     for fn in (lauf.nummer_aus_titel, lauf.nummern_aus_titel, lauf.auftrag_aus_titel, lambda t: rufname.rolle(t, C),
-               lambda t: rufname.bereich(t, ZEILEN), lambda t: kosten.rolle(t, C), lambda t: kosten.rolle(t)):
+               _bereich, lambda t: kosten.rolle(t, C), _kr):
+        if k == "rf" and fn is lauf.auftrag_aus_titel: continue  # 2042 Teil 6 (2): neue Form trägt die Nr; Aufrufer prüfen die Rolle Planer
+        if k != "rf" and fn in (_bereich, _kr): continue  # 2042 (5): neuer Planer-Titel ist Planer nur über die Startsperre (created_at), Titel allein wie Fachkraft
         soll("%s: gleich mit Thema (%s)" % (k, getattr(fn, "__name__", "")), fn(neu) == fn(a), "%r: %r statt %r" % (neu, fn(neu), fn(a)))
 soll("Planer mit Thema zählt als Arbeitsplaner (Kosten)", kosten.rolle(rp, C) == "Arbeitsplaner" and kosten.rolle(rp2, C) == "Arbeitsplaner", (kosten.rolle(rp, C), kosten.rolle(rp2, C)))
 soll("Planer mit Thema bucht nur auf seinen Vorgang", lauf.nummern_aus_titel(rp) == "1675" and lauf.nummern_aus_titel(rp2) == "1621", (lauf.nummern_aus_titel(rp), lauf.nummern_aus_titel(rp2)))
 lauf.PLANER = "Arbeitsplaner"
 leb = [{"title": t, "created_at": C, "updated_at": "2026-11-22T15:56:40Z", "status_bucket": "WORKING"} for t in (rf, rp, rp2)]
 soll("Planer mit Thema belegt seinen Auftrag (kein zweiter START)", lauf.planer_in_arbeit(leb) == {"1675", "1621"}, lauf.planer_in_arbeit(leb))
-soll("Belegung aus START-Zeile (zweiter_planer liest auftrag_aus_titel)", [lauf.auftrag_aus_titel(l) for l in aus] == [None, "1675", "1621"], [lauf.auftrag_aus_titel(l) for l in aus])
+soll("Belegung aus START-Zeile (zweiter_planer liest auftrag_aus_titel)", [lauf.auftrag_aus_titel(l) for l in aus[1:]] == ["1675", "1621"], [lauf.auftrag_aus_titel(l) for l in aus])  # 2042 (5): nur Planer-Zeilen (start1)
 # Ursache Disponent 16:53 (1960 Bisher): ohne Startsperre mit dem Rufnamen fällt kosten.rolle auf den Besitzer der ersten Nummer
 open(B, "w", encoding="utf-8").write("# Betrieb\n")
 soll("Ursache Doris→Welt: Hand-Titel ohne Startsperre zählt beim Besitzer", kosten.rolle("Doris – 1566: Auftrag schreiben", C) == "Welt", kosten.rolle("Doris – 1566: Auftrag schreiben", C))

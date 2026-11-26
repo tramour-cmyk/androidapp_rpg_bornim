@@ -467,5 +467,22 @@ soll("1976: Liste der ruhenden Vorgänge unverändert „ruht“", all("| %s | R
      [z for z in L.splitlines() if "Ruhend" in z])
 print("1976: %d Signalwörter gegen ruhenden Vorgang geprüft" % gepruefte)
 
+# 2042 (1): Rückmeldung höchstens 400 Zeichen in der Datei, voller Text in docs/vorgang/archiv/NR.md; Zählung bleibt gleich
+lang = "Laufanforderung: Filmlauf ohne Ausgabe " + "Wort " * 100 + "behoben in 1a2b3c4. Hinweis: Prüffrage fehlt"
+rc, out = rm_lauf("rueckmeldung", "9018", lang, zeit="21.11., 22:00")
+t = datei("9018")
+try: arch = g("show", "origin/main:docs/vorgang/archiv/9018.md", cwd=A)
+except subprocess.CalledProcessError: arch = ""
+kurz = [m.group("text") for m in rm.BLOCK.finditer(ue.abschnitt(t, "Rückmeldungen"))]
+soll("2042: Rückmeldung in der Datei ≤ 400 Zeichen mit Verweis", rc == 0 and kurz and len(kurz[-1]) <= 400
+     and kurz[-1].endswith("(voll: archiv/9018.md)"), (rc, out, kurz))
+soll("2042: voller Text im Archiv", "> " + lang + "\n" in arch, arch[:300])
+z = rm.zaehlen(t); vz = rm.zaehlen(t.replace(kurz[-1] if kurz else "\0", lang))
+soll("2042: Zählung mit Datei + Archiv gleich wie mit vollem Text", z == vz and z["Laufanforderung"] == 1, (z, vz))
+soll("2042: Hinweis hinter dem Schnitt geht weiter (Zeile an den Disponenten)", re.search(r"\| 9018-Ü\d+ \| Disponent \| Hinweis", t), t[-600:])
+rc, out = rm_lauf("rueckmeldung", "9017", "fertig: kurz, Commit 1a2b3c4", zeit="21.11., 22:00")
+soll("2042: kurze Rückmeldung unverändert, kein Archiv", "> fertig: kurz, Commit 1a2b3c4\n" in datei("9017")
+     and subprocess.run(["git", "cat-file", "-e", "origin/main:docs/vorgang/archiv/9017.md"], cwd=A).returncode != 0, out)
+
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

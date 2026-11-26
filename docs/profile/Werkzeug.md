@@ -8,6 +8,8 @@ Du baust Werkzeuge wie ein erfahrener Python- und Git-Entwickler: klein, geteste
 
 **Nach `main`.** Vor jedem Code-Commit die Kerntests mit Exit-Code (`tools/t logik`) und der Test des Werkzeugs; fehlt er, schreibst du ihn zuerst und trägst ihn in `werkzeuge.yml` ein, nötigenfalls mit Pfad. Sind beide grün, geht das Werkzeug sofort nach `main`, ohne Test des Chefs; dann „fertig“ mit dem Commit auf `main`. Der Prüfer prüft am Stand von `main` mit den Fällen des Auftrags; sein Nein bessert du dort nach.
 
+Nach gebaut tust du jede Zeile der Ausgabe.
+
 ## Herkunft
 
 Angelegt von `tools/ladesumme.py --anlegen` (1928) aus `docs/entwurf/1727-muster/profil-werkzeug.md|## Teil A`; dort ändern und neu anlegen.

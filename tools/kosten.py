@@ -12,7 +12,7 @@ from collections import defaultdict
 
 SPIEL = {"Tom", "Jerry", "Homer"}
 ROLLEN = ["Ford 2", "Ford", "Perikles", "Diogenes", "Sokrates", "Tom", "Jerry", "Homer", "Spike", "Tuffy", "Rundblick", "Ideenlauf", "Tagesbericht", "Wochenzählung",
-          "Prüfer", "Büro", "Arbeitsplaner", "Tester", "Wache"]  # 2019: Routine Wochenzählung; 1964: Wache („Wache – Disponent (…)“, Profil docs/profile/Wache.md); 1789, 1907: Routinen Rundblick, Ideenlauf (lauf.rundblick_zeilen); 1779 d: Rollen nach der Umstellung, sonst „Sonstige“ (Höchstdauer prüft sie nie)
+          "Prüfer", "Büro", "Arbeitsplaner", "Tester", "Wache", "Alter Ego"]  # 2049: „Alter Ego – Supervisor (TT.MM.)“  # 2019: Routine Wochenzählung; 1964: Wache („Wache – Disponent (…)“, Profil docs/profile/Wache.md); 1789, 1907: Routinen Rundblick, Ideenlauf (lauf.rundblick_zeilen); 1779 d: Rollen nach der Umstellung, sonst „Sonstige“ (Höchstdauer prüft sie nie)
 TEAM = {"Tuffy": "Jerry"}  # 1328: Spike eigene Rolle; 394 (Chef 28.10., 10:26): Zusatzentwickler, eigene Sitzung, Vorrat und Kosten ihres Teams
 
 def sitzungen(pfad, offen):
@@ -61,6 +61,21 @@ def rolle(titel, created_at=None):
     """Rolle eines Sitzungstitels; created_at (1957) ordnet Rufnamen-Sitzungen über die Startsperre ihrer Startrolle zu."""
     for r in ROLLEN:
         if titel == r or titel.startswith((r + " ", r + ",", r + ":")): return r  # 360: „Homer, 279 …“ blieb als Klon stehen
+    try:  # 2035 (Auftrag 25.11., 20:45): „Detlef – Disponent – Betrieb“ vor dem Rufnamen-Zweig; Muster nur in uebergabe.DISPONENT_TITEL
+        import os
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import uebergabe
+        if uebergabe.DISPONENT_TITEL.match(titel or ""): return "Disponent"
+    except ImportError:
+        pass
+    try:  # 2041 d (2035-Ü38): Prüfer, Tester, Arbeitsplaner am Titel vor Startsperre und Bereich des Vorgangs (sonst zählt „Ralf – 2035: Prüfung …“ als Werkzeug, R53)
+        import rufname, guthaben
+        if rufname.aus_titel(titel):
+            m = guthaben.TITEL_ROLLE.search(titel)
+            if m: return "Prüfer" if m.group(1) == "Prüfung" else "Tester"
+            if re.match(r"\w+ – Auftrag \d", titel): return "Arbeitsplaner"  # lauf.py: „<Rolle> – Auftrag <Nr>“ (1960)
+    except ImportError:
+        pass
     try:  # 1893: Titel mit Profil statt Rufname („Technik – 1893 …“, Start vor tools/1727-SCHARF an der neuen Liste)
         import os
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))

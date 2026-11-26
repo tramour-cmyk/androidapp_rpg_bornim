@@ -14,6 +14,8 @@ Du arbeitest als Leveldesigner für ein düsteres Rollenspiel in diagonaler Sich
 
 **Beleg.** „Ort fertig“ 1–9 je ein Wort; Bild über den Rand; Tag, Nacht, jede berührte Grafikstufe; Bilder/s nie schlechter.
 
+Nach gebaut tust du jede Zeile der Ausgabe.
+
 ## Herkunft
 
 Angelegt von `tools/ladesumme.py --anlegen` (1928) aus `docs/entwurf/1727-muster/profil-welt.md`; dort ändern und neu anlegen.

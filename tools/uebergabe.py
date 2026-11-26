@@ -7,9 +7,9 @@ Aufruf über vorgang.py (oder direkt):
   vorgang.py annehmen KENNUNG [--frist MIN]  Quittung: offen → angenommen (diese Sitzung, Frist, Vorgabe 30 Minuten); ANGENOMMEN = jetzt tun;
                                               SCHON DEINE = doppelter Wecker, nichts neu beginnen; BELEGT (Exit 3) = eine andere Sitzung hat sie
   vorgang.py verlaengern KENNUNG [--frist MIN]   eigene Frist neu setzen (langer Zug)
-  vorgang.py erledigt KENNUNG                angenommen → erledigt (nur der Halter; ein zweites Mal: nichts)
+  vorgang.py erledigt KENNUNG [SITZUNG]      angenommen → erledigt (nur der Halter; ein zweites Mal: nichts)
   vorgang.py freigeben                       alle von dieser Sitzung angenommenen Zeilen wieder offen (vor „Nachfolger:“, schneller als die Frist)
-  vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen (Büro-Liste: Eilt, Fund des Chefs, Themenblock, Eingangszeit; 1796); mit --sitzungen
+  vorgang.py offen [AN] [--alle] [--sitzungen DATEI …]   offene Zeilen, höchstens 5 Zeilen Ausgabe ohne --alle (2042 e; Büro-Liste: Eilt, Fund des Chefs, Themenblock, Eingangszeit; 1796); mit --sitzungen
                                               (list_sessions-Seiten oder Kurzform wie lauf.py) wird jede abgelaufene Frist eines Halters, der
                                               nicht working ist, wieder offen (Stundenrunde, verlorene Wecker); working: es wird gewartet.
                                               1782 (3.3 Nr. 3, 1727d L-S2/L-U8): beim ersten Mal „offen (wieder 1)“ (ein Neustart), beim
@@ -119,6 +119,12 @@ def atomar_dateien(pfade, aendern, nachricht):
             rc, t, _ = _git("show", "origin/main:" + p)
             alt[p] = t + "\n" if rc == 0 and t else ""
         neu, ergebnis = aendern(dict(alt))
+        for p in [p for p in neu if re.fullmatch(re.escape(ORDNER) + r"/[^/]+\.md", p)]:  # 2042 (2): erledigte Zeilen schlank, Wortlaut ins Archiv
+            nr_p = os.path.basename(p)[:-3]; ap = archivpfad(nr_p)
+            if ap not in alt:
+                rc, at, _ = _git("show", "origin/main:" + ap); alt[ap] = at + "\n" if rc == 0 and at else ""
+            neu[p], a2 = schlank_uebergaben(neu[p], neu.get(ap, alt[ap]), nr_p, von_git)
+            if a2: neu[ap] = a2
         neu = {p: t for p, t in neu.items() if t != alt.get(p, "")}
         if not neu: return ergebnis
         with tempfile.TemporaryDirectory() as t:
@@ -210,22 +216,147 @@ def _ersetzen(text, z, zustand):
 
 def _rein(s): return re.sub(r"\s+", " ", s.replace("|", "/")).strip()
 
+
+# 2042 (2), (3) (Chef 26.11., 09:30 „wer an wen übergeben hat … das Aktuelle und Wichtige“, 09:42 „Ja“): Vorgangsdatei schlank,
+# Wortlaut vollständig in docs/vorgang/archiv/NR.md
+ARCHIV_KOPF = "# %s · Archiv\n\nVoller Wortlaut, den die Vorgangsdatei kürzt (2042; Chef 26.11., 09:42).\n"
+SCHLANK = re.compile(r"^von \S+$")
+
+def archivpfad(nr): return "%s/archiv/%s.md" % (ORDNER, nr)
+
+def archiv_dazu(archiv, nr, titel, block):
+    """BLOCK ans Ende des Abschnitts „## TITEL“ im Archiv (angelegt am Ende, falls er fehlt)."""
+    a = archiv or ARCHIV_KOPF % nr
+    b = block.strip("\n") + "\n"
+    kopf = "\n## %s\n" % titel
+    if kopf not in "\n" + a: return a.rstrip("\n") + "\n\n## %s\n\n%s" % (titel, b)
+    i = ("\n" + a).index(kopf) - 1 + len(kopf); n = a.find("\n## ", i)
+    if n < 0: return a.rstrip("\n") + "\n\n" + b
+    return a[:n].rstrip("\n") + "\n\n" + b + a[n:]
+
+def _von(z, nr, von_fn):
+    m = re.search(r"\(von ([^()\s]+)\)\s*$", z["was"]) or re.search(r"\(Rückmeldung [^()]*? von ([^()\s,;]+)\)", z["was"])
+    v = m.group(1) if m else (von_fn(z, nr) if von_fn else None)
+    return re.sub(r"\s+", "_", _rein(v or "?"))
+
+_VON_GIT = {}
+def von_git(z, nr):
+    """„wer“ einer alten Zeile: Claude-Session des Commits, der sie anlegte (git log -S), als Rolle der Besetzung, sonst …Kennung.
+    Beleglauf 2042 (26.11., 11:43): je (Zeile, Vorgang) nur einmal git log -S (der anlegende Commit ändert sich nicht), sonst
+    rechnet aufraeumen_alle je Versuch ~4 Min. neu und main rückt dazwischen vor."""
+    if (z["k"], nr) not in _VON_GIT: _VON_GIT[(z["k"], nr)] = _von_git(z, nr)
+    return _VON_GIT[(z["k"], nr)]
+
+def _von_git(z, nr):
+    rc, out, _ = _git("log", "--reverse", "--format=%(trailers:key=Claude-Session,valueonly)", "-S", "| %s |" % z["k"], "origin/main", "--", _pfad(nr))
+    sid = next((re.search(r"session_\w+", l).group(0) for l in out.splitlines() if re.search(r"session_\w+", l)), None) if rc == 0 else None
+    if not sid: return None
+    try:
+        import chefwort
+        r = chefwort._rolle_aus_besetzung(sid)
+        if r: return r
+    except Exception:
+        pass
+    return "…" + sid[-6:]
+
+def schlank_uebergaben(text, archiv, nr, von_fn=None):
+    """2042 (2): erledigte Zeile → „| Ü | an | von X | seit | erledigt … |“ (wer an wen, wann, Ergebnis); Wortlaut ins Archiv."""
+    alt = []
+    for z in reversed(zeilen(text or "")):
+        if not z["z"].strip().startswith("erledigt") or SCHLANK.match(z["was"].strip()): continue
+        m = z["m"]; alt.append(m.group(0))
+        text = text[:m.start("was")] + "von " + _von(z, nr, von_fn) + text[m.end("was"):]
+    for r in reversed(alt):
+        if r not in (archiv or ""): archiv = archiv_dazu(archiv, nr, "Übergaben", r)
+    return text, archiv
+
+def zeilen_was(text, archiv, an):
+    """Wortlaut („was“) aller Zeilen an AN in Datei und Archiv (Dedupe gegen schlanke erledigte Zeilen, 2042)."""
+    return "\n".join(z["was"] for z in zeilen((text or "") + "\n" + (archiv or "")) if z["an"].strip() == an)
+
+_ABSCHNITT = re.compile(r"(?m)^## (.*)\n")
+_RBLOCK = re.compile(r"(?m)^- \*\*[^*\n]+\*\*, [^\n]*:\n(?:> [^\n]*(?:\n|$))+")
+_ANTWORT = re.compile(r"(?m)^\*\*Antwort[^\n]*(?:\n[^\n#][^\n]*)*")
+
+def aufraeumen(text, archiv, nr, von_fn=None):
+    """2042 (3): es bleiben Kopf, neueste Auftragsfassung, Chefworte, letzter Stand, Rückmeldungen (je höchstens 400 Zeichen),
+    Übergaben (erledigte schlank), die letzte Antwort; alles andere wörtlich ins Archiv. Rückgabe (Datei, Archiv); zweimal gleich."""
+    import rueckmeldung as rm
+    ms = list(_ABSCHNITT.finditer(text or ""))
+    if not ms: return text, archiv
+    kopf = text[:ms[0].start()]
+    teile = [(m.group(1), text[m.end():(ms[i + 1].start() if i + 1 < len(ms) else len(text))]) for i, m in enumerate(ms)]
+    if not any(t == "Übergaben" for t, _ in teile): return text, archiv
+    # alle Zeilen der Übergaben-Tabelle, gleich in welchem Abschnitt sie stehen (uebergabe hängt ans Dateiende an), in Folge nach Übergaben
+    reihen = [z["m"].group(0) for z in zeilen(text)]
+    teile = [(t, ZEILE.sub("", b)) for t, b in teile]
+    teile = [(t, (b.replace(KOPF, "") if t == "Übergaben" else b)) for t, b in teile]
+    def neueste(praefix):
+        ix = [i for i, (t, _) in enumerate(teile) if t.startswith(praefix)]
+        return max(ix, key=lambda i: (rm._zeit(teile[i][0]) or (0, 0, 0, 0), i)) if ix else None
+    bleibt = {i for i, (t, _) in enumerate(teile) if t in ("Chefworte", "Rückmeldungen", "Übergaben")}
+    bleibt |= {x for x in (neueste("Auftrag ("), neueste("Stand")) if x is not None}
+    antworten = []
+    aus, rein = [], []
+    for i, (t, b) in enumerate(teile):
+        if t == "Letzte Antwort":
+            antworten += [(i, a.group(0)) for a in _ANTWORT.finditer(b)]; continue
+        if i not in bleibt:
+            antworten += [(i, a.group(0)) for a in _ANTWORT.finditer(b)]
+            archiv = (archiv or ARCHIV_KOPF % nr).rstrip("\n") + "\n\n## %s\n%s" % (t, b.rstrip("\n") + "\n")
+            continue
+        if t == "Rückmeldungen":
+            def kurz(m):
+                global_text = m.group(0)
+                zl = global_text.rstrip("\n").split("\n")
+                voll = "\n".join(l[2:] for l in zl[1:])
+                k = rm.kuerzen(voll, nr)
+                if k == voll: return global_text
+                nonlocal archiv
+                if global_text.rstrip("\n") not in (archiv or ""): archiv = archiv_dazu(archiv, nr, "Rückmeldungen", global_text)
+                return zl[0] + "\n> " + k + "\n"
+            b = _RBLOCK.sub(kurz, b)
+        if t == "Übergaben":
+            fremd = [l for l in b.split("\n") if l.strip() and not l.startswith("|")]
+            if fremd:
+                for a in _ANTWORT.finditer(b): antworten.append((i, a.group(0)))
+                archiv = archiv_dazu(archiv, nr, "Übergaben (Text)", "\n".join(fremd))
+                b = "\n".join(l for l in b.split("\n") if not l.strip() or l.startswith("|"))
+                b = re.sub(r"\n{3,}", "\n\n", b)
+        rein.append((t, b))
+    letzte = max(antworten, key=lambda x: (rm._zeit(x[1].split("\n", 1)[0]) or (0, 0, 0, 0), x[0]))[1] if antworten else None
+    neu = kopf
+    for t, b in rein:
+        if t == "Übergaben" and letzte: neu = neu.rstrip("\n") + "\n\n## Letzte Antwort\n\n" + letzte.rstrip("\n") + "\n\n"
+        neu += "## %s\n%s" % (t, b)
+    if letzte and not any(t == "Übergaben" for t, _ in rein): neu = neu.rstrip("\n") + "\n\n## Letzte Antwort\n\n" + letzte.rstrip("\n") + "\n"
+    i = neu.index("\n## Übergaben\n") + len("\n## Übergaben\n"); n = neu.find("\n## ", i)
+    tab = "\n" + KOPF + "".join(r + "\n" for r in reihen)
+    rest = re.sub(r"\n{3,}", "\n\n", neu[i:n if n >= 0 else len(neu)]).strip("\n")
+    neu = neu[:i] + ("\n" + rest + "\n" if rest else "") + tab + (neu[n:] if n >= 0 else "")
+    neu, archiv = schlank_uebergaben(neu, archiv, nr, von_fn)
+    return neu, archiv
+
 def nr_aus(kennung):
     m = re.fullmatch(r"(B?\d+(?:\.\d+)?[a-z]?)-Ü\d+", kennung)  # 1949: B<n> = Build-Auftrag
     if not m: raise Fehler("Kennung „%s“ ungültig (Form NR-Ük, etwa 1760-Ü1)" % kennung)
     return m.group(1)
 
-def besetzung(an):
-    """Kennungen laufender Sitzungen der Rolle AN, frisch aus ARBEIT-BESETZUNG.md (beim Senden, nie aus dem Gedächtnis)."""
+def besetzung(an, nr=None):
+    """Kennungen laufender Sitzungen der Rolle AN, frisch aus ARBEIT-BESETZUNG.md (beim Senden, nie aus dem Gedächtnis).
+    2042 Teil 6 (Fall 2042-Ü6: Wecker an Olga/Ralf zu 2041 statt an Carla zu 2042): mit nr und einer Fachrolle nur die Sitzungen,
+    deren Spalte „Vorgang“ nr ist; keine solche: alle der Rolle wie bisher (kein Wecker fällt still weg). Rollen ohne Vorgang
+    (Disponent, Prüfer, …) unverändert."""
     try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
     except OSError: return []
-    aus = []
+    aus = []; mit_nr = []
     for z in t.splitlines():
         f = [x.strip() for x in z.split("|")]
         # Rolle bzw. Bereich (Spalte 1; Rufnamen-Sitzungen trägt lauf.py über den Vorgang ein) oder Rufname im Titel (1739)
         if len(f) > 3 and (f[1].lower() == an.lower() or f[2].startswith("[%s – " % an)):
-            aus += re.findall(r"code/(session_\w+)", f[2])
-    return aus
+            ids = re.findall(r"code/(session_\w+)", f[2]); aus += ids
+            if nr and an in FACHPROFILE + ["Fachkraft"] and f[3] == str(nr): mit_nr += ids
+    return mit_nr or aus
 
 # ---- Befehle -------------------------------------------------------------
 
@@ -287,18 +418,84 @@ def uebergabe(nr, an, was):
 DISPONENT_ALT = "Ford"  # 1739: bis zur Umschaltung (lauf.ALT_EMPFAENGER)
 ALT = {"Prüfer": "Diogenes", "Disponent": DISPONENT_ALT, "Arbeitsplaner": DISPONENT_ALT}
 
-def disponent_aktuell():
-    """2001 (Prüfer 23.11., 14:43): Kennung aus „**Disponent (aktuell)** <Name> `session_…`“ in ARBEIT-BETRIEB.md (bei jedem Neustart
-    gesetzt; ARBEIT-BESETZUNG.md hinkt bis zu einer Stunde nach), sonst None."""
-    try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BETRIEB.md"), encoding="utf-8").read()
-    except OSError: return None
-    m = re.search(r"\*\*Disponent \(aktuell\)\*\*[^`\n]*`(session_\w+)`", t)
-    return m.group(1) if m else None
+DISPONENT_TITEL = re.compile(r"^(?:Disponent – Büro(?:$| \()|\w+ – Disponent – )")  # 2041 d (Chef 25.11., 21:11): „Disponent – Büro (…)“ ohne Rufnamen; alte Form „Otto – Disponent – Betrieb“ (2035, Chef 19:47), bis Otto umbenannt ist; nie „Disponent-Starter“, „Wache – Disponent (…)“
+
+PRUEFER_TITEL = re.compile(r"^\[[A-ZÄÖÜ][a-zäöüß]+ – Prüfer – ")
+
+def _pruefer_zeilen():
+    """2042 Teil 7 (3): Zeilen an den Prüfer aus allen Vorgangsdateien, frisch am Stand origin/main (fetch; jeder Prüfer schreibt
+    annehmen/erledigt selbst atomar dorthin); ohne Git die lokalen Dateien."""
+    _git("fetch", "-q", "origin", "main")
+    rc, out, _ = _git("grep", "-h", "-E", r"^\| [^|]+ \| Prüfer \|", "origin/main", "--", ORDNER + "/")
+    if rc not in (0, 1):
+        d = os.path.join(WURZEL, ORDNER); out = ""
+        for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+            if n.endswith(".md"):
+                try: out += open(os.path.join(d, n), encoding="utf-8").read() + "\n"
+                except OSError: pass
+    return [z for z in zeilen(out) if z["an"].strip() == "Prüfer"]
+
+def pruefer_frei():
+    """2042 Teil 7 (Chef 22:43, 22:45; Ralf 23:27 Mangel 3): Kennungen laufender Prüfer (ARBEIT-BESETZUNG.md: Rolle Prüfer oder Titel
+    „Name – Prüfer – …“), die frei sind. Frei heißt aus frischer Quelle, nicht aus dem Titel (der steht bis zum nächsten Takt alt):
+    keine Zeile an den Prüfer „angenommen <Kennung>“, und trägt der Titel „in Arbeit – <Nr>“, keine offene Zeile an den Prüfer zu Nr
+    (eben gestartet, noch nicht angenommen)."""
+    try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+    except OSError: return []
+    zs = None; aus = []
+    for z in t.splitlines():
+        f = [x.strip() for x in z.split("|")]
+        if len(f) < 4 or not (f[1] == "Prüfer" or PRUEFER_TITEL.match(f[2])): continue
+        if zs is None: zs = _pruefer_zeilen()
+        for s in re.findall(r"code/(session_\w+)", f[2]):
+            if any(ANG.match(x["z"]) and ANG.match(x["z"]).group("sid") == s for x in zs): continue
+            m = re.search(r" – Prüfer – in Arbeit – ([^ ]+) – ", f[2])
+            if m and any(nr_aus(x["k"]) == m.group(1) and ist_offen(x["z"]) for x in zs): continue
+            if s not in aus: aus.append(s)
+    return aus
 
 def disponent():
-    """2001: der laufende Disponent, „Disponent (aktuell)“ vor der Tabelle."""
-    d = disponent_aktuell()
-    return [d] if d else besetzung("Disponent")
+    """2035: der laufende Disponent, die jüngste Zeile in ARBEIT-BESETZUNG.md mit Titel „Disponent – Büro …“ oder alt „Rufname – Disponent – …“ (lauf.besetzung_text
+    sortiert nach Start); keine Handzeile in ARBEIT-BETRIEB.md (2001 „Disponent (aktuell)“ entfällt). Leer, bis der neue Disponent sein
+    erstes `lauf.py` gelaufen ist."""
+    try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+    except OSError: return []
+    aus = []
+    for z in t.splitlines():
+        f = [x.strip() for x in z.split("|")]
+        if len(f) > 3 and DISPONENT_TITEL.match(f[2].lstrip("[")):
+            aus = re.findall(r"code/(session_\w+)", f[2])[-1:]
+    return aus
+
+BUENDEL_MIN = 15  # 2042 (2): so lange bündelt eine offene Zeile weitere Wecker an den Disponenten; danach wieder Wecker (nie Dauerschweigen)
+
+def gebuendelt(k):
+    """2042 (2, Chef 25.11., 22:03 „A“): Kennung einer anderen offenen Zeile, die den Disponenten seit seinem letzten Takt
+    (Zeitmarke „**Stand:**“ in ARBEIT-BESETZUNG.md) schon geweckt hat (an Disponent oder an eine Rolle ohne Sitzung), höchstens
+    BUENDEL_MIN alt; sonst None. Der Disponent liest im nächsten Takt alle offenen Zeilen (lauf.py NACHRICHT, vorgang.py offen)."""
+    import herzschlag
+    try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+    except OSError: return None
+    j = jetzt(); st = herzschlag.marke(t, j.replace(tzinfo=herzschlag.BERLIN))
+    if st is None: return None
+    st = st.replace(tzinfo=None)
+    d = os.path.join(WURZEL, ORDNER); frueh = []
+    for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+        if not n.endswith(".md"): continue
+        try: text = open(os.path.join(d, n), encoding="utf-8").read()
+        except OSError: continue
+        for z in zeilen(text):
+            if z["k"] == k or not ist_offen(z["z"]): continue
+            try: s = _zeit(z["seit"], j.year)
+            except ValueError: continue
+            if st < s <= j and (z["an"] == "Disponent" or not besetzung(z["an"])): frueh.append((s, z["k"]))
+    # die älteste Zeile seit dem Takt hat sicher geweckt; ist sie älter als BUENDEL_MIN, hängt der Disponent: wieder wecken
+    return min(frueh)[1] if frueh and (j - min(frueh)[0]).total_seconds() <= BUENDEL_MIN * 60 else None
+
+def _gebuendelt_zeile(k, an):
+    g = gebuendelt(k)
+    if g: print("NICHTS Wecker gebündelt (2042): %s weckte den Disponenten seit seinem letzten Takt; er liest %s (an %s) im nächsten Takt" % (g, k, an))
+    return g
 
 def wecker(nr, k, an, alt=None, scharf=None):
     """WECKER an die laufenden Sitzungen von AN (sonst der alten Rolle ALT); läuft keine, WECKER an den Disponenten, der den Start
@@ -306,12 +503,21 @@ def wecker(nr, k, an, alt=None, scharf=None):
     kein Ford-Ersatz mehr (auch nicht, wenn rueckmeldung.py oder chefwort.py ALT mitgeben); Disponent über disponent()."""
     scharf = _scharf() if scharf is None else scharf
     alt = "" if scharf else ALT.get(an, "") if alt is None else alt
-    ss = (disponent() if an == "Disponent" and scharf else besetzung(an)) or (besetzung(alt) if alt else [])
+    ss = (disponent() if an == "Disponent" and scharf else besetzung(an, nr)) or (besetzung(alt, nr) if alt else [])
+    if an == "Prüfer" and scharf:  # 2042 Teil 7 (Chef 22:43, 22:45): nur ein freier Prüfer („Name – Prüfer – frei“); sonst Start
+        ss = pruefer_frei()[:1]  # einer genügt; zwei Wecker für eine Zeile hieße doppelt prüfen
+        for x in ss: print("PRÜFER %s frei: Wecker unten senden, wenn get_session unter 200 Tsd. zeigt, sonst lauf.py --start Prüfer %s (2042 Teil 7)" % (x, nr))
+        if not ss:  # Antwort 2042-Ü27 (2): die Fachkraft startet, kein Zusatzwecker an den Disponenten (kein Doppelstart)
+            print("START Prüfer %s | kein freier Prüfer: lauf.py --start Prüfer %s \"sieh in %s (%s)\"; wird dir der Start verweigert: "
+                  "vorgang.py uebergabe %s Disponent \"Prüfer starten: %s\" (2042 Teil 7)" % (nr, nr, nr, k, nr, k))
+            return []
+    if ss and an == "Disponent" and _gebuendelt_zeile(k, an): return ss
     for s in ss: print("WECKER %s | sieh in %s (%s)" % (s, nr, k))
     if ss: return ss
     print("KEINE SITZUNG %s läuft (ARBEIT-BESETZUNG.md): die Zeile wartet; Start über den Disponenten, die neue Sitzung liest `vorgang.py offen %s`" % (an, an))
     if scharf: ds = [] if an == "Disponent" else disponent()
     else: ds = [] if DISPONENT_ALT in (an, alt) or an == "Disponent" else (besetzung("Disponent") or besetzung(DISPONENT_ALT))
+    if ds and _gebuendelt_zeile(k, an): return ds
     for s in ds: print("WECKER %s | sieh in %s (%s): keine Sitzung %s, Start ausgeben" % (s, nr, k, an))
     if not ds: print("KEIN DISPONENT läuft: Wache bzw. Herzschlag meldet (1764)")
     return ds
@@ -337,6 +543,18 @@ def schliessen_text(text, nr, arten=None, grund="", bis=None):
                 if _zeit(z["seit"], bis.year) > bis: continue
             except ValueError: continue
         text = _ersetzen(text, z, "erledigt %s (%s)" % (jz, _rein(grund)[:100])); aus.append(z["k"])
+    return text, list(reversed(aus))
+
+MAIN_ZEILE = re.compile(r"auf main, Vollzug mit Commit: `?([0-9a-f]{7,40})\b")
+
+def main_zeilen_schliessen_text(text, nr, auf_main_fn):
+    """2041 c (Fälle 2035-Ü15/24/28): nicht erledigte Zeile „auf main, Vollzug mit Commit: <c> …“ der Nummer NR schließt sich, wenn
+    auf_main_fn(c) True ist (Commit auf origin/main); False oder None (unbekannt) lässt sie offen. Rückgabe (neuer Text, [Kennungen])."""
+    jz = fmt(jetzt()); aus = []
+    for z in reversed(zeilen(text or "")):
+        m = MAIN_ZEILE.match(z["was"].strip())
+        if not m or nr_aus(z["k"]) != nr or z["z"].strip().startswith("erledigt") or auf_main_fn(m.group(1)) is not True: continue
+        text = _ersetzen(text, z, "erledigt %s (Commit %s auf origin/main, 2041 c)" % (jz, m.group(1))); aus.append(z["k"])
     return text, list(reversed(aus))
 
 def schliessen_nr(nr, arten=None, grund="", bis=None):
@@ -377,15 +595,27 @@ def annehmen(kennung, frist=FRIST_MIN, nur_verlaengern=False):
                "FEST": "steckt fest (zweimal Frist abgelaufen oder abgebrochen, 1782): nichts tun, Sokrates klärt",
                "NICHT DEINE": "nur eigene Zeilen verlängern"}[wort]
     print("%s %s (%s): %s" % (wort, kennung, rest, hinweis))
+    if wort == "ANGENOMMEN":  # 2041 d: Titel „<Rufname> – in Arbeit – <Nr> – <Betreff>“; Büro, Leitung, Abnahme behalten ihren
+        try:
+            import rufname
+            z = rufname.titel_zeile(sid, nr, "in Arbeit")
+            if z: print(z); print(rufname.TITEL_HINWEIS)
+        except Exception as e:
+            print("TITEL nicht gebaut (%s)" % e)
     return wort
 
-def erledigt(kennung):
+START_ZEILE = re.compile(r"\s*Fachkraft starten\b")  # 2042 Teil 6 (5): Otto schloss 1708-Ü10 ohne Start (0ea352814)
+
+def erledigt(kennung, gestartet=None):
     nr, sid = nr_aus(kennung), sitzung()
+    if gestartet and not re.fullmatch(r"session_\w+", gestartet): raise Fehler("„%s“ ist keine Sitzungskennung (session_…)" % gestartet)
     def f(alt):
         z = _finde(alt, kennung); zu = z["z"]; m = ANG.match(zu)
         if zu.startswith("erledigt"): return alt, "SCHON ERLEDIGT"
         if not m or m.group("sid") != sid: return alt, "NICHT DEINE"
-        return _ersetzen(alt, z, "erledigt %s %s" % (fmt(jetzt()), sid)), "ERLEDIGT"
+        if START_ZEILE.match(z["was"]) and not gestartet:
+            raise Fehler("„Fachkraft starten“ erledigt nur mit der Kennung der gestarteten Sitzung: vorgang.py erledigt %s session_… (2042)" % kennung)
+        return _ersetzen(alt, z, "erledigt %s %s" % (fmt(jetzt()), sid) + (" Start %s" % gestartet if gestartet else "")), "ERLEDIGT"
     w = atomar(nr, f, "Übergabe %s erledigt (1760)" % kennung)
     print("%s %s%s" % (w, kennung, "" if w != "NICHT DEINE" else ": erst annehmen (vorgang.py annehmen %s)" % kennung))
     return w
@@ -476,7 +706,32 @@ def buero_rang(docs=None):
         return (klasse, folge.index(block) if block in folge else len(folge), z)
     return schluessel
 
-def offen(an=None, sitzungen_dateien=(), still=False):
+def _main_zeilen_schliessen():
+    """2041 c: je Vorgangsdatei mit offener „auf main“-Zeile, deren Commit auf origin/main steht, ein Commit (atomar); Fehler: Warnung."""
+    import liegt
+    kand = [nr for nr, t in _alle_dateien() if main_zeilen_schliessen_text(t, nr, lambda c: liegt.auf_main(c, WURZEL))[1]]
+    for nr in kand:
+        try:
+            ks = atomar(nr, lambda alt, nr=nr: main_zeilen_schliessen_text(alt, nr, lambda c: liegt.auf_main(c, WURZEL)), "Übergaben %s: Commit auf origin/main (2041 c)" % nr)
+            if ks: print("vorgang.py: Übergaben geschlossen (Commit auf main): %s (2041 c)" % ", ".join(ks))
+        except Fehler as e:
+            print("WARNUNG auf-main-Zeilen %s nicht geschlossen: %s (2041 c)" % (nr, e))
+
+OFFEN_MAX = 5  # 2042 (e): Ausgabe von `vorgang.py offen` höchstens 5 Zeilen, Rest als Zahl (--alle zeigt alle)
+
+def zeigen(liste, an=None, alle=False):
+    """2042 (e): höchstens OFFEN_MAX Zeilen in Büro-Folge (Eilt zuerst, Hinweis Fritz 10:36); nicht gezeigte neue Zustände
+    (wieder offen, steckt fest, Frist) nennt die Schlusszeile mit Kennung, damit nichts still verschwindet."""
+    zeig = liste if alle or len(liste) < OFFEN_MAX else liste[:OFFEN_MAX - 1]
+    for z, nr, wie in zeig:
+        print("%s | an %s | %s | seit %s | %s" % (z["k"], z["an"], z["was"], z["seit"], wie))
+    rest = liste[len(zeig):]
+    neu = ["%s %s" % (z["k"], wie) for z, nr, wie in rest if wie != "offen"]
+    print("vorgang.py offen: %d Zeile(n)%s%s%s" % (len(liste), (" an " + an) if an else "",
+          ", %d weitere: vorgang.py offen%s --alle" % (len(rest), (" " + an) if an else "") if rest else "",
+          "; darunter neu: " + "; ".join(neu) if neu else ""))
+
+def offen(an=None, sitzungen_dateien=(), still=False, alle=False):
     """still: nichts drucken (lauf.py ruft es je Lauf, 1739 Befund 1); Rückgabe [(Zeile, Nr, wie)].
     1782: Frist abgelaufen und Halter ruht, oder Halter abgebrochen (auch vor der Frist) → beim ersten Mal „offen (wieder 1)“,
     beim zweiten Mal „steckt fest“ (wie „wieder offen …“ bzw. „steckt fest …“ in wie; lauf.py gibt es an Sokrates)."""
@@ -486,6 +741,7 @@ def offen(an=None, sitzungen_dateien=(), still=False):
         if h == "abgebrochen": return h
         if _zeit(m.group("bis"), jz.year) > jz: return None
         return h
+    _main_zeilen_schliessen()  # 2041 c
     for nr, t in list(_alle_dateien()):
         frei = {}
         for z in zeilen(t):
@@ -512,10 +768,63 @@ def offen(an=None, sitzungen_dateien=(), still=False):
     r = buero_rang()
     liste.sort(key=lambda x: r(x[1], x[0]["was"], x[0]["seit"]))
     if still: return liste
-    for z, nr, wie in liste:
-        print("%s | an %s | %s | seit %s | %s" % (z["k"], z["an"], z["was"], z["seit"], wie))
-    print("vorgang.py offen: %d Zeile(n)%s" % (len(liste), (" an " + an) if an else ""))
+    zeigen(liste, an, alle)
     return liste
+
+def _merkmale(text, nr):
+    """2042 Prüfung: was beim Aufräumen gleich bleiben muss (Zählung, Beleg-Nein, erstes Nein, Chefworte, neuester Auftrag, offene Zeilen)."""
+    import rueckmeldung as rm, lauf
+    erstes = next((m.group("zeit") for m in rm.BLOCK.finditer(rm.rueck(text)) if {"nein", "nein, Auftrag", "wirkt nein"} & rm.worte(m.group("text"))), None)
+    try:
+        r = lauf.juengster_auftrag(text); auf = text[r[0]:r[1]] if r else None
+    except Exception as e: auf = "Fehler %s" % e
+    return (rm.zaehlen(text), rm.beleg_als_nein(text), erstes, abschnitt(text, "Chefworte"), auf,
+            [z["m"].group(0) for z in zeilen(text) if not z["z"].strip().startswith("erledigt")])
+
+def aufraeumen_alle(nrs=None, probe=False):
+    """2042 (3): `vorgang.py aufraeumen [NR …] [--probe]`: alle (oder die genannten) Vorgangsdateien in EINEM Commit aufräumen;
+    vorher Probe je Datei (Merkmale vorher = nachher), bei einer Abweichung wird nichts geschrieben."""
+    import rueckmeldung as rm
+    _git("fetch", "-q", "origin", "main")
+    rc, ls, _ = _git("ls-tree", "--name-only", "origin/main", ORDNER + "/")
+    alle = [os.path.basename(x)[:-3] for x in ls.splitlines() if x.endswith(".md")]
+    nrs = [n for n in alle if not nrs or n in nrs]
+    def rechnen(alt):
+        neu, bericht, ungleich = {}, [], []
+        for nr in nrs:
+            p, ap = _pfad(nr), archivpfad(nr)
+            t, a0 = alt.get(p, ""), alt.get(ap, "")
+            rm._ARCHIV.clear(); rm._ARCHIV["archiv/%s.md" % nr] = a0
+            vor = _merkmale(t, nr)
+            t2, a2 = aufraeumen(t, a0, nr, von_git)
+            rm._ARCHIV["archiv/%s.md" % nr] = a2 or ""
+            nach = _merkmale(t2, nr)
+            if vor != nach: ungleich.append(nr)
+            bericht.append((nr, len(t.encode()), len(t2.encode())))
+            if t2 != t: neu[p] = t2
+            if a2 and a2 != a0: neu[ap] = a2
+        rm._ARCHIV.clear()
+        return neu, (bericht, ungleich)
+    pfade = [_pfad(n) for n in nrs] + [archivpfad(n) for n in nrs]
+    if True:  # Probe immer zuerst, am gelesenen Stand
+        alt = {}
+        for p in pfade:
+            rc, t, _ = _git("show", "origin/main:" + p); alt[p] = t + "\n" if rc == 0 and t else ""
+        _, (bericht, ungleich) = rechnen(alt)
+        vorher, nachher = sum(b[1] for b in bericht), sum(b[2] for b in bericht)
+        print("PROBE %d Dateien: gleich %d, ungleich %d%s" % (len(bericht), len(bericht) - len(ungleich), len(ungleich), (" (" + ", ".join(ungleich[:20]) + ")") if ungleich else ""))
+        print("BYTE gesamt %d → %d" % (vorher, nachher))
+        for nr, v, n in sorted(bericht, key=lambda b: -b[1])[:5]: print("BYTE %s.md %d → %d" % (nr, v, n))
+        if probe or ungleich:
+            if ungleich: print("NICHTS geschrieben: Merkmale ungleich")
+            return ungleich
+    def f(alt):
+        neu, (bericht, ungleich) = rechnen(alt)
+        if ungleich: raise Fehler("Merkmale ungleich: " + ", ".join(ungleich[:20]))
+        return neu, len(neu)
+    n = atomar_dateien(pfade, f, "2042 (3): Vorgangsdateien aufgeräumt, Wortlaut in docs/vorgang/archiv/ (vorgang.py aufraeumen)")
+    print("GESCHRIEBEN %s Dateien in einem Commit" % n)
+    return []
 
 def haupt(a):
     frist = FRIST_MIN
@@ -526,18 +835,24 @@ def haupt(a):
         if b == "uebergabe" and len(a) == 4: return uebergabe(a[1], empfaenger(a[2]), a[3])  # 1946
         if b == "annehmen" and len(a) == 2: return annehmen(a[1], frist)
         if b == "verlaengern" and len(a) == 2: return annehmen(a[1], frist, True)
-        if b == "erledigt" and len(a) == 2: return erledigt(a[1])
+        if b == "erledigt" and len(a) in (2, 3): return erledigt(*a[1:])
         if b == "freigeben" and len(a) == 1: return freigeben()
+        if b == "aufraeumen":
+            probe = "--probe" in a
+            r = aufraeumen_alle([x for x in a[1:] if x != "--probe"] or None, probe)
+            sys.exit(1 if r else 0)
         if b == "offen":
             s = []
             if "--sitzungen" in a:
                 i = a.index("--sitzungen"); s = a[i + 1:]; a = a[:i]
-            return offen(a[1] if len(a) > 1 else None, s)
+            alle = "--alle" in a
+            a = [x for x in a if x != "--alle"]
+            return offen(a[1] if len(a) > 1 else None, s, alle=alle)
     except Fehler as e:
         sys.exit("vorgang.py %s: %s; nichts geschrieben" % (b, e))
     sys.exit(__doc__)
 
-BEFEHLE = ("uebergabe", "annehmen", "verlaengern", "erledigt", "freigeben", "offen")
+BEFEHLE = ("uebergabe", "annehmen", "verlaengern", "erledigt", "freigeben", "offen", "aufraeumen")
 
 if __name__ == "__main__":
     r = haupt(sys.argv[1:])

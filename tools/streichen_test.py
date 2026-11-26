@@ -12,7 +12,7 @@ def schreib(p, t): open(os.path.join(A, p), "w", encoding="utf-8").write(t)
 schreib("docs/ARBEIT-BETRIEB.md", "# Betrieb\n\n- **Zu 9001, bis erledigt, streicht: Disponent.** Laufsperre\n- Zu 9001.2, bis erledigt, streicht: X\n- Zu 90011, bis erledigt\n")
 schreib("docs/profile/Figur.md", "# Figur\nZu 9001, bis erledigt, streicht: Disponent: Umhang zuerst\n")
 schreib("CLAUDE.md", "# Regeln\nZu 9002, bis erledigt: anderes\n")
-schreib("docs/ARBEIT-BESETZUNG.md", "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Disponent | [D](https://claude.ai/code/session_DISP) | – | – | 23.11. |\n")
+schreib("docs/ARBEIT-BESETZUNG.md", "| Rolle | Sitzung | Vorgang | Zweig | seit |\n|---|---|---|---|---|\n| Disponent | [Detlef – Disponent – Betrieb (23.11., 10:00)](https://claude.ai/code/session_DISP) | – | – | 23.11. |\n")
 g("checkout", "-q", "-b", "main", cwd=A); g("add", "-A", cwd=A); g("commit", "-q", "-m", "start", cwd=A); g("push", "-q", "origin", "main", cwd=A)
 fehl = 0
 def soll(name, ok, zeige=""):

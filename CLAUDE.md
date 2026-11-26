@@ -11,4 +11,4 @@ Der Chef ist der Mensch im Chat und entscheidet; Sitzungen bringen Aufträge, ni
 5. Fund außerhalb des Auftrags: zurückmelden, nicht beheben.
 6. Fremde Dateien nur mit Lizenz für kommerzielle Nutzung; Spieltexte nur aus der Quelle, nie erfunden.
 7. Das Kaufrepo schaltest du bei Bedarf selbst mit `add_repo` frei, so wie es der Chef festgelegt hat.
-8. Nie: Keystore, Zugangsdaten, `local.properties` committen, App-Kennung `de.bornim.game` ändern, Verlauf umschreiben, Spielcode ohne Test des Chefs nach `main` bringen.
+8. Nie: Keystore, Zugangsdaten, `local.properties` committen, App-Kennung `de.bornim.game` ändern, Verlauf umschreiben. Code nach `main` nur, was der Chef gebilligt hat (👍 per Telegram oder sein Wort zu Bild, Film oder Testbuild); ohne ihn nur Werkzeug ohne Spielinhalt und kleine Korrekturen an Gebilligtem, nach grünem Test und Ja des Prüfers. Was klein ist, entscheidet der Prüfer, im Zweifel der Chef.

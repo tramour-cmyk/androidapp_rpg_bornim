@@ -6,6 +6,7 @@ Profil für jede Arbeit an Figur, Kleidung, gehaltenen Dingen und für jedes Bil
 
 - **Halten:** Der Gegenstand liegt in der Handinnenfläche; die Finger schließen sich ganz um ihn, der Daumen liegt gegen die Finger. Kein Spalt zwischen Fläche und Griff, keine Fingerspitzen am Rand, kein Griff durch die Knöchel.
 - **Kleidung:** liegt über dem Körper, nie hindurch (Kopf durch Kapuze, Haut durch Stoff). Bei gehobenem Arm beult die Flanke nicht über Körperbreite aus.
+- **Kleidung am Körper (Weg, 1535):** Eng anliegende Kleidung nimmt die Gewichte von der nächsten Körperfläche in der T-Haltung des Kaufkörpers ab, nicht in unserer Haltung (dort liegt bei hängendem Arm die Oberarm-Innenseite näher als der Rumpf). Keine Abstandsregel zur Armachse: die Flankenregel (7 cm) griff dort nicht, Flankenecken hingen zu 95–100 % am Oberarm (Chef 18.11., 21:47 „kein Unterschied zwischen alt und neu“). Commit `4fd7055c8`, Bild `bfd783a3c`, Chef 👍 21.11., 21:40; Stand: Zweig `claude/tom-1535-gruss`, nicht auf main.
 - **Waffe am Ziel:** Ein Treffer berührt den Körper sichtbar; Blut nur bei sichtbarem Treffer am Körper, nie bei Schild oder Fehlschlag.
 - **Farbe:** Ist etwas tiefschwarz, das farbig gebaut ist, ist das ein Darstellungsfehler; erst klären, dann zeigen.
 

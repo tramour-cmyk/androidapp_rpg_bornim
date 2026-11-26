@@ -4,7 +4,8 @@
 Lesen:
   vorgang.py NR [NR …]                 je Nummer: Zeile der Liste (Felder, Grund), Archivzeile, Absätze „Zu NR“ und „Alt NR“ in den Vorräten,
                                        Einträge im Vorgangsarchiv, Chefsache-Dateien, Zeilen, die auf NR warten
-  vorgang.py --rolle ROLLE [--startbar] eigene Zeilen in Vorrangfolge, dann fremde, die auf ROLLE warten (statt den Vorrat zu lesen)
+  vorgang.py --rolle ROLLE [--startbar] [--alle] eigene Zeilen in Vorrangfolge, dann fremde, die auf ROLLE warten (statt den Vorrat zu lesen);
+    Kür nur als Zahl, solange irgendwo Muss/Eilt startbar ist (2052), --alle zeigt sie
   vorgang.py pruefen                    Formprüfung der ganzen Liste (Exit 1 bei Fehlern)
 Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und pushen):
   vorgang.py neu "Titel" "Bereich" KL "Besitzer" [--nr NR] [--oben]   neue Zeile (Stand startbar); ohne --nr die nächste freie Nummer
@@ -38,8 +39,8 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
                                        (Spike = Technik, Diogenes = Prüfer, Ford = Disponent …) nur bis zur Umschaltung
 Build-Aufträge und Testmeldungen (1949): Nummer B<n> für Build n (B300, nie 300: das ist ein anderer Vorgang); auftrag, rueckmeldung,
   uebergabe nehmen B<n> ohne Zeile in der Vorgangsliste, Datei docs/vorgang/B<n>.md; Empfänger des Build-Auftrags: Technik
-  vorgang.py annehmen KENNUNG [--frist MIN] · verlaengern KENNUNG [--frist MIN] · erledigt KENNUNG · freigeben (vor „Nachfolger:“)
-  vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen; abgelaufene Frist eines ruhenden Halters wird wieder offen
+  vorgang.py annehmen KENNUNG [--frist MIN] · verlaengern KENNUNG [--frist MIN] · erledigt KENNUNG [SITZUNG: Pflicht bei „Fachkraft starten“, 2042] · freigeben (vor „Nachfolger:“)
+  vorgang.py offen [AN] [--alle] [--sitzungen DATEI …]   offene Zeilen (höchstens 5 Zeilen Ausgabe ohne --alle, 2042 e); abgelaufene Frist eines ruhenden Halters wird wieder offen
                                        (Einzelheiten: tools/uebergabe.py)
   vorgang.py chefwort NR "Wortlaut" [--zeit "TT.MM., HH:MM"] [--sitzung ROLLE]   Chefwort wörtlich in docs/vorgang/NR.md und
                                        offene Zeile an den Arbeitsplaner (1762 Haken D; Einzelheiten: tools/chefwort.py)
@@ -148,6 +149,22 @@ def stand_pruefen(stand, nr):
     if len(startbar.zusatz_von(stand)) > 120: sys.exit("vorgang.py: Zusatz über 120 Zeichen; Einzelheiten als „Zu %s“ in den Vorrat" % nr)
     return w
 
+COMMIT_GEPRUEFT = re.compile(r"Geprüft an:?\s*`?([0-9a-f]{7,40})`?(?![\w/])")
+
+def pruefer_bei_gebaut(nr, alt, neu, text=None):
+    """2041 a (Chef 25.11., 20:48): Stand wird „gebaut“ mit Commit → sofort eine Zeile an den Prüfer (bisher fing liegt.py erst nach
+    24 h, Fälle 1301, 1387, 1642, 1643); nicht, wenn der Stand schon „gebaut“ war oder eine Prüferzeile der Nummer offen ist. Kennung oder None."""
+    if startbar.wort_von(neu) != "gebaut" or startbar.wort_von(alt or "") == "gebaut": return None
+    m = COMMIT_GEPRUEFT.search(neu)
+    if not m: return None
+    if text is None:
+        try: text = open(os.path.join(DOCS, "vorgang", nr + ".md"), encoding="utf-8").read()
+        except OSError: text = ""
+    if any(z["an"] == "Prüfer" and (uebergabe.ist_offen(z["z"]) or z["z"].startswith("angenommen")) for z in uebergabe.zeilen(text)): return None
+    try: return uebergabe.uebergabe(nr, "Prüfer", "prüfen: Stand „gebaut“, Geprüft an %s (vorgang.py stand, 2041 a)" % m.group(1))
+    except uebergabe.Fehler as e:
+        print("WARNUNG Prüferzeile %s nicht angelegt: %s (2041 a; von Hand: vorgang.py uebergabe %s Prüfer „prüfen: …“)" % (nr, e, nr)); return None
+
 def stand_setzen(nr, stand, rolle=None):
     d = finden(nr, rolle)
     n = dict(d)
@@ -160,6 +177,7 @@ def stand_setzen(nr, stand, rolle=None):
     ersetzen(d, n)
     print("vorgang.py: %s (%s) Stand „%s“%s" % (nr, d["besitzer"], stand, (", wartet auf " + ", ".join(n["warte"])) if n["warte"] else ""))
     if stand_pruefen(stand, nr) == "erledigt": uebergaben_schliessen(nr, "Vorgang %s erledigt (vorgang.py stand)" % nr)  # 2012 (4)
+    pruefer_bei_gebaut(nr, d["stand"], stand)  # 2041 a
 
 def warte_setzen(nr, feld, rolle=None):
     d = finden(nr, rolle)
@@ -190,6 +208,7 @@ def setzen(nr, paare, rolle=None):
         ersetzen(d, n)
     print("vorgang.py: %s gesetzt: %s" % (nr, ", ".join(paare)))
     if n["stand"] != d["stand"] and stand_pruefen(n["stand"], nr) == "erledigt": uebergaben_schliessen(nr, "Vorgang %s erledigt (vorgang.py setze)" % nr)  # 2012 (4)
+    pruefer_bei_gebaut(nr, d["stand"], n["stand"])  # 2041 a
 
 def klasse(nr, kl, rolle=None):
     if kl not in ("M", "K"): sys.exit("vorgang.py: Klasse M oder K")
@@ -811,15 +830,19 @@ def treffer(nr):
         if nr in d["warte"]: aus.append("Wartet darauf: %s (%s, %s)" % (d["nr"], d["besitzer"], d["stand"]))
     return aus
 
-def ansicht(rolle, nur_startbar=False):
+def ansicht(rolle, nur_startbar=False, alle=False):
     zs = startbar.plan(rolle)
+    ruht = 0 if alle else startbar.kuer_ruht()  # 2052: solange irgendwo Muss/Eilt startbar ist, Kür nur als Zahl
     p = startbar.pause(startbar.lesen(startbar.VORRAT.get(rolle, "")))
     print("%s: %d offen, %d Muss, %d startbar%s (Reihenfolge = Vorrang; „für X“: X wartet auf dich)" % (
         rolle, len(zs), sum(1 for z in zs if z[1] == "M"), sum(1 for z in zs if not z[4]), (", PAUSE bis " + p) if p else ""))
+    kuer = 0
     for nr, kl, titel, d, g in zs:
         if nur_startbar and g: continue
+        if ruht and kl not in ("M", "M?"): kuer += 1; continue
         print("%s | %s | %s%s | %s | %s" % (nr, kl, d["stand"][:60], (" | wartet auf " + ", ".join(d["warte"])) if d["warte"] else "",
                                          re.sub(r"\*\*|`", "", titel)[:110], g or "startbar"))
+    if kuer: print("Kür: %d ruht, %d Muss/Eilt startbar (2052; `--alle` zeigt sie)" % (kuer, ruht))
     if rolle == "Sokrates":  # 1236: große Vorhaben vor dem ersten Code-Commit, gebündelt in der Chefrunde
         for d in startbar.zeilen_liste():
             if "Chef Gespräch" in startbar.offen_warte(d): print("GESPRÄCH %s (%s): %s" % (d["nr"], d["besitzer"], re.sub(r"\*\*|`", "", d["titel"])[:110]))
@@ -857,7 +880,8 @@ def haupt(a):
         if i + 1 >= len(a) or a[i + 1].capitalize() not in ROLLEN:
             sys.exit("vorgang.py: --rolle braucht eine von: " + ", ".join(ROLLEN))
         rolle = a[i + 1].capitalize(); del a[i:i + 2]
-        if not a or a[0] == "--startbar": return ansicht(rolle, bool(a))
+        rest = [x for x in a if x != "--alle"]  # 2052: --alle zeigt die Kür
+        if not rest or rest == ["--startbar"]: return ansicht(rolle, bool(rest), "--alle" in a)
     if not a: print(__doc__); sys.exit(2)
     b = a[0]
     if b in ("--hilfe", "-h", "--help", "hilfe"):  # 1739 (Bauliste 7.1): fand „nichts“

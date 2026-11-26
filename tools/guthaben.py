@@ -44,8 +44,8 @@ STUFEN = ((100, "Stillstand"), (95, "nur Rückläufer"), (80, "nur Muss"))
 FREI_ROLLEN = {"Sokrates", "Rundblick", "Ideenlauf", "Wache", "Ford"}  # 1907: Ideenlauf ist Sokrates
 STANDARD_STUNDEN = 24
 FREI_OBER = {"Arbeitsplaner", "Planer", "Perikles", "Prüfer", "Diogenes", "Wache", "Sokrates", "Rundblick", "Ideenlauf", "Tagesbericht",
-             "Wochenzählung", "Disponent", "Ford", "Tester", "Alter Ego", "Disponent-Starter"}  # 2019: Routine Wochenzählung; 2001; Tester: 2001-Ü10: frei unter der Obergrenze; FREI_ROLLEN der alten Form bleibt
-FREI_TITEL = re.compile(r"^(Alter Ego) –|^(Disponent-Starter)(?![\w-])")  # 2013: Leitung und Büro ohne Rufnamen, nach festem Titelanfang frei
+             "Wochenzählung", "Disponent", "Ford", "Tester", "Alter Ego"}  # 2041: „Disponent-Starter“ gestrichen (archiviert 23.11., 13:54); 2019: Routine Wochenzählung; 2001; Tester: 2001-Ü10: frei unter der Obergrenze; FREI_ROLLEN der alten Form bleibt
+FREI_TITEL = re.compile(r"^(Alter Ego) –")  # 2013: Leitung ohne Rufnamen, nach festem Titelanfang frei; 2041: Disponent-Starter gestrichen
 SPIEL = ("G Regeln", "E Kampf", "E Figuren", "E Welt")  # 2001 (Archiv 287, 22.11., 19:57: „nur Spiel (Regeln, Kampf, Figur, Welt)“)
 ZAHLWORT = dict(nachtstarts.ZAHLWORT, keine=0, null=0, keinen=0)
 
@@ -171,16 +171,17 @@ def fachkraft(rolle):
     return re.sub(r" \d+$", "", rolle or "") not in FREI_OBER
 
 
-TITEL_ROLLE = re.compile(r" – \d[0-9a-zA-Z.]*: (Prüfung|Test(?:er)?)\b")
+TITEL_ROLLE = re.compile(r" – \d[0-9a-zA-Z.]*(?::| –) (Prüfung|Test(?:er)?)\b")  # 2041 d: auch „Ralf – beim Prüfer – 2035 – Prüfung …“
 
 
 def ober_rolle(rolle, titel):
     """2001-Ü10 (Prüfer 23.11., 15:54): Titel „<Rufname> – <Nr>: Prüfung …“ → Prüfer, „…: Test …“ → Tester, vor der Rolle aus dem
     Vorgang oder einer doppelten Rufnamen-Sperre (kosten.rolle gab für „Hanna – 1675: Prüfung“ Figur); sonst die Rolle."""
+    if re.match(r"\s*[A-ZÄÖÜ][a-zäöüß]+ – Prüfer – ", titel or ""): return "Prüfer"  # 2042 Teil 7 (Chef 22:43): „Name – Prüfer – …“
     m = TITEL_ROLLE.search(titel or "")
     if m: return "Prüfer" if m.group(1) == "Prüfung" else "Tester"
     f = FREI_TITEL.match(titel or "") if rolle in (None, "", "Sonstige") else None
-    if f: return f.group(1) or f.group(2)
+    if f: return f.group(1)
     return vorgang_rolle(titel) or rolle if rolle in (None, "", "Sonstige") else rolle
 
 

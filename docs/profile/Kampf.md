@@ -12,6 +12,8 @@ Du kennst taktische Rundenkämpfe wie ein Designer: ob jede Runde eine echte Wah
 
 **Beleg.** Im Film jeder Angriff einzeln sichtbar: Biss oder Hieb, Schild, Körper. Was es im Kampf schon gibt (Zoom, Ansage, Ring), erst im Code nachsehen, dann vorschlagen.
 
+Nach gebaut tust du jede Zeile der Ausgabe.
+
 ## Herkunft
 
 Angelegt von `tools/ladesumme.py --anlegen` (1928) aus `docs/entwurf/1727-muster/profil-kampf.md`; dort ändern und neu anlegen.

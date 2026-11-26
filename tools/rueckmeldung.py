@@ -74,6 +74,62 @@ KATALOG = [
 PRUEFER, DISPONENT = "Prüfer", "Disponent"  # 1739: neue Profile; lauf.py setzt bis tools/1727-SCHARF Diogenes, Ford ein
 COMMIT = re.compile(r"\b[0-9a-f]{7,40}\b")
 BLOCK = re.compile(r"(?m)^- \*\*(?P<zeit>[^*]+)\*\*, (?P<wer>[^\n]*?)(?: \(`(?P<sid>[^`]*)`\))?:\n> (?P<text>.*)$")
+KURZ_MAX = 400  # 2042 (1), Chef-Ja 26.11., 09:42: Rückmeldung höchstens 400 Zeichen in der Datei, voller Text im Archiv
+VOLL = re.compile(r" … \(voll: (archiv/[^)\s]+\.md)\)$")
+
+
+def archivpfad(nr): return ue.archivpfad(nr)
+
+
+def kuerzen(text, nr):
+    """2042 (1): TEXT unverändert bis KURZ_MAX Zeichen, sonst eine Zeile mit Schnitt und Verweis „ … (voll: archiv/NR.md)“."""
+    if len(text) <= KURZ_MAX: return text
+    v = " … (voll: archiv/%s.md)" % nr
+    return " ".join(text.split())[:KURZ_MAX - len(v)].rstrip() + v
+
+
+_ARCHIV = {}
+
+def _archiv(rel):
+    """Archivtext (docs/vorgang/REL): lokal, dazu origin/main (die lokale Kopie kann nachhinken)."""
+    if rel not in _ARCHIV:
+        p = os.path.join(ue.WURZEL, ue.ORDNER, rel)
+        t = open(p, encoding="utf-8").read() if os.path.exists(p) else ""
+        import subprocess
+        r = subprocess.run(["git", "-C", ue.WURZEL, "show", "origin/main:%s/%s" % (ue.ORDNER, rel)], capture_output=True, text=True)
+        _ARCHIV[rel] = t + "\n" + (r.stdout if r.returncode == 0 else "")
+    return _ARCHIV[rel]
+
+
+def voll(abschnitt):
+    """2042 (4): gekürzte Rückmeldungen (Verweis VOLL) durch den vollen Block aus dem Archiv ersetzen; fehlt er dort, bleibt die Kurzform."""
+    def f(m):
+        v = VOLL.search(m.group("text"))
+        if not v: return m.group(0)
+        kopf = m.group(0)[:m.start("text") - m.start(0)]  # „- **Zeit**, wer (`sid`):\n> “
+        a = _archiv(v.group(1))
+        anfang = m.group("text")[:v.start()].rstrip(" …")
+        i = a.find("\n" + kopf)
+        while i >= 0:  # gleicher Kopf zweimal (Minute, Sitzung): der Block, dessen Text so beginnt
+            z = a[i + 1:].split("\n")
+            n = 1
+            while n < len(z) and z[n].startswith("> "): n += 1
+            if " ".join(" ".join(l[2:] for l in z[1:n]).split()).startswith(anfang): return "\n".join(z[:n])
+            i = a.find("\n" + kopf, i + 1)
+        _ARCHIV.pop(v.group(1), None)
+        return m.group(0)
+    return BLOCK.sub(f, abschnitt or "")
+
+
+def _archiv_von(text):
+    """Archiv zur Vorgangsdatei TEXT (Nummer aus der Kopfzeile „# NR · …“), sonst ""."""
+    k = re.match(r"#\s*(\d+(?:\.\d+)?[a-z]?)\b", text or "")
+    return _archiv("archiv/%s.md" % k.group(1)) if k else ""
+
+
+def rueck(text):
+    """Abschnitt „Rückmeldungen“ mit vollem Text (Datei + Archiv, 2042 (4)); für jeden Leser, der zählt oder Worte liest."""
+    return voll(ue.abschnitt(text or "", "Rückmeldungen"))
 
 
 def worte(text):
@@ -115,9 +171,9 @@ def _zeit(s):
 def beleg_als_nein(text):
     """1926: „Beleg fehlt“ des Prüfers zählt je Auftrag (Rückmeldungen ab dem jüngsten Abschnitt „## Auftrag (TT.MM., HH:MM)“ davor);
     jedes dritte gilt als „nein“ und zählt so für Laufbremse und Obergrenze A. Zahl solcher „nein“ in der Datei."""
-    auftraege = sorted(t for t in (_zeit(m.group(0)) for m in re.finditer(r"(?m)^## Auftrag \([^)]*\)", text or "")) if t)
+    auftraege = sorted(t for t in (_zeit(m.group(0)) for m in re.finditer(r"(?m)^## Auftrag \([^)]*\)", (text or "") + "\n" + _archiv_von(text))) if t)  # 2042 (4): ältere im Archiv
     je = {}
-    for m in BLOCK.finditer(ue.abschnitt(text, "Rückmeldungen")):
+    for m in BLOCK.finditer(rueck(text)):
         if "Beleg fehlt" not in worte(m.group("text")): continue
         t = _zeit(m.group("zeit"))
         a = max((x for x in auftraege if t and x <= t), default=None)
@@ -132,7 +188,7 @@ def zaehlen(text):
     ein Versuch der Fachkraft, beim nächsten Nein „steckt fest“ an Sokrates."""
     z = {"nein, Auftrag": 0, "nein": 0, "steckt fest": 0, "Laufanforderung": 0}
     zuletzt = None  # 1952: jüngste Meldung der Fachkraft (fertig/Laufanforderung mit Commit)
-    for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, [^\n]*:\n> (.*)$", ue.abschnitt(text, "Rückmeldungen")):
+    for m in re.finditer(r"(?m)^- \*\*[^*]+\*\*, [^\n]*:\n> (.*)$", rueck(text)):
         ws = worte(m.group(1))
         if "Laufanforderung" in ws and not COMMIT.search(m.group(1)): continue  # 1952: ohne Commit zurückgewiesen, zählt nicht
         if ws & {"fertig", "Laufanforderung"} and COMMIT.search(m.group(1)): zuletzt = "Laufanforderung" if "Laufanforderung" in ws else "fertig"
@@ -214,7 +270,7 @@ def macher(text, nr=None):
     """1739: wer zuletzt „fertig“ meldete (Rückmeldungen der Datei, ohne die gerade eingetragene); None, wenn keiner.
     1888 (Lauf 3 Prüfer-1 L9): steht dort „unbekannt“ (Sitzung ohne Besetzungszeile), die Rolle ihrer Sitzung aus der Besetzung
     von jetzt, sonst der Besitzer des Vorgangs in der Liste (Nummer aus der Kopfzeile „# NR · …“); erst dann None (Disponent)."""
-    ms = [m for m in BLOCK.finditer(ue.abschnitt(text, "Rückmeldungen")) if worte(m.group("text")) & {"fertig", "Laufanforderung"}]
+    ms = [m for m in BLOCK.finditer(rueck(text)) if worte(m.group("text")) & {"fertig", "Laufanforderung"}]
     if not ms: return None
     w = ms[-1].group("wer").strip()
     if w and w != "unbekannt": return w
@@ -337,6 +393,18 @@ def hinweis_weitergabe(nr, text, zeit, wer, vorher):
     return [(DISPONENT, "Hinweis (%s): wie einen Eingang behandeln (1739)" % von)]
 
 
+def ohne_sitzung_an_rolle(m, vorher):
+    """2041 b (Fälle 2024-Ü6 an Selma, 2031-Ü3 an Inge): ist der Macher ein Rufname ohne lebende Sitzung (ARBEIT-BESETZUNG.md), geht der
+    Rückläufer an die Rolle des Vorgangs (Besitzer in der Liste); ohne Besitzer bleibt der Macher."""
+    try:
+        import rufname
+        if not m or m not in rufname.ALLE or ue.besetzung(m): return m
+    except Exception:
+        return m
+    k = re.match(r"#\s*(\d+(?:\.\d+)?[a-z]?)\b", vorher or "")
+    return (_listen_besitzer(k.group(1)) if k else None) or m
+
+
 def weitergabe(w, t, zeit, wer, text, vorher, routine=False, werkzeug=False):
     """1739 (3.3 Nr. 5): Empfänger und Zeile für „fertig“, „nein“, „Beleg fehlt“, „ja“, „Hinweis“; (None, None) sonst."""
     satz = ue._rein(text)[:160]
@@ -344,6 +412,7 @@ def weitergabe(w, t, zeit, wer, text, vorher, routine=False, werkzeug=False):
     if w & {"nein", "Beleg fehlt"}:
         m = macher(vorher)
         wort = "nein" if "nein" in w else "Beleg fehlt"
+        m = ohne_sitzung_an_rolle(m, vorher)  # 2041 b
         if m: return m, "Rückläufer (%s des Prüfers, %s): „%s“; nachbessern, dann `vorgang.py rueckmeldung` „fertig“ mit Commit (1739)" % (wort, von, satz)
         return DISPONENT, "Rückläufer (%s, %s), Fachkraft unbekannt (kein „fertig“ in der Vorgangsdatei): an dieselbe Fachkraft zurückgeben (1739)" % (wort, von)
     if "fertig" in w:
@@ -365,9 +434,50 @@ def weitergabe(w, t, zeit, wer, text, vorher, routine=False, werkzeug=False):
     return None, None
 
 
+def macher_sid(text):
+    """2041 d: Kennung der Sitzung, die zuletzt „fertig“ oder „Laufanforderung“ meldete (Rückmeldungen der Datei); None ohne."""
+    ms = [m for m in BLOCK.finditer(rueck(text)) if worte(m.group("text")) & {"fertig", "Laufanforderung"}]
+    return (ms[-1].group("sid") or None) if ms else None
+
+
+ANHALTEN = re.compile(r"\b(warte|halte an|angehalten|bis zur Antwort)\b", re.I)  # 2042 Teil 6: „wartet“ nur, wenn die Sitzung anhält
+
+
+def titel_zeilen(nr, text, vorher, sid, wer):
+    """2041 d, Lesart A (Sokrates 25.11., 21:01): Zeilen „TITEL …“ nach einer Rückmeldung. Eigene Sitzung: „fertig“ mit Commit →
+    „beim Prüfer“; „Laufanforderung“, „steckt fest“ → „wartet“; „Frage“ → „wartet“ nur mit ANHALTEN, sonst „in Arbeit“ (2042). Prüfer: „ja“ → Fachkraft „frei“, „nein“/„Beleg fehlt“ →
+    „in Arbeit“, als „TITEL <Kennung> <Titel>“ für die Sitzung des letzten „fertig“. Sitzungen in rufname.BEHALTEN bekommen keine."""
+    import rufname
+    w = worte(text)
+    aus = []
+    if w & {"ja", "nein", "Beleg fehlt"}:
+        if "Lauf frei" in w or "nein, Auftrag" in w: return []
+        m = macher_sid(vorher)
+        z = rufname.titel_zeile(m, nr, "frei" if "ja" in w else "in Arbeit", fuer=True) if m and m != sid else None
+        e = rufname.titel_zeile(sid, nr, "frei", rolle="Prüfer") if sid else None  # 2042 Teil 7: Prüfer nach ja/nein „frei“
+        return [x for x in (z, e) if x and x.startswith("TITEL")]
+    if "fertig" in w and COMMIT.search(text or ""): st = "beim Prüfer"
+    elif w & {"Laufanforderung", "steckt fest"}: st = "wartet"
+    elif "Frage" in w: st = "wartet" if ANHALTEN.search(text or "") else "in Arbeit"  # 2042 Teil 6 (Carla 22:46: fragt und baut weiter)
+    else: return []
+    z = rufname.titel_zeile(sid, nr, st, rolle=wer if wer not in (None, "", "unbekannt") else None) if sid else None
+    return [z] if z else []
+
+
+def titel_aus(nr, text, vorher, sid, wer, grund):
+    """2041 d: TITEL-Zeilen ausgeben, mit Hinweis set_session_title; nie bei doppeltem Eintrag; Fehler halten nichts an."""
+    if grund == "schon eingetragen": return
+    try:
+        import rufname
+        for z in titel_zeilen(nr, text, vorher, sid, wer):
+            print(z); print(rufname.TITEL_HINWEIS)
+    except Exception as e:
+        print("TITEL nicht gebaut (%s)" % e)
+
+
 def lauf_offen(text):
     """1952: die jüngste Meldung der Fachkraft („fertig“ oder „Laufanforderung“ mit Commit) ist eine Laufanforderung."""
-    ms = [worte(m.group("text")) for m in BLOCK.finditer(ue.abschnitt(text, "Rückmeldungen"))
+    ms = [worte(m.group("text")) for m in BLOCK.finditer(rueck(text))
           if worte(m.group("text")) & {"fertig", "Laufanforderung"} and COMMIT.search(m.group("text"))]
     return bool(ms) and "Laufanforderung" in ms[-1]
 
@@ -402,11 +512,13 @@ def eintragen(nr, text, wer, sid=""):
     text = (text or "").strip()
     if not text: raise ue.Fehler("Text nötig")
     zeit = ue.fmt(ue.jetzt())
-    block = "- **%s**, %s%s:\n%s\n" % (zeit, wer or "unbekannt", (" (`%s`)" % sid) if sid else "", "\n".join("> " + z for z in text.splitlines()))
+    kopf = "- **%s**, %s%s:\n" % (zeit, wer or "unbekannt", (" (`%s`)" % sid) if sid else "")
+    block = kopf + "\n".join("> " + z for z in text.splitlines()) + "\n"
+    kurz = kopf + "\n".join("> " + z for z in kuerzen(text, nr).splitlines()) + "\n"  # 2042 (1): so in die Datei, block ins Archiv
     w = worte(text)
     def f(alt):
         t = ue._mit_abschnitt(alt, nr)
-        if block in t: return alt, (None, "schon eingetragen")
+        if kurz in t: return alt, (None, "schon eingetragen")
         schon = ruht(ue.abschnitt(t, "Rückmeldungen"))
         vorher = t
         t = ue.anhaengen(t, "Rückmeldungen", "Wörtlich, mit Zeit; trägt `vorgang.py rueckmeldung` ein (1763).", block)
@@ -473,7 +585,13 @@ def eintragen(nr, text, wer, sid=""):
             h = re.search(r"hinweis:\s*(.*)", text, re.I | re.S)
             t += "| %s-Ü%d | %s | %s | %s | offen |\n" % (nr, start + len(aus or [1]), DISPONENT, ue._rein("Hinweis (Rückmeldung %s von %s): „%s“; wie einen Eingang behandeln (1797)" % (zeit, wer or "unbekannt", ue._rein(h.group(1))[:160] if h else "")), zeit)
         return t, (k, grund or (RUHT_SCHON if schon else ""))
-    return ue.atomar(nr, f, "Rückmeldung %s von %s (1763)" % (nr, wer or "unbekannt"))
+    pfad, apfad = ue._pfad(nr), archivpfad(nr)
+    def f2(alt):  # 2042 (1): Logik am vollen Text, Datei bekommt die Kurzform, das Archiv den vollen Block (ein Commit)
+        t, e = f(alt[pfad])
+        if kurz == block or block not in t: return {pfad: t}, e
+        a = alt[apfad] if block in alt[apfad] else ue.archiv_dazu(alt[apfad], nr, "Rückmeldungen", block)
+        return {pfad: t.replace(block, kurz, 1), apfad: a}, e
+    return ue.atomar_dateien([pfad, apfad], f2, "Rückmeldung %s von %s (1763)" % (nr, wer or "unbekannt"))
 
 
 def liste_atomar(nr, stand, warte_dazu=(), nachricht=""):
@@ -519,7 +637,7 @@ def fest_an_sokrates(nr, kennung, an, grund):
     marke = "Übergabe %s an " % kennung
     was = ue._rein("steckt fest: Übergabe %s an %s zweimal ohne Ergebnis (%s; 1782, 1904); gelöst: `vorgang.py warte %s –`" % (kennung, an, grund, nr))
     def f(alt):
-        if any(z["an"] == SOKRATES and marke in z["was"] for z in ue.zeilen(alt[vp])): return {}, None
+        if marke in ue.zeilen_was(alt[vp], _archiv_von(alt[vp]), SOKRATES): return {}, None  # 2042 (2): auch schlanke erledigte Zeilen (Archiv)
         t = ue._mit_abschnitt(alt[vp], nr)
         ks = [int(z["k"].rsplit("Ü", 1)[1]) for z in ue.zeilen(t)]
         k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
@@ -579,6 +697,7 @@ def haupt(a):
     sid = ""
     try: sid = ue.sitzung()
     except ue.Fehler: pass
+    vorher = _datei(a[0])  # 2041 d: macher_sid vor dem Eintrag
     if wer is None:
         import chefwort
         wer = chefwort._rolle_aus_besetzung(sid) or "unbekannt"
@@ -596,9 +715,11 @@ def haupt(a):
     if not k:
         print("EINGETRAGEN %s: %s" % (a[0], grund))
         if grund != "schon eingetragen": nein_waechter(a[0], a[1])
+        titel_aus(a[0], a[1], vorher, sid, wer, grund)
         u = unbekannt(a[1], wer) if grund != "schon eingetragen" else None
         if u: sys.exit("vorgang.py rueckmeldung %s: ZURÜCKGEWIESEN, %s" % (a[0], u))
         return
+    titel_aus(a[0], a[1], vorher, sid, wer, grund)
     zeile = [x for x in ue.zeilen(_datei(a[0])) if x["k"] == k]
     an = zeile[0]["an"] if zeile else "?"
     if grund == RUHT_SCHON:  # 1976: Liste bleibt „ruht“ (kein liste_fest), keine zweite Obergrenze

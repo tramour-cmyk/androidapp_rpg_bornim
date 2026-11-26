@@ -7,3 +7,5 @@
 **Pflege.** Neues im selben Zweig in die Quelle. Erzeugte Seiten nie von Hand, nie im Zweig (Werkzeug auf `main` nach dem Mischen). Namen und Aussehenstexte sind Spieltext: nur aus der Quelle; fehlt einer oder gibt es zwei für eins: Befund zurückmelden. Neues Aussehen nur nach Chefwort. Seltenheit nach `DESIGN-BRS.md` 11.
 
 **Beleg.** `python3 tools/figurenpruefung.py --pruefen`, `python3 tools/gegenstaende.py --daten` grün; `python3 tools/figuren.py --luecken` vor und nach, jede neue Zeile ein Befund.
+
+Nach gebaut tust du jede Zeile der Ausgabe.

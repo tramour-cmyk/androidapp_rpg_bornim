@@ -37,7 +37,7 @@ nh = importlib.util.module_from_spec(spec); spec.loader.exec_module(nh)
 # Tabelle je Rolle
 soll("Tabelle SCHWELLEN vorhanden", isinstance(getattr(nh, "SCHWELLEN", None), dict))
 soll("Spike 200/300 Tsd.", nh.schwellen("Spike") == (200000, 300000), nh.schwellen("Spike"))
-soll("Werkzeug (Neustruktur) 200/300 Tsd.", nh.schwellen("Werkzeug") == (200000, 300000))
+soll("Werkzeug Übergang 2042 (Chef 25.11., 22:45) 300/450 Tsd.", nh.schwellen("Werkzeug") == nh.UEBERGANG_2042 == (300000, 450000))
 soll("unbekannte Rolle: Standard", nh.schwellen("") == nh.STANDARD == (200000, 300000))
 soll("Sokrates 400/500 Tsd. (1643)", nh.schwellen("Sokrates") == (400000, 500000))
 soll("Kaufrepo +200 Tsd. (818)", nh.schwellen("Spike", True) == (400000, 500000))
@@ -55,14 +55,24 @@ for s in ("t1520-r1-%d" % os.getpid(), "t1520-r2-%d" % os.getpid()):
 # Sperre am Werkzeugaufruf
 W = "Dein Rufname: Tanja (Rolle Werkzeug; Titel)\n\nAuftrag"
 soll("Werkzeug 290 Tsd.: frei", vor(W, 290000) == 0)
-soll("Werkzeug 310 Tsd.: gesperrt", vor(W, 310000) == 2)
+soll("Werkzeug 460 Tsd.: gesperrt (Übergang 2042)", vor(W, 460000) == 2)
 S = "Sokrates – 1727: Leitung"
 soll("Sokrates 450 Tsd.: frei", vor(S, 450000) == 0)
 soll("Sokrates 510 Tsd.: gesperrt", vor(S, 510000) == 2)
 
-# Ford nie gesperrt (1574)
-soll("Ford 900 Tsd.: frei", vor("Ford – Betriebsleiter", 900000) == 0)
-soll("Ford 2 900 Tsd.: frei", vor("Ford 2 – Betrieb", 900000) == 0)
+# Disponent nie gesperrt (1574; 2035 Fassung 2, Chef 19:47: am Titel „Rufname – Disponent – …“ bzw. an der ersten Nachricht, keine Handzeile)
+soll("Disponent 900 Tsd.: frei", vor("Disponent – Betrieb", 900000) == 0)
+soll("Titel mit Rufnamen „Detlef – Disponent – Betrieb“ 900 Tsd.: frei", vor("Detlef – Disponent – Betrieb", 900000) == 0)
+soll("Rufnamen-Start Rolle Disponent 900 Tsd.: frei", vor("Dein Rufname: Detlef (Rolle Disponent; Titel, Besetzung, Meldung).\n\nAuftrag", 900000) == 0)
+soll("„Wache – Disponent (24.11., 07:01)“ 900 Tsd.: gesperrt", vor("Wache – Disponent (24.11., 07:01)", 900000) == 2)
+soll("„Disponent-Starter (23.11., 10:13)“ 900 Tsd.: gesperrt", vor("Disponent-Starter (23.11., 10:13)", 900000) == 2)
+soll("Fachkraft „Sabine – 2035: rote lauf-Tests“ 900 Tsd.: gesperrt", vor("Sabine – 2035: rote lauf-Tests (25.11., 19:04)", 900000) == 2)
+os.makedirs(os.path.join(tmp, "wurzel", "docs"))
+open(os.path.join(tmp, "wurzel", "docs", "ARBEIT-BETRIEB.md"), "w", encoding="utf-8").write(
+    "# Betrieb\n\n**Disponent (aktuell)** Detlef `session_01Test2035X` (seit 25.11., 19:31)\n**Ford (aktuell)** `session_01Test2035X`\n")
+ENV.update(BORNIM_WURZEL=os.path.join(tmp, "wurzel"), CLAUDE_PROJECT_DIR=os.path.join(tmp, "wurzel"), CLAUDE_CODE_REMOTE_SESSION_ID="session_01Test2035X")
+soll("Handzeile „Disponent (aktuell)“ mit eigener Kennung, erste Nachricht ohne Rolle, 900 Tsd.: gesperrt (Handzeile zählt nicht)", vor("Weiter: Betrieb", 900000) == 2)
+ENV.pop("BORNIM_WURZEL"); ENV.pop("CLAUDE_CODE_REMOTE_SESSION_ID"); ENV["CLAUDE_PROJECT_DIR"] = tmp
 
 # Übergabe, Push, Nachricht an Ford ab der Sperre frei (1537)
 soll("Übergabe (Edit ARBEIT-*.md) frei", vor(W, 900000, "Edit", {"file_path": "/home/user/x/docs/ARBEIT-TEAM-SPIKE.md"}) == 0)

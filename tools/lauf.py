@@ -6,6 +6,9 @@ SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more f
   ODER Kurzform (Datei mit einer Zeile je Sitzung, kein Abschreiben der Seiten nötig, 167.2):
   `Kennung | working|idle|blocked|need_input|archived|failed | updated_at (ISO) | Titel | Kosten $ (oder -) | created_at | used_tokens (context_usage, für WEITER, 261.5)`
   Letzte Zeile der Kurzform: `# has_more: nein` (erst nach der letzten Seite von list_sessions); fehlt sie oder steht „ja“, warnt lauf.py „Seite abgeschnitten“ (261.4).
+  2042: statt dessen `# bis: <created_at der letzten Zeile>`, sobald diese vor der Zeitgrenze liegt (früher von heute 00:00 und jetzt − 3 h);
+  fehlt dann eine Sitzung aus ARBEIT-BESETZUNG.md: Zeile GET_SESSION <ids> (Kurzzeile nachtragen, lauf.py neu), kein Plan.
+  Erster Lauf ab 7 Uhr (Zeitmarke der Besetzung vor 07:00) mit `# bis:`: nur Zeile VOLLER LAUF (alle Seiten holen, lauf.py neu), kein Plan.
 Ausgabe, Zeile für Zeile auszuführen:
   START <Rolle> | model | [effort high] | environment_id | source_url | source_revision | Titel | erste Nachricht   → create_session mit allen Feldern, source_url (187) und source_revision main (382) Pflicht (Startsperre vorher pushen: --sperre schreibt sie)
   ARCHIVIERE <session_id> | <Rolle> | <Kosten $> | <Vorgang>        → archive_session, danach --kosten (siehe unten)
@@ -30,9 +33,16 @@ Ausgabe, Zeile für Zeile auszuführen:
   NEUSTART-LEITUNG <session_id> | Sokrates | <n> Tsd. Token | …     → (1988) Disponent: Leitung neu starten (Übergabe ins Gedächtnis), im selben Takt wie STREICHEN; ab 300 Tsd. used_tokens
   NEUSTART-DISPONENT <session_id> | Disponent | <n> Tsd. Token | … → (1988 Zusatz 09:26) Disponent: Übergabe zuerst, dann startet der Disponent seinen Nachfolger selbst (lauf.py --start Disponent, 1992); ab 300 Tsd.
   (1988 Zusatz 09:26) dieselbe WARNUNG-Zeile (gleicher Wortlaut, auch -LAUT) höchstens einmal je Stunde; Stand in BORNIM_WARN_STAND (Vorgabe /tmp/bornim-lauf-warnungen.json)
+  (2049) lauf.py --start Sokrates|"Alter Ego" "Nachricht" SEITE …: Leitung ohne Nummer, Titel „Sokrates – Leitung (TT.MM.)“ /
+  „Alter Ego – Supervisor (TT.MM.)“; läuft die Rolle laut Sitzungsliste schon (oder fehlt die Liste), nur HINWEIS statt START.
   (1989) lauf.py --start ROLLE NR "Nachricht" [SEITE …] [--sperre]: Handstart außerhalb des Takts → START-Zeile mit Startblock und
                                                                      STARTSPERRE <Protokollzeile> (mit --sperre selbst gepusht); von Hand nur so starten
+  SITZUNG …<6> | <Titel> | <Status> | <n Tsd.|->                    → (2042 d) je lebende Sitzung eine Zeile (nur lesen); SEITE ist die Datei aus
+                                                                     „saved to <Pfad>“ von list_sessions, ungelesen; Tokens: --token ID=N (get_session)
+  (2042 c) lauf.py --startblock ROLLE [NR]: Ladetext und Verweis auf den Auftrag; jede START-Nachricht trägt statt des Blocks nur
+                                                                     „python3 tools/lauf.py --startblock ROLLE NR, Ausgabe ist dein Auftrag.“
   NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1739) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
+  TITEL <session_id> <Titel>                                        → (2042) laufende Einzelrolle (Disponent, Wache) mit altem Titel: set_session_title
   (1739) offene Übergabezeile an eine Rolle ohne Sitzung → START dieser Rolle (Titel „<Rolle> – <Nr>: offene Übergabe“) oder angehängt an ihre START-Zeile; mit --sperre gibt der Lauf abgelaufene Fristen ruhender Halter frei (Zeile „NICHTS Übergabe: …“, schon gepusht)
   HÖCHSTDAUER <session_id> | <Rolle> | <Nr> | <Text>                → (1766, erst mit tools/1727-SCHARF und Wert in HOECHSTDAUER_MIN) interrupt_session, dann `vorgang.py rueckmeldung <Nr> "<Text>" --sitzung Ford`, pushen
   GUTHABEN … / LAUFSPERRE …                                         → (1804, erst mit tools/1727-SCHARF; tools/guthaben.py) Stufe nach 287 und Laufsperre aus Chefwort; lauf.py hält die Starts selbst an („NICHTS <Rolle>: Guthaben …“), Disponent startet nicht von Hand vorbei; lauf.py jeden Takt, nur START-Zeilen ruhen (1978)
@@ -84,7 +94,7 @@ steht WARNUNG-LAUT „Start <Rolle> nicht angekommen“ (einmal, Marke „Start-
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten, oder offener Weckruf (--wecker, 916) (Start-Sperre und Belegung 20 Minuten). Laufend oder jünger als 20 Minuten: Rolle belegt, kein zweiter Start.
 Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Eingang, Leermeldung eines Teams (bleiben bei Ford, LISTE-BETRIEB.md „Jeder Lauf“).
 """
-import glob, os, re, sys, datetime, zoneinfo, subprocess
+import glob, json, os, re, sys, datetime, zoneinfo, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import startbar, kosten
 
@@ -211,7 +221,29 @@ def nr_aus_titel(kopf):
     m = re.search(r"–\s*(\d{3,4}(?:\.\d+)?)\b", kopf.rpartition(" | ")[2])
     return m.group(1) if m else None
 
-def mit_kern(l, docs=None):
+def _block(rolle, nr, docs=None):
+    """2042 (c): (Ladetext k, Auftrag oder None) für rolle und Vorgang nr, wie mit_kern ihn einsetzt."""
+    if rolle == "Sokrates": return "\n\n".join("**%s**\n%s" % (n, t) for n, t in leitung_block(docs)), None  # 1986
+    if rolle == "Alter Ego": return "\n\n".join("**%s**\n%s" % (n, t) for n, t in alter_ego_block(docs)), None  # 2049 (c)
+    if NEU_LISTE:
+        teile, auftrag = startblock(rolle, nr, docs)
+        return "\n\n".join("**%s**\n%s" % (n, t) for n, t in teile), auftrag
+    return kern(rolle), None
+
+def verweis(nr):
+    return "Der Auftrag steht oben in docs/vorgang/%s.md (`python3 tools/vorgang.py auftrag %s` zeigt ihn); lies ihn zuerst ganz." % (nr, nr)
+
+def blocktext(rolle, nr=None, docs=None):
+    """2042 (c): Ausgabe von `lauf.py --startblock ROLLE [NR]`: Ladetext und Verweis auf den Auftrag, den mit_kern ohne kurz in die
+    Startnachricht setzt; leer ohne Ladetext und Auftrag."""
+    k, auftrag = _block(rolle, nr, docs)
+    return "\n\n".join(x for x in (k, verweis(nr) if auftrag else "") if x)
+
+def startblock_aufruf(rolle, nr=None):
+    """2042 (c): der Aufruf in der Startnachricht (Alter Ego in Anführungszeichen)."""
+    return "python3 tools/lauf.py --startblock %s%s" % ('"%s"' % rolle if " " in rolle else rolle, " " + nr if nr else "")
+
+def mit_kern(l, docs=None, kurz=False):
     """1683: jede START-Zeile beginnt in der ersten Nachricht (letztes Feld) mit dem Kern der Rolle, darunter „Auftrag:“ und die bisherige Nachricht.
     1893: an der neuen Liste Ladetext des Profils statt Kern; „Start nach deiner Rollendatei“ heißt dort „den Ladetext oben“ (Profile ohne Rollendatei).
     1923: an der neuen Liste Startblock (startblock): Teile je mit Kopfzeile „**<Name>**“, dann „Auftrag:“ mit dem jüngsten Auftrag der
@@ -225,15 +257,13 @@ def mit_kern(l, docs=None):
     rolle = l[6:].split(" |", 1)[0].strip()
     if rolle in ROUTINE_ROLLEN: return l  # 1789: Routine ohne Kern (Archiv 20.11., 07:37 „nicht deinen Kern“)
     kopf, _, msg = l.rpartition(" | ")
-    auftrag = None
-    if rolle == "Sokrates":  # 1986
-        k = "\n\n".join("**%s**\n%s" % (n, t) for n, t in leitung_block(docs))
-    elif NEU_LISTE:
-        teile, auftrag = startblock(rolle, nr_aus_titel(kopf), docs)
-        k = "\n\n".join("**%s**\n%s" % (n, t) for n, t in teile)
-    else:
-        k = kern(rolle)
-    if NEU_LISTE or rolle == "Sokrates":
+    k, auftrag = _block(rolle, None if rolle in LEITUNG_TITEL else nr_aus_titel(kopf), docs)
+    if kurz and (k or auftrag):  # 2042 (c): statt des Blocks nur der Aufruf; Ladetext und Verweis gibt --startblock aus
+        msg = msg.replace("zuerst Start nach deiner Rollendatei, dann", "zuerst").replace(" Zuerst Start nach deiner Rollendatei.", "").replace(
+            "Zuerst Start nach deiner Rollendatei.", "").replace("; zuerst Start nach deiner Rollendatei.", ".")
+        k = startblock_aufruf(rolle, None if rolle in LEITUNG_TITEL else nr_aus_titel(kopf)) + ", Ausgabe ist dein Auftrag."
+        auftrag = None
+    if NEU_LISTE or rolle in LEITUNG_TITEL:
         msg = msg.replace("zuerst Start nach deiner Rollendatei, dann", "zuerst den Ladetext oben, dann" if k else "zuerst").replace(
             "Zuerst Start nach deiner Rollendatei.", "Zuerst den Ladetext oben." if k else "")
     if rolle == "Sokrates":  # 1986: Stellungnahme (194.2) endet auf „; zuerst Start nach deiner Rollendatei.“
@@ -243,9 +273,12 @@ def mit_kern(l, docs=None):
         if not m:  # 1912 (D344.1): Zahl nach „Build“ oder „t“ (t312) ist der Build, nicht der Vorgang
             m = next((x for x in re.finditer(r"(?<![\d.:,])(\d{3,4}(?:\.\d+)?)\b", msg) if not re.search(r"(?i)(?:\bBuilds?\s*|\bt)$", msg[:x.start()])), None)
         msg += "\\n\\nMeldung: `vorgang.py rueckmeldung %s \"Befunde: n …\" --sitzung Tester` (1795)." % (m.group(1) if m else "<Nr>")
-    if auftrag: msg = "%s\n\n%s" % (auftrag, msg.replace("\\n", "\n"))  # 1923: Auftrag wörtlich vor der bisherigen Nachricht
+    if auftrag:  # 1923: Auftrag vor der bisherigen Nachricht; 2042 (5, Sokrates 2042-Ü5, 25.11., 22:37): nur der Verweis, der Auftrag steht nur in der Datei
+        n = nr_aus_titel(kopf) or "<Nr>"
+        msg = "%s\n\n%s" % (verweis(n), msg.replace("\\n", "\n"))
     msg = msg.replace("\n", "\\n")
     if not k: return "%s | %s" % (kopf, ("Auftrag: " + msg) if auftrag else msg)
+    if kurz: return "%s | %s\\n\\n%s" % (kopf, k, msg)
     return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
 
 LEITUNG_NEUSTART_TOKEN = 300000  # 1988 (Chef 23.11., 09:02): Leitung mit 430 Tsd. Token stempelte 20 Min. vor; Zusatz 09:26: auch Disponent
@@ -259,12 +292,15 @@ def wache_id():
 
 def leitung_neustart(je_rolle, archiviert, wache=None):
     """1988: je nicht archivierte Sitzung der Leitung (Sokrates) und, Zusatz 09:26, des Disponenten mit used_tokens
-    (context_usage, get_session) ab 300.000 eine Zeile an den Disponenten; ohne Wert keine Zeile."""
+    (context_usage, get_session) ab 300.000 eine Zeile an den Disponenten; 2035 (Entscheid Alter Ego 25.11., 18:09): ohne Wert
+    statt Schweigen die Zeile „TOKEN <id> | <Rolle>: …“ (list_sessions liefert used_tokens nicht, Kurzform trägt es)."""
     aus = []
     for rolle, (art, text) in NEUSTART_ZEILE.items():
         for s in je_rolle.get(rolle, []):
             tok = s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens")
-            if s["id"] not in archiviert and tok and tok >= LEITUNG_NEUSTART_TOKEN:
+            if s["id"] not in archiviert and not tok:
+                aus.append("TOKEN %s | %s: get_session, lauf.py neu mit --token %s=<used_tokens> (2042 d)" % (s["id"], rolle, s["id"]))
+            elif s["id"] not in archiviert and tok >= LEITUNG_NEUSTART_TOKEN:
                 if "%s" in text: text = text % (wache or wache_id())
                 aus.append("%s %s | %s | %d Tsd. Token | %s (1988, ab %d Tsd.)" % (art, s["id"], rolle, tok // 1000, text, LEITUNG_NEUSTART_TOKEN // 1000))
     return aus
@@ -296,25 +332,91 @@ def warnung_einmal_je_stunde(zeilen, pfad=None, jetzt=None):
     return aus
 
 
+FESTER_TITEL = {"Disponent": "Disponent – Büro", "Wache": "Wache – Betrieb"}  # 2041 d (Chef 25.11., 21:11, 21:14): Einzelrollen ohne Rufnamen
+LEITUNG_TITEL = {"Sokrates": "Sokrates – Leitung", "Alter Ego": "Alter Ego – Supervisor"}  # 2049 (Chef 26.11., 09:51): Start ohne Nummer, „<Titel> (TT.MM.)“
+ALTER_EGO = os.path.join("leitung", "alter-ego.md")  # 2049 (c): Startblock Alter Ego unter DOCS, bis vor „## Protokoll“
+OHNE_RUFNAMEN = set(LEITUNG_TITEL) | set(FESTER_TITEL)  # mit ROUTINE_ROLLEN
+
+
+def alter_ego_block(docs=None):
+    """2049 (c): [("Alter Ego", Text)] aus docs/leitung/alter-ego.md ohne Kopfzeile „# …“, bis vor „## Protokoll“; ohne Datei [] (STARTBLOCK_FEHLT)."""
+    p = os.path.join(docs or DOCS, ALTER_EGO)
+    z = lesen(p).split("\n") if os.path.isfile(p) else []
+    if z and z[0].startswith("# "): z = z[1:]
+    j = next((k for k, x in enumerate(z) if x.startswith("## Protokoll")), len(z))
+    t = "\n".join(z[:j]).strip()
+    if t: return [("Alter Ego", t)]
+    if ("Alter Ego", ALTER_EGO) not in STARTBLOCK_FEHLT: STARTBLOCK_FEHLT.append(("Alter Ego", ALTER_EGO))
+    return []
+
+
+def leitung_hinweis(rolle, lebende):
+    """2049 (d), Vorbild 2002: vor dem Start der Leitung die lebenden Sitzungen (sitzungen_lesen) nach derselben Rolle (kosten.rolle,
+    auch Altformen „Sokrates Leitung“, „Sokrates – 1989: Handstart …“) durchsehen; Hinweiszeilen statt START, ohne Liste ein Hinweis."""
+    if lebende is None: return ["HINWEIS Sitzungsliste fehlt, Doppelstart nicht prüfbar: Seiten von list_sessions oder Kurzform anhängen (2049)"]
+    return ["HINWEIS %s läuft schon: %s %s (2049)" % (rolle, s["id"], s.get("title", "")) for s in lebende
+            if s.get("session_status") != "SESSION_STATUS_ARCHIVED" and kosten.rolle(s.get("title", ""), s.get("created_at")) == rolle]
+
+
+def start_argumente(r):
+    """2049 (a): Argumente von --start (ohne Schalter) → (Rolle, Nr oder None, Nachricht, Seiten); None bei falscher Zahl.
+    Leitung (LEITUNG_TITEL) auch ohne Nummer: ROLLE "Nachricht" [SEITE …]; sonst ROLLE NR "Nachricht" [SEITE …]."""
+    if r[:1] and r[0] in LEITUNG_TITEL and len(r) >= 2 and not re.match(r"\d", r[1]): return r[0], None, r[1], list(r[2:])
+    if len(r) < 3: return None
+    return r[0], r[1], r[2], list(r[3:])
+
+
+def titel_zeilen(sitzungen):
+    """2042 (4) (Fund Alter Ego 25.11., 22:07: Karl behielt „Karl – Disponent – Betrieb“): je laufender Einzelrolle (FESTER_TITEL) mit
+    anderem Titel eine Zeile „TITEL <Kennung> <fester Titel> (TT.MM., HH:MM)“, Zeit aus created_at; der Disponent setzt sie mit set_session_title."""
+    import kosten as _k
+    aus = []
+    for s in sitzungen:
+        if s.get("session_status") == "SESSION_STATUS_ARCHIVED" or not s.get("created_at"): continue
+        r = _k.rolle(s.get("title", ""), s["created_at"])
+        if r not in FESTER_TITEL or (s.get("title") or "").startswith(FESTER_TITEL[r] + " ("): continue
+        aus.append("TITEL %s %s (%s)" % (s["id"], FESTER_TITEL[r], berlin(z(s["created_at"]).astimezone(BERLIN))))
+    return aus
+
+START_TITEL = re.compile(r"^\S+ – (?:Auftrag )?(\d[0-9a-zA-Z.]*)( [A-Z])?(?::| –) (.*?)(?: \(\d\d\.\d\d\., \d\d:\d\d\))?$")
+FACH_TITEL = ("Regeln", "Kampf", "Figur", "Kataloge", "Welt", "Klang", "Oberfläche", "Story", "Technik", "Werkzeug", "Fachkraft")  # uebergabe.FACHPROFILE
+
+PLANER_TITEL = ("Arbeitsplaner", "Perikles")  # 2042 (5): auch Planer und Handstart des Planers (R67)
+
+def _betreff(nr, b):
+    """2042 (5): „Handstart“ ist kein Betreff; dann der Vorgangstitel (rufname.betreff), sonst wie gegeben."""
+    if (b or "").strip() != "Handstart": return b
+    import rufname
+    return rufname.betreff(nr) or b
+
 def mit_rufnamen(ausgabe, sitzungen, jetzt=None, namen=None):
     """1739 Rufnamen (erst mit tools/1727-SCHARF): jede START-Zeile außer Sokrates bekommt den nächsten freien Rufnamen des
     Tages (rufname.py) als erstes Wort des Titels statt der Rolle, und die erste Nachricht nennt ihn. Die Rolle bleibt im
     ersten Feld (Startsperre, Kern, Profil). 1957: namen (Rolle → Rufnamen in START-Folge) geht in die Startsperre; daraus finden
-    Kosten, Archivregel, Startprüfung und Belegung die Startrolle (rufname.rolle), nicht den Besitzer des Vorgangs im Titel."""
+    Kosten, Archivregel, Startprüfung und Belegung die Startrolle (rufname.rolle), nicht den Besitzer des Vorgangs im Titel.
+    2041 d: ohne Rufnamen bleiben Sokrates, Disponent, Wache (FESTER_TITEL) und die Routinen (ROUTINE_ROLLEN)."""
     import rufname
     belegt = rufname.heute_vergeben([(s.get("title", ""), s.get("created_at", "")) for s in sitzungen], jetzt or JETZT)
+    laufend = rufname.laufende() | {rufname.aus_titel(s.get("title", "")) for s in sitzungen  # 2041 d: Doppel gegen laufende Sitzungen
+                                    if s.get("session_status") != "SESSION_STATUS_ARCHIVED"} - {None}
     aus = []
     for l in ausgabe:
         teile = l.split(" | ", 6)
-        if not l.startswith("START ") or len(teile) < 7 or teile[0][6:].strip() in ("Sokrates",) + tuple(ROUTINE_ROLLEN):
+        if not l.startswith("START ") or len(teile) < 7 or teile[0][6:].strip() in OHNE_RUFNAMEN | ROUTINE_ROLLEN:
             aus.append(l); continue
-        n = rufname.naechster(belegt)
+        n = rufname.naechster(belegt, laufend=laufend)
         if not n:
             aus.append(l); aus.append("WARNUNG Rufname: alle Namen heute vergeben, Titel mit Rolle (1739)"); continue
         belegt.append(n)
         if namen is not None: namen.setdefault(teile[0][6:].strip(), []).append(n)
         t = teile[5]
         teile[5] = n + t[t.index(" – "):] if " – " in t else "%s – %s" % (n, t)
+        if teile[0][6:].strip() == "Prüfer":  # 2042 Teil 7 (Chef 22:43): Prüfer tragen „Prüfer“ ab Start
+            m = re.match(r"\S+ – (?:Prüfer – )?(?:Auftrag )?(\d[0-9a-zA-Z.]*)(?::| –) (.*?)(?: \(\d\d\.\d\d\., \d\d:\d\d\))?$", t)
+            teile[5] = rufname.pruefer_titel(n, m.group(1), _betreff(m.group(1), m.group(2))) if m else rufname.pruefer_titel(n)
+        elif teile[0][6:].strip() in FACH_TITEL + PLANER_TITEL:  # 2042 Teil 6 (2), (5) Eilt (b): START setzt gleich „Name – in Arbeit – Nr – Betreff“
+            m = START_TITEL.match(t)
+            if m: teile[5] = rufname.titel(n, m.group(1), _betreff(m.group(1), (m.group(2).strip() + ": " if m.group(2) else "") + m.group(3)))
         teile[6] = "Dein Rufname: %s (Rolle %s; Titel, Besetzung, Meldung).\\n\\n%s" % (n, teile[0][6:].strip(), teile[6])  # „Rolle“ liest startsperre-haken.py
         aus.append(" | ".join(teile))
     return aus
@@ -340,6 +442,7 @@ def modell(r, nr, nachfolger=""):
     Aufwand für die Aufgabe auf hoch … und dann wieder zurück“): ein Nachfolger mit „Aufwand hoch“ startet mit effort high und Umgebung
     HOCH, jeder andere Start Mittel; festgefahren (startbar.festgefahren) nur als Hinweis. Stärkstes Modell (827 A) nur ab STARK_AB (aus)."""
     team = r
+    if r == "Disponent": return "sonnet", "", False  # 2042 (Chef 25.11., 22:04 „Disponent immer Sonnet“): vor stark und hoch
     d = next((x for x in startbar.zeilen_liste() if x["nr"] == nr), None) if nr else None
     g = startbar.festgefahren(d)
     if g and not startbar.STARK_MARKE.search(d["titel"]) and JETZT >= startbar.STARK_AB.replace(tzinfo=BERLIN):
@@ -389,7 +492,7 @@ def vorrat_hinweis(r, nr=None):
     if r in VORRAT and not NEU_LISTE: return "die Übergabe in %s beachten" % VORRAT[r]
     return "die Vorgangsdatei `docs/vorgang/%s.md` lesen (Auftrag, Feld „Zurück“)" % (nr or "<Nr>")
 ROUTINE_ROLLEN = {"Rundblick", "Ideenlauf", "Tagesbericht", "Wochenzählung"}  # 2019: Wochenzählung; 1789, 1907 (Ideenlauf, Gesamtbild 4.3 G:451): Routinen mit eigenem Start (ohne Kern, ohne Rufname, ohne Feld „Zurück“), nur mit tools/1727-SCHARF
-NIE_ARCHIV = {"Ford", "Wache"}  # Ford, Wache (1964: vorher fehlte die Wache); Sokrates und Sonstige nach eigener Regel (197)
+NIE_ARCHIV = {"Ford", "Wache", "Alter Ego"}  # 2049: Alter Ego zählte bis kosten.ROLLEN als Sonstige (nie archiviert)  # Ford, Wache (1964: vorher fehlte die Wache); Sokrates und Sonstige nach eigener Regel (197)
 
 def ohne_rollen_aus(ausschluss):
     """1148, 1964: Namen aus --ohne, die eine Rolle sind (alte Rollen, Profile, Routinen, Wache; kosten.ROLLEN), nicht Nummern."""
@@ -567,6 +670,28 @@ def start_noetig(rolle, st, ausschluss, nur_muss=False, nf_offen=False):
     if pause: return False
     if [x for x in muss if x[0] not in ausschluss]: return True
     return bool(rolle in MIT_KUER and not nur_muss and [x for x in kuer if x[0] not in ausschluss])
+
+def muss_startbar(st, ausschluss=(), ohne_rollen=(), bremse=None):
+    """2052 (Chef 26.11., 12:33 „solange halt Muss da ist“): [(Rolle, Nr)] der startbaren Muss- und Eilt-Zeilen über alle Rollen aus
+    START_REIHE (Planer mit seinen Zeilen „Auftrag“ zu Muss), nach denselben Regeln wie der Start: --ohne (Zeile, Rolle), Pause,
+    gültiger Auftrag (scharf), Guthaben/Laufsperre (bremse.erlaubt), Nachtdeckel (1643). Sitzungen zählen nicht: belegt heißt nicht
+    erledigt. Nicht leer: Kür ruht in diesem Lauf (wie --nur-muss)."""
+    scharf = ist_scharf(); aus = []
+    try: import nachtstarts
+    except Exception: nachtstarts = None
+    for r in START_REIHE:
+        if r in ohne_rollen: continue
+        muss, _, pause, _ = st.get(r, ([], [], None, []))
+        if pause: continue
+        for x in muss:
+            if x[0] in ausschluss or scharf and auftrag_fehlt(x[0]): continue
+            if bremse and bremse.erlaubt(r, x[1], x[3]): continue
+            n = str(sperr_nummer(x[0], x[3]) or "")
+            try:
+                if nachtstarts and re.match(r"\d", n) and nachtstarts.angehalten(r, n): continue
+            except Exception: pass
+            aus.append((r, x[0]))
+    return aus
 
 def chefdateien_je_rolle():
     d = os.path.join(DOCS, "chefsache", "entscheiden")
@@ -750,9 +875,14 @@ def start_titel(kopf, nr):
     return "%s%s (%s)" % (kopf, (": " + th) if th else "", berlin(JETZT))
 
 def auftrag_aus_titel(titel):
-    """1932: Nummer aus einem Planer-Titel „<Name> – Auftrag <Nr> (…)“, sonst None."""
+    """1932: Nummer aus einem Planer-Titel „<Name> – Auftrag <Nr> (…)“; 2041 d: auch „<Name> – <Status> – <Nr> – <Betreff>“
+    (rufname.teile; der Aufrufer prüft die Rolle Planer); sonst None. 2042 (5): aus einer START-Zeile nur das Feld Titel (zweiter_planer)."""
+    if (titel or "").startswith("START ") and titel.count(" | ") >= 6: titel = titel.split(" | ", 6)[5]
     m = re.search(r"\bAuftrag (\d[0-9a-zA-Z.]*[0-9a-zA-Z]|\d)\b", titel or "")
-    return m.group(1) if m else None
+    if m: return m.group(1)
+    import rufname
+    t = rufname.teile(titel)
+    return t["nr"] if t and t["status"] else None
 
 def planer_in_arbeit(leb):
     """1932: Nummern der Aufträge, die eine Planer-Sitzung gerade schreibt (tätig oder kürzlich); 1957: Rufnamen-Planer über die Startsperre."""
@@ -808,10 +938,11 @@ def haken_naechste(rolle):
     (Kür nur mit MIT_KUER), Pause hält an, mit tools/1727-SCHARF nur Zeilen mit gültigem Auftrag (auftrag_fehlt); Zeilen „Auftrag“
     nie (frisch je Auftrag, eigene Sitzung). M? und Kosten zählen (Arbeit des Planers). Sonst None."""
     neue_liste()
-    muss, kuer, pause, _ = stand().get(rolle, ([], [], None, []))
+    st = stand()
+    muss, kuer, pause, _ = st.get(rolle, ([], [], None, []))
     if pause: return None
     scharf = ist_scharf()
-    for x in muss + (kuer if rolle in MIT_KUER else []):
+    for x in muss + (kuer if rolle in MIT_KUER and not muss_startbar(st) else []):  # 2052: Kür ruht, solange irgendwo Muss startbar ist
         if x[0] == "Auftrag" or scharf and auftrag_fehlt(x[0]): continue
         return x[0]
     return None
@@ -969,12 +1100,104 @@ def vorgang_texte(docs=None):
     except OSError: return []
 
 
+def start_sitzungen(seiten):
+    """2042 Teil 6 (4): (Titel, created_at) aller Sitzungen der Seiten für den Rufnamen beim Handstart, JSON von list_sessions wie
+    Kurzform, archivierte mit (ein Name gilt den ganzen Tag); rufname.lies_sitzungen las nur die Kurzform, bei JSON kam immer „Anna“."""
+    aus = []
+    for p in seiten:
+        try: aus += [(x.get("title", ""), x.get("created_at", "")) for x in kosten.sitzungen(p, [])]
+        except (OSError, ValueError): pass
+    return aus
+
+
 def sitzungen_lesen(seiten):
     """2002: lebende Sitzungen aus gespeicherten Seiten von list_sessions oder der Kurzform (wie der Takt)."""
     alle = {}; offen = []
     for p in seiten:
         for s in kosten.sitzungen(p, offen): alle[s["id"]] = s
     return [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
+
+
+def zeitgrenze(jetzt=None):
+    """2042 (1): list_sessions im Takt nur bis hier (created_at), die frühere von heute 00:00 und jetzt − 3 h (Berlin).
+    Beleg: BUCHE nur heute, Rufnamen nur heute (rufname.heute_vergeben), START_PRUEF_STD 3, WAECHTER_STUNDEN 3."""
+    j = (jetzt or JETZT).astimezone(BERLIN)
+    return min(j.replace(hour=0, minute=0, second=0, microsecond=0), j - datetime.timedelta(hours=3))
+
+
+def voller_lauf_faellig(besetzung, jetzt=None):
+    """2042 (Sokrates 23:00 (3)): kein Takt mit „# bis:“ archiviert ruhende Sitzungen vor der Zeitgrenze; darum ist der erste Lauf
+    ab 7 Uhr voll (alle Seiten bis has_more falsch). Fällig, wenn jetzt ab 07:00 und die Zeitmarke „**Stand:**“ der Besetzung vor
+    heute 07:00 liegt oder fehlt."""
+    j = (jetzt or JETZT).astimezone(BERLIN); sieben = j.replace(hour=7, minute=0, second=0, microsecond=0)
+    if j < sieben: return False
+    m = re.search(r"\*\*Stand:\*\* (\d\d)\.(\d\d)\., (\d\d):(\d\d)", besetzung or "")
+    if not m: return True
+    try: st = datetime.datetime(j.year, int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4)), tzinfo=BERLIN)
+    except ValueError: return True
+    if st > j + datetime.timedelta(days=1): st = st.replace(year=j.year - 1)  # Jahreswechsel
+    return st < sieben
+
+
+BIS = re.compile(r"^#\s*bis:\s*(\S+)\s*$", re.M | re.I)
+def _seite_json(p):
+    """2042 (d): ccr-Objekt einer gespeicherten Seite von list_sessions (Datei aus „saved to <Pfad>“, auch mit Rahmen), sonst None."""
+    t = lesen(p); i = t.find('{"ccr"')
+    if i < 0: return None
+    try: return json.JSONDecoder().raw_decode(t[i:])[0].get("ccr") or {}
+    except ValueError: return None
+
+def grenze_offen(offen, jetzt=None):
+    """2042 (1): abgeschnittene Seiten ohne die Kurzformen, deren Endzeile „# bis: <created_at>“ die Zeitgrenze erreicht;
+    2042 (d): ebenso eine JSON-Seite, deren letzte Sitzung (created_at) die Zeitgrenze erreicht.
+    Gibt (noch offen, Liste der Seiten bis zur Zeitgrenze) zurück."""
+    g = zeitgrenze(jetzt); rest = []; bis = []
+    for p in offen:
+        c = _seite_json(p)
+        try:
+            if c is not None: ok = bool(c.get("data")) and z(c["data"][-1]["created_at"]) <= g
+            else: m = BIS.search(lesen(p)); ok = bool(m) and z(m.group(1)) <= g
+        except (ValueError, KeyError): ok = False
+        (bis if ok else rest).append(p)
+    return rest, bis
+
+def seite_warnung(offen):
+    """2042 (d): Warnung zu abgeschnittenen Seiten; bei JSON-Seiten mit der Kennung für die nächste Seite (after_id), damit niemand die Datei liest."""
+    nxt = [c.get("last_id") or (c.get("data") or [{}])[-1].get("id") for c in map(_seite_json, offen) if c]
+    return "WARNUNG Seite abgeschnitten (has_more) in %s: Plan unvollständig, weitere Seite bis created_at vor %s holen%s (2042)" % (
+        ", ".join(offen), zeitgrenze().strftime("%d.%m., %H:%M"), "".join(": list_sessions mit after_id %s, Datei als weitere SEITE" % x for x in nxt if x))
+
+def _tokens(s):
+    return s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens")
+
+def sitzung_zeilen(sitzungen):
+    """2042 (d): je lebende Sitzung eine Zeile „SITZUNG …<6> | <Titel> | <Status> | <n Tsd.|->“, neueste zuerst; der Disponent liest
+    die Seite von list_sessions nicht."""
+    aus = []
+    for s in sorted(sitzungen, key=lambda x: x.get("updated_at", ""), reverse=True):
+        if s.get("session_status") == "SESSION_STATUS_ARCHIVED": continue
+        b = s.get("status_bucket", "") or ""
+        pts = s.get("post_turn_summary") or s.get("external_metadata", {}).get("post_turn_summary") or {}
+        st = ("need_input" if pts.get("status_category") == "need_input" else "working" if "WORKING" in b else "blocked" if "BLOCKED" in b
+              else "failed" if "FAILED" in b else "working" if s.get("session_status") == "SESSION_STATUS_RUNNING" else "idle")
+        t = re.sub(r"\s+", " ", s.get("title", "") or "-"); t = t if len(t) <= 70 else t[:69] + "…"
+        tk = _tokens(s)
+        aus.append("SITZUNG …%s | %s | %s | %s" % (s["id"][-6:], t, st, "%d Tsd." % (tk // 1000) if tk else "-"))
+    return aus
+
+def token_setzen(alle, werte):
+    """2042 (d): „--token ID=N[,ID=N]“ (used_tokens aus get_session) statt Kurzzeile; unbekannte Kennung oder Zahl: Abbruch (ValueError)."""
+    for w in ",".join(werte).split(","):
+        if not w.strip(): continue
+        k, _, n = w.strip().partition("=")
+        n = n.replace(".", "").strip()
+        if k not in alle or not n.isdigit(): raise ValueError("--token %s: Kennung nicht in den Seiten oder Zahl fehlt (2042 d)" % w)
+        alle[k]["context_usage"] = {"used_tokens": int(n)}
+
+
+def besetzung_fehlt(text, ids):
+    """2042 (1): Sitzungen aus ARBEIT-BESETZUNG.md (Text), die in den Seiten bis zur Zeitgrenze fehlen (vor der Grenze gestartet)."""
+    return [k for k in dict.fromkeys(re.findall(r"claude\.ai/code/(session_\w+)", text)) if k not in ids]
 
 
 def laufend_setzen(bremse, sitz, marken, fertig=None, archiviert=()):
@@ -994,29 +1217,36 @@ def laufend_setzen(bremse, sitz, marken, fertig=None, archiviert=()):
     bremse.namen = guthaben.laufende_namen(sitz, archiviert, fertig) + gesperrt  # 2001-Ü10: wer gezählt ist
 
 
-def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None, bremse=None, zeile=None):
+def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None, bremse=None, zeile=None, lebende=None):
     """1989 (Chef 23.11., 09:04, 09:11): Handstart außerhalb des Takts wie ein Start im Takt: START-Zeile (Modell, Aufwand, Umgebung,
     Repo, main, Titel „<Rolle> – <Nr>: Handstart (…)“) mit Kaufrepo-Satz, Startblock (mit_kern) und, scharf, Rufname; dazu
     „STARTSPERRE <Protokollzeile>“ mit Rolle, Nummer und Rufname (startsperre_zeile), damit rufname.rolle sie zuordnet.
     sitzungen: (Titel, created_at) der heutigen Sitzungen für den Rufnamen; ohne sie die Rufnamen der heutigen Startsperren.
-    2002 (e): bremse (guthaben.Bremse mit laufend) und zeile (Vorgangszeile): hält die Obergrenze den Start an, nur „NICHTS“."""
+    2002 (e): bremse (guthaben.Bremse mit laufend) und zeile (Vorgangszeile): hält die Obergrenze den Start an, nur „NICHTS“.
+    2049: Leitung (LEITUNG_TITEL) ohne Nummer mit Titel „<fester Titel> (TT.MM.)“; lebende (sitzungen_lesen) prüft den Doppelstart,
+    None heißt Liste fehlt: dann wie bei einer laufenden Rolle nur HINWEIS (leitung_hinweis), keine START-Zeile."""
+    if rolle in LEITUNG_TITEL:
+        h = leitung_hinweis(rolle, lebende)
+        if h: return h
     if bremse is not None and (g := bremse.ober_grund(rolle, zeile)):
         return ["NICHTS %s: Handstart %s angehalten: %s (2002)" % (rolle, nr, g)]
     neue_liste()
     mo, satz, hoch = modell(rolle, nr)
     msg = "%s\n\n%s Zuerst Start nach deiner Rollendatei.%s" % (rolle, nachricht.strip(), satz)
     l = "START %s | %s%s | %s | %s | %s | %s | %s" % (rolle, mo, aufwand(hoch), umgebung(rolle, hoch), REPO, REVISION,
+                                                     ("%s (%s)" % (LEITUNG_TITEL[rolle], JETZT.strftime("%d.%m."))) if rolle in LEITUNG_TITEL else
+                                                     ("%s (%s)" % (FESTER_TITEL[rolle], berlin(JETZT))) if rolle in FESTER_TITEL else
                                                      "%s – %s: Handstart (%s)" % (rolle, nr, berlin(JETZT)), msg.replace("\n", "\\n"))
-    aus = [mit_kern(mit_kaufrepo(l), docs)]
+    aus = [mit_kern(mit_kaufrepo(l), docs, kurz=True)]  # 2042 (c)
     namen = {}
     if ist_scharf():
-        if sitzungen is None:
-            import rufname
-            try: e = rufname.sperr_eintraege(lesen(os.path.join(docs or DOCS, "ARBEIT-BETRIEB.md")), JETZT.year)
-            except Exception: e = []
-            sitzungen = [("%s – x" % n, d.replace(tzinfo=BERLIN).isoformat()) for d, _, n in e if n and d.date() == JETZT.date()]
+        import rufname  # 2042 Teil 6 (4): heutige Startsperren immer dazu, nicht nur ohne Seiten (Fall Anna 22:15/22:31/22:49)
+        try: e = rufname.sperr_eintraege(lesen(os.path.join(docs or DOCS, "ARBEIT-BETRIEB.md")), JETZT.year)
+        except Exception: e = []
+        sitzungen = list(sitzungen or []) + [("%s – x" % n, d.replace(tzinfo=BERLIN).isoformat()) for d, _, n, *_ in e if n and d.date() == JETZT.date()]
         aus = mit_rufnamen(aus, [{"title": a, "created_at": b} for a, b in sitzungen], namen=namen)
-    aus += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
+    aus += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT
+            if not x[1].startswith("leitung")] + ["WARNUNG Startblock: %s ohne docs/%s, Teil fehlt in der Startnachricht (2049)" % x for x in STARTBLOCK_FEHLT if x[1].startswith("leitung")]
     aus.append("STARTSPERRE " + startsperre_zeile([rolle], {rolle: nr}, rufnamen=namen))
     return aus
 
@@ -1126,8 +1356,19 @@ def rundblick_zeilen(ausgabe, je_rolle, archiviert, marken, zeilen=None, scharf=
         ausgabe.append("WARNUNG %s %s nicht gestartet: Teil A nicht lesbar (%s; 1789, Spike)" % (name, nr, (_a.routine(d["titel"]) or ("?",))[0])); return None
     msg = "Routine %s, Vorgang %s (Wochentermin; ohne Kern, %s ist dein Auftrag, 1789).\n\n%s\n\n<Nr> ist %s." % (
         name, nr, "der Text" if name in ROUTINE_PROFIL else "Teil A", text, nr)
-    ausgabe.append("START %s | %s%s | %s | %s | %s | %s – %s: Routine (%s) | %s" % (name, MODELL["Sokrates"], aufwand(), umgebung(name), REPO, REVISION, name, nr, berlin(JETZT), msg.replace("\n", "\\n")))
+    ausgabe.append("START %s | %s%s | %s | %s | %s | %s | %s" % (name, MODELL["Sokrates"], aufwand(), umgebung(name), REPO, REVISION, routine_titel(name, nr, d["titel"]), msg.replace("\n", "\\n")))
     return nr
+
+
+def routine_titel(name, nr, titel):
+    """START-Titel einer Routine „<Name> – <Nr>: Routine (…)“; 2041 d (Chef 25.11., 21:14): Wochenzählung „Wochenzählung – KW <nn> – <Nr> (…)“
+    (Kalenderwoche der gezählten Woche, woche_vor), ohne Rufnamen; Nummer nach dem zweiten Strich (nummer_aus_titel)."""
+    w = woche_vor(titel) if name == "Wochenzählung" else None
+    if w:
+        mo = datetime.datetime.strptime(w[3:9] + str(JETZT.year), "%d.%m.%Y")
+        if mo > JETZT.replace(tzinfo=None) + datetime.timedelta(days=1): mo = mo.replace(year=mo.year - 1)
+        return "Wochenzählung – KW %02d – %s (%s)" % (mo.isocalendar()[1], nr, berlin(JETZT))
+    return "%s – %s: Routine (%s)" % (name, nr, berlin(JETZT))
 
 
 ROUTINE_PROFIL = {"Wochenzählung"}  # 2019: Routinen, deren Auftrag docs/profile/<Name>.md ist (ladesumme.py --anlegen, wie Wache)
@@ -1207,8 +1448,8 @@ ALT_EMPFAENGER = {"Arbeitsplaner": "Ford", "Disponent": "Ford", "Prüfer": "Diog
 def uebergabe_zeilen(ausgabe, je_rolle, archiviert, docs=None, start=None):
     """1739 (Sokrates 21.11., 20:43, F4 (1)): offene Übergabezeilen an andere als Sokrates (etwa „Arbeitsplaner“ aus chefwort.py,
     rueckmeldung.py) → NACHRICHT an die Sitzung des Empfängers. Hat er keine, startet ihn start(r, nr, teil) (Befund 1: Start statt
-    nur NACHRICHT an Ford; hängt an eine START-Zeile dieses Laufs an, nie zwei Starts); kann start nicht (nicht startbare Rolle,
-    --ohne, Hintergrundlauf, Startsperre jünger als 20 Min.) oder fehlt es, NACHRICHT an Ford. Bis zur Umschaltung
+    nur NACHRICHT an den Disponenten; hängt an eine START-Zeile dieses Laufs an, nie zwei Starts); kann start nicht (nicht startbare Rolle,
+    --ohne, Hintergrundlauf, Startsperre jünger als 20 Min.) oder fehlt es, NACHRICHT an den Disponenten (Zeile „NACHRICHT Ford“). Bis zur Umschaltung
     (tools/1727-SCHARF) sind Arbeitsplaner und Disponent Ford, der Prüfer Diogenes (ALT_EMPFAENGER).
     1911 (D343.1): wartet der Vorgang (Feld „wartet auf“, etwa Sokrates nach „steckt fest“), bleibt eine Zeile an eine Fachkraft
     liegen (kein Start ohne Startbares, 340.12/3); Zeilen an das Büro (startbar.BUERO) gehen weiter. 1914 (D345.1): nur offene
@@ -1548,14 +1789,22 @@ def main():
         if len(a) < 4 or not a[3].startswith(("session_", "ohne:")):
             print("lauf.py --kosten NR USD session_…: Kennung fehlt (384); ohne Sitzung nur mit „ohne:<Grund>“", file=sys.stderr); sys.exit(2)
         return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if a[3].startswith("session_") else None)
+    if a[:1] == ["--startblock"]:  # 2042 (c): Startblock für die Startnachricht „python3 tools/lauf.py --startblock ROLLE NR“
+        r = [x for x in a[1:] if x != "--ohne-pull"]
+        if not r: sys.exit("lauf.py --startblock ROLLE [NR]: Rolle fehlt (2042 c)")
+        if "--ohne-pull" not in a: notizen_frisch()  # alter Stand nur mit Warnung, der Start soll nicht scheitern
+        neue_liste()
+        t = blocktext(r[0], r[1] if len(r) > 1 else None)
+        if not _block(r[0], r[1] if len(r) > 1 else None)[0]: t = ""  # Hinweis Gustav 12:17: ohne Ladetext kein Startblock, nur Verweis reicht nicht
+        if not t: sys.exit("lauf.py --startblock: kein Ladetext für %s (docs/profile/%s.md fehlt?)" % (r[0], r[0]))
+        return print(t)
     if "--ohne-pull" not in a and not notizen_frisch(): sys.exit(1)
     if a[:1] == ["--start"]:  # 1989: Handstart mit Startblock; mit --sperre schreibt und pusht lauf.py die Startsperre selbst
-        r = [x for x in a[1:] if x != "--sperre" and x != "--ohne-pull"]
-        if len(r) < 3: sys.exit('lauf.py --start ROLLE NR "Nachricht" [SEITE …] [--sperre]')
+        r = start_argumente([x for x in a[1:] if x != "--sperre" and x != "--ohne-pull"])
+        if not r: sys.exit('lauf.py --start ROLLE NR "Nachricht" [SEITE …] [--sperre]; Leitung: lauf.py --start Sokrates|"Alter Ego" "Nachricht" SEITE … (2049)')
+        r = [r[0], r[1], r[2]] + r[3]  # 2049: Nr None bei der Leitung
         ss = None
-        if r[3:]:
-            import rufname as _r2; ss = []
-            for p in r[3:]: ss += _r2.lies_sitzungen(lesen(p))
+        if r[3:]: ss = start_sitzungen(r[3:])
         br = None
         if ist_scharf():  # 2002 (e): Handstart prüft die Obergrenze wie der Takt; Laufende aus den übergebenen Seiten (Kurzform), sonst unbekannt → kein Start
             import guthaben
@@ -1564,10 +1813,11 @@ def main():
                 if r[3:]: laufend_setzen(br, sitzungen_lesen(r[3:]), startmarken())
                 else: print("WARNUNG Handstart ohne Sitzungsliste: Laufende unbekannt, Fachkraft startet nicht; Seiten von list_sessions oder Kurzform anhängen (2002)")
                 for x in br.zeilen(): print(x)
-        zs = start_zeilen(r[0], r[1], r[2], ss, bremse=br, zeile=next((d for d in startbar.zeilen_liste() if d["nr"] == r[1]), None) if br else None)
+        zs = start_zeilen(r[0], r[1], r[2], ss, bremse=br, zeile=next((d for d in startbar.zeilen_liste() if d["nr"] == r[1]), None) if br and r[1] else None,
+                          lebende=sitzungen_lesen(r[3:]) if r[3:] else None)
         sp = [x[len("STARTSPERRE "):] for x in zs if x.startswith("STARTSPERRE ")]
         if "--sperre" in a and sp:
-            if protokoll_pushen(lambda alt: alt.rstrip("\n") + "\n" + sp[0] + "\n", "Startsperre %s %s (lauf.py --start, 1989)" % (r[0], r[1])):
+            if protokoll_pushen(lambda alt: alt.rstrip("\n") + "\n" + sp[0] + "\n", "Startsperre %s%s (lauf.py --start, 1989)" % (r[0], " " + r[1] if r[1] else "")):
                 zs = [x if not x.startswith("STARTSPERRE ") else "NICHTS Startsperre: geschrieben und gepusht (%s)" % sp[0] for x in zs]
         for x in zs: print(x)  # 1992: nicht z, das überdeckt z() in ganz main() (UnboundLocalError)
         return
@@ -1598,15 +1848,26 @@ def main():
     # 1148 (von Ford): --ohne <Rolle>:Grund nimmt die ganze Rolle aus diesem Lauf (START,
     # ARCHIVIERE und die Warnung „Start nicht angekommen“); vorher wirkte nur --ohne <Nr>, und Ford bekam weiter START Spike
     ohne_rollen = ohne_rollen_aus(ausschluss)  # 1964: auch Profile, Routinen (Tagesbericht), Wache
-    seiten = [x for i, x in enumerate(a) if not x.startswith("--") and not (i and a[i - 1] in ("--ohne", "--wecker"))]
+    seiten = [x for i, x in enumerate(a) if not x.startswith("--") and not (i and a[i - 1] in ("--ohne", "--wecker", "--token"))]
     if not seiten: sys.exit(__doc__)
     offen = []; alle = {}
     for p in seiten:
         for s in kosten.sitzungen(p, offen): alle[s["id"]] = s
+    try: token_setzen(alle, [a[i + 1] for i, x in enumerate(a[:-1]) if x == "--token"])  # 2042 (d)
+    except ValueError as e: sys.exit(str(e))
     ausgabe = vorab; archiviert = set()
     schutz = geschuetzt()  # 1531
-    if offen: ausgabe.append("WARNUNG Seite abgeschnitten (has_more) in %s: Plan unvollständig, weitere Seite holen" % ", ".join(offen))
+    offen, bis = grenze_offen(offen)  # 2042 (1): Kurzform bis zur Zeitgrenze gilt als vollständig
+    if offen: ausgabe.append(seite_warnung(offen))
+    if bis:
+        if voller_lauf_faellig(lesen(os.path.join(DOCS, "ARBEIT-BESETZUNG.md"))):
+            return print("VOLLER LAUF | 2042: erster Lauf ab 7 Uhr: list_sessions alle Seiten bis has_more falsch, Kurzform mit „# has_more: nein“, "
+                         "lauf.py neu (archiviert auch ruhende Sitzungen vor der Zeitgrenze)")
+        fehlt = besetzung_fehlt(lesen(os.path.join(DOCS, "ARBEIT-BESETZUNG.md")), set(alle))
+        if fehlt:  # laut statt still falsch: vor der Grenze gestartete laufende Sitzung fehlt, sonst doppelter START
+            return print("GET_SESSION %s | 2042: vor der Zeitgrenze gestartet, steht in ARBEIT-BESETZUNG.md: get_session, Kurzzeile vor „# bis:“ anhängen, lauf.py neu" % ",".join(fehlt))
     leb = [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
+    ausgabe.extend(sitzung_zeilen(leb))  # 2042 (d): je lebende Sitzung eine Zeile, die Seite selbst liest niemand
     for name, tg, nach in startbar.nach_ausgefallen(JETZT):  # 1793: Routine mit „nach“ in der Nachholfrist nicht angelegt
         ausgabe.append("WARNUNG Wochentermin %s „%s“ ausgefallen: „%s“ war bis zum Folgetag nicht erledigt (1793; Sokrates, von Hand anlegen oder auslassen)" % (tg, name[:60], nach))
     wochentermine_anlegen(ausgabe)  # 719 A: vor dem Plan, damit der neue Vorgang im selben Lauf startet; 2019: auch ohne --sperre
@@ -1656,7 +1917,7 @@ def main():
     for s in leb:
         r = s["_info"][0]
         k = s.get("external_metadata", {}).get("usage", {}).get("cost_usd")
-        if r in ("Ford", "Sonstige", "Sokrates") or not k or k < 0.5 or nummer_aus_titel(s.get("title", "")): continue
+        if r in ("Ford", "Sonstige", "Sokrates", "Alter Ego") or not k or k < 0.5 or nummer_aus_titel(s.get("title", "")): continue
         ausgabe.append("WARNUNG Abgleich: Sitzung %s „%s“ (%s, %.2f $) ohne Vorgangsnummer im Titel, Kosten nicht buchbar" % (s["id"], s.get("title", ""), r, k))
     # 261.2: ruhende Sitzungen von heute nachbuchen (Differenz zum Buchungsverzeichnis), auch ohne Archivieren; Ford und Titel ohne Nummer auf Betrieb
     gebucht = {}
@@ -1776,6 +2037,9 @@ def main():
         laufend_setzen(bremse, je_rolle, marken, archiviert=archiviert)
         neu_ = [l for l in bremse.zeilen() if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l]
         ausgabe[:] = [neu_[0] if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l and neu_ else l for l in ausgabe]
+    # 2052: Kür ruht, solange irgendwo Muss/Eilt startbar ist (nach laufend_setzen, sonst hält die Laufsperre jedes Muss)
+    if not nur_muss and (vm := muss_startbar(st, ausschluss, ohne_rollen, bremse)):
+        nur_muss = True; ausgabe.append("NUR MUSS: %d Muss/Eilt startbar, Kür ruht (2052)" % len(vm))
     # Starten
     for nr, grund in sorted(ausschluss.items()): ausgabe.append("AUSGESCHLOSSEN %s: %s" % (nr, grund))
     ausgabe.extend(ohne_ueberholt(ausschluss, leb))
@@ -2085,7 +2349,7 @@ def main():
     if ist_scharf():  # 1799: Wächter der Fristen nach Grobablauf 14.2, erst nach der Umschaltung
         try:
             import liegt as _liegt
-            ausgabe += _liegt.liegt(JETZT, True)
+            ausgabe += _liegt.kurz(_liegt.liegt(JETZT, True))  # 2042 Teil 9: Zahl je Art, Einzelheiten mit liegt.py [Art]
         except Exception as e: ausgabe.append("WARNUNG LIEGT nicht geprüft: %s (1799)" % str(e)[:120])
     # 1472: Chefwort zum Kaufrepo an jede Startnachricht (START: letztes Feld), bei WEITER vor dem Hinweis auf send_message
     ausgabe = [mit_kaufrepo(l) for l in ausgabe]
@@ -2093,10 +2357,11 @@ def main():
         ausgabe = ["NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (r_, r_, ausschluss[r_]) if (r_ := l[6:].split(" |")[0].strip()) in ohne_rollen and l.startswith("START ") else l
                    for l in ausgabe]
         sperren[:] = [s_ for s_ in sperren if s_ not in ohne_rollen]
-    ausgabe = [mit_kern(l) for l in ausgabe]
+    ausgabe = [mit_kern(l, kurz=True) for l in ausgabe]  # 2042 (c)
     ausgabe += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
     rufnamen = {}  # 1957: Rolle → Rufnamen der STARTs, für die Startsperre
     if ist_scharf(): ausgabe = mit_rufnamen(ausgabe, alle.values(), namen=rufnamen)
+    ausgabe.extend(titel_zeilen(alle.values()))  # 2042 (4)
     try:  # 1688 (Chef 23.11., 08:39): offene „streichen:“-Übergaben an den Disponenten als erste Zeilen, Pflicht vor jedem Start
         import streichen
         ausgabe = streichen.zuerst(streichen.lauf_zeilen(DOCS) + ausgabe)
@@ -2267,7 +2532,9 @@ def besetzung_text(t, leb):
     for s in sorted(leb, key=lambda x: x["created_at"]):
         r, laufend, ruhig, hinder = s["_info"]
         titel = s.get("title", s["id"])
-        if r == "Sonstige" and not titel.startswith("Ford"): continue
+        import uebergabe as _ue
+        if _ue.DISPONENT_TITEL.match(titel): r = "Disponent"  # 2035: „Detlef – Disponent – Betrieb“ zählt kosten.rolle als Sonstige
+        elif r == "Sonstige" and not titel.startswith("Ford"): continue
         zl = nummer_aus_titel(titel) or "Betrieb"
         zw = ((s.get("external_metadata") or {}).get("current_branches") or {}).get("") or vz.get(zl) or "–"
         zeilen.append("| %s | [%s](https://claude.ai/code/%s) | %s | %s | %s |" % (r, titel, s["id"], zl, zw, berlin(z(s["created_at"]))))

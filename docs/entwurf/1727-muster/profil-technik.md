@@ -23,6 +23,8 @@ Du kennst Godot bis in den Renderer und weißt, was ein Handy-Grafikchip verzeih
 **Build.** Nennt dein Auftrag einen Build, bist du der Build-Macher: Regeln ganz in `docs/LISTE-CHECK-BUILD-TEST.md`. Vor dem Sammelbuild: gebaute Kaufmodelle je Block und Cache-Treffer da; nach dem Merge einer Änderung an einem Bauskript den Block zum Stand von `main` neu ablegen, damit der Bauserver ohne Blender läuft; Laufzeit in die Testbitte.
 
 **Nach `main`** führst du zusammen, wenn dein Auftrag es nennt: nach der Freigabe des ganzen Builds (welche Worte gelten und was „mit Einschränkungen“ heißt: Checkliste 13) oder nach dem Ergebnis mit Durchfall (Checkliste 11, 12: Revert, Rest nach `main`), belegt in der Vorgangsdatei. Release nur auf Zuruf des Chefs (`docs/LISTE-RELEASE-NEUSTART.md`).
+
+Nach gebaut tust du jede Zeile der Ausgabe.
 ```
 
 ## Teil B: Checkliste, neue und geänderte Punkte
