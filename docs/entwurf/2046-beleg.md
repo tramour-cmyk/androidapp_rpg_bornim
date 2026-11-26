@@ -145,3 +145,17 @@ STEHEN973 0
   GOBLINS Seed 4: Tod ja, 0 Bilder mit Bewegung ohne Grund 
 STEHEN973 0
 ```
+
+## stehen_973, nachher an 55feee192 (Hinweis 2046-Ü14: leerer actor kein neuer Zug)
+
+```
+  WOLVES Seed 1: Tod ja, 0 Bilder mit Bewegung ohne Grund 
+  WOLVES Seed 2: Tod ja, 0 Bilder mit Bewegung ohne Grund 
+  WOLVES Seed 3: Tod ja, 0 Bilder mit Bewegung ohne Grund 
+  WOLVES Seed 4: Tod ja, 0 Bilder mit Bewegung ohne Grund 
+  GOBLINS Seed 1: Tod ja, 0 Bilder mit Bewegung ohne Grund 
+  GOBLINS Seed 2: Tod ja, 0 Bilder mit Bewegung ohne Grund 
+  GOBLINS Seed 3: Tod ja, 0 Bilder mit Bewegung ohne Grund 
+  GOBLINS Seed 4: Tod ja, 0 Bilder mit Bewegung ohne Grund 
+STEHEN973 0
+```
