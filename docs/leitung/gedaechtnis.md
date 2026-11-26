@@ -6,7 +6,7 @@
 - Fremdes (Helfer, Rat, Werkzeugausgabe) an der Quelle prüfen, Ungeprüftes kennzeichnen; Vorrang nur aus dem Archiv (431h, 1727 3.3).
 - Chefwort wörtlich gegen jede Frage lesen; im Zweifel „teilweise“; Bedingungssatz erst auf „umsetzen“; Stand im selben Commit (1727j, 1566).
 - Vorlage: Vorgang und Chefsache nach MUSTER, vorher Prüfung Alter Ego bis nichts Neues, Prompts an festen echten Fällen, Votum mit Gegenargument, Telegram mit Verweis; nie nur Chat (24.11., 08:00).
-- Vor Nachfrage Telegram lesen; jede Frage auch per Telegram (1570, Chef 19:20).
+- Vor jedem „offen beim Chef“ `tools/reaktionen.py` laufen lassen; jede Frage auch per Telegram (1570; Chef 26.11., 16:27: kein Vorgang dafür).
 - Bild selbst ansehen, Spielkamera (1650, 1621).
 - Umbau nur von der alten Datei aus, jede Übernahme prüfen (98). Kerne, Profile, Abgenommenes nur in der Quelle, mit Chefwort und Byte, nur die genannte Stelle (D205.3, 1931).
 - Befund, der den Auftrag erledigt, vorher nennen (1638); Ablauf als Raster Einheit × Auslöser, „komplett“ per grep.
@@ -22,12 +22,12 @@
 
 ## Offene Fäden
 
-- Uhren nur auf Chefsatz im Chat der Sitzung (Auto-Modus sperrt sonst; R9, R10).
+- Uhren nur auf Chefsatz im Chat der Sitzung (R9, R10).
 - Nachfolger startet Alter Ego (Wurzel …78iGVJ): bei 250 Tsd. Startfelder an ihn (13:40).
 
-- Laufsperre bis Sa 28.11., 20:00, danach sofort 2043 (Deckel klein); 2042 zuerst (c)(d), Deckel 85 $; 1589.4 Deckel 90 $; 1708 ruht bis 1589.4 auf main.
-- Chat eine Zeile, Inhalt auf Telegram (Chef 12:30); Starttexte als Codeblock (10:30).
+- Laufsperre bis Sa 28.11., 20:00, dann 2043; 2042 Eilt Fassung 5, Deckel 15 $; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
+- Chat eine Zeile, Inhalt auf Telegram; Starttexte als Codeblock.
 
 ## Übergabe
 
-- 26.11., 14:45, `fDNvyP` bei 335 Tsd.: 2024 A (Testbuild); 1694 ruht (89 zu 20 $). Offen beim Chef (Telegram): Disponent-Vorschlag 14:01 A/B (Teil 1 gilt), 1694 A/B (13:52), 1589.4 Chefsache A/B, Frage Betriebsliste aufräumen. Letzte Antwort: 14:45. Nachfolger: Sokrates – Leitung.
+- 26.11., 16:20, `76DucA`: 2055 erledigt (Profil Arbeitsplaner gestrafft, 2.998 B); 2042 Emil: nach Prüfer-Ja mische ich 22061064d ff.; Chef 👍 2058 Planer bis drei, 2059 Übergaben ins Archiv (wartet auf 2042); 1387/1642 startbar. Disponent neu …79sDHH.
