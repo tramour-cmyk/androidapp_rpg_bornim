@@ -12,8 +12,6 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | 2042 | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe, list_sessions, vorgang.py offen, Nachrichten), Ergebnis mit Vorschlag an den Chef (Chef 21:50 an Alter Ego, nur über Alter Ego 21:52) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, Eilt: Fassung 5 A (Chef 15:03), Teil (4) Lesestellen streichen* | *–* | *0* | *59,23 $* |
-| 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *32,48 $* |
-| 2052 | Nur die wichtigen Dinger: Kür aus der Sicht des Disponenten, solange Muss da ist (Chef 26.11., 12:33) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *0,82 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | M | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | M | Prüfer | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust … | 7 | B Abläufe | M | 1387 | 1110, 1128 | – | *wartet, 1129.4 ausgewertet, Punkt 6 gerissen* | *–* | *0* | *26,46 $* |
@@ -81,7 +79,6 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht … | 7 | B Abläufe | M | 1388 | – | – | *gebaut, Geprüft an: fcf9ab215* | *–* | *0* | *–* |
 | 1125 | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie vorher (8), LEERLAUF nie … | 7 | B Abläufe | M | – | 1100.1, 1100 | – | *gebaut, Geprüft an: 377a1a533* | *–* | *0* | *–* |
 | 1128.3 | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am Lauf bestätigen … | 7 | Q QM | M | – | 1128, 285 | – | *startbar* | *–* | *0* | *5,59 $* |
-| 1137 | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf Telegram, Stichtag beim … | 7 | B Abläufe | M | – | 1128.1, 1128.2, 1129.2 | – | *erledigt* | *–* | *0* | *62,09 $* |
 | 1148 | lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen Render-Lauf in der idle Sitzung läuft | 7 | B Abläufe | M | – | 882.1 | – | *gebaut, Geprüft an: 304660d8e* | *–* | *0* | *4,15 $* |
 | 1172 | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte | 7 | Q QM | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1173 | Regel Kleinkram ohne Chef auf main … | 7 | B Abläufe | M | – | 1128 | – | *gebaut, Geprüft an: 3eb8bf088* | *–* | *0* | *0,36 $* |
@@ -302,6 +299,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2036 | Rufnamen: Fachkräfte weiblich, alle anderen Rollen männlich; Sokrates und Alter Ego bleiben (Chef 25.11., 18:04) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *3,72 $* |
 | 2039 | Chefsache: nichts zum Angucken; Filme auf Telegram ohne Abstimmschaltfläche (Chef 25.11., 19:25) | 7 | B Werkzeuge | M | – | – | – | *startbar, Eilt (Chef 25.11., 19:37)* | *–* | *0* | *7,99 $* |
 | 2043 | titel_thema_test rot auf main (Fall Doris → Welt); liegt.py nennt noch Diogenes und Ford | 7 | B Steuerung | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 2054 | Werkzeugtests (1775) auf main 7× rot seit 10:18 (12:28, 12:47, 13:07; Lauf 45816794073); Ursache klären und beheben | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1625 | feste Startprompts je Rolle statt Startlektüre | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 25.11.* | *–* | *0* | *38,14 $* |
 | 1734 | Forschung und Entwicklung bei Sokrates, wöchentlich oder auf Bedarf: wie arbeiten andere … | 7 | B Steuerung | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1215,56 $* |
@@ -325,8 +323,8 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1742 | notiz.sh gibt beim Start Modell und Aufwand aus | 7 | B Werkzeuge | K | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *1,21 $* |
 | 1749 | Präfix je Katalog für die Wortschlüssel ja oder nein | 7 | B Werkzeuge | K | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *–* |
 | 1770 | Profil Release als Auftrag schreiben, sobald 622 (Godot-AAB) steht | 7 | B Abläufe | K | 622 | 1767, 622 | – | *ruht* | *–* | *0* | *–* |
-| 1802 | ARBEIT-TEAM-JERRY.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | 7 | B Abläufe | K | – | 1642, 700, 121, 165 | – | *startbar* | *–* | *0* | *–* |
 | 2018 | Wochentermin 23.11.: Wochenzählung (Routine, Auftrag docs/entwurf/1727-muster/routine-wochenzaehlung.md) (719) | 7 | Q QM | M | – | – | – | *ruht* | *–* | *0* | *–* |
+| 1802 | ARBEIT-TEAM-JERRY.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2) | 7 | B Abläufe | K | – | 1642, 700, 121, 165 | – | *startbar* | *–* | *0* | *–* |
 | 1870 | PreToolUse-Sperre Keystore, Zugangsdaten, Force-Push, Spielcode auf main | 7 | B Werkzeuge | K | Sokrates | 1739, 908 | – | *startbar* | *–* | *0* | *–* |
 | 1939 | ARBEIT-TEAM-JERRY.md: 1 „Zu“ zu Erledigtem (1776), beim Übergeben streichen | 7 | B Abläufe | K | – | 1425, 1642, 1776 | – | *startbar* | *–* | *0* | *–* |
 | 1940 | ARBEIT-PROJEKT.md: 2 „Zu“ zu Erledigtem (1624, 1605), beim Übergeben streichen | 7 | B Abläufe | K | – | 1425, 1642, 1624, 1605 | – | *startbar* | *–* | *0* | *–* |
@@ -338,6 +336,5 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2047 | Von Tagesbericht (26.11., 08:58): Spalte Frist der Vorgangsliste zählt in keinem Werkzeug für Vorrang oder Warnung (ueberblick.py nennt „Frist“ nicht); 1694 hat Frist 28.11., ist seit 25.11., 20:36 startbar mit Auftrag und steht nicht unter den nächsten 20 (Überblick 26.11., 08:46), Figur nimmt zuerst 1785 ohne Frist | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2050 | commit-pruefung.py findet Kennungen nur hinter „Nachricht“: Eintrag mit „Telegram 4605“ (Z. 422) entgeht der Prüfung (kennungen_tg Z. 94–96; Hinweis aus 1301-Ü4, Sokrates 10:35) | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2051 | Haken-Texte (startsperre-haken.py nacht(), neustart-haken.py Z. 8) richten sich noch an „Ford“ statt Disponent (Hinweis aus 1643-Ü4) | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 2053 | Zeno-Hinweis 2052: startbar.kuer_ruht prüft weder Laufbremse, Nachtdeckel noch --ohne; Zahlen 32 (startbar.py) gegen 9 (lauf.py) | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 2054 | Werkzeugtests (1775) auf main 7× rot seit 10:18 (12:28, 12:47, 13:07; Lauf 45816794073); Ursache klären und beheben | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
