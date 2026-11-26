@@ -14,13 +14,7 @@
  "groesse:docs/ARBEIT-BETRIEB.md": {
   "besitzer": "Disponent",
   "seit": "2026-11-26T07:06+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 42663 Bytes (Grenze 30000), Erledigtes streichen"
- },
- "regel:ARBEIT-TAGESBERICHT.md:Tagesbericht N Stunden alt (höchstens N ": {
-  "besitzer": "Arbeitsplaner",
-  "seit": "2026-11-25T12:20+01:00",
-  "text": "ARBEIT-TAGESBERICHT.md: Tagesbericht 48 Stunden alt (höchstens 26, 341 Z1, 448): Perikles setzt ihn neu",
-  "vorgang": "2038"
+  "text": "docs/ARBEIT-BETRIEB.md hat 42948 Bytes (Grenze 30000), Erledigtes streichen"
  },
  "regel:ARBEIT-TEAM-JERRY.md:Übergabe über N Zeichen (nur Getanes und": {
   "besitzer": "Arbeitsplaner",
