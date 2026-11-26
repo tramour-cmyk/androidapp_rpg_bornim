@@ -14,10 +14,11 @@ Geprüft an: Zweig `claude/figur-2031-kutte-haut`, Commit 389d1958c, Prüfer ja 
 **Begründung:** Im Bild ist beim Menschen (Mann, Frau) kaum ein Unterschied zu sehen, in der Handyansicht gar keiner. Bau und Speicher lohnen sich für fast Unsichtbares nicht. Dein Wunsch nach Vielfalt (25.11., 17:07: „wir wollen unsere Helden individuell gestalten“) wird eher von Kopfteilen, Kleidung und Hautton getragen.
 
 **Sachverhalt:**
-- Bild `bilder/2031-haeute.webp`: vier Reihen Gesichter (Mensch Mann, Mensch Frau, Orkblütiger Mann, Orkblütige Frau), je Reihe links die heutige Haut, rechts drei neue. Ganzbild mit Handyansicht 540×1170 und Ganzfigur: Telegram 26.11. als Datei.
+- Bild `bilder/2031-haeute.webp`: vier Reihen Gesichter (Mensch Mann, Mensch Frau, Orkblütiger Mann, Orkblütige Frau), Spalte „heute“ und drei neue. Ganzbild mit Handyansicht 540×1170 und Ganzfigur: Telegram 26.11. als Datei.
 - Mann: „jartur69 mittleres Alter“, „jartur69 hohes Alter“, „rehman Wikinger“ (mit Tätowierung an den Schläfen, im Bild nicht zu erkennen). Frau: „ghosts jung“, „ghosts mittel“, „ghosts älter“. Lizenz CC0 (frei, auch kommerziell) auf Seite und in der Paketdatei, eingetragen in `LISTE-QUELLEN.md`.
 - Prüfung des Bauwerkzeugs: 60 Fälle, 0 falsch; Helligkeit am Gesicht höchstens 10 % unter heute, keine roten Flecken.
 - Selbst angesehen (Sokrates 10:01) und von einem frischen Leser gegengelesen (10:02): Orkblütiger mit neuer Haut sichtbar dunkler und stumpfer grün; Mensch Mann höchstens etwas röter; Mensch Frau fast gleich; Handyansicht und Ganzfigur ohne Unterschied.
+- Die orange-gelben Flächen an den Schultern sind in allen Spalten gleich, auch bei der heutigen Haut (Kleidung des Wachsoldaten in der Nahansicht, nicht Teil dieser Frage; als Fund an Figur gemeldet).
 
 **Auswertung:**
 - **A:** alle sechs einbauen, wählbar in der Erschaffung oder zufällig für Nichtspielerfiguren; Kosten schätzt der Arbeitsplaner (Grenze 50 $ ohne Frage an dich).
