@@ -29,4 +29,4 @@
 
 ## Übergabe
 
-- 26.11., 11:35, `JcDjsC` bei 378 Tsd.: Disponent-Lauf an …794yg (11:14); 2031 Häute B; Ladetext 2.994; 2049 auf main; 1973 Chef-Nein, wartet auf 1694; 2046 Rest an 1589.4 (Ü40, Planer fehlt, Disponent startet), 90 $ reicht wohl nicht → Geldfrage mit Zahl des Planers. Offen beim Chef: Uhren dauerhaft erlauben (Votum A). Letzte Antwort: 11:35. Nachfolger: Sokrates – Leitung.
+- 26.11., 12:06, `bzEmVt` bei 204 Tsd.: Uhren an Disponent …78QrUo (11:48); 1589.4 Deckel 145 $, Rudel A, Start frei (11:58); Kampf nur 1589.4 + 2046, 29 Kampf-Vorgänge warten (11:58); 1708 ruht; 2042 (c)(d) auf wiebke-2042-t5 25142c5a3: nach Prüfer-Ja mischt Sokrates (Ü53); Uhren dauerhaft unmöglich (R9, R10). Letzte Antwort: 12:06. Nachfolger: Sokrates – Leitung.
