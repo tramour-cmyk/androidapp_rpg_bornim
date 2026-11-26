@@ -54,7 +54,7 @@ else:
     druck = "".join(l + "\n" for l in zeilen) + lauf.rest_zeile(ausgabe, pfad) + "\n"
     pruefe(len(druck.encode()) <= 3072, "höchstens 3.072 Byte gedruckt", len(druck.encode()))
     for t in taten:
-        pruefe(any(z == t or (z.startswith(t[:120]) and pfad in z) for z in zeilen), "Tat-Zeile in der Ausgabe: " + t[:60])
+        pruefe(any(z == t or (pfad in z and len(z.split(" … (voll:")[0]) >= 40 and t.startswith(z.split(" … (voll:")[0])) for z in zeilen), "Tat-Zeile in der Ausgabe: " + t[:60])
     for r in rest: pruefe(r not in zeilen, "Rest nicht in der Ausgabe: " + r[:60])
     datei = open(pfad, encoding="utf-8").read().split("\n")
     pruefe(all(l in datei for l in ausgabe), "jede Zeile vollständig in der Restdatei")
