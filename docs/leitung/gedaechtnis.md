@@ -2,7 +2,7 @@
 
 ## Geltende Lehren
 
-- Nachsehen statt behaupten: vor „steht nirgends, läuft, getestet, fertig“ Quelle, Code, Spiel, letzte Antwort der Sitzung, Archiv, Git; Stand mit Datum; „startbar“ nie nach Klasse allein, Stand prüfen (1423a, 513, Wache 24.11.).
+- Nachsehen statt behaupten: vor „steht nirgends, läuft, fertig“ Quelle, Code, Archiv, Git; Stand mit Datum; „startbar“ nie nach Klasse allein, Stand prüfen (1423a, 513, Wache 24.11.).
 - Fremdes (Helfer, Rat, Werkzeugausgabe) an der Quelle prüfen, Ungeprüftes kennzeichnen; Vorrang nur aus dem Archiv (431h, 1727 3.3).
 - Chefwort wörtlich gegen jede Frage lesen; im Zweifel „teilweise“; Bedingungssatz erst auf „umsetzen“; Stand im selben Commit (1727j, 1566).
 - Vorlage: Vorgang und Chefsache nach MUSTER, vorher Prüfung Alter Ego bis nichts Neues, Prompts an festen echten Fällen, Votum mit Gegenargument, Telegram mit Verweis; nie nur Chat (24.11., 08:00).
@@ -24,10 +24,9 @@
 
 - Uhren nur auf Chefsatz im Chat der Sitzung (R9, R10).
 - Nachfolger startet Alter Ego (Wurzel …78iGVJ): bei 250 Tsd. Startfelder an ihn (13:40).
-
-- Laufsperre bis Sa 28.11., 20:00, dann 2043; 2042 Eilt Fassung 5, Deckel 15 $; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
+- Laufsperre bis Sa 28.11., 20:00, dann 2043; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
 - Chat eine Zeile, Inhalt auf Telegram; Starttexte als Codeblock.
 
 ## Übergabe
 
-- 26.11., 16:50, `76DucA` bei 272 Tsd.: 2042 F5 A auf main (7cb7c451c6, aufgeräumt 2d0d10e09b); offen nur rufname.rolle-Fix Emil `claude/emil-2042-rolle` e46024db4c beim Prüfer → nach Ja mischen, dann `vorgang.py fertig 2042`; 2059 wartet auf 2042. 2055 erledigt, 2058 startbar. 1589.4 Wolfsdrehung: Benno echtes Drehen oder schnell wie vorher, Film nur bei Animation (Chef 16:30/16:31). 1387/1642 startbar, 1172 ruht. Danach zuerst nächsten Muss-Spielvorgang startbar machen (Alter Ego 16:49). Letzte Antwort: 16:46. Nachfolger: Sokrates – Leitung.
+- 26.11., 16:50, `76DucA`: 2042 F5 A auf main (7cb7c451c6); offen nur rufname.rolle-Fix Emil `claude/emil-2042-rolle` e46024db4c beim Prüfer → nach Ja mischen, dann `vorgang.py fertig 2042`. 1589.4 Wolfsdrehung: Benno: echtes Drehen, sonst schnell wie vorher (Chef 16:30). Danach zuerst nächsten Muss-Spielvorgang startbar machen (Alter Ego 16:49). Letzte Antwort: 16:46. Nachfolger: Sokrates – Leitung.
