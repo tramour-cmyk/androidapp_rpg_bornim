@@ -11,7 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 2042 | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe, list_sessions, vorgang.py offen, Nachrichten), Ergebnis mit Vorschlag an den Chef (Chef 21:50 an Alter Ego, nur über Alter Ego 21:52) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, Chefwort 26.11., 16:32* | *–* | *0* | *62,37 $* |
+| 2042 | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe, list_sessions, vorgang.py offen, Nachrichten), Ergebnis mit Vorschlag an den Chef (Chef 21:50 an Alter Ego, nur über Alter Ego 21:52) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *62,37 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | M | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | M | Prüfer | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust … | 7 | B Abläufe | M | 1387 | 1110, 1128 | – | *wartet, 1129.4 ausgewertet, Punkt 6 gerissen* | *–* | *0* | *26,46 $* |
@@ -342,4 +342,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 2055 | Große Vorgänge sollen aufgeteilt werden, wenn es sinnvoll machbar ist (Chef 26.11., 16:05): Satz für Arbeitsplaner, Wortlaut legt Sokrates vor | 7 | B Steuerung | M | – | – | – | *erledigt* | *–* | *0* | *–* |
 | 2058 | Arbeitsplaner, der noch läuft, nimmt weitere Aufträge, bis zu drei, dann archivieren; 2 Planer zugleich und 200 Tsd. bleiben (Chef 👍 26.11., 16:05 auf Votum A 16:00) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
-| 2059 | Erledigte Übergaben ganz ins Archiv, in der Datei nur offene; nächste Kennung aus Datei und Archiv (Chef 👍 26.11., 16:17 auf Votum A 16:15) | 7 | B Werkzeuge | M | 2042 | – | – | *startbar* | *–* | *0* | *–* |
+| 2059 | Erledigte Übergaben ganz ins Archiv, in der Datei nur offene; nächste Kennung aus Datei und Archiv (Chef 👍 26.11., 16:17 auf Votum A 16:15) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
