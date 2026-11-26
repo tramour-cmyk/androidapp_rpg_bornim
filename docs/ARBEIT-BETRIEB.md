@@ -209,3 +209,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:00 26.11.: Startsperre 12:00 Start Kampf (lauf.py, Kampf 1589.4 Fenja)
 - 12:00 26.11.: Startsperre 12:00 Start Figur, Arbeitsplaner (lauf.py, Figur 2029 Ida, Arbeitsplaner 1955 Jana)
 - 12:01 26.11.: Startsperre 12:01 Start Arbeitsplaner (lauf.py, Arbeitsplaner 1955 Ida)
+- 12:04 26.11.: Startsperre 12:04 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2041 Ingo)
