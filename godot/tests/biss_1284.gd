@@ -107,7 +107,6 @@ func _meldung(kf, e: Dictionary, n: int, kampf: String) -> void:
 		if lauf.has(actor):
 			_ende(actor, kampf)
 		lauf[actor] = {"anims": [], "ziel": "", "nah": INF, "seit": n, "ausgang": "?", "text": txt}
-		kf.figures[actor].biss_verdeckt = false
 	elif lauf.has(actor) and lauf[actor]["ausgang"] == "?":
 		lauf[actor]["ausgang"] = ausgang if roll != null else "Treffer"
 		lauf[actor]["text"] = txt
@@ -125,7 +124,8 @@ func _bild(kf, n: int) -> void:
 			l.append(a)
 		# Lücke der Zähne (Kopf, Kiefer) zu Körper oder Schild jedes Helden, solange sie beißt
 		if a == "Biss" or a == "Sprungbiss" or a == "Bisskette":
-			lauf[id]["kein_platz"] = f.biss_verdeckt
+			# 2046: Figur.biss_verdeckt (Platz nach dem Bild) ist mit 1589.4 entfallen (c95da5943; DESIGN-GEGNER.md 11.3 „alte Regeln im
+			# Bild raus“); der Zugriff brach diese Schleife je Bild ab (SCRIPT ERROR, Lücke „inf“, jeder Biss FEHLER). Verdeckt bleibt Auskunft (1284b D)
 			for z in kf.figures.values():
 				if z.fighter.monster == null and z.visible and not z.down:
 					var lu: Array = _luecke(f, z)
