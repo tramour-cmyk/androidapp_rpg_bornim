@@ -221,3 +221,28 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:47 26.11.: Startsperre 12:47 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2052 Ute)
 - 12:49 26.11.: Startsperre 12:49 Start Werkzeug (lauf.py, Werkzeug 2052 Vera)
 - 12:53 26.11.: Startsperre 12:53 Start Alter Ego (lauf.py)
+- 13:04 26.11.: Startsperre 13:04 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 1955 Ida, Arbeitsplaner 1933 Jana)
+
+- 13:04 26.11.: Marke Nachhalten 26.11. (lauf.py)
+
+- 13:04 26.11.: Marke Rückmeldung 1589.4 26.11. 11:58 (lauf.py)
+
+- 13:04 26.11.: Marke Abgleich ganz 26.11. (lauf.py)
+
+- 13:04 26.11.: Marke Archiv session_01Hmoj78QrUofiKAMBHCsoHr (lauf.py)
+
+- 13:04 26.11.: Marke Archiv session_01Hmoj794yg24QrPirJBEvWk (lauf.py)
+
+- 13:04 26.11.: Marke Archiv session_01Hmoj769A7bALAv5zhX8QGn (lauf.py)
+
+- 13:04 26.11.: Marke Archiv session_01Hmoj76vi2YTLkFcScnVEXs (lauf.py)
+
+- 13:04 26.11.: Marke Archiv session_01Hmoj79QfbKBiT2mFPL7Hsy (lauf.py)
+
+- 13:04 26.11.: Marke Archiv session_01Hmoj79bzEmVtqj5r9YcwJB (lauf.py)
+
+- 13:04 26.11.: Marke Archiv session_01Hmoj77eJacjF9siMBTzc9s (lauf.py)
+
+- 13:04 26.11.: Marke Start-fehlt Alter 26.11.-12:53 (lauf.py)
+
+- 13:04 26.11.: Marke Start-fehlt Arbeitsplaner 26.11.-12:47 (lauf.py)
