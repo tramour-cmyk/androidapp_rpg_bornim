@@ -10,9 +10,13 @@
 #   <stueck>: haar | bart | helm | helm_b (STUECKE unten; helm_b: Helm mit Nackenschirm, NACKEN); <paketordner>: Ordner mit hair01/, bodyparts05/, hats02/ (ausgepackte *_cc0.zip von
 #   https://static.makehumancommunity.org/assets/assetpacks/<paket>.html); <base.obj>: makehuman/data/3dobjs/base.obj (CC0, Repo
 #   makehumancommunity/makehuman)
+# 2029 Bildherkunft (Auftrag 26.11., 08:59): das Helmbild casco.jpg des Pakets traegt die Marke einer Tapetenseite
+# (docs/entwurf/2029-bildherkunft.md), Herkunft unbelegt; darum malt der Helm sein Bild selbst (eigen_bild: Eisengrau aus den Formen
+# des Netzes, Rand und Nasenschutz dunkler, Rauschen aus eigenem Code). HELMBILD=paket stellt den alten Stand nach (nur zum Vergleich,
+# nie ins Spiel).
 import sys, os, glob
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 import bpy
 
 STUECK, PAKETE, BASE, AUS = sys.argv[1:5]
@@ -24,6 +28,13 @@ STUECKE = {
 }
 STUECKE['helm_b'] = ('Helm_Templer_B',) + STUECKE['helm'][1:]
 DREIECKE, BILD = 800, 1024
+EIGEN = os.environ.get('HELMBILD', 'eigen') != 'paket'
+# Eigenes Helmbild: Groesse wie das alte (casco.jpg 1600x1100 auf 1024 verkleinert), Grundgrau, Rand (Kante des offenen Netzes,
+# Band in Paketeinheiten, 1 Einheit = 1 dm: bis „kern“ ganz dunkel, bis „band“ gleitend; im Bild liegen die Ringe am Rand dicht,
+# ein schmaleres Band verschwindet dort). „schirm“: Streifen links, in dem der Nackenschirm B liegt (FREI); sein unterer Rand liegt
+# bei FREI + Fensterbreite (298 Mann, 321 Frau), dort ebenso dunkel wie der Rand des Helms (x von, ganz dunkel ab, bis)) und Nasenschutz (vorn in der Mitte unter der Stirn) dunkler
+HELM_BILD = dict(b=1024, h=704, grau=0.34, rand=0.62, kern=0.08, band=0.3, nase=0.68, rauschen=0.05, korn=0.025,
+                 schirm=(245, 285, 330))
 # Unser Kopf in der Ruhelage der Bezugsfigur (Mensch Wachsoldat, Haut RegularMale / Female_Regular und Eyes, gemessen 25.11. am
 # Kaufcache figur 5b0a834e4 mit denselben Regeln wie kopf_grundnetz): Scheitel, Augenmitte, Kinn, halbe Breite, Hinterkopf, Nasenspitze,
 # Stirnlinie (Oberkante der Brauen)
@@ -116,7 +127,7 @@ def kopf_grundnetz(B, G):
 # eigene Bildkoordinaten, abgewickelt um die Kopfachse (Bogen x Hoehe) in derselben Bilddichte wie der uebrige Helm, aus der ruhigsten
 # Stelle des Helmbilds (Fenster in Schirmgroesse, Helligkeit nahe dem Mittel des Helms, kleinste Streuung); sonst streckt der Schirm das
 # schmale Randband des Bilds ueber den ganzen Nacken
-def schirm_uv(me, X0, X, k, im):
+def schirm_uv(me, X0, X, k, im, frei=None):
     uv = me.uv_layers.active.data
     zug = np.linalg.norm(X - X0, axis=1) > 0.001
     L = np.asarray(im.convert('L')).astype(float) / 255
@@ -149,7 +160,12 @@ def schirm_uv(me, X0, X, k, im):
     for p in sch:
         for li, i in zip(p.loop_indices, p.vertices):
             q = ab(i) - lo
-            uv[li].uv = ((x0 + q[0]) / B, 1 - (y0 + gh - q[1]) / H)
+            if frei is None: uv[li].uv = ((x0 + q[0]) / B, 1 - (y0 + gh - q[1]) / H)
+            # eigenes Bild: das Netz des Helms liegt im Bild mitten ueber der Breite des Fensters (Nasenschutz, Rand dunkel); das Fenster
+            # liegt darum quer im freien Streifen links (Bogen nach unten, Hoehe nach rechts, gleiche Bilddichte; Bild wiederholt sich oben
+            # und unten wie beim Helm selbst)
+            else: uv[li].uv = ((frei + gh - q[1]) / B, 1 - q[0] / H)
+    if frei is not None: x0, y0, gw, gh = frei, 0, gh, gw
     n0 = np.array([np.cross(X0[p.vertices[1]] - X0[p.vertices[0]], X0[p.vertices[2]] - X0[p.vertices[0]]) for p in me.polygons])
     n1 = np.array([np.cross(X[p.vertices[1]] - X[p.vertices[0]], X[p.vertices[2]] - X[p.vertices[0]]) for p in me.polygons])
     print('KOPFTEIL Schirm: %d Dreiecke, %d Ecken gezogen, Bilddichte %.0f px/m, Fenster %dx%d bei %d,%d (Mittel %.3f, Helm %.3f), umgeklappt %d' % (
@@ -176,14 +192,70 @@ print('KOPFTEIL %s %s: Grundnetz Kopf %s' % (STUECK, kennung, {x: round(float(y)
 
 # Bild: hoechstens 1024 px. Haar, Bart: Grau mit Mittel 0,545 wie haar_bild der Haare; Helligkeit mit Gamma 0,4 gestaucht und halb
 # gespannt wie zopf_mh.py (431); Alpha bleibt (Straehnen ausgeschnitten, glTF MASK, toon „schnitt“). Helm: eigenes Bild, nur verkleinert
-a = np.asarray(Image.open(os.path.join(ordner, bildn)).convert('RGBA')).astype(float) / 255
+def eigen_bild(V, VT, F, q):
+    # Grau je Ecke aus der Form: Abstand zur Kante des offenen Netzes (Rand) und Lage vorn in der Mitte unter der Stirn (Nasenschutz);
+    # in Bildkoordinaten gemalt (Dreiecke gleitend zwischen den Ecken), Bild wiederholt sich oben und unten (Bildkoordinaten v des
+    # Netzes -0,17 bis 1,10); ausserhalb des Netzes Grundgrau. Darueber Rauschen aus festem Startwert, matt, ohne Glanzflecken
+    from collections import Counter
+    kanten = Counter()
+    for f in F:
+        for (i, _), (j, _) in zip(f, f[1:] + f[:1]): kanten[(min(i, j), max(i, j))] += 1
+    rand = np.array(sorted({i for e, c in kanten.items() if c == 1 for i in e}))
+    d = np.sqrt(((V[:, None, :] - V[None, rand, :]) ** 2).sum(2)).min(1)
+    t = np.clip((d - q['kern']) / (q['band'] - q['kern']), 0, 1)
+    f = q['rand'] + (1 - q['rand']) * t * t * (3 - 2 * t)
+    vorn, oben = V[:, 2].max(), V[:, 1].max()
+    s = np.clip((V[:, 2] - (vorn - 0.5)) / 0.25, 0, 1) * np.clip((0.28 - np.abs(V[:, 0])) / 0.1, 0, 1) * np.clip((oben - 0.9 - V[:, 1]) / 0.2, 0, 1)
+    f = np.minimum(f, 1 - (1 - q['nase']) * s)
+    W, H = q['b'], q['h']
+    # Innen- und Aussenhaut des Helms teilen sich das Bild: je Bildpunkt gilt das dunkelste Dreieck (sonst hellt die Innenhaut den Rand auf)
+    fak, zahl = np.ones((H, W)), np.zeros((H, W))
+    for fc in F:
+        for k in range(1, len(fc) - 1):
+            tri = [fc[0], fc[k], fc[k + 1]]
+            if min(ti for _, ti in tri) < 0: continue
+            p = np.array([[VT[ti][0] * W, (1 - VT[ti][1]) * H] for _, ti in tri])
+            g = f[[i for i, _ in tri]]
+            for dv in (-H, 0, H):
+                pp = p + [0, dv]
+                x0, y0 = np.floor(pp.min(0)).astype(int); x1, y1 = np.ceil(pp.max(0)).astype(int)
+                x0, y0, x1, y1 = max(x0, 0), max(y0, 0), min(x1, W - 1), min(y1, H - 1)
+                if x1 < x0 or y1 < y0: continue
+                yy, xx = np.mgrid[y0:y1 + 1, x0:x1 + 1] + 0.5
+                m = np.array([[pp[1, 0] - pp[0, 0], pp[2, 0] - pp[0, 0]], [pp[1, 1] - pp[0, 1], pp[2, 1] - pp[0, 1]]])
+                if abs(np.linalg.det(m)) < 1e-9: continue
+                l1, l2 = np.linalg.solve(m, np.stack([xx.ravel() - pp[0, 0], yy.ravel() - pp[0, 1]]))
+                drin = (l1 >= -0.02) & (l2 >= -0.02) & (l1 + l2 <= 1.04)
+                w = (1 - l1 - l2) * g[0] + l1 * g[1] + l2 * g[2]
+                ys, xs = (yy.ravel()[drin] - 0.5).astype(int), (xx.ravel()[drin] - 0.5).astype(int)
+                np.minimum.at(fak, (ys, xs), w[drin]); np.add.at(zahl, (ys, xs), 1)
+    a0, a1, a2 = q['schirm']
+    x = np.arange(W)
+    t = np.clip((x - a0) / (a1 - a0), 0, 1)
+    sf = np.where((x >= a0) & (x <= a2), 1 - (1 - q['rand']) * t * t * (3 - 2 * t), 1.0)
+    fak = np.minimum(fak, sf[None, :])
+    fak = np.asarray(Image.fromarray((fak * 255).astype(np.uint8)).filter(ImageFilter.GaussianBlur(2))).astype(float) / 255
+    rng = np.random.default_rng(2029)
+    grob = np.asarray(Image.fromarray((rng.random((H // 32 + 1, W // 32 + 1)) * 255).astype(np.uint8)).resize((W, H), Image.BICUBIC)).astype(float) / 255
+    korn = np.asarray(Image.fromarray((rng.random((H // 2, W // 2)) * 255).astype(np.uint8)).resize((W, H), Image.BILINEAR)).astype(float) / 255
+    g = q['grau'] * fak * (1 + q['rauschen'] * (2 * grob - 1) + q['korn'] * (2 * korn - 1))
+    # Eisen kalt: Blau eine Spur ueber Rot
+    a = np.dstack([g * 0.97, g, g * 1.04, np.ones_like(g)])
+    print('KOPFTEIL eigenes Bild %dx%d: Randecken %d, Nasenschutz %d Ecken, Mittel %.3f, Netz bedeckt %.0f %%' % (
+        W, H, len(rand), int((s > 0.5).sum()), g.mean(), 100 * (zahl > 0).mean()))
+    return np.clip(a, 0, 1)
+
+eigen = EIGEN and not grau
+FREI = 40   # eigenes Bild: linker Rand des freien Streifens fuer den Schirm (Netz des Helms beginnt bei 365 px)
+if eigen: a = eigen_bild(V, VT, F, HELM_BILD)
+else: a = np.asarray(Image.open(os.path.join(ordner, bildn)).convert('RGBA')).astype(float) / 255
 if grau:
     deck = a[..., 3] > 0.5
     t = (a[..., :3].mean(2) + 0.004) ** 0.4
     t /= t[deck].mean()
     g = np.clip(0.545 * (0.5 + 0.5 * t), 0, 1)
     a = np.dstack([g, g, g, a[..., 3]])
-else:
+elif not eigen:
     # Helm: Eisengrau des Pakets, Hell und Dunkel halb gespannt (Helligkeit = Mittel/2 + eigene/2, Farbton bleibt): Kratzer und
     # Schattenstellen des Bildes gaeben sonst Flecken (Test kopfteil_2029 wie zopf_431: 15 bis 18 % Dreiecke ausser 0,4 bis 1,6 des Mittels)
     l = a[..., :3].mean(2, keepdims=True)
@@ -245,7 +317,7 @@ for gs, k in KOPF.items():
         X0 = np.array([(v.co.x, v.co.z, -v.co.y) for v in me.vertices])
         X = nackenschirm(X0, k, NACKEN[STUECK])
         for v, (x, y, z) in zip(me.vertices, X): v.co = (x, -z, y)
-        schirm_uv(me, X0, X, k, im)
+        schirm_uv(me, X0, X, k, im, FREI if EIGEN else None)
     print('KOPFTEIL %s: Dreiecke %d -> %d, Bild %dx%d, Hoehe %.3f..%.3f m, Breite %.3f m, Tiefe %.3f..%.3f m' % (
         name, vor, nach, im.size[0], im.size[1], W[:, 1].min(), W[:, 1].max(), np.ptp(W[:, 0]), W[:, 2].min(), W[:, 2].max()))
     assert nach <= DREIECKE
