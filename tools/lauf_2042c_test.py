@@ -59,6 +59,8 @@ k = versuch(lauf.mit_kern, "START Story | opus | env | repo | main | Story – 2
 pruefe(isinstance(k, str) and "--startblock Story 2099" in k and "**Story**" not in k, "mit_kern kurz: %r" % k)
 r = subprocess.run([sys.executable, os.path.join(H, "lauf.py"), "--startblock", "--ohne-pull"], capture_output=True, text=True, timeout=60)
 pruefe(r.returncode != 0, "--startblock ohne Rolle: Exit 0")
+r = subprocess.run([sys.executable, os.path.join(H, "lauf.py"), "--startblock", "Gibtsnicht", "2042", "--ohne-pull"], capture_output=True, text=True, timeout=60)
+pruefe(r.returncode != 0 and "**" not in r.stdout, "--startblock mit unbekannter Rolle: Exit %s (Hinweis Gustav 12:17)" % r.returncode)
 
 print("LAUF2042C %d Fälle, %d FEHL" % (faelle, fehler))
 sys.exit(1 if fehler else 0)
