@@ -23,7 +23,7 @@
 ## Offene Fäden
 
 - Alter Ego `…78T7R5aMdgTuKTFyGw` (10:47); Disponent wechselt ~30 Min. (jetzt `…794yg24QrPirJBEvWk`).
-- Uhren: create_trigger nur auf Chefsatz im Chat.
+- Uhren: create_trigger nur auf Chefsatz im Chat; dauerhaft geht nicht (R9, R10; Chef-Ja 11:42 nicht umsetzbar).
 - Laufsperre bis Sa 28.11., 20:00, danach sofort 2043 (Deckel klein); 2042 zuerst (c)(d), Deckel 85 $; 1589.4 Deckel 90 $; 1708 ruht bis 1589.4 auf main.
 - Ergebnisse auch per Telegram (Chef 11:01); Starttexte als Codeblock (Chef 10:30).
 
