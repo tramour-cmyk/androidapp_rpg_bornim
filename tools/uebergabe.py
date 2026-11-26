@@ -266,6 +266,10 @@ def schlank_uebergaben(text, archiv, nr, von_fn=None):
         if not z["z"].strip().startswith("erledigt") or SCHLANK.match(z["was"].strip()): continue
         m = z["m"]; alt.append(m.group(0))
         text = text[:m.start("was")] + "von " + _von(z, nr, von_fn) + text[m.end("was"):]
+    for z in reversed(zeilen(text)):  # Sokrates 16:15 (2042 Fassung 5): Kennungen im Ergebnis kurz (…6 Zeichen wie „von …“)
+        if not z["z"].strip().startswith("erledigt") or "session_" not in z["z"]: continue
+        m = z["m"]; alt.append(m.group(0))
+        text = text[:m.start("z")] + re.sub(r"session_\w*?(\w{6})\b", r"…\1", z["z"]) + text[m.end("z"):]
     for r in reversed(alt):
         if r not in (archiv or ""): archiv = archiv_dazu(archiv, nr, "Übergaben", r)
     return text, archiv
@@ -296,6 +300,9 @@ def aufraeumen(text, archiv, nr, von_fn=None):
         return max(ix, key=lambda i: (rm._zeit(teile[i][0]) or (0, 0, 0, 0), i)) if ix else None
     bleibt = {i for i, (t, _) in enumerate(teile) if t in ("Chefworte", "Rückmeldungen", "Übergaben")}
     bleibt |= {x for x in (neueste("Auftrag ("), neueste("Stand")) if x is not None}
+    a_neu, s_neu = neueste("Auftrag ("), neueste("Stand")  # Sokrates 16:15 (2042 Fassung 5): Stand älter als der neueste Auftrag ist überholt
+    if a_neu is not None and s_neu is not None and (rm._zeit(teile[s_neu][0]) or (0, 0, 0, 0)) < (rm._zeit(teile[a_neu][0]) or (0, 0, 0, 0)):
+        bleibt.discard(s_neu)
     antworten = []
     aus, rein = [], []
     for i, (t, b) in enumerate(teile):
