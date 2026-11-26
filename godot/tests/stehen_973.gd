@@ -57,8 +57,9 @@ func _lauf() -> void:
 				if m.outcome != "ONGOING" and not kf.busy:
 					break
 				var boden: Vector3 = kf._ground(0, 0)
-				if str(kf.shown.get("actor", "")) != zug_wer:
-					zug_wer = str(kf.shown.get("actor", ""))
+				var am_zug := str(kf.shown.get("actor", "")) if kf.shown.get("actor") != null else ""
+				if am_zug != "" and am_zug != zug_wer:     # 2046 (Hinweis Wanda 12:06): ein kurz leerer actor beginnt keinen neuen Zug
+					zug_wer = am_zug
 					zug_nr += 1
 				for id in kf.figures:
 					var f = kf.figures[id]
