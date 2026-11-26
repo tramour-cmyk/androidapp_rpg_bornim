@@ -192,6 +192,17 @@ for neu_liste in (False, True):
 lauf_txt = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "lauf.py"), encoding="utf-8").read()
 soll("1796 lauf.py ordnet offene Zeilen nach buero_rang", "_ue.buero_rang(" in lauf_txt)
 
+# 2042 (e), Hinweis Fritz 10:36: Büro-Folge bleibt (Eilt zuerst), nicht gezeigte neue Zustände stehen in der Schlusszeile
+import importlib.util as _iu
+_sp = _iu.spec_from_file_location("ue_e", WZ); ue_e = _iu.module_from_spec(_sp); _sp.loader.exec_module(ue_e)
+_li = [({"k": "9-Ü%d" % i, "an": "X", "was": "w", "seit": "s"}, "9", "steckt fest (Frist)") for i in range(1, 5)] + [({"k": "9-Ü9", "an": "X", "was": "Eilt", "seit": "s"}, "9", "offen")]
+_li.insert(0, _li.pop())  # Eilt-Zeile vorn (buero_rang)
+import io, contextlib
+_b = io.StringIO()
+with contextlib.redirect_stdout(_b): ue_e.zeigen(_li, None, False)
+_z = _b.getvalue().strip().splitlines()
+soll("2042 (e): Eilt bleibt vorn, höchstens 5 Zeilen, verdeckter Zustand in der Schlusszeile",
+     len(_z) <= 5 and _z[0].startswith("9-Ü9") and "9-Ü4 steckt fest (Frist)" in _z[-1], _z)
 # 2042 (e): offen gibt höchstens 5 Zeilen aus, Rest als Zahl; --alle zeigt alle; annehmen/erledigt höchstens 5 Zeilen
 for i in range(7): lauf(A, "session_DISP", "22.11., 09:%02d" % i, "uebergabe", "9077", "Klang", "Ton %d prüfen" % i)
 rc, t = lauf(A, "session_DISP", "22.11., 09:30", "offen", "Klang")

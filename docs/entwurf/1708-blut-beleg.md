@@ -1,5 +1,7 @@
 # 1708 Blut am Treffpunkt: Beleg (Berit, 25.11.)
 
+[Bild von 26.11., 11:41](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/26-1141-1708-Tanja.png) (eingetragen von meldung.sh, Tanja)
+
 [Film von 26.11., 10:46](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261126-104630-1708/2026-11/26-1046-1708-Karla.mp4) (eingetragen von meldung.sh, Karla)
 
 [Bild von 26.11., 10:46](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/26-1046-1708-Karla.png) (eingetragen von meldung.sh, Karla)

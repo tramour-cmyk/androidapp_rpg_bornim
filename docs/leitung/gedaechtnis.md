@@ -16,17 +16,17 @@
 - Gegenlesen: erst die Art jeder Zeile, dann Inhalt; nur gegen gültige Texte prüfen (t299, 1933).
 - Keine Meldung oder Hinweis ohne Empfänger, der damit handelt; sonst streichen (Chef 24.11., 08:28).
 - Laufende Arbeit nie für eine neue Regel anhalten (1960).
-- Werkzeug erst nach drei belegten Fällen und Chef-Ja; jeden Handfix sofort `vorgang.py lehre roh`. Widerspruch im Vorgang: vorlegen, nicht bauen (Chef 24.11., 07:26/07:37).
+- Werkzeug erst nach drei belegten Fällen und Chef-Ja; jeden Handfix sofort `vorgang.py lehre roh`. Widerspruch im Vorgang: vorlegen, nicht bauen (Chef 24.11.).
 - Notizkopie nur über `tools/notiz.sh`; keine Team- oder Organisations-Einstellungen; vor Vorschlag zum Kaufrepo Archiv und Git nach Versuchen absuchen; Geschäftsmodell nie ins Repo ([Modell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj)).
 - Deckel je Vorgang 50 $: dort Halt, Frage; Schätzung = Ziel (Chef 25.11., 16:47).
 
 ## Offene Fäden
 
-- Alter Ego `session_01Hmoj78T7R5aMdgTuKTFyGw` vertritt außer Vorbehalt. Disponent `…78t65WUU5m8TGvdSCq` (09:53).
-- Uhren: create_trigger nur auf Chefsatz im Chat (Auto-Modus); Disponent-Lauf hängt an `…79xvp` (alt), Chef A/B offen.
-- Laufsperre bis Sa 28.11., 20:00; Eilt zuerst 2042-Ü35 schlank, dann 2049 Start der Leitung (Chef 09:54).
-- Notizen nur in ../bornim-main (notiz.sh), nie Arbeitszweig.
+- Alter Ego `…78T7R5aMdgTuKTFyGw` (10:47); Disponent wechselt ~30 Min. (jetzt `…794yg24QrPirJBEvWk`).
+- Uhren nur auf Chefsatz im Chat; dauerhaft unmöglich (R9, R10).
+- Laufsperre bis Sa 28.11., 20:00, danach sofort 2043 (Deckel klein); 2042 zuerst (c)(d), Deckel 85 $; 1589.4 Deckel 90 $; 1708 ruht bis 1589.4 auf main.
+- Ergebnisse auch per Telegram (11:01); Starttexte als Codeblock (10:30).
 
 ## Übergabe
 
-- 26.11., 10:04, `JcDjsC`: Uhren umgehängt (Testbuild B an 78t65); 2049 angelegt; 2042, 2034 „ruht“ aufgehoben (R87); 887 Weg b; 2029 Vorlage erst nach Helmbild; 2031 Häute Vorlage Votum B bei Dirk, dann Telegram. Offen: Ladetext A/B (Telegram 09:18), Disponent-Lauf A/B. Nachfolger: Sokrates – Leitung.
+- 26.11., 11:35, `JcDjsC` bei 378 Tsd.: Disponent-Lauf an …794yg (11:14); 2031 Häute B; Ladetext 2.994; 2049 auf main; 1973 Chef-Nein, wartet auf 1694; 2046 Rest an 1589.4 (Ü40, Planer fehlt, Disponent startet), 90 $ reicht wohl nicht → Geldfrage mit Zahl des Planers. Offen beim Chef: Uhren dauerhaft erlauben (Votum A). Letzte Antwort: 11:35. Nachfolger: Sokrates – Leitung.

@@ -78,7 +78,7 @@ KURZ_MAX = 400  # 2042 (1), Chef-Ja 26.11., 09:42: Rückmeldung höchstens 400 Z
 VOLL = re.compile(r" … \(voll: (archiv/[^)\s]+\.md)\)$")
 
 
-def archivpfad(nr): return "%s/archiv/%s.md" % (ue.ORDNER, nr)
+def archivpfad(nr): return ue.archivpfad(nr)
 
 
 def kuerzen(text, nr):
@@ -108,13 +108,23 @@ def voll(abschnitt):
         if not v: return m.group(0)
         kopf = m.group(0)[:m.start("text") - m.start(0)]  # „- **Zeit**, wer (`sid`):\n> “
         a = _archiv(v.group(1))
+        anfang = m.group("text")[:v.start()].rstrip(" …")
         i = a.find("\n" + kopf)
-        if i < 0: _ARCHIV.pop(v.group(1), None); return m.group(0)
-        z = a[i + 1:].split("\n")
-        n = 1
-        while n < len(z) and z[n].startswith("> "): n += 1
-        return "\n".join(z[:n])
+        while i >= 0:  # gleicher Kopf zweimal (Minute, Sitzung): der Block, dessen Text so beginnt
+            z = a[i + 1:].split("\n")
+            n = 1
+            while n < len(z) and z[n].startswith("> "): n += 1
+            if " ".join(" ".join(l[2:] for l in z[1:n]).split()).startswith(anfang): return "\n".join(z[:n])
+            i = a.find("\n" + kopf, i + 1)
+        _ARCHIV.pop(v.group(1), None)
+        return m.group(0)
     return BLOCK.sub(f, abschnitt or "")
+
+
+def _archiv_von(text):
+    """Archiv zur Vorgangsdatei TEXT (Nummer aus der Kopfzeile „# NR · …“), sonst ""."""
+    k = re.match(r"#\s*(\d+(?:\.\d+)?[a-z]?)\b", text or "")
+    return _archiv("archiv/%s.md" % k.group(1)) if k else ""
 
 
 def rueck(text):
@@ -161,7 +171,7 @@ def _zeit(s):
 def beleg_als_nein(text):
     """1926: „Beleg fehlt“ des Prüfers zählt je Auftrag (Rückmeldungen ab dem jüngsten Abschnitt „## Auftrag (TT.MM., HH:MM)“ davor);
     jedes dritte gilt als „nein“ und zählt so für Laufbremse und Obergrenze A. Zahl solcher „nein“ in der Datei."""
-    auftraege = sorted(t for t in (_zeit(m.group(0)) for m in re.finditer(r"(?m)^## Auftrag \([^)]*\)", text or "")) if t)
+    auftraege = sorted(t for t in (_zeit(m.group(0)) for m in re.finditer(r"(?m)^## Auftrag \([^)]*\)", (text or "") + "\n" + _archiv_von(text))) if t)  # 2042 (4): ältere im Archiv
     je = {}
     for m in BLOCK.finditer(rueck(text)):
         if "Beleg fehlt" not in worte(m.group("text")): continue
@@ -579,8 +589,7 @@ def eintragen(nr, text, wer, sid=""):
     def f2(alt):  # 2042 (1): Logik am vollen Text, Datei bekommt die Kurzform, das Archiv den vollen Block (ein Commit)
         t, e = f(alt[pfad])
         if kurz == block or block not in t: return {pfad: t}, e
-        a = alt[apfad] or "# %s · Archiv\n\nVoller Wortlaut, den die Vorgangsdatei kürzt (2042; Chef 26.11., 09:42).\n\n## Rückmeldungen\n" % nr
-        if block not in a: a = a.rstrip("\n") + "\n\n" + block
+        a = alt[apfad] if block in alt[apfad] else ue.archiv_dazu(alt[apfad], nr, "Rückmeldungen", block)
         return {pfad: t.replace(block, kurz, 1), apfad: a}, e
     return ue.atomar_dateien([pfad, apfad], f2, "Rückmeldung %s von %s (1763)" % (nr, wer or "unbekannt"))
 
@@ -628,7 +637,7 @@ def fest_an_sokrates(nr, kennung, an, grund):
     marke = "Übergabe %s an " % kennung
     was = ue._rein("steckt fest: Übergabe %s an %s zweimal ohne Ergebnis (%s; 1782, 1904); gelöst: `vorgang.py warte %s –`" % (kennung, an, grund, nr))
     def f(alt):
-        if any(z["an"] == SOKRATES and marke in z["was"] for z in ue.zeilen(alt[vp])): return {}, None
+        if marke in ue.zeilen_was(alt[vp], _archiv_von(alt[vp]), SOKRATES): return {}, None  # 2042 (2): auch schlanke erledigte Zeilen (Archiv)
         t = ue._mit_abschnitt(alt[vp], nr)
         ks = [int(z["k"].rsplit("Ü", 1)[1]) for z in ue.zeilen(t)]
         k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
