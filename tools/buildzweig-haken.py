@@ -132,6 +132,8 @@ def test():
     ok(ziel_bash("git push origin claude/build-496a", ".") == "claude/build-496a", "Buchstabe im Namen (1765)")
     ok(ziel_bash("git push origin HEAD:claude/build-497 && echo x", ".") == "claude/build-497", "Name ohne Anhang (1765)")
     ok(rolle("Du bist **Build-Macher**") == "Build-Macher", "Rolle Build-Macher (1765)")
+    ok(rolle("Dein Rufname: Marta (Rolle Technik; Titel, Besetzung, Meldung).") == "Technik", "Rolle Technik aus Startzeile (B301)")
+    ok(rolle("Dein Rufname: Benno (Rolle Kampf; Titel …). Technik-Fragen an …") is None, "Technik nur als Wort, keine Rolle (B301)")
     for b in ("for i in 1 2 3 4; do git push -u origin claude/build-399 && break; sleep 2; done",
               "if true; then git push origin claude/build-399; fi", "if ok; then :; else git push origin claude/build-399; fi",
               "until git push origin claude/build-399; do sleep 1; done", "while ! git push origin claude/build-399; do sleep 1; done",
