@@ -25,8 +25,8 @@
 - Alter Ego `…78T7R5aMdgTuKTFyGw` (10:47); Disponent wechselt ~30 Min. (jetzt `…794yg24QrPirJBEvWk`).
 - Uhren nur auf Chefsatz im Chat; dauerhaft unmöglich (R9, R10).
 - Laufsperre bis Sa 28.11., 20:00, danach sofort 2043 (Deckel klein); 2042 zuerst (c)(d), Deckel 85 $; 1589.4 Deckel 90 $; 1708 ruht bis 1589.4 auf main.
-- Ergebnisse auch per Telegram (11:01); Starttexte als Codeblock (10:30).
+- Chat eine Zeile, Inhalt auf Telegram (Chef 12:30); Starttexte als Codeblock (10:30).
 
 ## Übergabe
 
-- 26.11., 11:35, `JcDjsC` bei 378 Tsd.: Disponent-Lauf an …794yg (11:14); 2031 Häute B; Ladetext 2.994; 2049 auf main; 1973 Chef-Nein, wartet auf 1694; 2046 Rest an 1589.4 (Ü40, Planer fehlt, Disponent startet), 90 $ reicht wohl nicht → Geldfrage mit Zahl des Planers. Offen beim Chef: Uhren dauerhaft erlauben (Votum A). Letzte Antwort: 11:35. Nachfolger: Sokrates – Leitung.
+- 26.11., 12:38, `bzEmVt` bei 261 Tsd.: 1589.4 Fenja (145 $), 1694 Sabine; Kampf nur 1589.4; 2042 (c)(d) auf main; 2052 Weg A, Auftrag offen; Kern Leitung Chat kurz (12:30). Offen beim Chef: Uhren an Disponent …774iFT (Satz 12:34), Telegram 12:33 (1 Disponent startet Sokrates, 2 „Leitung klein“). Haken erkennt „Auftrag: Sokrates“ nicht (200 statt 400 Tsd.). Letzte Antwort: 12:38. Nachfolger: Sokrates – Leitung.

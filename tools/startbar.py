@@ -1258,6 +1258,19 @@ def startbares_muss():
         aus |= {(rolle, z[0]) for z in m}
     return aus
 
+def kuer_ruht():
+    """2052 (Chef 26.11., 12:33): Zahl der startbaren Muss- und Eilt-Zeilen über alle Besitzer ohne Disponent (Pause wie lauf.stand).
+    Über 0: Ausgaben an den Disponenten zeigen Kür nur als Zahl („Kür: n ruht“), --alle zeigt sie. Auftrag und Laufbremse prüft
+    erst lauf.py (lauf.muss_startbar)."""
+    nrs = set()
+    for datei, rolle in besitzer_reihe():
+        if rolle == "Disponent": continue
+        inhalt = lesen(datei) if datei else ""
+        m = [z for z in plan(rolle) if z[1] == "M" and not z[4]]
+        if pause(inhalt) and pause_frei(inhalt): m = [z for z in m if ist_frei(z[0], pause_frei(inhalt))]
+        nrs |= {z[0] for z in m}
+    return len(nrs)
+
 UEBERNAHME = {"Tom": "Jerry", "Jerry": "Tom"}  # Spielteams für Sammelbuild und „OHNE BUILD“ (317, 1129 A 2); Übernahme 1364 fällt (1871)
 BAUTEAMS = ("Tom", "Jerry", "Spike")  # 1328.2: Sperre 620.1 B und gemeinsamer Build für alle drei
 GERAET = re.compile(r"Test|Gerät|Build|APK", re.I)
@@ -1446,6 +1459,8 @@ def main():
     fehler = pruefen_liste()
     if not zeilen_liste():
         print("  UNLESBAR: %s ohne Tabelle (Kopf %s oder %s)" % (LISTE, KOPF, KOPF_NEU)); sys.exit(1)
+    ruht = 0 if alle or md else kuer_ruht()  # 2052
+    if ruht: print("  NUR MUSS: %d Muss/Eilt startbar, Kür ruht (2052; --alle zeigt sie)" % ruht)
     for datei, rolle in besitzer_reihe():
         inhalt = lesen(datei)
         zs = plan(rolle)
@@ -1486,7 +1501,9 @@ def main():
         def kurz(e):
             if not e: return "–"
             return "%s %s%s" % (e[0], re.sub(r"\*\*|`", "", e[2])[:70], (" ↑ Muss: %s wartet" % ", ".join(fremd_wartend()[e[0]])) if e[0] in fremd_wartend() else "")
-        if not p or frei: print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
+        if (not p or frei) and ruht:  # 2052: Kür nur als Zahl
+            print("  %s: Muss %s | Kür: %d ruht%s" % (rolle, kurz(erstes["M"]), sum(1 for z in zs if z[1] != "M" and not z[4]), warn))
+        elif not p or frei: print("  %s: Muss %s | Kür %s%s%s" % (rolle, kurz(erstes["M"]), kurz(erstes["K"]), (" | nach dem Meilenstein " + kurz(erstes["N"])) if erstes["N"] else "", warn))
         if stand:
             print("      offen %d, Muss %d, startbar %d, gesperrt %d" % (len(zs), sum(1 for z in zs if z[1] == "M"), sum(1 for z in zs if not z[4]), len(sperren)))
         if alle:

@@ -30,7 +30,9 @@ for rolle, nr in (("Prüfer", "1988"), ("Werkzeug", "1989"), ("Sokrates", "1989"
     pruefe("\n" not in l, "%s: echter Zeilenumbruch" % rolle)
     msg = f[6].replace("\\n", "\n")
     teile = lauf.leitung_block() if rolle == "Sokrates" else lauf.startblock(rolle, nr)[0]
-    pruefe(teile and all(("**%s**\n%s" % (n, t)) in msg for n, t in teile), "%s: Startblock nicht vollständig in der Nachricht" % rolle)
+    blk = lauf.blocktext(rolle, None if rolle == "Sokrates" else nr)  # 2042 (c): Block aus `lauf.py --startblock`, Nachricht trägt den Aufruf
+    pruefe(lauf.startblock_aufruf(rolle, None if rolle == "Sokrates" else nr) in msg, "%s: Aufruf --startblock fehlt" % rolle)
+    pruefe(teile and all(("**%s**\n%s" % (n, t)) in blk for n, t in teile), "%s: Startblock nicht vollständig in --startblock" % rolle)
     pruefe("Prüfe die Rückmeldung." in msg and "Rollendatei" not in msg, "%s: Nachricht fehlt oder alter Verweis: %s" % (rolle, msg[-200:]))
     pruefe("add_repo" in msg, "%s: Kaufrepo-Satz fehlt" % rolle)
     pruefe(haken.startblock_fehlt({"title": f[5], "prompt": msg}) is None, "%s: Haken weist die Zeile aus lauf.py --start ab" % rolle)
