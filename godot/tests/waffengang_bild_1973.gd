@@ -45,13 +45,18 @@ func _welt() -> void:
 	spiel.kamera.zoom = spiel.kamera.NAH
 	spiel.kamera.springe()
 	await _bilder(20)
-	h.geh_zu(h.global_position + Vector3(3.0, 0.0, -3.0))   # nach Nordosten: rechte Seite zur Kamera
+	# erstes erreichbares Ziel (geh_zu false: kein Weg, der Held bliebe stehen); Nordosten zuerst: rechte Seite zur Kamera
+	var ziel := ""
+	for d in [Vector3(3, 0, -3), Vector3(3, 0, 0), Vector3(0, 0, 3), Vector3(-3, 0, 0), Vector3(0, 0, -3)]:
+		if h.geh_zu(h.global_position + d): ziel = str(d); break
+	print("ZIEL1973 %s" % ziel)
 	await _bilder(int(OS.get_environment("BILD1973")) if OS.get_environment("BILD1973") != "" else 12)
 	spiel.kamera.springe()
 	await _bilder(1)
 	var ap := Gebiet.finde(h, "AnimationPlayer") as AnimationPlayer
+	# erst den Helden anhalten, dann die Bewegung: halt() ließe ihn im nächsten Bild auf „Stehen“ wechseln (Bild 11:13)
+	h.set_process(false); h.set_physics_process(false)
 	if ap: ap.pause()
-	h.halt()
 	await _bilder(2)
 	var sk := Gebiet.finde(h, "Skeleton3D") as Skeleton3D
 	var cam := root.get_camera_3d()
