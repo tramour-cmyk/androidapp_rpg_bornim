@@ -22,11 +22,12 @@
 
 ## Offene Fäden
 
-- Alter Ego `session_01Hmoj78T7R5aMdgTuKTFyGw` vertritt außer Vorbehalt. Disponent `…78t65WUU5m8TGvdSCq` (09:53).
-- Uhren: create_trigger nur auf Chefsatz im Chat (Auto-Modus); Disponent-Lauf hängt an `…79xvp` (alt), Chef A/B offen.
-- Laufsperre bis Sa 28.11., 20:00; Eilt zuerst 2042-Ü35 schlank, dann 2049 Start der Leitung (Chef 09:54).
-- Notizen nur in ../bornim-main (notiz.sh), nie Arbeitszweig.
+- Alter Ego `…78T7R5aMdgTuKTFyGw` (10:47); Disponent wechselt ~30 Min. (jetzt `…794yg24QrPirJBEvWk`).
+- Uhren: create_trigger nur auf Chefsatz im Chat; Disponent-Lauf tot an `…79xvp`, Chef: Umhängen oder Uhren erlauben (Votum).
+- Laufsperre bis Sa 28.11., 20:00; 2042 zuerst (c)(d), Deckel 85 $; 1589.4 Deckel 90 $; 1708 ruht bis 1589.4 auf main.
+- Ergebnisse auch per Telegram (Chef 11:01); Starttexte als Codeblock (Chef 10:30).
+- Notizen nur in ../bornim-main.
 
 ## Übergabe
 
-- 26.11., 10:04, `JcDjsC`: Uhren umgehängt (Testbuild B an 78t65); 2049 angelegt; 2042, 2034 „ruht“ aufgehoben (R87); 887 Weg b; 2029 Vorlage erst nach Helmbild; 2031 Häute Vorlage Votum B bei Dirk, dann Telegram. Offen: Ladetext A/B (Telegram 09:18), Disponent-Lauf A/B. Nachfolger: Sokrates – Leitung.
+- 26.11., 11:10, `JcDjsC`: 2049 auf main; 1785 gemischt; Chef-👍 2042/1589.4 eingetragen; 2031 Häute beim Chef (Votum B); 2029 Vorlage nach Helmbild. Offen beim Chef: Disponent-Lauf, Häute, Ladetext A/B. Nachfolger: Sokrates – Leitung.
