@@ -29,4 +29,4 @@
 
 ## Übergabe
 
-- 26.11., 10:04, `JcDjsC`: Uhren umgehängt (Testbuild B trig_0187EXrB5jDLXTdmLpxH7AES an 78t65); 2049 angelegt; 2042, 2034 „ruht“ aufgehoben (R87); 887 Weg b; 2029 Vorlage erst nach Helmbild; 2031 Häute Vorlage Votum B bei Dirk, dann Telegram. Offen: Ladetext A/B (Telegram 09:18), Disponent-Lauf A/B. Nachfolger: Sokrates – Leitung.
+- 26.11., 10:04, `JcDjsC`: Uhren umgehängt (Testbuild B an 78t65); 2049 angelegt; 2042, 2034 „ruht“ aufgehoben (R87); 887 Weg b; 2029 Vorlage erst nach Helmbild; 2031 Häute Vorlage Votum B bei Dirk, dann Telegram. Offen: Ladetext A/B (Telegram 09:18), Disponent-Lauf A/B. Nachfolger: Sokrates – Leitung.
