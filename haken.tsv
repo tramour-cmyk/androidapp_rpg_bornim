@@ -1447,3 +1447,4 @@
 2026-11-26 07:57:11	probelauf	725 (D72): Ziel `cd $1/godot` kann der Haken nicht auflösen; Figurenstand (513.1), Parse (464) und Zählung (621 A) liefen sonst im falschen Ordner und ließen durch. Ziel ausschreiben (`cd /home/user/…	claude/moritz-1589.2
 2026-11-26 08:05:19	startsperre	Startblock fehlt (1989, Chef 23.11., 09:11): die erste Nachricht trägt nicht den Startblock aus lauf.py (Kopfzeile „**<Profil>**“ und „Auftrag:“). Von Hand nur mit `python3 tools/lauf.py --start ROLLE	HEAD
 2026-11-26 08:47:59	commit-pruefung	docs/chefsache/ansehen/15894-wege-arena.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
+2026-11-26 08:55:20	startsperre	Startsperre fehlt (750 A): für Sokrates steht in den letzten 10 Minuten keine „Startsperre … Start Sokrates“ auf main (letzte 26.11., 01:03). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, p	claude/notstart-disponent-tiefe-0-xaxhkm
