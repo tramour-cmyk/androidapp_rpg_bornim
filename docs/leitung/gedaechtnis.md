@@ -22,6 +22,7 @@
 
 ## Offene Fäden
 
+- Uhren nur auf Chefsatz im Chat der Sitzung (Auto-Modus sperrt sonst; R9, R10).
 - Nachfolger startet Alter Ego (Wurzel …78iGVJ): bei 250 Tsd. Startfelder an ihn (13:40).
 
 - Laufsperre bis Sa 28.11., 20:00, danach sofort 2043 (Deckel klein); 2042 zuerst (c)(d), Deckel 85 $; 1589.4 Deckel 90 $; 1708 ruht bis 1589.4 auf main.
