@@ -19,13 +19,14 @@ def pruefe(ok, was):
 
 lauf.neue_liste()
 for rolle, nr in (("Prüfer", "1988"), ("Werkzeug", "1989"), ("Sokrates", "1989")):
-    zs = lauf.start_zeilen(rolle, nr, "Prüfe die Rückmeldung.", [])
+    zs = lauf.start_zeilen(rolle, nr, "Prüfe die Rückmeldung.", [], lebende=[] if rolle == "Sokrates" else None)  # 2049 (d): Leitung prüft den Doppelstart
     start = [z for z in zs if z.startswith("START ")]
     pruefe(len(start) == 1, "%s: genau eine START-Zeile: %s" % (rolle, zs))
     if not start: continue
     l = start[0]; f = l.split(" | ", 6)
     pruefe(f[0] == "START " + rolle and f[3] == lauf.REPO and f[4] == lauf.REVISION, "%s: Kopf (Rolle, Repo, main): %s" % (rolle, f[:5]))
-    pruefe(("– %s: Handstart" % nr) in f[5] or (" – in Arbeit – %s – Handstart" % nr) in f[5], "%s: Titel mit Nummer: %s" % (rolle, f[5]))
+    pruefe(f[5].startswith("Sokrates – Leitung (") if rolle == "Sokrates" else  # 2049 (b): Leitung mit festem Titel
+           ("– %s: Handstart" % nr) in f[5] or (" – in Arbeit – %s – Handstart" % nr) in f[5], "%s: Titel mit Nummer: %s" % (rolle, f[5]))
     pruefe("\n" not in l, "%s: echter Zeilenumbruch" % rolle)
     msg = f[6].replace("\\n", "\n")
     teile = lauf.leitung_block() if rolle == "Sokrates" else lauf.startblock(rolle, nr)[0]
