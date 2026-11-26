@@ -197,3 +197,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:52 26.11.: Startsperre 10:52 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2045 Marta)
 - 10:54 26.11.: Startsperre 10:54 Start Disponent (lauf.py, 2042)
 - 10:57 26.11.: Startsperre 10:57 Start Kampf, Figur (lauf.py, Kampf 2046 Tanja, Figur 1973 Ulla; Werkzeug 887 nicht gestartet: keine Spiel-/Eilt-Zeile unter Laufsperre)
+- 11:20 26.11.: Startsperre 11:20 Start Werkzeug (lauf.py, Werkzeug 2042 Wiebke)
