@@ -30,4 +30,4 @@
 
 ## Übergabe
 
-- 26.11., 16:20, `76DucA`: 2055 erledigt (Profil Arbeitsplaner gestrafft, 2.998 B); 2042 Emil: nach Prüfer-Ja mische ich 22061064d ff.; offen beim Chef: Telegram 16:15 erledigte Übergaben ganz ins Archiv, und 16:00 Planer bis drei Aufträge; 1387/1642 startbar. Disponent neu …79sDHH.
+- 26.11., 16:20, `76DucA`: 2055 erledigt (Profil Arbeitsplaner gestrafft, 2.998 B); 2042 Emil: nach Prüfer-Ja mische ich 22061064d ff.; Chef 👍 2058 Planer bis drei, 2059 Übergaben ins Archiv (wartet auf 2042); 1387/1642 startbar. Disponent neu …79sDHH.

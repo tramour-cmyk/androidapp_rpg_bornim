@@ -342,4 +342,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 2055 | Große Vorgänge sollen aufgeteilt werden, wenn es sinnvoll machbar ist (Chef 26.11., 16:05): Satz für Arbeitsplaner, Wortlaut legt Sokrates vor | 7 | B Steuerung | M | – | – | – | *erledigt* | *–* | *0* | *–* |
 | 2058 | Arbeitsplaner, der noch läuft, nimmt weitere Aufträge, bis zu drei, dann archivieren; 2 Planer zugleich und 200 Tsd. bleiben (Chef 👍 26.11., 16:05 auf Votum A 16:00) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
-| 2059 | Erledigte Übergaben ganz ins Archiv, in der Datei nur offene; nächste Kennung aus Datei und Archiv (Chef 👍 26.11., 16:17 auf Votum A 16:15) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 2059 | Erledigte Übergaben ganz ins Archiv, in der Datei nur offene; nächste Kennung aus Datei und Archiv (Chef 👍 26.11., 16:17 auf Votum A 16:15) | 7 | B Werkzeuge | M | 2042 | – | – | *startbar* | *–* | *0* | *–* |
