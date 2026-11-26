@@ -1,6 +1,6 @@
 # Kopiertexte Uhren (Sokrates, 23.11., 15:24; Chef 15:22)
 
-Uhren legt der Rechteprüfer nur an, wenn der Chef es in dem Chat schreibt, in dem angelegt wird (Proben 1–4, 23.11.). Zwei Wege; Text unverändert kopieren, `<…>` ersetzt die Leitung vorher.
+Uhren legt der Rechteprüfer nur an, wenn der Chef es in dem Chat schreibt, in dem angelegt wird (Proben 1–4, 23.11.). Zwei Wege; Text unverändert kopieren, `<…>` ersetzt die Leitung vorher. Jeder Kopier- oder Starttext an den Chef steht als Codeblock (Chef 26.11., 10:30: „Bitte als Codeblock zum Kopieren.“), in Chat und Telegram.
 
 ## A · Uhr fehlt, Sitzung läuft (in den Chat der Leitung)
 
