@@ -15,7 +15,7 @@ Sitzung session_01Hmoj77ne8ZmFY9GRkxsfKt (seit 26.11., 09:15). Sokrates session_
 
 **Form:** Jeder Vorschlag nennt „prüft: wer, wo, wann“. An den Chef nur, was er selbst entscheiden muss, auch per Telegram (meldung.sh); Rundenfunde nur an Sokrates (Chef 08:59).
 
-**Startprompt Nachfolger (Chef 24.11., 07:16: im Zweifel startet der Disponent):** Ablauf: bei 280 Tsd. Kopiertext per meldung.sh an den Chef; ohne Chefstart bis 295 Tsd. Übergabe hier, dann diese Felder per send_message an Sokrates, der sie an Uwe gibt (create_session; direkt an Uwe sperrt der Rechteprüfer, 24.11., 07:18):
+**Startprompt Nachfolger (Chef 24.11., 07:16: im Zweifel startet der Disponent):** Ablauf: bei 280 Tsd. Kopiertext an den Chef, immer als Codeblock zum Kopieren (Chef 26.11., 10:30); ohne Chefstart bis 295 Tsd. Übergabe hier, dann diese Felder per send_message an Sokrates, der sie an Uwe gibt (create_session; direkt an Uwe sperrt der Rechteprüfer, 24.11., 07:18):
 - Titel: „Alter Ego – Supervisor (TT.MM.)“
 - Modell wie Sokrates (lauf.py MODELL), Umgebung env_01F9WxikYD4TTdhscxvPi93p, source_url https://github.com/tramour-cmyk/androidapp_rpg_bornim, source_revision main
 - Erste Nachricht: „Du bist Alter Ego, das zweite Paar Augen des Chefs, kein zweiter Sokrates (Rolle neu 24.11., 08:57). Lies docs/leitung/alter-ego.md und arbeite danach: Sitzung umbenennen, Uhr ‚Supervisor-Runde‘ per send_later 60 Min., alte Uhr löschen, Sokrates deine Sitzungskennung melden.“
