@@ -33,8 +33,10 @@ V = ("# 9001 · Zwerg auf dem Tisch\n\n## Auftrag (21.11., 10:00)\n\n" + ALT + "
      "- **21.11., 10:50**, Tom (`session_T`):\n> Frage: soll er stehen?\n\n"
      "- **21.11., 11:00**, Arbeitsplaner (`session_A`):\n> Auftrag steht: zweite Fassung folgt.\n\n"
      "- **21.11., 12:30**, Tom (`session_T`):\n> fertig: Zwerg steht, def5678.\n\n"
-     "## Übergaben\n\n| Kennung | an | was | seit | Stand |\n|---|---|---|---|---|\n"
-     "| 9001-Ü1 | Tom | Zwerg aufstellen | 21.11., 10:00 | offen |\n")
+     "## Stand Tom (21.11., 11:30)\n\nZwerg sitzt noch, Stand überholt.\n\n"
+     "## Übergaben\n\n| Ü | an | was | seit | Zustand |\n|---|---|---|---|---|\n"
+     "| 9001-Ü1 | Tom | Zwerg aufstellen | 21.11., 10:00 | offen |\n"
+     "| 9001-Ü2 | Disponent | von Arbeitsplaner | 21.11., 11:00 | erledigt 21.11., 11:05 session_01Hmoj7A8igQ43P4wp9x2NMj Start session_01Hmoj78hwtJLoxbwoxqpoij |\n")
 open(os.path.join(A, "docs", "vorgang", "9001.md"), "w").write(V)
 g("add", "-A"); g("commit", "-q", "-m", "start"); g("push", "-q", "origin", "main")
 ENV = dict(os.environ, BORNIM_WURZEL=A, BORNIM_JETZT="21.11., 20:40", GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@t",
@@ -82,6 +84,8 @@ for k, w in (("10:30", "fertig: Zwerg sitzt"), ("11:00", "Auftrag steht: zweite"
 for w in ("nein. Zwerg sitzt", "Frage: soll er", "Der Zwerg soll stehen"):
     soll("bleibt in der Datei: " + w, w in n, n)
 soll("Übergabezeile bleibt", "9001-Ü1" in n, n)
+soll("Stand älter als der Auftrag im Archiv (Sokrates 16:15)", "Stand überholt" in a and "Stand überholt" not in n, n)
+soll("erledigte Zeile kurz: wer, wann, Ergebnis", "| 9001-Ü2 | Disponent | von Arbeitsplaner | 21.11., 11:00 | erledigt 21.11., 11:05 …9x2NMj Start …xqpoij |" in n and "session_01Hmoj7A8igQ43P4wp9x2NMj Start" in a, (n, a))
 rm._ARCHIV.clear(); rm._ARCHIV["archiv/9001.md"] = a
 nach = ue._merkmale(n, "9001")
 soll("Merkmale gleich außer neuestem Auftrag", vor[:4] == nach[:4] and vor[5] == nach[5], (vor, nach))
