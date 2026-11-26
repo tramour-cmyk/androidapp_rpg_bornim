@@ -854,7 +854,8 @@ def start_titel(kopf, nr):
 
 def auftrag_aus_titel(titel):
     """1932: Nummer aus einem Planer-Titel „<Name> – Auftrag <Nr> (…)“; 2041 d: auch „<Name> – <Status> – <Nr> – <Betreff>“
-    (rufname.teile; der Aufrufer prüft die Rolle Planer); sonst None."""
+    (rufname.teile; der Aufrufer prüft die Rolle Planer); sonst None. 2042 (5): aus einer START-Zeile nur das Feld Titel (zweiter_planer)."""
+    if (titel or "").startswith("START ") and titel.count(" | ") >= 6: titel = titel.split(" | ", 6)[5]
     m = re.search(r"\bAuftrag (\d[0-9a-zA-Z.]*[0-9a-zA-Z]|\d)\b", titel or "")
     if m: return m.group(1)
     import rufname
