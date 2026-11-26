@@ -49,6 +49,10 @@ static func da() -> bool:
 static func aktiv() -> bool:
 	return an and Grafik.kits() and da()   # 698: Niedrig ohne Kits
 
+# 1205b A (Chef 18.11., 15:37: Votum „in Niedrig nur die Blumen des Kits, die Kleckse sind dann überall weg“): Niedrig baut nur Blumen
+static func nur_blumen() -> bool:
+	return an and not Grafik.kits() and da()
+
 # Vorlage des Kits als eigene Kopie, Farben gedaempft, ohne Leuchten (nachts sonst gluehende Spitzen)
 static func stoff(vorlage: String) -> ShaderMaterial:
 	var m := (load(KIT + "presets/%s.tres" % vorlage) as ShaderMaterial).duplicate() as ShaderMaterial
@@ -64,7 +68,7 @@ static func netz(name: String) -> Mesh:
 	return load(p) as Mesh if ResourceLoader.exists(p) else null
 
 # stellen: Fusspunkte unseres Grases; art je Stelle: 0 Wiese, 1 hohes Gras (Wald), 2 Blumenwiese. Gibt die neuen Knoten zurueck.
-static func baue(eltern: Node3D, stellen: Array[Vector3], art: PackedByteArray, dorf := false) -> Array[MultiMeshInstance3D]:
+static func baue(eltern: Node3D, stellen: Array[Vector3], art: PackedByteArray, dorf := false, ohne_gras := false) -> Array[MultiMeshInstance3D]:
 	var rng := RandomNumberGenerator.new(); rng.seed = 804
 	var gruppen := {}
 	var wiese: Array = WIESE_VORHER if vorher else WIESE
@@ -86,7 +90,7 @@ static func baue(eltern: Node3D, stellen: Array[Vector3], art: PackedByteArray, 
 			if not vorher: b += "#" + String(BLUMEN_FARBEN[b][rng.randi() % BLUMEN_FARBEN[b].size()])
 			gruppen[b].append(Transform3D(Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3.ONE * rng.randf_range(gr.x, gr.y)), p))
 			continue
-		if i % je != 0: continue
+		if ohne_gras or i % je != 0: continue
 		var n := wahl(hoch if a == 1 else wiese, rng.randf())
 		var s := rng.randf_range(0.85, 1.15)
 		gruppen[n].append(Transform3D(Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3(s, s * rng.randf_range(0.85, 1.15), s)), p))

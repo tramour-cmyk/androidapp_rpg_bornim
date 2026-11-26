@@ -10,6 +10,7 @@ const X = preload("res://regeln/mars_texte.gd")
 const Zustaende = preload("res://regeln/zustaende.gd")
 const BrsKampf = preload("res://regeln/brs_kampf.gd")
 const Kerbe = preload("res://regeln/kerbe.gd")
+const Arena = preload("res://regeln/arena.gd")
 ## 555 Testmenue „Kampfhilfen“ wie alt (Battle.heroCritsAlways, foesFailSaves), dazu „unsterblich“: der Held faellt nie unter 1 TP;
 ## von Hand an, sonst immer aus (die Gegenproben laufen ohne sie)
 static var held_immer_krit := false
@@ -76,6 +77,8 @@ const EINGEBUNG := {"pounce": ["Er will springen. Stehe ich nicht mehr dort, woh
 		"He is catching his breath. Press now, or he regains his strength."],
 	"breakthrough": ["Er will durch die Reihe. Tritt der Bedrohte vorher selbst nach vorn, bleibt Grak nur ein einfacher Schlag.",     # [986.breakthrough]
 		"He means to break the line. If the threatened one steps forward first, Grak is left with a plain blow."],
+	"paw": ["Er holt mit der Pranke aus. Treffe ich den Ring, fange ich den Hieb ab.",     # [1069.prankenhieb] (1603)
+		"He draws back his paw. If I meet the ring, I catch the blow."],
 	"venom": ["Gegen den Giftbiss hilft kein Ring. Treffe ich sie vorher hart, versiegt das Gift.",     # [986.venom]
 		"No ring helps against the venom bite. If I hit her hard first, the venom dries up."],
 	"aim": ["Er legt an. Geht der Anvisierte in Abwehr, duckt er sich, und der Pfeil geht vorbei.",     # [986.aim]
@@ -266,6 +269,14 @@ var I_SLASH := _intent("slash", "Hieb", "Slash", "STRIKE", null, false, false)
 var I_BITE := _intent("bite", "Biss", "Bite", "STRIKE", null, false, false)
 ## 506 (STORY-BLENDE.md „Wiedergänger“: Angriff Klauen / Claws; „Grabhund“: Biss / Bite)
 var I_CLAW := _intent("claw", "Klauen", "Claws", "STRIKE", null, false, false)
+## 1603 (Homer [1057.ansage.*], STORY-BRS-KAMPF.md): Grundangriff je Art statt „Stich“, einfacher Schlag ohne Ring; Wirkung wie bisher in _foe_wounds
+var I_MORNINGSTAR := _intent("morningstar", "Morgenstern", "Morningstar", "STRIKE", null, false, false)
+var I_TUSKS := _intent("tusks", "Hauer", "Tusks", "STRIKE", null, false, false)
+var I_POISON_CLAWS := _intent("poison_claws", "Giftklauen", "Poison claws", "STRIKE", null, false, false)
+var I_SUCKER := _intent("sucker", "Saugmaul", "Sucker", "STRIKE", null, false, false)
+var I_TONGUE := _intent("tongue", "Zunge", "Tongue", "STRIKE", null, false, false)
+## 1603 (Homer [1069.ansage.prankenhieb], Hauptfassung ohne Bruchschwelle): Kroggs großer Schlag wie der Schwere Hieb, stark, mit Ring, nicht brechbar
+var I_PAW := _intent("paw", "Prankenhieb", "Paw swipe", "STRIKE", [2, 6, 0], true, true, false)
 var I_POUNCE := _intent("pounce", "Anspringen", "Pounce", "STRIKE", null, false, false, false, "POUNCE")
 ## 399.2b: ein Jungwolf knurrt nur, kein Angriff (Homer [210T.growl])
 var I_GROWL := _intent("growl", "Knurren", "Growl", "WAIT", null, false, false, false, "GROWL")
@@ -276,6 +287,8 @@ var I_AIM := _intent("aim", "Anlegen", "Take aim", "STRIKE", [1, 6, 0], false, f
 var I_SHADOW := _intent("shadow", "In den Schatten", "Into the shadows", "GATHER", null, false, false, false, "SHADOW", true)
 var I_BREAKTHROUGH := _intent("breakthrough", "Durchbrechen", "Break through", "STRIKE", [1, 6, 0], false, true, true, "BREAKTHROUGH")
 var I_FLANK := _intent("flank", "Flanke", "Flank", "STRIKE", null, false, false, false, "FLANK", true)
+## 1589.2: Flucht angesagt, nach dem nächsten Zug fort (DESIGN-GEGNER.md 6; [1601.ansage.flee])
+var I_FLEE := _intent("flee", "Flucht", "Flee", "FLEE", null, false, false, false, "FLEE")
 
 const NO_REAIM := ["BREAKTHROUGH", "FLANK", "CIRCLE", "POUNCE"]
 const AT_TARGET := ["POUNCE", "AIM", "BREAKTHROUGH", "FLANK"]
@@ -340,6 +353,7 @@ class Fighter:
 	## 399.2a: the leader this one follows (a young wolf its wolf, Packs.kt); it flees when the leader falls
 	var follows := ""
 	var fled := false
+	var von_selbst := false     # 1589.2 Lohn A: von selbst geflohen (Abschnitt 6): volle Erfahrung, halbe Beute (lohn.gd)
 	var vor_feuer := false     # 915: vor dem Feuer geflohen (870c 3 A): bringt weder Beute noch Erfahrung (lohn.gd, spiel.gd beute)
 	var verjagt := false     # 841: vor dem Kampf eingeschüchtert und geflohen (lohn.gd: keine Beute von ihm)
 	## 478: was er nach dem BRS ist (brs_kampf.gd held, gegner)
@@ -445,6 +459,21 @@ const SMOKE_BUNDLE := ["Rauchbündel", "Smoke Bundle"]     # Items.kt smoke_bund
 const MSG1232_RAUCH := ["{0} hat beißenden Rauch in den Augen. Sein Schlag geht ins Leere.", "{0} has stinging smoke in his eyes. His blow goes astray."]     # [1232.rauch.krogg]
 var aim_spot := {}
 var retargeted := {}
+## 1589.2 (DESIGN-GEGNER.md 1–3, 6): die Arena wählt Ziel und Flucht (arena.gd); arena_an false: alte Wahl (Beleglauf alt gegen neu);
+## gesetzte Punkte (Tests, ab Stufe 3 die Wege), das Ziel je Gegner aus seiner letzten Ansage (Trägheit), der Grund seiner Flucht
+var arena_an := true
+var arena_punkte := {}
+var arena_ziel := {}
+var flucht_grund := {}
+## 1589.2 (Prüfer 22.11., 19:42; DESIGN-GEGNER.md 6 „einen Zug vorher“): je Fliehendem der Zählerstand der Ansage und wer der Gruppe
+## seither noch nicht am Zug war; fort erst, wenn jeder Stehende der Gruppe nach der Ansage einen Zug hatte (zuege zählt jedes Zugende)
+var flucht_offen := {}
+var zuege := 0
+## [1601.flucht.ansage], [1601.flucht.fort], [1601.flucht.rudel], [1601.flucht.grak] (STORY-BRS-KAMPF.md, Homer 1601)
+const MSG1601_ANSAGE := ["{0} weicht zurück und sucht einen Ausweg.", "{0} backs away, looking for a way out."]
+const MSG1601_FORT := ["{0} ist fort.", "{0} is gone."]
+const MSG1601_RUDEL := ["Das Rudel zerstreut sich zwischen den Bäumen.", "The pack scatters among the trees."]
+const MSG1601_GRAK := ["Die Goblins sehen ihren Hauptmann fallen und laufen.", "The goblins see their captain fall, and run."]
 var chosen := false
 var called := 0
 var casting = null
@@ -848,6 +877,11 @@ static func fmt(t: Array, lang_i: int, args: Array) -> String:
 
 
 func _next_turn() -> void:
+	if order[turn].side == "PARTY":     # 1589.2: ein Zug der Gruppe nach der Ansage einer Flucht
+		for k: String in flucht_offen:
+			if zuege > int(flucht_offen[k][0]):
+				flucht_offen[k][1].erase(order[turn].id)
+	zuege += 1
 	order[turn].moved = false
 	order[turn].ticked = false
 	turn = (turn + 1) % order.size()
@@ -1913,6 +1947,12 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 	foe.hidden = false
 	if _test_zug(foe):     # 1020.2 C
 		return
+	if intent.effect == "FLEE":     # 1589.2: fort erst, wenn die Gruppe seit der Ansage gehandelt hat; bis dahin bleibt die Ansage
+		if _flucht_bereit(foe):
+			_fort(foe)
+		else:
+			intents[foe.id] = plan
+		return
 	if intent.effect == "GROWL":     # 399.2b: knurrt nur (Homer [399.2b.knurrt])
 		_say(fmt(pick("MSG399_GROWLS"), lang, [foe.name(lang)]), foe.id, null, 0, null, false, false, "GROWLS")
 		_eingebung("growl")     # 986 (1): Knurren hat keine Ansage im Bericht
@@ -1945,6 +1985,10 @@ func _foe_turn(foe: Fighter, react: Callable) -> void:
 		if x.id in aimed:
 			first_aimed = x
 			break
+	if first_aimed == null and arena_an and not aimed.is_empty():     # 1589.2: durch eine Lücke erreicht, auch hinter der Reihe
+		var a: Fighter = find(aimed[0])
+		if a != null and a in Arena.erreichbar(self, foe):
+			first_aimed = a
 	if first_aimed == null and not r.is_empty():
 		first_aimed = r[0]
 	var hit := []
@@ -2195,6 +2239,8 @@ const MSG1020_FLIEHEN := ["Test: alle Gegner fliehen.", "Test: every foe flees."
 func announce(foe: Fighter) -> void:
 	if not foe.standing() or outcome != "ONGOING":
 		return
+	if arena_an and (_flieht(foe) or _flucht_ansagen(foe)):     # 1589.2: die Ansage der Flucht bleibt bis zu seinem Zug
+		return
 	# 399.2b (Chef 28.10., 15:32, Archiv: Jungwölfe beißen wie im alten Spiel nur zu 50 % je Runde; Packs.kt chance; Chefsache 3992b
 	# „knurrt nur und kündigt keinen Biss an“): wer einem Leittier folgt, sagt nur mit seiner Chance einen Angriff an, sonst Knurren
 	if foe.follows != "" and foe.monster.has("chance") and not dice.chance(float(foe.monster.chance)):
@@ -2202,11 +2248,16 @@ func announce(foe: Fighter) -> void:
 		intents[foe.id] = [I_GROWL, []]
 		retargeted.erase(foe.id)
 		return
+	# 1589.2: das Ziel wählt die Arena nach der Denkweise (vor der Absicht: die Spinne wechselt die Rolle nach ihm); Plan wie bisher
+	var z: Fighter = Arena.ziel(self, foe, String(arena_ziel.get(foe.id, ""))) if arena_an else null
+	if z != null:
+		arena_ziel[foe.id] = z.id
 	var intent := _pick_intent(foe)
-	var r := _covered() if intent.effect == "BREAKTHROUGH" or intent.effect == "FLANK" else targets(foe)
+	var linie: bool = intent.effect == "BREAKTHROUGH" or intent.effect == "FLANK"
+	var r := _covered() if linie else targets(foe)
 	var aimed := []
 	if not ((intent.kind != "STRIKE" and intent.effect != "CIRCLE") or r.is_empty()):
-		aimed = [dice.pick(r).id]
+		aimed = [z.id] if z != null and not linie else [dice.pick(r).id]
 	foe.taken_since_announce = 0
 	intents[foe.id] = [intent, aimed]
 	retargeted.erase(foe.id)
@@ -2284,6 +2335,10 @@ func _pick_intent(foe: Fighter) -> Dictionary:
 		test_gegnerzug = ""
 		test_erzwungen.append("heavy")
 		return I_HEAVY
+	if id == KROGG and test_gegnerzug == "paw":     # 1603: Beleg Kroggs Prankenhieb (Bild und Film), wie 1020.2 C
+		test_gegnerzug = ""
+		test_erzwungen.append("paw")
+		return I_PAW
 	var T: Dictionary = BrsKampf.w().get("absichten", {}).get("je_art", {})
 	var e = T.get(id, T.get("_sonst", [["stab", 1]]))
 	for i in 4:     # Verweis auf eine andere Art (Schamane wie Goblin)
@@ -2318,6 +2373,9 @@ func _absicht_gilt(foe: Fighter, b: String) -> bool:
 			return called < CALL_MAX and _free_foe_spot() != null
 		"halbes_leben":
 			return foe.hp * 2 < foe.max_hp
+		"netz":     # 1589.2 Rollenwechsel (DESIGN-GEGNER.md 4): Netz nur in der Rolle Fernkampf
+			var t: Fighter = find(String(arena_ziel.get(foe.id, "")))
+			return not arena_an or t == null or Arena.rolle_jetzt(self, foe, t) == "fern"
 	return false
 
 
@@ -2325,7 +2383,7 @@ func _say_announce(foe: Fighter) -> void:
 	if not intents.has(foe.id):
 		return
 	var intent: Dictionary = intents[foe.id][0]
-	if intent.effect == "GROWL":
+	if intent.effect == "GROWL" or intent.effect == "FLEE":     # 1589.2: die Flucht sagt _flucht_ansagen an
 		return
 	var aimed: Array = intents[foe.id][1]
 	var target: String = by_id(aimed[0]).name(lang) if not aimed.is_empty() else ""
@@ -2468,6 +2526,9 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 		if t.kein_zaeh:     # 870.5 Gegenwirkung Zombie
 			_say(fmt(MSG870_GEGEN_ZOMBIE, lang, [t.name(lang)]), null, t.id)
 		_pack_flees(t)
+		if arena_an:     # 1589.2 Abschnitt 6: wer jetzt flieht, sagt es an
+			for x: Fighter in all.filter(func(y: Fighter) -> bool: return y.side == "FOES" and y.standing()):
+				_flucht_ansagen(x)
 	elif t == all[0]:
 		_say(fmt(pick("MSG72_HEROFALLS"), lang, [t.name(lang)]), null, t.id, 0, null, false, false, "HERO_FALLS")
 		outcome = "LOST"
@@ -2480,13 +2541,62 @@ func _hurt(t: Fighter, full: int, by: String, text: String, roll = null, wound :
 
 
 ## 399.2a: when [leader] falls, those who follow it run (Packs.kt flee: one line for all, as in the old fight)
+## 1589.2 (DESIGN-GEGNER.md 6): das Rudel flieht erst, wenn auch die Hälfte besiegt ist, angesagt (_flucht_ansagen); sofort wie bisher
+## nur, wer nicht angreifbar ist (Grimmzahns Leibwache: sonst stünde sie nach seinem Fall unbesiegbar da)
 func _pack_flees(leader: Fighter) -> void:
 	var first := true
-	for f in all.filter(func(x): return x.side == "FOES" and x.standing() and x.follows == leader.id and x.gegriffen_von == ""):     # 870.5 Griff
+	for f: Fighter in all.filter(func(x: Fighter) -> bool: return x.side == "FOES" and x.standing() and x.follows == leader.id and x.gegriffen_von == "" and (not arena_an or not x.angreifbar())):     # 870.5 Griff
 		f.fled = true
 		intents.erase(f.id)
 		_say(str(f.monster.flee[lang]) if first and f.monster.has("flee") else "", null, f.id, 0, null, false, false, "FOE_FLEES")
 		first = false
+
+
+## 1589.2: hat [foe] die Flucht schon angesagt?
+func _flieht(foe: Fighter) -> bool:
+	return intents.has(foe.id) and intents[foe.id][0].effect == "FLEE"
+
+
+## 1589.2 (DESIGN-GEGNER.md 6): flieht [foe] jetzt (arena.gd flucht_grund), sagt er es einen Zug vorher an; true, wenn angesagt
+func _flucht_ansagen(foe: Fighter) -> bool:
+	if _flieht(foe) or foe.gegriffen_von != "":
+		return _flieht(foe)
+	var grund := Arena.flucht_grund(self, foe)
+	if grund == "":
+		return false
+	flucht_grund[foe.id] = grund
+	flucht_offen[foe.id] = [zuege, standing_of("PARTY").map(func(x: Fighter) -> String: return x.id)]
+	intents[foe.id] = [I_FLEE, []]
+	retargeted.erase(foe.id)
+	_say(fmt(X.MSG72_ANNOUNCES, lang, [foe.name(lang), I_FLEE.name[lang]]), foe.id)
+	if grund == "allein" or grund == "ratte":
+		_say(fmt(MSG1601_ANSAGE, lang, [foe.name(lang)]), foe.id)
+	return true
+
+
+## 1589.2: hatte jeder Stehende der Gruppe seit der Ansage von [foe] einen Zug?
+func _flucht_bereit(foe: Fighter) -> bool:
+	return not flucht_offen.has(foe.id) or not flucht_offen[foe.id][1].any(func(id: String) -> bool: return find(id) != null and find(id).standing())
+
+
+## 1589.2: nach seinem Zug ist er fort; wer aus demselben Grund (Rudel, Grak) angesagt hat und bereit ist, läuft mit, eine Zeile für alle
+func _fort(foe: Fighter) -> void:
+	var grund := String(flucht_grund.get(foe.id, ""))
+	var mit := [foe]
+	if grund == "rudel" or grund == "grak":
+		mit = all.filter(func(x: Fighter) -> bool: return x.side == "FOES" and x.standing() and _flieht(x) and _flucht_bereit(x) and String(flucht_grund.get(x.id, "")) == grund)
+		if not foe in mit:
+			mit.append(foe)
+	var zeile := fmt(MSG1601_RUDEL if grund == "rudel" else (MSG1601_GRAK if grund == "grak" else MSG1601_FORT), lang, [foe.name(lang)])
+	var erst := true
+	for x: Fighter in mit:
+		x.fled = true
+		x.von_selbst = true
+		intents.erase(x.id)
+		_say(zeile if erst else "", null, x.id, 0, null, false, false, "FOE_FLEES")
+		erst = false
+	if not all.any(func(x: Fighter) -> bool: return x.side == "FOES" and x.standing()):
+		outcome = "WON"
 
 
 ## One message with the state right after it, for the screen (SkirmishEvent).

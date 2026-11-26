@@ -82,7 +82,7 @@ func _lage(x, saat: int) -> void:
 		x.intents["f1"] = [x.I_CIRCLE, []]
 
 
-## mars.gd _pick_intent vor 1049, wortgleich bis auf [m.]
+## mars.gd _pick_intent vor 1049, wortgleich bis auf [m.]; seit 1603 mit den eigenen Ansagen je Art
 func _alt(m, foe) -> Dictionary:
 	var id: String = Mars.art_of(foe.monster)
 	if id == Mars.RAT or id == Mars.BAT or id == "ghoul":
@@ -102,6 +102,12 @@ func _alt(m, foe) -> Dictionary:
 		return m.dice.pick([m.I_VENOM, m.I_WEB])
 	if id == Mars.SCOUT:
 		return m.I_AIM if foe.hidden else m.dice.pick([m.I_AIM, m.I_AIM, m.I_SHADOW])
+	# 1603 (neue Sollwerte): Grundangriff je Art nach Homer 1057, Krogg Morgenstern 2 : Prankenhieb 1; die übrigen Arten wie vor 1049
+	var eigen := {"boar": m.I_TUSKS, "giant_centipede": m.I_POISON_CLAWS, "stirge": m.I_SUCKER, "ochre_jelly": m.I_TONGUE}
+	if eigen.has(id):
+		return eigen[id]
+	if id == Mars.KROGG:
+		return m.dice.pick([m.I_MORNINGSTAR, m.I_MORNINGSTAR, m.I_PAW])
 	var lineup: bool = not m._covered().is_empty()
 	var plain: Dictionary = m.I_SLASH if id == Mars.CALLED else m.I_STAB
 	if id == Mars.CALLED:

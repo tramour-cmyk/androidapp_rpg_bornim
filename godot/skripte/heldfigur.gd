@@ -82,6 +82,11 @@ const RENNEN := "A"   # Chef 01.11., 13:1x (Archiv 416.4): „Wir nehmen tatsäc
 # „paket“ = Paketbewegung ganz (Sprint, Oberkoerper aufgerichtet, waffengang.py); „A“ = Beine und Rumpf aus Rennen A, Arme ab dem
 # Schluesselbein aus der Paketbewegung, im Tritt (rennen_mischen). Vergleichsfilm beider Fassungen, Urteil des Chefs
 const WAFFEN_RENNEN := "A"   # 417a 2 (Chef 02.11., 21:24, Votum Tom): Rennen mit Waffe wie im Dorf-Film, Beine und Rumpf aus Rennen A
+# 1619 (Chef 18.11., 07:29: „warum der Held gar so stakst … sah gar nicht mehr so nach Gehen aus“; gang_mess_1619): die Pakete gehen mit
+# kurzem Schritt (einhand 0,52 m, axt 0,59 m), auf das Spieltempo 2,13 m/s umgetaktet trippelt der Held 4,1 bzw. 3,7 Schritte je Sekunde
+# (Gehen ohne Waffe 3,1 bei 0,69 m). „A“ wie beim Rennen: Beine und Rumpf aus Gehen, Arme ab dem Schluesselbein aus dem Paket, im Tritt;
+# „paket“ wie vorher (Vergleichsfilm)
+static var waffen_gehen := "A"
 
 # Woerter der Erschaffung (376.1; Homer prueft sie, Vorgang 376.1 bei Homer): Gesicht nach den Formen des Kopfblatts (Chef 27.10.,
 # 21:41 „Gefällt mir gut“), Frisur und Bart nach den Netzen des Pakets; Frisuren nach dem Bild (Homer 405, STORY-SPIEL [405.frisur])
@@ -368,9 +373,12 @@ static func bewegungen(m: Node3D, sk: Skeleton3D, art := RENNEN, waffen_rennen :
 	var pfad := String(m.get_path_to(sk)) if sk.is_inside_tree() else str(_pfad(m, sk))
 	for n in bew_lib.get_animation_list():
 		var mix: bool = waffen_rennen == "A" and n.begins_with("Rennen_") and renn_lib.has(art) and info.get("gang", {}).has(n.get_slice("_", 1))   # 417: Beine und Rumpf aus Rennen A
+		var gmix: bool = waffen_gehen == "A" and n.begins_with("Gehen_") and bew_lib.has_animation("Gehen") and info.get("gang", {}).has(n.get_slice("_", 1))   # 1619
 		var mk := "%s|%s" % [n, art]
+		if gmix: mk = n + "|gehenA"
 		if mix and not renn_lib.has(mk): renn_lib[mk] = rennen_mischen(renn_lib[art], bew_lib.get_animation(n), bew_sk, bew_raum)
-		var quelle: Animation = renn_lib[mk] if mix else (renn_lib[art] if n == "Rennen" and renn_lib.has(art) else bew_lib.get_animation(n))
+		if gmix and not renn_lib.has(mk): renn_lib[mk] = rennen_mischen(bew_lib.get_animation("Gehen"), bew_lib.get_animation(n), bew_sk, bew_raum)
+		var quelle: Animation = renn_lib[mk] if mix or gmix else (renn_lib[art] if n == "Rennen" and renn_lib.has(art) else bew_lib.get_animation(n))
 		var an := quelle.duplicate(true) as Animation
 		for t in range(an.get_track_count() - 1, -1, -1):
 			var bn := String(an.track_get_path(t)).get_slice(":", 1)
@@ -382,7 +390,7 @@ static func bewegungen(m: Node3D, sk: Skeleton3D, art := RENNEN, waffen_rennen :
 				for i in an.track_get_key_count(t): an.track_set_key_value(t, i, an.track_get_key_value(t, i) * f)
 		if n in SCHLEIFEN or n.begins_with("Gehen_") or n.begins_with("Rennen_"): an.loop_mode = Animation.LOOP_LINEAR   # 417 Pakete
 		if n == "Gehen" or n == "Rennen" or n.begins_with("Gehen_") or n.begins_with("Rennen_"):   # 416.4: Tritte fuer Held.wechsel
-			var key := n + "|" + (art if n == "Rennen" or mix else "") + ("|A" if mix else "")
+			var key := n + "|" + (art if n == "Rennen" or mix else "") + ("|A" if mix else "") + ("|GA" if gmix else "")
 			if not tritt_cache.has(key): tritt_cache[key] = tritte(quelle, bew_sk, bew_raum)
 			if tritt_cache[key].x >= 0.0: an.set_meta("tritt", tritt_cache[key])
 			# 416.4 Nachmessung (Lauf 41317137978): ein speed_scale fuer beide Bewegungen der Ueberblendung; Gehen (1,0 m/s) und Rennen
@@ -391,10 +399,10 @@ static func bewegungen(m: Node3D, sk: Skeleton3D, art := RENNEN, waffen_rennen :
 			# 417 (Pruefer Film 00:53: „Rennen: Fuss 17-28 % langsamer als der Boden, rutscht (alle vier)“): das Tempo der Quelle (held_klassen.py,
 			# am UAL-Geruest, 3 cm Toleranz, Bilder) mal Beckenverhaeltnis f traf den Kaufkoerper nicht; jetzt am Skelett dieser Figur gemessen
 			# (stand_tempo: Standfuss am Ballen, 120 Proben je Umlauf), Quelle nur, wenn dort nichts messbar ist. „--takt_alt“: wie vorher
-			var v0 := _eigen("Rennen" if mix else n) * f
+			var v0 := _eigen("Rennen" if mix else ("Gehen" if gmix else n)) * f
 			var v := v0
 			if v0 > 0.01 and "--takt_alt" not in OS.get_cmdline_user_args():
-				var tk := "%s|%s|%s|%.4f|%.4f|%s" % [n, art, m.get_meta("tracht", ""), f, _beinlaenge(sk), mix]
+				var tk := "%s|%s|%s|%.4f|%.4f|%s" % [n, art, m.get_meta("tracht", ""), f, _beinlaenge(sk), str(mix) + str(gmix)]
 				if not stand_cache.has(tk): stand_cache[tk] = stand_tempo(an, sk, im_raum(m, sk))
 				if float(stand_cache[tk]) > 0.01: v = float(stand_cache[tk])
 			an.set_meta("v_quelle", v0); an.set_meta("v_figur", v)
@@ -797,7 +805,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		var paare := [[waffe, gang, "r"]] + ([[schild, "schildarm", "l"]] if gang == "schild" else [])
 		if gang == "bogen": paare[0][2] = "l"
 		for p in paare:
-			var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % p[0])
+			var d := Staffel.lade(String(p[0]))
 			if d == null: continue
 			d.name = "Getragen"
 			d.top_level = true
@@ -810,7 +818,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		m.set_meta("gang", gang)
 		return
 	if art != "":   # 417: Stab, Axt, Bogen unterwegs in der Hand (tragen.gd)
-		var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % waffe)
+		var d := Staffel.lade(waffe)
 		if d == null: return
 		d.name = "Getragen"
 		d.top_level = true
@@ -822,7 +830,7 @@ static func bewaffne(m: Node3D, sk: Skeleton3D, aus: Dictionary) -> void:
 		sk.add_child(t)
 		return
 	if waffe != "":
-		var lang := waffe in ["quarterstaff", "staff", "spear", "greataxe"]
+		var lang := Staffel.art(waffe) in ["quarterstaff", "staff", "spear", "greataxe"]
 		var achse := Vector3(0.42, -1.0, 0.0).normalized() if not lang else Vector3(0.62, -1.0, 0.0).normalized()   # Klinge zur linken Huefte
 		var griff := Vector3(-0.17, y + 0.22, aussen - 0.03) if not lang else Vector3(-0.05, y + 0.05, aussen - 0.03)
 		var quer := Vector3.FORWARD
@@ -873,7 +881,7 @@ static func ruecken_tragen(m: Node3D, sk: Skeleton3D, was: Array) -> void:
 ## Ecken eines Modells aus daten/waffen (Raum des Modells)
 static func _modell_ecken(was: String) -> PackedVector3Array:
 	var aus := PackedVector3Array()
-	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	var d := Staffel.lade(was)
 	if d == null: return aus
 	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
 		var tr := im_raum(d, mi)
@@ -1297,7 +1305,7 @@ static func dolch_anlegen(m: Node3D, sk: Skeleton3D, was: String, pts: PackedVec
 		var sy := (im_raum(m, sk) * sk.get_bone_global_rest(sh).origin).y if sh >= 0 else yp + 0.5
 		var mund := Vector3(0.0, hy + 0.22 * (sy - hy) - 0.01, becken.origin.z + 0.035)
 		# Maße der Scheide aus der Klinge dieses Dolchs (Chef 14.11., 10:12), vor dem Anhängen aus einem Probestück des Modells
-		var probe := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was) if FileAccess.file_exists("res://daten/waffen/%s.bin" % was) else null
+		var probe := Staffel.lade(was) if FileAccess.file_exists(Staffel.WAFFE % Staffel.datei(was)) else null
 		var rg := scheide_ringe_aus(klinge_mass(probe)) if probe else []
 		if probe: probe.free()
 		var s_mund: float = rg[0][0] + 0.002 if rg.size() > 0 else 0.054
@@ -1550,7 +1558,7 @@ static func haut_punkte(m: Node3D, _sk: Skeleton3D, haltung: bool, nur: MeshInst
 
 ## 406: wie weit der Schild außerhalb der Mitte (mehr als 15 cm seitlich der Fessel) hinter die Fessel reicht (glTF: vorn +z), in m
 static func rand_hinten(was: String) -> float:
-	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	var d := Staffel.lade(was)
 	if d == null: return 0.0
 	var h := 0.0
 	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
@@ -1565,7 +1573,7 @@ static func rand_hinten(was: String) -> float:
 
 ## 499: Unter- und Oberkante des Schilds (y im Raum des Modells, Vector2(unten, oben))
 static func schild_hoehe(was: String) -> Vector2:
-	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	var d := Staffel.lade(was)
 	if d == null: return Vector2(-0.24, 0.24)
 	var r := Vector2(INF, -INF)
 	for mi in d.find_children("*", "MeshInstance3D", true, false) + ([d] if d is MeshInstance3D else []):
@@ -1607,8 +1615,7 @@ static func ruecken_linie(pts: PackedVector3Array, y0: float, y1: float) -> Arra
 
 static func _modell(g) -> String:
 	if not g is Dictionary: return ""
-	var b := String(g.get("base", ""))
-	return b if FileAccess.file_exists("res://daten/waffen/%s.bin" % b) else ""
+	return Staffel.schluessel(g)   # 458.3: Form nach Stufe, Seltenheit als Marke
 
 # 431 (Pruefer 24.11., 18:06: Huegelvolk-Rundschild ragt hinter dem Koerper heraus; Sokrates 25.11., 08:08: Rueckenschild auf die
 # Schulterbreite des Volkes): Faktor = Schulterbreite (Abstand der Oberarmgelenke in Ruhe) zu der des Menschen gleichen Geschlechts
@@ -1626,7 +1633,7 @@ static func _haenge(m: Node3D, sk: Skeleton3D, bi: int, brust: Transform3D, was:
 	ba.name = nm
 	ba.bone_name = sk.get_bone_name(bi)
 	sk.add_child(ba)
-	var d := Gebiet.lade_glb("res://daten/waffen/%s.bin" % was)
+	var d := Staffel.lade(was)
 	if d == null: return
 	d.transform = brust.affine_inverse() * t
 	ba.add_child(d)

@@ -6,6 +6,8 @@
 # Grenzen: GRENZEN unten; MESS_LOG=1 druckt je Bild jeden Wolf.
 extends SceneTree
 
+const Arena = preload("res://regeln/arena.gd")
+
 const Probe = preload("res://kampf/probe.gd")
 const DAUER_BILDER := 30 * 90
 ## Grenzen: Gleiten je Bild (m) ohne Schritte, Pfote rutscht am Boden (cm je Bewegung), Durchdringung (m), Tod: liegt mindestens (s)
@@ -307,8 +309,12 @@ func _bild(kf, n: int, k: String) -> void:
 			if b == a or not b.visible or b.down:
 				continue
 			var tief := 0.0
+			# 1589.4 (Chef 25.11., 09:55: Umriss nach Form): Wolf gegen Wolf mit derselben Kapsel wie im Spiel (figur.umriss_kapsel,
+			# Arena.kapsel_abstand); gegen Menschen weiter das Raster gegen ihren Kasten mit Schild und Waffe
+			if _wolf(b):
+				tief = minf(0.0, Arena.kapsel_abstand(a.umriss_kapsel(), b.umriss_kapsel()))
 			# 438 (Prüfer: Achsenpunkte mit Rand gegen den Kasten zu grob): Raster über den ganzen Umriss, ohne Rand
-			for i in 7:
+			for i in (0 if _wolf(b) else 7):
 				for j in 3:
 					var z: float = lerpf(box.position.z, box.end.z, i / 6.0)
 					var x: float = lerpf(box.position.x, box.end.x, j / 2.0)
