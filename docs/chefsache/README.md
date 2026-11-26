@@ -55,7 +55,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Profil | als Nächstes |
 |---|---|
-| **Chef** | [2031](entscheiden/2031-haeute.md) entscheiden; dann 1 weitere |
+| **Chef** | [15894](ansehen/15894-wege-arena.md) ansehen |
 | Arbeitsplaner | läuft: 887 (Besetzung); 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | läuft: 2046 (Besetzung); 2046 1589.4 grün: alte Reihen-Tests und wolf_mess_438 an die Are… (Muss) |
@@ -98,11 +98,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 Danach 176 weitere offen. Bei dir zum Testen (vorgelegt): 6. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 27. Ruhend oder nach dem Meilenstein: 81.
 ## Zu entscheiden
 
-Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
-
-| Nr. | Vorrang | Bereich | Seit | Was | Wer |
-|---|---|---|---|---|---|
-| [2031](entscheiden/2031-haeute.md) | **Muss** | E Figuren | 26.11., 10:06 | sechs neue freie Häute (drei je Geschlecht) sind gebaut und geprüft; Unterschied zu heute sichtbar nur beim Orkblütigen, bei Mensch kaum. | Sokrates |
+Nichts offen.
 
 ## Zu billigen
 
