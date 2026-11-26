@@ -25,8 +25,10 @@ static var ANLEGEN := float(OS.get_environment("ANLEGEN1694")) if OS.get_environ
 static var GEKOPPELT := OS.get_environment("KOPPEL1694") == "1"   # 1694: Glieder gemeinsam beugen (Versuch 23.11.: Kuppe zuerst am Stiel)
 static var ANSCHLAG := OS.get_environment("ANSCHLAG1694") != "0"   # 1694: der Reihe nach, je Glied Anschlag KETTE_GRENZE (0: 110° je Glied)
 const KETTE_ANTEIL := [1.0, 1.2, 0.8]   # Grund-, Mittel-, Endglied je Schritt (Verhältnis der Beugung beim Faustschluss)
-static var KETTE_GRENZE := [float(OS.get_environment("GRUND1694")) if OS.get_environment("GRUND1694") != "" else 90.0, 110.0, 80.0]   # Grad: Anschlag je Glied (GRUND1694: Grundglied, Versuch 24.11.)
-static var NUR_GLIED := OS.get_environment("GLIED1694") != "0"   # 1694: Haut je Glied erst ab einem Viertel seiner Länge
+static var KETTE_GRENZE := [float(OS.get_environment("GRUND1694")) if OS.get_environment("GRUND1694") != "" else 95.0, 110.0, 96.0]   # 26.11.: 90/80 ließen Ring-Grundglied 0,6 und Zeigefinger-Endglied 0,8 cm vor dem Stiel der Großaxt   # Grad: Anschlag je Glied (GRUND1694: Grundglied, Versuch 24.11.)
+static var NUR_GLIED := OS.get_environment("GLIED1694") == "1"   # 1694: Haut je Glied erst ab einem Viertel seiner Länge (bis 26.11.; Auftrag 25.11., 20:36: ganze Haut)
+static var HANDFLAECHE := OS.get_environment("HANDFL1694") != "0"   # 1694: Haut der Handfläche als Anlage (26.11.)
+const HAND_ANLAGE := 0.001         # m: Haut der Handfläche so weit vor dem Holz
 static var DAUMEN_UM := OS.get_environment("DAUMEN1694") != "0"   # 1694: Daumen im Grundgelenk um den Schaft
 static var DAUMEN_RAUS := OS.get_environment("RAUS1694") != "0"   # 1694: Daumen im Schaft: an den Schaft legen wie die Finger (0: wie bis 23.11., 15:5x)
 const DAUMEN_GRENZEN := [40.0, 60.0, 80.0]   # Grad: Anschlag Grund-, Mittel-, Endglied des Daumens
@@ -314,6 +316,11 @@ static func am_schaft(sk: Skeleton3D, s: String, g: Transform3D, sch: Dictionary
 		return breite(sch, ysc, Vector2(rq.x, rq.z), r / k, int(halb / SCHEIBE)) * k
 	var w := schub(sk, s, o, d, r, r_bei)
 	var haelt := w != Vector3.ZERO
+	# 1694 (Auftrag 25.11., 20:36; BILD1694: Handfläche bis −1,7 cm im Holz am schrägen Schaft der Großaxt, griff.gd sah sie nicht): die
+	# Haut der Handfläche (Netz, Hauptgewicht an der Hand, über die Faustbreite) ist Anlage; der Schaft quer zur Hand so weit von ihr weg
+	# oder zu ihr hin, dass ihre tiefste Ecke HAND_ANLAGE vor dem Holz liegt, gemessen an der gezeichneten Form in der schrägen Lage
+	if haelt and bewegen and HANDFLAECHE:
+		w = _an_handflaeche(sk, s, g, gi, sch, k, laengs, w, d, r, y, halb)
 	if not bewegen:   # ein anderer führt den Gegenstand (Leute: Stab am Boden): nur, ob die Hand ihn hält
 		haelt = (faust - (o + d * (faust - o).dot(d))).length() < HALT_WEIT * u
 		w = Vector3.ZERO
@@ -337,6 +344,86 @@ static func am_schaft(sk: Skeleton3D, s: String, g: Transform3D, sch: Dictionary
 			var rq := gi.basis * richtung
 			return breite(sch, ysc2, Vector2(rq.x, rq.z), r2 / k, int(halb / SCHEIBE)) * k
 	return e
+
+## 1694: Abstand eines Punkts [p] (Skelettraum) zur gezeichneten Oberfläche, Waffe um [versch] verschoben (wie am_schaft „form“)
+static func _form_abst(p: Vector3, gi: Transform3D, versch: Vector3, sch: Dictionary, k: float, r: float) -> float:
+	var q := gi * (p - versch)
+	var sc := int(floor(q.y / SCHEIBE))
+	if not sch["mitte"].has(sc): return (Vector2(q.x, q.z).length() - r / k) * k
+	var v := Vector2(q.x, q.z) - (sch["mitte"][sc] as Vector2)
+	var f2 := oberflaeche(sch, sc, v)
+	return (v.length() - (f2 if f2 > 0.0 else float(sch["profil"][sc]))) * k
+
+## 1694: Verschiebung [w] quer zum Schaft so ändern, dass die Haut der Handfläche anliegt (HAND_ANLAGE, nicht im Holz, kein Spalt)
+static func _an_handflaeche(sk: Skeleton3D, s: String, g: Transform3D, gi: Transform3D, sch: Dictionary, k: float, laengs: Vector3,
+		w: Vector3, d: Vector3, r: float, y: float, halb: float) -> Vector3:
+	var u := einheit(sk, s)
+	var fq := hand_quer(sk, s, d)
+	for _i in 6:
+		var m := hand_tiefste(sk, s, gi, sch, k, r, laengs + w)
+		if m == INF: return w
+		var dz := HAND_ANLAGE * u - m
+		if absf(dz) < 0.0003 * u: break
+		w += fq * dz
+	return w
+
+## 1694: Richtung quer zum Schaft [d] von der Handfläche weg (Skelettraum)
+static func hand_quer(sk: Skeleton3D, s: String, d: Vector3) -> Vector3:
+	var fl: Vector3 = flaeche(sk, s)[2]
+	return (fl - d * fl.dot(d)).normalized()
+
+## 1694: tiefste Haut der Hand (Hauptgewicht hand_[s], gewichtet wie gezeichnet) zum Holz am freien Griff, Waffe um [versch] verschoben
+## (Skelettraum); INF, wenn keine Ecke am freien Griff liegt
+static func hand_tiefste(sk: Skeleton3D, s: String, gi: Transform3D, sch: Dictionary, k: float, r: float, versch: Vector3) -> float:
+	var ne := netz_hand(sk, s)
+	var posen := {}
+	var m := INF
+	for e in ne:
+		var p := Vector3.ZERO
+		for j in range(0, e.size(), 3):
+			var b: int = e[j]
+			if not posen.has(b): posen[b] = sk.get_bone_global_pose(b)
+			p += float(e[j + 2]) * ((posen[b] as Transform3D) * (e[j + 1] as Vector3))
+		var qy := (gi * (p - versch)).y
+		if qy < float(sch["lo"]) or qy > float(sch["hi"]) or not frei(sch, int(floor(qy / SCHEIBE))): continue
+		m = minf(m, _form_abst(p, gi, versch, sch, k, r))
+	return m
+
+## Haut der Hand aus dem gezeichneten Netz (Handrücken liegt weit vom Griff und zählt so nie): Ecken mit Hauptgewicht an hand_[s], je Ecke [Knochen, Ecke im Raum des Knochens,
+## Gewicht, …] (gewichtet wie der Renderer); je Skelett einmal (Meta)
+static func netz_hand(sk: Skeleton3D, s: String) -> Array:
+	var key := "griff_hand_" + s
+	if sk.has_meta(key): return sk.get_meta(key)
+	var ih := sk.find_bone("hand_" + s)
+	var aus := []
+	for mi in sk.find_children("*", "MeshInstance3D", true, false):
+		var m3 := mi as MeshInstance3D
+		if m3.mesh == null or m3.skin == null or not m3.visible: continue
+		var bind := {}
+		for kk in m3.skin.get_bind_count():
+			var nm := m3.skin.get_bind_name(kk)
+			bind[kk] = sk.find_bone(nm) if nm != "" else m3.skin.get_bind_bone(kk)
+		for su in m3.mesh.get_surface_count():
+			var a := m3.mesh.surface_get_arrays(su)
+			var pos = a[Mesh.ARRAY_VERTEX]; var kn = a[Mesh.ARRAY_BONES]; var gw = a[Mesh.ARRAY_WEIGHTS]
+			if pos == null or kn == null or gw == null or pos.size() == 0: continue
+			var je: int = kn.size() / pos.size()
+			for vi in pos.size():
+				var best := -1; var bw := 0.0
+				for kk in je:
+					if gw[vi * je + kk] > bw: bw = gw[vi * je + kk]; best = int(kn[vi * je + kk])
+				if bind.get(best, -1) != ih: continue
+				var e := []
+				var su_w := 0.0
+				for kk in je: su_w += gw[vi * je + kk]
+				for kk in je:
+					var w: float = gw[vi * je + kk]
+					if w <= 0.0: continue
+					var bk: int = int(kn[vi * je + kk])
+					e.append_array([bind.get(bk, -1), m3.skin.get_bind_pose(bk) * pos[vi], w / su_w])
+				if e.size() > 0 and not e.has(-1): aus.append(e)
+	sk.set_meta(key, aus)
+	return aus
 
 ## Finger und Daumen um den Schaft (Achse [o] + t·[d], Radius [r]) schließen, von der Ruhe aus. [merk]: Zwischenspeicher des Aufrufers
 ## (Dictionary); solange der Schaft in der Hand an derselben Stelle liegt, werden nur die gemerkten Drehungen gesetzt
@@ -447,8 +534,7 @@ static func schliessen(sk: Skeleton3D, s: String, o: Vector3, d: Vector3, r: flo
 			var nahe := func() -> float:
 				var m := INF
 				for i in dk:
-					var P := sk.get_bone_global_pose(i)
-					for q in ne[i]: m = minf(m, float(abst.call(P * q)))
+					for p in glied_haut(sk, s, i): m = minf(m, float(abst.call(p)))
 				return m
 			var a0: float = nahe.call()
 			_beuge(sk, dk[0], d, 10.0)
@@ -526,9 +612,10 @@ static func _daumen(sk: Skeleton3D, s: String, abst: Callable, d: Vector3, u: fl
 
 ## 1694: Haut der Finger aus dem gezeichneten Netz, je Fingerknochen der Seite [s] Ecken im Raum des Knochens (Hauptgewicht an ihm,
 ## höchstens NETZ_JE je Knochen, gleichmäßig ausgedünnt); je Skelett einmal (Meta). Leer, wenn das Netz keine Finger hat (Faust im Netz)
-const NETZ_JE := 48
+const NETZ_JE := 96
+const ROLLEN := 15
 const NETZ_HAUT := 0.0015          # m: Haut des Glieds so nah am Griff: liegt an
-const NETZ_DRUCK := -0.003         # m: tiefer im Griff: zurück
+const NETZ_DRUCK := -0.0025        # m: tiefer im Griff: zurück (26.11.: −0,3 ließ −0,36 cm stehen, Grenze der Prüfung −0,3)
 static func netz_finger(sk: Skeleton3D, s: String) -> Dictionary:
 	var key := "griff_netz_" + s
 	if sk.has_meta(key): return sk.get_meta(key)
@@ -537,7 +624,7 @@ static func netz_finger(sk: Skeleton3D, s: String) -> Dictionary:
 		for g in ["_01_", "_02_", "_03_"]:
 			var i := sk.find_bone(fi + g + s)
 			if i >= 0: finger[i] = true
-	var roh := {}
+	var roh := {}; var rohw := {}
 	for mi in sk.find_children("*", "MeshInstance3D", true, false):
 		var m3 := mi as MeshInstance3D
 		if m3.mesh == null or m3.skin == null or not m3.visible: continue
@@ -556,51 +643,100 @@ static func netz_finger(sk: Skeleton3D, s: String) -> Dictionary:
 					if gw[vi * je + k] > bw: bw = gw[vi * je + k]; best = int(kn[vi * je + k])
 				var b: int = bind.get(best, -1)
 				if not finger.has(b): continue
-				if not roh.has(b): roh[b] = PackedVector3Array()
+				if not roh.has(b): roh[b] = PackedVector3Array(); rohw[b] = []
 				roh[b].append(m3.skin.get_bind_pose(best) * pos[vi])
+				var e := []
+				var su_w := 0.0
+				for k in je: su_w += gw[vi * je + k]
+				for k in je:
+					var w: float = gw[vi * je + k]
+					if w > 0.0: e.append_array([bind.get(int(kn[vi * je + k]), b), m3.skin.get_bind_pose(int(kn[vi * je + k])) * pos[vi], w / su_w])
+				rohw[b].append(e)
 	var aus := {}
+	var ausw := {}
 	for b in roh:
 		var p: PackedVector3Array = roh[b]
+		var pw: Array = rohw[b]
 		# 1694 (23.11., GRIFFKETTE: Grundglied des Kleinfingers „liegt an“ schon in Ruhe, 0° gebeugt, der Finger stand ab): Haut am
 		# Gelenk zur Hand (Ballen mit Gewicht am Grundglied) zählt nicht zum Glied; nur ab einem Viertel seiner Länge
 		var ch := sk.get_bone_children(b)
 		if NUR_GLIED and ch.size() > 0:
 			var lang := sk.get_bone_rest(ch[0]).origin
-			var nur := PackedVector3Array()
-			for q in p: if q.dot(lang) > 0.25 * lang.length_squared(): nur.append(q)
-			if nur.size() >= 8: p = nur
+			var nur := PackedVector3Array(); var nurw := []
+			for i in p.size(): if p[i].dot(lang) > 0.25 * lang.length_squared(): nur.append(p[i]); nurw.append(pw[i])
+			if nur.size() >= 8: p = nur; pw = nurw
 		var schritt := maxi(1, p.size() / NETZ_JE)
-		var q := PackedVector3Array()
-		for i in range(0, p.size(), schritt): q.append(p[i])
-		aus[b] = q
+		var q := PackedVector3Array(); var qw := []
+		for i in range(0, p.size(), schritt): q.append(p[i]); qw.append(pw[i])
+		aus[b] = q; ausw[b] = qw
 	sk.set_meta(key, aus)
+	sk.set_meta(key + "_w", ausw)
+	return aus
+
+## 1694 (26.11.): Haut des Glieds [b] wie gezeichnet (Ecken gewichtet über alle ihre Knochen, Skelettraum); starr am Glied lag die Haut
+## am Kleinfinger-Grundglied 0,6 cm neben der Zeichnung (griff.gd −0,07, gezeichnet +0,50 cm)
+static func glied_haut(sk: Skeleton3D, s: String, b: int) -> PackedVector3Array:
+	var ausw: Dictionary = sk.get_meta("griff_netz_" + s + "_w", {})
+	var aus := PackedVector3Array()
+	var posen := {}
+	for e in ausw.get(b, []):
+		var p := Vector3.ZERO
+		for j in range(0, e.size(), 3):
+			var bk: int = e[j]
+			if not posen.has(bk): posen[bk] = sk.get_bone_global_pose(bk)
+			p += float(e[j + 2]) * ((posen[bk] as Transform3D) * (e[j + 1] as Vector3))
+		aus.append(p)
 	return aus
 
 ## 1694: Kette (Glieder von der Hand aus) um die Achse [a] in Richtung [vz] schließen, am Netz [ne]: alle Glieder beugen zugleich
 ## in kleinen Schritten (wie VR-Hände); ein Glied hält an, sobald seine Haut oder die eines Glieds weiter vorn am Griff liegt, die weiter
 ## vorn liegenden beugen weiter, bis auch sie anliegen. So legt sich der Finger um den Griff, statt dass die Kuppe zuerst anstößt
 static func _kette_netz(sk: Skeleton3D, kette: Array[int], ne: Dictionary, abst: Callable, a: Vector3, vz: float, u: float) -> void:
+	var sd := sk.get_bone_name(kette[0]).right(1)
 	var haut := func(von: int) -> float:
 		var m := INF
 		for k in range(von, kette.size()):
-			var P := sk.get_bone_global_pose(kette[k])
-			for q in ne.get(kette[k], PackedVector3Array()): m = minf(m, float(abst.call(P * q)))
+			for p in glied_haut(sk, sd, kette[k]): m = minf(m, float(abst.call(p)))
 		return m
 	var eigen := func(k: int) -> float:
 		var m := INF
-		var P := sk.get_bone_global_pose(kette[k])
-		for q in ne.get(kette[k], PackedVector3Array()): m = minf(m, float(abst.call(P * q)))
+		for p in glied_haut(sk, sd, kette[k]): m = minf(m, float(abst.call(p)))
 		return m
 	if not GEKOPPELT:
 		# bis 22.11.: der Reihe nach von der Hand aus, jedes Glied bis seine eigene Haut anliegt
 		var grenze0: Array = KETTE_GRENZE if kette.size() == 3 and ANSCHLAG else [110.0, 110.0, 110.0]
-		for j in kette.size():
-			var w := 0.0
-			while float(eigen.call(j)) > NETZ_HAUT * u and w < float(grenze0[j]):
-				_beuge(sk, kette[j], a, vz * 2.0); w += 2.0
-			while float(eigen.call(j)) < NETZ_DRUCK * u and w > -10.0:
-				_beuge(sk, kette[j], a, -vz * 2.0); w -= 2.0
-			if DEBUG: print("GRIFFKETTE %s %.0f° Haut %.1f cm" % [sk.get_bone_name(kette[j]), w, 100.0 * float(eigen.call(j)) / u])
+		var ws := []; ws.resize(kette.size()); ws.fill(0.0)
+		var legen := func(von: int) -> void:
+			for j in range(von, kette.size()):
+				var w: float = ws[j]
+				while float(eigen.call(j)) > NETZ_HAUT * u and w < float(grenze0[j]):
+					_beuge(sk, kette[j], a, vz * 2.0); w += 2.0
+				while float(eigen.call(j)) < NETZ_DRUCK * u and w > -10.0:
+					_beuge(sk, kette[j], a, -vz * 2.0); w -= 2.0
+				ws[j] = w
+		legen.call(0)
+		# 1694 (26.11., Großaxt: Endglied am Anschlag 0,5–0,8 cm vor dem Stiel, das Mittelglied lag schon nach 12° an): der Finger rollt
+		# um den Griff, das Grundglied gibt je 2° nach, Mittel- und Endglied beugen weiter, bis das Endglied anliegt (höchstens 2 × ROLLEN Grad)
+		var luft := func() -> float:
+			var m := -INF
+			for j in kette.size(): m = maxf(m, float(eigen.call(j)))
+			return m
+		if kette.size() == 3 and float(eigen.call(2)) > NETZ_HAUT * u:
+			var gut: Array = []
+			for i in kette: gut.append(sk.get_bone_pose_rotation(i))
+			var gut_l: float = luft.call(); var gut_w := ws.duplicate()
+			for n in ROLLEN:
+				_beuge(sk, kette[0], a, -vz * 2.0); ws[0] = float(ws[0]) - 2.0
+				legen.call(1)
+				var l: float = luft.call()
+				if l < gut_l:
+					gut_l = l; gut_w = ws.duplicate(); gut.clear()
+					for i in kette: gut.append(sk.get_bone_pose_rotation(i))
+				if l <= NETZ_HAUT * u: break
+			for i in kette.size(): sk.set_bone_pose_rotation(kette[i], gut[i])
+			ws = gut_w
+		if DEBUG:
+			for j in kette.size(): print("GRIFFKETTE %s %.0f° Haut %.1f cm" % [sk.get_bone_name(kette[j]), ws[j], 100.0 * float(eigen.call(j)) / u])
 	else:
 		# 1694 (23.11., griff_bild_1694; GRIFFKETTE: Grundglied 110° bis an den Anschlag, Mittelglied 0°, Kleinfinger mit Grund 0° und
 		# Spitze 110° in der Luft): alle Glieder beugen zugleich im Verhältnis der Hand (Grund : Mittel : End = 1 : 1,2 : 0,8, wie VR-Hände,

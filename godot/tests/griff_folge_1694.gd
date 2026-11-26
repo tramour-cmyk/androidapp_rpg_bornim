@@ -559,9 +559,8 @@ func _intern(sk: Skeleton3D, ding: Node3D, halt: Dictionary, sch: Dictionary, R:
 	for gl in GLIEDER:
 		var bi := sk.find_bone(gl)
 		if not ne.has(bi): continue
-		var P := G * sk.get_bone_global_pose(bi)
-		for p in ne[bi]:
-			var d = _holz(sch, Wi * (P * p), k)
+		for p in Griff.glied_haut(sk, "r", bi):
+			var d = _holz(sch, Wi * (G * p), k)
 			if d != null: aus[gl] = minf(aus.get(gl, INF), d)
 	return aus
 

@@ -223,6 +223,9 @@ const ZWEI_HOECHST := 30.0
 # 0,1 cm) und haelt die linke Faust am Schaft (0,6 cm); Anteil 0,5 liess sie 5,4 cm daneben, 0,15 m stiess 4,9 cm in den Oberschenkel.
 # Lauf 41328184986: 0,30 m mit mehr Luft (Rennen 3,0 cm, Gehen 8,5 cm), darum 0,30
 var zwei_anteil := 1.0
+var zwei_seite := 0.0   # 1694: Seite der linken Faust (+1/−1), wechselt erst über ZWEI_WECHSEL
+const ZWEI_WECHSEL := 0.2
+static var HAND_MIT := OS.get_environment("HANDMIT1694") != "0"   # 1694: Hand dreht zum Schaft (0: Schaft schräg in der Hand, bis 26.11.)
 var zwei_schieben := 0.30
 # 1694 (Bild 19.11., 09:01: Zweihänder der Staffel 458.3 mit der rechten Faust hinter dem Knauf): höchstens so weit, dass beide Fäuste
 # auf dem Griff bleiben (Länge unter dem Griff aus halt, zwei Handbreiten); der Stiel der Axt ist lang genug für 0,30
@@ -270,11 +273,24 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 		var RL := hand_rahmen(sk, "l")
 		var v := RL * ZWEI_LINKS - R * GRIFF_PUNKT
 		if v.length() > 0.08:
-			var dn := v.normalized() * signf(v.dot(d))
+			# 1694 (26.11., griff_folge_1694 BILD1694, Großaxt Stehen: die linke Faust lag fast quer zum Schaft, das Vorzeichen wechselte
+			# von Bild zu Bild, der Schaft kippte um 2 × 30° in der Hand, die Hand sprang bis 7,5 cm längs des Schafts): Seite erst wechseln,
+			# wenn die linke Faust deutlich auf der anderen liegt (Winkel und Seite sonst wie bisher)
+			var c := v.normalized().dot(d)
+			if zwei_seite == 0.0 or absf(c) > ZWEI_WECHSEL: zwei_seite = signf(c) if c != 0.0 else 1.0
+			var dn := v.normalized() * zwei_seite
 			var w := rad_to_deg(d.angle_to(dn))
 			var wz := minf(w, ZWEI_HOECHST) * zwei_anteil
 			if w > 1e-3: dn = d.slerp(dn, wz / w).normalized()
 			zwei_winkel = wz
+			# 1694 (26.11., BILD1694: der Schaft lag 30° schräg in der Hand, 29° zur Knöchellinie; Grundglieder bis 3,7 cm in der Luft, der
+			# Schaft wanderte mit der Bewegung bis 7,5 cm in der Faust): die Hand dreht im Handgelenk mit (wie man eine Axt mit beiden
+			# Händen fasst), der Schaft liegt in ihr wie bei einer Hand; die Richtung der Axt im Raum bleibt dieselbe (dn)
+			var ax := d.cross(dn)
+			if HAND_MIT and ax.length() > 1e-6:
+				_beuge(sk, ih, ax.normalized(), rad_to_deg(d.signed_angle_to(dn, ax.normalized())))
+				R = hand_rahmen(sk, seite)
+				dn = (R.basis * (GRIFF_ACHSE * spiegel)).normalized()
 			d = dn
 	var _mitte := _faust_zu(sk, ih, d)
 	R = hand_rahmen(sk, seite)
@@ -453,12 +469,33 @@ func _an_schaft(sk: Skeleton3D, ih: int) -> void:
 	var griffart := "zweihand" if gang == "axt" else ("stab" if art == "stab" else "einhand")
 	var e := Griff.am_schaft(sk, seite, g, Griff.schaft(waffe, halt), griffart)
 	if not e["haelt"]: return
-	waffe.global_position += G.basis * (e["verschieben"] as Vector3)
-	Griff.schliessen(sk, seite, e["o"], e["d"], e["r"], merk, e["form"])
-	if gang == "axt": _zweite_hand(sk, e["o2"], e["d"], e["r2"], e["form"], e["r_bei2"])
+	# 1694 (26.11.): Nachzug der Handfläche, im Raum der Hand gemerkt. Erst nach dem Schließen steht fest, wo die Haut der Hand liegt
+	# (Ecken am Daumenballen und an den Knöcheln hängen auch an Daumen und Fingern); liegt sie danach im Holz oder davor, rückt der
+	# Schaft im nächsten Bild quer nach
+	var H := sk.get_bone_global_pose(ih)
+	var extra := H.basis * hand_nach
+	var ve: Vector3 = e["verschieben"] + extra
+	waffe.global_position += G.basis * ve
+	var o: Vector3 = e["o"] + extra
+	Griff.schliessen(sk, seite, o, e["d"], e["r"], merk, _form_mit(e["form"], extra))
+	var u := Griff.einheit(sk, seite)
+	var gi := g.affine_inverse()
+	var tief := Griff.hand_tiefste(sk, seite, gi, Griff.schaft(waffe, halt), g.basis.y.length(), e["r"], ve)
+	if tief != INF:
+		var dz := Griff.HAND_ANLAGE * u - tief
+		# halber Schritt (gemessen 26.11.: 0,56 cm Nachzug ändern die tiefste Haut um 1,1 cm, weil die Finger neu schließen; mit ganzem
+		# Schritt pendelte die Hand von Bild zu Bild zwischen −0,46 und +0,66 cm)
+		if absf(dz) > 0.0005 * u: hand_nach += H.basis.inverse() * (Griff.hand_quer(sk, seite, e["d"]) * dz * NACH_ANTEIL)
+	if gang == "axt": e["o2"] = (e["o2"] as Vector3) + extra
+	if gang == "axt": _zweite_hand(sk, e["o2"], e["d"], e["r2"], _form_mit(e["form"], extra), e["r_bei2"])
 	if merken:
 		posen.resize(sk.get_bone_count())
 		for i in sk.get_bone_count(): posen[i] = sk.get_bone_global_pose(i)
+
+var hand_nach := Vector3.ZERO   # 1694: Nachzug der Handfläche (Raum der Hand, Skeletteinheiten)
+const NACH_ANTEIL := 0.4
+static func _form_mit(form: Callable, extra: Vector3) -> Callable:
+	return func(p: Vector3) -> float: return float(form.call(p - extra))
 
 # 1694, 1649 (linke Faust reicht nicht an den Schaft): die andere Hand mit dem Arm an den Schaft, auf der Höhe des zweiten Griffs
 const ZWEIT_ABSTAND := 0.11        # m längs des Schafts unter dem ersten Griff, wenn halt.json keinen zweiten nennt (eine Handbreite)
