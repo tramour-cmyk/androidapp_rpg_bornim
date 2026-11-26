@@ -1,5 +1,7 @@
 # 2024 Kroggs Prankenhieb: Beleg (Selma, 25.11.)
 
+[Film von 26.11., 13:51](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261126-135140-2024/2026-11/26-1351-2024-Disponent.mp4) (eingetragen von meldung.sh, Disponent)
+
 [Bild von 25.11., 15:56](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/25-1556-2024-Selma.png) (eingetragen von meldung.sh, Selma)
 
 [Film von 25.11., 15:55](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261125-155556-2024/2026-11/25-1555-2024-Selma.mp4) (eingetragen von meldung.sh, Selma)

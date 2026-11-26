@@ -22,11 +22,12 @@
 
 ## Offene Fäden
 
-- Alter Ego `…78T7R5aMdgTuKTFyGw` (10:47); Disponent wechselt ~30 Min. (jetzt `…794yg24QrPirJBEvWk`).
-- Uhren nur auf Chefsatz im Chat; dauerhaft unmöglich (R9, R10).
+- Uhren nur auf Chefsatz im Chat der Sitzung (Auto-Modus sperrt sonst; R9, R10).
+- Nachfolger startet Alter Ego (Wurzel …78iGVJ): bei 250 Tsd. Startfelder an ihn (13:40).
+
 - Laufsperre bis Sa 28.11., 20:00, danach sofort 2043 (Deckel klein); 2042 zuerst (c)(d), Deckel 85 $; 1589.4 Deckel 90 $; 1708 ruht bis 1589.4 auf main.
 - Chat eine Zeile, Inhalt auf Telegram (Chef 12:30); Starttexte als Codeblock (10:30).
 
 ## Übergabe
 
-- 26.11., 12:38, `bzEmVt` bei 261 Tsd.: 1589.4 Fenja (145 $), 1694 Sabine; Kampf nur 1589.4; 2042 (c)(d) auf main; 2052 Weg A, Auftrag offen; Kern Leitung Chat kurz (12:30). Offen beim Chef: Uhren an Disponent …774iFT (Satz 12:34), Telegram 12:33 (1 Disponent startet Sokrates, 2 „Leitung klein“). Haken erkennt „Auftrag: Sokrates“ nicht (200 statt 400 Tsd.). Letzte Antwort: 12:38. Nachfolger: Sokrates – Leitung.
+- 26.11., 14:45, `fDNvyP` bei 335 Tsd.: 2024 A (Testbuild); 1694 ruht (89 zu 20 $). Offen beim Chef (Telegram): Disponent-Vorschlag 14:01 A/B (Teil 1 gilt), 1694 A/B (13:52), 1589.4 Chefsache A/B, Frage Betriebsliste aufräumen. Letzte Antwort: 14:45. Nachfolger: Sokrates – Leitung.

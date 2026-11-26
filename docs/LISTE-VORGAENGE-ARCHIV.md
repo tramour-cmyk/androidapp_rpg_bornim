@@ -2233,3 +2233,6 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 2048 | Systemlösung? Drehung: 4 frühere Vorgänge (1588, 1979, 1998, 245), neu 1589.4; einmal grundsätzlich lösen? (654) | E Kampf | K | – | Kampf | erledigt |
 | 2038 | Von Werkzeug (Startwarnung Pflege, 1642, seit 25.11., 12:20): ARBEIT-TAGESBERICHT.md: Tagesbericht 35 Stunden alt (höchstens 26, 341 Z1, 448): Perikles setzt ihn neu | B Abläufe | K | – | Werkzeug | erledigt, Warnung weg (Werkzeug 1642) |
 | 2044 | Beantwortete Vorlage mit Bild bleibt in der Chefsache stehen: Absender und Zeit trotz Bildzeile finden (Chef 23:00 über Alter Ego) | B Werkzeuge | M | – | Werkzeug | erledigt |
+| 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | B Werkzeuge | M | 32,48 $ | Werkzeug | erledigt |
+| 2052 | Nur die wichtigen Dinger: Kür aus der Sicht des Disponenten, solange Muss da ist (Chef 26.11., 12:33) | B Werkzeuge | M | 0,82 $ | Werkzeug | erledigt |
+| 1137 | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf Telegram, Stichtag beim … | B Abläufe | M | 62,09 $ | Werkzeug | erledigt |
