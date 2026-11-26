@@ -1773,6 +1773,10 @@ func _weg_len(nm: String) -> float:
 
 
 func _mps(nm: String) -> float:
+	# 2046 (wege_15894 ohne Kaufmodelle: SCRIPT ERROR 'Gehen', der Held trat für den Söldner nicht beiseite, der ging durch ihn): wer
+	# keinen Wurzelweg hat (Held, Söldner), geht im Tempo seiner Schritte wie beim Platzwechsel (_wechsel_mps)
+	if not weg.has(nm) or weg[nm].size() < 2:
+		return _held_mps(nm) if model != null else WALK_MPS
 	return _weg_len(nm) / maxf((weg[nm].size() - 1) / weg_fps, 0.1) * float(tempo.get(nm, 1.0))
 
 
@@ -3082,6 +3086,24 @@ func strike(other, e: Dictionary) -> int:
 		hold = ms * (STEP_BACK - STEP_HOLD) / 1000.0
 		back = clampf(reach.length() / HERO_BACK_MPS, HERO_BACK_S, HERO_BACK_MAX_S)
 	var there := position + reach
+	# 2046 (wege_15894 ohne Kaufmodelle, SKELETONS: der Söldner ging zum Hieb 0,21 m durch den Helden): ohne Kaufmodell dieselbe Arena
+	# wie _held_schlag (Sokrates 25.11., 23:22 zu Ü28 (1), F10): Platz am Ziel frei, sonst ein Platz um das Ziel, sonst wartet er
+	# ohne Hieb, wo er steht
+	var ohne_hieb := false
+	if hero and reach.length() > 0.01 and not (_stand_frei(there, other) and _arena_biss(there, reach.normalized(), other) \
+			and _am_ziel_vorbei(there, other)):
+		ohne_hieb = true
+		var off := there - to
+		for w in [25.0, -25.0, 50.0, -50.0, 75.0, -75.0]:
+			var p2 := to + off.rotated(Vector3.UP, deg_to_rad(w))
+			var y2 := atan2((to - p2).x, (to - p2).z)
+			if _stand_frei(p2, other) and _arena_biss(p2, (to - p2).normalized(), other) \
+					and Arena.kapsel_abstand(kapsel_bei(Vector2(p2.x, p2.z), y2), other.umriss_kapsel()) >= 0.0 and _am_ziel_vorbei(p2, other):
+				there = p2
+				ohne_hieb = false
+				break
+		if ohne_hieb:
+			there = position
 	# 1589.4 (F1; Chef 25.11., 09:55, Fledermaus nach der Kapsel): ist der Platz am Ziel nach den Kapseln der Arena besetzt, ein Platz
 	# um das Ziel herum, so weit geradewegs heran (wie _hieb); sonst der Platz vor dem Ziel (der Vordere macht Platz, _gasse)
 	if not hero and reach.length() > 0.12 and not _arena_biss(there, reach.normalized(), other):
@@ -3119,18 +3141,23 @@ func strike(other, e: Dictionary) -> int:
 	if OS.get_environment("SCHAU_MESS") != "":
 		print("1589.4 Ausfall %s an %s: von %s nach %s frei %s%s" % [fighter.id, other.fighter.id, position, there, _arena_biss(there, (Vector3(to.x, position.y, to.z) - there).normalized(), other), _wer_sperrt(there, (Vector3(to.x, position.y, to.z) - there).normalized(), other)])
 	gang = "hin"
-	_face(to - position)
-	_play("Sprung" if leap else ("Biss" if fighter.monster != null else "Hieb"), 0.05)
+	# 2046: der Held ohne Kaufmodell geht mit Blick zum Weg wie _held_schlag (wege_15894 quer 59° zum Platz neben dem Ziel), am Ziel
+	# dreht er zum Ziel
+	var seitlich: bool = hero and there.distance_to(position) > 0.12
+	_face(there - position if seitlich else to - position)
+	_play("Stehen" if ohne_hieb else ("Sprung" if leap else ("Biss" if fighter.monster != null else "Hieb")), 0.05)
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
 	var out := ms * STEP_HOLD / 1000.0
 	# 1589.4 (F1): gerade hin (alt: Umweg 399.2); ein Eigener im Weg geht beiseite, solange wartet er
-	var t_g := _gasse(position, there, other)
+	var t_g := _gasse(position, there, other) if not ohne_hieb else 0.0
 	if t_g > 0.0:
 		tween.tween_interval(t_g)
 	anlauf_ms = 0 if hero else int((t_g + out) * 1000.0)     # 399.2: wer mit dem Tier den Platz tauscht, geht erst, wenn es am Ziel ist
 	tween.tween_property(self, "position", there, out).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	if seitlich:
+		tween.tween_callback(func(): _face(to - there))
 	tween.tween_interval(hold)
 	# Rückweg um die anderen herum (lief durch den Nachbarwolf zurück): ein Umweg, wenn die Gerade jemanden streift; die Heldin
 	# rechnet ihn erst, wenn sie losgeht (Prüfer Runde 3b: der Wolf dreht sich unterdessen nach ihr, sein Kopf stand im Weg)
@@ -3449,6 +3476,9 @@ func _tier_heim(back: float, skip, absetzen := true) -> void:
 		var z2 := Arena.absetzen(f2, zum, ABSETZEN * _scale(), String(fighter.monster.get("id", "")),
 				func(q: Vector2) -> bool: return Arena.strecke_frei(f2, q, weg_laenge(), r, kreise, kapsel_am_ziel(q)))
 		var ziel := Vector3(z2.x, from.y, z2.y)
+		# 2046 (wege_15894 ohne Kaufmodelle: Wolf 120° neben dem Blick, Goblin 103° vom Helden weg): wie mit Wurzelweg (_bite) das
+		# Gesicht zu dem, von dem er sich absetzt
+		_face(Vector3(zum.x - f2.x, 0.0, zum.y - f2.y))
 		tween = create_tween()
 		tween.tween_property(self, "position", ziel, minf(back, 0.4)).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 		tween.tween_callback(func(): _face(); _idle())
@@ -3457,6 +3487,13 @@ func _tier_heim(back: float, skip, absetzen := true) -> void:
 	# 717 (F7): auch ein Tier ohne Wurzelweg geht heim mit dem Gesicht zum Gegner, außer auf der Flucht
 	if fighter.monster == null or flieht:
 		_face(home - from)
+	else:
+		# 2046 (wege_15894 ohne Kaufmodelle, RATS: Wolf ging 1,16 m 120° neben dem Blick in die Reihe): Blick wie mit Wurzelweg
+		# (_gerade): vom Feind weg rückwärts, sonst zum Weg
+		var w := Vector2(home.x - from.x, home.z - from.z)
+		var bg := Arena.blick_beim_gehen(w, Arena.rueckwaerts(w, _zum_feind(from)))
+		if bg != Vector2.ZERO:
+			_face(Vector3(bg.x, 0.0, bg.y))
 	tween.tween_property(self, "position", home, back).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 	tween.tween_callback(func(): _face(); _idle())
 
