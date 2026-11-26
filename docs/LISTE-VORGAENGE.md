@@ -11,8 +11,8 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 2042 | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe, list_sessions, vorgang.py offen, Nachrichten), Ergebnis mit Vorschlag an den Chef (Chef 21:50 an Alter Ego, nur über Alter Ego 21:52) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, Eilt: Startgröße Disponent zerlegen (Alter Ego 08:05), Halt 46 $* | *–* | *0* | *47,38 $* |
-| 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *6,29 $* |
+| 2042 | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe, list_sessions, vorgang.py offen, Nachrichten), Ergebnis mit Vorschlag an den Chef (Chef 21:50 an Alter Ego, nur über Alter Ego 21:52) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, Eilt: Startgröße Disponent zerlegen (Alter Ego 08:05), Halt 46 $* | *–* | *0* | *59,23 $* |
+| 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *31,73 $* |
 | 2052 | Nur die wichtigen Dinger: Kür aus der Sicht des Disponenten, solange Muss da ist (Chef 26.11., 12:33) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *0,82 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | M | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | M | Prüfer | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |
@@ -304,7 +304,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2043 | titel_thema_test rot auf main (Fall Doris → Welt); liegt.py nennt noch Diogenes und Ford | 7 | B Steuerung | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1625 | feste Startprompts je Rolle statt Startlektüre | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 25.11.* | *–* | *0* | *38,14 $* |
 | 1734 | Forschung und Entwicklung bei Sokrates, wöchentlich oder auf Bedarf: wie arbeiten andere … | 7 | B Steuerung | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1201,32 $* |
+| Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1208,74 $* |
 | 102 | Dokumente BornWire TCS nachziehen | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
