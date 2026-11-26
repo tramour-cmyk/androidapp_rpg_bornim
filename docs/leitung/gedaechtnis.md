@@ -10,6 +10,7 @@
 - Bild selbst ansehen, Spielkamera (1650, 1621).
 - Umbau nur von der alten Datei aus, jede Übernahme prüfen (98). Kerne, Profile, Abgenommenes nur in der Quelle, mit Chefwort und Byte, nur die genannte Stelle (D205.3, 1931).
 - Befund, der den Auftrag erledigt, vorher nennen (1638); Ablauf als Raster Einheit × Auslöser, „komplett“ per grep.
+- Keine Regel gegen Praktisches vorschieben (Kapsel 25.11.).
 - Neueres Chefwort gilt; widerspricht es Älterem, Chef darauf hinweisen, er löst (17:54).
 - Chefentscheid nie selbst zurücknehmen oder gegen Chefwort ablehnen: raten, Regel nennen, fragen (1609, 23.11.).
 - Gegenlesen: erst die Art jeder Zeile, dann Inhalt; nur gegen gültige Texte prüfen (t299, 1933).
@@ -28,4 +29,4 @@
 
 ## Übergabe
 
-- 26.11., 12:38, `bzEmVt` bei 261 Tsd.: 1589.4 Fenja (145 $), 1694 Sabine; Kampf nur 1589.4; 2042 (c)(d) auf main; 2052 Weg A, Auftrag offen; Kern Leitung Chat kurz (12:30). Offen beim Chef: Uhren an Disponent …774iFT (Satz 12:34), Telegram 12:33 (1 Disponent startet Sokrates, 2 „Leitung klein“). Haken erkennt „Auftrag: Sokrates“ nicht (200 statt 400 Tsd.). Letzte Antwort: 12:38. Nachfolger: Sokrates – Leitung.
+- 26.11., 13:42, `fDNvyP` (Sokrates seit 12:41): 2052 fertig; Eilt nur 2042, 887, 2052; 1589.4 Zita, ein Filmlauf frei (92 von 145 $); Wurzel Alter Ego …78iGVJ. Nachfolger: Sokrates – Leitung.
