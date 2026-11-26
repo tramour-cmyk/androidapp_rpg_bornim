@@ -13,7 +13,7 @@ import json, os, re, subprocess, sys
 
 ROLLEN = ("Build-Macher", "Spike", "Tom", "Jerry", "Tuffy", "Ford", "Perikles", "Homer", "Sokrates", "Diogenes")
 BUILD_NAME = r"claude/build-[^\s:;&|]+"
-ERLAUBT = ("Build-Macher",)
+ERLAUBT = ("Build-Macher", "Technik")  # B301 (Sokrates 26.11., 20:53): Build-Auftrag geht an Technik, nur über „(Rolle Technik“ der Startzeile
 # 1768 (D328.1): vor git dürfen Shell-Schlüsselwörter und Vorsätze stehen (do, then, else, if, while, until, !, {, time, nohup,
 # exec, command, env, timeout [-k N] DAUER, VAR=wert), etwa „for i in 1 2; do git push …“ oder „timeout 60 git push …“
 VORSATZ = (r"(?:(?:do|then|else|elif|if|while|until|!|\{|time(?:\s+-p)?|nohup|exec|command|builtin|env(?:\s+-\S+)*"
@@ -46,6 +46,8 @@ def erste_nachricht(pfad):
 
 def rolle(text):
     """Erste Rolle in der ersten Nachricht („Du bist **Spike**“, „Tom“, Startzeile von Ford); None, wenn keine."""
+    t = re.search(r"\(Rolle (Technik)\b", text[:600])  # B301: Startzeile von lauf.py („Dein Rufname: Marta (Rolle Technik; …“)
+    if t: return t.group(1)
     m = re.search(r"Du bist \**(%s)\b" % "|".join(ROLLEN), text) or re.search(r"\b(%s)\b" % "|".join(ROLLEN), text[:600])
     return m.group(1) if m else None
 
@@ -132,6 +134,8 @@ def test():
     ok(ziel_bash("git push origin claude/build-496a", ".") == "claude/build-496a", "Buchstabe im Namen (1765)")
     ok(ziel_bash("git push origin HEAD:claude/build-497 && echo x", ".") == "claude/build-497", "Name ohne Anhang (1765)")
     ok(rolle("Du bist **Build-Macher**") == "Build-Macher", "Rolle Build-Macher (1765)")
+    ok(rolle("Dein Rufname: Marta (Rolle Technik; Titel, Besetzung, Meldung).") == "Technik", "Rolle Technik aus Startzeile (B301)")
+    ok(rolle("Dein Rufname: Benno (Rolle Kampf; Titel …). Technik-Fragen an …") is None, "Technik nur als Wort, keine Rolle (B301)")
     for b in ("for i in 1 2 3 4; do git push -u origin claude/build-399 && break; sleep 2; done",
               "if true; then git push origin claude/build-399; fi", "if ok; then :; else git push origin claude/build-399; fi",
               "until git push origin claude/build-399; do sleep 1; done", "while ! git push origin claude/build-399; do sleep 1; done",
