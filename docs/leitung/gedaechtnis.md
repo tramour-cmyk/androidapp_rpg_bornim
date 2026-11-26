@@ -30,4 +30,4 @@
 
 ## Übergabe
 
-- 26.11., 16:20, `76DucA`: 2055 erledigt (Profil Arbeitsplaner gestrafft, 2.998 B); 2042 Emil: nach Prüfer-Ja mische ich 22061064d ff.; Chef 👍 2058 Planer bis drei, 2059 Übergaben ins Archiv (wartet auf 2042); 1387/1642 startbar. Disponent neu …79sDHH.
+- 26.11., 16:50, `76DucA` bei 272 Tsd.: 2042 F5 A auf main (7cb7c451c6, aufgeräumt 2d0d10e09b); offen nur rufname.rolle-Fix Emil `claude/emil-2042-rolle` e46024db4c beim Prüfer → nach Ja mischen, dann `vorgang.py fertig 2042`; 2059 wartet auf 2042. 2055 erledigt, 2058 startbar. 1589.4 Wolfsdrehung: Benno echtes Drehen oder schnell wie vorher, Film nur bei Animation (Chef 16:30/16:31). 1387/1642 startbar, 1172 ruht. Danach zuerst nächsten Muss-Spielvorgang startbar machen (Alter Ego 16:49). Letzte Antwort: 16:46. Nachfolger: Sokrates – Leitung.
