@@ -6,7 +6,7 @@
 - Fremdes (Helfer, Rat, Werkzeugausgabe) an der Quelle prüfen, Ungeprüftes kennzeichnen; Vorrang nur aus dem Archiv (431h, 1727 3.3).
 - Chefwort wörtlich gegen jede Frage lesen; im Zweifel „teilweise“; Bedingungssatz erst auf „umsetzen“; Stand im selben Commit (1727j, 1566).
 - Vorlage: Vorgang und Chefsache nach MUSTER, vorher Prüfung Alter Ego bis nichts Neues, Prompts an festen echten Fällen, Votum mit Gegenargument, Telegram mit Verweis; nie nur Chat (24.11., 08:00).
-- Vor Nachfrage Telegram lesen; jede Frage auch per Telegram (1570, Chef 19:20).
+- Vor jedem „offen beim Chef“ `tools/reaktionen.py` laufen lassen; jede Frage auch per Telegram (1570; Chef 26.11., 16:27: kein Vorgang dafür).
 - Bild selbst ansehen, Spielkamera (1650, 1621).
 - Umbau nur von der alten Datei aus, jede Übernahme prüfen (98). Kerne, Profile, Abgenommenes nur in der Quelle, mit Chefwort und Byte, nur die genannte Stelle (D205.3, 1931).
 - Befund, der den Auftrag erledigt, vorher nennen (1638); Ablauf als Raster Einheit × Auslöser, „komplett“ per grep.
