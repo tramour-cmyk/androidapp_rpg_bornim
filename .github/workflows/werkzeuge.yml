@@ -70,6 +70,7 @@ jobs:
           python3 tools/leitung_test.py         # 1988 Neustart Leitung und Disponent ab 300 Tsd. Token, Warnung einmal je Stunde
           python3 tools/sammelzeile_test.py     # 1971 stündliche Sammelzeile erledigter Vorgänge
           python3 tools/handstart_test.py       # 1989 lauf.py --start mit Startblock, Werkzeugsperre im Startsperre-Haken
+          python3 tools/lauf_2049_test.py       # 2049 Start der Leitung ohne Nummer, feste Titel, Alter-Ego-Block, Hinweis statt Doppelstart
           python3 tools/projektplan_test.py     # 1860 Themenblöcke statt Wochenziel
           python3 tools/rundblick_test.py       # 1789 Rundblick-Start ohne Kern, Ausnahme „Zurück“
           python3 tools/nachtstarts_test.py     # 1792 Nachtstopp mit Ausnahme aus Chefentscheid
