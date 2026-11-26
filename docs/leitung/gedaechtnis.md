@@ -22,7 +22,7 @@
 
 ## Offene Fäden
 
-- Alter Ego Dirk `session_01Hmoj77ne8ZmFY9GRkxsfKt` vertritt außer Vorbehalt. Disponent `…78t65WUU5m8TGvdSCq` (09:53).
+- Alter Ego `session_01Hmoj78T7R5aMdgTuKTFyGw` vertritt außer Vorbehalt. Disponent `…78t65WUU5m8TGvdSCq` (09:53).
 - Uhren: create_trigger nur auf Chefsatz im Chat (Auto-Modus); Disponent-Lauf hängt an `…79xvp` (alt), Chef A/B offen.
 - Laufsperre bis Sa 28.11., 20:00; Eilt zuerst 2042-Ü35 schlank, dann 2049 Start der Leitung (Chef 09:54).
 - Notizen nur in ../bornim-main (notiz.sh), nie Arbeitszweig.
