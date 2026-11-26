@@ -1463,3 +1463,4 @@
 2026-11-26 11:19:58	probelauf	Laufbremse (1766, Chef 19.11., 13:02: je Runde ein Bild- oder Filmlauf): für 1973 schon 1 Lauf seit der Freigabe 2026-11-26 11:11:59. Den nächsten gibt der Prüfer frei: seine Rückmeldung („ja“, „nein“	claude/ulla-1973-pruef
 2026-11-26 11:28:00	startsperre	Startblock fehlt (1989, Chef 23.11., 09:11): die erste Nachricht trägt nicht den Startblock aus lauf.py (Kopfzeile „**<Profil>**“ und „Auftrag:“). Von Hand nur mit `python3 tools/lauf.py --start ROLLE	HEAD
 2026-11-26 11:28:19	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/moritz-1589.2
+2026-11-26 11:37:17	startsperre	Startsperre fehlt (750 A): für Sokrates steht in den letzten 10 Minuten keine „Startsperre … Start Sokrates“ auf main (letzte 26.11., 09:16). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, p	HEAD
