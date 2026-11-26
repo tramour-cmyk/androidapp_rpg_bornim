@@ -37,6 +37,8 @@ Ausgabe, Zeile für Zeile auszuführen:
   „Alter Ego – Supervisor (TT.MM.)“; läuft die Rolle laut Sitzungsliste schon (oder fehlt die Liste), nur HINWEIS statt START.
   (1989) lauf.py --start ROLLE NR "Nachricht" [SEITE …] [--sperre]: Handstart außerhalb des Takts → START-Zeile mit Startblock und
                                                                      STARTSPERRE <Protokollzeile> (mit --sperre selbst gepusht); von Hand nur so starten
+  (2042 c) lauf.py --startblock ROLLE [NR]: Ladetext und Verweis auf den Auftrag; jede START-Nachricht trägt statt des Blocks nur
+                                                                     „python3 tools/lauf.py --startblock ROLLE NR, Ausgabe ist dein Auftrag.“
   NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1739) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
   TITEL <session_id> <Titel>                                        → (2042) laufende Einzelrolle (Disponent, Wache) mit altem Titel: set_session_title
   (1739) offene Übergabezeile an eine Rolle ohne Sitzung → START dieser Rolle (Titel „<Rolle> – <Nr>: offene Übergabe“) oder angehängt an ihre START-Zeile; mit --sperre gibt der Lauf abgelaufene Fristen ruhender Halter frei (Zeile „NICHTS Übergabe: …“, schon gepusht)
@@ -217,7 +219,29 @@ def nr_aus_titel(kopf):
     m = re.search(r"–\s*(\d{3,4}(?:\.\d+)?)\b", kopf.rpartition(" | ")[2])
     return m.group(1) if m else None
 
-def mit_kern(l, docs=None):
+def _block(rolle, nr, docs=None):
+    """2042 (c): (Ladetext k, Auftrag oder None) für rolle und Vorgang nr, wie mit_kern ihn einsetzt."""
+    if rolle == "Sokrates": return "\n\n".join("**%s**\n%s" % (n, t) for n, t in leitung_block(docs)), None  # 1986
+    if rolle == "Alter Ego": return "\n\n".join("**%s**\n%s" % (n, t) for n, t in alter_ego_block(docs)), None  # 2049 (c)
+    if NEU_LISTE:
+        teile, auftrag = startblock(rolle, nr, docs)
+        return "\n\n".join("**%s**\n%s" % (n, t) for n, t in teile), auftrag
+    return kern(rolle), None
+
+def verweis(nr):
+    return "Der Auftrag steht oben in docs/vorgang/%s.md (`python3 tools/vorgang.py auftrag %s` zeigt ihn); lies ihn zuerst ganz." % (nr, nr)
+
+def blocktext(rolle, nr=None, docs=None):
+    """2042 (c): Ausgabe von `lauf.py --startblock ROLLE [NR]`: Ladetext und Verweis auf den Auftrag, den mit_kern ohne kurz in die
+    Startnachricht setzt; leer ohne Ladetext und Auftrag."""
+    k, auftrag = _block(rolle, nr, docs)
+    return "\n\n".join(x for x in (k, verweis(nr) if auftrag else "") if x)
+
+def startblock_aufruf(rolle, nr=None):
+    """2042 (c): der Aufruf in der Startnachricht (Alter Ego in Anführungszeichen)."""
+    return "python3 tools/lauf.py --startblock %s%s" % ('"%s"' % rolle if " " in rolle else rolle, " " + nr if nr else "")
+
+def mit_kern(l, docs=None, kurz=False):
     """1683: jede START-Zeile beginnt in der ersten Nachricht (letztes Feld) mit dem Kern der Rolle, darunter „Auftrag:“ und die bisherige Nachricht.
     1893: an der neuen Liste Ladetext des Profils statt Kern; „Start nach deiner Rollendatei“ heißt dort „den Ladetext oben“ (Profile ohne Rollendatei).
     1923: an der neuen Liste Startblock (startblock): Teile je mit Kopfzeile „**<Name>**“, dann „Auftrag:“ mit dem jüngsten Auftrag der
@@ -231,16 +255,12 @@ def mit_kern(l, docs=None):
     rolle = l[6:].split(" |", 1)[0].strip()
     if rolle in ROUTINE_ROLLEN: return l  # 1789: Routine ohne Kern (Archiv 20.11., 07:37 „nicht deinen Kern“)
     kopf, _, msg = l.rpartition(" | ")
-    auftrag = None
-    if rolle == "Sokrates":  # 1986
-        k = "\n\n".join("**%s**\n%s" % (n, t) for n, t in leitung_block(docs))
-    elif rolle == "Alter Ego":  # 2049 (c)
-        k = "\n\n".join("**%s**\n%s" % (n, t) for n, t in alter_ego_block(docs))
-    elif NEU_LISTE:
-        teile, auftrag = startblock(rolle, nr_aus_titel(kopf), docs)
-        k = "\n\n".join("**%s**\n%s" % (n, t) for n, t in teile)
-    else:
-        k = kern(rolle)
+    k, auftrag = _block(rolle, None if rolle in LEITUNG_TITEL else nr_aus_titel(kopf), docs)
+    if kurz and (k or auftrag):  # 2042 (c): statt des Blocks nur der Aufruf; Ladetext und Verweis gibt --startblock aus
+        msg = msg.replace("zuerst Start nach deiner Rollendatei, dann", "zuerst").replace(" Zuerst Start nach deiner Rollendatei.", "").replace(
+            "Zuerst Start nach deiner Rollendatei.", "").replace("; zuerst Start nach deiner Rollendatei.", ".")
+        k = startblock_aufruf(rolle, None if rolle in LEITUNG_TITEL else nr_aus_titel(kopf)) + ", Ausgabe ist dein Auftrag."
+        auftrag = None
     if NEU_LISTE or rolle in LEITUNG_TITEL:
         msg = msg.replace("zuerst Start nach deiner Rollendatei, dann", "zuerst den Ladetext oben, dann" if k else "zuerst").replace(
             "Zuerst Start nach deiner Rollendatei.", "Zuerst den Ladetext oben." if k else "")
@@ -253,9 +273,10 @@ def mit_kern(l, docs=None):
         msg += "\\n\\nMeldung: `vorgang.py rueckmeldung %s \"Befunde: n …\" --sitzung Tester` (1795)." % (m.group(1) if m else "<Nr>")
     if auftrag:  # 1923: Auftrag vor der bisherigen Nachricht; 2042 (5, Sokrates 2042-Ü5, 25.11., 22:37): nur der Verweis, der Auftrag steht nur in der Datei
         n = nr_aus_titel(kopf) or "<Nr>"
-        msg = "Der Auftrag steht oben in docs/vorgang/%s.md (`python3 tools/vorgang.py auftrag %s` zeigt ihn); lies ihn zuerst ganz.\n\n%s" % (n, n, msg.replace("\\n", "\n"))
+        msg = "%s\n\n%s" % (verweis(n), msg.replace("\\n", "\n"))
     msg = msg.replace("\n", "\\n")
     if not k: return "%s | %s" % (kopf, ("Auftrag: " + msg) if auftrag else msg)
+    if kurz: return "%s | %s\\n\\n%s" % (kopf, k, msg)
     return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
 
 LEITUNG_NEUSTART_TOKEN = 300000  # 1988 (Chef 23.11., 09:02): Leitung mit 430 Tsd. Token stempelte 20 Min. vor; Zusatz 09:26: auch Disponent
@@ -1139,7 +1160,7 @@ def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None, bremse=None, z
                                                      ("%s (%s)" % (LEITUNG_TITEL[rolle], JETZT.strftime("%d.%m."))) if rolle in LEITUNG_TITEL else
                                                      ("%s (%s)" % (FESTER_TITEL[rolle], berlin(JETZT))) if rolle in FESTER_TITEL else
                                                      "%s – %s: Handstart (%s)" % (rolle, nr, berlin(JETZT)), msg.replace("\n", "\\n"))
-    aus = [mit_kern(mit_kaufrepo(l), docs)]
+    aus = [mit_kern(mit_kaufrepo(l), docs, kurz=True)]  # 2042 (c)
     namen = {}
     if ist_scharf():
         import rufname  # 2042 Teil 6 (4): heutige Startsperren immer dazu, nicht nur ohne Seiten (Fall Anna 22:15/22:31/22:49)
@@ -1691,6 +1712,14 @@ def main():
         if len(a) < 4 or not a[3].startswith(("session_", "ohne:")):
             print("lauf.py --kosten NR USD session_…: Kennung fehlt (384); ohne Sitzung nur mit „ohne:<Grund>“", file=sys.stderr); sys.exit(2)
         return kosten_addieren(a[1], float(a[2].replace(",", ".")), a[3] if a[3].startswith("session_") else None)
+    if a[:1] == ["--startblock"]:  # 2042 (c): Startblock für die Startnachricht „python3 tools/lauf.py --startblock ROLLE NR“
+        r = [x for x in a[1:] if x != "--ohne-pull"]
+        if not r: sys.exit("lauf.py --startblock ROLLE [NR]: Rolle fehlt (2042 c)")
+        if "--ohne-pull" not in a: notizen_frisch()  # alter Stand nur mit Warnung, der Start soll nicht scheitern
+        neue_liste()
+        t = blocktext(r[0], r[1] if len(r) > 1 else None)
+        if not t: sys.exit("lauf.py --startblock: kein Ladetext für %s (docs/profile/%s.md fehlt?)" % (r[0], r[0]))
+        return print(t)
     if "--ohne-pull" not in a and not notizen_frisch(): sys.exit(1)
     if a[:1] == ["--start"]:  # 1989: Handstart mit Startblock; mit --sperre schreibt und pusht lauf.py die Startsperre selbst
         r = start_argumente([x for x in a[1:] if x != "--sperre" and x != "--ohne-pull"])
@@ -2244,7 +2273,7 @@ def main():
         ausgabe = ["NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (r_, r_, ausschluss[r_]) if (r_ := l[6:].split(" |")[0].strip()) in ohne_rollen and l.startswith("START ") else l
                    for l in ausgabe]
         sperren[:] = [s_ for s_ in sperren if s_ not in ohne_rollen]
-    ausgabe = [mit_kern(l) for l in ausgabe]
+    ausgabe = [mit_kern(l, kurz=True) for l in ausgabe]  # 2042 (c)
     ausgabe += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
     rufnamen = {}  # 1957: Rolle → Rufnamen der STARTs, für die Startsperre
     if ist_scharf(): ausgabe = mit_rufnamen(ausgabe, alle.values(), namen=rufnamen)
