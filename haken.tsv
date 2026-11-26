@@ -1449,3 +1449,4 @@
 2026-11-26 08:47:59	commit-pruefung	docs/chefsache/ansehen/15894-wege-arena.md: Zeile „Geprüft an: <Link auf Film, Bild, Lauf oder Commit>“ fehlt (340.4); ein Link, kein Wort	main
 2026-11-26 08:55:20	startsperre	Startsperre fehlt (750 A): für Sokrates steht in den letzten 10 Minuten keine „Startsperre … Start Sokrates“ auf main (letzte 26.11., 01:03). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, p	claude/notstart-disponent-tiefe-0-xaxhkm
 2026-11-26 08:57:51	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	HEAD
+2026-11-26 08:57:56	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	HEAD
