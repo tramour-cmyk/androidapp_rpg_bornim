@@ -239,8 +239,15 @@ def _von(z, nr, von_fn):
     v = m.group(1) if m else (von_fn(z, nr) if von_fn else None)
     return re.sub(r"\s+", "_", _rein(v or "?"))
 
+_VON_GIT = {}
 def von_git(z, nr):
-    """„wer“ einer alten Zeile: Claude-Session des Commits, der sie anlegte (git log -S), als Rolle der Besetzung, sonst …Kennung."""
+    """„wer“ einer alten Zeile: Claude-Session des Commits, der sie anlegte (git log -S), als Rolle der Besetzung, sonst …Kennung.
+    Beleglauf 2042 (26.11., 11:43): je (Zeile, Vorgang) nur einmal git log -S (der anlegende Commit ändert sich nicht), sonst
+    rechnet aufraeumen_alle je Versuch ~4 Min. neu und main rückt dazwischen vor."""
+    if (z["k"], nr) not in _VON_GIT: _VON_GIT[(z["k"], nr)] = _von_git(z, nr)
+    return _VON_GIT[(z["k"], nr)]
+
+def _von_git(z, nr):
     rc, out, _ = _git("log", "--reverse", "--format=%(trailers:key=Claude-Session,valueonly)", "-S", "| %s |" % z["k"], "origin/main", "--", _pfad(nr))
     sid = next((re.search(r"session_\w+", l).group(0) for l in out.splitlines() if re.search(r"session_\w+", l)), None) if rc == 0 else None
     if not sid: return None
