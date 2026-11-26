@@ -40,7 +40,7 @@ func _welt() -> void:
 	# ohne Modell setzt der Held keinen Waffengang; für dieselbe Pose alt wie neu der Zweihändergang (tragen.gd GANG_ZWEI -> „axt“)
 	if h.waffengang == "" and h.anim and h.anim.has_animation("Gehen_axt"):
 		h.waffengang = "axt"; h.gang_w = HeldFigur.TAKT_GEHEN; h.renn_w = HeldFigur.TAKT_RENNEN
-	h.setze(Vector2i(19, 15), "DOWN")
+	h.setze(Vector2i(4, 8), "DOWN")   # freie Stelle wie film_dorf_814; bei (19, 15) stand ein schwarzer Körper vor dem Helden (wie 1570-umhang-alt-neu)
 	spiel.kamera.nah = true
 	spiel.kamera.zoom = spiel.kamera.NAH
 	spiel.kamera.springe()
