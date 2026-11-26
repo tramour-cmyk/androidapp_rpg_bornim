@@ -6,9 +6,10 @@
 # Aufruf: im Ordner godot mit --headless --fixed-fps 30 -s res://tests/stehen_973.gd   (GEGNER=WOLVES,GOBLINS SEEDS=1-4)
 # Exit 0 = kein Befund.
 # 2046: dazu erlaubt (DESIGN-GEGNER.md 5 „Seitschritt nur als einzelner Ausweichschritt, wenn ein Vorderer Platz macht“; Sokrates
-# 24.11., 19:10 F1, F4 zu 1589.4): während ein anderer derselben Seite am Zug ist, darf sich der Platz einer Figur in einem Bild um
-# höchstens Figur.ZUR_SEITE_M ändern (beiseite, figur.gd _gasse; GOBLINS Seed 4: gob2 0,49 m für gob3); die Zahl der Seitschritte
-# zählt der Test nicht
+# 24.11., 19:10 F1, F4 zu 1589.4): während ein anderer derselben Seite am Zug ist, darf sich der Platz einer Figur einmal je Zug um
+# höchstens Figur.ZUR_SEITE_M ändern (beiseite, figur.gd _gasse; GOBLINS Seed 4: gob2 0,49 m für gob3); jede weitere Änderung im
+# selben Zug ist ein Befund (Prüfer Wanda 26.11., 12:03). Eine Rückkehr gibt es nicht: _gasse setzt den Platz des Gegners auf den
+# Seitschritt, der des Helden bleibt
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
@@ -48,11 +49,17 @@ func _lauf() -> void:
 			var tot := false
 			var falsch := 0
 			var erst := ""
+			var zug_wer := ""     # 2046: wer gerade am Zug ist; wechselt er, beginnt ein neuer Zug
+			var zug_nr := 0
+			var beiseite := {}    # 2046: Figur -> Nummer des Zugs, in dem sie schon einmal beiseite trat
 			for i in 30 * 120:
 				await process_frame
 				if m.outcome != "ONGOING" and not kf.busy:
 					break
 				var boden: Vector3 = kf._ground(0, 0)
+				if str(kf.shown.get("actor", "")) != zug_wer:
+					zug_wer = str(kf.shown.get("actor", ""))
+					zug_nr += 1
 				for id in kf.figures:
 					var f = kf.figures[id]
 					if f.dead_at >= 0 or f.down:
@@ -74,8 +81,9 @@ func _lauf() -> void:
 						rueckt = false
 					var wer = kf.figures.get(str(kf.shown.get("actor", "")))
 					if rueckt and wer != null and wer != f and wer.fighter.side == f.fighter.side \
-							and rel.distance_to(heim[id]) <= f.ZUR_SEITE_M * f._scale() + 0.01:
-						rueckt = false     # 2046: beiseite für den Zug eines Eigenen (DESIGN-GEGNER.md 5)
+							and rel.distance_to(heim[id]) <= f.ZUR_SEITE_M * f._scale() + 0.01 and beiseite.get(id, -1) != zug_nr:
+						rueckt = false     # 2046: ein Seitschritt beiseite je Zug eines Eigenen (DESIGN-GEGNER.md 5); ein zweiter zählt
+						beiseite[id] = zug_nr
 					if rueckt and offen.get(id, false):
 						offen[id] = false
 					elif tot and rueckt and not f.fighter.fled:
