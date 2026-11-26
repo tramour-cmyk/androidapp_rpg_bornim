@@ -1565,7 +1565,7 @@ func _face_sanft() -> void:
 		tween = create_tween()
 		# 623.5 (effekt_mess_6235: „Nonexistent function 'an' in base 'Nil'“): auch der Held ohne Pfotenhalt kommt hierher (abwehr)
 		tween.tween_callback(func(): if halt: halt.an())
-		tween.tween_property(self, "rotation:y", r0 + dw, absf(rad_to_deg(dw)) / float(TURN_DPS_ART.get(art(), TURN_DPS_TRITT)))
+		_dreh_weich(tween, r0 + dw, absf(rad_to_deg(dw)) / (TURN_DPS_VIER if vier(fighter) and not TURN_DPS_ART.has(art()) else float(TURN_DPS_ART.get(art(), TURN_DPS_TRITT))))     # 1589.4 C
 		tween.tween_callback(func():
 			if halt: halt.los(true)
 			gang = "")
@@ -1967,12 +1967,29 @@ const TURN_KLEIN := 3.0
 ## 595 (Chef 05.11., 19:2x: „Säureschnecke … springt schnell/ruckartig auf Platz nach Angriff um (2x ruckartige Drehung)“; nachgestellt
 ## 10.11.: 15–17° in einem Bild, 450°/s): wer ohne Beine kriecht, dreht so langsam, wie er kriecht
 const TURN_DPS_ART := {"kauf_schnecke": 60.0}
+## 1589.4 C (Chef 26.11., 15:12: „das Drehen ist immer noch ein bisschen komisch“; Prüfer 14:03: 90° in 0,3 s): ein Vierbeiner dreht
+## am Ort wie die Wende der Leute (1040.1, leute.gd drehe_stehend: Turn90 der UAL Pro, 90° in 61 Bildern bei 30 Bildern/s, höchstens
+## doppelt so schnell gespielt): im Mittel 90° je Sekunde, weich an- und auslaufend (_dreh_weich); vorher 240°/s gleichmäßig
+const TURN_DPS_VIER := 90.0
 
 
 func _turn_dps() -> float:
 	if TURN_DPS_ART.has(art()):
 		return float(TURN_DPS_ART[art()])
+	if vier(fighter):
+		return TURN_DPS_VIER
 	return TURN_DPS_TRITT if halt else TURN_DPS
+
+
+## 1589.4 C: hängt an [tw] die Drehung auf [ziel] in [t] s an; ein Vierbeiner läuft weich an und aus (smoothstep, Spitze 1,5-fach
+## des Mittels), sonst gleichmäßig wie bisher. Beginnt dort, wo der Rumpf steht, wenn die Drehung an der Reihe ist (wie tween_property)
+func _dreh_weich(tw: Tween, ziel: float, t: float) -> void:
+	if not vier(fighter):
+		tw.tween_property(self, "rotation:y", ziel, t)
+		return
+	var von := [0.0]
+	tw.tween_callback(func(): von[0] = rotation.y)
+	tw.tween_method(func(x: float): rotation.y = lerpf(von[0], ziel, smoothstep(0.0, 1.0, x)), 0.0, 1.0, t)
 
 
 ## Hängt an [tw] eine Drehung auf [yaw] mit Schritten an (kleine Winkel sofort); gibt die Dauer (s) zurück. r4: mit Pfotenhalt
@@ -1989,7 +2006,7 @@ func _turn(tw: Tween, yaw: float, stehen: bool, lang := false) -> float:
 		tw.tween_callback(func(): _play("Stehen", 0.1); halt.an())
 	else:
 		tw.tween_callback(func(): _play("Gehen", 0.1))
-	tw.tween_property(self, "rotation:y", rotation.y + dw, t)
+	_dreh_weich(tw, rotation.y + dw, t)     # 1589.4 C: weich
 	# 438 (Prüfer Film 08:18: Wolf 2 dreht 0:29 und 0:34,9 je 45° in einem Bild): rotation.y + dw liegt oft 2π neben [yaw]; die
 	# folgende Drehung am Umweg (yaw + d1) lief dann einmal ganz herum in ihrer kurzen Zeit. Gleicher Winkel, ohne Sprung im Bild
 	tw.tween_callback(func(): rotation.y = yaw)
@@ -2580,7 +2597,7 @@ func _bite_plan(other, leap: bool, weiter: float, t_warte: float) -> int:
 		tween.tween_callback(func(): _play(gn, 0.1))
 		t_run += _lauf(tween, position, start, gn)
 		var dz := wrapf(schnauze - y_weg, -PI, PI)
-		tween.tween_property(self, "rotation:y", y_weg + dz, absf(rad_to_deg(dz)) / _turn_dps())
+		_dreh_weich(tween, y_weg + dz, absf(rad_to_deg(dz)) / _turn_dps())     # 1589.4 C: weich
 		t_run += absf(rad_to_deg(dz)) / _turn_dps()
 	else:
 		t_run = _turn(tween, schnauze, true)
