@@ -5,33 +5,33 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 24.11., 07:54** (Werkzeug `tools/tagesbericht.py`)
+**Stand 26.11., 08:57** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
 | 1 | Stufe | **Stufe 1 Kern spielbar**: 2 von 4 abgenommen, 2 gebaut, 0 in Arbeit | 41 Punkte in 6 Stufen: 3 abgenommen, 2 gebaut, 7 in Arbeit, 29 offen |
-| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 0 / 250, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 0 / 109; neu 29 / 471 |
-| 3 | Wo stehen wir | Oberster Block 10 Regeln hat kein Muss mehr (nächster 1487), der erste Block mit Muss ist 2 Kampf (20 Muss), dort ist 1589.3 „Stufe 2 Gegnerverhalten“ seit heute 07:35 startbar (Sokrates); seit gestern abgenommen sind in Block 3 die Wachsoldatin mit Schild 1675 (dein … (ganz unter „Eingaben“) | Themenblock oben, seit gestern abgenommen, als Nächstes (Routine Tagesbericht) |
-| 4 | Wartet auf dich | **1 anzusehen** | ältestes: –; [Chefsache](chefsache/README.md) |
+| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 124 / 189, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 14 / 24; neu 21 / 278 |
+| 3 | Wo stehen wir | Oberster Block 10 Regeln hat kein Muss, der erste Block mit Muss ist 2 Kampf (19 Muss), dort liegt 1589.4 „Stufe 3 Gegnerverhalten, Figuren in die Arena“ seit heute 08:50 bei dir zum Ansehen (Wege der Arena); seit dem letzten Bericht (24.11., 07:54) ist nichts … (ganz unter „Eingaben“) | Themenblock oben, seit gestern abgenommen, als Nächstes (Routine Tagesbericht) |
+| 4 | Wartet auf dich | **1 anzusehen** | ältestes: 1589.4 seit 26.11., 08:50; [Chefsache](chefsache/README.md) |
 | 5 | Builds | Änderungen warten auf deinen Test: **0** (Tom 0, Jerry 0); wie wirksam die Läufe sind: Zeile 10 | bei dir zum Testen: kein Build; ein Build nimmt alle fertigen Zweige (317) |
-| 6 | Fehler | **10** offen, davon 2 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
-| 7 | Geld | Woche unbekannt; gestern 342 $ Rechenwert, Spiel 29 %; **Bitte Bild der Nutzung** (Anteil der Woche in Prozent; solange die Niederlassung ruht, nur vom Account Max) | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
-| 8 | Von dir zuerst gefunden | 1694, 23.11., 22:21: „die Hand umgreift ja gar nicht den Griff“ (Großaxt-Hand ist Ring statt Griff); daraus 22:23 dein A „Stiel dünner“, neuer Auftrag 23:10 (Vorgangsarchiv 1694). | Woche, zählt Diogenes montags |
-| 9 | Größtes Risiko | 1694, der vorderste Vorgang in Block 3, ruht seit heute 07:49 beim Chef nach dem 4. „steckt fest“ (Obergrenze B, bisher 58,37 $), und du bist heute auf der Konferenz (Gedächtnis 23.11., 23:08); bis zu deinem Wort steht der Griff für alle gehaltenen Dinge. |  |
-| 10 | Läufe | 24 h **99 % grün** (815 von 823), **45 min in roten Läufen** (3 % der Laufzeit), **– Läufe je erledigtem Spielvorgang** (weiter unter der Tabelle) | alle Bau- und Testläufe ohne abgebrochene; je Spielvorgang = Läufe geteilt durch erledigte oder abgenommene Vorgänge des Spiels, ohne verworfene (1659) |
-| 11 | Fristen | Testbitten über 5 Tage **0**; Fragen an dich ohne Antwort **0**; Vorgänge ohne Auftrag über 1 Tag **401** (26.1, 30, 39, 41.2, 45 …); unter „Unveröffentlicht“ **151** Einträge; letztes Release v0.1.867 vor **37 Tagen** | Testbitte 5 Tage (A13), Vorgang ohne Auftrag 1 Tag (A3, erst nach der Umstellung), Frage an dich ohne Frist (L-O16); Release nur auf dein Wort |
+| 6 | Fehler | **6** offen, davon 2 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
+| 7 | Geld | Woche unbekannt; gestern 687 $ Rechenwert, Spiel 34 %; **Bitte Bild der Nutzung** (Anteil der Woche in Prozent; solange die Niederlassung ruht, nur vom Account Max) | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
+| 8 | Von dir zuerst gefunden | 2024, 25.11., 16:03: „Blut muss am Trefferpunkt entstehen, nicht im Raum“ (Krogg); 1708, 25.11., 19:22: „irgendein Wolfsbiss sah mal wieder aus, als ob er ins Schild geht und dann Blut spritzt“ (Blut bei Schildabwehr, Nebenfund zu B) (Vorgangsarchiv). | Woche, zählt Diogenes montags |
+| 9 | Größtes Risiko | 1694 Griff hat die Frist Sa 28.11. und seit 25.11., 20:36 einen Auftrag (Deckel 20 $, bisher 89,17 $), steht aber nicht unter den nächsten 20, Figur nimmt zuerst 1785; der Griff gilt für alle gehaltenen Dinge (Vorgangsliste, Überblick 26.11., 08:46). |  |
+| 10 | Läufe | 24 h **98 % grün** (765 von 779), **103 min in roten Läufen** (6 % der Laufzeit), **55,6 Läufe je erledigtem Spielvorgang** (weiter unter der Tabelle) | alle Bau- und Testläufe ohne abgebrochene; je Spielvorgang = Läufe geteilt durch erledigte oder abgenommene Vorgänge des Spiels, ohne verworfene (1659) |
+| 11 | Fristen | Testbitten über 5 Tage **0**; Fragen an dich ohne Antwort **0**; Vorgänge ohne Auftrag über 1 Tag **324** (26.1, 30, 39, 41.2, 45 …); unter „Unveröffentlicht“ **151** Einträge; letztes Release v0.1.867 vor **39 Tagen** | Testbitte 5 Tage (A13), Vorgang ohne Auftrag 1 Tag (A3, erst nach der Umstellung), Frage an dich ohne Frist (L-O16); Release nur auf dein Wort |
 | 12 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
 
-- Zeile 10 (Läufe), weiter: 7 Tage 97 % grün (902 von 930), 862 min in roten Läufen (22 % der Laufzeit), 8,5 Läufe je erledigtem Spielvorgang; rot 24 h nach Team: sonstige 8; Buildzweige 24 h: keine Läufe; rote Tests 48 h: wolf_mess_438 1×, angriff_824 1×; APK-Läufe 24 h: **4**, Ø **13 min** (min 4, max 38), vorgerendert **4 von 4**
+- Zeile 10 (Läufe), weiter: 7 Tage 97 % grün (977 von 1012), 230 min in roten Läufen (4 % der Laufzeit), 42,2 Läufe je erledigtem Spielvorgang; rot 24 h nach Team: sonstige 14; Buildzweige 24 h: keine Läufe; rote Tests 48 h: wolf_mess_438 1×, tausch_1041 1×, stehen_973 1×, biss_1284 1×, reihe_1305 1×, halt_653 1×; APK-Läufe 24 h: **3**, Ø **27 min** (min 4, max 39), vorgerendert **3 von 3**
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
 |---|---|---|---|---|---|
-| Tom | 0 | 0 | 0 | 0 | 40 |
-| Jerry | 0 | 0 | 0 | 0 | 47 |
-| Homer | 0 | 0 | 0 | 0 | 14 |
-| Sokrates | 0 | 0 | 0 | 0 | 24 |
-| Perikles | 0 | 0 | 0 | 0 | 55 |
-| Diogenes | 0 | 0 | 0 | 0 | 1 |
+| Tom | 0 | 0 | 0 | 0 | 1 |
+| Jerry | 0 | 0 | 0 | 0 | 11 |
+| Homer | 0 | 0 | 0 | 0 | 11 |
+| Sokrates | 0 | 0 | 0 | 0 | 11 |
+| Perikles | 0 | 0 | 0 | 0 | 1 |
+| Diogenes | 0 | 0 | 0 | 0 | 0 |
 <!-- /zahlen -->
 
 ## Roadmap (447, von dir gebilligt 01.11. mit Stufe „Alle Systeme angelegt“; ohne Datum; jede Stufe ein Build, den du spielst; Stand 21.11., 20:37; seit 19.11. unverändert, weil das Spiel stand)
@@ -73,6 +73,6 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 Von Hand (Tagesbericht-Routine, 448), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
 
-- Wo stehen wir: Oberster Block 10 Regeln hat kein Muss mehr (nächster 1487), der erste Block mit Muss ist 2 Kampf (20 Muss), dort ist 1589.3 „Stufe 2 Gegnerverhalten“ seit heute 07:35 startbar (Sokrates); seit gestern abgenommen sind in Block 3 die Wachsoldatin mit Schild 1675 (dein 👍, 23.11., 19:55) und Thessas Kragen 1653 (gebilligt 23.11., 22:07), beide auf `main` 23:22 (Überblick `chefsache/README.md`, 24.11., 07:38; Vorgangsarchiv).
-- Von dir zuerst gefunden: 1694, 23.11., 22:21: „die Hand umgreift ja gar nicht den Griff“ (Großaxt-Hand ist Ring statt Griff); daraus 22:23 dein A „Stiel dünner“, neuer Auftrag 23:10 (Vorgangsarchiv 1694).
-- Größtes Risiko: 1694, der vorderste Vorgang in Block 3, ruht seit heute 07:49 beim Chef nach dem 4. „steckt fest“ (Obergrenze B, bisher 58,37 $), und du bist heute auf der Konferenz (Gedächtnis 23.11., 23:08); bis zu deinem Wort steht der Griff für alle gehaltenen Dinge.
+- Wo stehen wir: Oberster Block 10 Regeln hat kein Muss, der erste Block mit Muss ist 2 Kampf (19 Muss), dort liegt 1589.4 „Stufe 3 Gegnerverhalten, Figuren in die Arena“ seit heute 08:50 bei dir zum Ansehen (Wege der Arena); seit dem letzten Bericht (24.11., 07:54) ist nichts abgenommen, gebilligt hast du zwei Aufträge in Block 3: 1694 Griff „A beheben“ (25.11., 19:55, Nachricht 5015) und die Kutte für Klosterschüler 2045 (26.11., 00:06, Nachricht 5027) (Überblick `chefsache/README.md`, 26.11., 08:46; Vorgangsarchiv).
+- Von dir zuerst gefunden: 2024, 25.11., 16:03: „Blut muss am Trefferpunkt entstehen, nicht im Raum“ (Krogg); 1708, 25.11., 19:22: „irgendein Wolfsbiss sah mal wieder aus, als ob er ins Schild geht und dann Blut spritzt“ (Blut bei Schildabwehr, Nebenfund zu B) (Vorgangsarchiv).
+- Größtes Risiko: 1694 Griff hat die Frist Sa 28.11. und seit 25.11., 20:36 einen Auftrag (Deckel 20 $, bisher 89,17 $), steht aber nicht unter den nächsten 20, Figur nimmt zuerst 1785; der Griff gilt für alle gehaltenen Dinge (Vorgangsliste, Überblick 26.11., 08:46).
