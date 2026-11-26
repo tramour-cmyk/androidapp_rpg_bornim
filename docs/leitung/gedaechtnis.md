@@ -30,4 +30,4 @@
 
 ## Übergabe
 
-- 26.11., 08:56, `79MGDR` (383 Tsd.): 2042 offen: Startgröße zerlegen (Eilt); 2044 fertig; 2045 Kutte (Chef 👍 00:06); 2046 macht 1589.4 grün; 1589.4 Halt 76/80 $: Vorlage Geld +10 $ für Ü35 (Wolf macht Platz) an Chef; 2031 Bildlauf, dann Vorlage Häute. Letzte Antwort: 08:56. Nachfolger: Sokrates – Leitung.
+- 26.11., 09:11, `ra42uE` (klein): Ladetext gemessen (Kern Leitung 3.011 über 3.000 seit 86a49acca; Summe Leitung 4.189); Vorlage A kürzen / B Grenze 3.100 im Chat 08:57, Chef offen, Telegram fehlt. Von `79MGDR` unverändert: 2042 Startgröße (Eilt); 2045 Kutte; 2046 1589.4 grün; 1589.4 Halt 76/80 $, Vorlage Geld +10 $ für Ü35 an Chef; 2031 Bildlauf, dann Häute. Letzte Antwort: 09:11. Nachfolger: Sokrates – Leitung.
