@@ -30,4 +30,4 @@
 
 ## Übergabe
 
-- 26.11., 15:48, `75wvvZ` bei 215 Tsd.: 2042 F5 A, (4) eng fassen (Zweck 261/516), (5) Datei klein, Emil baut; 1589.4 C Drehung weich (15:12); 1694 A nur Schätzung 3 $ (15:14); 1137 geschlossen. Offen beim Chef: Telegram 15:33 große Vorgänge aufteilen 👍/👎. Letzte Antwort: 15:48. Nachfolger: Sokrates – Leitung.
+- 26.11., 15:48, `75wvvZ` bei 215 Tsd.: 2042 F5 A, (4) eng fassen (Zweck 261/516), (5) Datei klein, Emil baut; 1589.4 C Drehung weich (15:12); 1694 A nur Schätzung 3 $ (15:14); 1137 geschlossen. Telegram 15:33 große Vorgänge aufteilen: nicht offen (Chef 15:57; 👍 15:35 auf Nachricht 5087, Zuordnung unbelegt). Letzte Antwort: 15:48. Nachfolger: Sokrates – Leitung.
