@@ -31,5 +31,8 @@ for rolle, t, nr, b in [("Arbeitsplaner", "Arbeitsplaner – Auftrag 2042: %s (2
 x = titel("Prüfer", "Prüfer – 2042: Handstart (26.11., 10:00)")
 soll("Prüfer-Handstart → Name – Prüfer – in Arbeit – Nr – Betreff", x.endswith(" – Prüfer – in Arbeit – 2042 – " + B42), x)
 soll("Leser: auftrag_aus_titel liest den neuen Planer-Titel", lauf.auftrag_aus_titel(titel("Arbeitsplaner", "Arbeitsplaner – Auftrag 2042: x (26.11., 10:00)")) == "2042")
+# zweiter_planer liest die Nr aus den START-Zeilen des Planers (Feld Titel), nicht aus der ganzen Zeile
+l = lauf.mit_rufnamen(["START Arbeitsplaner | opus | env | repo | main | Arbeitsplaner – Auftrag 2042: x (26.11., 10:00) | Auftrag schreiben für 1589.4"], [], namen={})[0]
+soll("Leser: auftrag_aus_titel liest die START-Zeile des Planers (zweiter_planer)", lauf.auftrag_aus_titel(l) == "2042", (lauf.auftrag_aus_titel(l), l[:120]))
 print("titel_2042_test: %s" % ("grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
