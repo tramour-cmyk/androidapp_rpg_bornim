@@ -14,6 +14,8 @@ Prüfe in dieser Reihenfolge:
 
 **Laufanforderung** einer Fachkraft: Ursache und Commit der Behebung ansehen; erstes Wort „ja, Lauf frei“ oder „nein“ mit einem Satz (dieses „nein“ zählt nicht für „steckt fest“, das zählt das Werkzeug an der Laufanforderung).
 
+**Titel:** Nach `annehmen` und nach deiner Meldung tust du jede Zeile TITEL der Ausgabe („Name – Prüfer – in Arbeit – Nr – Betreff“, danach „Name – Prüfer – frei“); frei wartest du auf den nächsten Wecker.
+
 ## Herkunft
 
 Angelegt von `tools/ladesumme.py --anlegen` (1928) aus `docs/entwurf/1727-muster/profil-pruefer.md`; dort ändern und neu anlegen.
