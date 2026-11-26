@@ -21,6 +21,9 @@ Ausgabe, Zeile für Zeile auszuführen:
   LEERLAUF: …                                                       → (1100 A 6) nichts zu starten, melden, pushen: Ford endet sofort, nur Chatzeile, kein Telegram, kein Push
   STELLUNG aus | Co-Pilot: …                                        → (1100 A 1) aus: Ford endet; Co-Pilot: START nicht ausführen (LISTE-BETRIEB.md „Stellung“)
   WARNUNG Abgleich: n Zeilen „gebaut“ oder „zu testen“ ohne Build   → (1100 A 5) Zahl statt der Einzelzeilen; ganz einmal am Tag im ersten Lauf ab 8 Uhr (Marke „Abgleich ganz TT.MM.“)
+  (2042 Fassung 5, Chef 👍 26.11., 16:28) Konsole nur Taten, höchstens 3 KB: WARNUNG und AUSGESCHLOSSEN gekürzt auf eine Zeile, zu lange Taten mit
+                                                                     „… (voll: sed -n Np <Restdatei>)“; NICHTS, SITZUNG, LIEGT, HINWEIS, GUTHABEN, LAUFSPERRE, NUR MUSS nur in der
+                                                                     Restdatei (alle Zeilen, BORNIM_LAUF_REST, Vorgabe /tmp/bornim-lauf-rest.txt); letzte Zeile „REST <Pfad>: Zahl je Art“
   WARNUNG …                                                         → Ford meldet es lautlos
   WARNUNG-LAUT …                                                    → Ford meldet es mit --laut (190.7: dieselbe Warnung zum zweiten Mal)
   STILLSTAND <Rolle>: …                                             → Ford schreibt die Protokollzeile „Stillstand <Rolle> seit HH:MM“ (Schritt 5, 192.2)
@@ -316,10 +319,11 @@ REST_DATEI = os.environ.get("BORNIM_LAUF_REST", "/tmp/bornim-lauf-rest.txt")
 KONSOLE_MAX = 3072      # Byte für die ganze Ausgabe eines Takts
 KONSOLE_NACH = 600      # Reserve für die Zeilen nach der Schleife (STARTSPERRE, GELÖST, HERZSCHLAG …)
 KURZ_TAT = 200          # zu lange Tat-Zeilen: so viele Zeichen, dann Verweis auf die volle Zeile
-REST_ARTEN = ("NICHTS", "WARNUNG ", "SITZUNG ", "LIEGT ", "HINWEIS", "GUTHABEN ", "LAUFSPERRE ", "NUR MUSS", "AUSGESCHLOSSEN ")
+KURZ_WARNUNG = 100      # Chef 👍 16:28 (2042 A): WARNUNG und AUSGESCHLOSSEN gekürzt in der Konsole, eine Zeile je Warnung
+WARN_ARTEN = ("WARNUNG ", "AUSGESCHLOSSEN ")
+REST_ARTEN = ("NICHTS", "SITZUNG ", "LIEGT ", "HINWEIS", "GUTHABEN ", "LAUFSPERRE ", "NUR MUSS")
 def ist_tat(l):
-    """Tat = Zeile, die eine Handlung auslöst; Rest = nur lesen. Unbekannte Arten gelten als Tat (keine Tat geht still verloren)."""
-    if l.startswith("WARNUNG ") and "Seite abgeschnitten" in l: return True  # weitere Seite holen
+    """Tat = Zeile, die eine Handlung auslöst (auch Melden); Rest = nur lesen. Unbekannte Arten gelten als Tat (keine Tat geht still verloren)."""
     if l.startswith("NICHTS") and "pushen" in l: return True  # „Notizen pushen“
     return not l.startswith(REST_ARTEN)
 
@@ -345,6 +349,9 @@ def konsole(ausgabe, pfad=None, max_byte=None):
     for l in ausgabe:
         if ist_tat(l): zeilen.append([nr, l])
         nr += l.count("\n") + 1
+    for z in zeilen:  # 2042 A: Warnungen immer kurz, voller Wortlaut in der Restdatei
+        verweis = " … (voll: sed -n %dp %s)" % (z[0], pfad)
+        if z[1].startswith(WARN_ARTEN) and len(z[1]) > KURZ_WARNUNG + len(verweis): z[1] = z[1][:KURZ_WARNUNG].rstrip() + verweis
     budget = (max_byte or KONSOLE_MAX) - KONSOLE_NACH - len(rest_zeile(ausgabe, pfad).encode()) - 1
     b = lambda: sum(len(z[1].encode()) + 1 for z in zeilen)
     for kurz in (KURZ_TAT, KURZ_TAT // 2, KURZ_TAT // 4):  # erst die längsten auf 200 Zeichen, reicht das nicht, auf 100, dann 50
