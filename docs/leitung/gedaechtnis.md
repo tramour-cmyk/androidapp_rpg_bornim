@@ -10,7 +10,6 @@
 - Bild selbst ansehen, Spielkamera (1650, 1621).
 - Umbau nur von der alten Datei aus, jede Übernahme prüfen (98). Kerne, Profile, Abgenommenes nur in der Quelle, mit Chefwort und Byte, nur die genannte Stelle (D205.3, 1931).
 - Befund, der den Auftrag erledigt, vorher nennen (1638); Ablauf als Raster Einheit × Auslöser, „komplett“ per grep.
-- Keine Regel gegen Praktisches vorschieben (Kapsel 25.11.).
 - Neueres Chefwort gilt; widerspricht es Älterem, Chef darauf hinweisen, er löst (17:54).
 - Chefentscheid nie selbst zurücknehmen oder gegen Chefwort ablehnen: raten, Regel nennen, fragen (1609, 23.11.).
 - Gegenlesen: erst die Art jeder Zeile, dann Inhalt; nur gegen gültige Texte prüfen (t299, 1933).
@@ -22,7 +21,7 @@
 
 ## Offene Fäden
 
-- Nachfolger startet nur Alter Ego (Wurzel, Tiefe 0, …78iGVJ): bei 250 Tsd. Übergabe, Startfelder per send_message an Alter Ego (Chef 13:40).
+- Nachfolger startet Alter Ego (Wurzel …78iGVJ): bei 250 Tsd. Startfelder an ihn (13:40).
 
 - Laufsperre bis Sa 28.11., 20:00, danach sofort 2043 (Deckel klein); 2042 zuerst (c)(d), Deckel 85 $; 1589.4 Deckel 90 $; 1708 ruht bis 1589.4 auf main.
 - Chat eine Zeile, Inhalt auf Telegram (Chef 12:30); Starttexte als Codeblock (10:30).
