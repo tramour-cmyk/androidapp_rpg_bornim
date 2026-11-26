@@ -1467,3 +1467,4 @@
 2026-11-26 11:47:26	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	HEAD
 2026-11-26 12:10:43	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/moritz-1589.2
 2026-11-26 12:28:04	probelauf	725 (D72): Ziel `cd "$W"` kann der Haken nicht auflösen; Figurenstand (513.1), Parse (464) und Zählung (621 A) liefen sonst im falschen Ordner und ließen durch. Ziel ausschreiben (`cd /home/user/…`) o	claude/alter-ego-supervisor-o8pn6i
+2026-11-26 12:40:11	startsperre	Startsperre fehlt (750 A): für Sokrates steht in den letzten 10 Minuten keine „Startsperre … Start Sokrates“ auf main (letzte 26.11., 11:37). Ford: erst `python3 tools/lauf.py --sperre --besetzung`, p	HEAD
