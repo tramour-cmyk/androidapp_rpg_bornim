@@ -29,4 +29,4 @@
 
 ## Übergabe
 
-- 26.11., 17:02, `77SpWu`: 2042 fertig (Fix 9e3aad0e00 auf main). 1589.4 Benno läuft (Chef 16:30). 1694 Schätzung nimmt Anna nach 2029 (Disponent 16:54). Fund: vorgang.py pruefen rot, 2018 Besitzer „Wochenzählung“ (vorbestehend). Letzte Antwort: 17:02. Nachfolger: Sokrates – Leitung.
+- 26.11., 21:58, `77SpWu`: Chef 17:18 Spiel statt Betrieb (Archiv oben): keine Starts außer t301 bis Sa 20:00, danach 4 Wochen kein B ohne Chefwort. t301 gebaut (Marta …779E7U, 15 Vorgänge, ohne 1068), Testbitte sofort, Bilder nur unter 30 Min. (21:58). Hakenfix Technik auf main 364e07994b. Wache-Uhr aus, alte Disponent-Uhr gelöscht. Fund: Docstring buildzweig-haken nennt Technik nicht (Conrad). Letzte Antwort: 21:58. Nachfolger: Sokrates – Leitung.
