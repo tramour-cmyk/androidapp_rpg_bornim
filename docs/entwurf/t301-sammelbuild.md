@@ -15,7 +15,7 @@ Im Bau geprüft: Gangprüfung je Waffe und Gangart, Fußgleiten und Schritte je 
 |---|---|---|---|---|---|---|
 | 301.1 | Spike | 1270.6 | Handy | „Weiter“ mit deinem Spielstand, Grafik auf Automatisch (sonst vorher Menü → System → Grafik auf Automatisch), Spieldaten nicht löschen: die Einmess-Blende „Die Feder wird angesetzt.“ kommt einmal; dann Zeile 301.1 → „Lage herstellen“ (Flüsterwald 9/12, Mittag), Testmenü → Bildrate an, 10 s stehen, Messzeile „Kopieren“ | Messzeile „Stufe Mittel“ oder „Stufe Hoch“, Takt 30; nach 10 s 30 Bilder/s, sonst eine Stufe tiefer | keine Blende und weiter „Stufe Niedrig“, oder die Blende kommt bei jedem Start |
 | 301.2 | Spike | 1619 | Handy | Zeile 301.2 → „Lage herstellen“ (Flüsterwald 9/12, Mittag; schaltet „Schnell“ aus), alle Stufen: mit angelegter Waffe mit dem Joystick ein Stück gehen, dann rennen | mit dem Joystick gesteuert geht der Held im Tritt, die Schritte passen zum Tempo | er stakst oder trippelt beim Gehen mit Waffe, oder rutscht über den Boden |
-| 301.3 | Tom | 1674 | Handy | Zeile 301.3 → „Lage herstellen“ (Dorfplatz, zwischen Bank und Brunnen, Mittag), alle Stufen: stehen bleiben und bis zu 2 Minuten den Bewohnern zusehen, die über den Platz gehen | wer an dir vorbei will, geht um dich herum und kommt an seinem Ziel an | einer bleibt vor dir stehen oder geht hin und her, bis du ihn wegschubst |
+| 301.3 | Tom | 1674 | Handy | Zeile 301.3 → „Lage herstellen“ (Dorfplatz, zwischen Bank und Brunnen, 11:59), alle Stufen: stehen bleiben und bis zu 2 Minuten zusehen: um 12:00 gehen Pim und Bram durch die Enge zwischen Bank und Brunnen (ist Pim in deinem Spielstand heimgeschickt, kommt nur Bram) | wer an dir vorbei will, geht um dich herum und kommt an seinem Ziel an | einer bleibt vor dir stehen oder geht hin und her, bis du ihn wegschubst |
 | 301.4 | Tom | 1205, 1205b | Handy | Menü → System → Grafik auf Niedrig; Zeile 301.4 → „Lage herstellen“ (Dorfwiese 13/10, Mittag), Testmenü → Bildrate an, „Takt“ auf frei, 10 s stehen, „Kopieren“; dann Menü → System → Grafik auf Hoch, an derselben Stelle wieder „Kopieren“; danach „Takt“ auf 30 und Grafik zurück auf Automatisch | zwei Messzeilen kopiert, „Stufe Niedrig“ und „Stufe Hoch“, je mit Bilder/s; auf Niedrig Blumen des Kits, keine Kleckse | Absturz, Ruckeln nach dem Umschalten, oder auf Niedrig wieder Kleckse |
 | 301.5 | Kampf | 1589.2 | Handy | Zeile 301.5 → „Lage herstellen“ (Probekampf Wolf mit Jungwölfen, unsterblich), alle Stufen: zuerst den Leitwolf fällen; stehen dann noch zwei Jungwölfe, einen davon | der übrige Jungwolf sagt „Flucht“ an, jeder von euch hat noch einen Zug, nach seinem Zug ist er fort und der Kampf endet | er ist ohne Ansage sofort fort, oder er kämpft bis zum Ende weiter |
 | 301.6 | Kampf | 1589.4 | Handy | Zeile 301.6 → „Lage herstellen“ (Probekampf Wolfsrudel), alle Stufen: Kampf zu Ende spielen, dabei auf die Wölfe achten, die gerade nicht angreifen | wer angreift, läuft zu dir, dreht sich zügig zu dir und beißt; die übrigen warten an ihrem Platz um dich, keiner läuft durch dich, den Söldner oder einen anderen Wolf | ein Wolf läuft durch eine Figur, bleibt stehen ohne anzugreifen, oder der Kampf friert ein |
@@ -29,7 +29,7 @@ Im Bau geprüft: Gangprüfung je Waffe und Gangart, Fußgleiten und Schritte je 
 
 - 301.1: ort=forest:9:12:DOWN uhr=12:00
 - 301.2: ort=forest:9:12:DOWN uhr=12:00
-- 301.3: ort=village:15:16:DOWN uhr=12:00
+- 301.3: ort=village:15:16:DOWN uhr=11:59
 - 301.4: ort=village:13:10:UP uhr=12:00
 - 301.5: probe=RUDEL unsterblich
 - 301.6: probe=WOLVES
