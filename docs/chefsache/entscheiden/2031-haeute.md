@@ -1,5 +1,8 @@
 # 2031 · Sollen die neuen Häute ins Spiel, obwohl man sie fast nur beim Orkblütigen sieht?
 Sokrates · 26.11., 10:06 · Figuren · aus deinem Wort 25.11., 13:39 („MakeHuman nehmen und testen, was wir brauchen können. … Haut“)
+
+[Bild von 26.11., 10:07](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/26-1007-2031-Sokrates.png) (eingetragen von meldung.sh, Sokrates)
+
 Kurz: sechs neue freie Häute (drei je Geschlecht) sind gebaut und geprüft; Unterschied zu heute sichtbar nur beim Orkblütigen, bei Mensch kaum.
 Beim Chef, weil: Aussehen
 
