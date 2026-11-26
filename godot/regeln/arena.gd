@@ -451,7 +451,9 @@ static func rudel_platz(ziel: Vector2, von: Vector2, weit: float, nah: float, la
 				if kapsel_abstand(gasse, x) < -GLEICH:
 					frei = false
 					break
-			# und er kommt geradewegs hin (strecke_frei, F1), sonst bliebe er hinten stehen (_walk_home: Weg versperrt)
-			if frei and dreh_frei.call(platz) and strecke_frei(von, platz, laenge, r, andere + gassen):
+			# und er kommt geradewegs hin (strecke_frei, F1), sonst bliebe er hinten stehen (_walk_home: Weg versperrt); die Gasse eines
+			# Wartenden darf er dabei kreuzen, nur nicht dessen Körper (wege_15894 Ersatzratte RATS: Ratte 3 fand 8 m hinter dem Helden
+			# sieben freie Plätze, jeder Weg kreuzte die Gasse von Ratte 1 oder 2, sie blieb hinten stehen)
+			if frei and dreh_frei.call(platz) and strecke_frei(von, platz, laenge, r, andere):
 				return [platz, gasse]
 	return [von, []]
