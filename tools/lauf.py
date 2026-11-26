@@ -358,6 +358,14 @@ def titel_zeilen(sitzungen):
 START_TITEL = re.compile(r"^\S+ – (?:Auftrag )?(\d[0-9a-zA-Z.]*)( [A-Z])?(?::| –) (.*?)(?: \(\d\d\.\d\d\., \d\d:\d\d\))?$")
 FACH_TITEL = ("Regeln", "Kampf", "Figur", "Kataloge", "Welt", "Klang", "Oberfläche", "Story", "Technik", "Werkzeug", "Fachkraft")  # uebergabe.FACHPROFILE
 
+PLANER_TITEL = ("Arbeitsplaner", "Perikles")  # 2042 (5): auch Planer und Handstart des Planers (R67)
+
+def _betreff(nr, b):
+    """2042 (5): „Handstart“ ist kein Betreff; dann der Vorgangstitel (rufname.betreff), sonst wie gegeben."""
+    if (b or "").strip() != "Handstart": return b
+    import rufname
+    return rufname.betreff(nr) or b
+
 def mit_rufnamen(ausgabe, sitzungen, jetzt=None, namen=None):
     """1739 Rufnamen (erst mit tools/1727-SCHARF): jede START-Zeile außer Sokrates bekommt den nächsten freien Rufnamen des
     Tages (rufname.py) als erstes Wort des Titels statt der Rolle, und die erste Nachricht nennt ihn. Die Rolle bleibt im
@@ -382,10 +390,10 @@ def mit_rufnamen(ausgabe, sitzungen, jetzt=None, namen=None):
         teile[5] = n + t[t.index(" – "):] if " – " in t else "%s – %s" % (n, t)
         if teile[0][6:].strip() == "Prüfer":  # 2042 Teil 7 (Chef 22:43): Prüfer tragen „Prüfer“ ab Start
             m = re.match(r"\S+ – (?:Prüfer – )?(?:Auftrag )?(\d[0-9a-zA-Z.]*)(?::| –) (.*?)(?: \(\d\d\.\d\d\., \d\d:\d\d\))?$", t)
-            teile[5] = rufname.pruefer_titel(n, m.group(1), m.group(2)) if m else rufname.pruefer_titel(n)
-        elif teile[0][6:].strip() in FACH_TITEL:  # 2042 Teil 6 (2) (Nachtrag 22:36): START setzt gleich „Name – in Arbeit – Nr – Betreff“
+            teile[5] = rufname.pruefer_titel(n, m.group(1), _betreff(m.group(1), m.group(2))) if m else rufname.pruefer_titel(n)
+        elif teile[0][6:].strip() in FACH_TITEL + PLANER_TITEL:  # 2042 Teil 6 (2), (5) Eilt (b): START setzt gleich „Name – in Arbeit – Nr – Betreff“
             m = START_TITEL.match(t)
-            if m: teile[5] = rufname.titel(n, m.group(1), (m.group(2).strip() + ": " if m.group(2) else "") + m.group(3))
+            if m: teile[5] = rufname.titel(n, m.group(1), _betreff(m.group(1), (m.group(2).strip() + ": " if m.group(2) else "") + m.group(3)))
         teile[6] = "Dein Rufname: %s (Rolle %s; Titel, Besetzung, Meldung).\\n\\n%s" % (n, teile[0][6:].strip(), teile[6])  # „Rolle“ liest startsperre-haken.py
         aus.append(" | ".join(teile))
     return aus
