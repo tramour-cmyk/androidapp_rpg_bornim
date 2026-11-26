@@ -6,6 +6,10 @@ extends "res://tests/am_zug_565.gd"
 # Bild zum nächsten (eckig: ein Knick) und den kleinsten Abstand. Exit 0 = beide gehen im selben Bild los, kommen höchstens 2 Bilder
 # auseinander an, keiner schneller als das Tempo des anderen um mehr als 10 %, kein Knick über KNICK, Abstand nie unter NAH.
 # Ohne Kaufmodelle (am Rechner) mit dem eigenen Helden (Gehen). Aufruf: im Ordner godot --headless --fixed-fps 30 -s res://tests/tausch_1041.gd
+# 2046: „zugleich los, zugleich an, gleiches Tempo“ entfällt (DESIGN-GEGNER.md 5: „Beim Platztausch gehen die Figuren nacheinander,
+# nie ineinander; der hintere wartet seitlich, bis der Weg frei ist“, umgesetzt in figur.gd _wechsel_gehen, 1589.4 c95da5943). Es
+# bleiben: jeder geht im Tempo seiner Schritte (GRENZE, Chef 12.11., 15:16), kein Knick im Gehen (KNICK, je Teilweg: nach einem Halt
+# beginnt ein neuer, „kein Bogen“ DESIGN-GEGNER.md 5), nie ineinander (NAH = zweimal Figur.HERO_R, Umriss)
 
 const KNICK := 12.0     # Grad je Bild
 const NAH := 0.6
@@ -79,6 +83,8 @@ func _lauf() -> void:
 			s.y = 0.0
 			var v: float = s.length() / dt
 			vor[id] = g.position
+			if v <= 0.05:
+				rich.erase(id)     # 2046: Halt (Warten seitlich), danach ein neuer Teilweg
 			if v > 0.05:
 				var w: Array = mess[id]
 				if w[0] < 0:
@@ -106,16 +112,6 @@ func _lauf() -> void:
 			print("FEHLER %s gleitet" % id); fehler += 1
 		if w[4] > KNICK:
 			print("FEHLER %s geht eckig (Knick %.0f°)" % [id, w[4]]); fehler += 1
-	var h: Array = mess.hero
-	var s: Array = mess.merc
-	if absi(h[0] - s[0]) > 0:
-		print("FEHLER nicht zugleich los (%d Bilder auseinander)" % absi(h[0] - s[0])); fehler += 1
-	if absi(h[1] - s[1]) > 2:
-		print("FEHLER nicht zugleich an (%d Bilder auseinander)" % absi(h[1] - s[1])); fehler += 1
-	var vh: float = h[3] / maxf((h[1] - h[0] + 1) * dt, 0.01)
-	var vs: float = s[3] / maxf((s[1] - s[0] + 1) * dt, 0.01)
-	if maxf(vh, vs) > minf(vh, vs) * 1.1:
-		print("FEHLER Tempo ungleich (%.2f gegen %.2f m/s)" % [vh, vs]); fehler += 1
 	print("Abstand Held–Söldner kleinster %.2f m" % nah)
 	if nah < NAH:
 		print("FEHLER zu nah (unter %.2f m)" % NAH); fehler += 1

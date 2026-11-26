@@ -3,6 +3,7 @@
 # Kaufmodelle grün läuft und höchstens etwa 16 s braucht (gemessen 13.11. mit 4 nebeneinander); langsamste zuerst, damit die
 # Kerne gleichmäßig voll sind. Neuer Test: in godot.yml (sperrend) und, wenn er ohne Modelle prüft und schnell ist, hier.
 brs_kampf_478
+wege_15894
 probekampf_1034
 ziege_4162
 am_zug_565
@@ -19,6 +20,7 @@ begriffe_868
 tasche_532
 absicht_1049
 ansage_1603
+arena_15892
 merkmale_1488
 krogg_494
 erklaerung_954

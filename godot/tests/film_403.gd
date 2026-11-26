@@ -40,7 +40,7 @@ func _run() -> void:
 		var p = Probe.new()
 		p.hero_cls = k
 		p.merc_cls = "FIGHTER" if k != "FIGHTER" else "CLERIC"
-		p.foe = "WOLVES"
+		p.foe = OS.get_environment("GEGNER") if OS.get_environment("GEGNER") != "" else "WOLVES"     # 1589.4: GEGNER=RATS …
 		root.add_child(p)
 		await process_frame
 		p._start(int(OS.get_environment("SEED")) if OS.get_environment("SEED") != "" else -1)
