@@ -262,9 +262,11 @@ def sperr_eintraege(text, jahr):
     return aus
 
 
+SPERRE_VOR_MIN = 10  # 2042 (Sokrates 16:44): ältere Sperre gehört zu einer anderen Sitzung mit demselben Rufnamen (Emil 09:04 vs. 15:33)
+
 def rolle(titel_, created_at=None, betrieb=None):
     """1957: Startrolle einer Rufnamen-Sitzung aus der Startsperre, die lauf.py beim START schreibt (Rufname je Tag eindeutig):
-    Sperre am Berliner Tag von created_at mit diesem Rufnamen, die jüngste bis 5 Minuten nach created_at. None ohne Rufname
+    Sperre am Berliner Tag von created_at mit diesem Rufnamen, die jüngste von 10 Minuten vor bis 5 Minuten nach created_at. None ohne Rufname
     oder ohne passende Sperre (dann wie bisher bereich()). Ohne created_at die jüngste Sperre mit diesem Rufnamen."""
     n = aus_titel(titel_)
     if not n: return None
@@ -283,7 +285,7 @@ def rolle(titel_, created_at=None, betrieb=None):
         e = _SPERREN[schl]
     except OSError:
         return None
-    e = [x for x in e if x[2] == n and (c is None or (x[0].date() == c.date() and x[0] <= c + datetime.timedelta(minutes=5)))]
+    e = [x for x in e if x[2] == n and (c is None or (x[0].date() == c.date() and c - datetime.timedelta(minutes=SPERRE_VOR_MIN) <= x[0] <= c + datetime.timedelta(minutes=5)))]
     t = teile(titel_)  # 2042 Teil 6 (Paula 21:44 „Kampf 1589.4“ vor nie ausgeführter 21:47 „Arbeitsplaner 2031“): Sperre mit der Nr des Titels
     mit_nr = [x for x in e if t and len(x) > 3 and x[3] == t["nr"]]
     return max(mit_nr or e)[1] if e else None
