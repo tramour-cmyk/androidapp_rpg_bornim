@@ -22,12 +22,11 @@
 
 ## Offene Fäden
 
-- Konferenz: Alter Ego `session_01Hmoj762EPtvo4atj6qUmKf` vertritt außer Vorbehalt; Notstart Nr 2013 (`alter-ego.md`). Ab Tiefe 8 kein Start; Disponent Tiefe 0 startet.
-- Nach main: CLAUDE.md 8 (Chef 25.11., 17:37, 17:44); mischt Sokrates.
-- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Werkzeug nur 2035, 2036, 2039, 2041, Eilt 2042, 2044. Sa vorlegen: --sperre-Teile, Testbuild Sa (Technik Fr).
-- Täglich Modell, Umgebung, Aufwand je Sitzung.
-- Übergang 300/450 Tsd. bis 2042 fertig (Teil 8, Chef).
+- Alter Ego Dirk `session_01Hmoj77ne8ZmFY9GRkxsfKt` vertritt außer Vorbehalt. Disponent `…78t65WUU5m8TGvdSCq` (09:53).
+- Uhren: create_trigger nur auf Chefsatz im Chat (Auto-Modus); Disponent-Lauf hängt an `…79xvp` (alt), Chef A/B offen.
+- Laufsperre bis Sa 28.11., 20:00; Eilt zuerst 2042-Ü35 schlank, dann 2049 Start der Leitung (Chef 09:54).
+- Notizen nur in ../bornim-main (notiz.sh), nie Arbeitszweig.
 
 ## Übergabe
 
-- 26.11., 09:11, `ra42uE` (klein): Ladetext gemessen (Kern Leitung 3.011 über 3.000 seit 86a49acca; Summe Leitung 4.189); Vorlage A kürzen / B Grenze 3.100 im Chat 08:57, Chef offen, Telegram fehlt. Von `79MGDR` unverändert: 2042 Startgröße (Eilt); 2045 Kutte; 2046 1589.4 grün; 1589.4 Halt 76/80 $, Vorlage Geld +10 $ für Ü35 an Chef; 2031 Bildlauf, dann Häute. Letzte Antwort: 09:11. Nachfolger: Sokrates – Leitung.
+- 26.11., 10:04, `JcDjsC`: Uhren umgehängt (Testbuild B trig_0187EXrB5jDLXTdmLpxH7AES an 78t65); 2049 angelegt; 2042, 2034 „ruht“ aufgehoben (R87); 887 Weg b; 2029 Vorlage erst nach Helmbild; 2031 Häute Vorlage Votum B bei Dirk, dann Telegram. Offen: Ladetext A/B (Telegram 09:18), Disponent-Lauf A/B. Nachfolger: Sokrates – Leitung.
