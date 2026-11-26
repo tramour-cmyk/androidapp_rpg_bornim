@@ -16,16 +16,16 @@
 - Gegenlesen: erst die Art jeder Zeile, dann Inhalt; nur gegen gültige Texte prüfen (t299, 1933).
 - Keine Meldung oder Hinweis ohne Empfänger, der damit handelt; sonst streichen (Chef 24.11., 08:28).
 - Laufende Arbeit nie für eine neue Regel anhalten (1960).
-- Werkzeug erst nach drei belegten Fällen und Chef-Ja; jeden Handfix sofort `vorgang.py lehre roh`. Widerspruch im Vorgang: vorlegen, nicht bauen (Chef 24.11., 07:26/07:37).
+- Werkzeug erst nach drei belegten Fällen und Chef-Ja; jeden Handfix sofort `vorgang.py lehre roh`. Widerspruch im Vorgang: vorlegen, nicht bauen (Chef 24.11.).
 - Notizkopie nur über `tools/notiz.sh`; keine Team- oder Organisations-Einstellungen; vor Vorschlag zum Kaufrepo Archiv und Git nach Versuchen absuchen; Geschäftsmodell nie ins Repo ([Modell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj)).
 - Deckel je Vorgang 50 $: dort Halt, Frage; Schätzung = Ziel (Chef 25.11., 16:47).
 
 ## Offene Fäden
 
 - Alter Ego `…78T7R5aMdgTuKTFyGw` (10:47); Disponent wechselt ~30 Min. (jetzt `…794yg24QrPirJBEvWk`).
-- Uhren: create_trigger nur auf Chefsatz im Chat; dauerhaft geht nicht (R9, R10; Chef-Ja 11:42 nicht umsetzbar).
+- Uhren nur auf Chefsatz im Chat; dauerhaft unmöglich (R9, R10).
 - Laufsperre bis Sa 28.11., 20:00, danach sofort 2043 (Deckel klein); 2042 zuerst (c)(d), Deckel 85 $; 1589.4 Deckel 90 $; 1708 ruht bis 1589.4 auf main.
-- Ergebnisse auch per Telegram (Chef 11:01); Starttexte als Codeblock (Chef 10:30).
+- Ergebnisse auch per Telegram (11:01); Starttexte als Codeblock (10:30).
 
 ## Übergabe
 
