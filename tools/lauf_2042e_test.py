@@ -33,7 +33,11 @@ taten = ["STREICHEN 2042-Ü1 | Disponent | erledigt", "NEUSTART-LEITUNG session_
          "WARNUNG Seite abgeschnitten (has_more) in s.txt: Plan unvollständig, weitere Seite bis created_at vor 12:00 holen (2042)"]
 rest = ["NICHTS %s: belegt (Sitzung …abc%d läuft)" % (r, i) for i, r in enumerate(["Tom", "Jerry", "Story", "Klang", "Welt"] * 5)]
 rest += ["SITZUNG …abc%03d | Titel %d – in Arbeit – 2042 | idle | 120 Tsd." % (i, i) for i in range(12)]
-rest += ["WARNUNG Sitzung session_X „Yvonne“ hat keine Rolle im Titel: bleibt stehen, nicht archiviert (261.5)",
+# Chef 👍 16:28 (2042 A): WARNUNG und AUSGESCHLOSSEN gekürzt in die Konsole, eine Zeile je Warnung
+WARN = ["WARNUNG Sitzung session_X „Yvonne – Auftrag 1694: nur Kostenschätzung, Deckel 3 $ (26.11., 15:15)“ hat keine Rolle im Titel: bleibt stehen, nicht archiviert (261.5) " + "z" * 200,
+        "AUSGESCHLOSSEN 2024: Figur wartet auf Chef (190.2)"]
+taten += WARN
+rest += [
          "LIEGT 79 (gebaut 29, ruht 27) | Einzelheiten: python3 tools/liegt.py [Art]", "HINWEIS Sokrates läuft schon (2049)",
          "GUTHABEN 63 %: Stufe frei (287)", "LAUFSPERRE 287: höchstens 3 Fachkräfte zugleich", "NUR MUSS: 6 Muss/Eilt startbar, Kür ruht (2052)"]
 ausgabe = []
@@ -67,8 +71,10 @@ else:
     pruefe(len(zv) == len(taten) + 6, "24 Taten: jede Tat-Zeile da", len(zv))
     kurz = ["START Tom | opus | x", "NICHTS Tom: belegt"]
     pruefe(f(kurz, pfad) == ["START Tom | opus | x"], "kleiner Takt: Taten unverändert")
-    pruefe(lauf.ist_tat("WARNUNG-LAUT x") and not lauf.ist_tat("WARNUNG x") and not lauf.ist_tat("NICHTS Tom: belegt")
-           and lauf.ist_tat("NEUE-ART unbekannt"), "Einordnung: WARNUNG-LAUT Tat, WARNUNG Rest, unbekannte Art Tat")
+    pruefe(lauf.ist_tat("WARNUNG-LAUT x") and lauf.ist_tat("WARNUNG x") and lauf.ist_tat("AUSGESCHLOSSEN 1: y") and not lauf.ist_tat("NICHTS Tom: belegt")
+           and lauf.ist_tat("NEUE-ART unbekannt"), "Einordnung: WARNUNG, WARNUNG-LAUT, AUSGESCHLOSSEN Tat, NICHTS Rest, unbekannte Art Tat")
+    w = [z for z in f(["WARNUNG " + "w" * 400, "START Tom | x"], pfad) if z.startswith("WARNUNG ")]
+    pruefe(len(w) == 1 and len(w[0]) <= lauf.KURZ_WARNUNG + 80 and "sed -n 1p" in w[0], "WARNUNG immer gekürzt, eine Zeile mit Verweis", w)
 
 # (a) im echten Programmlauf: letzte Zeile nennt die Restdatei (lauf.py-Hilfe druckt nur __doc__, darum Quelltext prüfen)
 q = open(os.path.join(H, "lauf.py"), encoding="utf-8").read()
