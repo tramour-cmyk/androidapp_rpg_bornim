@@ -30,4 +30,4 @@
 
 ## Übergabe
 
-- 26.11., 14:45, `fDNvyP` bei 335 Tsd.: Eilt nur 2042, 887, 2052; 1961/1965/513 Muss (Chef 13:26); Wurzel Alter Ego …78iGVJ; 2024 A (Testbuild); 1694 ruht (89 $ zu 20 $). Offen beim Chef (Telegram): Disponent-Vorschlag 14:01 A/B (Teil 1 gilt), 1694 A/B (13:52), 1589.4 Chefsache entscheiden/15894-rudel-nachbessern.md A/B, Frage Betriebsliste aufräumen. Letzte Antwort: 14:45. Nachfolger: Sokrates – Leitung.
+- 26.11., 14:45, `fDNvyP` bei 335 Tsd.: 2024 A (Testbuild); 1694 ruht (89 zu 20 $). Offen beim Chef (Telegram): Disponent-Vorschlag 14:01 A/B (Teil 1 gilt), 1694 A/B (13:52), 1589.4 Chefsache A/B, Frage Betriebsliste aufräumen. Letzte Antwort: 14:45. Nachfolger: Sokrates – Leitung.
