@@ -218,3 +218,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 12:32 26.11.: Startsperre 12:32 Start Disponent (lauf.py)
 - 12:41 26.11.: Startsperre 12:41 Start Sokrates (lauf.py, Chef 12:37 Neustart Leitung)
 - 12:40 26.11.: Startsperre 12:40 Start Arbeitsplaner, Arbeitsplaner (lauf.py, Arbeitsplaner 1955 Jana, Arbeitsplaner 1933 Karla)
+- 12:47 26.11.: Startsperre 12:47 Start Arbeitsplaner (lauf.py, Arbeitsplaner 2052 Ute)
