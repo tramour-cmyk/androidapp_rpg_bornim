@@ -3562,12 +3562,32 @@ func side_step(off: Vector3, hold_s: float, step_s: float) -> void:
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
+	# 1589.4 (Leben: nichts gleitet): mit dem Seitschritt aus UAL2 (HeldFigur.gang_wahl), wenn die Figur ihn hat
+	var hin := _seitschritt_name(off)
+	var her := _seitschritt_name(-off)
+	if hin != "":
+		tween.tween_callback(func(): anim.play(hin, 0.1))
 	tween.tween_property(self, "position", home + off, step_s).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	if hin != "":
+		tween.tween_callback(_idle)
 	tween.tween_interval(hold_s)
 	tween.tween_callback(func():     # zurück an den Platz, der dann gilt (glide_to wartet, solange der Schritt läuft)
 		tween = create_tween()
-		tween.tween_property(self, "position", home, step_s).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT))
+		if her != "":
+			tween.tween_callback(func(): anim.play(her, 0.1))
+		tween.tween_property(self, "position", home, step_s).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+		if her != "":
+			tween.tween_callback(_idle))
 	busy_ms = maxi(busy_ms, int((2.0 * step_s + hold_s) * 1000.0))
+
+
+## Name des Seitschritts für den Weg [off] (HeldFigur.gang_wahl gegen den Blick), "" ohne passende Bewegung
+func _seitschritt_name(off: Vector3) -> String:
+	if anim == null or off.length() < 0.01:
+		return ""
+	var g := HeldFigur.gang_wahl(anim, wrapf(atan2(off.x, off.z) - rotation.y, -PI, PI))
+	var n := String(g.get("name", "Gehen"))
+	return n if n != "Gehen" and anim.has_animation(n) else ""
 
 
 ## Prüfer Runde 4: beim Gehen rückwärts schwang der Waffenarm mit offener Hand an der Hüfte, die Waffe stand daneben. Die Arme
@@ -4407,7 +4427,8 @@ func umriss_kapsel() -> Array:
 
 
 ## 1589.4 Rudel (DESIGN-GEGNER.md 4, Chef 26.11., 10:29): Mitte zu Mitte zum Ziel [other] an seinem Angriffsplatz, wo er nach dem
-## Angriff steht: der Stand beim Aufschlag ohne Platzsuche (wie _bite_plan und _hieb am Anfang) plus das Absetzen (ABSETZEN, F2;
+## Angriff steht: der Stand beim Aufschlag ohne Platzsuche (wie _bite_plan und _hieb am Anfang, Rand des Ziels aus der weitesten
+## von acht Richtungen) plus das Absetzen (ABSETZEN, F2;
 ## Untote und Krogg: 0; [mit_absetzen] falsch: nur der Stand beim Aufschlag); ohne Biss und Hieb INF
 func angriffsplatz_m(other, mit_absetzen := true) -> float:
 	if fighter.monster == null or other == null:
@@ -4416,8 +4437,21 @@ func angriffsplatz_m(other, mit_absetzen := true) -> float:
 	var stand := INF
 	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
 		stand = other.body_r() - AXT_IM_RAND + float(hieb[0]) * model.scale.x
+		# wie _hieb: der Stand nach dem Weg der Waffe gegen den Körper des Ziels
+		var bb: Array = _hieb_bahn("Hieb", deg_to_rad(float(hieb[2]))) if traegt().any(func(g): return g[2] != "" and not String(g[2]).to_lower().contains("shield")) else []
+		if not bb.is_empty() and zu.length() > 0.01:
+			var pl: Array = hieb_plan(bb, other.koerper(), other.position, -zu.normalized(), -HIEB_TIEF, HIEB_KOERPER_LUFT, other.schild_kapseln())
+			if float(pl[2]) > 0.0:
+				stand = float(pl[0])
 	elif bite.has("Biss"):
-		stand = other.vorne(zu, ZUNGE.has(art()), hoehe_oben()) + float(bite["Biss"][0]) * model.scale.x - float(SCHNAUZE_NAEHER.get(art(), 0.0))
+		# der Rand des Ziels aus jeder Richtung (vorne hängt an Blick und Schild des Ziels, das sich dreht): der weiteste, so bleibt der
+		# Platz derselbe, wie es sich auch dreht
+		var rand := 0.0
+		for i in 8:
+			rand = maxf(rand, other.vorne(zu.rotated(Vector3.UP, TAU * i / 8.0) if zu.length() > 0.01 else Vector3.FORWARD.rotated(Vector3.UP, TAU * i / 8.0), ZUNGE.has(art()), hoehe_oben()))
+		stand = rand + float(bite["Biss"][0]) * model.scale.x - float(SCHNAUZE_NAEHER.get(art(), 0.0))
+		if other.has_method("blockt") and other.blockt():     # wie _bite_plan: wer mit dem Schild abwehrt, stößt ihn vor
+			stand += ABWEHR_VOR
 	return stand + (ABSETZEN * _scale() if mit_absetzen and Arena.setzt_ab(String(fighter.monster.get("id", ""))) else 0.0)
 
 
@@ -4650,9 +4684,11 @@ func dodge(after_ms: int, nm := "") -> void:
 			nm = "Ausweichen zurück"
 		elif not weg.has("Ausweichen zurück") and weg.has("Ausweichen") and _absetzen_rasch():
 			return
+	# 1589.4 (wolf_mess_438 FIGHTER Bild 2537: Wolf 3 wich mit „Ausweichen links“ 0,17 m in den Helden, der zum Hieb vor ihm stand):
+	# auch die Seite, die _ausweich_seite wählt, nur mit freiem Weg (_satz_frei unten); vorher galt die Prüfung nur ohne diese Wahl
+	var selbst := nm == ""
 	if nm == "" and weg.has("Ausweichen links"):
 		nm = _ausweich_seite()
-	var selbst := nm == ""
 	if nm == "":
 		nm = "Ausweichen zurück" if weg.has("Ausweichen zurück") and randf() < 0.5 else "Ausweichen"
 	# 863 (Chef 11.11., 20:45, t277.14: „ging dann … links ein bisschen zurück und steht jetzt neben der anderen … oder halb auf ihr

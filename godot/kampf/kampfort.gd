@@ -1571,11 +1571,13 @@ func _play_say(e: Dictionary) -> void:
 		frei_platz[nach_hinten[0]] = Vector3(p2.x, q.y, p2.y)
 		if OS.get_environment("SCHAU_1526") != "":
 			print("1526 %s macht Platz für %s: nach %s (steht %s)" % [nach_hinten[0], nach_vorn[0], frei_platz[nach_hinten[0]], figures[nach_hinten[0]].position])
+	# 717.1 A (F8): neu gestellt wird das Rudel nur im Zug der Gegner; im Zug des Helden bleibt jeder, wo er hin will
+	var rudel := _rudel_plaetze(by == null or by.side != "FOES" or tot_ms > 0 or mars.fighters().any(func(x: Variant) -> bool: return x.side == "FOES" and x.hp <= 0), e.places)
 	for f in mars.fighters():
 		# 573 (Chef 04.11., 20:33: „wenn jemand tot ist, bitte nicht mehr die Position verändern“; der letzte Jungwolf wurde nach dem
 		# Haken „ich gewinne“ tot in die Mitte gezogen, tote_573): wer keine Trefferpunkte mehr hat, bleibt liegen, wo er fiel
 		if figures.has(f.id) and e.places.has(f.id) and not f.fled and f.hp > 0:     # 399.2a: wer flieht, kommt nicht an seinen Platz zurück
-			var ziel := _platz_am_gegner(f, e.places[f.id])
+			var ziel: Vector3 = rudel[f.id] if rudel.has(f.id) else _platz_am_gegner(f, e.places[f.id])
 			if warte_ms > 0 and f.id != actor and not figures[f.id].home.is_equal_approx(ziel):
 				get_tree().create_timer(warte_ms / 1000.0).timeout.connect(figures[f.id].glide_to.bind(ziel, by != null and by.side == "FOES"))
 			else:
@@ -1593,6 +1595,55 @@ func _play_say(e: Dictionary) -> void:
 	# (busy_ms, ohne das Zurechtrücken, das in den Zug des Helden auslaufen darf, F8)
 	var dauer := busy_ms if busy_ms > 0 and by != null and by.side == "FOES" else maxi(lunge_ms, busy_ms)
 	await get_tree().create_timer(maxi(NACHTRAG_MS if _nur_nachtrag(e) else SAY_MS, dauer) / 1000.0).timeout
+
+
+## 1589.4 Rudel (DESIGN-GEGNER.md 4; Chef 26.11., 10:29 „wie weit hinten will denn der eine Wolf noch stehen? Der geht ja dann sogar
+## zurück, wenn ein anderer angreift“): wer im Rudel kämpft (Arena.rolle_jetzt „rudel“), wartet an seinem Angriffsplatz um sein Ziel
+## mit eigener Gasse (Arena.rudel_platz), nicht auf dem Platz der Reihe; wer schon näher steht, wählt zuerst; wer höchstens einen
+## halben Schritt (Figur.ZUR_SEITE_M) neben seinem Abstand steht, bleibt. Kennung → Platz (Welt)
+## [halten]: einer fiel (973, F3 „Angriff, Treffer, Tod; die Übrigen bleiben stehen“, wolf_mess_438: nach einem Tod rückt keiner ohne
+## neuen Platz der Regeln): wer seinen Platz in [plaetze] behält, bleibt, wo er ist
+var rudel_reihe := {}     # Kennung → Platz der Regeln, als sein Rudelplatz zuletzt gerechnet wurde
+func _rudel_plaetze(halten := false, plaetze := {}) -> Dictionary:
+	var aus := {}
+	var rudel := []
+	for f: Variant in mars.fighters():
+		if f.side != "FOES" or f.hp <= 0 or f.fled or f.monster == null or not figures.has(f.id):
+			continue
+		var t: Variant = Arena.ziel(mars, f)
+		if t == null:
+			var fe: Array = mars.feinde(f)
+			t = fe[0] if not fe.is_empty() else null
+		if t != null and figures.has(t.id) and Arena.rolle_jetzt(mars, f, t) == "rudel":
+			rudel.append([f.id, figures[t.id]])
+	rudel.sort_custom(func(x: Array, y: Array) -> bool: return figures[x[0]].position.distance_to(x[1].position) < figures[y[0]].position.distance_to(y[1].position))
+	var ids := rudel.map(func(x: Array) -> String: return x[0])
+	var andere := figures.values().filter(func(o: Variant) -> bool: return o.visible and not o.down and o.dead_at < 0 and not o.fighter.id in ids)
+	var gassen := []
+	for x: Array in rudel:
+		var fig: Variant = figures[x[0]]
+		var t: Variant = x[1]
+		if halten and rudel_reihe.has(x[0]) and rudel_reihe.get(x[0], null) == plaetze.get(x[0], null):
+			aus[x[0]] = fig.home
+			gassen.append(Arena.weg_kapsel(Vector2(fig.home.x, fig.home.z), Vector2(t.position.x, t.position.z), fig.weg_laenge(), fig.umriss_r()))
+			continue
+		rudel_reihe[x[0]] = plaetze.get(x[0], null)
+		var weit: float = fig.angriffsplatz_m(t)
+		if weit == INF:
+			continue
+		var kaps: Array = andere.filter(func(o: Variant) -> bool: return o != t).map(func(o: Variant) -> Array: return o.umriss_kapsel())
+		# wartet ein neuer Platz auf seinen Zug (platz_neu, 717.1 A), von dort aus, sonst wiche sein Platz wieder von dem ab, auf den
+		# der Held zielt (wolf_mess_438: Hieb auf den alten Platz, Wolf 0,17 m im Helden); sonst von dort, wo er steht
+		var von: Vector3 = fig.home if fig.platz_neu else fig.position
+		var pg: Array = Arena.rudel_platz(Vector2(t.position.x, t.position.z), Vector2(von.x, von.z), weit,
+				fig.angriffsplatz_m(t, false), fig.weg_laenge(), fig.umriss_r(), kaps, gassen, Figur.ZUR_SEITE_M * fig._scale())
+		if (pg[1] as Array).is_empty():
+			continue
+		gassen.append(pg[1])
+		aus[x[0]] = Vector3(pg[0].x, fig.position.y, pg[0].y)
+		if OS.get_environment("SCHAU_RUDEL") != "":
+			print("RUDEL %s an %s: Platz %s (%.2f m), steht %s" % [x[0], t.fighter.id, aus[x[0]], weit, fig.position])
+	return aus
 
 
 ## Zeile, Bedienfeld und Würfel einer Meldung (438: beim Aufschlag, sonst sofort); vorweg Gezeigtes nicht noch einmal

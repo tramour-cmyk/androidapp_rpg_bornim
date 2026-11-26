@@ -2108,6 +2108,10 @@ func _step_aside(kind: String, by, on, after_ms: float, arrives_ms: float) -> fl
 	var off := Vector3.ZERO
 	var best := INF
 	for m in STEP_M:
+		# 1589.4 (DESIGN-GEGNER.md 5 „ein Seitschritt nur als einzelner Ausweichschritt“, F4; wege_15894 quer: bis 2 m glitt er im Bild):
+		# höchstens der einzelne Seitschritt (Figur.ZUR_SEITE_M); weiter nicht, Schüsse gehen über Wesen hinweg (arena.gd, Versperren)
+		if m > Figur.ZUR_SEITE_M + 0.001:
+			continue
 		for sg in [first, -first]:
 			var q: Vector3 = by.home + side * (m * sg)
 			var room := INF
@@ -2124,8 +2128,8 @@ func _step_aside(kind: String, by, on, after_ms: float, arrives_ms: float) -> fl
 			if cost < best:
 				best = cost
 				off = side * (m * sg)
-	if off == Vector3.ZERO:     # kein freier Fleck: ein halber Meter zur Bildmitte
-		off = side * (0.5 * first)
+	if off == Vector3.ZERO:     # 1589.4: kein freier Fleck in einem Seitschritt: er bleibt stehen und schießt über den Eigenen hinweg
+		return 0.0
 	if OS.get_environment("SCHRITT_DEBUG") != "":
 		print("Seitenschritt %s -> %s: %s in der Linie, %+.1f m (Bild %s, Platz x %.0f, Seite zur Mitte %+.0f, Start auf eigenem Mann: %s)" % [by.fighter.id, on.fighter.id, blocker.fighter.id, off.dot(side), vs, k.screen_of(by.home).x, first, _starts_on_mate(by.home + off + rel, b3, mates)])
 	var hold := maxf(arrives_ms, 250.0) / 1000.0 + 0.15

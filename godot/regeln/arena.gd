@@ -414,3 +414,44 @@ static func geradewegs(von: Vector2, platz: Vector2, ziel: Vector2, kurz := 0.15
 	# am Anfang und am Ende des Wegs (dazwischen liegt der Winkel zwischen beiden): wer neben dem Ziel ankommt, liefe zuletzt quer
 	return absf(rad_to_deg(w.angle_to(ziel - von))) <= QUER_GRAD and \
 			(am_schild or platz.distance_to(ziel) < GLEICH or absf(rad_to_deg(w.angle_to(ziel - platz))) <= QUER_GRAD)
+
+
+## 1589.4 Rudel (DESIGN-GEGNER.md 4 „Einer greift an, die anderen stellen sich um den Helden (Einkreisen, Flanke)“; Chef 26.11.,
+## 10:29). Vorbild: „Battle Circle“ / Kung-Fu-Kreis (Envato Tuts+, „Battle Circle AI: Let Your Player Feel Like They're Fighting
+## Lots of Enemies“, gamedev-13535, abgerufen 26.11.2026; Unity 2018 Artificial Intelligence Cookbook, Packt 2018, „Building a
+## fighting circle“, nach Kingdoms of Amalur): Plätze im gleichen Abstand um das Ziel, einer greift an, die anderen warten auf
+## ihrem Platz. Einfachste Form hier: jeder Wartende steht an seinem Angriffsplatz ([weit], Mitte zu Mitte, wo er nach dem Angriff
+## steht) und hat eine eigene Gasse zum Ziel (Kapsel von dort bis zum Stand beim Biss, [nah]), die keine andere Kapsel ([andere])
+## und keine Gasse eines anderen ([gassen]) berührt; so greift jeder geradewegs an, und keiner muss beiseite. Gesucht von der
+## Richtung, aus der er kommt ([von]), abwechselnd links und rechts herum, nur ein Platz, zu dem sein Weg frei ist; ohne freie Gasse
+## bleibt er, wo er ist ([von]).
+## Gibt [Platz, Gasse] zurück.
+const RUDEL_SUCHE_GRAD := 5.0     # Suchschritt um das Ziel, Rechengenauigkeit, keine Spielzahl
+## [bleib]: steht er schon so nah am Angriffsplatz (Abstand zum Ziel höchstens so viel neben [weit]) und ist seine Gasse frei, bleibt er
+## stehen (kein Zurechtrücken um wenige Zentimeter, wenn sich das Ziel dreht: der Rand des Ziels ändert sich mit Blick und Schild)
+static func rudel_platz(ziel: Vector2, von: Vector2, weit: float, nah: float, laenge: float, r: float, andere: Array, gassen: Array, bleib := 0.0) -> Array:
+	var d0 := (von - ziel).normalized() if von.distance_to(ziel) > GLEICH else Vector2.RIGHT
+	# am Platz dreht er sich zum Ziel (Wolf 3 stand sonst quer, weil die Drehung den Nachbarn streifte, wolf_mess_438): der Kreis, den
+	# seine Kapsel beim Drehen überstreicht, bleibt frei
+	var dreh_frei := func(p: Vector2) -> bool:
+		var k := kapsel(p, Vector2.RIGHT, 0.0, r + 0.5 * laenge)
+		return (andere + gassen).all(func(x: Array) -> bool: return kapsel_abstand(k, x) >= -GLEICH)
+	if absf(von.distance_to(ziel) - weit) <= bleib:
+		var g0 := weg_kapsel(von, ziel + d0 * minf(nah, weit), laenge, r)
+		if (andere + gassen).all(func(x: Array) -> bool: return kapsel_abstand(g0, x) >= -GLEICH) and dreh_frei.call(von):
+			return [von, g0]
+	var n := int(180.0 / RUDEL_SUCHE_GRAD)
+	for k in n + 1:
+		for sg: float in ([1.0] if k == 0 or k == n else [1.0, -1.0]):
+			var d := d0.rotated(deg_to_rad(RUDEL_SUCHE_GRAD * k * sg))
+			var platz := ziel + d * weit
+			var gasse := weg_kapsel(platz, ziel + d * minf(nah, weit), laenge, r)
+			var frei := true
+			for x: Array in andere + gassen:
+				if kapsel_abstand(gasse, x) < -GLEICH:
+					frei = false
+					break
+			# und er kommt geradewegs hin (strecke_frei, F1), sonst bliebe er hinten stehen (_walk_home: Weg versperrt)
+			if frei and dreh_frei.call(platz) and strecke_frei(von, platz, laenge, r, andere + gassen):
+				return [platz, gasse]
+	return [von, []]

@@ -15,8 +15,10 @@
 #          Nachrückers plus seine halbe Weglänge (Kapsel quer zum Weg, figur.weg_laenge) von seinem Punkt beim Tausch (ist sein erster
 #          Weg danach ein Angriff, zählt er nicht), wenn er nach dem Tausch zuerst gegangen ist
 #  hinten  Rudel (Rolle „rudel“ nach Arena.rolle_jetzt: Wolf, Kobold, Ratten zu dritt; DESIGN-GEGNER.md 4 „die anderen stellen sich
-#          um den Helden“, Chef 26.11., 10:29): wer nach dem ersten Angriff der Begegnung wartet (steht, greift nicht an), steht
-#          nicht weiter vom nächsten Helden als sein Angriffsplatz (figur.angriffsplatz_m) plus RUECKEN_M
+#          um den Helden“, Chef 26.11., 10:29): wer nach dem ersten Angriff der Begegnung wartet (steht, greift nicht an und hat nicht
+#          zuletzt angegriffen: der setzt sich ab und rückt im nächsten Zug der Gegner, 717.1 A), steht
+#          nicht weiter vom nächsten Helden als sein Angriffsplatz (figur.angriffsplatz_m) plus ein halber Schritt (ZUR_SEITE_M: der
+#          Held tritt selbst beim Ausweichen und Hieb)
 #  weicht  Rudel: wer wartet, geht nicht vom nächsten Helden weg, während ein anderer seiner Seite angreift (Anlauf oder Biss)
 # Aufruf: godot --headless --path godot --fixed-fps 30 -s res://tests/wege_15894.gd (Exit 0 = gut); WEGE=RATS,WOLVES nur diese;
 # WEGE_LOG=1 je Verstoß eine Zeile mit Bild, Figur, Bewegung.
@@ -44,6 +46,8 @@ var faelle := 0
 var log_an := OS.get_environment("WEGE_LOG") != ""
 var summe := {}       # Prüfung -> Zahl der Verstöße über alle Kämpfe
 var rudel_ids := {}   # geprüfte Rudeltiere (Kampf:Kennung)
+var pruef_hinten := 0 # so oft „hinten“ geprüft
+var pruef_weicht := 0 # so viele Bilder „weicht“ geprüft (ein anderer greift an)
 
 
 func _initialize() -> void:
@@ -57,7 +61,7 @@ func _lauf() -> void:
 		if nur != "" and not k in nur.split(","):
 			continue
 		await _kampf(k)
-	print("WEGE15894 %d Kämpfe, %d Rudeltiere geprüft, %s, %s" % [faelle, rudel_ids.size(), summe, "0 Fehler" if fehler == 0 else "%d FEHLER" % fehler])
+	print("WEGE15894 %d Kämpfe, %d Rudeltiere geprüft (hinten %d-mal, weicht %d Bilder), %s, %s" % [faelle, rudel_ids.size(), pruef_hinten, pruef_weicht, summe, "0 Fehler" if fehler == 0 else "%d FEHLER" % fehler])
 	quit(1 if fehler > 0 else 0)
 
 
@@ -90,6 +94,8 @@ func _kampf(foe: String) -> void:
 	var st := {}          # id -> Zustand
 	var befund := {"durch": 0, "quer": 0, "heran": 0, "ruecken": 0, "stur": 0, "1526": 0, "hinten": 0, "weicht": 0}
 	var angegriffen := false     # hinten: erst nach dem ersten Angriff der Begegnung
+	var n_angriff := 0           # hinten: je Angriff einmal je Wartendem geprüft
+	var letzter := ""            # hinten: wer zuletzt angriff, hat sich abgesetzt (DESIGN-GEGNER.md 5) und rückt im nächsten Zug (717.1 A)
 	var bild := 0
 	var plaetze_vor := {}
 	var tausch := {}      # id -> [freier Platz, Bild]
@@ -107,7 +113,10 @@ func _kampf(foe: String) -> void:
 		var figs: Array = kf.figures.values().filter(func(o): return o.visible and not o.down and o.dead_at < 0)
 		var greift := figs.filter(func(o): return o.fighter.side == "FOES" and o.gang in ["anlauf", "hin"])
 		if not greift.is_empty():
+			if not angegriffen or greift[0].fighter.id != letzter:
+				n_angriff += 1
 			angegriffen = true
+			letzter = greift[0].fighter.id
 		# 1526: Platztausch vorn ↔ hinten unter Gegnern
 		var pl: Dictionary = kf.shown.get("places", {})
 		var nach_hinten := []
@@ -129,7 +138,7 @@ func _kampf(foe: String) -> void:
 			var p2 := Vector2(p3.x, p3.z)
 			var blick := Vector2(sin(o.rotation.y), cos(o.rotation.y))
 			if not st.has(id):
-				st[id] = {"p": p2, "von": p2, "lauf": 0.0, "quer": 0.0, "heran": 0.0, "rueck": 0.0, "stur": 0.0, "ruhig": 0, "weicht": 0.0}
+				st[id] = {"p": p2, "von": p2, "lauf": 0.0, "quer": 0.0, "heran": 0.0, "rueck": 0.0, "stur": 0.0, "ruhig": 0, "weicht": 0.0, "hinten_bei": -1}
 				continue
 			var s: Dictionary = st[id]
 			var d: Vector2 = p2 - s.p
@@ -143,15 +152,17 @@ func _kampf(foe: String) -> void:
 				s.rueck = 0.0
 				if s.ruhig == 1:
 					s.stur = 0.0
-				if s.ruhig == 10 and angegriffen and _rudel(mars, o) and o.gang == "":
+				if s.ruhig >= 10 and s.hinten_bei != n_angriff and angegriffen and _rudel(mars, o) and not o.gang in ["anlauf", "hin", "hieb"] and not o in greift and id != letzter:
 					var hh = _naechster_held(kf, o)
 					if hh != null:
 						rudel_ids[foe + ":" + id] = true
-						var soll: float = o.angriffsplatz_m(hh) + RUECKEN_M
+						pruef_hinten += 1
+						s.hinten_bei = n_angriff
+						var soll: float = o.angriffsplatz_m(hh) + ZUR_SEITE_M * o._scale()     # der Held tritt auch selbst (Ausweichen, Hieb)
 						var ist: float = p2.distance_to(Vector2(hh.position.x, hh.position.z))
 						if ist > soll:
 							befund.hinten += 1
-							_melde(foe, bild, o, "hinten", "wartet %.2f m vom Helden %s, Angriffsplatz %.2f" % [ist, hh.fighter.id, soll - RUECKEN_M])
+							_melde(foe, bild, o, "hinten", "wartet %.2f m vom Helden %s, Angriffsplatz %.2f, steht %s, Held %s (Heim %s), gang %s" % [ist, hh.fighter.id, o.angriffsplatz_m(hh), o.position, hh.position, hh.home, o.gang])
 				if tausch.has(id) and s.ruhig >= 10 and tausch[id][2]:
 					var beim_tausch: Vector2 = tausch[id][0]
 					var r: float = tausch[id][4] + Arena.GLEICH
@@ -216,8 +227,10 @@ func _kampf(foe: String) -> void:
 			var zu := Vector2(held.position.x, held.position.z) - p2
 			var weg_vom := zu.dot(d) < 0.0
 			# weicht: Rudel, wartet, während ein anderer angreift, und geht vom Helden weg
-			if _rudel(mars, o) and not o.gang in ["anlauf", "hin"] and greift.any(func(x): return x != o) and weg_vom:
+			if _rudel(mars, o) and not o.gang in ["anlauf", "hin"] and greift.any(func(x): return x != o):
 				rudel_ids[foe + ":" + id] = true
+				pruef_weicht += 1
+			if _rudel(mars, o) and not o.gang in ["anlauf", "hin"] and greift.any(func(x): return x != o) and weg_vom:
 				s.weicht += -zu.normalized().dot(d)
 				if s.weicht > RUECKEN_M and s.weicht + zu.normalized().dot(d) <= RUECKEN_M:
 					befund.weicht += 1
@@ -242,7 +255,7 @@ func _kampf(foe: String) -> void:
 	for k in befund:
 		n += befund[k]
 		summe[k] = summe.get(k, 0) + befund[k]
-	print("WEGE %s (%s/%s): %.1f s, %s, %s" % [foe, h[0], h[1], bild * ZEIT / 30.0, mars.outcome, befund])
+	print("WEGE %s (%s/%s): %.1f s, %s, %s%s" % [foe, h[0], h[1], bild * ZEIT / 30.0, mars.outcome, befund, "" if angegriffen else ", kein Angriff"])
 	if n > 0:
 		fehler += 1
 	kf.queue_free()
