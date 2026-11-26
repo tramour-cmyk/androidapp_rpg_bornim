@@ -11,7 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 2042 | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe, list_sessions, vorgang.py offen, Nachrichten), Ergebnis mit Vorschlag an den Chef (Chef 21:50 an Alter Ego, nur über Alter Ego 21:52) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, Eilt: Fassung 5 wartet auf Chefwort (Vorschlag 14:01), Teil (1) gilt* | *–* | *0* | *59,23 $* |
+| 2042 | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe, list_sessions, vorgang.py offen, Nachrichten), Ergebnis mit Vorschlag an den Chef (Chef 21:50 an Alter Ego, nur über Alter Ego 21:52) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, Eilt: Fassung 5 A (Chef 15:03), Teil (4) Lesestellen streichen* | *–* | *0* | *59,23 $* |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *32,48 $* |
 | 2052 | Nur die wichtigen Dinger: Kür aus der Sicht des Disponenten, solange Muss da ist (Chef 26.11., 12:33) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *0,82 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | M | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
