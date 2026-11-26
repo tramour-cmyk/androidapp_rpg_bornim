@@ -1,5 +1,6 @@
 # Tom, Jerry und Technik · Build 301 · Sammelbuild: Einmessen, Gang mit Waffe, Leute an der Bank, Wiese in Niedrig, Ansagen je Art, Zielwahl und Flucht, Figuren in der Arena, Kleider, Waffenstaffel · PR folgt
 E Kampf · Technik (Handy 1270.6, 1619, 1674, 1205, 1205b, 1589.2, 1589.4, 1603; Bild 1535, 1655, 2028; Film 458.3; ohne Prüfpunkt 1632, 1319, 1650) · 26.11., 18:00 · APK folgt
+Rot, bekannt, nicht melden: durchstich_1631 – am Rechner 24 Werte über der Schwelle (Wache, Robe, Wald, Bauer mit Umhang, Leute: Dreiecke gezogen), Ursache unter 1535, 1650, 1655, 2028 nicht eingegrenzt; betrifft nur Bildzeilen.
 
 Gegengelesen: Prüfer 26.11., 20:10 (Britta, B301-Ü14, Stand 51074c06f2): je Zeile aus dem Spielstand des Chefs erreichbar, Weg, Art und Grafikstufe genannt; 301.3 um 11:59 stehen Pim auf 15/14 und Bram auf 20/29 (leute.gd _init, karten.json „tagesablauf“), ihr kürzester Weg um 12:00 führt durch 15/16 (Wegsuche wie karte.gd nachgerechnet); 301.7 Prankenhieb mit Ring (arne/1603-ansagen mars.gd I_PAW, Los 2 : 1).
 
