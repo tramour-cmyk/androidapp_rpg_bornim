@@ -242,6 +242,9 @@ func _ecken_waehlen(sk: Skeleton3D) -> void:
 # ---------- BILD1694
 const DREI := ["hand_r", "index_01_r", "pinky_01_r"]
 const SPRUNG := 0.5   # cm
+const HOLZ_MIN := -0.3   # cm (Auftrag 25.11., 20:36)
+const LUFT_MAX := 0.5
+const SPRUNG_BILD := 1.0
 class Fuehler extends Node3D:
 	var xf := Transform3D(); var bild := -1
 	func _ready() -> void: set_notify_transform(true)
@@ -368,18 +371,31 @@ func _bild_lauf(sk: Skeleton3D, ding: Node3D, halt: Dictionary, bilder: int, fal
 	var sp := ""
 	for g in DREI: if wmin.has(g): sp += " %s Spanne %s" % [g, _v(wmax[g] - wmin[g], 2)]
 	print("BILD1694 ERGEBNIS gezeichnete Knochen in Waffe (cm):%s; größter Abstand gezeichnet gegen nach letztem Modifikator %.2f cm; Waffe global_transform gegen RS-Lage bis %.2f cm" % [sp, dif_max, sprung_max])
-	# rot: ein Glied im gezeigten Bild tiefer im Holz als NetzMess erlaubt (Handfläche und Endglieder −1,2, sonst −0,6 cm) oder die Hand
-	# springt am Schaft (gezeichnete Knochen in Waffenkoordinaten über SPRUNG cm)
+	# rot (Auftrag 25.11., 20:36): Handfläche und jedes der 16 Glieder im gezeigten Bild am Holz, HOLZ_MIN bis LUFT_MAX cm (+ Luft,
+	# − im Holz); fehlt ein Glied in einem Bild: FEHLT (kein Abstand); Sprung je Glied von Bild zu Bild unter SPRUNG_BILD cm (Abstand zum
+	# Holz und Lage von hand_r, index_01_r, pinky_01_r in Waffenkoordinaten)
 	var rot := []
 	for gl in GLIEDER:
-		var grenze := -1.2 if gl == "hand_r" or gl.contains("_03_") else NetzMess.GLIED_HOLZ
-		var tiefst := INF; var bei := -1
+		var tiefst := INF; var bei := -1; var hoechst := -INF; var bei2 := -1; var fehlt := 0; var spr := 0.0; var bei3 := -1
+		var vor = null
 		for z in zeilen_b:
-			if z.netz.get(gl) != null and float(z.netz[gl]) < tiefst: tiefst = z.netz[gl]; bei = z.p - start
-		if tiefst < grenze: rot.append("%s %.2f cm im Holz (Grenze %.1f, Bild %d)" % [gl, tiefst, grenze, bei])
+			var d = z.netz.get(gl)
+			if d == null: fehlt += 1; vor = null; continue
+			if float(d) < tiefst: tiefst = d; bei = z.p - start
+			if float(d) > hoechst: hoechst = d; bei2 = z.p - start
+			if vor != null and absf(float(d) - float(vor)) > spr: spr = absf(float(d) - float(vor)); bei3 = z.p - start
+			vor = d
+		if fehlt > 0: rot.append("%s FEHLT in %d Bildern" % [gl, fehlt])
+		if tiefst < HOLZ_MIN: rot.append("%s %.2f cm im Holz (Grenze %.1f, Bild %d)" % [gl, tiefst, HOLZ_MIN, bei])
+		if hoechst > LUFT_MAX and hoechst > -INF: rot.append("%s %.2f cm Luft (Grenze %.1f, Bild %d)" % [gl, hoechst, LUFT_MAX, bei2])
+		if spr >= SPRUNG_BILD: rot.append("%s springt %.2f cm (Bild %d)" % [gl, spr, bei3])
 	for g in DREI:
-		if wmin.has(g) and ((wmax[g] as Vector3) - (wmin[g] as Vector3)).length() > SPRUNG:
-			rot.append("%s springt %.2f cm am Schaft" % [g, ((wmax[g] as Vector3) - (wmin[g] as Vector3)).length()])
+		var vor = null; var spr := 0.0; var bei := -1
+		for z in zeilen_b:
+			if z.rs[g] == null: vor = null; continue
+			if vor != null and (z.rs[g] as Vector3).distance_to(vor) > spr: spr = (z.rs[g] as Vector3).distance_to(vor); bei = z.p - start
+			vor = z.rs[g]
+		if spr >= SPRUNG_BILD: rot.append("%s springt %.2f cm am Schaft (Bild %d)" % [g, spr, bei])
 	print("BILD1694 PRÜFUNG %s" % ("grün" if rot.is_empty() else "ROT: " + "; ".join(rot)))
 	quit(1 if not rot.is_empty() else 0)
 
