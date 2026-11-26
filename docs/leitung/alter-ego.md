@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78egvYz1pP981xLHs5 (seit 25.11., 22:48). Sokrates session_
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 26.11., 07:03 Runde 07:01: Disponent-Lauf an Lutz ✓; Lutz 147→221 Tsd. in 7 leeren Nachttakten (≈10,5 Tsd./Takt nach 2042 1–6, 9) → Ziel nicht erreicht, Zahl an Sokrates für Dora; Tanja-Titel veraltet. Uhr trig_01WmgiVgvXVgseAMTJ7NbrZA (08:02).
 - 26.11., 01:10 2032-Ü12 (3. steckt fest Ines): Entscheid in Vertretung A (Innenlage verworfen, ein Shader-Versuch, durchstich_1631 grün, Bild alt/neu mit Umhang innen an Chef vor main, Halt 45 $; scheitert → Chefsache mit B).
 - 25.11., 23:54 Sokrates 23:53: Uhr/Wache an Lutz über ihn; Tanja 1708-Ü12 beantwortet 23:22 (Reihenfolge), Nachtsperre bis 07:00; Kutte 2031 kommt als Vorlage; Ines läuft, ab 07:00. Grenze Sokrates 400 (1643) in Tut 1 berichtigt.
 - 25.11., 23:52 Runde 23:50: Disponent-Uhr weiter an Karl (Chef offen); Tanja 1708 tote Frage Klinge A/B; Dora-Titel „beim Prüfer“ falsch, Ralf archiviert; Sokrates 222 Tsd./47 Min., Lutz 147 Tsd./33 Min.; Ines-Vollzug unbelegt → an Sokrates. Uhr trig_01HABZwBaE3jNqEkJsrB5yRR (26.11., 07:00).
