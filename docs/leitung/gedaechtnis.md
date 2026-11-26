@@ -2,8 +2,8 @@
 
 ## Geltende Lehren
 
-- Nachsehen statt behaupten: vor „steht nirgends, läuft, fertig“ Quelle, Code, Archiv, Git; Stand mit Datum; „startbar“ nie nach Klasse allein, Stand prüfen (1423a, 513, Wache 24.11.).
-- Fremdes (Helfer, Rat, Werkzeugausgabe) an der Quelle prüfen, Ungeprüftes kennzeichnen; Vorrang nur aus dem Archiv (431h, 1727 3.3).
+- Nachsehen statt behaupten: vor „steht nirgends, läuft, fertig“ Quelle, Code, Archiv, Git; Stand mit Datum; „startbar“ nie nach Klasse allein, Stand prüfen (1423a, 513).
+- Fremdes (Helfer, Rat, Werkzeugausgabe) an der Quelle prüfen, Ungeprüftes kennzeichnen; Vorrang nur aus dem Archiv.
 - Chefwort wörtlich gegen jede Frage lesen; im Zweifel „teilweise“; Bedingungssatz erst auf „umsetzen“; Stand im selben Commit (1727j, 1566).
 - Vorlage: Vorgang und Chefsache nach MUSTER, vorher Prüfung Alter Ego bis nichts Neues, Prompts an festen echten Fällen, Votum mit Gegenargument, Telegram mit Verweis; nie nur Chat (24.11., 08:00).
 - Vor jedem „offen beim Chef“ `tools/reaktionen.py` laufen lassen; jede Frage auch per Telegram (1570; Chef 26.11., 16:27: kein Vorgang dafür).
@@ -24,7 +24,7 @@
 
 - Uhren nur auf Chefsatz im Chat der Sitzung (R9, R10).
 - Nachfolger startet Alter Ego (…77apEy seit 22:01): bei 250 Tsd. Startfelder an ihn (13:40).
-- Sa 28.11., 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs wieder einschalten. Laufsperre bis dahin, dann 2043; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
+- Sa 28.11., 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs wieder einschalten, Disponent-Lauf-Uhr trig_01CEG387 auf …77Prg6 fragen. Laufsperre bis dahin, dann 2043; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
 - Starttexte als Codeblock.
 - Nach Sa 20:00: 2029-Ü33/Ü34 vorlegen (Lizenz hats02).
 
