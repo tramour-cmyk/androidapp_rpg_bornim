@@ -4,7 +4,8 @@
 Lesen:
   vorgang.py NR [NR …]                 je Nummer: Zeile der Liste (Felder, Grund), Archivzeile, Absätze „Zu NR“ und „Alt NR“ in den Vorräten,
                                        Einträge im Vorgangsarchiv, Chefsache-Dateien, Zeilen, die auf NR warten
-  vorgang.py --rolle ROLLE [--startbar] eigene Zeilen in Vorrangfolge, dann fremde, die auf ROLLE warten (statt den Vorrat zu lesen)
+  vorgang.py --rolle ROLLE [--startbar] [--alle] eigene Zeilen in Vorrangfolge, dann fremde, die auf ROLLE warten (statt den Vorrat zu lesen);
+    Kür nur als Zahl, solange irgendwo Muss/Eilt startbar ist (2052), --alle zeigt sie
   vorgang.py pruefen                    Formprüfung der ganzen Liste (Exit 1 bei Fehlern)
 Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und pushen):
   vorgang.py neu "Titel" "Bereich" KL "Besitzer" [--nr NR] [--oben]   neue Zeile (Stand startbar); ohne --nr die nächste freie Nummer
@@ -829,15 +830,19 @@ def treffer(nr):
         if nr in d["warte"]: aus.append("Wartet darauf: %s (%s, %s)" % (d["nr"], d["besitzer"], d["stand"]))
     return aus
 
-def ansicht(rolle, nur_startbar=False):
+def ansicht(rolle, nur_startbar=False, alle=False):
     zs = startbar.plan(rolle)
+    ruht = 0 if alle else startbar.kuer_ruht()  # 2052: solange irgendwo Muss/Eilt startbar ist, Kür nur als Zahl
     p = startbar.pause(startbar.lesen(startbar.VORRAT.get(rolle, "")))
     print("%s: %d offen, %d Muss, %d startbar%s (Reihenfolge = Vorrang; „für X“: X wartet auf dich)" % (
         rolle, len(zs), sum(1 for z in zs if z[1] == "M"), sum(1 for z in zs if not z[4]), (", PAUSE bis " + p) if p else ""))
+    kuer = 0
     for nr, kl, titel, d, g in zs:
         if nur_startbar and g: continue
+        if ruht and kl not in ("M", "M?"): kuer += 1; continue
         print("%s | %s | %s%s | %s | %s" % (nr, kl, d["stand"][:60], (" | wartet auf " + ", ".join(d["warte"])) if d["warte"] else "",
                                          re.sub(r"\*\*|`", "", titel)[:110], g or "startbar"))
+    if kuer: print("Kür: %d ruht, %d Muss/Eilt startbar (2052; `--alle` zeigt sie)" % (kuer, ruht))
     if rolle == "Sokrates":  # 1236: große Vorhaben vor dem ersten Code-Commit, gebündelt in der Chefrunde
         for d in startbar.zeilen_liste():
             if "Chef Gespräch" in startbar.offen_warte(d): print("GESPRÄCH %s (%s): %s" % (d["nr"], d["besitzer"], re.sub(r"\*\*|`", "", d["titel"])[:110]))
@@ -875,7 +880,8 @@ def haupt(a):
         if i + 1 >= len(a) or a[i + 1].capitalize() not in ROLLEN:
             sys.exit("vorgang.py: --rolle braucht eine von: " + ", ".join(ROLLEN))
         rolle = a[i + 1].capitalize(); del a[i:i + 2]
-        if not a or a[0] == "--startbar": return ansicht(rolle, bool(a))
+        rest = [x for x in a if x != "--alle"]  # 2052: --alle zeigt die Kür
+        if not rest or rest == ["--startbar"]: return ansicht(rolle, bool(rest), "--alle" in a)
     if not a: print(__doc__); sys.exit(2)
     b = a[0]
     if b in ("--hilfe", "-h", "--help", "hilfe"):  # 1739 (Bauliste 7.1): fand „nichts“

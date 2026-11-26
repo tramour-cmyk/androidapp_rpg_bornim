@@ -671,6 +671,28 @@ def start_noetig(rolle, st, ausschluss, nur_muss=False, nf_offen=False):
     if [x for x in muss if x[0] not in ausschluss]: return True
     return bool(rolle in MIT_KUER and not nur_muss and [x for x in kuer if x[0] not in ausschluss])
 
+def muss_startbar(st, ausschluss=(), ohne_rollen=(), bremse=None):
+    """2052 (Chef 26.11., 12:33 „solange halt Muss da ist“): [(Rolle, Nr)] der startbaren Muss- und Eilt-Zeilen über alle Rollen aus
+    START_REIHE (Planer mit seinen Zeilen „Auftrag“ zu Muss), nach denselben Regeln wie der Start: --ohne (Zeile, Rolle), Pause,
+    gültiger Auftrag (scharf), Guthaben/Laufsperre (bremse.erlaubt), Nachtdeckel (1643). Sitzungen zählen nicht: belegt heißt nicht
+    erledigt. Nicht leer: Kür ruht in diesem Lauf (wie --nur-muss)."""
+    scharf = ist_scharf(); aus = []
+    try: import nachtstarts
+    except Exception: nachtstarts = None
+    for r in START_REIHE:
+        if r in ohne_rollen: continue
+        muss, _, pause, _ = st.get(r, ([], [], None, []))
+        if pause: continue
+        for x in muss:
+            if x[0] in ausschluss or scharf and auftrag_fehlt(x[0]): continue
+            if bremse and bremse.erlaubt(r, x[1], x[3]): continue
+            n = str(sperr_nummer(x[0], x[3]) or "")
+            try:
+                if nachtstarts and re.match(r"\d", n) and nachtstarts.angehalten(r, n): continue
+            except Exception: pass
+            aus.append((r, x[0]))
+    return aus
+
 def chefdateien_je_rolle():
     d = os.path.join(DOCS, "chefsache", "entscheiden")
     aus = {}
@@ -916,10 +938,11 @@ def haken_naechste(rolle):
     (Kür nur mit MIT_KUER), Pause hält an, mit tools/1727-SCHARF nur Zeilen mit gültigem Auftrag (auftrag_fehlt); Zeilen „Auftrag“
     nie (frisch je Auftrag, eigene Sitzung). M? und Kosten zählen (Arbeit des Planers). Sonst None."""
     neue_liste()
-    muss, kuer, pause, _ = stand().get(rolle, ([], [], None, []))
+    st = stand()
+    muss, kuer, pause, _ = st.get(rolle, ([], [], None, []))
     if pause: return None
     scharf = ist_scharf()
-    for x in muss + (kuer if rolle in MIT_KUER else []):
+    for x in muss + (kuer if rolle in MIT_KUER and not muss_startbar(st) else []):  # 2052: Kür ruht, solange irgendwo Muss startbar ist
         if x[0] == "Auftrag" or scharf and auftrag_fehlt(x[0]): continue
         return x[0]
     return None
@@ -2014,6 +2037,9 @@ def main():
         laufend_setzen(bremse, je_rolle, marken, archiviert=archiviert)
         neu_ = [l for l in bremse.zeilen() if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l]
         ausgabe[:] = [neu_[0] if l.startswith("LAUFSPERRE ") and "Fachkräfte zugleich" in l and neu_ else l for l in ausgabe]
+    # 2052: Kür ruht, solange irgendwo Muss/Eilt startbar ist (nach laufend_setzen, sonst hält die Laufsperre jedes Muss)
+    if not nur_muss and (vm := muss_startbar(st, ausschluss, ohne_rollen, bremse)):
+        nur_muss = True; ausgabe.append("NUR MUSS: %d Muss/Eilt startbar, Kür ruht (2052)" % len(vm))
     # Starten
     for nr, grund in sorted(ausschluss.items()): ausgabe.append("AUSGESCHLOSSEN %s: %s" % (nr, grund))
     ausgabe.extend(ohne_ueberholt(ausschluss, leb))
