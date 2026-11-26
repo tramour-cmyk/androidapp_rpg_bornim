@@ -56,7 +56,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1589.5 | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Zahlen aus 444 … | 2 | E Kampf | M | 1589.4, 1589.6 | 1600, 1589.1, 444 | – | *startbar* | *–* | *0* | *–* |
 | 1589.6 | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt nah, fern, weit | 2 | E Kampf | M | 1589.2 | 1589.2, 444, 1589.1, 1486 | – | *startbar* | *–* | *0* | *–* |
 | 1603 | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in kerbe.gd | 2 | E Kampf | M | – | 1600 | – | *gebaut, Geprüft an: 80a423815; Chef 19:37 „1603 A“, Testbuild* | *–* | *0* | *41,74 $* |
-| 1708 | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_ui.gd _draw_blood) | 2 | E Kampf | M | – | 760 | – | *startbar, Chefwort 26.11., 11:03* | *–* | *0* | *24,77 $* |
+| 1708 | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_ui.gd _draw_blood) | 2 | E Kampf | M | – | 760 | – | *startbar, Chefwort 26.11., 11:03* | *–* | *0* | *28,71 $* |
 | 431 | Völker als Modelle: erst Bibliothek sichten (408), Kandidaten drehend im Film vorlegen, dann Körperbau je Volk … | 3 | E Figuren | M | – | 408 | claude/wiebke-431-volkskoerper | *zu testen, auf main db71f9f0f (Chef 👍 12:37), Testbuild Sa* | *–* | *0* | *180,92 $* |
 | 1297 | Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | 3 | E Figuren | M | 431 | 431 | – | *wartet, Schildlage in bewaffne ist auf Menschenmaß gemessen (499, 406); Größe je Körper erst mit den Volkskörpern im Spiel* | *–* | *0* | *–* |
 | 1649 | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den Schaft | 3 | E Figuren | M | 1694 | 1621 | – | *startbar* | *–* | *0* | *0,84 $* |
@@ -199,7 +199,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2022 | Systemlösung? Griff: 5 frühere Vorgänge (954a.9, 524, 653, 872, 643), neu 1694; einmal grundsätzlich lösen? (654) | 3 | E Figuren | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2025 | Systemlösung? Axt: 3 frühere Vorgänge (280.2, 348.12j, 1314), neu 1694; einmal grundsätzlich lösen? (654) | 3 | E Figuren | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2037 | Systemlösung? Haar: 2 frühere Vorgänge (1423b, 2026), neu 2029; einmal grundsätzlich lösen? (654) | 3 | E Figuren | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| 2045 | Kutte (MakeHuman donitz_monk_robe_hood) für Klosterschüler einbauen, nach Chef-👍 26.11., 00:06 auf Frage 2031 | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 2045 | Kutte (MakeHuman donitz_monk_robe_hood) für Klosterschüler einbauen, nach Chef-👍 26.11., 00:06 auf Frage 2031 | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *1,42 $* |
 | 644 | Alle Gegenstände an einer Stelle: Katalog 458 mit BRS-Werten, Voraussetzungen, Seltenheit, Bild je Stück, ohne Würfel … | 4 | E Kataloge | K | 644.1, 644.2, 644.4 | 458 | – | *wartet, entschieden A B C (Chef 14:28)* | *–* | *0* | *32,25 $* |
 | 644.1 | Gegenstandskatalog: Werkzeug mit Spalten, Teil Rezepte und Prüfungen (644 A), zusammen mit 649.2 | 4 | E Kataloge | K | 649.2 | 644, 649.2 | – | *wartet, Build 3 nach 649b A* | *–* | *0* | *–* |
 | 644.2 | Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pflicht-Nachteil (Chef 14:32), C2 Seltenheitsdecke je Kapitel in … | 4 | E Kataloge | K | – | 644, 644a | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
