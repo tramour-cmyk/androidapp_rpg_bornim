@@ -23,10 +23,9 @@
 ## Offene Fäden
 
 - Alter Ego `…78T7R5aMdgTuKTFyGw` (10:47); Disponent wechselt ~30 Min. (jetzt `…794yg24QrPirJBEvWk`).
-- Uhren: create_trigger nur auf Chefsatz im Chat; Disponent-Lauf tot an `…79xvp`, Chef: Umhängen oder Uhren erlauben (Votum).
+- Uhren: create_trigger nur auf Chefsatz im Chat.
 - Laufsperre bis Sa 28.11., 20:00; 2042 zuerst (c)(d), Deckel 85 $; 1589.4 Deckel 90 $; 1708 ruht bis 1589.4 auf main.
 - Ergebnisse auch per Telegram (Chef 11:01); Starttexte als Codeblock (Chef 10:30).
-- Notizen nur in ../bornim-main.
 
 ## Übergabe
 
