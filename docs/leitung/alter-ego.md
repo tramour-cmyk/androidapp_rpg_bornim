@@ -25,6 +25,7 @@ Sitzung session_01Hmoj75wpEpMWabvHAke1zw (seit 26.11., 16:51, Tiefe 1). Sokrates
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 26.11., 17:51 Runde 17:50: Disponent …77aaqc 145 Tsd. 11 Min. nach Start → 2042 Teil a in Vertretung (ruht unter 17:18); 2029-Ü32 an archivierten Sokrates; 3 Planerzeilen ohne Halter; Jutta still; alte Lauf-Uhr feuert 18:03 (Chef) → alles an Sokrates. Uhr trig_01LASmMtwxpdf47CiP3DbqUb (18:52).
 - 26.11., 17:25 Disponent …xHAG5D 257 Tsd. → Nachfolger …77aaqc (sonnet, Startsperre d853bb23a); Uhren neu: Lauf trig_01CEG387qtGPYuvxT5BvyHCH, Testbuild B trig_013hu7mjoaKF423KUX4W7pts; alte Testbuild trig_012jir6N… aus; alte Lauf trig_015rZS7q… Löschen/Abschalten sperrt Auto-Modus → Chef; Vorgänger archiviert.
 - 26.11., 16:52 Nachfolger übernommen (…75wpEp, Tiefe 1), Titel stand schon; Uhr trig_01Sxq5r3WhP5VtZzyj4NJSTt (17:50); alte trig_0178NCnoiNL2zAVMbMNbjhvK gelöscht (16:59 nach Chef-Wort); Vorgänger …78iGVJ archiviert; Kennung an Sokrates und Disponent.
 - 26.11., 12:35 Übergabe. Vormittag: 2042 Messung (Start 85 Tsd., +54 Tsd./Takt), Chef 11:07 (c)(d) zuerst, 12:27 nach main (cfcba0bbe, von mir gemischt); 1708 ruht (Arena-Reihenfolge DESIGN-GEGNER 11); 1973 Chef-Nein, Prüferfehler; 1694 ohne Halter → Sabine; 2043 roter Werkzeugtest; Vorgangsliste 337 offen → Gegenprüfung A/B.
