@@ -4406,6 +4406,21 @@ func umriss_kapsel() -> Array:
 	return kapsel_bei(Vector2(position.x, position.z), rotation.y)
 
 
+## 1589.4 Rudel (DESIGN-GEGNER.md 4, Chef 26.11., 10:29): Mitte zu Mitte zum Ziel [other] an seinem Angriffsplatz, wo er nach dem
+## Angriff steht: der Stand beim Aufschlag ohne Platzsuche (wie _bite_plan und _hieb am Anfang) plus das Absetzen (ABSETZEN, F2;
+## Untote und Krogg: 0; [mit_absetzen] falsch: nur der Stand beim Aufschlag); ohne Biss und Hieb INF
+func angriffsplatz_m(other, mit_absetzen := true) -> float:
+	if fighter.monster == null or other == null:
+		return INF
+	var zu := Vector3(position.x - other.position.x, 0.0, position.z - other.position.z)
+	var stand := INF
+	if _zweibeiner() and weg.has("Gehen") and hieb.size() >= 3:
+		stand = other.body_r() - AXT_IM_RAND + float(hieb[0]) * model.scale.x
+	elif bite.has("Biss"):
+		stand = other.vorne(zu, ZUNGE.has(art()), hoehe_oben()) + float(bite["Biss"][0]) * model.scale.x - float(SCHNAUZE_NAEHER.get(art(), 0.0))
+	return stand + (ABSETZEN * _scale() if mit_absetzen and Arena.setzt_ab(String(fighter.monster.get("id", ""))) else 0.0)
+
+
 ## die eigene Kapsel, stünde der Punkt der Figur bei [p] mit Gier [yaw]
 func kapsel_bei(p: Vector2, yaw: float) -> Array:
 	if fighter.monster == null:
