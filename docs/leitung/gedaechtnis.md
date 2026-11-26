@@ -30,4 +30,4 @@
 
 ## Übergabe
 
-- 26.11., 11:10, `JcDjsC`: 2049 auf main; 1785 gemischt; Chef-👍 2042/1589.4 eingetragen; 2031 Häute beim Chef (Votum B); 2029 Vorlage nach Helmbild. Offen beim Chef: Disponent-Lauf, Häute, Ladetext A/B. Nachfolger: Sokrates – Leitung.
+- 26.11., 11:35, `JcDjsC` bei 378 Tsd.: Disponent-Lauf an …794yg (11:14); 2031 Häute B; Ladetext 2.994; 2049 auf main; 1973 Chef-Nein, wartet auf 1694; 2046 Rest an 1589.4 (Ü40, Planer fehlt, Disponent startet), 90 $ reicht wohl nicht → Geldfrage mit Zahl des Planers. Offen beim Chef: Uhren dauerhaft erlauben (Votum A). Letzte Antwort: 11:35. Nachfolger: Sokrates – Leitung.
