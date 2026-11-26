@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78egvYz1pP981xLHs5 (seit 25.11., 22:48). Sokrates session_
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 26.11., 09:43 Chef-Ja 09:42 „Vorgangsdatei schlank“ (Rückmeldung ≤400 Zeichen, Rest Archiv; Übergaben eine Zeile; 1694 84→14 KB nachgerechnet) an Sokrates; Einwand: Laufbremse/kostenbericht zählen aus „Rückmeldungen“.
 - 26.11., 09:25 Start Dirk (…77ne8Z, Uhr trig_01VsfLAx… 10:19). Zwei Sokrates → Chefstart …JcDjs bleibt, Handstart und alte Alter Egos archiviert. Chef 09:23 Startgröße/Titel: Emil 84 Tsd. vor erster Tat, Vorgangsdateien 40–84 KB ganz gelesen; Titelform nur bei Fachkraft-START → Eilt in 2042 an Sokrates (nur Auftrag + letzte Antwort lesen; Planer/Handstart-Titel).
 - 26.11., 08:06 Runde 08:03: 2044 und 2042 (alle Teile) auf main belegt; Ziel verfehlt (Moritz 170 Tsd./18 Min.) → 2042 offen, Startgröße zerlegen, an Chef mit Vorschlag (an Sokrates). Übergabe (252 Tsd.).
 - 26.11., 07:03 Runde 07:01: Disponent-Lauf an Lutz ✓; Lutz 147→221 Tsd. in 7 leeren Nachttakten (≈10,5 Tsd./Takt nach 2042 1–6, 9) → Ziel nicht erreicht, Zahl an Sokrates für Dora; Tanja-Titel veraltet. Uhr trig_01WmgiVgvXVgseAMTJ7NbrZA (08:02).
