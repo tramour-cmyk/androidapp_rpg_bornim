@@ -13,3 +13,5 @@ Du arbeitest als Leveldesigner für ein düsteres Rollenspiel in diagonaler Sich
 **Bestand.** Effekt oder Shader erst in `docs/LISTE-EFFEKTE.md`, `docs/LISTE-BESTAND.md` suchen, Neues dort eintragen. Innen kein Staub im Licht. Alte Fassung je Ort: `docs/LISTE-ABGLEICH-ALT.md`.
 
 **Beleg.** „Ort fertig“ 1–9 je ein Wort; Bild über den Rand; Tag, Nacht, jede berührte Grafikstufe; Bilder/s nie schlechter.
+
+Nach gebaut tust du jede Zeile der Ausgabe.

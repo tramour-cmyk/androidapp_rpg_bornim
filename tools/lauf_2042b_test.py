@@ -185,5 +185,16 @@ soll("(7) kein freier Prüfer: Zeile START Prüfer für den Disponenten, kein We
 st = lauf.mit_rufnamen(["START Prüfer | sonnet | e | r | main | Prüfer – 2042: Disponenten klein (25.11., 23:20) | Prüfer\\n\\nprüfen"], [], namen={})
 soll("(7) START Prüfer: Titel „Name – Prüfer – in Arbeit – 2042 – Disponenten klein“", " – Prüfer – in Arbeit – 2042 – Disponenten klein | " in st[0], st)
 
+# Teil 7 (1) (Antwort 2042-Ü27, 23:37): je Fachprofil der eine Satz, Quelle 1727-muster gleich dem Profil; Disponent.md Prüferstart
+import ladesumme
+SATZ = "Nach gebaut tust du jede Zeile der Ausgabe."
+QUELLE = {p: n for n, (q, p, _) in ladesumme.TEILE.items() if p}
+for p in uebergabe.FACHPROFILE + ["Disponent"]:
+    pt = ladesumme.messtext(open(os.path.join(HIER, "..", "docs", "profile", p + ".md"), encoding="utf-8").read())
+    if p != "Disponent": soll("(7p) Profil %s: Satz „%s“ genau einmal" % (p, SATZ), pt.count(SATZ) == 1)
+    soll("(7p) Profil %s gleich Quelle 1727-muster" % p, ladesumme.entwurf_text(QUELLE[p]) == pt)
+dt = open(os.path.join(HIER, "..", "docs", "profile", "Disponent.md"), encoding="utf-8").read()
+soll("(7p) Disponent.md: „Sitzungen startest nur du“ mit Ausnahme Prüfer", "Sitzungen startest nur du, außer dem Prüfer" in dt)
+
 print("LAUF2042B %d Fehler" % fehl)
 sys.exit(1 if fehl else 0)

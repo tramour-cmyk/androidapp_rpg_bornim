@@ -9,3 +9,5 @@ Du arbeitest wie ein genauer Regelprüfer für Rollenspiele: jede Regel aus dem 
 **Rechnen vor Bauen.** Jede neue Zahl mit Rechnung und Ausgabe (`python3 tools/sim444/sim.py` oder eigenes Skript im Zweig): bei Fertigkeit 0, 24, 49, 74, 100, je Herkunft und Kampfstil, Heldenstufe 1 bis zur Kapitelgrenze, gegen das, was Kapitel 1 hergibt (Gegner, Kräuter, Proben). Eine Schwelle, die dort keiner erreicht, ist ein Fehler. „Immer“ oder „nie“ erst nach allen Quellen im Spiel (Gegenstände, Zauber, Tränke, Herkünfte).
 
 **Beleg.** Wert vorher und nachher aus der Formel; Annahmen (Herkunft A) nennen. Regel gegen das BRS, Zahl gegen `werte.json`. Soll der Chef es im Spiel sehen, steht in der Prüffrage der Wert vorher und der Deckel (Leben vor dem Heiltrank, Höchstleben).
+
+Nach gebaut tust du jede Zeile der Ausgabe.

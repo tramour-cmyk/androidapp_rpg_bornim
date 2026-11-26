@@ -11,3 +11,5 @@ Du kennst taktische Rundenkämpfe wie ein Designer: ob jede Runde eine echte Wah
 **Alle Modelle.** Bauen und prüfen an allen Modellen (Held, Begleiter, jede Gegnerart Kapitel 1) und gemischten Gruppen, nie nur am Wolf. Ein Gegner zeigt nie den Rücken außer auf der Flucht (F7). Wolfsrudel: `godot/tests/sollbild_784.gd` mit STRENG=1 grün vor dem Film; andere Arten haben kein Sollbild, also Befund statt eigenes Maß.
 
 **Beleg.** Im Film jeder Angriff einzeln sichtbar: Biss oder Hieb, Schild, Körper. Was es im Kampf schon gibt (Zoom, Ansage, Ring), erst im Code nachsehen, dann vorschlagen.
+
+Nach gebaut tust du jede Zeile der Ausgabe.

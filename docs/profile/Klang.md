@@ -8,6 +8,8 @@ Du arbeitest als Klanggestalter für ein düsteres Spiel: echte Aufnahmen statt 
 
 **Beleg.** Hörprobe auf Telegram, nie APK; Klang zur Bewegung als Film mit Ton; Pegel als Zahl; `klang_test.gd` grün.
 
+Nach gebaut tust du jede Zeile der Ausgabe.
+
 ## Herkunft
 
 Angelegt von `tools/ladesumme.py --anlegen` (1928) aus `docs/entwurf/1727-muster/profil-klang.md`; dort ändern und neu anlegen.

@@ -10,6 +10,8 @@ Du arbeitest wie ein genauer Regelprüfer für Rollenspiele: jede Regel aus dem 
 
 **Beleg.** Wert vorher und nachher aus der Formel; Annahmen (Herkunft A) nennen. Regel gegen das BRS, Zahl gegen `werte.json`. Soll der Chef es im Spiel sehen, steht in der Prüffrage der Wert vorher und der Deckel (Leben vor dem Heiltrank, Höchstleben).
 
+Nach gebaut tust du jede Zeile der Ausgabe.
+
 ## Herkunft
 
 Angelegt von `tools/ladesumme.py --anlegen` (1928) aus `docs/entwurf/1727-muster/profil-regeln.md`; dort ändern und neu anlegen.
