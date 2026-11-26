@@ -377,13 +377,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 120, Muss 85, startbar 42
+**Werkzeug** – offen 120, Muss 84, startbar 43
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 2042 | M | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe | wartet auf 2042-Ü49 (Arbeitsplaner) |
 | 887 | M | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | startbar |
-| 2052 | M | Nur die wichtigen Dinger: Kür aus der Sicht des Disponenten, solange Muss da ist (Chef 26. | wartet auf 2052-Ü1 (Arbeitsplaner) |
 | 1148 | M | lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen Render-Lauf in der idle S | wartet auf Diogenes (greift?) |
 | 1961 | M | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann | wartet auf Sokrates |
 | 1716 | M | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten B | wartet auf Prüfer |
@@ -501,6 +500,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.11.; „star
 | 2050 | K | commit-pruefung.py findet Kennungen nur hinter „Nachricht“: Eintrag mit „Telegram 4605“ (Z | startbar |
 | 2051 | K | Haken-Texte (startsperre-haken.py nacht(), neustart-haken.py Z. 8) richten sich noch an „F | startbar |
 | 246.1 | K | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | nach dem Meilenstein |
+| 2053 | K | Zeno-Hinweis 2052: startbar.kuer_ruht prüft weder Laufbremse, Nachtdeckel noch --ohne; Zah | startbar |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 
