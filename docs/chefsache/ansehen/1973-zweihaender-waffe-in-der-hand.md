@@ -1,6 +1,8 @@
 # 1973 · Zweihänder: trägt der Held die Waffe jetzt in beiden Fäusten?
 Disponent · 26.11., 11:28 · E Figur · Ja des Prüfers Fritz 11:28 zu 1973-Ü6
 
+[Bild von 26.11., 11:27](https://github.com/tramour-cmyk/androidapp_rpg_bornim/blob/bilder/2026-11/26-1127-1973-Disponent.png) (eingetragen von meldung.sh, Disponent)
+
 Bild: alt (main, Hände leer) neben neu (Prüfzweig mit Waffenstaffel 458.3), Wachsoldat geht (Gehen_axt), Spielkamera 540x1170, gleiche Pose, dazu je ein Ausschnitt in doppelter Größe; Datei `docs/chefsache/bilder/1973-zweihaender-alt-neu.webp` auf dem Zweig claude/ulla-1973-waffenmodelle (fed734519c).
 
 Kurz: Vorher ging der Held mit Zweihänder ohne sichtbare Waffe; 17 von 34 Waffen und Schilden des Katalogs hatten in `main` kein Modell. Am Prüfzweig (main + Staffel 458.3, ohne Konflikt) sind es noch 2: Rapier und Turmschild.
