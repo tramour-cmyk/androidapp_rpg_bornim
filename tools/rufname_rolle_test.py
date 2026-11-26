@@ -5,6 +5,7 @@ import datetime, os, shutil, sys, tempfile
 HIER = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HIER)
 import rufname, kosten, lauf
+rufname.BESETZUNG = os.devnull  # 2041 d: laufende Sitzungen aus der echten Besetzung zählen im Test nicht
 
 fehl = 0
 def soll(name, ok, zeige=""):

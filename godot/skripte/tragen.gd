@@ -202,6 +202,14 @@ const GRIFF_ACHSE := Vector3(0.26, 0.96, 0.02)          # Waffe rechts, zur Spit
 const GRIFF_PUNKT := Vector3(0.99, -0.09, -0.33)        # Griff (Modell-Ursprung) rechts
 const BOGEN_ACHSE := Vector3(-0.44, -0.90, 0.05)        # Bogen links, Wurfarme (Modell +Y)
 const BOGEN_PUNKT := Vector3(0.99, -0.09, 0.33)         # links ist der Rahmen gespiegelt: innen ist +z
+# 431 (stab_menue_1516: Jägerkind als Zwerg, Hand 0,147 m statt 0,113 m beim Menschen, Bogen 3,6 cm neben der Faustmitte): der Bogen
+# liegt in der großen Hand so tief in der Handfläche wie beim Menschen (HAND_MENSCH), nicht tiefer; Menschen und kleinere Hände wie bisher
+const HAND_MENSCH := 0.113
+static var bogen_alt := false   # Vergleichsbild alt (tests/bogen_bild_431.gd): Lage vor 431
+static func bogen_punkt(handlaenge: float) -> Vector3:
+	var p := BOGEN_PUNKT
+	if handlaenge > HAND_MENSCH and not bogen_alt: p.z *= HAND_MENSCH / handlaenge
+	return p
 const SCHILD_NORMALE := Vector3(0.22, -0.07, -0.97)     # Schild links, Vorderseite (Modell +Z)
 const SCHILD_PUNKT := Vector3(-0.18, -0.06, -0.35)      # Fessel (Modell-Ursprung) am Handgelenk, am Handruecken
 # 417 Runde 6 (Lauf 41322461393): Zweihaender im Rennen mit dem Stielende 4,9 cm in der linken Wade, die linke Faust 6,5 cm neben dem
@@ -270,7 +278,7 @@ func _paket(sk: Skeleton3D, ih: int) -> void:
 			d = dn
 	var _mitte := _faust_zu(sk, ih, d)
 	R = hand_rahmen(sk, seite)
-	var p := R * (BOGEN_PUNKT if bogen else GRIFF_PUNKT * spiegel)
+	var p := R * (bogen_punkt(R.basis.x.length()) if bogen else GRIFF_PUNKT * spiegel)
 	var dw := (G.basis * d).normalized()
 	schaft_welt = dw
 	faust_welt = G * p

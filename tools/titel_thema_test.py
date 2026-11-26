@@ -37,6 +37,22 @@ soll("Vorspann mit Nummer weg, Uhrzeit kein Schnitt", th("Aus 1141 (Jerry 13.11.
 soll("Schnitt an Zahl ohne Füllwort am Ende", th("vier Läufe zu 1655 an einem Tag") == "vier Läufe …", th("vier Läufe zu 1655 an einem Tag"))
 soll("Markdown weg, unpaariges „ weg", th("**Titel** mit „Zitat: x") == "Titel mit", th("**Titel** mit „Zitat: x"))
 
+# Rückläufer 22.11., 18:17: unter drei Wörtern über den Trenner weiterlesen; Teil vor „:“ nur, wenn er mitpasst (709, 1650, 1674, 931)
+def worte(t): return len(t.replace("…", "").split())
+for nr, g in (("709", "Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angriffe"),
+              ("760", "Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur"),
+              ("1650", "Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin"),
+              ("1674", "Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 Minuten an der Bank fest, kommt nicht weiter"),
+              ("931", "Wolf vorn – „Anspringen!“ steht, während er sich duckt (keine eigene Pause), Sprung bis Biss")):
+    t = th(g)
+    soll("%s: Thema mindestens drei Wörter, höchstens 50 Zeichen" % nr, worte(t) >= 3 and len(t) <= 50 and t.count("(") == t.count(")")
+         and t.count("„") == t.count("“") and " – " not in t, t)
+soll("709: Teil vor „:“ passt mit", th("Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur").startswith("Kampf: Wolf springt"), th("Kampf: Wolf springt beim „Anspringen“ nicht, er beißt nur"))
+soll("Teil vor „:“ passt nicht: Teil danach", th("Kopf: Wolf springt nicht") == "Kopf: Wolf springt nicht" and th("Vorspannwortungetüm" * 3 + ": Wolf springt nicht") == "Wolf springt nicht",
+     (th("Kopf: Wolf springt nicht"), th("Vorspannwortungetüm" * 3 + ": Wolf springt nicht")))
+soll("drei Wörter vor dem Trenner: Schnitt wie bisher", th("Sitzungstitel ohne Thema: Rest") == "Sitzungstitel ohne Thema", th("Sitzungstitel ohne Thema: Rest"))
+soll("Titel selbst zu kurz bleibt", th("Repo öffentlich") == "Repo öffentlich", th("Repo öffentlich"))
+
 # START-Titel (Fachkraft 1550, Planer 1557, zweiter Planer 585) mit Thema, scharf
 lauf.ist_scharf = lambda: True
 f = titel("Werkzeug – 1960", "1960"); p = titel("Arbeitsplaner – Auftrag 1675", "1675"); p2 = titel("Arbeitsplaner 2 – Auftrag 1621", "1621")
@@ -50,7 +66,8 @@ rufname._SPERRE[rufname.DOCS] = set()
 aus = lauf.mit_rufnamen(["START Werkzeug | o | e | r | main | %s | Werkzeug" % f, "START Arbeitsplaner | o | e | r | main | %s | Arbeitsplaner" % p,
                          "START Arbeitsplaner | o | e | r | main | %s | Arbeitsplaner" % p2], [], J)
 rf, rp, rp2 = [l.split(" | ")[5] for l in aus]
-soll("mit_rufnamen: Rufname vor Thema", rf.startswith("Anna – 1960: Sitzungstitel ohne Thema (") and rp.startswith("Britta – Auftrag 1675: Wachsoldatin"), (rf, rp))
+soll("mit_rufnamen: Rufname vor Thema", rf == "Anna – in Arbeit – 1960 – Sitzungstitel ohne Thema"  # 2042 Teil 6 (2): START setzt gleich „Name – in Arbeit – Nr – Betreff“
+     and rp.startswith("Britta – Auftrag 1675: Wachsoldatin"), (rf, rp))
 alt = {"rf": "Anna – 1960 (22.11., 16:56)", "rp": "Britta – Auftrag 1675 (22.11., 16:56)", "rp2": "Carla – Auftrag 1621 (22.11., 16:56)"}
 D = tempfile.mkdtemp(); B = os.path.join(D, "ARBEIT-BETRIEB.md")
 open(B, "w", encoding="utf-8").write("# Betrieb\n\n- 16:56 22.11.: Startsperre 16:56 Start Werkzeug, Arbeitsplaner, Arbeitsplaner (lauf.py, Werkzeug 1960 Anna, Arbeitsplaner 1675 Britta, Arbeitsplaner 1621 Carla)\n")
@@ -60,6 +77,7 @@ for k, neu in (("rf", rf), ("rp", rp), ("rp2", rp2)):
     a = alt[k]
     for fn in (lauf.nummer_aus_titel, lauf.nummern_aus_titel, lauf.auftrag_aus_titel, lambda t: rufname.rolle(t, C),
                lambda t: rufname.bereich(t, ZEILEN), lambda t: kosten.rolle(t, C), lambda t: kosten.rolle(t)):
+        if k == "rf" and fn is lauf.auftrag_aus_titel: continue  # 2042 Teil 6 (2): neue Form trägt die Nr; Aufrufer prüfen die Rolle Planer
         soll("%s: gleich mit Thema (%s)" % (k, getattr(fn, "__name__", "")), fn(neu) == fn(a), "%r: %r statt %r" % (neu, fn(neu), fn(a)))
 soll("Planer mit Thema zählt als Arbeitsplaner (Kosten)", kosten.rolle(rp, C) == "Arbeitsplaner" and kosten.rolle(rp2, C) == "Arbeitsplaner", (kosten.rolle(rp, C), kosten.rolle(rp2, C)))
 soll("Planer mit Thema bucht nur auf seinen Vorgang", lauf.nummern_aus_titel(rp) == "1675" and lauf.nummern_aus_titel(rp2) == "1621", (lauf.nummern_aus_titel(rp), lauf.nummern_aus_titel(rp2)))

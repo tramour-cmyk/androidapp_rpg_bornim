@@ -173,6 +173,7 @@ var unten: Control                    # Platz der Knopfzeile unten (gesperrt, so
 var aussehen := HeldFigur.vorgabe("Wachsoldat")   # 376.1; Beispielkopf der Herkunft (Chef 28.10., 23:0x), bis der Spieler selbst waehlt
 var aussehen_eigen := false
 var teller: Drehteller
+static var MASSSTAB := 1                 # 431 (Chef waehlt): 1 Groessenlinie (V1, Testbuild), 2 grauer Menschenumriss (V2)
 var teller_wahl := ""                 # zuletzt gezeigte Wahl (Punkte bauen die Seite neu, den Helden nicht)
 
 func _init() -> void:
@@ -312,6 +313,7 @@ func volk_waehlen(v: String) -> void:
 	var vg := HeldFigur.vorgabe(b.herkunft, String(aussehen.get("geschlecht", "m")), b.volk)
 	aussehen["haut"] = int(vg["haut"])
 	aussehen["haarfarbe"] = int(vg["haarfarbe"])
+	HeldFigur.volk_kopf(aussehen, b.volk)   # 431: Frisur und Bart nach der Volksregel
 	baue()
 
 func herkunft_waehlen(h: String) -> void:
@@ -321,6 +323,7 @@ func herkunft_waehlen(h: String) -> void:
 		var st := String(aussehen.get("statur", "normal"))
 		aussehen = HeldFigur.vorgabe(b.herkunft, g, b.volk)
 		aussehen["statur"] = st
+	HeldFigur.volk_kopf(aussehen, b.volk)
 	baue()
 
 # Abenteuer beginnen: in den gewaehlten oder den ersten freien Platz; sind alle belegt, waehlt der Spieler, wen der Neue ersetzt (alt)
@@ -566,7 +569,7 @@ func fertigkeiten() -> void:
 
 # HeroTurntable (drehteller.gd); 376.1, 870.4 mit Herkunft, Aussehen und Grundausruestung
 func vorschau() -> Control:
-	teller = Drehteller.new(wahl_jetzt(), 0.9)
+	teller = Drehteller.new(wahl_jetzt(), 0.9, true, true, MASSSTAB)   # 431: wahre Groesse mit Massstab
 	teller_wahl = str(wahl_jetzt())
 	return teller
 
@@ -593,7 +596,7 @@ func aussehen_wahl() -> void:
 	v.add_child(toene("Haut" if de else "Skin", HeldFigur.toene_liste(b.volk, "haut"), "haut"))
 	v.add_child(toene("Haar" if de else "Hair", HeldFigur.toene_liste(b.volk, "haar"), "haarfarbe"))
 	inhalt.add_child(v)
-	for teil in [["form", HeldFigur.formen()], ["frisur", HeldFigur.frisuren(g)], ["bart", HeldFigur.baerte(g)]]:
+	for teil in [["form", HeldFigur.formen()], ["frisur", HeldFigur.frisuren(g, b.volk)], ["bart", HeldFigur.baerte(g, b.volk)]]:
 		if (teil[1] as Array).size() < 2: continue   # Heldin: kein Bart
 		inhalt.add_child(txt(HeldFigur.wort(teil[0]), 14))
 		inhalt.add_child(wahl(teil[1], String(aussehen.get(teil[0], "")), func(x): return HeldFigur.wort(teil[0] + ":" + x),
@@ -602,9 +605,10 @@ func aussehen_wahl() -> void:
 # Geschlecht: Frisur aus der Liste des Geschlechts (eigene bleibt, wenn es sie dort gibt), Heldin ohne Bart; Gesicht, Farben, Statur bleiben
 func geschlecht_waehlen(g: String) -> void:
 	aussehen["geschlecht"] = g
-	if not aussehen_eigen or String(aussehen.get("frisur", "")) not in HeldFigur.frisuren(g):
-		aussehen["frisur"] = String(HeldFigur.vorgabe(b.herkunft, g)["frisur"])
-	if String(aussehen.get("bart", "")) not in HeldFigur.baerte(g): aussehen["bart"] = ""
+	if not aussehen_eigen or String(aussehen.get("frisur", "")) not in HeldFigur.frisuren(g, b.volk):
+		aussehen["frisur"] = String(HeldFigur.vorgabe(b.herkunft, g, b.volk)["frisur"])
+	if String(aussehen.get("bart", "")) not in HeldFigur.baerte(g, b.volk): aussehen["bart"] = ""
+	HeldFigur.volk_kopf(aussehen, b.volk)
 	baue()
 
 # ToneChoices: Beschriftung, dann je Ton ein Feld mit Namen darunter; das gewaehlte mit Goldrand

@@ -6,6 +6,8 @@
 >
 > **Prüfbild und Film.** Ein Gegenstand je Bild, mittig, groß genug, die Stelle markiert; nichts davor. · Spielkamera in Handygröße, bei Kleinem ein Ausschnitt dazu. · Alt gegen neu nebeneinander, beschriftet, gleiche Kamera, gleiche Pose. · Film: nur Bewegung, Prüfgegenstand von der Seite, bis 15 s. · Vor dem Senden selbst ansehen, ohne Erwartung aus der Messung, und jeden Punkt aus `docs/DESIGN-ABNAHME.md` „Vor jeder Vorlage“ prüfen, der im Bild vorkommt (461), zuerst Spiel-Shader, Tusche, Schatten unter dem Körper. · Sichtbarer eigener Fehler ist keine Frage an den Chef: beheben, dann alt gegen neu.
 
+Nach gebaut tust du jede Zeile der Ausgabe.
+
 ## Herkunft
 
 Angelegt von `tools/ladesumme.py --anlegen` (1928) aus `docs/entwurf/1727-muster/profil-figur-und-pruefbild.md`; dort ändern und neu anlegen.

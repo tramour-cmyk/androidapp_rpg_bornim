@@ -11,15 +11,21 @@
   "text": "Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: LISTE-LEHREN.md",
   "vorgang": "1977"
  },
- "969": {
-  "besitzer": "Arbeitsplaner",
-  "seit": "2026-11-23T23:08+01:00",
-  "text": "docs/LISTE-REGELWERTE.md veraltet; python3 tools/regelwerte.py, committen"
+ "groesse:docs/ARBEIT-BETRIEB.md": {
+  "besitzer": "Disponent",
+  "seit": "2026-11-26T07:06+01:00",
+  "text": "docs/ARBEIT-BETRIEB.md hat 54042 Bytes (Grenze 30000), Erledigtes streichen"
  },
  "regel:ARBEIT-TEAM-JERRY.md:Übergabe über N Zeichen (nur Getanes und": {
   "besitzer": "Arbeitsplaner",
   "seit": "2026-11-21T22:18+01:00",
   "text": "ARBEIT-TEAM-JERRY.md: Übergabe über 700 Zeichen (nur Getanes und Nachfolger, Stand gehört in den Vorrat, 121; 165 Tag 2)",
   "vorgang": "1802"
+ },
+ "regel:startbar.py:UNLESBAR N: Besitzer „Wochenzählung“ (nu": {
+  "besitzer": "Disponent",
+  "seit": "2026-11-24T18:41+01:00",
+  "text": "startbar.py: UNLESBAR 2018: Besitzer „Wochenzählung“ (nur Homer, Tom, Jerry, Spike, Perikles, Diogenes, Sokrates, Ford, Ideen, Arbeitsplaner, Regeln, Kampf, Figur, Kataloge, Welt, Klang, Oberfläche, Story, Technik",
+  "vorgang": "2027"
  }
 }

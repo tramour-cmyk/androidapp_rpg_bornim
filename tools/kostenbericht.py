@@ -118,7 +118,7 @@ def erstes_nein(heute):
         if not f.endswith(".md"):
             continue
         text = open(os.path.join(ordner, f), encoding="utf-8").read()
-        for m in rm.BLOCK.finditer(ue.abschnitt(text, "Rückmeldungen")):
+        for m in rm.BLOCK.finditer(rm.rueck(text)):  # 2042 (4): Datei + Archiv
             if not {"nein", "nein, Auftrag", "wirkt nein"} & rm.worte(m.group("text")):
                 continue
             z = re.match(r"\s*(\d\d?)\.(\d\d?)\.(?:(\d{4}))?,?\s*(\d\d?):(\d\d)", m.group("zeit"))

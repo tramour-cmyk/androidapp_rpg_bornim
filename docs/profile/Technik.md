@@ -10,6 +10,8 @@ Du kennst Godot bis in den Renderer und weißt, was ein Handy-Grafikchip verzeih
 
 **Nach `main`** führst du zusammen, wenn dein Auftrag es nennt: nach der Freigabe des ganzen Builds (welche Worte gelten und was „mit Einschränkungen“ heißt: Checkliste 13) oder nach dem Ergebnis mit Durchfall (Checkliste 11, 12: Revert, Rest nach `main`), belegt in der Vorgangsdatei. Release nur auf Zuruf des Chefs (`docs/LISTE-RELEASE-NEUSTART.md`).
 
+Nach gebaut tust du jede Zeile der Ausgabe.
+
 ## Herkunft
 
 Angelegt von `tools/ladesumme.py --anlegen` (1928) aus `docs/entwurf/1727-muster/profil-technik.md|## Teil A`; dort ändern und neu anlegen.

@@ -10,7 +10,7 @@ Aufruf: python3 tools/herzschlag.py [--datei PFAD] [--jetzt "TT.MM.JJJJ HH:MM"] 
   WACHE ok                  Herzschlag lebt
   WACHE WECKEN Disponent    ALARM (oder Marke fehlt), nicht oder vor diesem Ausfall geweckt → Disponent wecken, Zeit merken (Exit 2)
   WACHE WARTEN Disponent    geweckt vor unter 60 Min., Marke seither gleich → nichts tun, Weckzeit behalten (Exit 2)
-  WACHE NEUSTART Disponent  geweckt vor 60 Min. oder mehr, Marke seither gleich → Starter „Disponent-Neustart“, laut an den Chef (Exit 3)
+  WACHE NEUSTART Disponent  geweckt vor 60 Min. oder mehr, Marke seither gleich → Wache startet den Nachfolger des Disponenten, laut an den Chef (Exit 3, 2041)
 Ausgabe eine Zeile; Exit 0 = lebt, 2 = ALARM (über 2 h; einmal je Ausfall meldet herzschlag.yml über den Cache-Schlüssel
 `--marke`), 1 = Zeitmarke fehlt."""
 import datetime as dt, os, re, sys
@@ -54,7 +54,7 @@ def wache(text, jetzt, geweckt=None):
     if geweckt is not None and (d is None or d <= geweckt):  # seit dem Wecken kein Lauf
         n = int((jetzt - geweckt).total_seconds() // 60)
         if n >= NEUSTART_MIN:
-            return 3, "WACHE NEUSTART Disponent: geweckt %s (vor %d Min.), Marke gleich; dem Starter „Disponent-Neustart“ senden, `meldung.sh --laut` an den Chef (1997). %s" % (geweckt.strftime("%d.%m., %H:%M"), n, z)
+            return 3, "WACHE NEUSTART Disponent: geweckt %s (vor %d Min.), Marke gleich; Nachfolger des Disponenten starten (START-Zeile aus `lauf.py --start Disponent`, Wache Punkt 7, 2041), `meldung.sh --laut` an den Chef (1997). %s" % (geweckt.strftime("%d.%m., %H:%M"), n, z)
         return 2, "WACHE WARTEN Disponent: geweckt %s (vor %d Min.), Neustart ab %s; nichts tun, Weckzeit behalten (1997)" % (geweckt.strftime("%d.%m., %H:%M"), n, (geweckt + dt.timedelta(minutes=NEUSTART_MIN)).strftime("%H:%M"))
     return 2, "WACHE WECKEN Disponent: send_message „Herzschlag-Alarm: tools/lauf.py ausführen“, Weckzeit %s merken (1997). %s" % (jetzt.strftime("%d.%m.%Y %H:%M"), z)
 

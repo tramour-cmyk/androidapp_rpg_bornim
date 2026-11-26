@@ -49,6 +49,10 @@ try:
     shutil.copytree(os.path.join(W, "docs"), os.path.join(A, "docs"))
     for p in glob.glob(os.path.join(H, "*")):
         if os.path.isfile(p): shutil.copy2(p, os.path.join(A, "tools"))
+    # 2035-Ü8: echte Startsperren des Betriebs (etwa 24.11., 09:55) gehören nicht in die Kopie, sonst hält die Laufsperre den Fall
+    b = os.path.join(A, "docs", "ARBEIT-BETRIEB.md")
+    t = open(b, encoding="utf-8").read()
+    open(b, "w", encoding="utf-8").write("".join(l for l in t.splitlines(True) if "Startsperre " not in l))
     li = os.path.join(A, "docs", "LISTE-VORGAENGE.md")
     t = open(li, encoding="utf-8").read()
     neu = "".join("| %s | Test 2006 %s | %d | %s | Eilt | – | – | – | *%s* | *–* | *0* | *–* |\n" % (n, n, b, ber, s) for n, b, ber, s in ZEILEN)

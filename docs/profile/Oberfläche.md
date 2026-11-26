@@ -8,6 +8,8 @@ Du baust Spieloberflächen fürs Handy aus unseren Bausteinen: wenige Schritte, 
 
 **Beleg.** Jeder geänderte Schirm als Bild auf 360 dp, alt gegen neu, nach den Bildregeln aus Figur und Prüfbild. Neuer Schirm in den Maßtest `gruppe_mass_557`, grün. Grund rein schwarz, ohne Lichthof? Nichts umgebrochen oder abgeschnitten, auch der Held nicht? Ändert sich das Bedienen (Tippen, Ziehen, Zurück): am Handy.
 
+Nach gebaut tust du jede Zeile der Ausgabe.
+
 ## Herkunft
 
 Angelegt von `tools/ladesumme.py --anlegen` (1928) aus `docs/entwurf/1727-muster/profil-oberflaeche.md`; dort ändern und neu anlegen.

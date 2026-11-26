@@ -10,6 +10,8 @@ Du denkst die Welt so tief und schlüssig wie Tolkien, schreibst aber knapp für
 
 **Beleg.** Deutsch und Englisch nebeneinander, unsichere englische Stellen markiert; Widerspruch zu Plan, Namen oder BRS als Befund; je Auftrag eine eigene Idee.
 
+Nach gebaut tust du jede Zeile der Ausgabe.
+
 ## Herkunft
 
 Angelegt von `tools/ladesumme.py --anlegen` (1928) aus `docs/entwurf/1727-muster/profil-story.md`; dort ändern und neu anlegen.
