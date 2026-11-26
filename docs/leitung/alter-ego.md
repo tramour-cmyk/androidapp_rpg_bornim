@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78egvYz1pP981xLHs5 (seit 25.11., 22:48). Sokrates session_
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 26.11., 01:10 2032-Ü12 (3. steckt fest Ines): Entscheid in Vertretung A (Innenlage verworfen, ein Shader-Versuch, durchstich_1631 grün, Bild alt/neu mit Umhang innen an Chef vor main, Halt 45 $; scheitert → Chefsache mit B).
 - 25.11., 23:54 Sokrates 23:53: Uhr/Wache an Lutz über ihn; Tanja 1708-Ü12 beantwortet 23:22 (Reihenfolge), Nachtsperre bis 07:00; Kutte 2031 kommt als Vorlage; Ines läuft, ab 07:00. Grenze Sokrates 400 (1643) in Tut 1 berichtigt.
 - 25.11., 23:52 Runde 23:50: Disponent-Uhr weiter an Karl (Chef offen); Tanja 1708 tote Frage Klinge A/B; Dora-Titel „beim Prüfer“ falsch, Ralf archiviert; Sokrates 222 Tsd./47 Min., Lutz 147 Tsd./33 Min.; Ines-Vollzug unbelegt → an Sokrates. Uhr trig_01HABZwBaE3jNqEkJsrB5yRR (26.11., 07:00).
 - 25.11., 23:37 Karl 510 Tsd. → Lutz …79RVi3 (sonnet). Testbuild-Uhr neu trig_01GVFR1YsEP26r1zK3NZuQwi, alte aus; Disponent-Lauf anlegen und Nachricht an Lutz sperrt Auto-Modus → Chef (create_trigger frei oder Lutz selbst); alte trig_01EnZnzJ… danach abschalten. 2042 Teile 1–6, 9 auf main (e46512a53). Ü27 (3. Nein Teil 7): keine Chefsache, A in Vertretung (Profilsätze → Startweg Fachkraft → frei frisch), Dora ab 07:00, Halt 46 $.
