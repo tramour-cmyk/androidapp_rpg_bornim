@@ -25,6 +25,7 @@ Sitzung session_01Hmoj75wpEpMWabvHAke1zw (seit 26.11., 16:51, Tiefe 1). Sokrates
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 26.11., 20:55 Runde 20:54: t301 gemischt (15 Vorgänge), Haken 1716 behoben, Prüfer Conrad läuft, Britta archiviert; Disponent 203 Tsd., Sokrates 266 Tsd.; keine Funde.
 - 26.11., 19:54 Runde 19:53: Disponent 183 Tsd. (+19 Tsd./h), Sokrates 242 Tsd., Marta baut B301 (301.3 berichtigt), Britta prüft danach; keine Funde.
 - 26.11., 18:53 Runde 18:52: Vollzug ✓ (Jutta archiviert, alte Lauf-Uhr trig_015rZS7q… weg); Disponent 164 Tsd. (+19 Tsd./h), Sokrates 233 Tsd., Marta baut B301; keine Funde.
 - 26.11., 17:52 Sokrates-Einwand angenommen: 2042 Teil a zurück (Chef 17:18 sperrt B-Arbeit). Testbuild-Erinnerung trig_013hu7mj… gelöscht (Termin Fr 17:30 durch 17:18 ersetzt). Alte Lauf-Uhr trig_015rZS7q… weiter beim Chef.
