@@ -49,13 +49,15 @@ for rolle in ("Sokrates", "Alter Ego"):
     pruefe(rufname.aus_titel(SOLL[rolle]) is None and rufname.teile(SOLL[rolle]) is None, "(b) rufname hält %r für Rufnamen" % SOLL[rolle])
     # (c) Startblock, keine WARNUNG 1923, Haken ohne Notstart, keine Meldung 1989
     msg = f[6].replace("\\n", "\n")
+    blk = lauf.blocktext(rolle) + "\n\nAuftrag: "  # 2042 (c): der Block kommt aus `lauf.py --startblock`, die Nachricht trägt den Aufruf
+    pruefe(lauf.startblock_aufruf(rolle) in msg, "(c) %s: Aufruf --startblock fehlt: %r" % (rolle, msg[:120]))
     pruefe(not any(x.startswith("WARNUNG") for x in zs), "(c) %s: WARNUNG in der Ausgabe: %s" % (rolle, [x for x in zs if x.startswith("WARNUNG")]))
     if rolle == "Alter Ego":
-        pruefe(msg.startswith("**Alter Ego**\n" + AE_TEXT + "\n\nAuftrag: "), "(c) Alter Ego: Block nicht „**Alter Ego**“ + alter-ego.md bis Protokoll: %r" % msg[:120])
-        pruefe("## Protokoll" not in msg and "# Alter Ego" not in msg, "(c) Alter Ego: Protokoll oder Kopfzeile im Block")
+        pruefe(blk.startswith("**Alter Ego**\n" + AE_TEXT + "\n\nAuftrag: "), "(c) Alter Ego: Block nicht „**Alter Ego**“ + alter-ego.md bis Protokoll: %r" % msg[:120])
+        pruefe("## Protokoll" not in blk and "# Alter Ego" not in blk, "(c) Alter Ego: Protokoll oder Kopfzeile im Block")
     else:
         teile = lauf.leitung_block()
-        pruefe(teile and msg.startswith("\n\n".join("**%s**\n%s" % (n, t) for n, t in teile) + "\n\nAuftrag: "), "(c) Sokrates: leitung_block nicht unverändert vorn")
+        pruefe(teile and blk.startswith("\n\n".join("**%s**\n%s" % (n, t) for n, t in teile) + "\n\nAuftrag: "), "(c) Sokrates: leitung_block nicht unverändert vorn")
     pruefe("Leite den Betrieb." in msg and "Notstart" not in msg, "(c) %s: Nachricht fehlt oder Notstart: %r" % (rolle, msg[-200:]))
     gemeldet = []; haken.MELDEN = lambda nr, text: gemeldet.append((nr, text))
     pruefe(haken.startblock_fehlt({"title": f[5], "prompt": f[6]}) is None and not gemeldet, "(c) %s: Haken weist ab oder meldet 1989: %s" % (rolle, gemeldet))

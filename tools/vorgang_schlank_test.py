@@ -108,5 +108,13 @@ t3, a3 = ue.schlank_uebergaben(T, "", "9500", von)
 soll("schlank_uebergaben: erledigte Zeilen schlank, offene gleich, Wortlaut im Archiv",
      "| 9500-Ü1 | Prüfer | von Werkzeug |" in t3 and "| 9500-Ü3 | Werkzeug | Rückläufer" in t3 and "langer Text" in a3 and "langer Text" not in t3, a3)
 
+# Beleglauf 11:43 (Wiebke): aufraeumen rechnet zweimal (Probe, atomar) und je Versuch neu; git log -S je Zeile kostet ~4 Min.,
+# main rückt dazwischen vor, der Lauf endet nie. von_git merkt sich die Antwort je Zeile und Vorgang.
+_alt_git = ue._git; _n = []
+ue._git = lambda *a: (_n.append(a), (0, "Claude-Session: https://claude.ai/code/session_01Hmoj7TESTxyz\n", ""))[1]
+_z = {"k": "9500-Ü1"}
+ue.von_git(_z, "9500"); ue.von_git(_z, "9500")
+ue._git = _alt_git
+soll("von_git: zweiter Aufruf derselben Zeile ohne git log -S", len(_n) == 1, len(_n))
 print("vorgang_schlank_test: %s" % ("grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

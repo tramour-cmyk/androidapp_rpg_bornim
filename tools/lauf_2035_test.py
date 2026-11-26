@@ -48,6 +48,6 @@ z = lauf.leitung_neustart(jr([s]), set(), wache="session_W")
 soll("leitung_neustart Detlef 314 Tsd. → NEUSTART-DISPONENT", any(l.startswith("NEUSTART-DISPONENT session_DET") for l in z), z)
 s = {"id": "session_DET", "title": TITEL["session_DETLEF"], "created_at": "2026-11-25T17:47:00Z"}
 z = lauf.leitung_neustart(jr([s]), set(), wache="session_W")
-soll("leitung_neustart Detlef ohne Zahl → TOKEN", z == ["TOKEN session_DET | Disponent: get_session, Zahl in die Kurzform, lauf.py neu"], z)
+soll("leitung_neustart Detlef ohne Zahl → TOKEN", z == ["TOKEN session_DET | Disponent: get_session, lauf.py neu mit --token session_DET=<used_tokens> (2042 d)"], z)
 print("lauf_2035_test: " + ("gut" if not fehl else "%d Fehler" % fehl))
 sys.exit(1 if fehl else 0)
