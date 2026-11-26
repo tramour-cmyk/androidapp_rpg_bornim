@@ -29,4 +29,4 @@
 
 ## Übergabe
 
-- 26.11., 12:06, `bzEmVt` bei 204 Tsd.: Uhren an Disponent …78QrUo (11:48); 1589.4 Deckel 145 $, Rudel A, Start frei (11:58); Kampf nur 1589.4 + 2046, 29 Kampf-Vorgänge warten (11:58); 1708 ruht; 2042 (c)(d) auf wiebke-2042-t5 25142c5a3: nach Prüfer-Ja mischt Sokrates (Ü53); Uhren dauerhaft unmöglich (R9, R10). Letzte Antwort: 12:06. Nachfolger: Sokrates – Leitung.
+- 26.11., 12:38, `bzEmVt` bei 261 Tsd.: 1589.4 Fenja (145 $), 1694 Sabine; Kampf nur 1589.4; 2042 (c)(d) auf main; 2052 Weg A, Auftrag offen; Kern Leitung Chat kurz (12:30). Offen beim Chef: Uhren an Disponent …774iFT (Satz 12:34), Telegram 12:33 (1 Disponent startet Sokrates, 2 „Leitung klein“). Haken erkennt „Auftrag: Sokrates“ nicht (200 statt 400 Tsd.). Letzte Antwort: 12:38. Nachfolger: Sokrates – Leitung.
