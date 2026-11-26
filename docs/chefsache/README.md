@@ -31,13 +31,13 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 26.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 4 | 59e (Regeln) Händler: Vorrat je Laden |
 | ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 63 (62) | 19 | 2 | 1 | 27 | 2046 (Kampf) 1589.4 grün: alte Reihen-Tests und wolf_mess_438… |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 40 (40) | 24 | 1 | 3 | 7 | 2024 (Figur) Krogg schlägt beim Prankenhieb mit der freien Pra… |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 40 (40) | 24 | 2 | 3 | 7 | 2024 (Figur) Krogg schlägt beim Prankenhieb mit der freien Pra… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 4 | 644.2 (Kataloge) Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch… |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 31 (31) | 2 | 0 | 0 | 5 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 0 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
 | ↳ **12** Bedienung und Oberfläche | 6 (6) | 0 | 0 | 0 | 3 | 531a (Oberfläche) Rückfrage: Bewegungspaket „Campfire“ für Garrick… |
 | ↳ **13** Geschichte und Texte | 10 (10) | 1 | 0 | 0 | 2 | 2040 (Story) Wörter für Frisur und Bart aus 2029, Vorschlag de… |
-| ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 1 | 1 | 1 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
+| ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 1 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
 | **7** Firma: Werkzeuge und Abläufe | 123 (124) | 87 | 1 | 1 | 23 | 887 (Werkzeug) Archivieren und Kaufrepo ohne Nachfrage: Probe Si… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 5 | 142.3 (Arbeitsplaner) Tester öffentlich suchen |
 
@@ -56,10 +56,10 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Profil | als Nächstes |
 |---|---|
 | **Chef** | [1973](ansehen/1973-zweihaender-waffe-in-der-hand.md) ansehen; dann 1 weitere |
-| Arbeitsplaner | läuft: 1955 (Besetzung); 142.3 Tester öffentlich suchen (Kür) |
+| Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | läuft: 2046 (Besetzung); 2046 1589.4 grün: alte Reihen-Tests und wolf_mess_438 an die Are… (Muss) |
-| Figur | 2024 Krogg schlägt beim Prankenhieb mit der freien Pranke, Morge… (Muss); dann 4 weitere |
+| Figur | läuft: 1694 (Besetzung); 2024 Krogg schlägt beim Prankenhieb mit der freien Pranke, Morge… (Muss); dann 4 weitere |
 | Kataloge | 644.2 Gegenstandskatalog: C1 Fertigkeit +1/+2 ab episch ohne Pfli… (Kür) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
@@ -84,7 +84,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 8 | 2040 | Story | Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den Chef | M | 13 Geschichte und Texte | startbar |
 | 9 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
 | 10 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
-| 11 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | in Arbeit |
+| 11 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
 | 12 | 2033 | Technik | Thessa: fast schwarzes Loch in der rechten Faust, Tusche zieht die Faustöffnung… | M | 6 Technik, Leistung, Build | startbar |
 | 13 | 887 | Werkzeug | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | M | 7 Firma | startbar |
 | 14 | 2035 | Werkzeug | Übergaben schlanker: nur Bestehendes ändern oder streichen, kein neues Werkzeug… | M | 7 Firma | startbar |
