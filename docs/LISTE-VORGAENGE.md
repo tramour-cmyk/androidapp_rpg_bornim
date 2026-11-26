@@ -63,7 +63,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1650 | Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin, Bram, Garrick, Jorin, Pim … | 3 | E Figuren | M | 1535 | 1631 | claude/tom-1650-stiefel | *gebaut, Geprüft an: 6ab87322b (Bild 👍 17:12)* | *–* | *0* | *17,24 $* |
 | 1655 | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, bis 135 Ecken) | 3 | E Figuren | M | – | 1631 | claude/tom-1655-kapuze | *gebaut, Geprüft an: 10d4710c0 (Bild neu offen, Lauf 20:58 nur alt)* | *–* | *0* | *5,33 $* |
 | 1657 | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dreiecke | 3 | E Figuren | M | 1694 | 1631 | – | *startbar, Robe gilt; Stab durch die Knöchel (Chef 16:56)* | *–* | *0* | *–* |
-| 1785 | Weg aus 4fd7055c8 … | 3 | E Figuren | M | – | 1535 | – | *startbar* | *–* | *0* | *2,32 $* |
+| 1785 | Weg aus 4fd7055c8 … | 3 | E Figuren | M | – | 1535 | – | *erledigt* | *–* | *0* | *2,32 $* |
 | 458.3 | Gegenstandskatalog: Netze, Modelle, Läden (Chef 01.11., 458) | 4 | E Kataloge | M | – | 458 | claude/spike-458-3-katalog | *gebaut, Geprüft an: 6434b312c* | *–* | *0* | *27,43 $* |
 | 649 | Figurenkatalog: alle Figuren an einer Stelle (Monster, Bewohner, Gefährten), Bestiarium geht darin auf | 4 | E Kataloge | M | 649.2, 644.1, 644.5 | – | – | *ruht, Block 2 (1605)* | *–* | *0* | *9,91 $* |
 | 649.2 | Figurenkatalog Schritt 2: Werkzeug figuren.py und tools/figuren/figuren.json … | 4 | E Kataloge | M | 1331 | 649 | – | *ruht, Teil A fertig (figuren.py), Teil B nach 1605* | *–* | *0* | *5,34 $* |
