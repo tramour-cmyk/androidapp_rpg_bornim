@@ -160,3 +160,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 01:10 26.11.: 2032-Ü12 (Alter Ego in Vertretung): A; Ines …77NKuN ab 07:00 genau ein Shader-Versuch, Halt bei 45 $. Vorgemerkt.
 - 02:04 26.11.: Takt 02:03, nichts zu tun (Nachtsperre, 0 Fachkräfte, Prüfer-Stillstand ausgeschlossen bis 07:00).
 - 07:03 26.11.: Nachtsperre vorbei. Geweckt (Weiterarbeit, Sokrates 07:02): Dora 2042-Ü20 Teil 7, danach 2044; Tanja 1708-Ü12; Greta 2031-Ü16 (3 Fachkräfte = Laufsperre-Grenze). Titel Dora/Tanja berichtigt. Noch offen nach Vorrang: Ines 2032-Ü12, Edda 2034-Ü23, 1589.4-Ü28 neue Kampf-Sitzung, 2045 Arbeitsplaner. Disponent-Kontext Lutz laut Sokrates ca. 221 Tsd., Übergabe vor 300 Tsd.
+- 07:03 26.11.: Startsperre 07:03 Start Kampf, Werkzeug, Arbeitsplaner (lauf.py, Kampf 1589.4 Anna, Werkzeug 887 Britta, Arbeitsplaner 2029 Carla)
