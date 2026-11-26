@@ -324,7 +324,7 @@ def ist_tat(l):
     return not l.startswith(REST_ARTEN)
 
 def _art(l):
-    return "NUR MUSS" if l.startswith("NUR MUSS") else re.split(r"[\s:]", l, 1)[0]
+    return "NUR MUSS" if l.startswith("NUR MUSS") else re.split(r"[\s:]", l, maxsplit=1)[0]
 
 def rest_zeile(ausgabe, pfad=None):
     pfad = pfad or REST_DATEI
@@ -347,11 +347,12 @@ def konsole(ausgabe, pfad=None, max_byte=None):
         nr += l.count("\n") + 1
     budget = (max_byte or KONSOLE_MAX) - KONSOLE_NACH - len(rest_zeile(ausgabe, pfad).encode()) - 1
     b = lambda: sum(len(z[1].encode()) + 1 for z in zeilen)
-    while b() > budget:
-        z = max(zeilen, key=lambda z: len(z[1].encode()), default=None)
-        verweis = " … (voll: sed -n %dp %s)" % (z[0], pfad) if z else ""
-        if not z or len(z[1]) <= KURZ_TAT + len(verweis): break
-        z[1] = z[1][:KURZ_TAT].rstrip() + verweis
+    for kurz in (KURZ_TAT, KURZ_TAT // 2, KURZ_TAT // 4):  # erst die längsten auf 200 Zeichen, reicht das nicht, auf 100, dann 50
+        while b() > budget:
+            z = max(zeilen, key=lambda z: len(z[1].encode()), default=None)
+            verweis = " … (voll: sed -n %dp %s)" % (z[0], pfad) if z else ""
+            if not z or len(z[1]) <= kurz + len(verweis): break
+            z[1] = z[1][:kurz].rstrip() + verweis
     return [z[1] for z in zeilen]
 
 WARN_STAND = os.environ.get("BORNIM_WARN_STAND", "/tmp/bornim-lauf-warnungen.json")

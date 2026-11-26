@@ -59,6 +59,12 @@ else:
         if m: pruefe(datei[int(m.group(1)) - 1] in taten and m.group(2) == pfad, "Verweis zeigt auf die volle Zeile", z[-80:])
     letzte = lauf.rest_zeile(ausgabe, pfad)
     pruefe(letzte.startswith("REST ") and pfad in letzte and "NICHTS 25" in letzte and "SITZUNG 12" in letzte, "Restzeile mit Pfad und Zahl je Art", letzte)
+    # Beleglauf 15:55: 200 Zeichen je Tat reichten nicht; 18 Taten und 6 lange STARTs/NACHRICHTen (Grenze: etwa 22 lange Taten)
+    viele = taten + [l + " " + "y" * 300 for l in taten if l.startswith(("START ", "NACHRICHT "))] * 2 + rest
+    zv = f(viele, pfad)
+    pruefe(len(("".join(l + "\n" for l in zv) + lauf.rest_zeile(viele, pfad) + "\n").encode()) <= 3072 - lauf.KONSOLE_NACH, "24 Taten: Schleife und Restzeile im Budget",
+           len("".join(l + "\n" for l in zv).encode()))
+    pruefe(len(zv) == len(taten) + 6, "24 Taten: jede Tat-Zeile da", len(zv))
     kurz = ["START Tom | opus | x", "NICHTS Tom: belegt"]
     pruefe(f(kurz, pfad) == ["START Tom | opus | x"], "kleiner Takt: Taten unverändert")
     pruefe(lauf.ist_tat("WARNUNG-LAUT x") and not lauf.ist_tat("WARNUNG x") and not lauf.ist_tat("NICHTS Tom: belegt")
