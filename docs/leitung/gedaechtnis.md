@@ -26,6 +26,7 @@
 - Nachfolger startet Alter Ego (…77apEy seit 22:01): bei 250 Tsd. Startfelder an ihn (13:40).
 - Sa 28.11., 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs wieder einschalten. Laufsperre bis dahin, dann 2043; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
 - Chat eine Zeile, Inhalt auf Telegram; Starttexte als Codeblock.
+- Nach Sa 20:00: 2029-Ü33/Ü34 (Chefsache 2. steckt fest, Lizenz hats02 AGPL3 gegen M29 CC0) vorlegen.
 
 ## Übergabe
 
