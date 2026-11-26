@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 26.11., 08:52, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 26.11., 08:58, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 26.11., 
 | ↳ **12** Bedienung und Oberfläche | 6 (6) | 0 | 0 | 0 | 3 | 531a (Oberfläche) Rückfrage: Bewegungspaket „Campfire“ für Garrick… |
 | ↳ **13** Geschichte und Texte | 10 (10) | 1 | 0 | 0 | 2 | 2040 (Story) Wörter für Frisur und Bart aus 2029, Vorschlag de… |
 | ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 1 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 123 (124) | 89 | 0 | 1 | 23 | 887 (Werkzeug) Archivieren und Kaufrepo ohne Nachfrage: Probe Si… |
+| **7** Firma: Werkzeuge und Abläufe | 124 (124) | 89 | 0 | 1 | 23 | 887 (Werkzeug) Archivieren und Kaufrepo ohne Nachfrage: Probe Si… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 5 | 142.3 (Arbeitsplaner) Tester öffentlich suchen |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -46,8 +46,8 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 26.11., 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
 | erledigt | 1 | 7 | 51 | 1466 |
-| neu | 2 | 19 | 69 | 1575 |
-| **netto** (erledigt − neu) | **−1** | **−12** | **−18** | **−109** |
+| neu | 3 | 19 | 70 | 1576 |
+| **netto** (erledigt − neu) | **−2** | **−12** | **−19** | **−110** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -95,7 +95,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 2041 | Werkzeug | Abläufe a–d jetzt: Prüfzeile bei gebaut, Rückläufer an Rolle, Zeilen auf main s… | M | 7 Firma | startbar |
 | 20 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
 
-Danach 176 weitere offen. Bei dir zum Testen (vorgelegt): 6. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 82.
+Danach 177 weitere offen. Bei dir zum Testen (vorgelegt): 6. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 82.
 ## Zu entscheiden
 
 Nichts offen.
@@ -146,7 +146,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.11.; „star
 | 1486 | K | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Begegnungen bi | wartet auf Sokrates |
 | 1487 | K | Heiler wächst in Kapitel 1 nie im Willen (Heilmagie 12/13 am Kapitelende, übt Stumpfe Waff | startbar |
 
-**Kampf** – offen 62, Muss 18, startbar 25
+**Kampf** – offen 63, Muss 19, startbar 26
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -212,6 +212,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.11.; „star
 | 1607 | K | Rest von 1266, noch 92 Stellen „glut“ in 34 Dateien unter godot/, dazu DESIGN-GLUT.md, glu | startbar |
 | 1635 | K | Systemlösung? Bogen: 2 frühere Vorgänge (26.1, 1041), neu 1634 | startbar |
 | 72c | K | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunde | nach dem Meilenstein |
+| 2046 | M | 1589.4 grün: alte Reihen-Tests (reihe_1305, tausch_1041, stehen_973, biss_1284) und wolf_m | startbar |
 
 **Figur** – offen 41, Muss 25, startbar 18
 
@@ -376,7 +377,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 121, Muss 88, startbar 43
+**Werkzeug** – offen 122, Muss 88, startbar 44
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -501,6 +502,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.11.; „star
 | 246.1 | K | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | nach dem Meilenstein |
 | 2042 | M | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe | startbar |
 | 2043 | M | titel_thema_test rot auf main (Fall Doris → Welt); liegt.py nennt noch Diogenes und Ford | startbar |
+| 2047 | K | Von Tagesbericht (26.11., 08:58): Spalte Frist der Vorgangsliste zählt in keinem Werkzeug | startbar |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 
