@@ -221,5 +221,9 @@ for p in uebergabe.FACHPROFILE + ["Disponent"]:
 dt = open(os.path.join(HIER, "..", "docs", "profile", "Disponent.md"), encoding="utf-8").read()
 soll("(7p) Disponent.md: „Sitzungen startest nur du“ mit Ausnahme Prüfer", "Sitzungen startest nur du, außer dem Prüfer" in dt)
 
+# Teil 7 Prüfer.md (Nachtrag 22:44, Antwort 2042-Ü31/Ü32): Titelstand frei / in Arbeit über die Ausgabe des Werkzeugs; Quelle gleich
+pt = ladesumme.messtext(open(os.path.join(HIER, "..", "docs", "profile", "Prüfer.md"), encoding="utf-8").read())
+soll("(7p) Prüfer.md: Titel „Name – Prüfer – frei“ / „in Arbeit“ aus der Ausgabe", "– Prüfer – frei" in pt and "TITEL" in pt, pt[-300:])
+soll("(7p) Prüfer.md gleich Quelle 1727-muster", ladesumme.entwurf_text("Profil Prüfer") == pt)
 print("LAUF2042B %d Fehler" % fehl)
 sys.exit(1 if fehl else 0)

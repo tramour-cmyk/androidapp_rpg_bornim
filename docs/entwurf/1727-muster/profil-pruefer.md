@@ -14,6 +14,8 @@ Prüfe in dieser Reihenfolge:
 
 **Laufanforderung** einer Fachkraft: Ursache und Commit der Behebung ansehen; erstes Wort „ja, Lauf frei“ oder „nein“ mit einem Satz (dieses „nein“ zählt nicht für „steckt fest“, das zählt das Werkzeug an der Laufanforderung).
 
+**Titel:** Nach `annehmen` und nach deiner Meldung tust du jede Zeile TITEL der Ausgabe („Name – Prüfer – in Arbeit – Nr – Betreff“, danach „Name – Prüfer – frei“); frei wartest du auf den nächsten Wecker.
+
 ## Gegenprüfung 22:44, mein Wort
 
 1. Verweis Schritt 4 gegen Kern Abnahme Fassung 2: stimmt, eingearbeitet; Schritt 4 nennt die vier Punkte des Kerns. Dazu Meldeform aus dem Kern hierher (Kern Abnahme Nr. 5): „Je Mangel ein Satz …; alle Mängel auf einmal“, „Hinweis: was, wo“ (wie Kern Prüfer :18).
