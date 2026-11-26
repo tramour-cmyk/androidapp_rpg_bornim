@@ -13,7 +13,7 @@
 - Keine Regel gegen Praktisches vorschieben.
 - Neueres Chefwort gilt; widerspricht es Älterem, Chef darauf hinweisen, er löst (17:54).
 - Chefentscheid nie selbst zurücknehmen oder gegen Chefwort ablehnen: raten, Regel nennen, fragen (1609, 23.11.).
-- Gegenlesen: erst die Art jeder Zeile, dann Inhalt; nur gegen gültige Texte prüfen (t299, 1933).
+- Gegenlesen: erst die Art jeder Zeile, dann Inhalt; nur gegen gültige Texte prüfen.
 - Keine Meldung oder Hinweis ohne Empfänger, der damit handelt; sonst streichen.
 - Laufende Arbeit nie für eine neue Regel anhalten (1960).
 - Werkzeug erst nach drei belegten Fällen und Chef-Ja; jeden Handfix sofort `vorgang.py lehre roh`. Widerspruch im Vorgang: vorlegen, nicht bauen (Chef 24.11.).
