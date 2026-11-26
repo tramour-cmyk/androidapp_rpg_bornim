@@ -5,6 +5,9 @@
 # (shown.places).
 # Aufruf: im Ordner godot mit --headless --fixed-fps 30 -s res://tests/stehen_973.gd   (GEGNER=WOLVES,GOBLINS SEEDS=1-4)
 # Exit 0 = kein Befund.
+# 2046: dazu erlaubt (DESIGN-GEGNER.md 5 „Seitschritt nur als einzelner Ausweichschritt, wenn ein Vorderer Platz macht“; Sokrates
+# 24.11., 19:10 F1, F4 zu 1589.4): ein Eigener tritt für den Zug eines anderen derselben Seite einmal höchstens Figur.ZUR_SEITE_M
+# beiseite (figur.gd _gasse; GOBLINS Seed 4: gob2 0,49 m für gob3)
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
@@ -68,6 +71,10 @@ func _lauf() -> void:
 					var am_gegner: bool = rueckt and eigen and Vector3(f.home.x, 0, f.home.z).distance_to(Vector3(dort.x, 0, dort.z)) < 0.05
 					if am_gegner:
 						rueckt = false
+					var wer = kf.figures.get(str(kf.shown.get("actor", "")))
+					if rueckt and wer != null and wer != f and wer.fighter.side == f.fighter.side \
+							and rel.distance_to(heim[id]) <= f.ZUR_SEITE_M * f._scale() + 0.01:
+						rueckt = false     # 2046: beiseite für den Zug eines Eigenen (DESIGN-GEGNER.md 5)
 					if rueckt and offen.get(id, false):
 						offen[id] = false
 					elif tot and rueckt and not f.fighter.fled:
