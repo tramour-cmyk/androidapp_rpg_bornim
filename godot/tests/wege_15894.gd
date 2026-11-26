@@ -158,7 +158,7 @@ func _kampf(foe: String) -> void:
 					var nah := Arena.punkt_kapsel(((ko[0] as Vector2) + (ko[1] as Vector2)) * 0.5, kx)
 					if nah < float(kx[2]) and (not _geht(st, x) or x.fighter.id < id):
 						befund.durch += 1
-						_melde(foe, bild, o, "durch", "Mitte %.2f m in %s (Kapsel r %.2f, Länge %.2f), %s, gang %s, bei %s, %s bei %s" % [nah, x.fighter.id, kx[2], x.kapsel_laenge(), nm, o.gang, o.position, x.fighter.id, x.position])
+						_melde(foe, bild, o, "durch", "Mitte %.2f m in %s (Kapsel r %.2f, Länge %.2f), %s, gang %s, bei %s, %s bei %s" % [nah, x.fighter.id, kx[2], x.kapsel_laenge(), nm, o.gang, o.position, x.fighter.id, x.position] + (" | Gier %.0f°, %s, gang %s, Heim %s" % [rad_to_deg(x.rotation.y), String(x.anim.current_animation) if x.anim else "", x.gang, o.home] if log_an else ""))
 			# quer: Winkel Weg zu Blick
 			var w := rad_to_deg(blick.angle_to(d.normalized()))
 			# Fund an Figur, nicht Wege (Sokrates 25.11., 16:57 zu Ü22 (2): quer zählt ohne diese Fälle): Söldner beim Ausholen und

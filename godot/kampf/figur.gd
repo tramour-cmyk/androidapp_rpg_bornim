@@ -1555,7 +1555,8 @@ func _face_sanft() -> void:
 		var grenze_d := minf(jetzt_l, PLATZ_LUFT)
 		if jetzt_l < 0.0:
 			grenze_d = maxf(jetzt_l - DREH_ENGER, -DREH_TIEF)
-		if _foot_ok and (_rumpf_luft(position, r0 + dw) < grenze_d or _rumpf_luft(position, r0 + dw * 0.5) < grenze_d):
+		if _foot_ok and (_rumpf_luft(position, r0 + dw) < grenze_d or _rumpf_luft(position, r0 + dw * 0.5) < grenze_d) \
+				or not (_dreh_frei(r0, r0 + dw * 0.5) and _dreh_frei(r0, r0 + dw)):     # 1589.4: auch nach den Kapseln (_dreh_frei)
 			if OS.get_environment("SCHAU_DREH") != "":
 				print("DREH %s verweigert: dw %.0f Luft ziel %.3f halb %.3f jetzt %.3f" % [fighter.id, rad_to_deg(dw), _rumpf_luft(position, r0 + dw), _rumpf_luft(position, r0 + dw * 0.5), _rumpf_luft(position, r0)])
 			return
@@ -1569,7 +1570,31 @@ func _face_sanft() -> void:
 			if halt: halt.los(true)
 			gang = "")
 	else:
-		rotation.y = r0 + clampf(dw, -deg_to_rad(40.0) * get_process_delta_time(), deg_to_rad(40.0) * get_process_delta_time())
+		var neu := r0 + clampf(dw, -deg_to_rad(40.0) * get_process_delta_time(), deg_to_rad(40.0) * get_process_delta_time())
+		# 1589.4 (wege_15894 26.11., SLUGS 17,3 s: die lange Schnecke schwenkte in Ruhe dem vorbeigehenden Helden nach, ihr Ende
+		# 0,06 m in seine Mitte): die Drehung in Ruhe nur, solange die eigene Kapsel keinem anderen näher kommt als frei
+		if _dreh_frei(r0, neu):
+			rotation.y = neu
+
+
+## 1589.4: dreht die Figur am Platz von [r0] nach [r1], ohne dass ihre Kapsel in die eines anderen fährt (oder tiefer hinein)?
+func _dreh_frei(r0: float, r1: float) -> bool:
+	if fighter.monster == null or kapsel_laenge() <= 0.0:
+		return true
+	var p := Vector2(position.x, position.z)
+	var k0 := kapsel_bei(p, r0)
+	var k1 := kapsel_bei(p, r1)
+	var ks := _kreise()
+	# auch nicht in den Heimweg dessen, der gerade unterwegs ist (SLUGS 21,2 s: sie schwenkte dem Helden am Ziel nach, sein Weg
+	# zurück ging dann durch ihr Ende)
+	for o in kampfort.figures.values():
+		if o != self and o.visible and not o.down and o.dead_at < 0 and o.tween and o.tween.is_running():
+			ks.append(Arena.weg_kapsel(Vector2(o.position.x, o.position.z), Vector2(o.home.x, o.home.z), o.weg_laenge(), o.umriss_r()))
+	for k in ks:
+		var d1 := Arena.kapsel_abstand(k1, k)
+		if d1 < 0.0 and d1 < Arena.kapsel_abstand(k0, k):
+			return false
+	return true
 
 
 ## Läuft gerade nur das Ausrichten in Ruhe? Dann darf jeder andere Auftrag es abbrechen
@@ -3282,7 +3307,11 @@ func _held_schlag(other, weiter := 0.0) -> int:
 				break
 			start -= zur * 0.05
 	# 1589.4 (F1, Versperren): auch der Weg dorthin frei nach den Kapseln der Arena (nicht durch einen anderen hindurch)
+	# 1589.4 (Sokrates 25.11., 23:22 zu Ü28 (1), F10): findet er auch dort keinen freien Platz, wartet er ohne Hieb, wo er steht, wie der
+	# Wolf (ohne_biss); nie durch einen Körper, nie zu kurz
+	var ohne_hieb := false
 	if flat.length() > 0.01 and not (_stand_frei(start, other) and _arena_biss(start, flat.normalized(), other) and _am_ziel_vorbei(start, other)):
+		ohne_hieb = true
 		var off := start - to
 		for w in [25.0, -25.0, 50.0, -50.0, 75.0, -75.0]:
 			var p2 := to + off.rotated(Vector3.UP, deg_to_rad(w))
@@ -3291,9 +3320,12 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			if _stand_frei(p2, other) and _arena_biss(p2, (to - p2).normalized(), other) \
 					and Arena.kapsel_abstand(kapsel_bei(Vector2(p2.x, p2.z), y2), other.umriss_kapsel()) >= 0.0 and _am_ziel_vorbei(p2, other):
 				start = p2
+				ohne_hieb = false
 				break
+		if ohne_hieb:
+			start = position
 	if OS.get_environment("SCHAU_HIEB") != "":
-		print("1589.4 Hieb %s an %s: von %s nach %s, vorbei %s, Ziel-Kapsel %s" % [fighter.id, other.fighter.id, position, start, _am_ziel_vorbei(start, other), other.umriss_kapsel()])
+		print("1589.4 Hieb %s an %s: von %s nach %s, vorbei %s, ohne Hieb %s, Ziel-Kapsel %s, andere %s" % [fighter.id, other.fighter.id, position, start, _am_ziel_vorbei(start, other), ohne_hieb, other.umriss_kapsel(), _kreise(other)])
 	if tween and tween.is_running():
 		tween.kill()
 	tween = create_tween()
@@ -3333,7 +3365,7 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			von = q
 	# 438 (wolf_mess_438, Kämpfer 59,4 s: Gegenschlag aus dem Stand, der Wolf stand zum Biss so nah, dass das Langschwert 11 cm
 	# in seinen Kopf fuhr): steht das Ziel näher als die Reichweite des Hiebs, erst ein kurzer Schritt zurück mit erhobenem Schild
-	elif flat.length() > 0.01 and flat.length() < stand_voll - 0.03 and _ss() and anim.has_animation("SS_WalkBackwards"):
+	elif not ohne_hieb and flat.length() > 0.01 and flat.length() < stand_voll - 0.03 and _ss() and anim.has_animation("SS_WalkBackwards"):
 		var d0 := flat.normalized()
 		var zur := position - d0 * minf(stand_voll - flat.length(), HIEB_ZURUECK_M)
 		if _seg_gap(position, zur, other) >= 0.0:
@@ -3342,6 +3374,7 @@ func _held_schlag(other, weiter := 0.0) -> int:
 			tween.tween_property(self, "position", zur, tz)
 			t_run += tz
 			start = zur
+	var hn_spiel: String = hn if not ohne_hieb else ("SS_IdleCombat" if anim.has_animation("SS_IdleCombat") else "Stehen")
 	var bl: float = anim.get_animation(hn).length if anim.has_animation(hn) else BLOW_MS / 1000.0
 	# 682 (schild_406: aus dem Gehen mitten im Schritt in den Hieb schob die Überblendung den Schild 7 cm ins Bein): am Ziel erst kurz
 	# in die Kampfhaltung, dann der Hieb
@@ -3351,9 +3384,9 @@ func _held_schlag(other, weiter := 0.0) -> int:
 		t_run += 0.12
 	var ziel_ort: Vector3 = other.position
 	tween.tween_callback(func():
-		gang = "hieb"
+		gang = "hieb" if not ohne_hieb else ""
 		_face(blick)
-		_play(hn, 0.08)
+		_play(hn_spiel, 0.08)
 		if OS.get_environment("SCHAU_709") != "":
 			print("709 Hieb los %s: ich %s, Ziel %s (bei Plan %s, start %s), Stand %.2f (geplant %.2f), Ziel ging %.2f m, steht jetzt %s" % [fighter.id, position, other.position, ziel_ort, start, Vector2(position.x - other.position.x, position.z - other.position.z).length(), stand_voll, Vector2(other.position.x - ziel_ort.x, other.position.z - ziel_ort.z).length(), String(other.anim.current_animation) if other.anim else ""]))
 	tween.tween_interval(bl)
