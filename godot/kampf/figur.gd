@@ -4960,8 +4960,13 @@ func _ausweichen_rueckwaerts() -> bool:
 	var blick := Vector3(sin(rotation.y), 0.0, cos(rotation.y))
 	var weit := AUSWEICH_RUECK_M * _scale()
 	var seiten: Array = [0.0, 35.0, -35.0, 60.0, -60.0] if (ausweich_nr + hash(String(fighter.id))) % 2 == 0 else [0.0, -35.0, 35.0, -60.0, 60.0]
+	# 1589.4 (wolf_mess_438 FIGHTER Bild 2537: Wolf 3 stand nach dem Heimlauf quer, Blick -97° statt 24°, wich „rückwärts“ also
+	# seitlich vor den Helden, 1,85 → 1,61 m, und der Hieb des Helden reichte 0,17 m in ihn): Ausweichen führt nie näher an den Feind
+	var feind0 := _zum_feind(position).length()
 	for w in seiten:
 		var ziel := position - fz.rotated(Vector3.UP, deg_to_rad(w)) * weit
+		if feind0 > 0.0 and _zum_feind(ziel).length() < feind0:
+			continue
 		var frei := true
 		for i in range(1, 6):
 			var p := position.lerp(ziel, i / 5.0)
