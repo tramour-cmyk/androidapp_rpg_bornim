@@ -173,14 +173,34 @@ os.environ["BORNIM_SITZUNG"] = "session_EIGEN"
 z = rueckmeldung.titel_zeilen("2042", "ja. Prüfer Ralf (25.11., 23:20) an 92a094995", "", "session_EIGEN", "Prüfer")
 soll("(7) rueckmeldung ja des Prüfers: eigener Titel frei", "TITEL Ralf – Prüfer – frei" in z, z)
 os.environ.pop("BORNIM_SITZUNG")
+VD = os.path.join(d, "docs", "vorgang"); os.makedirs(VD, exist_ok=True)
+UK = "# x\n\n## Übergaben\n\n| Ü | an | was | seit | Zustand |\n|---|---|---|---|---|\n"
+open(os.path.join(VD, "2041.md"), "w").write(UK + "| 2041-Ü15 | Prüfer | prüfen: d | 25.11., 21:40 | angenommen session_GERD bis 25.11., 23:59 |\n")
 FREI = "| Prüfer | [Ralf – Prüfer – frei](https://claude.ai/code/session_RFREI) | Betrieb | – | 25.11., 21:55 |\n"
 BUSY = "| Prüfer | [Gerd – Prüfer – in Arbeit – 2041 – x](https://claude.ai/code/session_GERD) | 2041 | – | 25.11., 21:00 |\n"
 open(B, "w").write(KOPF + KARL + BUSY + FREI)
 ss, t = ausgabe(uebergabe.wecker, "2042", "2042-Ü30", "Prüfer", scharf=True)
 soll("(7) Wecker an Prüfer: nur der freie (Ralf), nicht Gerd in Arbeit", ss == ["session_RFREI"] and "PRÜFER session_RFREI frei" in t, t)
+# (7) frei aus frischer Quelle (Ralf 23:27 Mangel 3): Zustand der Zeilen an den Prüfer in den Vorgangsdateien, nicht der Titel
 open(B, "w").write(KOPF + KARL + BUSY)
 ss, t = ausgabe(uebergabe.wecker, "2042", "2042-Ü31", "Prüfer", scharf=True)
-soll("(7) kein freier Prüfer: Zeile START Prüfer für den Disponenten, kein Wecker an Gerd", "session_GERD" not in t and "START Prüfer" in t and ss == ["session_KARL"], t)
+soll("(7) kein freier Prüfer (Gerd hält 2041-Ü15): START Prüfer für den Aufrufer, kein Wecker an Gerd, keiner an den Disponenten (Mangel 2)",
+     "session_GERD" not in t and "START Prüfer" in t and "session_KARL" not in t and ss == [], (ss, t))
+open(os.path.join(VD, "2041.md"), "w").write(UK + "| 2041-Ü15 | Prüfer | prüfen: d | 25.11., 21:40 | erledigt 25.11., 22:30 session_GERD |\n")
+ss, t = ausgabe(uebergabe.wecker, "2042", "2042-Ü32", "Prüfer", scharf=True)
+soll("(7) Gerd meldete ja/nein (Zeile erledigt), Titel noch „in Arbeit“: frei, Wecker an Gerd", ss == ["session_GERD"] and "PRÜFER session_GERD frei" in t, (ss, t))
+open(os.path.join(VD, "2042.md"), "w").write(UK + "| 2042-Ü40 | Prüfer | prüfen: x | 25.11., 23:00 | angenommen session_RFREI bis 25.11., 23:59 |\n")
+open(B, "w").write(KOPF + KARL + FREI)
+ss, t = ausgabe(uebergabe.wecker, "2042", "2042-Ü33", "Prüfer", scharf=True)
+soll("(7) Ralf „frei“ im Titel, hält aber 2042-Ü40: nicht frei", ss == [] and "START Prüfer" in t, (ss, t))
+os.remove(os.path.join(VD, "2042.md"))
+open(os.path.join(VD, "2043.md"), "w").write(UK + "| 2043-Ü1 | Prüfer | prüfen: y | 25.11., 23:00 | offen |\n")
+NEU = "| Prüfer | [Hans – Prüfer – in Arbeit – 2043 – y](https://claude.ai/code/session_HANS) | 2043 | – | 25.11., 23:01 |\n"
+ALTT = "| Prüfer | [Tanja – 1708 B: Prüfer Blut (25.11., 22:26)](https://claude.ai/code/session_TANJA) | 1708 | – | 25.11., 22:26 |\n"
+open(B, "w").write(KOPF + KARL + NEU + ALTT)
+ss, t = ausgabe(uebergabe.wecker, "2042", "2042-Ü34", "Prüfer", scharf=True)
+soll("(7) Hans eben für 2043 gestartet (Zeile noch offen): nicht frei; Tanja (alter Titel, Rolle Prüfer, keine Zeile): frei, nur ein Wecker",
+     ss == ["session_TANJA"] and "session_HANS" not in t, (ss, t))
 
 st = lauf.mit_rufnamen(["START Prüfer | sonnet | e | r | main | Prüfer – 2042: Disponenten klein (25.11., 23:20) | Prüfer\\n\\nprüfen"], [], namen={})
 soll("(7) START Prüfer: Titel „Name – Prüfer – in Arbeit – 2042 – Disponenten klein“", " – Prüfer – in Arbeit – 2042 – Disponenten klein | " in st[0], st)
