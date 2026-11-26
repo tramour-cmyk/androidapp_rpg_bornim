@@ -11,7 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 2042 | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe, list_sessions, vorgang.py offen, Nachrichten), Ergebnis mit Vorschlag an den Chef (Chef 21:50 an Alter Ego, nur über Alter Ego 21:52) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, Eilt: Fassung 5 A (Chef 15:03), Teile (4) eng fassen, (5) Datei klein; Fachkraft nicht gestartet* | *–* | *0* | *59,23 $* |
+| 2042 | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe, list_sessions, vorgang.py offen, Nachrichten), Ergebnis mit Vorschlag an den Chef (Chef 21:50 an Alter Ego, nur über Alter Ego 21:52) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar, Eilt: Fassung 5 A (Chef 15:03), Teile (4) eng fassen, (5) Datei klein; Fachkraft nicht gestartet* | *–* | *0* | *60,43 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | M | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | M | Prüfer | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust … | 7 | B Abläufe | M | 1387 | 1110, 1128 | – | *wartet, 1129.4 ausgewertet, Punkt 6 gerissen* | *–* | *0* | *26,46 $* |
@@ -78,7 +78,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | D75 | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1) | 7 | B Werkzeuge | M | – | 511, 572 | – | *Dauer, bis zum nächsten echten Film (D75.1 gebaut, D75.2 dann prüfen)* | *–* | *0* | *–* |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht … | 7 | B Abläufe | M | 1388 | – | – | *gebaut, Geprüft an: fcf9ab215* | *–* | *0* | *–* |
 | 1125 | D195.1 von Diogenes (1100.1): Ford-Lauf nach 1100 nicht billiger: Uhrläufe 9 Schritte wie vorher (8), LEERLAUF nie … | 7 | B Abläufe | M | – | 1100.1, 1100 | – | *gebaut, Geprüft an: 377a1a533* | *–* | *0* | *–* |
-| 1128.3 | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am Lauf bestätigen … | 7 | Q QM | M | – | 1128, 285 | – | *startbar* | *–* | *0* | *5,59 $* |
+| 1128.3 | ab Build 283 Funde und Rückschritte je Prüfart zählen, Bautests „ohne dich“ am Lauf bestätigen … | 7 | Q QM | M | – | 1128, 285 | – | *startbar* | *–* | *0* | *6,32 $* |
 | 1148 | lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen Render-Lauf in der idle Sitzung läuft | 7 | B Abläufe | M | – | 882.1 | – | *gebaut, Geprüft an: 304660d8e* | *–* | *0* | *4,15 $* |
 | 1172 | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte | 7 | Q QM | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1173 | Regel Kleinkram ohne Chef auf main … | 7 | B Abläufe | M | – | 1128 | – | *gebaut, Geprüft an: 3eb8bf088* | *–* | *0* | *0,36 $* |
@@ -165,7 +165,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1529.1 | Ausdauer im Kampf bauen nach DESIGN-GLUT.md 12.5 … | 2 | E Kampf | K | – | 1529 | – | *ruht, bis Test Kerbensystem im Build* | *–* | *0* | *–* |
 | 1536 | drei Merkmalsnamen je Tiermerkmal einbauen, im Kampf ein Name je Merkmal, von Kampf zu Kampf gezogen, nie zweimal … | 2 | E Kampf | K | 1589.4 | 1525, 1489 | – | *wartet, nur 1589.4 am Kampf (Chef 11:58)* | *–* | *0* | *–* |
 | 1607 | Rest von 1266, noch 92 Stellen „glut“ in 34 Dateien unter godot/, dazu DESIGN-GLUT.md, glut2.py | 2 | E Kampf | K | 1589.4 | 1266, 1589.2 | – | *wartet, nur 1589.4 am Kampf (Chef 11:58)* | *–* | *0* | *2,62 $* |
-| 2024 | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schwebt heute daneben) | 3 | E Figuren | M | – | – | – | *startbar, Chefwort 25.11., 16:03* | *–* | *0* | *23,46 $* |
+| 2024 | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schwebt heute daneben) | 3 | E Figuren | M | 27.11. 17:30 | – | – | *startbar, Chefwort 25.11., 16:03* | *–* | *0* | *23,46 $* |
 | 2028 | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 25.11., 12:32) | 3 | E Figuren | M | – | – | claude/figur-2028-handgelenk | *gebaut, Geprüft an: cf7d57d45 (Prüfer 25.11., 17:00 Ja zur Ursache; Reste in 2032, 2033)* | *–* | *0* | *18,76 $* |
 | 2029 | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielkamera (2026 A) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *29,77 $* |
 | 2031 | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt gegen neu (Chef 13:39) | 3 | E Figuren | M | – | – | – | *startbar, steckt fest* | *–* | *0* | *39,74 $* |

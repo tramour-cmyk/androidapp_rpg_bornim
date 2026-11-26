@@ -2235,4 +2235,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 2044 | Beantwortete Vorlage mit Bild bleibt in der Chefsache stehen: Absender und Zeit trotz Bildzeile finden (Chef 23:00 über Alter Ego) | B Werkzeuge | M | – | Werkzeug | erledigt |
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | B Werkzeuge | M | 32,48 $ | Werkzeug | erledigt |
 | 2052 | Nur die wichtigen Dinger: Kür aus der Sicht des Disponenten, solange Muss da ist (Chef 26.11., 12:33) | B Werkzeuge | M | 0,82 $ | Werkzeug | erledigt |
-| 1137 | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf Telegram, Stichtag beim … | B Abläufe | M | 62,09 $ | Werkzeug | erledigt |
+| 1137 | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf Telegram, Stichtag beim … | B Abläufe | M | 62,67 $ | Werkzeug | erledigt |
