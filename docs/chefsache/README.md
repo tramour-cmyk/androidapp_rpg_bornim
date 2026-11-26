@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 26.11., 10:28, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 26.11., 10:35, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -38,16 +38,16 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 26.11., 
 | ↳ **12** Bedienung und Oberfläche | 6 (6) | 0 | 0 | 0 | 3 | 531a (Oberfläche) Rückfrage: Bewegungspaket „Campfire“ für Garrick… |
 | ↳ **13** Geschichte und Texte | 10 (10) | 1 | 0 | 0 | 2 | 2040 (Story) Wörter für Frisur und Bart aus 2029, Vorschlag de… |
 | ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 1 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 124 (124) | 90 | 2 | 1 | 23 | 2042 (Werkzeug) Wieso werden die Disponenten so schnell groß: Tok… |
+| **7** Firma: Werkzeuge und Abläufe | 122 (124) | 88 | 2 | 1 | 23 | 2042 (Werkzeug) Wieso werden die Disponenten so schnell groß: Tok… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 5 | 142.3 (Arbeitsplaner) Tester öffentlich suchen |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 3 | 7 | 53 | 1468 |
+| erledigt | 5 | 7 | 55 | 1470 |
 | neu | 5 | 19 | 72 | 1578 |
-| **netto** (erledigt − neu) | **−2** | **−12** | **−19** | **−110** |
+| **netto** (erledigt − neu) | **+0** | **−12** | **−17** | **−108** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -67,7 +67,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Story | 2040 Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den… (Muss) |
 | Technik | 1270.7 nach Messung 1270.6: Texturen komprimiert und Laub ohne Dur… (Muss); dann 3 weitere |
 | Werkzeug | läuft: 2042 (Besetzung); 2042 Wieso werden die Disponenten so schnell groß: Token je Takt… (Muss); dann 21 weitere |
-| Prüfer | läuft: Betrieb (Besetzung); 1301 👎 ohne Wort auf Telegram, wer es einträgt, fragt im selben… (Muss); dann 3 weitere |
+| Prüfer | läuft: Betrieb (Besetzung); 1387 Übersicht-Commits 15.11. 193, Ursache 1313 (Muss); dann 1 weitere |
 | Tester | leer, weil keine offene Zeile |
 
 **Die nächsten 20**
@@ -95,7 +95,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 19 | 2035 | Werkzeug | Übergaben schlanker: nur Bestehendes ändern oder streichen, kein neues Werkzeug… | M | 7 Firma | startbar |
 | 20 | 2041 | Werkzeug | Abläufe a–d jetzt: Prüfzeile bei gebaut, Rückläufer an Rolle, Zeilen auf main s… | M | 7 Firma | startbar |
 
-Danach 177 weitere offen. Bei dir zum Testen (vorgelegt): 6. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 29. Ruhend oder nach dem Meilenstein: 82.
+Danach 177 weitere offen. Bei dir zum Testen (vorgelegt): 6. Gebaut, fährt mit dem nächsten Build: 17. Werkzeug gebaut, Prüfung Diogenes: 27. Ruhend oder nach dem Meilenstein: 82.
 ## Zu entscheiden
 
 Muss zuerst, dann neueste oben. Vorrang und Bereich aus `LISTE-VORGAENGE.md` (Klasse, 126; Bereich, 124), Bereich in Zeile 2 der Datei geht vor (136).
