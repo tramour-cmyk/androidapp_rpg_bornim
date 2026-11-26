@@ -46,7 +46,7 @@ func _welt() -> void:
 	spiel.kamera.springe()
 	await _bilder(20)
 	h.geh_zu(h.global_position + Vector3(3.0, 0.0, -3.0))   # nach Nordosten: rechte Seite zur Kamera
-	await _bilder(26)
+	await _bilder(int(OS.get_environment("BILD1973")) if OS.get_environment("BILD1973") != "" else 12)
 	spiel.kamera.springe()
 	await _bilder(1)
 	var ap := Gebiet.finde(h, "AnimationPlayer") as AnimationPlayer
@@ -59,9 +59,11 @@ func _welt() -> void:
 	print("GETRAGEN1973 %s %s" % [schl if schl != "" else "-", "ja" if h.find_child("Getragen", true, false) != null else "nein"])
 	print("BEWEGUNG1973 %s" % (ap.current_animation if ap else "?"))
 	await RenderingServer.frame_post_draw
-	root.get_texture().get_image().save_png(aus)
+	var bild := root.get_texture().get_image()
+	bild.save_png(aus)
+	var mass := float(bild.get_width()) / cam.get_viewport().get_visible_rect().size.x   # Fenster kann größer sein als das Bild
 	for s in ["r", "l"]:
-		var q := cam.unproject_position(_knochen(sk, "hand_" + s))
+		var q := cam.unproject_position(_knochen(sk, "hand_" + s)) * mass
 		print("FAUST1973 %s %d %d" % [s, int(q.x), int(q.y)])
 	print("BILD ", aus)
 	quit(0)
