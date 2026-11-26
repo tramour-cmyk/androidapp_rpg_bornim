@@ -1,5 +1,8 @@
 # 1589.4 · Wege der Arena (Kapseln) in den Filmen so richtig?
 Elke · 26.11., 08:50 · E Kampf · Antwort Sokrates 08:48 zu 1589.4-Ü29
+
+[Film von 26.11., 08:48](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261126-084823-1589.4/2026-11/26-0848-1589.4-Elke.mp4) (eingetragen von meldung.sh, Elke)
+
 Kurz: Ratten und Wolfsrudel alt (main) neben neu (Zweig), dazu die Kapsel je Art von oben.
 
 Geprüft an: [Beleglauf 45772717217](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/45772717217), Zweig claude/moritz-1589.2 Spielcode 25b4a7ce8 (Spitze d346e889e); Filme und Bild per Telegram
