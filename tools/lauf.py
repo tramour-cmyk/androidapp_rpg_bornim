@@ -15,7 +15,7 @@ Ausgabe, Zeile für Zeile auszuführen:
   GEBUCHT <session_id> | <Rolle> | <Kosten $> | <Vorgang>           → lauf.py hat selbst gebucht (nur mit --sperre); Ford pusht die Notizen, sonst nichts
   BUCHE <session_id> | <Rolle> | <Kosten $> | <Vorgang>             → nur `--kosten <Vorgang> <Kosten> <session_id>` (ruhende oder schon archivierte Sitzung von heute, Differenz zum Verzeichnis, 261.2)
   PR-ABO <session_id> | <Rolle> | PR #n | an <neuere session_id>    → „PR #“ im Titel: Abo der alten Sitzung an die neuere übergeben (subscribe_pr_activity dort), dann ARCHIVIERE (D40.4)
-  ÜBERTRAGE <session_id> | <Rolle> | <Frage>                       → offene Frage der alten Sitzung wörtlich in Vorrat/Chefsache holen (list_events), dann folgt ARCHIVIERE (261)
+  ÜBERTRAGE <session_id> | <Rolle> | <Frage>                       → offene Frage der alten Sitzung wörtlich in Vorrat/Chefsache holen: erst get_session post_turn_summary; nur ohne Frage dort list_events mit kinds ["user"], limit 5, nur die letzte Chef-Nachricht; dann folgt ARCHIVIERE (261, 2042)
   WEITER <session_id> | <Rolle> | <Vorgang> | <Nachricht>          → send_message „Weiter: <Vorgang>…“ an die alte Sitzung statt START (unter 200 Tsd. Token, 383 A; unter 60 Minuten Ruhe; abgelehnt → START, 261.5)
   NICHTS <Rolle>: Grund                                             → nichts tun
   LEERLAUF: …                                                       → (1100 A 6) nichts zu starten, melden, pushen: Ford endet sofort, nur Chatzeile, kein Telegram, kein Push
@@ -310,6 +310,49 @@ def vorn(zeilen):
     """1688, 1988: STREICHEN-Zeilen zuerst, dann NEUSTART-LEITUNG, NEUSTART-DISPONENT, sonst Reihenfolge unverändert."""
     return [l for l in zeilen if l.startswith("STREICHEN ")] + [l for a in NEUSTART_ARTEN for l in zeilen if l.startswith(a)] + \
         [l for l in zeilen if not l.startswith(("STREICHEN ",) + NEUSTART_ARTEN)]
+
+# 2042 Fassung 5 (2): Konsole nur Taten, höchstens 3 KB; jede Zeile vollständig in der Restdatei, deren Pfad die letzte Zeile nennt
+REST_DATEI = os.environ.get("BORNIM_LAUF_REST", "/tmp/bornim-lauf-rest.txt")
+KONSOLE_MAX = 3072      # Byte für die ganze Ausgabe eines Takts
+KONSOLE_NACH = 600      # Reserve für die Zeilen nach der Schleife (STARTSPERRE, GELÖST, HERZSCHLAG …)
+KURZ_TAT = 200          # zu lange Tat-Zeilen: so viele Zeichen, dann Verweis auf die volle Zeile
+REST_ARTEN = ("NICHTS", "WARNUNG ", "SITZUNG ", "LIEGT ", "HINWEIS", "GUTHABEN ", "LAUFSPERRE ", "NUR MUSS", "AUSGESCHLOSSEN ")
+def ist_tat(l):
+    """Tat = Zeile, die eine Handlung auslöst; Rest = nur lesen. Unbekannte Arten gelten als Tat (keine Tat geht still verloren)."""
+    if l.startswith("WARNUNG ") and "Seite abgeschnitten" in l: return True  # weitere Seite holen
+    if l.startswith("NICHTS") and "pushen" in l: return True  # „Notizen pushen“
+    return not l.startswith(REST_ARTEN)
+
+def _art(l):
+    return "NUR MUSS" if l.startswith("NUR MUSS") else re.split(r"[\s:]", l, 1)[0]
+
+def rest_zeile(ausgabe, pfad=None):
+    pfad = pfad or REST_DATEI
+    je = {}
+    for l in ausgabe:
+        if not ist_tat(l): je[_art(l)] = je.get(_art(l), 0) + 1
+    return "REST %s: %s (alle Zeilen; nur bei Bedarf lesen)" % (pfad, ", ".join("%s %d" % kv for kv in je.items()) or "keine")
+
+def konsole(ausgabe, pfad=None, max_byte=None):
+    """Schreibt jede Zeile in die Restdatei PFAD und gibt die Tat-Zeilen für die Konsole zurück; passt das nicht in das Budget,
+    werden die längsten Taten auf KURZ_TAT Zeichen gekürzt, mit Verweis „(voll: sed -n Np PFAD)“. Rest erst über rest_zeile()."""
+    pfad = pfad or REST_DATEI
+    try:
+        with open(pfad, "w", encoding="utf-8") as f: f.write("".join(l + "\n" for l in ausgabe))
+    except OSError as e: return list(ausgabe) + ["WARNUNG Restdatei %s nicht geschrieben: %s; ganze Ausgabe oben (2042)" % (pfad, e)]
+    if os.environ.get("BORNIM_LAUF_VOLL"): return list(ausgabe)  # nur für Tests, die den ganzen Takt lesen
+    nr, zeilen = 1, []
+    for l in ausgabe:
+        if ist_tat(l): zeilen.append([nr, l])
+        nr += l.count("\n") + 1
+    budget = (max_byte or KONSOLE_MAX) - KONSOLE_NACH - len(rest_zeile(ausgabe, pfad).encode()) - 1
+    b = lambda: sum(len(z[1].encode()) + 1 for z in zeilen)
+    while b() > budget:
+        z = max(zeilen, key=lambda z: len(z[1].encode()), default=None)
+        verweis = " … (voll: sed -n %dp %s)" % (z[0], pfad) if z else ""
+        if not z or len(z[1]) <= KURZ_TAT + len(verweis): break
+        z[1] = z[1][:KURZ_TAT].rstrip() + verweis
+    return [z[1] for z in zeilen]
 
 WARN_STAND = os.environ.get("BORNIM_WARN_STAND", "/tmp/bornim-lauf-warnungen.json")
 def warnung_einmal_je_stunde(zeilen, pfad=None, jetzt=None):
@@ -1910,7 +1953,7 @@ def main():
         nr_s = nummer_aus_titel(s.get("title", ""))
         # 261.4 (Chef 21.10.): eine Chefsache hält keine Sitzung; Datei in der Chefsache und „wartet auf Chef“ sind kein Hindernis mehr, nur need_input
         if pts.get("status_category") == "need_input":
-            s["_frage_alt"] = (pts.get("title") or pts.get("description") or pts.get("summary") or "Frage siehe list_events")  # 261.5 (2): Frage zuerst übertragen, dann archivieren
+            s["_frage_alt"] = (pts.get("title") or pts.get("description") or pts.get("summary") or "Frage siehe get_session post_turn_summary")  # 261.5 (2): Frage zuerst übertragen, dann archivieren
         s["_info"] = (r, laufend, ruhig, hinder)
         je_rolle.setdefault(r, []).append(s)
     # 191: Sitzungen mit Kosten, aber ohne Vorgangsnummer im Titel, lassen sich nicht buchen
@@ -2369,7 +2412,7 @@ def main():
         ausgabe.insert(0, "WARNUNG Streichzeilen nicht gelesen: %s (1688)" % str(e)[:120])
     ausgabe = vorn(leitung_neustart(je_rolle, archiviert) + ausgabe)  # 1988: im selben Takt wie STREICHEN
     ausgabe = warnung_einmal_je_stunde(ausgabe)  # 1988 (Zusatz Chef 09:26): gleiche Warnung höchstens einmal je Stunde
-    for l in ausgabe: print(l)
+    for l in konsole(ausgabe): print(l)  # 2042 Fassung 5 (2): nur Taten, Rest in REST_DATEI (letzte Zeile)
     if not ausgabe: print("NICHTS: nichts zu tun")
     if sperre:  # 1999 (d): gescheiterter Start/Neustart wird eine rohe Zeile im Lehrenbuch (je Tag und Rolle einmal)
         try:
@@ -2420,6 +2463,7 @@ def main():
         print("LEERLAUF: nichts zu starten, nichts zu melden, nichts zu pushen; Ford endet hier mit der Chatzeile „Ford HH:MM ok“ (1100 A 6)")
     # 1997: zuletzt, ohne Schalter (auch --besetzung hat keine eigene Wirkung mehr): Absturz vorher = alte Marke = ALARM
     herzschlag_pushen([s for s in leb if s["id"] not in archiviert])
+    print(rest_zeile(ausgabe))  # 2042 Fassung 5 (2): letzte Zeile nennt die Restdatei
 
 def geaendert():
     """1100 A (6): hat dieser Lauf Notizen geschrieben (Protokoll, Besetzung, Vorgangsliste)? Dann ist er nicht leer, Ford pusht."""

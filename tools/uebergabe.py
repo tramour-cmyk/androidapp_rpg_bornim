@@ -335,7 +335,32 @@ def aufraeumen(text, archiv, nr, von_fn=None):
     rest = re.sub(r"\n{3,}", "\n\n", neu[i:n if n >= 0 else len(neu)]).strip("\n")
     neu = neu[:i] + ("\n" + rest + "\n" if rest else "") + tab + (neu[n:] if n >= 0 else "")
     neu, archiv = schlank_uebergaben(neu, archiv, nr, von_fn)
-    return neu, archiv
+    return rueck_erledigt(neu, archiv, nr)
+
+RUECK_HALTEN = {"nein", "nein, Auftrag", "wirkt nein", "Beleg fehlt", "steckt fest", "Frage", "Laufanforderung"}
+
+def rueck_erledigt(text, archiv, nr):
+    """2042 Fassung 5 (5c): erledigte Rückmeldungen wörtlich ins Archiv. Erledigt: älter als der neueste Auftrag, nicht vom Chef,
+    kein Nein, kein „Beleg fehlt“, „steckt fest“, keine Frage, keine Laufanforderung; und die Zählung (zaehlen, beleg_als_nein)
+    bleibt gleich (sonst bleibt der Block). Gekürzte Blöcke („voll: archiv/…“) stehen schon voll im Archiv."""
+    import rueckmeldung as rm
+    auf = max((z for z in (rm._zeit(m.group(1)) for m in _ABSCHNITT.finditer(text or "") if m.group(1).startswith("Auftrag (")) if z),
+              default=None)
+    i = ("\n" + (text or "")).find("\n## Rückmeldungen\n")
+    if auf is None or i < 0: return text, archiv
+    ende = text.find("\n## ", i + 1); ende = len(text) if ende < 0 else ende
+    soll = lambda t: (rm.zaehlen(t), rm.beleg_als_nein(t))
+    vorher = soll(text)
+    for m in reversed(list(_RBLOCK.finditer(text, i, ende))):
+        b = rm.BLOCK.match(m.group(0))
+        z = rm._zeit(b.group("zeit")) if b else None
+        if not z or z >= auf or "Chef" in b.group("wer") or rm.worte(b.group("text")) & RUECK_HALTEN: continue
+        neu = text[:m.start()] + text[m.end():]
+        if soll(neu) != vorher: continue
+        if not rm.VOLL.search(m.group(0).rstrip("\n")) and m.group(0).rstrip("\n") not in (archiv or ""):
+            archiv = archiv_dazu(archiv, nr, "Rückmeldungen", m.group(0))
+        text = neu
+    return text, archiv
 
 def nr_aus(kennung):
     m = re.fullmatch(r"(B?\d+(?:\.\d+)?[a-z]?)-Ü\d+", kennung)  # 1949: B<n> = Build-Auftrag

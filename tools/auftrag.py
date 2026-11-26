@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Auftrag und Schließen über vorgang.py (1739, Bauliste 1727 Gesamtbild 7.1, Vorlage 4.2).
 
-  vorgang.py auftrag NR                  Vorlage mit den sieben Feldern ausgeben (zum Ausfüllen)
+  vorgang.py auftrag NR                  neuesten Auftrag aus docs/vorgang/NR.md wörtlich ausgeben, ohne Auftrag die Vorlage mit
+                                         den sieben Feldern; dazu höchstens fünf Lehren voll, weitere als Nummer (2042 Fassung 5)
   vorgang.py auftrag NR --datei PFAD     Auftrag prüfen (sieben Felder, Pflichtfeld „Zurück“ mit Inhalt)
                                          und als Abschnitt „## Auftrag (TT.MM., HH:MM)“ in docs/vorgang/NR.md eintragen (gepusht wie
                                          die Übergabezeilen); „-“ liest von der Standardeingabe; --pruefen: nur prüfen, nichts schreiben
@@ -158,7 +159,8 @@ def eintragen(nr, text, treffer=None, wieder=False):
     abschnitt = "## Auftrag (%s)\n\n%s\n%s\n" % (zeit, text.strip(), ("\n" + treffer + "\n") if treffer else "")
     pv = ue._pfad(nr)
     if not wieder:
-        return ue.atomar(nr, lambda alt: (oben(alt, nr, abschnitt), zeit), "%s: Auftrag (%s, vorgang.py auftrag)" % (nr, zeit))
+        return ue.atomar_dateien([pv, ue.archivpfad(nr)], mit_aufraeumen(nr, lambda alt: ({pv: oben(alt[pv], nr, abschnitt)}, zeit)),
+                                 "%s: Auftrag (%s, vorgang.py auftrag), ältere Fassungen ins Archiv (2042)" % (nr, zeit))
     import startbar, vorgang
     pl, pa = "docs/" + startbar.LISTE, "docs/" + vorgang.ARCHIV
     def aendern(alt):
@@ -169,9 +171,52 @@ def eintragen(nr, text, treffer=None, wieder=False):
         neu[pl], neu[pa] = w[0], w[1]
         print("vorgang.py: %s aus dem Archiv wieder offen (startbar, %s; gepusht)" % (nr, w[2]))
         return neu, zeit
-    z = ue.atomar_dateien([pv, pl, pa], aendern, "%s: Auftrag (%s, vorgang.py auftrag), aus dem Archiv wieder offen (1798, 1899)" % (nr, zeit))
+    z = ue.atomar_dateien([pv, pl, pa, ue.archivpfad(nr)], mit_aufraeumen(nr, aendern), "%s: Auftrag (%s, vorgang.py auftrag), aus dem Archiv wieder offen (1798, 1899)" % (nr, zeit))
     startbar.neu_laden()
     return z
+
+LEHREN_VOLL = 5
+
+def lehren_text(liste, zeigen):
+    """2042 Fassung 5 (5b): höchstens LEHREN_VOLL Lehren ausgeschrieben, weitere nur als Nummer."""
+    if not liste: return "- keine"
+    z = ["- " + zeigen(x) for x in liste[:LEHREN_VOLL]]
+    if liste[LEHREN_VOLL:]:
+        z.append("- weitere nur als Nummer (Wortlaut: vorgang.py lehre suche <Nr>): " + ", ".join(x["id"] for x in liste[LEHREN_VOLL:]))
+    return "\n".join(z)
+
+def neuester(text):
+    """2042 Fassung 5 (5a): der Abschnitt „## Auftrag (TT.MM., HH:MM)“ mit der jüngsten Zeit wörtlich (Kopf und Rumpf), sonst None."""
+    import rueckmeldung as rm
+    ms = list(ue._ABSCHNITT.finditer(text or ""))
+    beste = None
+    for i, m in enumerate(ms):
+        if not m.group(1).startswith("Auftrag ("): continue
+        z = rm._zeit(m.group(1)) or (0, 0, 0, 0)
+        if beste is None or z >= beste[0]: beste = (z, m.start(), ms[i + 1].start() if i + 1 < len(ms) else len(text))
+    return text[beste[1]:beste[2]].rstrip("\n") + "\n" if beste else None
+
+def mit_aufraeumen(nr, aendern):
+    """2042 Fassung 5 (5c): nach dem Eintragen ältere Auftragsfassungen und erledigte Rückmeldungen sofort wörtlich ins Archiv
+    (uebergabe.aufraeumen), im selben Commit; Merkmale (Zählung, Beleg-Nein, erstes Nein, Chefworte, offene Zeilen) vorher = nachher,
+    sonst nur eingetragen, nicht aufgeräumt."""
+    import rueckmeldung as rm
+    pv, pa = ue._pfad(nr), ue.archivpfad(nr)
+    def f(alt):
+        neu, z = aendern(alt)
+        t, a0 = neu[pv], alt.get(pa, "")
+        rm._ARCHIV.clear(); rm._ARCHIV["archiv/%s.md" % nr] = a0
+        try:
+            vor = ue._merkmale(t, nr)
+            t2, a2 = ue.aufraeumen(t, a0, nr, ue.von_git)
+            rm._ARCHIV["archiv/%s.md" % nr] = a2 or ""
+            if ue._merkmale(t2, nr) == vor:
+                neu[pv] = t2
+                if a2 and a2 != a0: neu[pa] = a2
+            else: print("vorgang.py: %s eingetragen, nicht aufgeräumt (Merkmale ungleich; vorgang.py aufraeumen %s --probe)" % (nr, nr))
+        finally: rm._ARCHIV.clear()
+        return neu, z
+    return f
 
 def oben(alt, nr, abschnitt):
     """1798 (Kern Arbeitsplaner: „oben in die Vorgangsdatei“): Abschnitt nach Kopfzeile und Vorspann, vor dem ersten „## “."""
@@ -228,10 +273,12 @@ def haupt(a, fertig=None, wieder=None):
         if titel is None: sys.exit("vorgang.py auftrag: %s steht nicht in der Vorgangsliste und nicht im Archiv" % nr)
         import lehren
         liste, treffer = lehren.treffer_zeile(nr, titel)
-        if datei is None:
-            print(vorlage(nr, titel), end="")
+        if datei is None:  # 2042 Fassung 5 (5a, b): neuester Auftrag statt Vorlage; fünf Lehren voll, Rest als Nummer
+            p = os.path.join(ue.WURZEL, ue._pfad(nr))
+            auf = neuester(open(p, encoding="utf-8").read()) if os.path.exists(p) else None
+            print(auf if auf else vorlage(nr, titel), end="")
             print("\nLehren des Bereichs (Lehrenbuch, 1739; passende in „Beachte“ und „Umsetzen“, höchstens fünf, weitere als Nummer):")
-            print("\n".join("- " + lehren.zeigen(x) for x in liste) if liste else "- keine")
+            print(lehren_text(liste, lehren.zeigen))
             return
         try: zeit = eintragen(nr, text, treffer, wieder=zurueck and titel is not None)
         except ue.Fehler as e: sys.exit("vorgang.py auftrag: %s; nichts geschrieben" % e)
