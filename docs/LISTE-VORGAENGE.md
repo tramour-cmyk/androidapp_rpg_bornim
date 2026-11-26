@@ -91,7 +91,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1507 | Satz „Fertiges lautlos … mit 👍/👎-Zeile“ nur in Starts von Tom, Jerry, Spike, Tuffy, nicht Diogenes, Perikles, Homer | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *1,89 $* |
 | 1537 | Neustart-Haken zusätzlich an jeden Werkzeugaufruf (PreToolUse/PostToolUse): ab 200 Tsd. Erinnerung, ab 300 Tsd. Sperre … | 7 | B Steuerung | M | – | 1520, 400, 865 | – | *gebaut, Geprüft an: efa589bde* | *–* | *0* | *1,68 $* |
 | 1610 | D305.1 von Diogenes (1572): Hängeralarm kam 15 bis 75 statt 15 Minuten nach dem Hängen … | 7 | B Abläufe | M | – | 1572 | – | *gebaut, Geprüft an: fa6d0a289* | *–* | *0* | *5,73 $* |
-| 1642 | Änderung 1 Rollenspiegel: jede Startwarnung mit festem Besitzer im Werkzeug, nach 6 h legt das Werkzeug selbst einen … | 7 | B Abläufe | M | Prüfer | 340.12, 340.3 | – | *gebaut, Geprüft an: a6d23dcbb* | *–* | *0* | *1,84 $* |
+| 1642 | Änderung 1 Rollenspiegel: jede Startwarnung mit festem Besitzer im Werkzeug, nach 6 h legt das Werkzeug selbst einen … | 7 | B Abläufe | M | Prüfer, Sokrates | 340.12, 340.3 | – | *gebaut, steckt fest* | *–* | *0* | *1,84 $* |
 | 1662 | lauf.py startete Jerry für Nachfolger 1595 (Schlussbuild 299), obwohl die Zeile seit 1633 Spike gehört | 7 | B Abläufe | M | – | 1595, 299, 1633 | – | *gebaut, Geprüft an: b74f9d0f6* | *–* | *0* | *0,49 $* |
 | 1728 | Teilprojekte im Projektplan durch Verweis auf chefsache/themenbloecke.md ersetzen (eine Quelle für Themenblöcke) | 7 | B Abläufe | M | – | 1727 | – | *startbar* | *–* | *0* | *–* |
 | 1739 | Werkzeuge der Bauliste ab 21.11., 20:00 bauen … | 7 | B Werkzeuge | M | Sokrates | 1727, 1765 | – | *startbar* | *–* | *0* | *36,69 $* |
