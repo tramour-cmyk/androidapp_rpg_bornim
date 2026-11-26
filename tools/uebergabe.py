@@ -592,6 +592,18 @@ def _main_zeilen_schliessen():
 
 OFFEN_MAX = 5  # 2042 (e): Ausgabe von `vorgang.py offen` höchstens 5 Zeilen, Rest als Zahl (--alle zeigt alle)
 
+def zeigen(liste, an=None, alle=False):
+    """2042 (e): höchstens OFFEN_MAX Zeilen in Büro-Folge (Eilt zuerst, Hinweis Fritz 10:36); nicht gezeigte neue Zustände
+    (wieder offen, steckt fest, Frist) nennt die Schlusszeile mit Kennung, damit nichts still verschwindet."""
+    zeig = liste if alle or len(liste) < OFFEN_MAX else liste[:OFFEN_MAX - 1]
+    for z, nr, wie in zeig:
+        print("%s | an %s | %s | seit %s | %s" % (z["k"], z["an"], z["was"], z["seit"], wie))
+    rest = liste[len(zeig):]
+    neu = ["%s %s" % (z["k"], wie) for z, nr, wie in rest if wie != "offen"]
+    print("vorgang.py offen: %d Zeile(n)%s%s%s" % (len(liste), (" an " + an) if an else "",
+          ", %d weitere: vorgang.py offen%s --alle" % (len(rest), (" " + an) if an else "") if rest else "",
+          "; darunter neu: " + "; ".join(neu) if neu else ""))
+
 def offen(an=None, sitzungen_dateien=(), still=False, alle=False):
     """still: nichts drucken (lauf.py ruft es je Lauf, 1739 Befund 1); Rückgabe [(Zeile, Nr, wie)].
     1782: Frist abgelaufen und Halter ruht, oder Halter abgebrochen (auch vor der Frist) → beim ersten Mal „offen (wieder 1)“,
@@ -629,12 +641,7 @@ def offen(an=None, sitzungen_dateien=(), still=False, alle=False):
     r = buero_rang()
     liste.sort(key=lambda x: r(x[1], x[0]["was"], x[0]["seit"]))
     if still: return liste
-    zeig = liste if alle or len(liste) < OFFEN_MAX else sorted(liste, key=lambda x: x[2] == "offen")[:OFFEN_MAX - 1]  # Neues (wieder offen, steckt fest) zuerst
-    for z, nr, wie in zeig:
-        print("%s | an %s | %s | seit %s | %s" % (z["k"], z["an"], z["was"], z["seit"], wie))
-    rest = len(liste) - len(zeig)
-    print("vorgang.py offen: %d Zeile(n)%s%s" % (len(liste), (" an " + an) if an else "",
-          ", %d weitere: vorgang.py offen%s --alle" % (rest, (" " + an) if an else "") if rest else ""))
+    zeigen(liste, an, alle)
     return liste
 
 def haupt(a):
