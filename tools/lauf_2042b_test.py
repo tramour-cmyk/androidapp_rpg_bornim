@@ -205,6 +205,11 @@ soll("(7) Hans eben für 2043 gestartet (Zeile noch offen): nicht frei; Tanja (a
 st = lauf.mit_rufnamen(["START Prüfer | sonnet | e | r | main | Prüfer – 2042: Disponenten klein (25.11., 23:20) | Prüfer\\n\\nprüfen"], [], namen={})
 soll("(7) START Prüfer: Titel „Name – Prüfer – in Arbeit – 2042 – Disponenten klein“", " – Prüfer – in Arbeit – 2042 – Disponenten klein | " in st[0], st)
 
+st = lauf.mit_rufnamen(["START Werkzeug | sonnet | e | r | main | Werkzeug – 2042: Teil 7 nachbessern (26.11., 07:06) | Werkzeug\\n\\nlies"], [], namen={})
+soll("(6-2) START Fachkraft: Titel gleich „Name – in Arbeit – 2042 – Teil 7 nachbessern“", " – in Arbeit – 2042 – Teil 7 nachbessern | " in st[0], st)
+st = lauf.mit_rufnamen(["START Kampf | opus | e | r | main | Kampf – 1708 B: Blut nur bei Berührung (26.11., 07:06) | Kampf\\n\\nlies"], [], namen={})
+soll("(6-2) START Kampf 1708 B: Titel „Name – in Arbeit – 1708 – B: Blut …“ nie ohne Nr", " – in Arbeit – 1708" in st[0].split(" | ")[5], st)
+
 # Teil 7 (1) (Antwort 2042-Ü27, 23:37): je Fachprofil der eine Satz, Quelle 1727-muster gleich dem Profil; Disponent.md Prüferstart
 import ladesumme
 SATZ = "Nach gebaut tust du jede Zeile der Ausgabe."
