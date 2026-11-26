@@ -32,7 +32,7 @@ static func feld() -> Dictionary:
 
 ## Datei des Modells: daten/waffen (Karte, Held, Leute), sonst kampf/daten (Kampf); leer, wenn keins da ist
 static func datei(id: String) -> String:
-	for f in [WAFFEN % id, KAMPF % id]:
+	for f in [WAFFEN % Staffel.datei(id), KAMPF % Staffel.datei(id)]:
 		if FileAccess.file_exists(f): return f
 	return ""
 
@@ -40,6 +40,7 @@ static func datei(id: String) -> String:
 ## laenge (Griff bis Spitze), unten (Länge unter dem Griff), hoehe (Vector2 unten/oben in y), rand_hinten (Schild: wie weit der Rand
 ## außerhalb der Mitte hinter die Fessel reicht). Zuerst abgelegt (regeln/halt.json), sonst aus dem Modell gemessen; leer ohne Modell
 static func gegenstand(id: String) -> Dictionary:
+	id = Staffel.datei(id)   # 458.3: Maße je Form, gleich in jeder Seltenheit
 	if _mass.has(id): return _mass[id]
 	var h = feld().get(id)
 	var m: Dictionary = aus_feld(h) if h is Dictionary else messen(id)
@@ -78,11 +79,12 @@ static func messen(id: String) -> Dictionary:
 			for p in me.surface_get_arrays(s)[Mesh.ARRAY_VERTEX]: pts.append(tr * p)
 	d.free()
 	var m := mass_aus(pts)
-	if not m.is_empty() and not id in BOGEN and String(Katalog.eintrag(id).get("art", "")) == "waffe":
+	var art := Staffel.art(id)   # 458.3: Staffelform -> Waffenart
+	if not m.is_empty() and not art in BOGEN and String(Katalog.eintrag(art).get("art", "")) == "waffe":
 		# waffen.py (Kopf der Datei): „Schneide quer nach ±X, Fläche nach ±Z“; vorn ist die Schneide (Faust: Schneide zu den Knöcheln,
 		# wie tragen.gd die Waffe seit 417 stellt), nicht die Fläche. Nur die Schilde (kaufschild.py) zeigen mit +Z nach vorn
 		m["vorn"] = Vector3.RIGHT
-	if id in BOGEN and not m.is_empty():
+	if art in BOGEN and not m.is_empty():
 		# Chef 10.11., 13:39 (Prüfbild 653: „in der Seitansicht fehlt die Sehne … sieht aus wie ein Stab“): beim Bogen liegen Wurfarme
 		# und Sehne in x (waffen.py), nicht in z; vorn ist darum die Seite der Sehne, die Fläche des Bogens steht dann senkrecht
 		var sx := signf((m["spitze"] as Vector3).x)

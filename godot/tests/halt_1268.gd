@@ -17,7 +17,7 @@ const AUSNAHMEN := {
 	"skripte/figurenprobe.gd:haenge": "Prüfwerkzeug für Bilder, nicht im Spiel",
 }
 const ORDNER := ["res://skripte", "res://kampf", "res://regeln"]
-const LAEDT := ["daten/waffen/", "kampf/daten/%s", "Halt.datei", "WAFFEN %", "KAMPF %"]
+const LAEDT := ["daten/waffen/", "kampf/daten/%s", "Halt.datei", "WAFFEN %", "KAMPF %", "Staffel.lade"]   # 458.3: Staffel.lade lädt aus daten/waffen
 
 var fehler := 0
 
