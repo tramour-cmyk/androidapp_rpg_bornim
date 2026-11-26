@@ -25,7 +25,7 @@ Sitzung session_01Hmoj75wpEpMWabvHAke1zw (seit 26.11., 16:51, Tiefe 1). Sokrates
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
-- 26.11., 16:52 Nachfolger übernommen (…75wpEp, Tiefe 1), Titel stand schon; Uhr trig_01Sxq5r3WhP5VtZzyj4NJSTt (17:50); alte trig_0178NCnoiNL2zAVMbMNbjhvK abgeschaltet (Löschen sperrt Auto-Modus); Vorgänger …78iGVJ archiviert; Kennung an Sokrates und Disponent.
+- 26.11., 16:52 Nachfolger übernommen (…75wpEp, Tiefe 1), Titel stand schon; Uhr trig_01Sxq5r3WhP5VtZzyj4NJSTt (17:50); alte trig_0178NCnoiNL2zAVMbMNbjhvK gelöscht (16:59 nach Chef-Wort); Vorgänger …78iGVJ archiviert; Kennung an Sokrates und Disponent.
 - 26.11., 12:35 Übergabe. Vormittag: 2042 Messung (Start 85 Tsd., +54 Tsd./Takt), Chef 11:07 (c)(d) zuerst, 12:27 nach main (cfcba0bbe, von mir gemischt); 1708 ruht (Arena-Reihenfolge DESIGN-GEGNER 11); 1973 Chef-Nein, Prüferfehler; 1694 ohne Halter → Sabine; 2043 roter Werkzeugtest; Vorgangsliste 337 offen → Gegenprüfung A/B.
 - 26.11., 10:22 Runde 10:21 (7 Funde an Sokrates, Disponent-Uhr falsch). Vergleich alte Disponenten → Chef. Übergabe bei 258 Tsd.
 - 26.11., 10:06 Chef 10:03 „warum Disponent so riesig“: Messung …79xvp (Start 84,6 Tsd., 70 Aufrufe → 241,6 Tsd.; lauf.py 60 KB, Startprompts 28 KB, list_sessions 24 KB) → 2042 (c)–(e) in Vertretung an Sokrates (kurzer Startprompt, list_sessions nur über lauf.py, vorgang.py ≤5 Zeilen; Ziel ≤150 Tsd. nach 7 Starts).
