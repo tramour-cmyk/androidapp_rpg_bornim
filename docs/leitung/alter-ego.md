@@ -25,6 +25,7 @@ Sitzung session_01Hmoj75wpEpMWabvHAke1zw (seit 26.11., 16:51, Tiefe 1). Sokrates
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 26.11., 18:53 Runde 18:52: Vollzug ✓ (Jutta archiviert, alte Lauf-Uhr trig_015rZS7q… weg); Disponent 164 Tsd. (+19 Tsd./h), Sokrates 233 Tsd., Marta baut B301; keine Funde.
 - 26.11., 17:52 Sokrates-Einwand angenommen: 2042 Teil a zurück (Chef 17:18 sperrt B-Arbeit). Testbuild-Erinnerung trig_013hu7mj… gelöscht (Termin Fr 17:30 durch 17:18 ersetzt). Alte Lauf-Uhr trig_015rZS7q… weiter beim Chef.
 - 26.11., 17:51 Runde 17:50: Disponent …77aaqc 145 Tsd. 11 Min. nach Start → 2042 Teil a in Vertretung (ruht unter 17:18); 2029-Ü32 an archivierten Sokrates; 3 Planerzeilen ohne Halter; Jutta still; alte Lauf-Uhr feuert 18:03 (Chef) → alles an Sokrates. Uhr trig_01LASmMtwxpdf47CiP3DbqUb (18:52).
 - 26.11., 17:25 Disponent …xHAG5D 257 Tsd. → Nachfolger …77aaqc (sonnet, Startsperre d853bb23a); Uhren neu: Lauf trig_01CEG387qtGPYuvxT5BvyHCH, Testbuild B trig_013hu7mjoaKF423KUX4W7pts; alte Testbuild trig_012jir6N… aus; alte Lauf trig_015rZS7q… Löschen/Abschalten sperrt Auto-Modus → Chef; Vorgänger archiviert.
