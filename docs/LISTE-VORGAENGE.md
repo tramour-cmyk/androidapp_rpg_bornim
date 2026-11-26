@@ -339,3 +339,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2050 | commit-pruefung.py findet Kennungen nur hinter „Nachricht“: Eintrag mit „Telegram 4605“ (Z. 422) entgeht der Prüfung (kennungen_tg Z. 94–96; Hinweis aus 1301-Ü4, Sokrates 10:35) | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2051 | Haken-Texte (startsperre-haken.py nacht(), neustart-haken.py Z. 8) richten sich noch an „Ford“ statt Disponent (Hinweis aus 1643-Ü4) | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
+| 2053 | Zeno-Hinweis 2052: startbar.kuer_ruht prüft weder Laufbremse, Nachtdeckel noch --ohne; Zahlen 32 (startbar.py) gegen 9 (lauf.py) | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
