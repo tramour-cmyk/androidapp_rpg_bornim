@@ -6,8 +6,9 @@
 # Aufruf: im Ordner godot mit --headless --fixed-fps 30 -s res://tests/stehen_973.gd   (GEGNER=WOLVES,GOBLINS SEEDS=1-4)
 # Exit 0 = kein Befund.
 # 2046: dazu erlaubt (DESIGN-GEGNER.md 5 „Seitschritt nur als einzelner Ausweichschritt, wenn ein Vorderer Platz macht“; Sokrates
-# 24.11., 19:10 F1, F4 zu 1589.4): ein Eigener tritt für den Zug eines anderen derselben Seite einmal höchstens Figur.ZUR_SEITE_M
-# beiseite (figur.gd _gasse; GOBLINS Seed 4: gob2 0,49 m für gob3)
+# 24.11., 19:10 F1, F4 zu 1589.4): während ein anderer derselben Seite am Zug ist, darf sich der Platz einer Figur in einem Bild um
+# höchstens Figur.ZUR_SEITE_M ändern (beiseite, figur.gd _gasse; GOBLINS Seed 4: gob2 0,49 m für gob3); die Zahl der Seitschritte
+# zählt der Test nicht
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")

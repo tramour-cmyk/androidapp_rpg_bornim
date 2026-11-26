@@ -159,8 +159,7 @@ func _ende(id: String, kampf: String) -> void:
 	# LUECKE_TIEF darin (der Schild darf sie abfangen); beim Treffer nur Auskunft (wie tief er sitzt, prüft treffen_709, 709)
 	var koerper: float = float(r.get("gapk", {}).get(r["ziel"], Vector2.INF).x)
 	var verdeckt: float = float(r.get("verdeckt", {}).get(r["ziel"], 0.0))
-	# verdeckt zählt bis KEIN_PLATZ Bisse als Hinweis (Figur.biss_verdeckt: kein freier Platz im Bild; sonst zuckte das Ziel beim
-	# Treffer vor die Zähne, Osgar mit dem Stab), darüber als Fehler
+	# verdeckt ist Auskunft (1284b D, unten; 2046: Figur.biss_verdeckt gibt es seit 1589.4 nicht mehr, darum ohne Angabe des Grunds)
 	var kein_platz: bool = verdeckt > VERDECKT
 	if kein_platz:
 		ohne_platz += 1
@@ -171,7 +170,7 @@ func _ende(id: String, kampf: String) -> void:
 		gut = false
 	if not gut:
 		befund += 1
-	print("BISS1284 %s %s %s an %s, %s (Bild %d): %s, Lücke der Zähne %.2f m (Körper %.2f, Schild %.2f), verdeckt %.0f %%%s, Bewegungen %s – %s" % ["gut" if gut else "FEHLER", kampf, id, r["ziel"], r["ausgang"], r["seit"], "Biss" if biss else "OHNE BISS", gap, r.get("gapk", {}).get(r["ziel"], Vector2.INF).x, r.get("gapk", {}).get(r["ziel"], Vector2.INF).y, verdeckt * 100.0, (" (Hinweis: kein freier Platz im Bild)" if bool(r.get("kein_platz", false)) else " (Hinweis: Ziel zuckte davor)") if kein_platz else "", r["anims"], r["text"]])
+	print("BISS1284 %s %s %s an %s, %s (Bild %d): %s, Lücke der Zähne %.2f m (Körper %.2f, Schild %.2f), verdeckt %.0f %%%s, Bewegungen %s – %s" % ["gut" if gut else "FEHLER", kampf, id, r["ziel"], r["ausgang"], r["seit"], "Biss" if biss else "OHNE BISS", gap, r.get("gapk", {}).get(r["ziel"], Vector2.INF).x, r.get("gapk", {}).get(r["ziel"], Vector2.INF).y, verdeckt * 100.0,  " (Hinweis: verdeckt im Bild)" if kein_platz else "", r["anims"], r["text"]])
 
 
 ## Zähne: Kapseln von Kopf und Kiefer der Ratte (wie treffen_709 _waffe ohne Waffe)
