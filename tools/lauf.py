@@ -37,6 +37,8 @@ Ausgabe, Zeile für Zeile auszuführen:
   „Alter Ego – Supervisor (TT.MM.)“; läuft die Rolle laut Sitzungsliste schon (oder fehlt die Liste), nur HINWEIS statt START.
   (1989) lauf.py --start ROLLE NR "Nachricht" [SEITE …] [--sperre]: Handstart außerhalb des Takts → START-Zeile mit Startblock und
                                                                      STARTSPERRE <Protokollzeile> (mit --sperre selbst gepusht); von Hand nur so starten
+  SITZUNG …<6> | <Titel> | <Status> | <n Tsd.|->                    → (2042 d) je lebende Sitzung eine Zeile (nur lesen); SEITE ist die Datei aus
+                                                                     „saved to <Pfad>“ von list_sessions, ungelesen; Tokens: --token ID=N (get_session)
   (2042 c) lauf.py --startblock ROLLE [NR]: Ladetext und Verweis auf den Auftrag; jede START-Nachricht trägt statt des Blocks nur
                                                                      „python3 tools/lauf.py --startblock ROLLE NR, Ausgabe ist dein Auftrag.“
   NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1739) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
@@ -92,7 +94,7 @@ steht WARNUNG-LAUT „Start <Rolle> nicht angekommen“ (einmal, Marke „Start-
 Laufend = Status working/blocked und updated_at jünger als 60 Minuten, oder offener Weckruf (--wecker, 916) (Start-Sperre und Belegung 20 Minuten). Laufend oder jünger als 20 Minuten: Rolle belegt, kein zweiter Start.
 Nicht Sache des Werkzeugs: „Neustart <Name>, <Commit>“ (Nachricht), Eingang, Leermeldung eines Teams (bleiben bei Ford, LISTE-BETRIEB.md „Jeder Lauf“).
 """
-import glob, os, re, sys, datetime, zoneinfo, subprocess
+import glob, json, os, re, sys, datetime, zoneinfo, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import startbar, kosten
 
@@ -297,7 +299,7 @@ def leitung_neustart(je_rolle, archiviert, wache=None):
         for s in je_rolle.get(rolle, []):
             tok = s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens")
             if s["id"] not in archiviert and not tok:
-                aus.append("TOKEN %s | %s: get_session, Zahl in die Kurzform, lauf.py neu" % (s["id"], rolle))
+                aus.append("TOKEN %s | %s: get_session, lauf.py neu mit --token %s=<used_tokens> (2042 d)" % (s["id"], rolle, s["id"]))
             elif s["id"] not in archiviert and tok >= LEITUNG_NEUSTART_TOKEN:
                 if "%s" in text: text = text % (wache or wache_id())
                 aus.append("%s %s | %s | %d Tsd. Token | %s (1988, ab %d Tsd.)" % (art, s["id"], rolle, tok // 1000, text, LEITUNG_NEUSTART_TOKEN // 1000))
@@ -1106,16 +1108,59 @@ def voller_lauf_faellig(besetzung, jetzt=None):
 
 
 BIS = re.compile(r"^#\s*bis:\s*(\S+)\s*$", re.M | re.I)
+def _seite_json(p):
+    """2042 (d): ccr-Objekt einer gespeicherten Seite von list_sessions (Datei aus „saved to <Pfad>“, auch mit Rahmen), sonst None."""
+    t = lesen(p); i = t.find('{"ccr"')
+    if i < 0: return None
+    try: return json.JSONDecoder().raw_decode(t[i:])[0].get("ccr") or {}
+    except ValueError: return None
+
 def grenze_offen(offen, jetzt=None):
-    """2042 (1): abgeschnittene Seiten ohne die Kurzformen, deren Endzeile „# bis: <created_at>“ die Zeitgrenze erreicht.
-    Gibt (noch offen, Liste der Kurzformen mit Zeitgrenze) zurück."""
+    """2042 (1): abgeschnittene Seiten ohne die Kurzformen, deren Endzeile „# bis: <created_at>“ die Zeitgrenze erreicht;
+    2042 (d): ebenso eine JSON-Seite, deren letzte Sitzung (created_at) die Zeitgrenze erreicht.
+    Gibt (noch offen, Liste der Seiten bis zur Zeitgrenze) zurück."""
     g = zeitgrenze(jetzt); rest = []; bis = []
     for p in offen:
-        m = BIS.search(lesen(p))
-        try: ok = bool(m) and z(m.group(1)) <= g
-        except ValueError: ok = False
+        c = _seite_json(p)
+        try:
+            if c is not None: ok = bool(c.get("data")) and z(c["data"][-1]["created_at"]) <= g
+            else: m = BIS.search(lesen(p)); ok = bool(m) and z(m.group(1)) <= g
+        except (ValueError, KeyError): ok = False
         (bis if ok else rest).append(p)
     return rest, bis
+
+def seite_warnung(offen):
+    """2042 (d): Warnung zu abgeschnittenen Seiten; bei JSON-Seiten mit der Kennung für die nächste Seite (after_id), damit niemand die Datei liest."""
+    nxt = [c.get("last_id") or (c.get("data") or [{}])[-1].get("id") for c in map(_seite_json, offen) if c]
+    return "WARNUNG Seite abgeschnitten (has_more) in %s: Plan unvollständig, weitere Seite bis created_at vor %s holen%s (2042)" % (
+        ", ".join(offen), zeitgrenze().strftime("%d.%m., %H:%M"), "".join(": list_sessions mit after_id %s, Datei als weitere SEITE" % x for x in nxt if x))
+
+def _tokens(s):
+    return s.get("context_usage", {}).get("used_tokens") or s.get("external_metadata", {}).get("context_usage", {}).get("used_tokens")
+
+def sitzung_zeilen(sitzungen):
+    """2042 (d): je lebende Sitzung eine Zeile „SITZUNG …<6> | <Titel> | <Status> | <n Tsd.|->“, neueste zuerst; der Disponent liest
+    die Seite von list_sessions nicht."""
+    aus = []
+    for s in sorted(sitzungen, key=lambda x: x.get("updated_at", ""), reverse=True):
+        if s.get("session_status") == "SESSION_STATUS_ARCHIVED": continue
+        b = s.get("status_bucket", "") or ""
+        pts = s.get("post_turn_summary") or s.get("external_metadata", {}).get("post_turn_summary") or {}
+        st = ("need_input" if pts.get("status_category") == "need_input" else "working" if "WORKING" in b else "blocked" if "BLOCKED" in b
+              else "failed" if "FAILED" in b else "working" if s.get("session_status") == "SESSION_STATUS_RUNNING" else "idle")
+        t = re.sub(r"\s+", " ", s.get("title", "") or "-"); t = t if len(t) <= 70 else t[:69] + "…"
+        tk = _tokens(s)
+        aus.append("SITZUNG …%s | %s | %s | %s" % (s["id"][-6:], t, st, "%d Tsd." % (tk // 1000) if tk else "-"))
+    return aus
+
+def token_setzen(alle, werte):
+    """2042 (d): „--token ID=N[,ID=N]“ (used_tokens aus get_session) statt Kurzzeile; unbekannte Kennung oder Zahl: Abbruch (ValueError)."""
+    for w in ",".join(werte).split(","):
+        if not w.strip(): continue
+        k, _, n = w.strip().partition("=")
+        n = n.replace(".", "").strip()
+        if k not in alle or not n.isdigit(): raise ValueError("--token %s: Kennung nicht in den Seiten oder Zahl fehlt (2042 d)" % w)
+        alle[k]["context_usage"] = {"used_tokens": int(n)}
 
 
 def besetzung_fehlt(text, ids):
@@ -1770,15 +1815,17 @@ def main():
     # 1148 (von Ford): --ohne <Rolle>:Grund nimmt die ganze Rolle aus diesem Lauf (START,
     # ARCHIVIERE und die Warnung „Start nicht angekommen“); vorher wirkte nur --ohne <Nr>, und Ford bekam weiter START Spike
     ohne_rollen = ohne_rollen_aus(ausschluss)  # 1964: auch Profile, Routinen (Tagesbericht), Wache
-    seiten = [x for i, x in enumerate(a) if not x.startswith("--") and not (i and a[i - 1] in ("--ohne", "--wecker"))]
+    seiten = [x for i, x in enumerate(a) if not x.startswith("--") and not (i and a[i - 1] in ("--ohne", "--wecker", "--token"))]
     if not seiten: sys.exit(__doc__)
     offen = []; alle = {}
     for p in seiten:
         for s in kosten.sitzungen(p, offen): alle[s["id"]] = s
+    try: token_setzen(alle, [a[i + 1] for i, x in enumerate(a[:-1]) if x == "--token"])  # 2042 (d)
+    except ValueError as e: sys.exit(str(e))
     ausgabe = vorab; archiviert = set()
     schutz = geschuetzt()  # 1531
     offen, bis = grenze_offen(offen)  # 2042 (1): Kurzform bis zur Zeitgrenze gilt als vollständig
-    if offen: ausgabe.append("WARNUNG Seite abgeschnitten (has_more) in %s: Plan unvollständig, weitere Seite bis created_at vor %s holen (2042)" % (", ".join(offen), zeitgrenze().strftime("%d.%m., %H:%M")))
+    if offen: ausgabe.append(seite_warnung(offen))
     if bis:
         if voller_lauf_faellig(lesen(os.path.join(DOCS, "ARBEIT-BESETZUNG.md"))):
             return print("VOLLER LAUF | 2042: erster Lauf ab 7 Uhr: list_sessions alle Seiten bis has_more falsch, Kurzform mit „# has_more: nein“, "
@@ -1787,6 +1834,7 @@ def main():
         if fehlt:  # laut statt still falsch: vor der Grenze gestartete laufende Sitzung fehlt, sonst doppelter START
             return print("GET_SESSION %s | 2042: vor der Zeitgrenze gestartet, steht in ARBEIT-BESETZUNG.md: get_session, Kurzzeile vor „# bis:“ anhängen, lauf.py neu" % ",".join(fehlt))
     leb = [s for s in alle.values() if s.get("session_status") != "SESSION_STATUS_ARCHIVED"]
+    ausgabe.extend(sitzung_zeilen(leb))  # 2042 (d): je lebende Sitzung eine Zeile, die Seite selbst liest niemand
     for name, tg, nach in startbar.nach_ausgefallen(JETZT):  # 1793: Routine mit „nach“ in der Nachholfrist nicht angelegt
         ausgabe.append("WARNUNG Wochentermin %s „%s“ ausgefallen: „%s“ war bis zum Folgetag nicht erledigt (1793; Sokrates, von Hand anlegen oder auslassen)" % (tg, name[:60], nach))
     wochentermine_anlegen(ausgabe)  # 719 A: vor dem Plan, damit der neue Vorgang im selben Lauf startet; 2019: auch ohne --sperre
