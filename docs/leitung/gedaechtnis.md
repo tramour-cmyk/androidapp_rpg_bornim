@@ -24,8 +24,6 @@
 
 - Nachfolger startet nur Alter Ego (Wurzel, Tiefe 0, …78iGVJ): bei 250 Tsd. Übergabe, Startfelder per send_message an Alter Ego (Chef 13:40).
 
-- Alter Ego `…78T7R5aMdgTuKTFyGw` (10:47); Disponent wechselt ~30 Min. (jetzt `…794yg24QrPirJBEvWk`).
-- Uhren nur auf Chefsatz im Chat; dauerhaft unmöglich (R9, R10).
 - Laufsperre bis Sa 28.11., 20:00, danach sofort 2043 (Deckel klein); 2042 zuerst (c)(d), Deckel 85 $; 1589.4 Deckel 90 $; 1708 ruht bis 1589.4 auf main.
 - Chat eine Zeile, Inhalt auf Telegram (Chef 12:30); Starttexte als Codeblock (10:30).
 
