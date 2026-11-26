@@ -22,11 +22,12 @@
 
 ## Offene Fäden
 
-- Konferenz: Alter Ego `session_01Hmoj78GVgrp48SUhwspQ4U` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
+- Konferenz: Alter Ego `session_01Hmoj78egvYz1pP981xLHs5` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
 - Nach main: CLAUDE.md 8 (Chef 25.11., 17:37, 17:44); mischt Sokrates.
-- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Werkzeug nur 2035, 2036, 2039, 2041. Sa vorlegen: --sperre-Teile, Testbuild Sa (Technik Fr).
+- Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Werkzeug nur 2035, 2036, 2039, 2041, Eilt 2042, 2044. Sa vorlegen: --sperre-Teile, Testbuild Sa (Technik Fr).
 - Täglich Modell, Umgebung, Aufwand je Sitzung.
+- Übergang 300/450 Tsd. nach 2042 zurück (Teil 8, Chef).
 
 ## Übergabe
 
-- 25.11., 21:39, `75bAmZ`: Fragen 2029/31/32/34/39 beantwortet (96b91cc84). Offen dir: Alter Ego 21:37 Punkte 5, 6; Notstart-Zeilen (1989, 2035, 2041) schließen. Offen Chef: trig_01UMBs6p ab; archivieren Detlef, Berit, Edda, alter Alter Ego, Uwe; Sperre 300 Tsd. (Rat B). Letzte Antwort: 21:39. Nachfolger: Sokrates – Leitung.
+- 25.11., 23:01, `79sfZC` (400 Tsd.): 2041 auf main; 2042 Eilt (Dora, Stand in 2042.md, mischt Sokrates); 1708 B läuft; 2044 Start nach Gegenprüfung. Offen Chef: 2032, 2031 Kutte; 2031-Vorlage nach Orkbild. Letzte Antwort: 23:01. Nachfolger: Sokrates – Leitung.

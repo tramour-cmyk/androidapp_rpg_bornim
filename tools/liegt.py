@@ -110,6 +110,27 @@ def zeilen(zs, zeiten, jetzt, empfaenger=None, auf_main_fn=auf_main):
     return aus
 
 
+def art(z):
+    """Art einer LIEGT-Zeile: das zweite Feld („startbar“, „gebaut, nicht auf main“, „ruht“ …)."""
+    f = z.split(" | ")
+    return f[1].strip() if len(f) > 1 else "?"
+
+
+def nach_art(zs, a):
+    """Abruf (2042 Teil 9): nur die Zeilen einer Art."""
+    return [z for z in zs if art(z) == a]
+
+
+def kurz(zs):
+    """2042 Teil 9 (Sokrates 2042-Ü13, 22:53): statt aller LIEGT-Zeilen eine Zeile mit der Zahl je Art (82 Zeilen ≈ 9 KB je Takt);
+    Einzelheiten auf Abruf mit `python3 tools/liegt.py [Art]`."""
+    if not zs: return []
+    je = {}
+    for z in zs: je[art(z)] = je.get(art(z), 0) + 1
+    teile = ", ".join("%s %d" % (a, n) for a, n in sorted(je.items(), key=lambda x: (-x[1], x[0])))
+    return ["LIEGT %d (%s) | Einzelheiten: python3 tools/liegt.py [Art], dann tu, was die Zeile nennt (2042)" % (len(zs), teile)]
+
+
 def liegt(jetzt=None, scharf=None):
     """Zeilen für lauf.py aus der echten Liste."""
     jetzt = jetzt or startbar.JETZT
@@ -123,4 +144,5 @@ def liegt(jetzt=None, scharf=None):
 
 if __name__ == "__main__":
     z = liegt()
+    if len(sys.argv) > 1: z = nach_art(z, " ".join(sys.argv[1:]))  # 2042 Teil 9: Abruf je Art
     print("\n".join(z) if z else "NICHTS liegt über der Frist (1799)")

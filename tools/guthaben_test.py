@@ -179,16 +179,18 @@ def f_d3():
         guthaben.ZEILEN = None
 fall("d3", f_d3)
 
-# (d4) 2013 (Sokrates 24.11., 00:16): Alter Ego (vertritt die Leitung) und Disponent-Starter (Büro) sind frei, nach festem Titelanfang
+# (d4) 2013 (Sokrates 24.11., 00:16): Alter Ego (vertritt die Leitung) ist frei, nach festem Titelanfang; 2041: „Disponent-Starter“
+# ist gestrichen (archiviert seit 23.11., 13:54), sein Titel zählt wie jeder unbekannte (2001-Ü12)
 def f_d4():
     ae, ds = "Alter Ego – Supervisor (23.11.)", "Disponent-Starter (23.11., 10:13)"  # echte Titel, kosten.rolle → Sonstige
-    soll("2013 (d4): echte Titel zählen nicht", not guthaben.fachkraft(guthaben.ober_rolle("Sonstige", ae)) and not guthaben.fachkraft(guthaben.ober_rolle("Sonstige", ds)),
-         [guthaben.ober_rolle("Sonstige", t) for t in (ae, ds)])
-    soll("2013 (d4): Wortteil zählt weiter (Alter Hans, Alter Ego ohne Strich, Disponent-Startern)",
-         all(guthaben.fachkraft(guthaben.ober_rolle("Sonstige", t)) for t in ("Alter Hans räumt auf", "Alter Ego räumt auf", "Disponent-Startern")))
-    je = {"Sonstige": [sitz("Sonstige", titel=ae), sitz("Sonstige", titel=ds)], "Werkzeug": [sitz("Werkzeug", titel="Fenja – 2001: Handstart (23.11., 15:33)")]}
+    soll("2013 (d4): Alter Ego zählt nicht", not guthaben.fachkraft(guthaben.ober_rolle("Sonstige", ae)), guthaben.ober_rolle("Sonstige", ae))
+    soll("2041: Disponent-Starter gestrichen, zählt wie unbekannt", guthaben.fachkraft(guthaben.ober_rolle("Sonstige", ds)) and "Disponent-Starter" not in guthaben.FREI_OBER,
+         guthaben.ober_rolle("Sonstige", ds))
+    soll("2013 (d4): Wortteil zählt weiter (Alter Hans, Alter Ego ohne Strich)",
+         all(guthaben.fachkraft(guthaben.ober_rolle("Sonstige", t)) for t in ("Alter Hans räumt auf", "Alter Ego räumt auf")))
+    je = {"Sonstige": [sitz("Sonstige", titel=ae)], "Werkzeug": [sitz("Werkzeug", titel="Fenja – 2001: Handstart (23.11., 15:33)")]}
     n = guthaben.laufende_fachkraefte(je)
-    soll("2013 (d4): Alter Ego, Disponent-Starter, Fenja → 1", n == 1, n)
+    soll("2013 (d4): Alter Ego, Fenja → 1", n == 1, n)
 fall("d4", f_d4)
 
 # (e) nach Ende frei

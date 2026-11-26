@@ -7,7 +7,7 @@ Aufruf über vorgang.py (oder direkt):
   vorgang.py annehmen KENNUNG [--frist MIN]  Quittung: offen → angenommen (diese Sitzung, Frist, Vorgabe 30 Minuten); ANGENOMMEN = jetzt tun;
                                               SCHON DEINE = doppelter Wecker, nichts neu beginnen; BELEGT (Exit 3) = eine andere Sitzung hat sie
   vorgang.py verlaengern KENNUNG [--frist MIN]   eigene Frist neu setzen (langer Zug)
-  vorgang.py erledigt KENNUNG                angenommen → erledigt (nur der Halter; ein zweites Mal: nichts)
+  vorgang.py erledigt KENNUNG [SITZUNG]      angenommen → erledigt (nur der Halter; ein zweites Mal: nichts)
   vorgang.py freigeben                       alle von dieser Sitzung angenommenen Zeilen wieder offen (vor „Nachfolger:“, schneller als die Frist)
   vorgang.py offen [AN] [--sitzungen DATEI …]   offene Zeilen (Büro-Liste: Eilt, Fund des Chefs, Themenblock, Eingangszeit; 1796); mit --sitzungen
                                               (list_sessions-Seiten oder Kurzform wie lauf.py) wird jede abgelaufene Frist eines Halters, der
@@ -215,17 +215,21 @@ def nr_aus(kennung):
     if not m: raise Fehler("Kennung „%s“ ungültig (Form NR-Ük, etwa 1760-Ü1)" % kennung)
     return m.group(1)
 
-def besetzung(an):
-    """Kennungen laufender Sitzungen der Rolle AN, frisch aus ARBEIT-BESETZUNG.md (beim Senden, nie aus dem Gedächtnis)."""
+def besetzung(an, nr=None):
+    """Kennungen laufender Sitzungen der Rolle AN, frisch aus ARBEIT-BESETZUNG.md (beim Senden, nie aus dem Gedächtnis).
+    2042 Teil 6 (Fall 2042-Ü6: Wecker an Olga/Ralf zu 2041 statt an Carla zu 2042): mit nr und einer Fachrolle nur die Sitzungen,
+    deren Spalte „Vorgang“ nr ist; keine solche: alle der Rolle wie bisher (kein Wecker fällt still weg). Rollen ohne Vorgang
+    (Disponent, Prüfer, …) unverändert."""
     try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
     except OSError: return []
-    aus = []
+    aus = []; mit_nr = []
     for z in t.splitlines():
         f = [x.strip() for x in z.split("|")]
         # Rolle bzw. Bereich (Spalte 1; Rufnamen-Sitzungen trägt lauf.py über den Vorgang ein) oder Rufname im Titel (1739)
         if len(f) > 3 and (f[1].lower() == an.lower() or f[2].startswith("[%s – " % an)):
-            aus += re.findall(r"code/(session_\w+)", f[2])
-    return aus
+            ids = re.findall(r"code/(session_\w+)", f[2]); aus += ids
+            if nr and an in FACHPROFILE + ["Fachkraft"] and f[3] == str(nr): mit_nr += ids
+    return mit_nr or aus
 
 # ---- Befehle -------------------------------------------------------------
 
@@ -287,10 +291,10 @@ def uebergabe(nr, an, was):
 DISPONENT_ALT = "Ford"  # 1739: bis zur Umschaltung (lauf.ALT_EMPFAENGER)
 ALT = {"Prüfer": "Diogenes", "Disponent": DISPONENT_ALT, "Arbeitsplaner": DISPONENT_ALT}
 
-DISPONENT_TITEL = re.compile(r"^\w+ – Disponent – ")  # 2035 (Chef 25.11., 19:47): „Detlef – Disponent – Betrieb“; nie „Disponent-Starter“, „Wache – Disponent (…)“
+DISPONENT_TITEL = re.compile(r"^(?:Disponent – Büro(?:$| \()|\w+ – Disponent – )")  # 2041 d (Chef 25.11., 21:11): „Disponent – Büro (…)“ ohne Rufnamen; alte Form „Otto – Disponent – Betrieb“ (2035, Chef 19:47), bis Otto umbenannt ist; nie „Disponent-Starter“, „Wache – Disponent (…)“
 
 def disponent():
-    """2035: der laufende Disponent, die jüngste Zeile in ARBEIT-BESETZUNG.md mit Titel „Rufname – Disponent – …“ (lauf.besetzung_text
+    """2035: der laufende Disponent, die jüngste Zeile in ARBEIT-BESETZUNG.md mit Titel „Disponent – Büro …“ oder alt „Rufname – Disponent – …“ (lauf.besetzung_text
     sortiert nach Start); keine Handzeile in ARBEIT-BETRIEB.md (2001 „Disponent (aktuell)“ entfällt). Leer, bis der neue Disponent sein
     erstes `lauf.py` gelaufen ist."""
     try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
@@ -302,18 +306,50 @@ def disponent():
             aus = re.findall(r"code/(session_\w+)", f[2])[-1:]
     return aus
 
+BUENDEL_MIN = 15  # 2042 (2): so lange bündelt eine offene Zeile weitere Wecker an den Disponenten; danach wieder Wecker (nie Dauerschweigen)
+
+def gebuendelt(k):
+    """2042 (2, Chef 25.11., 22:03 „A“): Kennung einer anderen offenen Zeile, die den Disponenten seit seinem letzten Takt
+    (Zeitmarke „**Stand:**“ in ARBEIT-BESETZUNG.md) schon geweckt hat (an Disponent oder an eine Rolle ohne Sitzung), höchstens
+    BUENDEL_MIN alt; sonst None. Der Disponent liest im nächsten Takt alle offenen Zeilen (lauf.py NACHRICHT, vorgang.py offen)."""
+    import herzschlag
+    try: t = open(os.path.join(WURZEL, "docs", "ARBEIT-BESETZUNG.md"), encoding="utf-8").read()
+    except OSError: return None
+    j = jetzt(); st = herzschlag.marke(t, j.replace(tzinfo=herzschlag.BERLIN))
+    if st is None: return None
+    st = st.replace(tzinfo=None)
+    d = os.path.join(WURZEL, ORDNER); frueh = []
+    for n in sorted(os.listdir(d)) if os.path.isdir(d) else []:
+        if not n.endswith(".md"): continue
+        try: text = open(os.path.join(d, n), encoding="utf-8").read()
+        except OSError: continue
+        for z in zeilen(text):
+            if z["k"] == k or not ist_offen(z["z"]): continue
+            try: s = _zeit(z["seit"], j.year)
+            except ValueError: continue
+            if st < s <= j and (z["an"] == "Disponent" or not besetzung(z["an"])): frueh.append((s, z["k"]))
+    # die älteste Zeile seit dem Takt hat sicher geweckt; ist sie älter als BUENDEL_MIN, hängt der Disponent: wieder wecken
+    return min(frueh)[1] if frueh and (j - min(frueh)[0]).total_seconds() <= BUENDEL_MIN * 60 else None
+
+def _gebuendelt_zeile(k, an):
+    g = gebuendelt(k)
+    if g: print("NICHTS Wecker gebündelt (2042): %s weckte den Disponenten seit seinem letzten Takt; er liest %s (an %s) im nächsten Takt" % (g, k, an))
+    return g
+
 def wecker(nr, k, an, alt=None, scharf=None):
     """WECKER an die laufenden Sitzungen von AN (sonst der alten Rolle ALT); läuft keine, WECKER an den Disponenten, der den Start
     ausgibt (1760, Sokrates 22.11., 07:08). Gibt die geweckten Kennungen zurück. 2001 (Chef 23.11., 14:38): mit tools/1727-SCHARF
     kein Ford-Ersatz mehr (auch nicht, wenn rueckmeldung.py oder chefwort.py ALT mitgeben); Disponent über disponent()."""
     scharf = _scharf() if scharf is None else scharf
     alt = "" if scharf else ALT.get(an, "") if alt is None else alt
-    ss = (disponent() if an == "Disponent" and scharf else besetzung(an)) or (besetzung(alt) if alt else [])
+    ss = (disponent() if an == "Disponent" and scharf else besetzung(an, nr)) or (besetzung(alt, nr) if alt else [])
+    if ss and an == "Disponent" and _gebuendelt_zeile(k, an): return ss
     for s in ss: print("WECKER %s | sieh in %s (%s)" % (s, nr, k))
     if ss: return ss
     print("KEINE SITZUNG %s läuft (ARBEIT-BESETZUNG.md): die Zeile wartet; Start über den Disponenten, die neue Sitzung liest `vorgang.py offen %s`" % (an, an))
     if scharf: ds = [] if an == "Disponent" else disponent()
     else: ds = [] if DISPONENT_ALT in (an, alt) or an == "Disponent" else (besetzung("Disponent") or besetzung(DISPONENT_ALT))
+    if ds and _gebuendelt_zeile(k, an): return ds
     for s in ds: print("WECKER %s | sieh in %s (%s): keine Sitzung %s, Start ausgeben" % (s, nr, k, an))
     if not ds: print("KEIN DISPONENT läuft: Wache bzw. Herzschlag meldet (1764)")
     return ds
@@ -339,6 +375,18 @@ def schliessen_text(text, nr, arten=None, grund="", bis=None):
                 if _zeit(z["seit"], bis.year) > bis: continue
             except ValueError: continue
         text = _ersetzen(text, z, "erledigt %s (%s)" % (jz, _rein(grund)[:100])); aus.append(z["k"])
+    return text, list(reversed(aus))
+
+MAIN_ZEILE = re.compile(r"auf main, Vollzug mit Commit: `?([0-9a-f]{7,40})\b")
+
+def main_zeilen_schliessen_text(text, nr, auf_main_fn):
+    """2041 c (Fälle 2035-Ü15/24/28): nicht erledigte Zeile „auf main, Vollzug mit Commit: <c> …“ der Nummer NR schließt sich, wenn
+    auf_main_fn(c) True ist (Commit auf origin/main); False oder None (unbekannt) lässt sie offen. Rückgabe (neuer Text, [Kennungen])."""
+    jz = fmt(jetzt()); aus = []
+    for z in reversed(zeilen(text or "")):
+        m = MAIN_ZEILE.match(z["was"].strip())
+        if not m or nr_aus(z["k"]) != nr or z["z"].strip().startswith("erledigt") or auf_main_fn(m.group(1)) is not True: continue
+        text = _ersetzen(text, z, "erledigt %s (Commit %s auf origin/main, 2041 c)" % (jz, m.group(1))); aus.append(z["k"])
     return text, list(reversed(aus))
 
 def schliessen_nr(nr, arten=None, grund="", bis=None):
@@ -379,15 +427,27 @@ def annehmen(kennung, frist=FRIST_MIN, nur_verlaengern=False):
                "FEST": "steckt fest (zweimal Frist abgelaufen oder abgebrochen, 1782): nichts tun, Sokrates klärt",
                "NICHT DEINE": "nur eigene Zeilen verlängern"}[wort]
     print("%s %s (%s): %s" % (wort, kennung, rest, hinweis))
+    if wort == "ANGENOMMEN":  # 2041 d: Titel „<Rufname> – in Arbeit – <Nr> – <Betreff>“; Büro, Leitung, Abnahme behalten ihren
+        try:
+            import rufname
+            z = rufname.titel_zeile(sid, nr, "in Arbeit")
+            if z: print(z); print(rufname.TITEL_HINWEIS)
+        except Exception as e:
+            print("TITEL nicht gebaut (%s)" % e)
     return wort
 
-def erledigt(kennung):
+START_ZEILE = re.compile(r"\s*Fachkraft starten\b")  # 2042 Teil 6 (5): Otto schloss 1708-Ü10 ohne Start (0ea352814)
+
+def erledigt(kennung, gestartet=None):
     nr, sid = nr_aus(kennung), sitzung()
+    if gestartet and not re.fullmatch(r"session_\w+", gestartet): raise Fehler("„%s“ ist keine Sitzungskennung (session_…)" % gestartet)
     def f(alt):
         z = _finde(alt, kennung); zu = z["z"]; m = ANG.match(zu)
         if zu.startswith("erledigt"): return alt, "SCHON ERLEDIGT"
         if not m or m.group("sid") != sid: return alt, "NICHT DEINE"
-        return _ersetzen(alt, z, "erledigt %s %s" % (fmt(jetzt()), sid)), "ERLEDIGT"
+        if START_ZEILE.match(z["was"]) and not gestartet:
+            raise Fehler("„Fachkraft starten“ erledigt nur mit der Kennung der gestarteten Sitzung: vorgang.py erledigt %s session_… (2042)" % kennung)
+        return _ersetzen(alt, z, "erledigt %s %s" % (fmt(jetzt()), sid) + (" Start %s" % gestartet if gestartet else "")), "ERLEDIGT"
     w = atomar(nr, f, "Übergabe %s erledigt (1760)" % kennung)
     print("%s %s%s" % (w, kennung, "" if w != "NICHT DEINE" else ": erst annehmen (vorgang.py annehmen %s)" % kennung))
     return w
@@ -478,6 +538,17 @@ def buero_rang(docs=None):
         return (klasse, folge.index(block) if block in folge else len(folge), z)
     return schluessel
 
+def _main_zeilen_schliessen():
+    """2041 c: je Vorgangsdatei mit offener „auf main“-Zeile, deren Commit auf origin/main steht, ein Commit (atomar); Fehler: Warnung."""
+    import liegt
+    kand = [nr for nr, t in _alle_dateien() if main_zeilen_schliessen_text(t, nr, lambda c: liegt.auf_main(c, WURZEL))[1]]
+    for nr in kand:
+        try:
+            ks = atomar(nr, lambda alt, nr=nr: main_zeilen_schliessen_text(alt, nr, lambda c: liegt.auf_main(c, WURZEL)), "Übergaben %s: Commit auf origin/main (2041 c)" % nr)
+            if ks: print("vorgang.py: Übergaben geschlossen (Commit auf main): %s (2041 c)" % ", ".join(ks))
+        except Fehler as e:
+            print("WARNUNG auf-main-Zeilen %s nicht geschlossen: %s (2041 c)" % (nr, e))
+
 def offen(an=None, sitzungen_dateien=(), still=False):
     """still: nichts drucken (lauf.py ruft es je Lauf, 1739 Befund 1); Rückgabe [(Zeile, Nr, wie)].
     1782: Frist abgelaufen und Halter ruht, oder Halter abgebrochen (auch vor der Frist) → beim ersten Mal „offen (wieder 1)“,
@@ -488,6 +559,7 @@ def offen(an=None, sitzungen_dateien=(), still=False):
         if h == "abgebrochen": return h
         if _zeit(m.group("bis"), jz.year) > jz: return None
         return h
+    _main_zeilen_schliessen()  # 2041 c
     for nr, t in list(_alle_dateien()):
         frei = {}
         for z in zeilen(t):
@@ -528,7 +600,7 @@ def haupt(a):
         if b == "uebergabe" and len(a) == 4: return uebergabe(a[1], empfaenger(a[2]), a[3])  # 1946
         if b == "annehmen" and len(a) == 2: return annehmen(a[1], frist)
         if b == "verlaengern" and len(a) == 2: return annehmen(a[1], frist, True)
-        if b == "erledigt" and len(a) == 2: return erledigt(a[1])
+        if b == "erledigt" and len(a) in (2, 3): return erledigt(*a[1:])
         if b == "freigeben" and len(a) == 1: return freigeben()
         if b == "offen":
             s = []

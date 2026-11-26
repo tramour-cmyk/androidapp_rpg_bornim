@@ -109,14 +109,15 @@ g("pull", "-q", "--no-rebase", "origin", "main", cwd=B)
 with contextlib.redirect_stdout(io.StringIO()) as o_g: ue_g.wecker("9002", "9002-Ü5", "Arbeitsplaner", "Ford")
 soll("2001 (g): alter Empfänger „Ford“ aus rueckmeldung.py/chefwort.py ersetzt nicht (scharf)", "WECKER session_DISP1" in o_g.getvalue() and "KEIN DISPONENT" not in o_g.getvalue(), o_g.getvalue())
 # (i) 2035: Handzeile „Disponent (aktuell)“ in ARBEIT-BETRIEB.md zählt nicht; jüngste Besetzungszeile „Rufname – Disponent – …“ (Uwe DISP2) gilt,
-# nie „Disponent-Starter“, „Wache – Disponent (…)“ oder alter Titel ohne Rufname
+# nie „Disponent-Starter“, „Wache – Disponent (…)“; 2041 d (Chef 25.11., 21:11): „Disponent – Büro (…)“ ist der Disponent, die ältere Zeile (BUERO) gilt nicht
 open(os.path.join(A, "docs", "ARBEIT-BETRIEB.md"), "w").write("# Betrieb\n\n- **Disponent (aktuell)** Fritz `session_DISP1` „Fritz – Disponent – Betrieb (21.11., 21:00)“.\n")
 g("pull", "-q", "--no-rebase", "origin", "main", cwd=A)
 with open(os.path.join(A, "docs", "ARBEIT-BESETZUNG.md"), "a") as f:
-    f.write("| Disponent | [Uwe – Disponent – Betrieb (21.11., 22:00)](https://claude.ai/code/session_DISP2) | Betrieb | – | 21.11. |\n"
+    f.write("| Disponent | [Disponent – Büro (21.11., 21:59)](https://claude.ai/code/session_BUERO) | Betrieb | – | 21.11. |\n"
+            "| Disponent | [Uwe – Disponent – Betrieb (21.11., 22:00)](https://claude.ai/code/session_DISP2) | Betrieb | – | 21.11. |\n"
             "| Sonstige | [Disponent-Starter (23.11., 10:13)](https://claude.ai/code/session_START) | Betrieb | – | 23.11. |\n"
             "| Wache | [Wache – Disponent (24.11., 07:01)](https://claude.ai/code/session_WACHE) | Betrieb | – | 24.11. |\n"
-            "| Disponent | [Disponent – Büro (21.11., 22:01)](https://claude.ai/code/session_BUERO) | Betrieb | – | 21.11. |\n")
+            "| Wache | [Wache – Betrieb (24.11., 07:02)](https://claude.ai/code/session_WACHE2) | Betrieb | – | 24.11. |\n")
 g("add", "-A", cwd=A); g("commit", "-qm", "Betrieb", cwd=A); g("push", "-q", "origin", "main", cwd=A)
 rc, t = lauf(B, "session_ABS", "21.11., 22:09", "uebergabe", "9002", "Arbeitsplaner", "Auftrag 9002-6 schreiben")
 soll("2035 (i): Disponent aus der jüngsten Besetzungszeile „Uwe – Disponent – …“, nicht aus der Handzeile", "WECKER session_DISP2 | sieh in 9002 (9002-Ü6)" in t and "DISP1" not in t, t)

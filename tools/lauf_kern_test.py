@@ -56,14 +56,14 @@ try:
     msg = l.split(" | ", 6)[6]
     pruefe("\n" not in l, "1923: echter Zeilenumbruch")
     pos = [msg.find(x) for x in ("**Welt**\\nPROFIL-WELT\\nzweite Zeile", "**Signatur und Leben**\\nQUER-SIGNATUR", "**Zugang Kaufrepo**\\nQUER-KAUFREPO",
-                                 "\\n\\nAuftrag: 1. **Ziel:** Zwerg am Boden.", "7. **Zurück:** an das Büro", "Die Vorgangsdatei lesen.")]
-    pruefe(all(p >= 0 for p in pos) and pos == sorted(pos), "1923: Welt: Reihenfolge Fachprofil, Querprofil, Kaufrepo, Auftrag, Nachricht: %s %s" % (pos, msg[:300]))
+                                 "\\n\\nAuftrag: Der Auftrag steht oben in docs/vorgang/2001.md", "Die Vorgangsdatei lesen.")]
+    pruefe(all(p >= 0 for p in pos) and pos == sorted(pos), "1923/2042 (5): Welt: Reihenfolge Fachprofil, Querprofil, Kaufrepo, Verweis auf Auftrag, Nachricht: %s %s" % (pos, msg[:300]))
     for _x in ("NICHT-LADEN", "ALTER-AUFTRAG", "HERKUNFT", "QUER-FREMD", "KERN-", "PROFIL-STORY", "Rollendatei"):
         pruefe(_x not in msg, "1923: Welt: %r gehört nicht in die Startnachricht" % _x)
     pruefe(msg.startswith("**Welt**"), "1923: Welt beginnt nicht mit dem Fachprofil: " + msg[:60])
     l = lauf.mit_kern("START Arbeitsplaner | opus | env | repo | main | Arbeitsplaner – 2002: y | Auftrag schreiben.", d)
     msg = l.split(" | ", 6)[6]
-    pos = [msg.find(x) for x in ("**Kern Büro**\\nKERN-BUERO", "**Arbeitsplaner**\\nKERN-PLANER", "**Fremde Inhalte**\\nQUER-FREMD", "Auftrag: 1. **Ziel:** Text.")]
+    pos = [msg.find(x) for x in ("**Kern Büro**\\nKERN-BUERO", "**Arbeitsplaner**\\nKERN-PLANER", "**Fremde Inhalte**\\nQUER-FREMD", "Auftrag: Der Auftrag steht oben in docs/vorgang/2002.md")]
     pruefe(all(p >= 0 for p in pos) and pos == sorted(pos), "1923: Arbeitsplaner: Kern Büro, Kern Planer, Querprofil, Auftrag: %s" % pos)
     pruefe("QUER-KAUFREPO" not in msg, "1923: Arbeitsplaner braucht kein Kaufrepo")
     l = lauf.mit_kern("START Prüfer | opus | env | repo | main | Prüfer – 2001: Zwerg | Prüfe.", d)
@@ -76,7 +76,7 @@ try:
     pruefe(not lauf.STARTBLOCK_FEHLT, "1923: Fehlteile gemeldet, obwohl alle Dateien da: %s" % lauf.STARTBLOCK_FEHLT)
     msg = lauf.mit_kern("START Kampf | opus | env | repo | main | Kampf – 2001: x | Bau.", d).split(" | ", 6)[6]
     pruefe(("Kampf", "Kampf") in lauf.STARTBLOCK_FEHLT, "1923: fehlendes Fachprofil nicht gemeldet: %s" % lauf.STARTBLOCK_FEHLT)
-    pruefe(msg.startswith("**Signatur und Leben**") and "Auftrag: 1. **Ziel:**" in msg, "1923: ohne Fachprofildatei fehlt nur dieser Teil: " + msg[:80])
+    pruefe(msg.startswith("**Signatur und Leben**") and "Auftrag: Der Auftrag steht oben in docs/vorgang/2001.md" in msg and "**Ziel:**" not in msg, "1923/2042 (5): ohne Fachprofildatei fehlt nur dieser Teil: " + msg[:80])
     t = "START Sokrates | opus | env | repo | main | Sokrates – 2001: x | Weiter."
     pruefe("QUER-" not in lauf.mit_kern(t, d), "1923: Sokrates ohne Startblock")
 finally:
