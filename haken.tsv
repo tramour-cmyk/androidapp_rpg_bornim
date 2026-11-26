@@ -1474,3 +1474,4 @@
 2026-11-26 13:08:55	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/moritz-1589.2
 2026-11-26 13:08:58	probelauf	1129 A 3b: `MESS=` gilt nur für eigene Mess- und Testläufe ohne Bild und Film. Für ein Bild oder einen Film `PROBE=<Nr>`; die Laufbremse (1766) gilt nur dafür.	claude/moritz-1589.2
 2026-11-26 13:20:38	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/moritz-1589.2
+2026-11-26 13:21:20	probelauf	Laufbremse (1766, Chef 19.11., 13:02: je Runde ein Bild- oder Filmlauf): für 1589.4 schon 1 Lauf seit der Freigabe 2026-11-26 11:58:59. Den nächsten gibt der Prüfer frei: seine Rückmeldung („ja“, „nei	claude/moritz-1589.2
