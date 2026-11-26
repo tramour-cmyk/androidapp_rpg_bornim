@@ -6,6 +6,7 @@
 # zu fremden 104 bis 142; das alte Helmbild 08510eeb4 zu casco.jpg 8).
 #   verboten: Marke einer fremden Seite, Herkunft unbelegt -> Fehler
 #   frage:    Marke, Entscheid offen (Frage in 2029) -> nur gemeldet
+#   ausnahme: Marke geprüft und erlaubt (Grund im Text) -> nur gemeldet
 #   frei:     keine Marke gefunden (Ecken angesehen 26.11.)
 # Aufruf im Hauptordner: python3 tools/kopfteil_marke_2029_test.py [bild …]  (mit Bildern: nur diese prüfen, etwa als Gegenbeweis)
 import io, json, os, struct, sys
@@ -16,8 +17,8 @@ GRENZE = 40
 PAKET = {
     'casco.jpg (hats02, Helm_Templer)': ('verboten', 'f1e0fde0fe60fe60fd40df80ff00ff00fd80fd80ff10fe00fe00fe90fc90fa90',
                                          'Marke „http://gallery.world/wallpaper/100982.html“ unten links, Herkunft unbelegt'),
-    'braid01_diffuse_black.png (hair01, Zopf_Zwergin)': ('frage', 'e52ac9e64b38e52c1b6cdbdcd994d3e8c3a88f12ccb6961cc66947c8d2c0f2c6',
-                                         'Marke „(CC0-Zeichen) www.makehuman.org“ oben links, liegt außerhalb der Bildkoordinaten des Zopfs'),
+    'braid01_diffuse_black.png (hair01, Zopf_Zwergin)': ('ausnahme', 'e52ac9e64b38e52c1b6cdbdcd994d3e8c3a88f12ccb6961cc66947c8d2c0f2c6',
+                                         'Marke „(CC0-Zeichen) www.makehuman.org“ oben links; geprüfte Ausnahme (Sokrates 26.11., 16:51, 2029-Ü32 A): CC0 verlangt nichts, Ecke außerhalb jeder Bildkoordinate des Zopfs (0 von 8.491), im Spiel unsichtbar'),
     'diffuse_black.png (hair01, Haar_MH01)': ('frei', '3a613a67144635164936b834987e886b2c6d4d8679803099389a5998191a3974', ''),
     'BeardViking.png (bodyparts05, Bart_Wikinger)': ('frei', 'a05890f988b18171a0f2e6d2c1d2c142c9246166390619962066211620162016', ''),
 }
@@ -46,7 +47,7 @@ def bilder(pfade):
 def main():
     pfade = sys.argv[1:] or sorted(os.path.join(ORDNER, f) for f in os.listdir(ORDNER))
     ref = {k: (s, np.unpackbits(np.frombuffer(bytes.fromhex(h), np.uint8)).astype(bool), t) for k, (s, h, t) in PAKET.items()}
-    fehler = frage = n = 0
+    fehler = frage = ausnahme = n = 0
     for name, im in bilder(pfade):
         n += 1
         h = dhash(im)
@@ -54,8 +55,9 @@ def main():
             a = int((h != r).sum())
             if a > GRENZE or s == 'frei': continue
             if s == 'verboten': fehler += 1; print('FALSCH %s stammt aus %s (Abstand %d): %s' % (name, k, a, t))
+            elif s == 'ausnahme': ausnahme += 1; print('AUSNAHME %s stammt aus %s (Abstand %d): %s' % (name, k, a, t))
             else: frage += 1; print('FRAGE %s stammt aus %s (Abstand %d): %s' % (name, k, a, t))
-    print('KOPFTEILMARKE %d Bilder, %d mit verbotener Marke, %d mit offener Frage' % (n, fehler, frage))
+    print('KOPFTEILMARKE %d Bilder, %d mit verbotener Marke, %d mit offener Frage, %d geprüfte Ausnahme' % (n, fehler, frage, ausnahme))
     sys.exit(1 if fehler else 0)
 
 if __name__ == '__main__':

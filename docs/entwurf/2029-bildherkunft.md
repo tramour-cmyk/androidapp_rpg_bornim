@@ -7,7 +7,7 @@ Geprüft 26.11.2026, 16:24–16:34 (Anna, Figur). Pakete frisch geladen von `fil
 | `casco.jpg` (hats02, `Helm_Templer`, `Helm_Templer_B`) | 1600×1100 | **ja:** unten links „http://gallery.world/wallpaper/100982.html“ | JFIF, 72 dpi, kein EXIF | **unsicher, raus** (eigenes Bild) |
 | `diffuse_black.png` (hair01 `culturalibre_hair_01`, `Haar_MH01`) | 2048×2048 | nein | nur dpi | frei (CC0 laut Paketseite) |
 | `BeardViking.png` (bodyparts05 `rehmanpolanski_beard_viking`, `Bart_Wikinger`) | 1024×1024 | nein | „Creation Time: zo 19 apr 2020“ | frei (CC0 laut Paketseite) |
-| `braid01_diffuse_black.png` (hair01 `elvs_double_mh_braid`, Zopf `zopf_zwergin.glb`, main 431) | 2048×2048 | **ja:** oben links CC0-Zeichen (Kreis mit 0) und „www.makehuman.org“, auch im Spielbild `zopf_zwergin__zopf.jpg` (Ausschnitt `2029-zopf-marke.webp`) | nur dpi | **Frage** (siehe unten) |
+| `braid01_diffuse_black.png` (hair01 `elvs_double_mh_braid`, Zopf `zopf_zwergin.glb`, main 431) | 2048×2048 | **ja:** oben links CC0-Zeichen (Kreis mit 0) und „www.makehuman.org“, auch im Spielbild `zopf_zwergin__zopf.jpg` (Ausschnitt `2029-zopf-marke.webp`) | nur dpi | **Ausnahme** (Sokrates 26.11., 16:51: A, so lassen) |
 
 ## casco.jpg: Herkunft nicht belegbar
 
@@ -25,9 +25,9 @@ Folge (Querprofil Fremde Inhalte, unsicher = kein Einbau): Helm und Schirm B tra
 
 Schirm B: das alte Fenster (176,240 und 176,168, 732×258) lag im eigenen Bild über dem Netz des Helms mitsamt dunklem Rand und Nasenschutz; der Schirm zeigte dort Stücke davon. Darum liegt sein Fenster jetzt quer im freien Streifen links (ab x 40, gleiche Bilddichte 1571/1584 px/m, Bogen nach unten), Streifen zum unteren Schirmrand hin ebenso dunkel wie der Helmrand. Gleiches Verfahren wie 74fb13347 (eigene Bildkoordinaten aus ruhiger Stelle), andere Stelle.
 
-## Zopf: Frage
+## Zopf: Ausnahme (Sokrates 26.11., 16:51, 2029-Ü32: A)
 
-Die Marke ist das CC0-Zeichen von MakeHuman selbst, keine fremde Seite; sie liegt außerhalb jeder Bildkoordinate des Zopfnetzes (0 von 8.491 Bildkoordinaten im Feld der Marke), ist im Spiel also nicht sichtbar. Liegt aber im Spielbild auf main. Entscheid nötig: (A) so lassen (Marke bestätigt CC0, unsichtbar), (B) Ecke in `zopf_mh.py` grau übermalen, neuer Zopf.
+Die Marke ist das CC0-Zeichen von MakeHuman selbst, keine fremde Seite; sie liegt außerhalb jeder Bildkoordinate des Zopfnetzes (0 von 8.491 Bildkoordinaten im Feld der Marke), ist im Spiel also nicht sichtbar. Liegt aber im Spielbild auf main. Entscheid Sokrates 16:51: A, so lassen (CC0 verlangt nichts, im Spiel unsichtbar); im Test als geprüfte Ausnahme.
 
 ## Prüfung
 
