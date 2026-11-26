@@ -16,6 +16,11 @@
   "seit": "2026-11-26T13:47+01:00",
   "text": "docs/LISTE-REGELWERTE.md veraltet; python3 tools/regelwerte.py, committen"
  },
+ "groesse:docs/ARBEIT-BETRIEB.md": {
+  "besitzer": "Disponent",
+  "seit": "2026-11-26T17:08+01:00",
+  "text": "docs/ARBEIT-BETRIEB.md hat 34419 Bytes (Grenze 30000), Erledigtes streichen"
+ },
  "regel:ARBEIT-TEAM-JERRY.md:Übergabe über N Zeichen (nur Getanes und": {
   "besitzer": "Arbeitsplaner",
   "seit": "2026-11-21T22:18+01:00",
