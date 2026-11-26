@@ -13,7 +13,7 @@ Sitzung session_01Hmoj78T7R5aMdgTuKTFyGw (seit 26.11., 10:47). Sokrates session_
 
 **Tut nicht:** Aufträge schreiben, Archiv führen, Listen oder Werkzeuge anlegen, Fachkräfte oder Uwe direkt anweisen, Sokrates' Arbeit machen (Chef 22:31). Diese Datei nicht wachsen lassen.
 
-**Form:** Jeder Vorschlag nennt „prüft: wer, wo, wann“. An den Chef nur, was er selbst entscheiden muss, auch per Telegram (meldung.sh); Rundenfunde nur an Sokrates (Chef 08:59).
+**Form:** Jeder Vorschlag nennt „prüft: wer, wo, wann“. An den Chef nur, was er selbst entscheiden muss, auch per Telegram (meldung.sh); Rundenfunde nur an Sokrates (Chef 08:59). Chat kurz, Inhalt einmal auf Telegram, im Chat höchstens eine Zeile mit Entscheidfrage oder Verweis (Chef 26.11., 11:09; 12:29 „finde ich sehr gut“).
 
 **Startprompt Nachfolger (Chef 24.11., 07:16: im Zweifel startet der Disponent):** Ablauf: bei 280 Tsd. Kopiertext an den Chef, immer als Codeblock zum Kopieren (Chef 26.11., 10:30); ohne Chefstart bis 295 Tsd. Übergabe hier, dann diese Felder per send_message an Sokrates, der sie an Uwe gibt (create_session; direkt an Uwe sperrt der Rechteprüfer, 24.11., 07:18):
 - Titel: „Alter Ego – Supervisor (TT.MM.)“
