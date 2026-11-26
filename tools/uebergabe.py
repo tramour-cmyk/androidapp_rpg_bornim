@@ -119,6 +119,12 @@ def atomar_dateien(pfade, aendern, nachricht):
             rc, t, _ = _git("show", "origin/main:" + p)
             alt[p] = t + "\n" if rc == 0 and t else ""
         neu, ergebnis = aendern(dict(alt))
+        for p in [p for p in neu if re.fullmatch(re.escape(ORDNER) + r"/[^/]+\.md", p)]:  # 2042 (2): erledigte Zeilen schlank, Wortlaut ins Archiv
+            nr_p = os.path.basename(p)[:-3]; ap = archivpfad(nr_p)
+            if ap not in alt:
+                rc, at, _ = _git("show", "origin/main:" + ap); alt[ap] = at + "\n" if rc == 0 and at else ""
+            neu[p], a2 = schlank_uebergaben(neu[p], neu.get(ap, alt[ap]), nr_p, von_git)
+            if a2: neu[ap] = a2
         neu = {p: t for p, t in neu.items() if t != alt.get(p, "")}
         if not neu: return ergebnis
         with tempfile.TemporaryDirectory() as t:
@@ -209,6 +215,120 @@ def _ersetzen(text, z, zustand):
     return text[:m.start()] + neu + text[m.end():]
 
 def _rein(s): return re.sub(r"\s+", " ", s.replace("|", "/")).strip()
+
+
+# 2042 (2), (3) (Chef 26.11., 09:30 „wer an wen übergeben hat … das Aktuelle und Wichtige“, 09:42 „Ja“): Vorgangsdatei schlank,
+# Wortlaut vollständig in docs/vorgang/archiv/NR.md
+ARCHIV_KOPF = "# %s · Archiv\n\nVoller Wortlaut, den die Vorgangsdatei kürzt (2042; Chef 26.11., 09:42).\n"
+SCHLANK = re.compile(r"^von \S+$")
+
+def archivpfad(nr): return "%s/archiv/%s.md" % (ORDNER, nr)
+
+def archiv_dazu(archiv, nr, titel, block):
+    """BLOCK ans Ende des Abschnitts „## TITEL“ im Archiv (angelegt am Ende, falls er fehlt)."""
+    a = archiv or ARCHIV_KOPF % nr
+    b = block.strip("\n") + "\n"
+    kopf = "\n## %s\n" % titel
+    if kopf not in "\n" + a: return a.rstrip("\n") + "\n\n## %s\n\n%s" % (titel, b)
+    i = ("\n" + a).index(kopf) - 1 + len(kopf); n = a.find("\n## ", i)
+    if n < 0: return a.rstrip("\n") + "\n\n" + b
+    return a[:n].rstrip("\n") + "\n\n" + b + a[n:]
+
+def _von(z, nr, von_fn):
+    m = re.search(r"\(von ([^()\s]+)\)\s*$", z["was"]) or re.search(r"\(Rückmeldung [^()]*? von ([^()\s,;]+)\)", z["was"])
+    v = m.group(1) if m else (von_fn(z, nr) if von_fn else None)
+    return re.sub(r"\s+", "_", _rein(v or "?"))
+
+def von_git(z, nr):
+    """„wer“ einer alten Zeile: Claude-Session des Commits, der sie anlegte (git log -S), als Rolle der Besetzung, sonst …Kennung."""
+    rc, out, _ = _git("log", "--reverse", "--format=%(trailers:key=Claude-Session,valueonly)", "-S", "| %s |" % z["k"], "origin/main", "--", _pfad(nr))
+    sid = next((re.search(r"session_\w+", l).group(0) for l in out.splitlines() if re.search(r"session_\w+", l)), None) if rc == 0 else None
+    if not sid: return None
+    try:
+        import chefwort
+        r = chefwort._rolle_aus_besetzung(sid)
+        if r: return r
+    except Exception:
+        pass
+    return "…" + sid[-6:]
+
+def schlank_uebergaben(text, archiv, nr, von_fn=None):
+    """2042 (2): erledigte Zeile → „| Ü | an | von X | seit | erledigt … |“ (wer an wen, wann, Ergebnis); Wortlaut ins Archiv."""
+    alt = []
+    for z in reversed(zeilen(text or "")):
+        if not z["z"].strip().startswith("erledigt") or SCHLANK.match(z["was"].strip()): continue
+        m = z["m"]; alt.append(m.group(0))
+        text = text[:m.start("was")] + "von " + _von(z, nr, von_fn) + text[m.end("was"):]
+    for r in reversed(alt):
+        if r not in (archiv or ""): archiv = archiv_dazu(archiv, nr, "Übergaben", r)
+    return text, archiv
+
+def zeilen_was(text, archiv, an):
+    """Wortlaut („was“) aller Zeilen an AN in Datei und Archiv (Dedupe gegen schlanke erledigte Zeilen, 2042)."""
+    return "\n".join(z["was"] for z in zeilen((text or "") + "\n" + (archiv or "")) if z["an"].strip() == an)
+
+_ABSCHNITT = re.compile(r"(?m)^## (.*)\n")
+_RBLOCK = re.compile(r"(?m)^- \*\*[^*\n]+\*\*, [^\n]*:\n(?:> [^\n]*(?:\n|$))+")
+_ANTWORT = re.compile(r"(?m)^\*\*Antwort[^\n]*(?:\n[^\n#][^\n]*)*")
+
+def aufraeumen(text, archiv, nr, von_fn=None):
+    """2042 (3): es bleiben Kopf, neueste Auftragsfassung, Chefworte, letzter Stand, Rückmeldungen (je höchstens 400 Zeichen),
+    Übergaben (erledigte schlank), die letzte Antwort; alles andere wörtlich ins Archiv. Rückgabe (Datei, Archiv); zweimal gleich."""
+    import rueckmeldung as rm
+    ms = list(_ABSCHNITT.finditer(text or ""))
+    if not ms: return text, archiv
+    kopf = text[:ms[0].start()]
+    teile = [(m.group(1), text[m.end():(ms[i + 1].start() if i + 1 < len(ms) else len(text))]) for i, m in enumerate(ms)]
+    if not any(t == "Übergaben" for t, _ in teile): return text, archiv
+    # alle Zeilen der Übergaben-Tabelle, gleich in welchem Abschnitt sie stehen (uebergabe hängt ans Dateiende an), in Folge nach Übergaben
+    reihen = [z["m"].group(0) for z in zeilen(text)]
+    teile = [(t, ZEILE.sub("", b)) for t, b in teile]
+    teile = [(t, (b.replace(KOPF, "") if t == "Übergaben" else b)) for t, b in teile]
+    def neueste(praefix):
+        ix = [i for i, (t, _) in enumerate(teile) if t.startswith(praefix)]
+        return max(ix, key=lambda i: (rm._zeit(teile[i][0]) or (0, 0, 0, 0), i)) if ix else None
+    bleibt = {i for i, (t, _) in enumerate(teile) if t in ("Chefworte", "Rückmeldungen", "Übergaben")}
+    bleibt |= {x for x in (neueste("Auftrag ("), neueste("Stand")) if x is not None}
+    antworten = []
+    aus, rein = [], []
+    for i, (t, b) in enumerate(teile):
+        if t == "Letzte Antwort":
+            antworten += [(i, a.group(0)) for a in _ANTWORT.finditer(b)]; continue
+        if i not in bleibt:
+            antworten += [(i, a.group(0)) for a in _ANTWORT.finditer(b)]
+            archiv = (archiv or ARCHIV_KOPF % nr).rstrip("\n") + "\n\n## %s\n%s" % (t, b.rstrip("\n") + "\n")
+            continue
+        if t == "Rückmeldungen":
+            def kurz(m):
+                global_text = m.group(0)
+                zl = global_text.rstrip("\n").split("\n")
+                voll = "\n".join(l[2:] for l in zl[1:])
+                k = rm.kuerzen(voll, nr)
+                if k == voll: return global_text
+                nonlocal archiv
+                if global_text.rstrip("\n") not in (archiv or ""): archiv = archiv_dazu(archiv, nr, "Rückmeldungen", global_text)
+                return zl[0] + "\n> " + k + "\n"
+            b = _RBLOCK.sub(kurz, b)
+        if t == "Übergaben":
+            fremd = [l for l in b.split("\n") if l.strip() and not l.startswith("|")]
+            if fremd:
+                for a in _ANTWORT.finditer(b): antworten.append((i, a.group(0)))
+                archiv = archiv_dazu(archiv, nr, "Übergaben (Text)", "\n".join(fremd))
+                b = "\n".join(l for l in b.split("\n") if not l.strip() or l.startswith("|"))
+                b = re.sub(r"\n{3,}", "\n\n", b)
+        rein.append((t, b))
+    letzte = max(antworten, key=lambda x: (rm._zeit(x[1].split("\n", 1)[0]) or (0, 0, 0, 0), x[0]))[1] if antworten else None
+    neu = kopf
+    for t, b in rein:
+        if t == "Übergaben" and letzte: neu = neu.rstrip("\n") + "\n\n## Letzte Antwort\n\n" + letzte.rstrip("\n") + "\n\n"
+        neu += "## %s\n%s" % (t, b)
+    if letzte and not any(t == "Übergaben" for t, _ in rein): neu = neu.rstrip("\n") + "\n\n## Letzte Antwort\n\n" + letzte.rstrip("\n") + "\n"
+    i = neu.index("\n## Übergaben\n") + len("\n## Übergaben\n"); n = neu.find("\n## ", i)
+    tab = "\n" + KOPF + "".join(r + "\n" for r in reihen)
+    rest = re.sub(r"\n{3,}", "\n\n", neu[i:n if n >= 0 else len(neu)]).strip("\n")
+    neu = neu[:i] + ("\n" + rest + "\n" if rest else "") + tab + (neu[n:] if n >= 0 else "")
+    neu, archiv = schlank_uebergaben(neu, archiv, nr, von_fn)
+    return neu, archiv
 
 def nr_aus(kennung):
     m = re.fullmatch(r"(B?\d+(?:\.\d+)?[a-z]?)-Ü\d+", kennung)  # 1949: B<n> = Build-Auftrag
@@ -644,6 +764,61 @@ def offen(an=None, sitzungen_dateien=(), still=False, alle=False):
     zeigen(liste, an, alle)
     return liste
 
+def _merkmale(text, nr):
+    """2042 Prüfung: was beim Aufräumen gleich bleiben muss (Zählung, Beleg-Nein, erstes Nein, Chefworte, neuester Auftrag, offene Zeilen)."""
+    import rueckmeldung as rm, lauf
+    erstes = next((m.group("zeit") for m in rm.BLOCK.finditer(rm.rueck(text)) if {"nein", "nein, Auftrag", "wirkt nein"} & rm.worte(m.group("text"))), None)
+    try:
+        r = lauf.juengster_auftrag(text); auf = text[r[0]:r[1]] if r else None
+    except Exception as e: auf = "Fehler %s" % e
+    return (rm.zaehlen(text), rm.beleg_als_nein(text), erstes, abschnitt(text, "Chefworte"), auf,
+            [z["m"].group(0) for z in zeilen(text) if not z["z"].strip().startswith("erledigt")])
+
+def aufraeumen_alle(nrs=None, probe=False):
+    """2042 (3): `vorgang.py aufraeumen [NR …] [--probe]`: alle (oder die genannten) Vorgangsdateien in EINEM Commit aufräumen;
+    vorher Probe je Datei (Merkmale vorher = nachher), bei einer Abweichung wird nichts geschrieben."""
+    import rueckmeldung as rm
+    _git("fetch", "-q", "origin", "main")
+    rc, ls, _ = _git("ls-tree", "--name-only", "origin/main", ORDNER + "/")
+    alle = [os.path.basename(x)[:-3] for x in ls.splitlines() if x.endswith(".md")]
+    nrs = [n for n in alle if not nrs or n in nrs]
+    def rechnen(alt):
+        neu, bericht, ungleich = {}, [], []
+        for nr in nrs:
+            p, ap = _pfad(nr), archivpfad(nr)
+            t, a0 = alt.get(p, ""), alt.get(ap, "")
+            rm._ARCHIV.clear(); rm._ARCHIV["archiv/%s.md" % nr] = a0
+            vor = _merkmale(t, nr)
+            t2, a2 = aufraeumen(t, a0, nr, von_git)
+            rm._ARCHIV["archiv/%s.md" % nr] = a2 or ""
+            nach = _merkmale(t2, nr)
+            if vor != nach: ungleich.append(nr)
+            bericht.append((nr, len(t.encode()), len(t2.encode())))
+            if t2 != t: neu[p] = t2
+            if a2 and a2 != a0: neu[ap] = a2
+        rm._ARCHIV.clear()
+        return neu, (bericht, ungleich)
+    pfade = [_pfad(n) for n in nrs] + [archivpfad(n) for n in nrs]
+    if True:  # Probe immer zuerst, am gelesenen Stand
+        alt = {}
+        for p in pfade:
+            rc, t, _ = _git("show", "origin/main:" + p); alt[p] = t + "\n" if rc == 0 and t else ""
+        _, (bericht, ungleich) = rechnen(alt)
+        vorher, nachher = sum(b[1] for b in bericht), sum(b[2] for b in bericht)
+        print("PROBE %d Dateien: gleich %d, ungleich %d%s" % (len(bericht), len(bericht) - len(ungleich), len(ungleich), (" (" + ", ".join(ungleich[:20]) + ")") if ungleich else ""))
+        print("BYTE gesamt %d → %d" % (vorher, nachher))
+        for nr, v, n in sorted(bericht, key=lambda b: -b[1])[:5]: print("BYTE %s.md %d → %d" % (nr, v, n))
+        if probe or ungleich:
+            if ungleich: print("NICHTS geschrieben: Merkmale ungleich")
+            return ungleich
+    def f(alt):
+        neu, (bericht, ungleich) = rechnen(alt)
+        if ungleich: raise Fehler("Merkmale ungleich: " + ", ".join(ungleich[:20]))
+        return neu, len(neu)
+    n = atomar_dateien(pfade, f, "2042 (3): Vorgangsdateien aufgeräumt, Wortlaut in docs/vorgang/archiv/ (vorgang.py aufraeumen)")
+    print("GESCHRIEBEN %s Dateien in einem Commit" % n)
+    return []
+
 def haupt(a):
     frist = FRIST_MIN
     if "--frist" in a:
@@ -655,6 +830,10 @@ def haupt(a):
         if b == "verlaengern" and len(a) == 2: return annehmen(a[1], frist, True)
         if b == "erledigt" and len(a) in (2, 3): return erledigt(*a[1:])
         if b == "freigeben" and len(a) == 1: return freigeben()
+        if b == "aufraeumen":
+            probe = "--probe" in a
+            r = aufraeumen_alle([x for x in a[1:] if x != "--probe"] or None, probe)
+            sys.exit(1 if r else 0)
         if b == "offen":
             s = []
             if "--sitzungen" in a:
@@ -666,7 +845,7 @@ def haupt(a):
         sys.exit("vorgang.py %s: %s; nichts geschrieben" % (b, e))
     sys.exit(__doc__)
 
-BEFEHLE = ("uebergabe", "annehmen", "verlaengern", "erledigt", "freigeben", "offen")
+BEFEHLE = ("uebergabe", "annehmen", "verlaengern", "erledigt", "freigeben", "offen", "aufraeumen")
 
 if __name__ == "__main__":
     r = haupt(sys.argv[1:])

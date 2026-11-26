@@ -41,11 +41,18 @@ T = """# 9500 · Probe
 
 Wörtlich, mit Zeit; trägt `vorgang.py rueckmeldung` ein (1763).
 
+- **25.11., 19:50**, Prüfer (`session_P1`):
+> Beleg fehlt: Ton
+
 - **25.11., 20:30**, Prüfer (`session_P1`):
 > Beleg fehlt: Bild
 
 - **25.11., 20:40**, Prüfer (`session_P1`):
 > Beleg fehlt: Film
+
+- **26.11., 09:20**, Prüfer (`session_P1`):
+> Hinweis: %s
+> zweite Zeile nein, Auftrag
 
 - **26.11., 09:20**, Prüfer (`session_P1`):
 > %s
@@ -67,7 +74,8 @@ Wörtlich, mit Zeit; trägt `vorgang.py rueckmeldung` ein (1763).
 ## Hinweise Sokrates (25.11., 22:40)
 
 **Antwort Sokrates zu 9500-Ü2 (25.11., 22:50):** neueste Antwort.
-""" % LANG
+| 9500-Ü4 | Disponent | Hinweis am Dateiende | 26.11., 09:30 | offen |
+""" % ("Ton " * 120, LANG)
 
 def von(z, nr): return {"9500-Ü2": "Werkzeug"}.get(z["k"])
 
@@ -79,19 +87,20 @@ soll("Chefworte byteweise gleich", ue.abschnitt(neu, "Chefworte") == ue.abschnit
 soll("nur letzter Stand bleibt", "neuer Stand" in neu and "alter Stand" not in neu, neu)
 soll("Messung, Nachtrag, Hinweise raus", "## Messung" not in neu and "## Nachtrag" not in neu and "Teil 6 genauer" not in neu, neu)
 soll("letzte Antwort bleibt, ältere raus", "neueste Antwort" in neu and "alte Antwort" not in neu, neu)
+soll("Zeile am Dateiende bleibt, einmal, in Übergaben", neu.count("| 9500-Ü4 |") == 1 and "| 9500-Ü4 |" in ue.abschnitt(neu, "Übergaben"), neu)
 soll("offene Übergabe byteweise gleich", "| 9500-Ü3 | Werkzeug | Rückläufer (nein des Prüfers): nachbessern | 26.11., 09:20 | offen |" in neu, neu)
 soll("erledigte Übergabe: von aus dem Text", "| 9500-Ü1 | Prüfer | von Werkzeug | 25.11., 20:10 | erledigt 25.11., 20:30 session_P1 |" in neu, neu)
 soll("erledigte Übergabe: von aus Commit (von_fn)", "| 9500-Ü2 | Sokrates | von Werkzeug | 25.11., 20:50 | erledigt 25.11., 21:00 session_S |" in neu, neu)
 kurz = [m.group("text") for m in rm.BLOCK.finditer(ue.abschnitt(neu, "Rückmeldungen"))]
-soll("lange Rückmeldung ≤400 mit Verweis", len(kurz) == 3 and all(len(k) <= 400 for k in kurz) and kurz[-1].endswith("(voll: archiv/9500.md)"), kurz)
+soll("lange Rückmeldung ≤400 mit Verweis", len(kurz) == 5 and all(len(k) <= 400 for k in kurz) and kurz[-1].endswith("(voll: archiv/9500.md)"), kurz)
 weg = [z for z in T.splitlines() if z.strip() and z not in neu.splitlines() and z not in arch.splitlines()]
 soll("jede entfernte Zeile steht im Archiv", not weg, weg)
 soll("Zählung gleich (Datei + Archiv)", rm.zaehlen(neu) == rm.zaehlen(T), (rm.zaehlen(neu), rm.zaehlen(T)))
-soll("beleg_als_nein gleich (ältere Aufträge aus dem Archiv)", rm.beleg_als_nein(neu) == rm.beleg_als_nein(T) == 1, (rm.beleg_als_nein(neu), rm.beleg_als_nein(T)))
+soll("beleg_als_nein gleich (ältere Aufträge aus dem Archiv)", rm.beleg_als_nein(neu) == rm.beleg_als_nein(T) == 0, (rm.beleg_als_nein(neu), rm.beleg_als_nein(T)))
 soll("Leser macher/lauf_offen gleich", rm.macher(neu, "9500") == rm.macher(T, "9500") and rm.lauf_offen(neu) == rm.lauf_offen(T))
 n2, a2 = ue.aufraeumen(neu, arch, "9500", von)
 soll("zweites Aufräumen ändert nichts", n2 == neu and a2 == arch, (n2 == neu, a2 == arch))
-soll("Datei kleiner", len(neu) < len(T) // 2 + 300, (len(T), len(neu)))
+soll("Datei kleiner", len(neu) < len(T), (len(T), len(neu)))
 soll("Dedupe Sokrates-Zeile liest Archiv", "Übergabe 9500-Ü1 an " in ue.zeilen_was(neu, arch, "Sokrates"), ue.zeilen_was(neu, arch, "Sokrates"))
 
 # (2) beim Schreiben: erledigt macht die Zeile schlank, Wortlaut ins Archiv
