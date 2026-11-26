@@ -11,7 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 2042 | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe, list_sessions, vorgang.py offen, Nachrichten), Ergebnis mit Vorschlag an den Chef (Chef 21:50 an Alter Ego, nur über Alter Ego 21:52) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *62,37 $* |
+| 2042 | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe, list_sessions, vorgang.py offen, Nachrichten), Ergebnis mit Vorschlag an den Chef (Chef 21:50 an Alter Ego, nur über Alter Ego 21:52) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *74,53 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | M | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | M | Prüfer | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust … | 7 | B Abläufe | M | 1387 | 1110, 1128 | – | *wartet, 1129.4 ausgewertet, Punkt 6 gerissen* | *–* | *0* | *26,46 $* |
@@ -83,7 +83,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1172 | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte | 7 | Q QM | M | – | – | – | *ruht, bis es einen Weg ‚ja, klein‘ nach main gibt; heute nichts zu zählen (Sokrates 16:30 auf Frage Planer 16:26)* | *–* | *0* | *2,35 $* |
 | 1173 | Regel Kleinkram ohne Chef auf main … | 7 | B Abläufe | M | – | 1128 | – | *gebaut, Geprüft an: 3eb8bf088* | *–* | *0* | *0,36 $* |
 | 1189 | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes nachhalten … | 7 | B Abläufe | M | 27.11. | 1186 | – | *startbar* | *–* | *0* | *–* |
-| 1387 | Übersicht-Commits 15.11. 193 (14.11.: 37), Ursache 1313 | 7 | B Werkzeuge | M | – | 1129.4, 193, 1313 | – | *startbar, nachbessern nach Nein Ralf 25.11., 20:42 und Doris 26.11., 16:17 (Sokrates 16:19)* | *–* | *0* | *–* |
+| 1387 | Übersicht-Commits 15.11. 193 (14.11.: 37), Ursache 1313 | 7 | B Werkzeuge | M | – | 1129.4, 193, 1313 | – | *startbar, nachbessern nach Nein Ralf 25.11., 20:42 und Doris 26.11., 16:17 (Sokrates 16:19)* | *–* | *0* | *0,72 $* |
 | 1388 | D257.1 von Diogenes (464): rote Godot-Läufe 09.–15.11. 93 von 159 (58 %) gegen 52 von 185 (28 %) der Messwoche | 7 | B Abläufe | M | – | 464, 748 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 1400 | D261.1 von Diogenes: „Geprüft an“ nennt Commits, die es nicht gibt: 1392 c28c2e3d9 (echt 23cba5e17), 654.2 48bb6c487 … | 7 | B Werkzeuge | M | – | 1392, 654.2 | – | *gebaut, Geprüft an: 795ae6325* | *–* | *0* | *–* |
 | 1462 | Liegengebliebenes in derselben Sitzung als Vorgang beim Besitzer, eigenes Hindernis sofort melden | 7 | B Abläufe | M | 30.11. | 1463 | – | *gebaut, Geprüft an: 592d5840f* | *–* | *0* | *–* |
@@ -167,7 +167,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1607 | Rest von 1266, noch 92 Stellen „glut“ in 34 Dateien unter godot/, dazu DESIGN-GLUT.md, glut2.py | 2 | E Kampf | K | 1589.4 | 1266, 1589.2 | – | *wartet, nur 1589.4 am Kampf (Chef 11:58)* | *–* | *0* | *2,62 $* |
 | 2024 | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schwebt heute daneben) | 3 | E Figuren | M | 27.11. 17:30 | – | – | *startbar, wartet auf Testbuild Fr 27.11. 17:30 (Chef 14:00 A, Prüfer Doris ja 14:16), Blut in 1708* | *–* | *0* | *23,46 $* |
 | 2028 | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 25.11., 12:32) | 3 | E Figuren | M | – | – | claude/figur-2028-handgelenk | *gebaut, Geprüft an: cf7d57d45 (Prüfer 25.11., 17:00 Ja zur Ursache; Reste in 2032, 2033)* | *–* | *0* | *18,76 $* |
-| 2029 | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielkamera (2026 A) | 3 | E Figuren | M | – | – | – | *ruht, beim Chef (Obergrenze B)* | *–* | *0* | *29,77 $* |
+| 2029 | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielkamera (2026 A) | 3 | E Figuren | M | – | – | – | *ruht, beim Chef (Obergrenze B)* | *–* | *0* | *37,52 $* |
 | 2031 | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt gegen neu (Chef 13:39) | 3 | E Figuren | M | – | – | – | *startbar, steckt fest* | *–* | *0* | *39,74 $* |
 | 2032 | Rowena: rechte Finger auf dem Gürtel dunkel, gelbe Kleid-Innenseite sichtbar (Rest aus 2028, Prüfer 25.11., 17:00) | 3 | E Figuren | M | – | – | – | *ruht, beim Chef (Obergrenze B)* | *–* | *0* | *20,16 $* |
 | 2034 | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NPCs, als zusätzliche Auswahl (Chef 25.11., 17:07 zu 2029 „alles“) | 3 | E Figuren | M | – | – | – | *in Arbeit, Ursache belegen (Sokrates 22:14)* | *–* | *0* | *24,07 $* |
@@ -304,7 +304,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2054 | Werkzeugtests (1775) auf main 7× rot seit 10:18 (12:28, 12:47, 13:07; Lauf 45816794073); Ursache klären und beheben | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1625 | feste Startprompts je Rolle statt Startlektüre | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 25.11.* | *–* | *0* | *38,14 $* |
 | 1734 | Forschung und Entwicklung bei Sokrates, wöchentlich oder auf Bedarf: wie arbeiten andere … | 7 | B Steuerung | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1219,68 $* |
+| Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1220,34 $* |
 | 102 | Dokumente BornWire TCS nachziehen | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
