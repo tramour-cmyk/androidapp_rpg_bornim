@@ -83,7 +83,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1172 | montags zählen: Kleinkram-Punkte ohne Chef auf main, davon vom Chef zurückgeholt, Rückschritte | 7 | Q QM | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1173 | Regel Kleinkram ohne Chef auf main … | 7 | B Abläufe | M | – | 1128 | – | *gebaut, Geprüft an: 3eb8bf088* | *–* | *0* | *0,36 $* |
 | 1189 | Leichenprüfung der Vorgangsliste alle 48 h (Diogenes?): Erledigtes, Überholtes, Hängendes nachhalten … | 7 | B Abläufe | M | 27.11. | 1186 | – | *startbar* | *–* | *0* | *–* |
-| 1387 | Übersicht-Commits 15.11. 193 (14.11.: 37), Ursache 1313 | 7 | B Werkzeuge | M | Prüfer | 1129.4, 193, 1313 | – | *gebaut, Geprüft an: 4ab0c0655* | *–* | *0* | *–* |
+| 1387 | Übersicht-Commits 15.11. 193 (14.11.: 37), Ursache 1313 | 7 | B Werkzeuge | M | Prüfer, Sokrates | 1129.4, 193, 1313 | – | *gebaut, steckt fest* | *–* | *0* | *–* |
 | 1388 | D257.1 von Diogenes (464): rote Godot-Läufe 09.–15.11. 93 von 159 (58 %) gegen 52 von 185 (28 %) der Messwoche | 7 | B Abläufe | M | – | 464, 748 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 1400 | D261.1 von Diogenes: „Geprüft an“ nennt Commits, die es nicht gibt: 1392 c28c2e3d9 (echt 23cba5e17), 654.2 48bb6c487 … | 7 | B Werkzeuge | M | – | 1392, 654.2 | – | *gebaut, Geprüft an: 795ae6325* | *–* | *0* | *–* |
 | 1462 | Liegengebliebenes in derselben Sitzung als Vorgang beim Besitzer, eigenes Hindernis sofort melden | 7 | B Abläufe | M | 30.11. | 1463 | – | *gebaut, Geprüft an: 592d5840f* | *–* | *0* | *–* |
