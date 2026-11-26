@@ -2,7 +2,7 @@
 
 Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tools/zug-index.py`) bei jedem Push; nicht von Hand ändern.
 
-**Letzter Testbuild:** [Build 301 (APK)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/45887352754/artifacts/15151448895) · 26.11., 18:00 · zum Testen · Release dagegen nur auf Zuruf
+**Letzter Testbuild:** [Build 301 · 0.348.600 (APK)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/45887352754/artifacts/15151448895) · 26.11., 18:00 · zum Testen · Release dagegen nur auf Zuruf
 
 ## Wer wofür
 
@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 26.11., 20:56, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 26.11., 22:03, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -116,7 +116,7 @@ Nichts offen.
 
 | Folge | Version | Build | Was | Wer | Seit |
 |---|---|---|---|---|---|
-| 1 | [–](ansehen/t301-sammelbuild.md) | [Build 301](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/45887352754/artifacts/15151448895) | Sammelbuild: Einmessen, Gang mit Waffe, Leute an der Bank, Wiese in Niedrig, Ansagen je Art, Zielwahl und Flucht, Figuren in der Arena, Kleider, Waffenstaffel | Tom, Jerry und Technik | 26.11., 18:00 |
+| 1 | [0.348.600](ansehen/t301-sammelbuild.md) | [Build 301](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/45887352754/artifacts/15151448895) | Sammelbuild: Einmessen, Gang mit Waffe, Leute an der Bank, Wiese in Niedrig, Ansagen je Art, Zielwahl und Flucht, Figuren in der Arena, Kleider, Waffenstaffel | Tom, Jerry und Technik | 26.11., 18:00 |
 
 ## Zu tun
 
@@ -527,8 +527,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 26.11.; „star
 ## Lücken
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
-
-Format (Muster: „So geht's“ unten): t301-sammelbuild.md: Version 0.1.<Laufnummer> (Godot 0.348.<Laufnummer>) fehlt in Zeile 1 (trägt die Action nach, sobald der Lauf zum PR in Zeile 1 begonnen hat, 298; ohne PR selbst nachtragen; ohne Version stimmt die Folge nicht, 286)
 
 Beantwortet, Datei noch da (383.3: der Absender löscht sofort): ansehen/1973-zweihaender-waffe-in-der-hand.md (Antwort 1973, 26.11., 11:29), ansehen/t301-sammelbuild.md (Antwort t301, 26.11., 21:58)
 
