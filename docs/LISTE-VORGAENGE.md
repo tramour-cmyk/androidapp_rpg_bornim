@@ -46,7 +46,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1415 | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A) | 2 | E Kampf | M | 709, 1589.4 | 1072, 784 | claude/jerry-1415-takt | *ruht, Block 2 (1605)* | *–* | *0* | *9,72 $* |
 | 1588 | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | 2 | E Kampf | M | 1589.4 | 1556 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 1589.2 | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit und Versperren, Flucht … | 2 | E Kampf | M | 1589.4 | 1600, 1589.1, 444, 1589.6 | – | *wartet, Zweig claude/moritz-1589.2 kommt mit 1589.4 nach main (Chef 24.11., 10:26 „2a“)* | *–* | *0* | *22,66 $* |
-| 1589.4 | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nach Abschnitt 5 mit 1526, alte … | 2 | E Kampf | M | Chef | 1600, 1589.1, 1526, 438, 709 | – | *ruht, beim Chef (Obergrenze B)* | *–* | *0* | *92,23 $* |
+| 1589.4 | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nach Abschnitt 5 mit 1526, alte … | 2 | E Kampf | M | Chef | 1600, 1589.1, 1526, 438, 709 | – | *ruht, beim Chef (Obergrenze B)* | *–* | *0* | *100,40 $* |
 | 1589.5 | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Zahlen aus 444 … | 2 | E Kampf | M | 1589.4 | 1600, 1589.1, 444 | – | *wartet, nur 1589.4 am Kampf (Chef 11:58)* | *–* | *0* | *–* |
 | 1589.6 | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt nah, fern, weit | 2 | E Kampf | M | 1589.4 | 1589.2, 444, 1589.1, 1486 | – | *wartet, nur 1589.4 am Kampf (Chef 11:58)* | *–* | *0* | *–* |
 | 1603 | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in kerbe.gd | 2 | E Kampf | M | – | 1600 | – | *gebaut, Geprüft an: 80a423815; Chef 19:37 „1603 A“, Testbuild* | *–* | *0* | *41,74 $* |
@@ -75,7 +75,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1572 | Ford hing ab 16:04 zwei Stunden (Rebase-Abbruch abgelehnt), keiner startete, kein Telegram | 7 | B Abläufe | M | 1610 | – | – | *gebaut, Geprüft an: 239b6745a* | *–* | *0* | *1,38 $* |
 | 1715 | Laufzahl täglich im Tagesbericht Perikles: Läufe der Build-Zweige grün, rot, abgebrochen mit verlorener Bauzeit | 7 | B Abläufe | M | – | – | – | *gebaut, Geprüft an: a3fe7a452* | *–* | *0* | *0,72 $* |
 | 1725 | Ablauf als Flussdiagramm: wer am Spiel arbeitet, wer Verfahren und Regeln hält … | 7 | B Abläufe | M | – | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *1,21 $* |
-| 1933 | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halbwegs auf, fehlt etwas, das Fehler … | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1933 | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halbwegs auf, fehlt etwas, das Fehler … | 7 | B Abläufe | M | – | – | – | *startbar* | *–* | *0* | *1,97 $* |
 | 1954 | Chefsache-README als kurzes Dashboard: laufende Sitzungen, wer woran, als Nächstes, Quoten netto Vorgänge und Aufträge … | 7 | B Werkzeuge | M | Sokrates | – | – | *startbar* | *–* | *0* | *–* |
 | D75 | Filmsperre 511 zählte Film-Pushes 572 nicht (D75.1) | 7 | B Werkzeuge | M | – | 511, 572 | – | *Dauer, bis zum nächsten echten Film (D75.1 gebaut, D75.2 dann prüfen)* | *–* | *0* | *–* |
 | 464 | Rote Läufe senken: Haken vor jedem Push, der baut (Skriptprüfung, Tests lokal grün), Zählung im Tagesbericht … | 7 | B Abläufe | M | 1388 | – | – | *gebaut, Geprüft an: fcf9ab215* | *–* | *0* | *–* |
@@ -168,7 +168,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1529.1 | Ausdauer im Kampf bauen nach DESIGN-GLUT.md 12.5 … | 2 | E Kampf | K | – | 1529 | – | *ruht, bis Test Kerbensystem im Build* | *–* | *0* | *–* |
 | 1536 | drei Merkmalsnamen je Tiermerkmal einbauen, im Kampf ein Name je Merkmal, von Kampf zu Kampf gezogen, nie zweimal … | 2 | E Kampf | K | 1589.4 | 1525, 1489 | – | *wartet, nur 1589.4 am Kampf (Chef 11:58)* | *–* | *0* | *–* |
 | 1607 | Rest von 1266, noch 92 Stellen „glut“ in 34 Dateien unter godot/, dazu DESIGN-GLUT.md, glut2.py | 2 | E Kampf | K | 1589.4 | 1266, 1589.2 | – | *wartet, nur 1589.4 am Kampf (Chef 11:58)* | *–* | *0* | *2,62 $* |
-| 2024 | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schwebt heute daneben) | 3 | E Figuren | M | – | – | – | *startbar, Chefwort 25.11., 16:03* | *–* | *0* | *22,67 $* |
+| 2024 | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schwebt heute daneben) | 3 | E Figuren | M | – | – | – | *startbar, Chefwort 25.11., 16:03* | *–* | *0* | *23,46 $* |
 | 2028 | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 25.11., 12:32) | 3 | E Figuren | M | – | – | claude/figur-2028-handgelenk | *gebaut, Geprüft an: cf7d57d45 (Prüfer 25.11., 17:00 Ja zur Ursache; Reste in 2032, 2033)* | *–* | *0* | *18,76 $* |
 | 2029 | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielkamera (2026 A) | 3 | E Figuren | M | – | – | – | *startbar* | *–* | *0* | *29,77 $* |
 | 2031 | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt gegen neu (Chef 13:39) | 3 | E Figuren | M | – | – | – | *startbar, steckt fest* | *–* | *0* | *39,74 $* |
@@ -234,7 +234,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 41.2 | Ansel fährt nach N3 auch nachts (Prüfpunkt 6.4) | 13 | G Story | K | 1235 | – | – | *wartet* | *–* | *0* | *–* |
 | 447.4.1 | Bau Lehrmeister, Meisterschaften, Ruf Kapitel 1 (447.4) | 13 | G Story | K | 508 | 447.4 | – | *wartet* | *–* | *0* | *–* |
 | 839 | Erklärtexte der Grundwerte im Reiter Held nach BRS einbauen, Texte STORY-MENUE.md [817.…] | 13 | G Story | K | – | 817 | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
-| 1955 | Von Spike (1871): LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Liste“; auf Build-Macher und Prüfer umstellen; werkzeuge.md :74 veraltet (1858) | 6 | Q QS | M | – | – | – | *startbar* | *–* | *0* | *–* |
+| 1955 | Von Spike (1871): LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Liste“; auf Build-Macher und Prüfer umstellen; werkzeuge.md :74 veraltet (1858) | 6 | Q QS | M | – | – | – | *startbar* | *–* | *0* | *1,42 $* |
 | 2033 | Thessa: fast schwarzes Loch in der rechten Faust, Tusche zieht die Faustöffnung nach (Rest aus 2028, Prüfer 25.11., 17:00) | 6 | E Technik | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 26.1 | Durchspielbogen auswerten, Rest von 26: Gegenprobe je Klasse, neuer Bogen auf Godot (Chef 24.10., 16:56) | 6 | Q QS | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
 | 30 | Abstürze beim Testen | 6 | Q QS | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
@@ -304,7 +304,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2043 | titel_thema_test rot auf main (Fall Doris → Welt); liegt.py nennt noch Diogenes und Ford | 7 | B Steuerung | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1625 | feste Startprompts je Rolle statt Startlektüre | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 25.11.* | *–* | *0* | *38,14 $* |
 | 1734 | Forschung und Entwicklung bei Sokrates, wöchentlich oder auf Bedarf: wie arbeiten andere … | 7 | B Steuerung | K | – | – | – | *startbar* | *–* | *0* | *–* |
-| Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1211,51 $* |
+| Betrieb | Läufe von Ford und Ford 2 | 7 | B Steuerung | – | – | – | – | *Dauer* | *–* | *0* | *Ford 80,45 $ (Sitzungen je in KOSTEN-GEBUCHT.tsv), Perikles 3,42 $ (Vorratsdurchsicht, Spiegel), Sokrates 9,53 $ (18.10., t282 13.11.), Ford 2 16,79 $; +1215,56 $* |
 | 102 | Dokumente BornWire TCS nachziehen | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 111 | `DESIGN-BLENDE.md` kürzen (nach 24.6) | 7 | B Abläufe | K | – | – | – | *Idee* | *–* | *0* | *–* |
 | 262 | API-Credits im Plan: wofür nutzen? (Chef 20.10.) | 7 | B Abläufe | K | – | – | – | *startbar, gelöst 25.11.: 23.11.* | *–* | *0* | *–* |
