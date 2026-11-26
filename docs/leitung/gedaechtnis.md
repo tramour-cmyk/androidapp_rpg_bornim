@@ -23,7 +23,7 @@
 ## Offene Fäden
 
 - Uhren nur auf Chefsatz im Chat der Sitzung (R9, R10).
-- Nachfolger startet Alter Ego (…75wpEp seit 16:51): bei 250 Tsd. Startfelder an ihn (13:40).
+- Nachfolger startet Alter Ego (…77apEy seit 22:01): bei 250 Tsd. Startfelder an ihn (13:40).
 - Sa 28.11., 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs wieder einschalten. Laufsperre bis dahin, dann 2043; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
 - Chat eine Zeile, Inhalt auf Telegram; Starttexte als Codeblock.
 
