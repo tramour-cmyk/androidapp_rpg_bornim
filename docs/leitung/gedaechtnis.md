@@ -30,4 +30,4 @@
 
 ## Übergabe
 
-- 26.11., 08:56, `79MGDR` (383 Tsd.): 2042 offen: Startgröße zerlegen (Eilt); 2044 fertig; 2045 Kutte (Chef 👍 00:06); 2046 macht 1589.4 grün; 2031 Bildlauf, dann Vorlage Häute. Letzte Antwort: 08:56. Nachfolger: Sokrates – Leitung.
+- 26.11., 08:56, `79MGDR` (383 Tsd.): 2042 offen: Startgröße zerlegen (Eilt); 2044 fertig; 2045 Kutte (Chef 👍 00:06); 2046 macht 1589.4 grün; 1589.4 Halt 76/80 $: Vorlage Geld +10 $ für Ü35 (Wolf macht Platz) an Chef; 2031 Bildlauf, dann Vorlage Häute. Letzte Antwort: 08:56. Nachfolger: Sokrates – Leitung.
