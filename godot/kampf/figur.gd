@@ -4754,13 +4754,15 @@ func _ausweich_tiefe(o: Variant, an := Vector3.INF) -> float:
 	var tr := Transform3D(Basis(Vector3.UP, rotation.y), global_position if an == Vector3.INF else an)
 	var ks: Array = o.kapseln()
 	var tief := -INF
+	# 1589.4 (biss_1284 Kleriker mit Stab, Seed 7: das Ausweichen am Ort schob den Körper 0,24 m vor, die Zähne der Ratte, 0,12 m vor ihm
+	# geplant, lagen 0,12 m in ihm): neben dem Ding in der Hand (st[1]) auch der Körper in der Bewegung (st[2])
 	for st: Array in bahn_a:
-		for w: Array in st[1]:
+		for w: Array in st[1] + st[2]:
 			var a0: Vector3 = tr * (w[0] as Vector3)
 			var a1: Vector3 = tr * (w[1] as Vector3)
 			for c: Array in ks:
 				var pq: PackedVector3Array = Geometry3D.get_closest_points_between_segments(a0, a1, c[0], c[1])
-				tief = maxf(tief, float(c[2]) - pq[0].distance_to(pq[1]))
+				tief = maxf(tief, float(c[2]) + float(w[2]) - pq[0].distance_to(pq[1]))
 	return tief
 
 
