@@ -11,10 +11,15 @@
   "text": "Inhaltsverzeichnis docs/README.md, ohne Zeile im Inhaltsverzeichnis: LISTE-LEHREN.md",
   "vorgang": "1977"
  },
+ "969": {
+  "besitzer": "Arbeitsplaner",
+  "seit": "2026-11-26T07:36+01:00",
+  "text": "docs/LISTE-REGELWERTE.md veraltet; python3 tools/regelwerte.py, committen"
+ },
  "groesse:docs/ARBEIT-BETRIEB.md": {
   "besitzer": "Disponent",
   "seit": "2026-11-26T07:06+01:00",
-  "text": "docs/ARBEIT-BETRIEB.md hat 38868 Bytes (Grenze 30000), Erledigtes streichen"
+  "text": "docs/ARBEIT-BETRIEB.md hat 41494 Bytes (Grenze 30000), Erledigtes streichen"
  },
  "regel:ARBEIT-TAGESBERICHT.md:Tagesbericht N Stunden alt (höchstens N ": {
   "besitzer": "Arbeitsplaner",
