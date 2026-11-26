@@ -1,6 +1,8 @@
 # 1589.4 · Wege der Arena (Kapseln) in den Filmen so richtig?
 Elke · 26.11., 08:50 · E Kampf · Antwort Sokrates 08:48 zu 1589.4-Ü29
 
+[Film von 26.11., 16:24](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261126-162449-1589.4/2026-11/26-1623-1589.4-Benno.mp4) (eingetragen von meldung.sh, Benno)
+
 [Film von 26.11., 14:00](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261126-140021-1589.4/2026-11/26-1400-1589.4-Zita.mp4) (eingetragen von meldung.sh, Zita)
 
 [Film von 26.11., 09:00](https://cdn.jsdelivr.net/gh/tramour-cmyk/androidapp_rpg_bornim@film/20261126-090016-1589.4/2026-11/26-0900-1589.4-Elke.mp4) (eingetragen von meldung.sh, Elke)
