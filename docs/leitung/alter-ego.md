@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj75wpEpMWabvHAke1zw (seit 26.11., 16:51, Tiefe 1). Sokrates session_01Hmoj77SpWuB5xdcUbNkjWo (seit 26.11., 16:50). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj75wpEpMWabvHAke1zw (seit 26.11., 16:51, Tiefe 1). Sokrates session_01Hmoj78LQ6fWBWLbV6uJK6n (seit 26.11., 21:59). Disponent session_01Hmoj77aaqcZJjVKxEEoGZg (seit 17:24). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj75wpEpMWabvHAke1zw (seit 26.11., 16:51, Tiefe 1). Sokrates
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 26.11., 21:59 Sokrates …77SpWu 269 Tsd. übergibt (b1222da7d) → Nachfolger …78LQ6f (opus, Startsperre 58e6a11f1), keine Uhren an ihm; Vorgänger archiviert.
 - 26.11., 21:58 Sokrates übersteuert (angenommen): Testbitte 301 sofort, Belege danach unter 30 Min., sonst „im Spiel ansehen“ (Chef wartet seit 18.11. auf Testbuild).
 - 26.11., 21:58 Runde 21:56: Build 301 gebaut; Marta tote Frage (Belege 1535/1655/2028/458.3) → in Vertretung: nachholen, über 30 Min./neuer Start → nächster Build; an Sokrates. Disponent 212, Sokrates 269 Tsd.
 - 26.11., 20:55 Runde 20:54: t301 gemischt (15 Vorgänge), Haken 1716 behoben, Prüfer Conrad läuft, Britta archiviert; Disponent 203 Tsd., Sokrates 266 Tsd.; keine Funde.
