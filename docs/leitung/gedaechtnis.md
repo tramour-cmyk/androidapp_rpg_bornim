@@ -22,12 +22,12 @@
 
 ## Offene Fäden
 
-- Konferenz: Alter Ego `session_01Hmoj78egvYz1pP981xLHs5` vertritt außer Vorbehalt; Notstart über Uwe mit Nr 2013 (`alter-ego.md`).
+- Konferenz: Alter Ego `session_01Hmoj762EPtvo4atj6qUmKf` vertritt außer Vorbehalt; Notstart Nr 2013 (`alter-ego.md`). Tiefe 8 sperrt Starts: Disponent Tiefe 0 (Chef) startet.
 - Nach main: CLAUDE.md 8 (Chef 25.11., 17:37, 17:44); mischt Sokrates.
 - Laufsperre bis Sa 28.11., 20:00: drei Fachkräfte, Spiel, Eilt; Werkzeug nur 2035, 2036, 2039, 2041, Eilt 2042, 2044. Sa vorlegen: --sperre-Teile, Testbuild Sa (Technik Fr).
 - Täglich Modell, Umgebung, Aufwand je Sitzung.
-- Übergang 300/450 Tsd. nach 2042 zurück (Teil 8, Chef).
+- Übergang 300/450 Tsd. bis 2042 fertig (Teil 8, Chef). Nachtsperre 23–07 gilt auch für Weiterarbeit (R78).
 
 ## Übergabe
 
-- 25.11., 23:01, `79sfZC` (400 Tsd.): 2041 auf main; 2042 Eilt (Dora, Stand in 2042.md, mischt Sokrates); 1708 B läuft; 2044 Start nach Gegenprüfung. Offen Chef: 2032, 2031 Kutte; 2031-Vorlage nach Orkbild. Letzte Antwort: 23:01. Nachfolger: Sokrates – Leitung.
+- 26.11., 08:56, `79MGDR` (383 Tsd.): 2042 Teile 1–7 auf main, offen Startgröße zerlegen (Eilt, Halt 46 $); 2044 fertig; 2045 Kutte (Chef 👍 00:06); 2046 macht 1589.4 grün (Elke: Film an Chef, Prüfer); 2031 Bildlauf, dann meine Vorlage (Kutte raus, Häute); 2032 Shader-Versuch; 2034 Messlauf; 1708 Schild-Film. Letzte Antwort: 08:56. Nachfolger: Sokrates – Leitung.
