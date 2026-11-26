@@ -19,6 +19,7 @@ var halm_mmi: MultiMeshInstance3D       # 804: unser Gras, aus, solange das Gras
 var kit_gras: Array[MultiMeshInstance3D] = []
 var kit_stellen: Array[Vector3] = []
 var kit_art := PackedByteArray()
+var kit_nur_blumen := false           # 1205b: nur die Blumen des Kits (Grafik Niedrig), unser Gras bleibt
 var blueten: Array = []               # 1205: [MeshInstance3D, Fläche, Stoff] der gezeichneten Blüten (dorf.py flowers, Stoff „bluete“)
 static var _ohne: ShaderMaterial
 var effekte: DorfEffekte             # 814 Effekte Szene 1 (Kaminrauch, Fackeln, Staub, Fahne, Wind, Federn), nach DorfEffekte.an
@@ -27,10 +28,11 @@ var insel_ohne := PackedVector4Array()   # 814: Lichtinseln ohne die der Effekte
 
 # 804: Gras und Blumen des Kits an den Stellen unseres Grases, unser Gras dann aus; nach GrasBausatz.an (Grafikstufe 698, Testmenue)
 func gras_neu() -> void:
-	if GrasBausatz.aktiv() and kit_gras.is_empty() and not kit_stellen.is_empty():
-		kit_gras = GrasBausatz.baue(self, kit_stellen, kit_art, karte.id == "village")   # 1205: Blumen im Dorf kleiner
+	if (GrasBausatz.aktiv() or GrasBausatz.nur_blumen()) and kit_gras.is_empty() and not kit_stellen.is_empty():
+		kit_nur_blumen = not GrasBausatz.aktiv()   # 1205b A: Grafik Niedrig, Blumen des Kits zu unserem Gras
+		kit_gras = GrasBausatz.baue(self, kit_stellen, kit_art, karte.id == "village", kit_nur_blumen)   # 1205: Blumen im Dorf kleiner
 	for m in kit_gras: m.visible = GrasBausatz.an
-	if halm_mmi: halm_mmi.visible = kit_gras.is_empty() or not GrasBausatz.an
+	if halm_mmi: halm_mmi.visible = kit_gras.is_empty() or not GrasBausatz.an or kit_nur_blumen
 	# 1205 (Chef 13.11., 18:48: „Blütenfelder, weil die dann nicht so komisch ausschauen wie unsere … geklecksten Blümchen“): steht das
 	# Gras des Kits, blühen nur seine Blumen; die Kleckse aus dorf.py (Kugel auf Stiel) zeichnen dann nichts, ohne Kit wie bisher
 	var kit_an := GrasBausatz.an and not kit_gras.is_empty() and not GrasBausatz.vorher
@@ -39,7 +41,7 @@ func gras_neu() -> void:
 		_ohne.shader = Shader.new()
 		_ohne.shader.code = "shader_type spatial;\nrender_mode unshaded, cull_disabled;\nvoid vertex() { POSITION = vec4(2.0, 2.0, 2.0, 1.0); }\nvoid fragment() { ALBEDO = vec3(0.0); }\n"
 	for b in blueten: (b[0] as MeshInstance3D).set_surface_override_material(b[1], _ohne if kit_an else b[2])
-	if held and GrasBausatz.an and not kit_gras.is_empty(): GrasBausatz.schieber(held)
+	if held and GrasBausatz.an and not kit_gras.is_empty() and not kit_nur_blumen: GrasBausatz.schieber(held)
 	# 814: bis zum Ende des Umzugs schaltet „Gras“ im Testmenue auch die Effekte der Szene 1 (Bilder/s mit und ohne Pakete);
 	# spiel.gd und testmodus.gd aendert bis dahin nur der Umzug (LISTE-UMZUG-BRS 2.5), danach ein eigener Schalter
 	DorfEffekte.an = GrasBausatz.an
