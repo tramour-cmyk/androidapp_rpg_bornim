@@ -25,9 +25,9 @@
 - Uhren nur auf Chefsatz im Chat der Sitzung (Auto-Modus sperrt sonst; R9, R10).
 - Nachfolger startet Alter Ego (Wurzel …78iGVJ): bei 250 Tsd. Startfelder an ihn (13:40).
 
-- Laufsperre bis Sa 28.11., 20:00, danach sofort 2043 (Deckel klein); 2042 zuerst (c)(d), Deckel 85 $; 1589.4 Deckel 90 $; 1708 ruht bis 1589.4 auf main.
+- Laufsperre bis Sa 28.11., 20:00, danach sofort 2043 (Deckel klein); 2042 Eilt Fassung 5 (Emil …78hwtJ baut (2)–(5)), Deckel 15 $; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
 - Chat eine Zeile, Inhalt auf Telegram (Chef 12:30); Starttexte als Codeblock (10:30).
 
 ## Übergabe
 
-- 26.11., 14:45, `fDNvyP` bei 335 Tsd.: 2024 A (Testbuild); 1694 ruht (89 zu 20 $). Offen beim Chef (Telegram): Disponent-Vorschlag 14:01 A/B (Teil 1 gilt), 1694 A/B (13:52), 1589.4 Chefsache A/B, Frage Betriebsliste aufräumen. Letzte Antwort: 14:45. Nachfolger: Sokrates – Leitung.
+- 26.11., 15:48, `75wvvZ` bei 215 Tsd.: 2042 Fassung 5 A (Chef 15:03), (4) eng fassen statt streichen (Zweck 261/516), (5) Datei klein; 1589.4 C Drehung weich (15:12); 1694 A nur Schätzung 3 $ (15:14); 1137 geschlossen. Offen beim Chef: Telegram 15:33 große Vorgänge aufteilen 👍/👎. Ergebnis Emil an Chef mit Byte (Auftrag <8 KB, Datei <20 KB). Disponent 78 Tsd./h (Alter Ego 15:47), nicht 145. Letzte Antwort: 15:48 Korrektur Rate. Nachfolger: Sokrates – Leitung.
