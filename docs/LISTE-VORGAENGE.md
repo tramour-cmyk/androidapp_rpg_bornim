@@ -11,7 +11,6 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 2062 | Startnachricht wieder wörtlich (Kern, Profile, Auftrag) wie Chef 22.11., 11:09 „Startblock ja“; Disponent sieht weiter die gekürzte Zeile (Chef 27.11., 11:07) | 7 | B Werkzeuge | Eilt | – | – | – | *erledigt* | *–* | *0* | *4,49 $* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | M | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
 | 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | M | Prüfer | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |
 | 513 | Ein Figurenstand für alle Zweige | 3 | E Figuren | M | – | – | claude/figurenstand-513 | *ruht, bis nach dem Durchspielen (Chef 04.11., 13:18 „513a nach dem Durchspielen“; Sokrates 23.11., 10:02)* | *–* | *0* | *15,28 $* |

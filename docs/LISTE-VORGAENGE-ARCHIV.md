@@ -2240,3 +2240,4 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 1851 | neustart-haken.py umbauen: Bremse nur Sperre ohne Erinnerungstext, auch Folgeaufträge, Fachkraft etwa 100 Tsd., Grenzen … | B Werkzeuge | M | – | Werkzeug | erledigt |
 | 2055 | Große Vorgänge sollen aufgeteilt werden, wenn es sinnvoll machbar ist (Chef 26.11., 16:05): Satz für Arbeitsplaner, Wortlaut legt Sokrates vor | B Steuerung | M | – | Werkzeug | erledigt |
 | 2060 | Vorgangsdatei schlank beim Eintragen: nur Auftrag, Chefworte, offene Übergaben, letzte Rückmeldung; Rest sofort ins Archiv (Chef 27.11., 09:32) | B Werkzeuge | M | 15,09 $ | Werkzeug | erledigt |
+| 2062 | Startnachricht wieder wörtlich (Kern, Profile, Auftrag) wie Chef 22.11., 11:09 „Startblock ja“; Disponent sieht weiter die gekürzte Zeile (Chef 27.11., 11:07) | B Werkzeuge | M | 4,49 $ | Werkzeug | erledigt |
