@@ -299,7 +299,6 @@ def aufraeumen(text, archiv, nr, von_fn=None):
     import rueckmeldung as rm
     ms = list(_ABSCHNITT.finditer(text or ""))
     if not ms: return text, archiv
-    antwort_zeiten = [rm._zeit(a.group(0).split("\n", 1)[0]) for a in _ANTWORT.finditer(text + "\n" + (archiv or ""))]
     kopf = text[:ms[0].start()]
     teile = [(m.group(1), text[m.end():(ms[i + 1].start() if i + 1 < len(ms) else len(text))]) for i, m in enumerate(ms)]
     if not any(t == "Übergaben" for t, _ in teile): return text, archiv
@@ -347,7 +346,7 @@ def aufraeumen(text, archiv, nr, von_fn=None):
     tab = "\n" + KOPF + "".join(r + "\n" for r in reihen if not ZEILE.match(r).group("z").strip().startswith("erledigt"))
     rest = re.sub(r"\n{3,}", "\n\n", neu[i:n if n >= 0 else len(neu)]).strip("\n")
     neu = neu[:i] + ("\n" + rest + "\n" if rest else "") + tab + (neu[n:] if n >= 0 else "")
-    return rueck_erledigt(neu, archiv, nr, antwort_zeiten)
+    return rueck_erledigt(neu, archiv, nr)
 
 RUECK_HALTEN = {"nein", "nein, Auftrag", "wirkt nein", "Beleg fehlt", "steckt fest", "Frage", "Laufanforderung"}  # bis 2060
 MARKE = "Ältere Rückmeldungen wörtlich in archiv/%s.md (zählen mit, 2060)."
@@ -364,21 +363,19 @@ def _stuecke(b):
         aus.append((art, "\n".join(zl[i:j]))); i = j
     return aus
 
-def _spaeter(text, archiv, antwort_zeiten=None):
-    """Zeiten, nach denen eine Frage als beantwortet gilt (2060): Auftragsfassungen, Chefworte, Antworten, Übergabezeilen nicht an
-    Sokrates (Datei und Archiv)."""
+def _beantwortet(text, archiv, t0, wer):
+    """2060 (Auftrag 10:10, Ziel): eine Frage (Zeit T0, Absender WER) ist beantwortet, wenn nach ihr eine neuere Auftragsfassung, ein
+    Chefwort oder eine erledigte Übergabe an den Fragenden steht (Datei und Archiv)."""
     import rueckmeldung as rm
     g = (text or "") + "\n" + (archiv or "")
     z = [rm._zeit(m.group(1)) for m in _ABSCHNITT.finditer(g) if m.group(1).startswith("Auftrag (")]
     z += [rm._zeit(m.group(1)) for m in re.finditer(r"(?m)^- \*\*([^*]+)\*\*, Chef", abschnitt(g, "Chefworte"))]
-    z += list(antwort_zeiten or []) + [rm._zeit(a.group(0).split("\n", 1)[0]) for a in _ANTWORT.finditer(g)]
-    z += [rm._zeit(r["seit"]) for r in zeilen(g) if r["an"].strip() != "Sokrates"]
-    return [x for x in z if x]
+    z += [rm._zeit(r["seit"]) for r in zeilen(g) if r["z"].strip().startswith("erledigt") and r["an"].strip() == wer.strip()]
+    return any(x and x > t0 for x in z)
 
-def rueck_erledigt(text, archiv, nr, antwort_zeiten=None):
+def rueck_erledigt(text, archiv, nr):
     """2060 (Chef 27.11., 09:27 „Alter Schlons fliegt ins Archiv“): in „## Rückmeldungen“ bleiben die neueste Zustandszeile und jede
-    „ruht“, der Vorspann, die letzte Rückmeldung, Blöcke vom Chef und jede unbeantwortete Frage (keine spätere Auftragsfassung, kein
-    späteres Chefwort, keine spätere Antwort oder Übergabe außer an Sokrates, keine spätere Rückmeldung derselben Sitzung); alles andere
+    „ruht“, der Vorspann, die letzte Rückmeldung, Blöcke vom Chef und jede unbeantwortete Frage (_beantwortet); alles andere
     wörtlich ins Archiv. Die Zählung (rueckmeldung.rueck liest das Archiv mit) muss gleich bleiben, sonst bleibt der Block."""
     import rueckmeldung as rm
     i = ("\n" + (text or "")).find("\n## Rückmeldungen\n")
@@ -390,14 +387,10 @@ def rueck_erledigt(text, archiv, nr, antwort_zeiten=None):
     if not bl and not [1 for art, x in st if art == "absatz" and x.startswith("Zustand: ")][1:]: return text, archiv
     zt = lambda m: rm._zeit(m.group("zeit")) or (0, 0, 0, 0)
     letzte = bl[-1][0] if bl else None  # die zuletzt eingetragene (unten angehängt; die Zeit kann von Hand älter sein)
-    spaet = _spaeter(text, archiv, antwort_zeiten)
     halten = set()
     for k, m in bl:
         if k == letzte or "Chef" in m.group("wer"): halten.add(k); continue
-        if "Frage" in rm.worte(m.group("text")):
-            t0 = zt(m)
-            gleich = [m2 for k2, m2 in bl if k2 != k and zt(m2) > t0 and (m.group("sid") and m2.group("sid") == m.group("sid"))]
-            if not gleich and not any(x > t0 for x in spaet): halten.add(k)
+        if "Frage" in rm.worte(m.group("text")) and not _beantwortet(text, archiv, zt(m), m.group("wer")): halten.add(k)
     erster_zustand = next((k for k, (art, x) in enumerate(st) if art == "absatz" and x.startswith("Zustand: ")), None)
     def bleibt(k):
         art, x = st[k]
