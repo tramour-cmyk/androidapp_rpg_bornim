@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 27.11., 09:33, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 27.11., 10:57, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -38,15 +38,15 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 27.11., 
 | ↳ **12** Bedienung und Oberfläche | 6 (6) | 0 | 0 | 0 | 3 | 531a (Oberfläche) Rückfrage: Bewegungspaket „Campfire“ für Garrick… |
 | ↳ **13** Geschichte und Texte | 10 (10) | 1 | 0 | 0 | 2 | 2040 (Story) Wörter für Frisur und Bart aus 2029, Vorschlag de… |
 | ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 2 | 1 | 1270.7 (Technik) nach Messung 1270.6: Texturen komprimiert und Lau… |
-| **7** Firma: Werkzeuge und Abläufe | 123 (122) | 86 | 0 | 1 | 23 | 1520 (Werkzeug) An den Läufen sparen |
+| **7** Firma: Werkzeuge und Abläufe | 123 (122) | 85 | 0 | 1 | 23 | 1520 (Werkzeug) An den Läufen sparen |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 5 | 142.3 (Arbeitsplaner) Tester öffentlich suchen |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 0 | 14 | 64 | 1479 |
-| neu | 1 | 15 | 83 | 1589 |
+| erledigt | 1 | 14 | 65 | 1480 |
+| neu | 2 | 15 | 84 | 1590 |
 | **netto** (erledigt − neu) | **−1** | **−1** | **−19** | **−110** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
@@ -384,7 +384,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 121, Muss 85, startbar 48
+**Werkzeug** – offen 121, Muss 84, startbar 48
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -438,7 +438,6 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.11.; „star
 | 1871 | M | Umschalt-Commit (werkzeuge.md Schritt 8) samt Umzug „Zu <Nr>“ in Vorgangsdateien (aus 1865 | wartet auf Diogenes (greift?) |
 | 1894 | M | herzschlag.yml prüft nur bei Push auf docs/ (nachts fast nur von Ford) und per Zeitplan (s | wartet auf 1871 (gebaut) |
 | 1937 | M | Probelauf-Haken bleibt | wartet auf 1871 (gebaut) |
-| 1851 | M | neustart-haken.py umbauen: Bremse nur Sperre ohne Erinnerungstext, auch Folgeaufträge, Fac | wartet auf Sokrates |
 | 1852 | M | Quelle Protokoll ARBEIT-BETRIEB.md ersetzen in startsperre-haken.py, startwarnung.py (auch | wartet auf Sokrates |
 | 1853 | M | tagesbericht.py nach routine-tagesbericht.md F3 (:22–28): „Wo stehen wir“ statt „Rest gesc | wartet auf Sokrates |
 | 1856 | M | Ende-Haken statt weiter-haken.py: meldet am Ende jeder Fachkraft-, Prüfer-, Arbeitsplaner- | wartet auf Sokrates |
@@ -509,6 +508,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.11.; „star
 | 2058 | M | Arbeitsplaner, der noch läuft, nimmt weitere Aufträge, bis zu drei, dann archivieren; 2 Pl | startbar |
 | 2059 | M | Erledigte Übergaben ganz ins Archiv, in der Datei nur offene; nächste Kennung aus Datei un | startbar |
 | 2060 | M | Vorgangsdatei schlank beim Eintragen: nur Auftrag, Chefworte, offene Übergaben, letzte Rüc | startbar |
+| 2061 | K | Neustart-Grenzen messen: Kosten je fertigem Vorgang, Wochen ab 22.11. (200/300) gegen ab 2 | Termin 27.12. |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 
