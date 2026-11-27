@@ -22,9 +22,9 @@
 
 ## Offene Fäden
 
-- delete_trigger trotz autoMode-Satz (2d3c1e5701) gesperrt: Fall 1 (27.11., 18:28, Alter Ego und Sokrates); trig_01QrZb1D… abgeschaltet stehen lassen.
+- delete_trigger gesperrt (27.11.).
 - Uhren nur auf Chefsatz (R9, R10).
-- Nachfolger startet Alter Ego (…76togH seit 27.11., 10:48): bei 250 Tsd. Startfelder an ihn (13:40).
+- Nachfolger startet Alter Ego (…78YZ5U): bei 250 Tsd. Startfelder an ihn (13:40).
 - Sa 28.11., 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs wieder einschalten. Laufsperre bis dahin, dann 2043; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
 - Starttexte als Codeblock.
 - Nach Sa 20:00: 2029-Ü33/Ü34 vorlegen (Lizenz hats02).
