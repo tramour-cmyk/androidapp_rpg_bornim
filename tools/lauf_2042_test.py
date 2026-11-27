@@ -82,15 +82,16 @@ wurzel("25.11., 22:30", [("9001-Ü1", "Disponent", "25.11., 22:35", "erledigt 25
 a = weck("9001-Ü2", "Disponent")
 soll("(2) frühere Zeile erledigt → WECKER", "WECKER session_DISP" in a, a)
 
-# (5) Startnachricht (Sokrates 2042-Ü5, 22:37): Auftrag nur in der Vorgangsdatei, in der START-Zeile nur der Verweis
+# (5) Startnachricht (Sokrates 2042-Ü5, 22:37) Verweis statt Auftrag; 2062 (Chef 27.11., 11:07) zurückgenommen: Auftrag wörtlich
 import shutil
 dd = tempfile.mkdtemp(); os.makedirs(os.path.join(dd, "vorgang")); shutil.copytree(os.path.join(lauf.DOCS, "profile"), os.path.join(dd, "profile"))
 LANG = "GEHEIMER-LANGTEXT " * 300
 open(os.path.join(dd, "vorgang", "9002.md"), "w").write("# 9002 · Probe\n\n## Auftrag (25.11., 22:00)\n\n1. **Ziel:** %s\n4. **Beachte:** Profil Werkzeug\n\n## Chefworte\n" % LANG)
 st = next((z for z in lauf.start_zeilen("Werkzeug", "9002", "Probe.", [], docs=dd) if z.startswith("START ")), "")
-soll("(5) START Werkzeug: Auftrag nicht wörtlich", "GEHEIMER-LANGTEXT" not in st, len(st))
-blk = lauf.blocktext("Werkzeug", "9002", dd)  # 2042 (c): Ladetext und Verweis kommen aus `lauf.py --startblock`, START trägt den Aufruf
-soll("(5) START Werkzeug: Aufruf --startblock", "tools/lauf.py --startblock Werkzeug 9002" in st and "GEHEIMER-LANGTEXT" not in blk, st[-400:])
+soll("(5/2062) START Werkzeug: Auftrag wörtlich", LANG.strip() in st, len(st))
+blk = lauf.blocktext("Werkzeug", "9002", dd)  # 2042 (c): --startblock zum Nachlesen (Ladetext, Verweis)
+soll("(5/2062) START Werkzeug: Ladetext statt Aufruf --startblock", lauf._block("Werkzeug", "9002", dd)[0] in st.replace("\\n", "\n")
+     and "tools/lauf.py --startblock Werkzeug 9002" not in st and "GEHEIMER-LANGTEXT" not in blk, st[-400:])
 soll("(5) --startblock Werkzeug: Verweis auf docs/vorgang/9002.md", "docs/vorgang/9002.md" in blk and "vorgang.py auftrag 9002" in blk, blk[-400:])
 soll("(5) --startblock Werkzeug: Ladetext Werkzeug bleibt", "**Werkzeug**" in blk, blk[:300])
 
