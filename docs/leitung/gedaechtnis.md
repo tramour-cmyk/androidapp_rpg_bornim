@@ -25,7 +25,7 @@
 - Uhren nur auf Chefsatz im Chat der Sitzung (R9, R10).
 - Nachfolger startet Alter Ego (…77apEy seit 22:01): bei 250 Tsd. Startfelder an ihn (13:40).
 - Sa 28.11., 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs wieder einschalten. Laufsperre bis dahin, dann 2043; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
-- 2060 (Anna …761PYC, Deckel 15 $): nach fertig Prüfer selbst starten, nach Ja mischen und einmal über alle Vorgangsdateien laufen lassen.
+- 2060 (Anna …761PYC, Deckel 15 $): nach fertig Prüfer starten, nach Ja mischen, einmal über alle Dateien.
 - Starttexte als Codeblock.
 - Nach Sa 20:00: 2029-Ü33/Ü34 vorlegen (Lizenz hats02).
 
