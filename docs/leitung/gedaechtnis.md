@@ -30,4 +30,4 @@
 
 ## Übergabe
 
-- 27.11., 11:40, `78LQ6f`: Chef 26.11., 17:18 gilt (keine Starts bis Sa 20:00), Ausnahmen 2060 und 2062 erledigt und auf main (a09b3bcc69, aufgeräumt 453d615fa4; 2062 db97adee7a). Grenzen 300/450 fest (Chef 10:57), Messung 2061 ab 27.12. Regeln Kern Büro: eine Auftragsfassung, Deckel nie anheben. Fertig-Meldungen gehen an den Disponenten: get_session prüfen. t301 beim Chef bis Sa 20:00. Letzte Antwort: 11:39. Nachfolger: Sokrates – Leitung.
+- 27.11., 11:40, `78LQ6f`: Chef 26.11., 17:18 gilt (keine Starts bis Sa 20:00), Ausnahmen 2060 und 2062 erledigt und auf main (a09b3bcc69, db97adee7a). Grenzen 300/450 fest (Chef 10:57); 2061 ab 27.12. Regeln Kern Büro: eine Auftragsfassung, Deckel nie anheben. Fertig-Meldungen gehen an den Disponenten: get_session prüfen. t301 beim Chef bis Sa 20:00. Letzte Antwort: 11:39. Nachfolger: Sokrates – Leitung.
