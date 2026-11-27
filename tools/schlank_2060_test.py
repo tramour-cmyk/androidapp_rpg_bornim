@@ -37,7 +37,7 @@ Wörtlich, mit Zeit; trägt `vorgang.py rueckmeldung` ein (1763).
 > nein: Mangel 1
 
 - **26.11., 09:12**, Werkzeug (`session_W1`):
-> Frage: beantwortet durch Antwort 09:14
+> Frage: beantwortet durch erledigte Übergabe an Werkzeug 09:14 (Ü4)
 
 - **26.11., 09:20**, Werkzeug (`session_W1`):
 > fertig an abc1234
@@ -60,6 +60,7 @@ Wörtlich, mit Zeit; trägt `vorgang.py rueckmeldung` ein (1763).
 | 9600-Ü1 | Prüfer | prüfen: „fertig“ (Rückmeldung 26.11., 09:20 von Werkzeug) | 26.11., 09:20 | erledigt 26.11., 09:25 session_P1 |
 | 9600-Ü2 | Sokrates | Frage W1 | 26.11., 09:12 | erledigt 26.11., 09:14 session_S |
 | 9600-Ü3 | Sokrates | Frage W2: X oder Y | 26.11., 09:30 | offen |
+| 9600-Ü4 | Werkzeug | Antwort zu Frage W1: nimm Y | 26.11., 09:14 | erledigt 26.11., 09:15 session_W1 |
 """
 
 def von(z, nr): return "Werkzeug"
@@ -90,9 +91,18 @@ n3, a3 = ue.aufraeumen(t3, arch, "9600", von)
 rm._ARCHIV["archiv/9600.md"] = a3
 soll("Laufbremse: drittes Nein nach Verschieben zählt 3", rm.zaehlen(n3)["nein"] == 3 and "Mangel 1" not in n3, (rm.zaehlen(n3), n3))
 
+# Frage beantwortet nur durch neuere Auftragsfassung, Chefwort oder erledigte Übergabe an den Fragenden (Auftrag 10:10)
+t5 = T.replace("| 9600-Ü4 | Werkzeug |", "| 9600-Ü4 | Sokrates |")
+n5, _ = ue.aufraeumen(t5, "", "9600", von)
+soll("Frage ohne erledigte Übergabe an den Fragenden bleibt (Antwort-Text, Übergabe an Sokrates zählen nicht)", "beantwortet durch erledigte" in n5, n5)
+t6 = t5.replace("## Chefworte\n", "## Chefworte\n\n- **26.11., 09:13**, Chef an Alter Ego:\n> Nimm Y.\n", 1)
+n6, _ = ue.aufraeumen(t6, "", "9600", von)
+soll("Frage mit späterem Chefwort ist beantwortet", "beantwortet durch erledigte" not in n6, n6)
+rm._ARCHIV["archiv/9600.md"] = arch
+
 # (3) Ü-Nummer zählt das Archiv mit
 k = ue.naechste_k("9600", neu, arch) if hasattr(ue, "naechste_k") else None
-soll("(3) nächste Ü-Nummer über Datei + Archiv", k == "9600-Ü4", k)
+soll("(3) nächste Ü-Nummer über Datei + Archiv", k == "9600-Ü5", k)
 # annehmen/erledigt: Zeile nur im Archiv gilt als erledigt
 try: z = ue._finde(neu, "9600-Ü1", arch)
 except Exception as e: z = {"z": repr(e)}
