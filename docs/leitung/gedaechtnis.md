@@ -24,7 +24,7 @@
 
 - Uhren nur auf Chefsatz im Chat der Sitzung (R9, R10).
 - Nachfolger startet Alter Ego (…77apEy seit 22:01): bei 250 Tsd. Startfelder an ihn (13:40).
-- Sa 28.11., 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs wieder einschalten, Disponent-Lauf-Uhr trig_01CEG387 auf …77Prg6 fragen. Laufsperre bis dahin, dann 2043; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
+- Sa 28.11., 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs wieder einschalten. Laufsperre bis dahin, dann 2043; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
 - Starttexte als Codeblock.
 - Nach Sa 20:00: 2029-Ü33/Ü34 vorlegen (Lizenz hats02).
 
