@@ -86,13 +86,12 @@ soll("neueste Auftragsfassung byteweise gleich, ältere raus", "## Auftrag (26.1
 soll("Chefworte byteweise gleich", ue.abschnitt(neu, "Chefworte") == ue.abschnitt(T, "Chefworte"), neu)
 soll("nur letzter Stand bleibt", "neuer Stand" in neu and "alter Stand" not in neu, neu)
 soll("Messung, Nachtrag, Hinweise raus", "## Messung" not in neu and "## Nachtrag" not in neu and "Teil 6 genauer" not in neu, neu)
-soll("letzte Antwort bleibt, ältere raus", "neueste Antwort" in neu and "alte Antwort" not in neu, neu)
+soll("Antworten ins Archiv (2060)", "neueste Antwort" not in neu and "alte Antwort" not in neu and "neueste Antwort" in arch, neu)
 soll("Zeile am Dateiende bleibt, einmal, in Übergaben", neu.count("| 9500-Ü4 |") == 1 and "| 9500-Ü4 |" in ue.abschnitt(neu, "Übergaben"), neu)
 soll("offene Übergabe byteweise gleich", "| 9500-Ü3 | Werkzeug | Rückläufer (nein des Prüfers): nachbessern | 26.11., 09:20 | offen |" in neu, neu)
-soll("erledigte Übergabe: von aus dem Text", "| 9500-Ü1 | Prüfer | von Werkzeug | 25.11., 20:10 | erledigt 25.11., 20:30 session_P1 |" in neu, neu)
-soll("erledigte Übergabe: von aus Commit (von_fn)", "| 9500-Ü2 | Sokrates | von Werkzeug | 25.11., 20:50 | erledigt 25.11., 21:00 session_S |" in neu, neu)
+soll("erledigte Übergaben nur im Archiv, voll (2060)", "| 9500-Ü1 |" not in neu and "| 9500-Ü2 |" not in neu and "langer Text" in arch, neu)
 kurz = [m.group("text") for m in rm.BLOCK.finditer(ue.abschnitt(neu, "Rückmeldungen"))]
-soll("lange Rückmeldung ≤400 mit Verweis", len(kurz) == 5 and all(len(k) <= 400 for k in kurz) and kurz[-1].endswith("(voll: archiv/9500.md)"), kurz)
+soll("nur letzte Rückmeldung, ≤400 mit Verweis (2060)", len(kurz) == 1 and len(kurz[0]) <= 400 and kurz[-1].endswith("(voll: archiv/9500.md)"), kurz)
 weg = [z for z in T.splitlines() if z.strip() and z not in neu.splitlines() and z not in arch.splitlines()]
 soll("jede entfernte Zeile steht im Archiv", not weg, weg)
 soll("Zählung gleich (Datei + Archiv)", rm.zaehlen(neu) == rm.zaehlen(T), (rm.zaehlen(neu), rm.zaehlen(T)))

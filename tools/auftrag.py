@@ -197,24 +197,14 @@ def neuester(text):
     return text[beste[1]:beste[2]].rstrip("\n") + "\n" if beste else None
 
 def mit_aufraeumen(nr, aendern):
-    """2042 Fassung 5 (5c): nach dem Eintragen ältere Auftragsfassungen und erledigte Rückmeldungen sofort wörtlich ins Archiv
-    (uebergabe.aufraeumen), im selben Commit; Merkmale (Zählung, Beleg-Nein, erstes Nein, Chefworte, offene Zeilen) vorher = nachher,
-    sonst nur eingetragen, nicht aufgeräumt."""
-    import rueckmeldung as rm
+    """2042 Fassung 5 (5c), 2060: nach dem Eintragen sofort aufräumen (uebergabe.aufgeraeumt: Regel 2060, Merkmale vorher = nachher,
+    sonst nur eingetragen), im selben Commit."""
     pv, pa = ue._pfad(nr), ue.archivpfad(nr)
     def f(alt):
         neu, z = aendern(alt)
-        t, a0 = neu[pv], alt.get(pa, "")
-        rm._ARCHIV.clear(); rm._ARCHIV["archiv/%s.md" % nr] = a0
-        try:
-            vor = ue._merkmale(t, nr)
-            t2, a2 = ue.aufraeumen(t, a0, nr, ue.von_git)
-            rm._ARCHIV["archiv/%s.md" % nr] = a2 or ""
-            if ue._merkmale(t2, nr) == vor:
-                neu[pv] = t2
-                if a2 and a2 != a0: neu[pa] = a2
-            else: print("vorgang.py: %s eingetragen, nicht aufgeräumt (Merkmale ungleich; vorgang.py aufraeumen %s --probe)" % (nr, nr))
-        finally: rm._ARCHIV.clear()
+        t2, a2 = ue.aufgeraeumt(neu[pv], alt.get(pa, ""), nr, ue.von_git)
+        neu[pv] = t2
+        if a2 and a2 != alt.get(pa, ""): neu[pa] = a2
         return neu, z
     return f
 

@@ -79,13 +79,14 @@ n = datei("docs/vorgang/9001.md"); a = datei("docs/vorgang/archiv/9001.md")
 soll("ein Commit", g("rev-list", "--count", "%s..origin/main" % kopf).strip() == "1", g("log", "--oneline", "-3", "origin/main"))
 soll("nur der neue Auftrag in der Datei", n.count("## Auftrag (") == 1 and "## Auftrag (21.11., 20:40)" in n, n)
 soll("alte Fassungen wörtlich im Archiv", ALT.strip() in a and NEU2.strip() in a, a)
-for k, w in (("10:30", "fertig: Zwerg sitzt"), ("11:00", "Auftrag steht: zweite"), ("12:30", "fertig: Zwerg steht")):
+# 2060 (Chef 27.11., 09:27): auch Nein und beantwortete Frage ins Archiv (zählen dort mit); es bleibt die letzte Rückmeldung
+for k, w in (("10:30", "fertig: Zwerg sitzt"), ("10:40", "nein. Zwerg sitzt"), ("10:50", "Frage: soll er"), ("11:00", "Auftrag steht: zweite")):
     soll("erledigte Rückmeldung %s im Archiv, nicht in der Datei" % k, w in a and w not in n, (n, a))
-for w in ("nein. Zwerg sitzt", "Frage: soll er", "Der Zwerg soll stehen"):
+for w in ("fertig: Zwerg steht", "Der Zwerg soll stehen"):
     soll("bleibt in der Datei: " + w, w in n, n)
 soll("Übergabezeile bleibt", "9001-Ü1" in n, n)
 soll("Stand älter als der Auftrag im Archiv (Sokrates 16:15)", "Stand überholt" in a and "Stand überholt" not in n, n)
-soll("erledigte Zeile kurz: wer, wann, Ergebnis", "| 9001-Ü2 | Disponent | von Arbeitsplaner | 21.11., 11:00 | erledigt 21.11., 11:05 …9x2NMj Start …xqpoij |" in n and "session_01Hmoj7A8igQ43P4wp9x2NMj Start" in a, (n, a))
+soll("erledigte Zeile nur im Archiv, voll (2060)", "| 9001-Ü2 |" not in n and "session_01Hmoj7A8igQ43P4wp9x2NMj Start" in a, (n, a))
 rm._ARCHIV.clear(); rm._ARCHIV["archiv/9001.md"] = a
 nach = ue._merkmale(n, "9001")
 soll("Merkmale gleich außer neuestem Auftrag", vor[:4] == nach[:4] and vor[5] == nach[5], (vor, nach))

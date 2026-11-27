@@ -28,6 +28,7 @@ jobs:
           python3 tools/chefwort_test.py
           python3 tools/rueckmeldung_test.py
           python3 tools/vorgang_schlank_test.py
+          python3 tools/schlank_2060_test.py    # 2060 alter Schlons ins Archiv, Zählung und Ü-Nummer mit Archiv
           python3 tools/titel_2042_test.py
           python3 tools/liste_neu_test.py
           python3 tools/vorgang_neu_laenge_test.py  # 2017 Vorgangsliste ohne 400-Zeichen-Grenze
