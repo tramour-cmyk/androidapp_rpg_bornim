@@ -375,7 +375,7 @@ def _beantwortet(text, archiv, t0, wer):
 
 def rueck_erledigt(text, archiv, nr):
     """2060 (Chef 27.11., 09:27 „Alter Schlons fliegt ins Archiv“): in „## Rückmeldungen“ bleiben die neueste Zustandszeile und jede
-    „ruht“, der Vorspann, die letzte Rückmeldung, Blöcke vom Chef und jede unbeantwortete Frage (_beantwortet); alles andere
+    „ruht“, der Vorspann, die letzte Rückmeldung, Blöcke mit Absender genau „Chef“ und jede unbeantwortete Frage (_beantwortet); alles andere
     wörtlich ins Archiv. Die Zählung (rueckmeldung.rueck liest das Archiv mit) muss gleich bleiben, sonst bleibt der Block."""
     import rueckmeldung as rm
     i = ("\n" + (text or "")).find("\n## Rückmeldungen\n")
@@ -389,7 +389,7 @@ def rueck_erledigt(text, archiv, nr):
     letzte = bl[-1][0] if bl else None  # die zuletzt eingetragene (unten angehängt; die Zeit kann von Hand älter sein)
     halten = set()
     for k, m in bl:
-        if k == letzte or "Chef" in m.group("wer"): halten.add(k); continue
+        if k == letzte or m.group("wer").strip() == "Chef": halten.add(k); continue  # Sokrates 10:50: nur genau „Chef“
         if "Frage" in rm.worte(m.group("text")) and not _beantwortet(text, archiv, zt(m), m.group("wer")): halten.add(k)
     erster_zustand = next((k for k, (art, x) in enumerate(st) if art == "absatz" and x.startswith("Zustand: ")), None)
     def bleibt(k):
