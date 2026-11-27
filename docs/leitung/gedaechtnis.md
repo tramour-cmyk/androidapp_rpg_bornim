@@ -18,16 +18,17 @@
 - Laufende Arbeit nie für eine neue Regel anhalten (1960).
 - Werkzeug erst nach drei belegten Fällen und Chef-Ja; jeden Handfix sofort `vorgang.py lehre roh`. Widerspruch im Vorgang: vorlegen, nicht bauen (Chef 24.11.).
 - Notizkopie nur über `tools/notiz.sh`; keine Team- oder Organisations-Einstellungen; vor Vorschlag zum Kaufrepo Archiv und Git nach Versuchen absuchen; Geschäftsmodell nie ins Repo ([Modell](https://claude.ai/artifact/4rQZnKQ2XV9W2p91HncvCj)).
-- Deckel je Vorgang 50 $: dort Halt, Frage; Schätzung = Ziel (Chef 25.11., 16:47).
+- Deckel je Vorgang 50 $: dort Halt, an den Chef, nie anheben; ein Auftrag eine Fassung (Chef 25.11., 16:47; 27.11., 09:32).
 
 ## Offene Fäden
 
 - Uhren nur auf Chefsatz im Chat der Sitzung (R9, R10).
 - Nachfolger startet Alter Ego (…77apEy seit 22:01): bei 250 Tsd. Startfelder an ihn (13:40).
 - Sa 28.11., 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs wieder einschalten. Laufsperre bis dahin, dann 2043; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
+- 2060 (Anna …761PYC, Deckel 15 $): nach fertig Prüfer selbst starten, nach Ja mischen und einmal über alle Vorgangsdateien laufen lassen.
 - Starttexte als Codeblock.
 - Nach Sa 20:00: 2029-Ü33/Ü34 vorlegen (Lizenz hats02).
 
 ## Übergabe
 
-- 26.11., 21:58, `77SpWu`: Chef 17:18 Spiel statt Betrieb: keine Starts außer t301 bis Sa 20:00, danach 4 Wochen kein B ohne Chefwort. t301 gebaut (Marta …779E7U), Testbitte sofort, Bilder nur unter 30 Min. (21:58). Hakenfix Technik auf main 364e07994b. Fund: Docstring Haken ohne Technik. Letzte Antwort: 21:58. Nachfolger: Sokrates – Leitung.
+- 26.11., 21:58, `77SpWu`: Chef 17:18 Spiel statt Betrieb (keine Starts außer t301 bis Sa 20:00, danach 4 Wochen kein B ohne Chefwort; Ausnahme 2060, Chef 27.11., 09:32). t301 beim Chef (Test bis Sa 20:00). Letzte Antwort: 21:58. Nachfolger: Sokrates – Leitung.
