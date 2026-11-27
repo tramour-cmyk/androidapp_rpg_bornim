@@ -119,6 +119,11 @@ L = T.replace("## Übergaben", "- **26.11., 09:42**, Kampf (`session_X`):\n> fer
 L = L.replace("| 9600-Ü3 | Sokrates |", "| 9600-Ü5 | Arbeitsplaner | Rückläufer (nein des Prüfers): nachbessern | 26.11., 09:26 | offen |\n| 9600-Ü3 | Sokrates |", 1)
 rm._ARCHIV["archiv/9600.md"] = ""
 lv, la = ue.aufraeumen(L, "", "9600", von)
+def _offen(t):  # vorgang.py offen (ue.offen) mit auf die Probedatei gelenktem _alle_dateien (Carla 10:26)
+    alt = (ue._alle_dateien, ue._main_zeilen_schliessen)
+    ue._alle_dateien, ue._main_zeilen_schliessen = (lambda: iter([("9600", t)])), (lambda: None)
+    try: return [(z["k"], nr, wie) for z, nr, wie in ue.offen(still=True)]
+    finally: ue._alle_dateien, ue._main_zeilen_schliessen = alt
 def leser(t, a):
     rm._ARCHIV["archiv/9600.md"] = a
     d = tempfile.mkdtemp(); os.makedirs(os.path.join(d, "vorgang")); open(os.path.join(d, "vorgang", "9600.md"), "w").write(t)
@@ -126,11 +131,18 @@ def leser(t, a):
             "offen_lokal": {r: ue.offen_lokal(r, d) for r in ("Sokrates", "Arbeitsplaner", "Prüfer", "Werkzeug")},
             "nein_unter_bisher": rm.nein_unter_bisher(t), "macher": rm.macher(t, "9600"), "lauf_offen": rm.lauf_offen(t),
             "planer_wartet": ue.planer_wartet(t), "ruecklaeufer_offen": lauf.ruecklaeufer_offen(t), "ruht": rm.ruht(t),
+            "offen": _offen(t),
             "fertige_sitzungen": guthaben.fertige_sitzungen([t]), "pruefer_frei": probelauf.pruefer_frei("9600", t),
             "erstes_nein": next((m.group("zeit") for m in rm.BLOCK.finditer(rm.rueck(t)) if "nein" in rm.worte(m.group("text"))), None)}
 vor_l, nach_l = leser(L, ""), leser(lv, la)
 for k in vor_l: soll("Leser %s vorher = nachher" % k, vor_l[k] == nach_l[k], (vor_l[k], nach_l[k]))
 soll("Leserprobe greift: Block von session_X verschoben", "fertig an def5678" not in lv and "session_X" in vor_l["fertige_sitzungen"], (lv, vor_l["fertige_sitzungen"]))
+soll("Leserprobe offen: Zeilen gefunden", len(vor_l["offen"]) == 2, vor_l["offen"])
+
+# Sokrates 10:50: ein Block bleibt nur, wenn der Absender genau „Chef“ ist; „Alter Ego in Vertretung“ geht ins Archiv
+C = T.replace("## Übergaben", "- **26.11., 09:41**, Alter Ego, Entscheid in Vertretung (Chef 09:40):\n> Vertretung: nimm X\n\n- **26.11., 09:43**, Chef:\n> Chef selbst\n\n- **26.11., 09:44**, Prüfer (`session_P1`):\n> Hinweis: zuletzt\n\n## Übergaben", 1)
+cn, ca = ue.aufraeumen(C, "", "9600", von)
+soll("Absender „Alter Ego … (Chef …)“ ins Archiv, genau „Chef“ bleibt", "Vertretung: nimm X" not in cn and "Vertretung: nimm X" in ca and "Chef selbst" in cn, cn)
 rm._ARCHIV.clear()
 print("schlank_2060_test: %s" % ("grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)
