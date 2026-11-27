@@ -270,7 +270,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1871 | Umschalt-Commit (werkzeuge.md Schritt 8) samt Umzug „Zu <Nr>“ in Vorgangsdateien (aus 1865) an einer Kopie bauen und … | 7 | B Werkzeuge | M | – | 1727, 1865, 1739 | – | *gebaut, Geprüft an: d8956b678* | *–* | *0* | *23,21 $* |
 | 1894 | herzschlag.yml prüft nur bei Push auf docs/ (nachts fast nur von Ford) und per Zeitplan (seit 21.11., 20:50 nur 1 Lauf) | 7 | B Werkzeuge | M | 1871 | 1764 | – | *gebaut, Geprüft an: 85966407c* | *–* | *0* | *–* |
 | 1937 | Probelauf-Haken bleibt | 7 | B Werkzeuge | M | 1871 | 1727k, 513, 799, 647, 464, 748, 822 | – | *wartet, Rest im Umschalt-Commit* | *–* | *1* | *12,55 $* |
-| 1851 | neustart-haken.py umbauen: Bremse nur Sperre ohne Erinnerungstext, auch Folgeaufträge, Fachkraft etwa 100 Tsd., Grenzen … | 7 | B Werkzeuge | M | Sokrates | 1739 | – | *startbar* | *–* | *0* | *–* |
+| 1851 | neustart-haken.py umbauen: Bremse nur Sperre ohne Erinnerungstext, auch Folgeaufträge, Fachkraft etwa 100 Tsd., Grenzen … | 7 | B Werkzeuge | M | – | 1739 | – | *erledigt* | *–* | *0* | *–* |
 | 1852 | Quelle Protokoll ARBEIT-BETRIEB.md ersetzen in startsperre-haken.py, startwarnung.py (auch Vorgangszähler) … | 7 | B Werkzeuge | M | Sokrates | 1739 | – | *startbar* | *–* | *0* | *–* |
 | 1853 | tagesbericht.py nach routine-tagesbericht.md F3 (:22–28): „Wo stehen wir“ statt „Rest geschätzt“, Aufruf … | 7 | B Werkzeuge | M | Sokrates | 1739 | – | *startbar* | *–* | *0* | *–* |
 | 1856 | Ende-Haken statt weiter-haken.py: meldet am Ende jeder Fachkraft-, Prüfer-, Arbeitsplaner-Sitzung dem Büro, auch nach … | 7 | B Werkzeuge | M | Sokrates | 1739, 121, 111 | – | *startbar* | *–* | *0* | *–* |
@@ -344,3 +344,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2058 | Arbeitsplaner, der noch läuft, nimmt weitere Aufträge, bis zu drei, dann archivieren; 2 Planer zugleich und 200 Tsd. bleiben (Chef 👍 26.11., 16:05 auf Votum A 16:00) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2059 | Erledigte Übergaben ganz ins Archiv, in der Datei nur offene; nächste Kennung aus Datei und Archiv (Chef 👍 26.11., 16:17 auf Votum A 16:15) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2060 | Vorgangsdatei schlank beim Eintragen: nur Auftrag, Chefworte, offene Übergaben, letzte Rückmeldung; Rest sofort ins Archiv (Chef 27.11., 09:32) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
+| 2061 | Neustart-Grenzen messen: Kosten je fertigem Vorgang, Wochen ab 22.11. (200/300) gegen ab 27.11. (300/450); Ergebnis an den Chef, ändern nur mit Chefwort (Chef 27.11., 10:57) | 7 | B Werkzeuge | K | 27.12. | – | – | *startbar* | *–* | *0* | *–* |
