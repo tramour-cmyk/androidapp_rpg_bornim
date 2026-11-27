@@ -42,8 +42,9 @@ Ausgabe, Zeile für Zeile auszuführen:
                                                                      STARTSPERRE <Protokollzeile> (mit --sperre selbst gepusht); von Hand nur so starten
   SITZUNG …<6> | <Titel> | <Status> | <n Tsd.|->                    → (2042 d) je lebende Sitzung eine Zeile (nur lesen); SEITE ist die Datei aus
                                                                      „saved to <Pfad>“ von list_sessions, ungelesen; Tokens: --token ID=N (get_session)
-  (2042 c) lauf.py --startblock ROLLE [NR]: Ladetext und Verweis auf den Auftrag; jede START-Nachricht trägt statt des Blocks nur
-                                                                     „python3 tools/lauf.py --startblock ROLLE NR, Ausgabe ist dein Auftrag.“
+  (2042 c) lauf.py --startblock ROLLE [NR]: Ladetext und Verweis auf den Auftrag, nur zum Nachlesen; jede START-Nachricht trägt
+                                                                     Ladetext und Auftrag wörtlich (2062, Chef 27.11., 11:07); den Text für
+                                                                     create_session aus der Restdatei holen (sed -n Np aus dem Verweis)
   NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1739) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
   TITEL <session_id> <Titel>                                        → (2042) laufende Einzelrolle (Disponent, Wache) mit altem Titel: set_session_title
   (1739) offene Übergabezeile an eine Rolle ohne Sitzung → START dieser Rolle (Titel „<Rolle> – <Nr>: offene Übergabe“) oder angehängt an ihre START-Zeile; mit --sperre gibt der Lauf abgelaufene Fristen ruhender Halter frei (Zeile „NICHTS Übergabe: …“, schon gepusht)
@@ -237,21 +238,19 @@ def verweis(nr):
     return "Der Auftrag steht oben in docs/vorgang/%s.md (`python3 tools/vorgang.py auftrag %s` zeigt ihn); lies ihn zuerst ganz." % (nr, nr)
 
 def blocktext(rolle, nr=None, docs=None):
-    """2042 (c): Ausgabe von `lauf.py --startblock ROLLE [NR]`: Ladetext und Verweis auf den Auftrag, den mit_kern ohne kurz in die
-    Startnachricht setzt; leer ohne Ladetext und Auftrag."""
+    """2042 (c): Ausgabe von `lauf.py --startblock ROLLE [NR]` zum Nachlesen: Ladetext und Verweis auf den Auftrag (die Startnachricht
+    trägt beides wörtlich, 2062); leer ohne Ladetext und Auftrag."""
     k, auftrag = _block(rolle, nr, docs)
     return "\n\n".join(x for x in (k, verweis(nr) if auftrag else "") if x)
 
-def startblock_aufruf(rolle, nr=None):
-    """2042 (c): der Aufruf in der Startnachricht (Alter Ego in Anführungszeichen)."""
-    return "python3 tools/lauf.py --startblock %s%s" % ('"%s"' % rolle if " " in rolle else rolle, " " + nr if nr else "")
-
-def mit_kern(l, docs=None, kurz=False):
+def mit_kern(l, docs=None):
     """1683: jede START-Zeile beginnt in der ersten Nachricht (letztes Feld) mit dem Kern der Rolle, darunter „Auftrag:“ und die bisherige Nachricht.
     1893: an der neuen Liste Ladetext des Profils statt Kern; „Start nach deiner Rollendatei“ heißt dort „den Ladetext oben“ (Profile ohne Rollendatei).
     1923: an der neuen Liste Startblock (startblock): Teile je mit Kopfzeile „**<Name>**“, dann „Auftrag:“ mit dem jüngsten Auftrag der
     Vorgangsdatei wörtlich und der bisherigen Nachricht.
-    1986: Sokrates an alter und neuer Liste mit leitung_block (Kern Leitung, Gedächtnis), auch in jeder WEITER-Zeile an Sokrates."""
+    1986: Sokrates an alter und neuer Liste mit leitung_block (Kern Leitung, Gedächtnis), auch in jeder WEITER-Zeile an Sokrates.
+    2062 (Chef 27.11., 11:07): Kurzform 2042 (c) und Verweis 2042 (5) zurückgenommen; die einzelne Rollenzeile (Erbe von vor 1683,
+    als die Nachricht mit der Rolle begann) fällt weg, wenn ein Block die Rolle nennt."""
     if l.startswith("WEITER ") and l.count(" | ") >= 3 and l.split(" | ", 2)[1].strip() == "Sokrates":
         kopf3, msg = l.split(" | ", 3)[:3], l.split(" | ", 3)[3]
         k = "\n\n".join("**%s**\n%s" % (n, t) for n, t in leitung_block(docs))
@@ -261,11 +260,7 @@ def mit_kern(l, docs=None, kurz=False):
     if rolle in ROUTINE_ROLLEN: return l  # 1789: Routine ohne Kern (Archiv 20.11., 07:37 „nicht deinen Kern“)
     kopf, _, msg = l.rpartition(" | ")
     k, auftrag = _block(rolle, None if rolle in LEITUNG_TITEL else nr_aus_titel(kopf), docs)
-    if kurz and (k or auftrag):  # 2042 (c): statt des Blocks nur der Aufruf; Ladetext und Verweis gibt --startblock aus
-        msg = msg.replace("zuerst Start nach deiner Rollendatei, dann", "zuerst").replace(" Zuerst Start nach deiner Rollendatei.", "").replace(
-            "Zuerst Start nach deiner Rollendatei.", "").replace("; zuerst Start nach deiner Rollendatei.", ".")
-        k = startblock_aufruf(rolle, None if rolle in LEITUNG_TITEL else nr_aus_titel(kopf)) + ", Ausgabe ist dein Auftrag."
-        auftrag = None
+    if k and msg.startswith(rolle + "\\n\\n"): msg = msg[len(rolle) + 4:]  # 2062: einzelne Rollenzeile weg, der Block nennt die Rolle
     if NEU_LISTE or rolle in LEITUNG_TITEL:
         msg = msg.replace("zuerst Start nach deiner Rollendatei, dann", "zuerst den Ladetext oben, dann" if k else "zuerst").replace(
             "Zuerst Start nach deiner Rollendatei.", "Zuerst den Ladetext oben." if k else "")
@@ -276,12 +271,9 @@ def mit_kern(l, docs=None, kurz=False):
         if not m:  # 1912 (D344.1): Zahl nach „Build“ oder „t“ (t312) ist der Build, nicht der Vorgang
             m = next((x for x in re.finditer(r"(?<![\d.:,])(\d{3,4}(?:\.\d+)?)\b", msg) if not re.search(r"(?i)(?:\bBuilds?\s*|\bt)$", msg[:x.start()])), None)
         msg += "\\n\\nMeldung: `vorgang.py rueckmeldung %s \"Befunde: n …\" --sitzung Tester` (1795)." % (m.group(1) if m else "<Nr>")
-    if auftrag:  # 1923: Auftrag vor der bisherigen Nachricht; 2042 (5, Sokrates 2042-Ü5, 25.11., 22:37): nur der Verweis, der Auftrag steht nur in der Datei
-        n = nr_aus_titel(kopf) or "<Nr>"
-        msg = "%s\n\n%s" % (verweis(n), msg.replace("\\n", "\n"))
+    if auftrag: msg = "%s\n\n%s" % (auftrag, msg.replace("\\n", "\n"))  # 1923, wieder 2062 (Chef 27.11., 11:07): Auftrag wörtlich vor der Nachricht
     msg = msg.replace("\n", "\\n")
     if not k: return "%s | %s" % (kopf, ("Auftrag: " + msg) if auftrag else msg)
-    if kurz: return "%s | %s\\n\\n%s" % (kopf, k, msg)
     return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
 
 LEITUNG_NEUSTART_TOKEN = 300000  # 1988 (Chef 23.11., 09:02): Leitung mit 430 Tsd. Token stempelte 20 Min. vor; Zusatz 09:26: auch Disponent
@@ -1288,7 +1280,7 @@ def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None, bremse=None, z
                                                      ("%s (%s)" % (LEITUNG_TITEL[rolle], JETZT.strftime("%d.%m."))) if rolle in LEITUNG_TITEL else
                                                      ("%s (%s)" % (FESTER_TITEL[rolle], berlin(JETZT))) if rolle in FESTER_TITEL else
                                                      "%s – %s: Handstart (%s)" % (rolle, nr, berlin(JETZT)), msg.replace("\n", "\\n"))
-    aus = [mit_kern(mit_kaufrepo(l), docs, kurz=True)]  # 2042 (c)
+    aus = [mit_kern(mit_kaufrepo(l), docs)]  # 2062: Startblock wörtlich
     namen = {}
     if ist_scharf():
         import rufname  # 2042 Teil 6 (4): heutige Startsperren immer dazu, nicht nur ohne Seiten (Fall Anna 22:15/22:31/22:49)
@@ -2408,7 +2400,7 @@ def main():
         ausgabe = ["NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (r_, r_, ausschluss[r_]) if (r_ := l[6:].split(" |")[0].strip()) in ohne_rollen and l.startswith("START ") else l
                    for l in ausgabe]
         sperren[:] = [s_ for s_ in sperren if s_ not in ohne_rollen]
-    ausgabe = [mit_kern(l, kurz=True) for l in ausgabe]  # 2042 (c)
+    ausgabe = [mit_kern(l) for l in ausgabe]  # 2062: Startblock wörtlich; Konsole kürzt (konsole), Restdatei voll
     ausgabe += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
     rufnamen = {}  # 1957: Rolle → Rufnamen der STARTs, für die Startsperre
     if ist_scharf(): ausgabe = mit_rufnamen(ausgabe, alle.values(), namen=rufnamen)

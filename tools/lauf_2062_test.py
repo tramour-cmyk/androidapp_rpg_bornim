@@ -25,7 +25,7 @@ def pruefe_start(was, st, rolle, nr, docs):
     soll("%s: Ladetext (Kern, Profil, Querprofile) wörtlich" % was, k and k in msg, msg[:300])
     for n, _ in lauf.startblock(rolle, nr, docs)[0]: soll("%s: Teil **%s**" % (was, n), "**%s**\n" % n in msg, msg[:300])
     soll("%s: Auftrag wörtlich aus docs/vorgang/%s.md" % (was, nr), auftrag and AUFTRAG in auftrag and auftrag in msg, msg[-600:])
-    soll("%s: kein Kurzaufruf --startblock" % was, "--startblock" not in msg, msg[:300])
+    soll("%s: kein Kurzaufruf --startblock" % was, not re.search(r"(?m)^python3 tools/lauf\.py --startblock .*, Ausgabe ist dein Auftrag\.$", msg), msg[:300])
     soll("%s: keine einzelne Rollenzeile „%s“" % (was, rolle), not re.search(r"(?m)^%s$" % rolle, msg), msg)
     soll("%s: Kaufrepo-Satz bleibt" % was, "add_repo" in msg, msg[-300:])
     soll("%s: kein echter Zeilenumbruch" % was, "\n" not in st)
