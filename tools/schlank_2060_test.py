@@ -114,7 +114,7 @@ g = getattr(ue, "aufgeraeumt", None)
 t4, a4 = g(T, "", "9600", von) if g else (T, "")
 soll("aufgeraeumt: Regel greift beim Schreiben", "| 9600-Ü1 |" not in t4 and "| 9600-Ü1 |" in a4, t4)
 # Leser (Auftrag 5 (0), Prüffrage 5): je Leser Ergebnis am vollen Text ohne Archiv = am aufgeräumten Text mit Archiv
-import tempfile, guthaben, lauf
+import tempfile, guthaben, lauf, probelauf
 L = T.replace("## Übergaben", "- **26.11., 09:42**, Kampf (`session_X`):\n> fertig an def5678\n\n- **26.11., 09:45**, Prüfer (`session_P1`):\n> Hinweis: Nachtrag\n\n## Übergaben", 1)
 L = L.replace("| 9600-Ü3 | Sokrates |", "| 9600-Ü5 | Arbeitsplaner | Rückläufer (nein des Prüfers): nachbessern | 26.11., 09:26 | offen |\n| 9600-Ü3 | Sokrates |", 1)
 rm._ARCHIV["archiv/9600.md"] = ""
@@ -126,7 +126,8 @@ def leser(t, a):
             "offen_lokal": {r: ue.offen_lokal(r, d) for r in ("Sokrates", "Arbeitsplaner", "Prüfer", "Werkzeug")},
             "nein_unter_bisher": rm.nein_unter_bisher(t), "macher": rm.macher(t, "9600"), "lauf_offen": rm.lauf_offen(t),
             "planer_wartet": ue.planer_wartet(t), "ruecklaeufer_offen": lauf.ruecklaeufer_offen(t), "ruht": rm.ruht(t),
-            "fertige_sitzungen": guthaben.fertige_sitzungen([t])}
+            "fertige_sitzungen": guthaben.fertige_sitzungen([t]), "pruefer_frei": probelauf.pruefer_frei("9600", t),
+            "erstes_nein": next((m.group("zeit") for m in rm.BLOCK.finditer(rm.rueck(t)) if "nein" in rm.worte(m.group("text"))), None)}
 vor_l, nach_l = leser(L, ""), leser(lv, la)
 for k in vor_l: soll("Leser %s vorher = nachher" % k, vor_l[k] == nach_l[k], (vor_l[k], nach_l[k]))
 soll("Leserprobe greift: Block von session_X verschoben", "fertig an def5678" not in lv and "session_X" in vor_l["fertige_sitzungen"], (lv, vor_l["fertige_sitzungen"]))
