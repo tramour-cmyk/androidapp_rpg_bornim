@@ -157,3 +157,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 19:04 26.11.: Startsperre 19:04 Start Sokrates, Prüfer (lauf.py, Sokrates 1589.4, Prüfer Britta)
 - 09:34 27.11.: Startsperre 09:34 Start Werkzeug (lauf.py, Werkzeug 2060 Anna)
 - 10:19 27.11.: Startsperre 10:19 Start Prüfer (lauf.py, Prüfer 2060 Carla)
+- 10:48 27.11.: Startsperre 10:48 Start Alter Ego (Alter Ego, Wurzel; Übergabe …77apEy)
