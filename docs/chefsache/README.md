@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 27.11., 11:40, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 27.11., 12:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -169,10 +169,10 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.11.; „star
 | 1415 | M | Kampftakt Wolfsrudel, Runde 31,8–34,1 s statt 14,6 (784 A) | wartet auf 709 (ruht) |
 | 1588 | M | Wolf am eigenen Platz dreht nicht zum Ziel, wenn die Drehung tief in den Nachbarn führt … | wartet auf 1589.4 (zu testen) |
 | 1589.2 | M | Stufe 1 Gegnerverhalten, Arena unsichtbar: arena.gd, Zielwahl je Denkweise mit Trägheit un | wartet auf 1589.4 (zu testen) |
-| 1589.4 | M | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nac | wartet auf Test (Build 301) |
+| 1589.4 | M | Stufe 3 Gegnerverhalten, Figuren in die Arena: figur.gd nur Wege der Arena, Beinarbeit nac | wartet auf Test (Build) |
 | 1589.5 | M | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Za | wartet auf 1589.4 (zu testen) |
 | 1589.6 | M | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt n | wartet auf 1589.4 (zu testen) |
-| 1603 | M | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in ke | wartet auf Test (Build 301) |
+| 1603 | M | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreißen nur in ke | wartet auf Test (Build) |
 | 1708 | M | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_u | wartet auf 1589.4 (zu testen) |
 | 2046 | M | 1589.4 grün: alte Reihen-Tests (reihe_1305, tausch_1041, stehen_973, biss_1284) und wolf_m | wartet auf 1589.4 (zu testen) |
 | 1402 | K | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel | wartet auf 1589.4 (zu testen) |
@@ -218,21 +218,21 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.11.; „star
 | 1536 | K | drei Merkmalsnamen je Tiermerkmal einbauen, im Kampf ein Name je Merkmal, von Kampf zu Kam | wartet auf 1589.4 (zu testen) |
 | 1607 | K | Rest von 1266, noch 92 Stellen „glut“ in 34 Dateien unter godot/, dazu DESIGN-GLUT.md, glu | wartet auf 1589.4 (zu testen) |
 | 1635 | K | Systemlösung? Bogen: 2 frühere Vorgänge (26.1, 1041), neu 1634 | wartet auf 1589.4 (zu testen) |
-| 72c | K | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunde | nach dem Meilenstein |
 | 2056 | K | Systemlösung? Klinge: 2 frühere Vorgänge (900, 1515), neu 1589.4; einmal grundsätzlich lös | startbar |
 | 2057 | K | Systemlösung? Drehung: 4 frühere Vorgänge (1588, 1979, 1998, 245), neu 1589.4; einmal grun | startbar |
+| 72c | K | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunde | nach dem Meilenstein |
 
 **Figur** – offen 40, Muss 24, startbar 14
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 513 | M | Ein Figurenstand für alle Zweige | ruht |
-| 1535 | M | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand | wartet auf Test (Build 301) |
+| 1535 | M | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand | wartet auf Test (Build) |
 | 1570 | M | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge (1006, 1052, 10 | ruht bis 28.11. |
 | 1619 | M | Held stakst im Film 458.3, sieht nicht nach Gehen aus („vielleicht Tempo“) | wartet auf Test (Build 301) |
 | 1621 | M | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffe | wartet auf 1694 (ruht) |
 | 1665 | M | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu sehen (Fackel | wartet auf 458.3 (zu testen) |
-| 1674 | M | Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 Minuten an der Bank fest, kommt nicht | wartet auf Test (Build 301) |
+| 1674 | M | Bewohner (Kittel, Dorfplatz am Brunnen) hängt rund 2 Minuten an der Bank fest, kommt nicht | wartet auf Test (Build) |
 | 1676 | M | angelegter Umhang des Helden deckt den rechten Unterarm teils zu, links frei | ruht bis 28.11. |
 | 1694 | M | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finge | ruht |
 | 1709 | M | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535 | ruht bis 28.11. |
@@ -244,7 +244,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.11.; „star
 | 1657 | M | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dre | wartet auf 1694 (ruht) |
 | 1973 | M | Von Figur (Dana 22.11., 18:49, zu 1570): kein Zweihändermodell in daten/waffen – Gang mit | wartet auf 1694 (ruht) |
 | 2024 | M | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schw | Termin 27.11. 17:30 |
-| 2028 | M | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 2 | wartet auf Test (Build 301) |
+| 2028 | M | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 2 | wartet auf Test (Build) |
 | 2029 | M | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielka | ruht |
 | 2031 | M | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt gegen neu (Che | startbar |
 | 2032 | M | Rowena: rechte Finger auf dem Gürtel dunkel, gelbe Kleid-Innenseite sichtbar (Rest aus 202 | ruht |
@@ -384,7 +384,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 121, Muss 84, startbar 48
+**Werkzeug** – offen 120, Muss 83, startbar 47
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -469,6 +469,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.11.; „star
 | 2039 | M | Chefsache: nichts zum Angucken; Filme auf Telegram ohne Abstimmschaltfläche (Chef 25.11., | startbar |
 | 2043 | M | titel_thema_test rot auf main (Fall Doris → Welt); liegt.py nennt noch Diogenes und Ford | startbar |
 | 2054 | M | Werkzeugtests (1775) auf main 7× rot seit 10:18 (12:28, 12:47, 13:07; Lauf 45816794073); U | startbar |
+| 2058 | M | Arbeitsplaner, der noch läuft, nimmt weitere Aufträge, bis zu drei, dann archivieren; 2 Pl | startbar |
+| 2059 | M | Erledigte Übergaben ganz ins Archiv, in der Datei nur offene; nächste Kennung aus Datei un | startbar |
 | 1625 | K | feste Startprompts je Rolle statt Startlektüre | startbar |
 | 1734 | K | Forschung und Entwicklung bei Sokrates, wöchentlich oder auf Bedarf: wie arbeiten andere … | startbar |
 | 102 | K | Dokumente BornWire TCS nachziehen | Idee |
@@ -504,11 +506,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.11.; „star
 | 2050 | K | commit-pruefung.py findet Kennungen nur hinter „Nachricht“: Eintrag mit „Telegram 4605“ (Z | startbar |
 | 2051 | K | Haken-Texte (startsperre-haken.py nacht(), neustart-haken.py Z. 8) richten sich noch an „F | startbar |
 | 2053 | K | Zeno-Hinweis 2052: startbar.kuer_ruht prüft weder Laufbremse, Nachtdeckel noch --ohne; Zah | startbar |
-| 246.1 | K | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | nach dem Meilenstein |
-| 2058 | M | Arbeitsplaner, der noch läuft, nimmt weitere Aufträge, bis zu drei, dann archivieren; 2 Pl | startbar |
-| 2059 | M | Erledigte Übergaben ganz ins Archiv, in der Datei nur offene; nächste Kennung aus Datei un | startbar |
-| 2060 | M | Vorgangsdatei schlank beim Eintragen: nur Auftrag, Chefworte, offene Übergaben, letzte Rüc | startbar |
 | 2061 | K | Neustart-Grenzen messen: Kosten je fertigem Vorgang, Wochen ab 22.11. (200/300) gegen ab 2 | Termin 27.12. |
+| 246.1 | K | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | nach dem Meilenstein |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 
