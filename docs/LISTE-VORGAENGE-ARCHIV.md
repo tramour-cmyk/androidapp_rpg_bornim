@@ -2236,3 +2236,7 @@ Archiv zu `LISTE-VORGAENGE.md` (Kosten addiert `lauf.py --kosten` auch hier, Aus
 | 887 | Archivieren und Kaufrepo ohne Nachfrage: Probe Sitzungsmodus statt Auto-Modus … | B Werkzeuge | M | 32,48 $ | Werkzeug | erledigt |
 | 2052 | Nur die wichtigen Dinger: Kür aus der Sicht des Disponenten, solange Muss da ist (Chef 26.11., 12:33) | B Werkzeuge | M | 0,82 $ | Werkzeug | erledigt |
 | 1137 | Vollzugsmeldung je Entscheid (Chef 13.11., 14:00/14:03): Folgeaufträge melden Vollzug auf Telegram, Stichtag beim … | B Abläufe | M | 62,67 $ | Werkzeug | erledigt |
+| 2042 | Wieso werden die Disponenten so schnell groß: Token je Takt messen (Start, lauf.py-Ausgabe, list_sessions, vorgang.py offen, Nachrichten), Ergebnis mit Vorschlag an den Chef (Chef 21:50 an Alter Ego, nur über Alter Ego 21:52) | B Werkzeuge | M | 74,53 $ | Werkzeug | erledigt |
+| 1851 | neustart-haken.py umbauen: Bremse nur Sperre ohne Erinnerungstext, auch Folgeaufträge, Fachkraft etwa 100 Tsd., Grenzen … | B Werkzeuge | M | – | Werkzeug | erledigt |
+| 2055 | Große Vorgänge sollen aufgeteilt werden, wenn es sinnvoll machbar ist (Chef 26.11., 16:05): Satz für Arbeitsplaner, Wortlaut legt Sokrates vor | B Steuerung | M | – | Werkzeug | erledigt |
+| 2060 | Vorgangsdatei schlank beim Eintragen: nur Auftrag, Chefworte, offene Übergaben, letzte Rückmeldung; Rest sofort ins Archiv (Chef 27.11., 09:32) | B Werkzeuge | M | 15,09 $ | Werkzeug | erledigt |
