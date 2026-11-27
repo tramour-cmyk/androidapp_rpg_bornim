@@ -152,10 +152,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 27.11.; „star
 | 1486 | K | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Begegnungen bi | wartet auf Sokrates |
 | 1487 | K | Heiler wächst in Kapitel 1 nie im Willen (Heilmagie 12/13 am Kapitelende, übt Stumpfe Waff | startbar |
 
-**Kampf** – offen 65, Muss 19, startbar 2
+**Kampf** – offen 67, Muss 21, startbar 4
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
+| 2065 | M | Von Werkzeug (1334): Wiederholrot dreh_1072: 2× rot in 48 h (Läufe 600, 599); Ursache nach | startbar |
+| 2064 | M | Von Werkzeug (1334): Wiederholrot ausholen_1000: 2× rot in 48 h (Läufe 600, 599); Ursache | startbar |
 | 1589 | M | Motor des Kampfs: Gegnerverhalten nach Regeln … | wartet auf 1589.4 (zu testen) |
 | 1627 | M | Trefferbild je Angriff: Kontaktpunkt, Zucken, Treffer/Abwehr/Fehlschlag unterscheidbar, Ke | wartet auf 1589.4 (zu testen) |
 | 506.2 | M | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, | wartet auf 709.1 (ruht) |
