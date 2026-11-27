@@ -173,6 +173,13 @@ def _archiv_bloecke(a):
             if k not in s: s.add(k); aus.append(k)
     return aus
 
+def archiv_rueck(text):
+    """2060: die ins Archiv verschobenen Rückmeldungsblöcke der Datei TEXT (Marke ARCHIV_MARKE), die nicht mehr in TEXT stehen, als Text;
+    für Leser, die den rohen Dateitext durchsuchen (guthaben.fertige_sitzungen)."""
+    k = ARCHIV_MARKE.search(text or "")
+    if not k: return ""
+    return "".join("\n" + b + "\n" for b in _archiv_bloecke(_archiv(k.group(1))) if b not in text and not VOLL.search(b))
+
 def rueck(text):
     """Abschnitt „Rückmeldungen“ mit vollem Text (Datei + Archiv, 2042 (4)); für jeden Leser, der zählt oder Worte liest.
     2060: auch die ins Archiv verschobenen Blöcke (zeitlich einsortiert, ohne Doppel), so bleibt jede Zählung nach dem Verschieben gleich."""
