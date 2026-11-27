@@ -159,3 +159,16 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 10:19 27.11.: Startsperre 10:19 Start Prüfer (lauf.py, Prüfer 2060 Carla)
 - 10:48 27.11.: Startsperre 10:48 Start Alter Ego (Alter Ego, Wurzel; Übergabe …77apEy)
 - 11:09 27.11.: Startsperre 11:09 Start Werkzeug (lauf.py, Werkzeug 2062 Conrad)
+- 11:11 27.11.: Startsperre 11:11 Start Tagesbericht (lauf.py, 448)
+
+- 11:11 27.11.: Marke Tagesbericht 27.11. (lauf.py)
+
+- 11:11 27.11.: Marke Nachhalten 27.11. (lauf.py)
+
+- 11:11 27.11.: Marke Tagesbericht fehlt 27.11. (lauf.py)
+
+- 11:11 27.11.: Marke Abgleich ganz 27.11. (lauf.py)
+
+- 11:11 27.11.: Marke Archiv session_01Hmoj77Prg659CQn3HAfQqX (lauf.py)
+
+- 11:11 27.11.: Marke Start-fehlt Alter 27.11.-10:48 (lauf.py)
