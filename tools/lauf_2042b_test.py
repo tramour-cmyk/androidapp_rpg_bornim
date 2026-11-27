@@ -115,7 +115,7 @@ vg("annehmen", "1708-Ü10")
 rc, t = vg("erledigt", "1708-Ü10")
 soll("(6e) erledigt „Fachkraft starten“ ohne Kennung: rot", rc != 0 and "Kennung" in t, (rc, t))
 rc, t = vg("erledigt", "1708-Ü10", "session_NEU1")
-soll("(6e) erledigt mit Kennung: grün, Kennung in der Zeile", rc == 0 and "ERLEDIGT" in t and "session_NEU1" in open(os.path.join(A, "docs", "vorgang", "1708.md")).read(), (rc, t))
+soll("(6e) erledigt mit Kennung: grün, Kennung in der Zeile", rc == 0 and "ERLEDIGT" in t and "session_NEU1" in open(os.path.join(A, "docs", "vorgang", "archiv", "1708.md")).read(), (rc, t))  # 2060: erledigte Zeile im Archiv
 
 # (9) LIEGT zusammengefasst
 import liegt

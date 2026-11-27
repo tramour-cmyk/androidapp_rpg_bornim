@@ -90,14 +90,42 @@ def kuerzen(text, nr):
 
 _ARCHIV = {}
 
-def _archiv(rel):
-    """Archivtext (docs/vorgang/REL): lokal, dazu origin/main (die lokale Kopie kann nachhinken)."""
-    if rel not in _ARCHIV:
-        p = os.path.join(ue.WURZEL, ue.ORDNER, rel)
-        t = open(p, encoding="utf-8").read() if os.path.exists(p) else ""
+_STEMPEL = {}
+_GITDIR = {}
+
+def _stempel(p):
+    """2060: Stand der Quellen eines Archivtexts (lokale Datei, Ref origin/main); ändert er sich, wird neu gelesen. Nur stat, kein git."""
+    if ue.WURZEL not in _GITDIR:
         import subprocess
-        r = subprocess.run(["git", "-C", ue.WURZEL, "show", "origin/main:%s/%s" % (ue.ORDNER, rel)], capture_output=True, text=True)
-        _ARCHIV[rel] = t + "\n" + (r.stdout if r.returncode == 0 else "")
+        r = subprocess.run(["git", "-C", ue.WURZEL, "rev-parse", "--path-format=absolute", "--git-common-dir"], capture_output=True, text=True)
+        _GITDIR[ue.WURZEL] = r.stdout.strip() if r.returncode == 0 else ""
+    g = _GITDIR[ue.WURZEL]
+    def st(x):
+        try: s = os.stat(x); return (s.st_mtime_ns, s.st_size)
+        except OSError: return None
+    return (st(p),) + tuple(st(os.path.join(g, x)) for x in ("refs/remotes/origin/main", "packed-refs")) if g else (st(p),)
+
+def archiv_setzen(rel, text):
+    """2060: Archivtext REL für Zählungen festlegen (Schreibvorgang, Probe); Rückgabe der alte Zustand für archiv_zurueck."""
+    alt = (_ARCHIV.get(rel), _STEMPEL.get(rel))
+    _ARCHIV[rel] = text or ""; _STEMPEL.pop(rel, None)
+    return alt
+
+def archiv_zurueck(rel, alt):
+    for d, v in zip((_ARCHIV, _STEMPEL), alt):
+        if v is None: d.pop(rel, None)
+        else: d[rel] = v
+
+def _archiv(rel):
+    """Archivtext (docs/vorgang/REL): lokal, dazu origin/main (die lokale Kopie kann nachhinken). 2060: neu gelesen, wenn sich eine
+    Quelle geändert hat (das Archiv zählt mit); von Hand gesetzte Werte (Schreibvorgang, Probe) gelten bis zum Zurücksetzen."""
+    p = os.path.join(ue.WURZEL, ue.ORDNER, rel)
+    if rel in _ARCHIV and (rel not in _STEMPEL or _STEMPEL[rel] == _stempel(p)): return _ARCHIV[rel]
+    t = open(p, encoding="utf-8").read() if os.path.exists(p) else ""
+    import subprocess
+    r = subprocess.run(["git", "-C", ue.WURZEL, "show", "origin/main:%s/%s" % (ue.ORDNER, rel)], capture_output=True, text=True)
+    _ARCHIV[rel] = t + "\n" + (r.stdout if r.returncode == 0 else "")
+    _STEMPEL[rel] = _stempel(p)
     return _ARCHIV[rel]
 
 
@@ -114,22 +142,61 @@ def voll(abschnitt):
             z = a[i + 1:].split("\n")
             n = 1
             while n < len(z) and z[n].startswith("> "): n += 1
-            if " ".join(" ".join(l[2:] for l in z[1:n]).split()).startswith(anfang): return "\n".join(z[:n])
+            if " ".join(" ".join(l[2:] for l in z[1:n]).split()).startswith(anfang) and not VOLL.search(z[n - 1]): return "\n".join(z[:n])
             i = a.find("\n" + kopf, i + 1)
         _ARCHIV.pop(v.group(1), None)
         return m.group(0)
     return BLOCK.sub(f, abschnitt or "")
 
 
+ARCHIV_MARKE = re.compile(r"(?m)^Ältere Rückmeldungen wörtlich in (archiv/[^\s)]+\.md)")  # 2060: Datei nennt ihr Archiv
+
 def _archiv_von(text):
-    """Archiv zur Vorgangsdatei TEXT (Nummer aus der Kopfzeile „# NR · …“), sonst ""."""
-    k = re.match(r"#\s*(\d+(?:\.\d+)?[a-z]?)\b", text or "")
+    """Archiv zur Vorgangsdatei TEXT: Marke „Ältere Rückmeldungen wörtlich in archiv/NR.md“ (2060), sonst ein Verweis „(voll: archiv/…)“,
+    sonst die Nummer aus der Kopfzeile „# NR · …“ oder „# Vorgang NR“; sonst ""."""
+    t = text or ""
+    k = ARCHIV_MARKE.search(t) or VOLL_IRGENDWO.search(t)
+    if k: return _archiv(k.group(1))
+    k = re.match(r"#\s*(?:Vorgang\s+)?(B?\d+(?:\.\d+)*[a-z]?)\b", t)
     return _archiv("archiv/%s.md" % k.group(1)) if k else ""
 
+VOLL_IRGENDWO = re.compile(r" … \(voll: (archiv/[^)\s]+\.md)\)")
+_RBLOCK = re.compile(r"(?m)^- \*\*[^*\n]+\*\*, [^\n]*:\n(?:> [^\n]*(?:\n|$))+")
+
+def _archiv_bloecke(a):
+    """Rückmeldungsblöcke aus allen Abschnitten „## Rückmeldungen“ des Archivtexts A (ohne Doppel)."""
+    aus, s = [], set()
+    for m in re.finditer(r"(?m)^## Rückmeldungen\n", a or ""):
+        n = a.find("\n## ", m.end()); teil = a[m.end():n if n >= 0 else len(a)]
+        for b in _RBLOCK.finditer(teil):
+            k = b.group(0).rstrip("\n")
+            if k not in s: s.add(k); aus.append(k)
+    return aus
 
 def rueck(text):
-    """Abschnitt „Rückmeldungen“ mit vollem Text (Datei + Archiv, 2042 (4)); für jeden Leser, der zählt oder Worte liest."""
-    return voll(ue.abschnitt(text or "", "Rückmeldungen"))
+    """Abschnitt „Rückmeldungen“ mit vollem Text (Datei + Archiv, 2042 (4)); für jeden Leser, der zählt oder Worte liest.
+    2060: auch die ins Archiv verschobenen Blöcke (zeitlich einsortiert, ohne Doppel), so bleibt jede Zählung nach dem Verschieben gleich."""
+    d = voll(ue.abschnitt(text or "", "Rückmeldungen"))
+    k = ARCHIV_MARKE.search(text or "")  # nur das Archiv, das die Datei selbst nennt (Kopf „# 1520 ·“ in 1520-messung.md träfe fremdes)
+    a = _archiv_bloecke(_archiv(k.group(1))) if k else []
+    if not a: return d
+    datei = [b.group(0).rstrip("\n") for b in _RBLOCK.finditer(d)]
+    da = set(datei)
+    def kopf(b): return b.split("\n", 1)[0]
+    def anfang(b): return " ".join(" ".join(l[2:] for l in b.split("\n")[1:]).split())
+    def doppelt(b, andere):  # Kurzform (… voll: archiv/…) neben dem vollen Block mit gleichem Kopf
+        v = VOLL.search(b.rstrip("\n"))
+        if not v: return False
+        an = anfang(b[:len(b) - len(v.group(0))]).rstrip(" …")
+        return any(x is not b and kopf(x) == kopf(b) and not VOLL.search(x) and anfang(x).startswith(an) for x in andere)
+    extra = [b for b in a if b not in da]
+    alle = extra + datei
+    extra = [b for b in extra if not doppelt(b, alle)]
+    if not extra: return d
+    alle = [b for b in extra + datei if not doppelt(b, extra + datei)]
+    alle = [b for _, b in sorted(enumerate(alle), key=lambda p: (_zeit(kopf(p[1])) or (0, 0, 0, 0), p[0]))]
+    i = _RBLOCK.search(d)
+    return (d[:i.start()] if i else d.rstrip("\n") + "\n\n") + "\n\n".join(alle) + "\n"
 
 
 def worte(text):
@@ -575,9 +642,8 @@ def eintragen(nr, text, wer, sid=""):
             t, _ = ue.schliessen_text(t, nr, ue.START_ARTEN, "%s, Rückmeldung %s von %s" % (abschluss[0], zeit, wer or "unbekannt"))
         if not an: return t, (None, "eingetragen, zurückgewiesen (1952; Vorgang ruht)" if schon else "eingetragen, zurückgewiesen (1952)"
                               if unbekannt(text, wer) else "eingetragen, kein Signalwort zum Weitergeben")
-        ks = [int(x["k"].rsplit("Ü", 1)[1]) for x in ue.zeilen(t)]
-        start = max(ks, default=0) + 1
-        k = "%s-Ü%d" % (nr, start)
+        k = ue.naechste_k(nr, t, _archiv("archiv/%s.md" % nr))  # 2060: Archiv mitzählen
+        start = int(k.rsplit("Ü", 1)[1])
         t = t.rstrip("\n") + "\n"
         for j, (a2, w2) in enumerate(aus or [(an, was)]):
             t += "| %s-Ü%d | %s | %s | %s | offen |\n" % (nr, start + j, a2, ue._rein(w2), zeit)
@@ -637,10 +703,9 @@ def fest_an_sokrates(nr, kennung, an, grund):
     marke = "Übergabe %s an " % kennung
     was = ue._rein("steckt fest: Übergabe %s an %s zweimal ohne Ergebnis (%s; 1782, 1904); gelöst: `vorgang.py warte %s –`" % (kennung, an, grund, nr))
     def f(alt):
-        if marke in ue.zeilen_was(alt[vp], _archiv_von(alt[vp]), SOKRATES): return {}, None  # 2042 (2): auch schlanke erledigte Zeilen (Archiv)
+        if marke in ue.zeilen_was(alt[vp], _archiv_von(alt[vp]) + _archiv("archiv/%s.md" % nr), SOKRATES): return {}, None  # 2042 (2): auch schlanke erledigte Zeilen (Archiv)
         t = ue._mit_abschnitt(alt[vp], nr)
-        ks = [int(z["k"].rsplit("Ü", 1)[1]) for z in ue.zeilen(t)]
-        k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
+        k = ue.naechste_k(nr, t, _archiv("archiv/%s.md" % nr))  # 2060: Archiv mitzählen
         aus = {vp: t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, SOKRATES, was, ue.fmt(ue.jetzt()))}
         L = alt[lp]; d = next((x for x in startbar.vorgangsliste(L) if x["nr"] == nr), None) if L.strip() else None
         if d:
