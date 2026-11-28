@@ -37,7 +37,7 @@ nh = importlib.util.module_from_spec(spec); spec.loader.exec_module(nh)
 # Tabelle je Rolle
 soll("Tabelle SCHWELLEN vorhanden", isinstance(getattr(nh, "SCHWELLEN", None), dict))
 soll("Spike 200/300 Tsd.", nh.schwellen("Spike") == (200000, 300000), nh.schwellen("Spike"))
-soll("Werkzeug Übergang 2042 (Chef 25.11., 22:45) 300/450 Tsd.", nh.schwellen("Werkzeug") == nh.UEBERGANG_2042 == (300000, 450000))
+soll("Werkzeug fest (Chef 27.11., 10:57) 300/450 Tsd.", nh.schwellen("Werkzeug") == nh.FEST_2711 == (300000, 450000))
 soll("unbekannte Rolle: Standard", nh.schwellen("") == nh.STANDARD == (200000, 300000))
 soll("Sokrates 400/500 Tsd. (1643)", nh.schwellen("Sokrates") == (400000, 500000))
 soll("Kaufrepo +200 Tsd. (818)", nh.schwellen("Spike", True) == (400000, 500000))

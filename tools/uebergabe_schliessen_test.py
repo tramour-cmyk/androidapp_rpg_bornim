@@ -54,7 +54,11 @@ def soll(name, ok, zeige=""):
     global fehl; fehl += not ok; print(("ok  " if ok else "FEHL"), name, ("" if ok else zeige))
 def datei(nr):
     g("fetch", "-q", "origin", cwd=A); return g("show", "origin/main:docs/vorgang/%s.md" % nr, cwd=A)
-def zu(nr, k): return next(z["z"] for z in ue.zeilen(datei(nr)) if z["k"] == "%s-Ü%d" % (nr, k))
+def archiv(nr):  # 2060: erledigte Zeilen stehen nur im Archiv
+    g("fetch", "-q", "origin", cwd=A)
+    try: return g("show", "origin/main:docs/vorgang/archiv/%s.md" % nr, cwd=A)
+    except subprocess.CalledProcessError: return ""
+def zu(nr, k): return next(z["z"] for z in ue.zeilen(datei(nr) + "\n" + archiv(nr)) if z["k"] == "%s-Ü%d" % (nr, k))
 def py(kopie, code):
     env = dict(ENV, BORNIM_WURZEL=kopie)
     p = subprocess.run([sys.executable, "-c", "import sys; sys.path.insert(0, %r); import uebergabe as ue; %s" % (os.path.join(A, "tools"), code)],
@@ -84,7 +88,7 @@ soll("zweiter Aufruf: nichts, kein Commit", k == [] and g("rev-list", "--count",
 k = ue.schliessen_nr("9003", None, "Datei fehlt")
 soll("Vorgang ohne Datei: nichts, keine Datei angelegt", k == [] and "9003.md" not in g("ls-tree", "--name-only", "origin/main", "docs/vorgang/", cwd=A))
 k = ue.schliessen_nr("9001", None, "Vorgang 9001 erledigt (vorgang.py fertig)")
-soll("arten None: alle offenen Zeilen zu", k == ["9001-Ü3", "9001-Ü4", "9001-Ü5", "9001-Ü7"] and not [z for z in ue.zeilen(datei("9001")) if not z["z"].startswith("erledigt")], k)
+soll("arten None: alle offenen Zeilen zu", k == ["9001-Ü3", "9001-Ü4", "9001-Ü5", "9001-Ü7"] and not [z for z in ue.zeilen(datei("9001") + "\n" + archiv("9001")) if not z["z"].startswith("erledigt")], k)
 
 # (1) zwei gleichzeitige schliessen_nr aus zwei Kopien (je drei Zeilen) und eine gleichzeitige neue Übergabe: keine Zeile verloren
 with ThreadPoolExecutor(3) as ex:
@@ -92,9 +96,9 @@ with ThreadPoolExecutor(3) as ex:
         (A, "print(ue.schliessen_nr('9002', None, 'A', bis=__import__('datetime').datetime(2026, 11, 23, 10, 3)))"),
         (B, "print(ue.schliessen_nr('9002', ue.START_ARTEN, 'B'))"),
         (B, "ue.uebergabe('9002', 'Prüfer', 'neu dazu')")]))
-t = datei("9002"); zs = {z["k"]: z["z"] for z in ue.zeilen(t)}
+t = datei("9002"); ta = archiv("9002"); zs = {z["k"]: z["z"] for z in ue.zeilen(t + "\n" + ta)}  # 2060: erledigte im Archiv
 soll("gleichzeitig: alle Aufrufe ohne Fehler", all(c == 0 for c, _ in r), r)
-soll("gleichzeitig: 7 Zeilen, keine verloren, keine doppelt", sorted(zs) == ["9002-Ü%d" % i for i in range(1, 8)] and t.count("| 9002-Ü") == 7, t)
+soll("gleichzeitig: 7 Zeilen, keine verloren, keine doppelt", sorted(zs) == ["9002-Ü%d" % i for i in range(1, 8)] and (t + ta).count("| 9002-Ü") == 7, (t, ta))
 soll("gleichzeitig: Ü1–Ü6 zu, neue Zeile Ü7 offen", all(zs["9002-Ü%d" % i].startswith("erledigt") for i in range(1, 7)) and zs["9002-Ü7"] == "offen", zs)
 
 # (3) rueckmeldung.py: „fertig“, „Laufanforderung“ (mit Commit), „steckt fest“ schließen Auftrag steht/Nachfolger der Nummer im selben

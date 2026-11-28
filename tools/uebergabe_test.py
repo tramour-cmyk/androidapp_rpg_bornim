@@ -24,6 +24,10 @@ def lauf(kopie, sid, zeit, *a):
     return p.returncode, p.stdout + p.stderr
 def datei():
     g("fetch", "-q", "origin", cwd=A); return g("show", "origin/main:docs/vorgang/9001.md", cwd=A)
+def archiv():  # 2060: erledigte Zeilen stehen nur im Archiv
+    g("fetch", "-q", "origin", cwd=A)
+    try: return g("show", "origin/main:docs/vorgang/archiv/9001.md", cwd=A)
+    except subprocess.CalledProcessError: return ""
 def sitzungen(**st):
     p = os.path.join(d, "s.txt")
     open(p, "w").write("".join("%s | %s | 2026-11-21T19:00:00Z | x | - |\n" % (k, v) for k, v in st.items()) + "# has_more: nein\n")
@@ -48,7 +52,7 @@ soll("genau eine Quittung in der Datei", datei().count("angenommen session_NEU")
 rc, t = lauf(A, "session_TOM1", "21.11., 20:13", "erledigt", "9001-Ü1")
 soll("erledigt nur der Halter", "NICHT DEINE" in t and "erledigt" not in datei().split("9001-Ü1")[1].split("\n")[0], t)
 rc, t = lauf(B, "session_NEU", "21.11., 20:20", "erledigt", "9001-Ü1")
-soll("Halter meldet erledigt", t.startswith("ERLEDIGT") and "erledigt 21.11., 20:20 session_NEU" in datei(), t)
+soll("Halter meldet erledigt", t.startswith("ERLEDIGT") and "erledigt 21.11., 20:20 session_NEU" in archiv() and "| 9001-Ü1 |" not in datei(), t)
 rc, t = lauf(B, "session_NEU", "21.11., 20:21", "erledigt", "9001-Ü1")
 soll("zweites erledigt: nichts", t.startswith("SCHON ERLEDIGT"), t)
 rc, t = lauf(A, "session_X", "21.11., 20:22", "annehmen", "9001-Ü1")

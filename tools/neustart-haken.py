@@ -252,13 +252,13 @@ FREI_BASH = (r"^\s*(do\s+|then\s+)?(cd \S+\s*$|git( -C \S+)? (add|commit|push|pu
 # Fehlt die Rolle, gilt STANDARD. Ausnahmen nach Chefentscheid, nicht aus der Rechnung: Sokrates (1643), Kaufrepo +200 Tsd. (818); Ford nie (1574).
 # Je Rolle: Kosten je Schritt bei Sperre 300/450/600 Tsd. (Opus 5.5, 1h-Cache 8 $, Lesen 0,20 $, Ausgabe 20 $ je MTok; 76 Sitzungen 22.11. ab 07:00).
 STANDARD = (AB, SPERRE_AB)
-UEBERGANG_2042 = (300000, 450000)  # Chef 25.11., 22:45 „2 auch temporär“: bis 2042 auf main Erinnerung 300, Sperre 450 Tsd. (2/3 wie 1520); danach zurück auf STANDARD oder Messwert 2042, Chef entscheidet
+FEST_2711 = (300000, 450000)  # Chef 27.11., 10:57: 300/450 Tsd. dauerhaft für Werkzeug, Prüfer, Arbeitsplaner, Diogenes. Nicht ändern ohne Messung Kosten je fertigem Vorgang (Vorgang 2061) und Chefwort; Begründung Archiv „Neustart-Grenzen fest“. (Vorher UEBERGANG_2042, Chef 25.11., 22:45.)
 SCHWELLEN = {
     "Spike": STANDARD,         # 27 Sitzungen: 6,75 / 8,01 / 9,42 ct, Minimum 199 Tsd.
-    "Diogenes": UEBERGANG_2042,      # 14: 6,45 / 7,74 / 9,15 ct, Minimum 192 Tsd.
-    "Arbeitsplaner": UEBERGANG_2042,  # 9: 6,92 / 8,17 / 9,57 ct, Minimum 197 Tsd.
-    "Werkzeug": UEBERGANG_2042,      # 3: 7,29 / 8,55 / 9,94 ct, Minimum 197 Tsd.
-    "Prüfer": UEBERGANG_2042,        # 2: 7,18 / 8,41 / 9,79 ct, Minimum 204 Tsd.
+    "Diogenes": FEST_2711,      # 14: 6,45 / 7,74 / 9,15 ct, Minimum 192 Tsd.
+    "Arbeitsplaner": FEST_2711,  # 9: 6,92 / 8,17 / 9,57 ct, Minimum 197 Tsd.
+    "Werkzeug": FEST_2711,      # 3: 7,29 / 8,55 / 9,94 ct, Minimum 197 Tsd.
+    "Prüfer": FEST_2711,        # 2: 7,18 / 8,41 / 9,79 ct, Minimum 204 Tsd.
     "Wache": STANDARD,         # 2: 9,51 / 10,44 / 11,70 ct, Minimum 256 Tsd.
     "Homer": STANDARD,         # 1: 7,34 / 8,59 / 9,99 ct
     "Tagesbericht": STANDARD,  # 1: 6,39 / 7,70 / 9,12 ct
@@ -339,17 +339,43 @@ def frei(eingabe):
     return False
 
 
+TOOL_RESULTS_HINWEIS = ("Sperre (2042 Fassung 5, Chef 26.11., 13:56): der Disponent liest keine Datei unter tool-results/. "
+                        "Die gespeicherte Sitzungsliste nur als SEITE an lauf.py geben: python3 tools/lauf.py … <Pfad>; "
+                        "was lauf.py nicht druckt, steht in der Restdatei, die seine letzte Zeile nennt.")
+
+
+def liest_tool_results(eingabe):
+    """2042 Fassung 5 (3): liest dieser Aufruf eine Datei unter tool-results/ (Read, Grep, Glob, Bash mit cat/head/sed/grep/jq …)?
+    Erlaubt bleibt ein Bash-Abschnitt, der lauf.py aufruft (die Datei als SEITE). Fehler → False (Haken lässt durch)."""
+    import re
+    try:
+        t = eingabe.get("tool_input") or {}
+        if eingabe.get("tool_name") != "Bash":
+            return any(isinstance(v, str) and "tool-results/" in v for v in t.values())
+        for teil in re.split(r"&&|\|\||[;|&\n]", str(t.get("command", ""))):
+            if "tool-results/" in teil and not re.search(r"\bpython3?\s+(?:-\S+\s+)*\S*lauf\.py\b", teil):
+                return True
+    except Exception:
+        return False
+    return False
+
+
 def werkzeug(eingabe, art):
     """1537 (1520 so, Chef 17.11., 10:00): Neustart-Haken an jedem Werkzeugaufruf, damit lange Züge ohne Nachricht nicht ungemessen bleiben.
     art „vor“ (PreToolUse): ab der Sperre aus schwellen() (1520, je Rolle) Rückgabe 2 = Aufruf gesperrt, außer frei();
     art „nach“ (PostToolUse): ab der Erinnerung aus schwellen() alle WERKZEUG_ALLE Aufrufe eine Erinnerung, zählt die Stufe weiter (Weiter-Haken 195).
     Nie, solange der Chef einen Build der Sitzung testet (812, 865) oder die Sitzung geschützt ist (1531)."""
     pfad = eingabe.get("transcript_path")
-    if not pfad or not os.path.exists(pfad) or geschuetzt():
+    if not pfad or not os.path.exists(pfad):
         return 0
-    gesamt = letzte_groesse(pfad)
     sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
     ford = name(pfad, sitzung).startswith("Disponent")
+    if art == "vor" and ford and liest_tool_results(eingabe):  # 2042 Fassung 5 (3)
+        print(TOOL_RESULTS_HINWEIS, file=sys.stderr)
+        return 2
+    if geschuetzt():
+        return 0
+    gesamt = letzte_groesse(pfad)
     if ford:  # 1574: der Disponent bleibt eine Sitzung, weder Erinnerung noch Sperre
         return 0
     ab, sperre = schwellen(rolle(pfad, sitzung), kauf())  # 1520: Tabelle je Rolle (818 Kaufrepo, 1643 Sokrates)

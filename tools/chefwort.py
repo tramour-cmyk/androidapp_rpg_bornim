@@ -285,8 +285,7 @@ def eintragen(nr, wort, zeit, wer, sid="", an=None):
         import rueckmeldung as rm
         schon = rm.ruht(ue.abschnitt(t, "Rückmeldungen"))
         t = ue.anhaengen(t, "Chefworte", "Wörtlich, mit Zeit; trägt `chefwort.py` ein (Haken D, 1762).", block)
-        ks = [int(z["k"].rsplit("Ü", 1)[1]) for z in ue.zeilen(t)]
-        k = "%s-Ü%d" % (nr, max(ks, default=0) + 1)
+        k = ue.naechste_k(nr, t, alt.get(ue.archivpfad(nr), ""))  # 2060: Archiv mitzählen
         n = rm.zaehlen(t)["nein"]
         aus = {}
         if chef_nein(wort) and not schon and n >= rm.MAX_NEIN:  # 1872: „Prüfer ja, Chef nein“ stoppt an Obergrenze A wie drei „nein“ des Prüfers
@@ -301,7 +300,7 @@ def eintragen(nr, wort, zeit, wer, sid="", an=None):
                            "; Freigabe oder Ergebnis des Builds: Build-Macher starten (3.3 Nr. 7, 1782)" if an == DISPONENT else ""))
         aus[vp] = t.rstrip("\n") + "\n| %s | %s | %s | %s | offen |\n" % (k, a2, was, ue.fmt(ue.jetzt()))
         return aus, k
-    return ue.atomar_dateien([vp, lp], f, "Chefwort %s aus Sitzung %s (Haken D, 1762)" % (nr, wer or "unbekannt"))
+    return ue.atomar_dateien([vp, lp, ue.archivpfad(nr)], f, "Chefwort %s aus Sitzung %s (Haken D, 1762)" % (nr, wer or "unbekannt"))
 
 
 def melden(nr, k, an=AN):

@@ -221,6 +221,7 @@ def fertige_sitzungen(texte):
     2002-Ü4). Ergebnis {Sitzung: (Monat, Tag, Std, Min) des „fertig“} für wieder_taetig. Nie aus ARBEIT-BESETZUNG.md."""
     import rueckmeldung
     letzte = {}
+    texte = [(t or "") + rueckmeldung.archiv_rueck(t) for t in texte]  # 2060: verschobene Rückmeldungen zählen mit
     for i, t in enumerate(texte):
         for m in RUECK.finditer(t or ""):
             k = (int(m.group(2)), int(m.group(1)), int(m.group(3)), int(m.group(4)))

@@ -15,12 +15,15 @@ Ausgabe, Zeile für Zeile auszuführen:
   GEBUCHT <session_id> | <Rolle> | <Kosten $> | <Vorgang>           → lauf.py hat selbst gebucht (nur mit --sperre); Ford pusht die Notizen, sonst nichts
   BUCHE <session_id> | <Rolle> | <Kosten $> | <Vorgang>             → nur `--kosten <Vorgang> <Kosten> <session_id>` (ruhende oder schon archivierte Sitzung von heute, Differenz zum Verzeichnis, 261.2)
   PR-ABO <session_id> | <Rolle> | PR #n | an <neuere session_id>    → „PR #“ im Titel: Abo der alten Sitzung an die neuere übergeben (subscribe_pr_activity dort), dann ARCHIVIERE (D40.4)
-  ÜBERTRAGE <session_id> | <Rolle> | <Frage>                       → offene Frage der alten Sitzung wörtlich in Vorrat/Chefsache holen (list_events), dann folgt ARCHIVIERE (261)
+  ÜBERTRAGE <session_id> | <Rolle> | <Frage>                       → offene Frage der alten Sitzung wörtlich in Vorrat/Chefsache holen: erst get_session post_turn_summary; nur ohne Frage dort list_events mit kinds ["user"], limit 5, nur die letzte Chef-Nachricht; dann folgt ARCHIVIERE (261, 2042)
   WEITER <session_id> | <Rolle> | <Vorgang> | <Nachricht>          → send_message „Weiter: <Vorgang>…“ an die alte Sitzung statt START (unter 200 Tsd. Token, 383 A; unter 60 Minuten Ruhe; abgelehnt → START, 261.5)
   NICHTS <Rolle>: Grund                                             → nichts tun
   LEERLAUF: …                                                       → (1100 A 6) nichts zu starten, melden, pushen: Ford endet sofort, nur Chatzeile, kein Telegram, kein Push
   STELLUNG aus | Co-Pilot: …                                        → (1100 A 1) aus: Ford endet; Co-Pilot: START nicht ausführen (LISTE-BETRIEB.md „Stellung“)
   WARNUNG Abgleich: n Zeilen „gebaut“ oder „zu testen“ ohne Build   → (1100 A 5) Zahl statt der Einzelzeilen; ganz einmal am Tag im ersten Lauf ab 8 Uhr (Marke „Abgleich ganz TT.MM.“)
+  (2042 Fassung 5, Chef 👍 26.11., 16:28) Konsole nur Taten, höchstens 3 KB: WARNUNG und AUSGESCHLOSSEN gekürzt auf eine Zeile, zu lange Taten mit
+                                                                     „… (voll: sed -n Np <Restdatei>)“; NICHTS, SITZUNG, LIEGT, HINWEIS, GUTHABEN, LAUFSPERRE, NUR MUSS nur in der
+                                                                     Restdatei (alle Zeilen, BORNIM_LAUF_REST, Vorgabe /tmp/bornim-lauf-rest.txt); letzte Zeile „REST <Pfad>: Zahl je Art“
   WARNUNG …                                                         → Ford meldet es lautlos
   WARNUNG-LAUT …                                                    → Ford meldet es mit --laut (190.7: dieselbe Warnung zum zweiten Mal)
   STILLSTAND <Rolle>: …                                             → Ford schreibt die Protokollzeile „Stillstand <Rolle> seit HH:MM“ (Schritt 5, 192.2)
@@ -39,8 +42,9 @@ Ausgabe, Zeile für Zeile auszuführen:
                                                                      STARTSPERRE <Protokollzeile> (mit --sperre selbst gepusht); von Hand nur so starten
   SITZUNG …<6> | <Titel> | <Status> | <n Tsd.|->                    → (2042 d) je lebende Sitzung eine Zeile (nur lesen); SEITE ist die Datei aus
                                                                      „saved to <Pfad>“ von list_sessions, ungelesen; Tokens: --token ID=N (get_session)
-  (2042 c) lauf.py --startblock ROLLE [NR]: Ladetext und Verweis auf den Auftrag; jede START-Nachricht trägt statt des Blocks nur
-                                                                     „python3 tools/lauf.py --startblock ROLLE NR, Ausgabe ist dein Auftrag.“
+  (2042 c) lauf.py --startblock ROLLE [NR]: Ladetext und Verweis auf den Auftrag, nur zum Nachlesen; jede START-Nachricht trägt
+                                                                     Ladetext und Auftrag wörtlich (2062, Chef 27.11., 11:07); den Text für
+                                                                     create_session aus der Restdatei holen (sed -n Np aus dem Verweis)
   NACHRICHT <Rolle> | <session_id|-> | <Text>                        → (1739) send_message <Text> an die Sitzung; bei - (Ford) tut Ford es selbst
   TITEL <session_id> <Titel>                                        → (2042) laufende Einzelrolle (Disponent, Wache) mit altem Titel: set_session_title
   (1739) offene Übergabezeile an eine Rolle ohne Sitzung → START dieser Rolle (Titel „<Rolle> – <Nr>: offene Übergabe“) oder angehängt an ihre START-Zeile; mit --sperre gibt der Lauf abgelaufene Fristen ruhender Halter frei (Zeile „NICHTS Übergabe: …“, schon gepusht)
@@ -234,21 +238,19 @@ def verweis(nr):
     return "Der Auftrag steht oben in docs/vorgang/%s.md (`python3 tools/vorgang.py auftrag %s` zeigt ihn); lies ihn zuerst ganz." % (nr, nr)
 
 def blocktext(rolle, nr=None, docs=None):
-    """2042 (c): Ausgabe von `lauf.py --startblock ROLLE [NR]`: Ladetext und Verweis auf den Auftrag, den mit_kern ohne kurz in die
-    Startnachricht setzt; leer ohne Ladetext und Auftrag."""
+    """2042 (c): Ausgabe von `lauf.py --startblock ROLLE [NR]` zum Nachlesen: Ladetext und Verweis auf den Auftrag (die Startnachricht
+    trägt beides wörtlich, 2062); leer ohne Ladetext und Auftrag."""
     k, auftrag = _block(rolle, nr, docs)
     return "\n\n".join(x for x in (k, verweis(nr) if auftrag else "") if x)
 
-def startblock_aufruf(rolle, nr=None):
-    """2042 (c): der Aufruf in der Startnachricht (Alter Ego in Anführungszeichen)."""
-    return "python3 tools/lauf.py --startblock %s%s" % ('"%s"' % rolle if " " in rolle else rolle, " " + nr if nr else "")
-
-def mit_kern(l, docs=None, kurz=False):
+def mit_kern(l, docs=None):
     """1683: jede START-Zeile beginnt in der ersten Nachricht (letztes Feld) mit dem Kern der Rolle, darunter „Auftrag:“ und die bisherige Nachricht.
     1893: an der neuen Liste Ladetext des Profils statt Kern; „Start nach deiner Rollendatei“ heißt dort „den Ladetext oben“ (Profile ohne Rollendatei).
     1923: an der neuen Liste Startblock (startblock): Teile je mit Kopfzeile „**<Name>**“, dann „Auftrag:“ mit dem jüngsten Auftrag der
     Vorgangsdatei wörtlich und der bisherigen Nachricht.
-    1986: Sokrates an alter und neuer Liste mit leitung_block (Kern Leitung, Gedächtnis), auch in jeder WEITER-Zeile an Sokrates."""
+    1986: Sokrates an alter und neuer Liste mit leitung_block (Kern Leitung, Gedächtnis), auch in jeder WEITER-Zeile an Sokrates.
+    2062 (Chef 27.11., 11:07): Kurzform 2042 (c) und Verweis 2042 (5) zurückgenommen; die einzelne Rollenzeile (Erbe von vor 1683,
+    als die Nachricht mit der Rolle begann) fällt weg, wenn ein Block die Rolle nennt."""
     if l.startswith("WEITER ") and l.count(" | ") >= 3 and l.split(" | ", 2)[1].strip() == "Sokrates":
         kopf3, msg = l.split(" | ", 3)[:3], l.split(" | ", 3)[3]
         k = "\n\n".join("**%s**\n%s" % (n, t) for n, t in leitung_block(docs))
@@ -258,11 +260,7 @@ def mit_kern(l, docs=None, kurz=False):
     if rolle in ROUTINE_ROLLEN: return l  # 1789: Routine ohne Kern (Archiv 20.11., 07:37 „nicht deinen Kern“)
     kopf, _, msg = l.rpartition(" | ")
     k, auftrag = _block(rolle, None if rolle in LEITUNG_TITEL else nr_aus_titel(kopf), docs)
-    if kurz and (k or auftrag):  # 2042 (c): statt des Blocks nur der Aufruf; Ladetext und Verweis gibt --startblock aus
-        msg = msg.replace("zuerst Start nach deiner Rollendatei, dann", "zuerst").replace(" Zuerst Start nach deiner Rollendatei.", "").replace(
-            "Zuerst Start nach deiner Rollendatei.", "").replace("; zuerst Start nach deiner Rollendatei.", ".")
-        k = startblock_aufruf(rolle, None if rolle in LEITUNG_TITEL else nr_aus_titel(kopf)) + ", Ausgabe ist dein Auftrag."
-        auftrag = None
+    if k and msg.startswith(rolle + "\\n\\n"): msg = msg[len(rolle) + 4:]  # 2062: einzelne Rollenzeile weg, der Block nennt die Rolle
     if NEU_LISTE or rolle in LEITUNG_TITEL:
         msg = msg.replace("zuerst Start nach deiner Rollendatei, dann", "zuerst den Ladetext oben, dann" if k else "zuerst").replace(
             "Zuerst Start nach deiner Rollendatei.", "Zuerst den Ladetext oben." if k else "")
@@ -273,12 +271,9 @@ def mit_kern(l, docs=None, kurz=False):
         if not m:  # 1912 (D344.1): Zahl nach „Build“ oder „t“ (t312) ist der Build, nicht der Vorgang
             m = next((x for x in re.finditer(r"(?<![\d.:,])(\d{3,4}(?:\.\d+)?)\b", msg) if not re.search(r"(?i)(?:\bBuilds?\s*|\bt)$", msg[:x.start()])), None)
         msg += "\\n\\nMeldung: `vorgang.py rueckmeldung %s \"Befunde: n …\" --sitzung Tester` (1795)." % (m.group(1) if m else "<Nr>")
-    if auftrag:  # 1923: Auftrag vor der bisherigen Nachricht; 2042 (5, Sokrates 2042-Ü5, 25.11., 22:37): nur der Verweis, der Auftrag steht nur in der Datei
-        n = nr_aus_titel(kopf) or "<Nr>"
-        msg = "%s\n\n%s" % (verweis(n), msg.replace("\\n", "\n"))
+    if auftrag: msg = "%s\n\n%s" % (auftrag, msg.replace("\\n", "\n"))  # 1923, wieder 2062 (Chef 27.11., 11:07): Auftrag wörtlich vor der Nachricht
     msg = msg.replace("\n", "\\n")
     if not k: return "%s | %s" % (kopf, ("Auftrag: " + msg) if auftrag else msg)
-    if kurz: return "%s | %s\\n\\n%s" % (kopf, k, msg)
     return "%s | %s\\n\\nAuftrag: %s" % (kopf, k.replace("\n", "\\n"), msg)
 
 LEITUNG_NEUSTART_TOKEN = 300000  # 1988 (Chef 23.11., 09:02): Leitung mit 430 Tsd. Token stempelte 20 Min. vor; Zusatz 09:26: auch Disponent
@@ -310,6 +305,54 @@ def vorn(zeilen):
     """1688, 1988: STREICHEN-Zeilen zuerst, dann NEUSTART-LEITUNG, NEUSTART-DISPONENT, sonst Reihenfolge unverändert."""
     return [l for l in zeilen if l.startswith("STREICHEN ")] + [l for a in NEUSTART_ARTEN for l in zeilen if l.startswith(a)] + \
         [l for l in zeilen if not l.startswith(("STREICHEN ",) + NEUSTART_ARTEN)]
+
+# 2042 Fassung 5 (2): Konsole nur Taten, höchstens 3 KB; jede Zeile vollständig in der Restdatei, deren Pfad die letzte Zeile nennt
+REST_DATEI = os.environ.get("BORNIM_LAUF_REST", "/tmp/bornim-lauf-rest.txt")
+KONSOLE_MAX = 3072      # Byte für die ganze Ausgabe eines Takts
+KONSOLE_NACH = 600      # Reserve für die Zeilen nach der Schleife (STARTSPERRE, GELÖST, HERZSCHLAG …)
+KURZ_TAT = 200          # zu lange Tat-Zeilen: so viele Zeichen, dann Verweis auf die volle Zeile
+KURZ_WARNUNG = 100      # Chef 👍 16:28 (2042 A): WARNUNG und AUSGESCHLOSSEN gekürzt in der Konsole, eine Zeile je Warnung
+WARN_ARTEN = ("WARNUNG ", "AUSGESCHLOSSEN ")
+REST_ARTEN = ("NICHTS", "SITZUNG ", "LIEGT ", "HINWEIS", "GUTHABEN ", "LAUFSPERRE ", "NUR MUSS")
+def ist_tat(l):
+    """Tat = Zeile, die eine Handlung auslöst (auch Melden); Rest = nur lesen. Unbekannte Arten gelten als Tat (keine Tat geht still verloren)."""
+    if l.startswith("NICHTS") and "pushen" in l: return True  # „Notizen pushen“
+    return not l.startswith(REST_ARTEN)
+
+def _art(l):
+    return "NUR MUSS" if l.startswith("NUR MUSS") else re.split(r"[\s:]", l, maxsplit=1)[0]
+
+def rest_zeile(ausgabe, pfad=None):
+    pfad = pfad or REST_DATEI
+    je = {}
+    for l in ausgabe:
+        if not ist_tat(l): je[_art(l)] = je.get(_art(l), 0) + 1
+    return "REST %s: %s (alle Zeilen; nur bei Bedarf lesen)" % (pfad, ", ".join("%s %d" % kv for kv in je.items()) or "keine")
+
+def konsole(ausgabe, pfad=None, max_byte=None):
+    """Schreibt jede Zeile in die Restdatei PFAD und gibt die Tat-Zeilen für die Konsole zurück; passt das nicht in das Budget,
+    werden die längsten Taten auf KURZ_TAT Zeichen gekürzt, mit Verweis „(voll: sed -n Np PFAD)“. Rest erst über rest_zeile()."""
+    pfad = pfad or REST_DATEI
+    try:
+        with open(pfad, "w", encoding="utf-8") as f: f.write("".join(l + "\n" for l in ausgabe))
+    except OSError as e: return list(ausgabe) + ["WARNUNG Restdatei %s nicht geschrieben: %s; ganze Ausgabe oben (2042)" % (pfad, e)]
+    if os.environ.get("BORNIM_LAUF_VOLL"): return list(ausgabe)  # nur für Tests, die den ganzen Takt lesen
+    nr, zeilen = 1, []
+    for l in ausgabe:
+        if ist_tat(l): zeilen.append([nr, l])
+        nr += l.count("\n") + 1
+    for z in zeilen:  # 2042 A: Warnungen immer kurz, voller Wortlaut in der Restdatei
+        verweis = " … (voll: sed -n %dp %s)" % (z[0], pfad)
+        if z[1].startswith(WARN_ARTEN) and len(z[1]) > KURZ_WARNUNG + len(verweis): z[1] = z[1][:KURZ_WARNUNG].rstrip() + verweis
+    budget = (max_byte or KONSOLE_MAX) - KONSOLE_NACH - len(rest_zeile(ausgabe, pfad).encode()) - 1
+    b = lambda: sum(len(z[1].encode()) + 1 for z in zeilen)
+    for kurz in (KURZ_TAT, KURZ_TAT // 2, KURZ_TAT // 4):  # erst die längsten auf 200 Zeichen, reicht das nicht, auf 100, dann 50
+        while b() > budget:
+            z = max(zeilen, key=lambda z: len(z[1].encode()), default=None)
+            verweis = " … (voll: sed -n %dp %s)" % (z[0], pfad) if z else ""
+            if not z or len(z[1]) <= kurz + len(verweis): break
+            z[1] = z[1][:kurz].rstrip() + verweis
+    return [z[1] for z in zeilen]
 
 WARN_STAND = os.environ.get("BORNIM_WARN_STAND", "/tmp/bornim-lauf-warnungen.json")
 def warnung_einmal_je_stunde(zeilen, pfad=None, jetzt=None):
@@ -1237,7 +1280,7 @@ def start_zeilen(rolle, nr, nachricht, sitzungen=None, docs=None, bremse=None, z
                                                      ("%s (%s)" % (LEITUNG_TITEL[rolle], JETZT.strftime("%d.%m."))) if rolle in LEITUNG_TITEL else
                                                      ("%s (%s)" % (FESTER_TITEL[rolle], berlin(JETZT))) if rolle in FESTER_TITEL else
                                                      "%s – %s: Handstart (%s)" % (rolle, nr, berlin(JETZT)), msg.replace("\n", "\\n"))
-    aus = [mit_kern(mit_kaufrepo(l), docs, kurz=True)]  # 2042 (c)
+    aus = [mit_kern(mit_kaufrepo(l), docs)]  # 2062: Startblock wörtlich
     namen = {}
     if ist_scharf():
         import rufname  # 2042 Teil 6 (4): heutige Startsperren immer dazu, nicht nur ohne Seiten (Fall Anna 22:15/22:31/22:49)
@@ -1910,7 +1953,7 @@ def main():
         nr_s = nummer_aus_titel(s.get("title", ""))
         # 261.4 (Chef 21.10.): eine Chefsache hält keine Sitzung; Datei in der Chefsache und „wartet auf Chef“ sind kein Hindernis mehr, nur need_input
         if pts.get("status_category") == "need_input":
-            s["_frage_alt"] = (pts.get("title") or pts.get("description") or pts.get("summary") or "Frage siehe list_events")  # 261.5 (2): Frage zuerst übertragen, dann archivieren
+            s["_frage_alt"] = (pts.get("title") or pts.get("description") or pts.get("summary") or "Frage siehe get_session post_turn_summary")  # 261.5 (2): Frage zuerst übertragen, dann archivieren
         s["_info"] = (r, laufend, ruhig, hinder)
         je_rolle.setdefault(r, []).append(s)
     # 191: Sitzungen mit Kosten, aber ohne Vorgangsnummer im Titel, lassen sich nicht buchen
@@ -2357,7 +2400,7 @@ def main():
         ausgabe = ["NICHTS %s: mit --ohne %s ausgeschlossen (%s)" % (r_, r_, ausschluss[r_]) if (r_ := l[6:].split(" |")[0].strip()) in ohne_rollen and l.startswith("START ") else l
                    for l in ausgabe]
         sperren[:] = [s_ for s_ in sperren if s_ not in ohne_rollen]
-    ausgabe = [mit_kern(l, kurz=True) for l in ausgabe]  # 2042 (c)
+    ausgabe = [mit_kern(l) for l in ausgabe]  # 2062: Startblock wörtlich; Konsole kürzt (konsole), Restdatei voll
     ausgabe += ["WARNUNG Startblock: %s ohne docs/profile/%s.md, Teil fehlt in der Startnachricht (1923)" % x for x in STARTBLOCK_FEHLT]
     rufnamen = {}  # 1957: Rolle → Rufnamen der STARTs, für die Startsperre
     if ist_scharf(): ausgabe = mit_rufnamen(ausgabe, alle.values(), namen=rufnamen)
@@ -2369,7 +2412,7 @@ def main():
         ausgabe.insert(0, "WARNUNG Streichzeilen nicht gelesen: %s (1688)" % str(e)[:120])
     ausgabe = vorn(leitung_neustart(je_rolle, archiviert) + ausgabe)  # 1988: im selben Takt wie STREICHEN
     ausgabe = warnung_einmal_je_stunde(ausgabe)  # 1988 (Zusatz Chef 09:26): gleiche Warnung höchstens einmal je Stunde
-    for l in ausgabe: print(l)
+    for l in konsole(ausgabe): print(l)  # 2042 Fassung 5 (2): nur Taten, Rest in REST_DATEI (letzte Zeile)
     if not ausgabe: print("NICHTS: nichts zu tun")
     if sperre:  # 1999 (d): gescheiterter Start/Neustart wird eine rohe Zeile im Lehrenbuch (je Tag und Rolle einmal)
         try:
@@ -2420,6 +2463,7 @@ def main():
         print("LEERLAUF: nichts zu starten, nichts zu melden, nichts zu pushen; Ford endet hier mit der Chatzeile „Ford HH:MM ok“ (1100 A 6)")
     # 1997: zuletzt, ohne Schalter (auch --besetzung hat keine eigene Wirkung mehr): Absturz vorher = alte Marke = ALARM
     herzschlag_pushen([s for s in leb if s["id"] not in archiviert])
+    print(rest_zeile(ausgabe))  # 2042 Fassung 5 (2): letzte Zeile nennt die Restdatei
 
 def geaendert():
     """1100 A (6): hat dieser Lauf Notizen geschrieben (Protokoll, Besetzung, Vorgangsliste)? Dann ist er nicht leer, Ford pusht."""

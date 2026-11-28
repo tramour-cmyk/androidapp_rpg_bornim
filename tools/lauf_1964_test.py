@@ -88,7 +88,7 @@ try:
         if os.path.isfile(p): shutil.copy2(p, os.path.join(A, "tools"))
     b = os.path.join(A, "docs", "ARBEIT-BETRIEB.md")
     open(b, "a", encoding="utf-8").write("\n- 07:30 24.11.: Startsperre 07:30 Start Wache (Disponent von Hand, 1964-Test)\n")
-    ENV = dict(os.environ, GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@t", GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t@t", BORNIM_OHNE_PUSH="1",
+    ENV = dict(os.environ, GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@t", GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t@t", BORNIM_OHNE_PUSH="1", BORNIM_LAUF_VOLL="1",
                BORNIM_WARN_STAND=os.path.join(d, "warn.json"), BORNIM_MELDUNGEN=os.path.join(d, "meldungen.tsv"), BORNIM_SITZUNG="session_test1964")
     for k in ("BORNIM_WURZEL", "BORNIM_JETZT", "GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE"): ENV.pop(k, None)
     open(ENV["BORNIM_MELDUNGEN"], "w").close()

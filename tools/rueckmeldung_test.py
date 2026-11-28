@@ -481,8 +481,9 @@ z = rm.zaehlen(t); vz = rm.zaehlen(t.replace(kurz[-1] if kurz else "\0", lang))
 soll("2042: Zählung mit Datei + Archiv gleich wie mit vollem Text", z == vz and z["Laufanforderung"] == 1, (z, vz))
 soll("2042: Hinweis hinter dem Schnitt geht weiter (Zeile an den Disponenten)", re.search(r"\| 9018-Ü\d+ \| Disponent \| Hinweis", t), t[-600:])
 rc, out = rm_lauf("rueckmeldung", "9017", "fertig: kurz, Commit 1a2b3c4", zeit="21.11., 22:00")
-soll("2042: kurze Rückmeldung unverändert, kein Archiv", "> fertig: kurz, Commit 1a2b3c4\n" in datei("9017")
-     and subprocess.run(["git", "cat-file", "-e", "origin/main:docs/vorgang/archiv/9017.md"], cwd=A).returncode != 0, out)
+# 2060: ältere Rückmeldungen gehen jetzt ins Archiv (es entsteht); die kurze bleibt als letzte unverändert in der Datei
+soll("2042: kurze Rückmeldung unverändert (2060: als letzte in der Datei)", "> fertig: kurz, Commit 1a2b3c4\n" in datei("9017")
+     and "> fertig: kurz, Commit 1a2b3c4\n" not in g("show", "origin/main:docs/vorgang/archiv/9017.md", cwd=A), out)
 
 print("rueckmeldung_test: %s" % ("alles grün" if not fehl else "%d FEHL" % fehl))
 sys.exit(1 if fehl else 0)

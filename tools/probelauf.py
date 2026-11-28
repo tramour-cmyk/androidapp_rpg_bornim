@@ -323,7 +323,8 @@ def pruefer_frei(nr, text=None):
     import rueckmeldung
     heute = datetime.datetime.now(BERLIN)
     beste = None
-    for t, m, h, mi, satz in RUECK_KOPF.findall(text or ""):
+    text = (text or "") + rueckmeldung.archiv_rueck(text)  # 2060: ins Archiv verschobene Rückmeldungen zählen mit
+    for t, m, h, mi, satz in RUECK_KOPF.findall(text):
         if not rueckmeldung.worte(satz) & {"ja", "nein", "Beleg fehlt"}:
             continue
         jahr = heute.year if (int(m), int(t)) <= (heute.month, heute.day) else heute.year - 1

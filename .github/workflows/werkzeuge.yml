@@ -28,6 +28,7 @@ jobs:
           python3 tools/chefwort_test.py
           python3 tools/rueckmeldung_test.py
           python3 tools/vorgang_schlank_test.py
+          python3 tools/schlank_2060_test.py    # 2060 alter Schlons ins Archiv, Zählung und Ü-Nummer mit Archiv
           python3 tools/titel_2042_test.py
           python3 tools/liste_neu_test.py
           python3 tools/vorgang_neu_laenge_test.py  # 2017 Vorgangsliste ohne 400-Zeichen-Grenze
@@ -74,8 +75,11 @@ jobs:
           python3 tools/handstart_test.py       # 1989 lauf.py --start mit Startblock, Werkzeugsperre im Startsperre-Haken
           python3 tools/lauf_2049_test.py       # 2049 Start der Leitung ohne Nummer, feste Titel, Alter-Ego-Block, Hinweis statt Doppelstart
           python3 tools/lauf_2052_test.py       # 2052 Kür ruht, solange irgendwo Muss/Eilt startbar ist (lauf.py, Rollenzeile, vorgang.py --rolle)
-          python3 tools/lauf_2042c_test.py      # 2042 (c) Startnachricht nur Aufruf lauf.py --startblock, Haken nimmt ihn an
+          python3 tools/lauf_2042c_test.py      # 2042 (c) lauf.py --startblock zum Nachlesen, Haken; 2062 Startnachricht wieder wörtlich
+          python3 tools/lauf_2062_test.py       # 2062 START wörtlich (Ladetext, Auftrag) im Takt und bei --start, Konsole gekürzt, Restdatei voll
           python3 tools/lauf_2042d_test.py      # 2042 (d) list_sessions-Datei direkt lesen, je Sitzung eine Zeile SITZUNG, --token, after_id
+          python3 tools/lauf_2042e_test.py      # 2042 Fassung 5: Konsole ≤3 KB nur Taten, Restdatei; Haken tool-results; Rückfall get_session
+          python3 tools/auftrag_2042_test.py    # 2042 Fassung 5 (5): auftrag NR zeigt neuesten Auftrag, eintragen räumt auf
           python3 tools/projektplan_test.py     # 1860 Themenblöcke statt Wochenziel
           python3 tools/rundblick_test.py       # 1789 Rundblick-Start ohne Kern, Ausnahme „Zurück“
           python3 tools/nachtstarts_test.py     # 1792 Nachtstopp mit Ausnahme aus Chefentscheid

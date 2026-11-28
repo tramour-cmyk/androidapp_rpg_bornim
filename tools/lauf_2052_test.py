@@ -42,7 +42,7 @@ try:
     rest = re.sub(r"\A(\|[^\n]*\n)+", "", rest)  # alle echten Zeilen raus: nur Testzeilen
     for n in ("9201", "9202", "9203", "9204", "9205"):
         open(os.path.join(A, "docs", "vorgang", "%s.md" % n), "w", encoding="utf-8").write(datei(n))
-    ENV = dict(os.environ, GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@t", GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t@t", BORNIM_OHNE_PUSH="1",
+    ENV = dict(os.environ, GIT_AUTHOR_NAME="t", GIT_AUTHOR_EMAIL="t@t", GIT_COMMITTER_NAME="t", GIT_COMMITTER_EMAIL="t@t", BORNIM_OHNE_PUSH="1", BORNIM_LAUF_VOLL="1",
                BORNIM_WARN_STAND=os.path.join(d, "warn.json"), BORNIM_MELDUNGEN=os.path.join(d, "meldungen.tsv"), BORNIM_SITZUNG="session_test2052")
     for k in ("BORNIM_WURZEL", "BORNIM_JETZT", "GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE"): ENV.pop(k, None)
     open(ENV["BORNIM_MELDUNGEN"], "w").close()

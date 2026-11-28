@@ -49,8 +49,8 @@ for rolle in ("Sokrates", "Alter Ego"):
     pruefe(rufname.aus_titel(SOLL[rolle]) is None and rufname.teile(SOLL[rolle]) is None, "(b) rufname hält %r für Rufnamen" % SOLL[rolle])
     # (c) Startblock, keine WARNUNG 1923, Haken ohne Notstart, keine Meldung 1989
     msg = f[6].replace("\\n", "\n")
-    blk = lauf.blocktext(rolle) + "\n\nAuftrag: "  # 2042 (c): der Block kommt aus `lauf.py --startblock`, die Nachricht trägt den Aufruf
-    pruefe(lauf.startblock_aufruf(rolle) in msg, "(c) %s: Aufruf --startblock fehlt: %r" % (rolle, msg[:120]))
+    blk = msg  # 2062: der Block steht wieder wörtlich in der Nachricht (vorher 2042 (c) nur der Aufruf)
+    pruefe(lauf.blocktext(rolle) in msg, "(c) %s: Block von --startblock fehlt in der Nachricht: %r" % (rolle, msg[:120]))
     pruefe(not any(x.startswith("WARNUNG") for x in zs), "(c) %s: WARNUNG in der Ausgabe: %s" % (rolle, [x for x in zs if x.startswith("WARNUNG")]))
     if rolle == "Alter Ego":
         pruefe(blk.startswith("**Alter Ego**\n" + AE_TEXT + "\n\nAuftrag: "), "(c) Alter Ego: Block nicht „**Alter Ego**“ + alter-ego.md bis Protokoll: %r" % msg[:120])
