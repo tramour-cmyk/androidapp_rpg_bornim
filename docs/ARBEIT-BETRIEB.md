@@ -78,3 +78,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 21:16 28.11.: Startsperre 21:16 Start Alter Ego (Nachfolger auf Bitte Alter Ego, Disponent)
 - 21:05 28.11.: Startsperre 21:05 Start Disponent (Neustart-Haken, Disponent …75SkkG)
 - 21:25 28.11.: Startsperre 21:25 Start Arbeitsplaner Elke (2064, Kampf), Figur Frieda (1535 Eilt), Werkzeug Jana (2066 Eilt); Klang, Story, Technik, Arbeitsplaner Karla nicht: Chefwort 21:51 nur Kampf plus Eilt (Disponent)
+- 21:53 28.11.: Startsperre 21:53 Start Prüfer (lauf.py, Prüfer 2066 Timo)
