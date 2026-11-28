@@ -11,8 +11,8 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
+| 2066 | lauf.py vergibt Plätze Stufe vor Block über alle Bereiche: 1 systemkritisch, 2 Chefwort, 3 Eilt, 4 Muss, 5 Kür, gleiche Stufe nach Themenblock; eine Fachkraft je Block (Chef 27.11., 21:57, 22:03) | 7 | B Werkzeuge | Eilt | 28.11. 20:00 | – | – | *startbar* | *–* | *0* | *–* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | M | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
-| 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | M | Prüfer | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |
 | 513 | Ein Figurenstand für alle Zweige | 3 | E Figuren | M | – | – | claude/figurenstand-513 | *ruht, bis nach dem Durchspielen (Chef 04.11., 13:18 „513a nach dem Durchspielen“; Sokrates 23.11., 10:02)* | *–* | *0* | *15,28 $* |
 | 2065 | Von Werkzeug (1334): Wiederholrot dreh_1072: 2× rot in 48 h (Läufe 600, 599); Ursache nachstellen, beheben · wiederholt | 2 | E Kampf | M | 1589.4 | – | – | *startbar* | *–* | *0* | *–* |
 | 2064 | Von Werkzeug (1334): Wiederholrot ausholen_1000: 2× rot in 48 h (Läufe 600, 599); Ursache nachstellen, beheben · wiederholt | 2 | E Kampf | M | 1589.4 | – | – | *startbar* | *–* | *0* | *–* |
@@ -28,11 +28,11 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1694 | Griff einmal für alle gehaltenen Dinge: fester Griffpunkt in der Faustmitte je Hand, Finger schließen um den Schaft | 3 | E Figuren | M | – | 1621, 1657 | – | *ruht, beim Chef (Obergrenze A)* | *–* | *0* | *99,66 $* |
 | 1709 | Blender-Probe gemeinsam am PC des Chefs, Sonntag 22.11.: ein Modell (Garricks Flanke, 1535), Ziel vorher fest | 3 | E Figuren | M | 28.11. | 1535 | – | *ruht, Chef nicht am PC (22.11., 19:29), frühestens 28.11.* | *–* | *0* | *0,67 $* |
 | 1205b | in Grafik Niedrig nur die Blumen des Kits, Kleckse überall weg, Gras in Niedrig unser altes | 5 | E Welt | M | 1535 | 698a | claude/tom-1205-wiese | *zu testen* | *–* | *0* | *1,64 $* |
+| 1716 | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten Build | 7 | B Werkzeuge | M | Prüfer | – | – | *ruht, bis Sa 28.11. (Sokrates 14:31, Chef 12:48)* | *–* | *0* | *6,50 $* |
 | 1129 | Systemprüfung blinde Flecken mit Perikles: Regeln, Abläufe, Werkzeuge, die schneller, einfacher, ohne Qualitätsverlust … | 7 | B Abläufe | M | 1387 | 1110, 1128 | – | *wartet, 1129.4 ausgewertet, Punkt 6 gerissen* | *–* | *0* | *26,46 $* |
 | 1965 | WEITER nur für Nachbesserung des eigenen Auftrags, nie an Planer, Prüfer, Tester (Chef 22.11., 17:25) | 7 | B Werkzeuge | M | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11.: Chefwunsch bis Rundblick* | *–* | *0* | *1,14 $* |
 | 2005 | lauf.py startet Planer für ruhende Vorgänge (513 am 23.11. 18-mal) | 7 | B Werkzeuge | M | Sokrates | – | – | *ruht, Daten 513 berichtigt 24.11., kein Start mehr* | *–* | *0* | *1,12 $* |
 | 2019 | Wochenzählung in Betrieb bis Mo 30.11.: Profil anlegen, Wochentermin ohne --sperre anlegen und starten, Laufsperre frei; Probelauf zählt Woche 16.–23.11. nach (Chef 12:29, 12:30) | 7 | B Abläufe | M | – | – | – | *ruht* | *–* | *0* | *4,74 $* |
-| 1414 | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | 7 | B Werkzeuge | M | – | – | – | *gebaut, Geprüft an: 5307f68d3* | *–* | *0* | *2,44 $* |
 | 506.2 | Grabhund-Biss reicht sichtbar bis zum Helden, nicht nur knapp an den Schild (von Sokrates, 506; Chef 10.11., 19:26) | 2 | E Kampf | M | 709.1, 1589.4 | 506 | – | *ruht, Block 2 (1605)* | *–* | *0* | *–* |
 | 709 | Kampf: Angriffe treffen den Gegner sichtbar (Waffe am Körper, kein Luftschlag), alle Angreifer prüfen … | 2 | E Kampf | M | 1589.4 | – | claude/jerry-709-treffen | *ruht, Block 2 (1605)* | *–* | *0* | *64,31 $* |
 | 709.1 | Wolf und Grimmzahn beißen den Helden mit Schild sichtbar … | 2 | E Kampf | M | 1589.4 | 709 | claude/jerry-709-1-wolfsbiss-c | *ruht, Block 2 (1605)* | *–* | *0* | *83,22 $* |
@@ -70,6 +70,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1702 | vier Läufe zu 1655 an einem Tag, zuletzt alte Fassung des Bildskripts am Rechner | 6 | E Technik | M | – | 1655 | – | *gebaut, Geprüft an: fbf1063d1* | *–* | *0* | *–* |
 | 1719 | Buildzweige 24 h 3 grün, 4 rot, 3 abgebrochen (70 min Bauzeit verloren), rot über grün | 6 | E Technik | M | – | 1715 | – | *gebaut, Geprüft an: e09973f76* | *–* | *0* | *–* |
 | 1720 | Vordergrund deckt bis zur halben Bildfläche schwarz ab (Baumkronen, Felswand) | 6 | E Technik | M | 1871 | – | claude/spike-1720-vordergrund | *ruht, bis nach dem Umschalten* | *–* | *0* | *0,67 $* |
+| 1414 | Warnung bei Vorgangsnummer ohne Wort dazu in Vorlagen der Chefsache und in meldung.sh … | 7 | B Werkzeuge | M | – | – | – | *gebaut, Geprüft an: 5307f68d3* | *–* | *0* | *2,44 $* |
 | 1520 | An den Läufen sparen | 7 | B Steuerung | M | – | – | – | *startbar, Rückläufer Sokrates 18:12: Startlast und Dauer neu messen* | *–* | *0* | *29,69 $* |
 | 1572 | Ford hing ab 16:04 zwei Stunden (Rebase-Abbruch abgelehnt), keiner startete, kein Telegram | 7 | B Abläufe | M | 1610 | – | – | *gebaut, Geprüft an: 239b6745a* | *–* | *0* | *1,38 $* |
 | 1715 | Laufzahl täglich im Tagesbericht Perikles: Läufe der Build-Zweige grün, rot, abgebrochen mit verlorener Bauzeit | 7 | B Abläufe | M | – | – | – | *gebaut, Geprüft an: a3fe7a452* | *–* | *0* | *0,72 $* |
@@ -106,7 +107,6 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1774 | Werte für Höchstdauer je Auftrag (auch bei working) und Laufbremse (Läufe je Auftrag) festlegen | 7 | B Abläufe | M | – | 1766 | – | *startbar* | *–* | *0* | *–* |
 | 1781 | nach der Umstellung trägt jeder Start (Fachkraft, Build-Macher, Tester, auch aus auftrag.py) den Satz KAUFREPO … | 7 | B Werkzeuge | M | Sokrates | 1727, 134 | – | *startbar, umgeschaltet 1871* | *–* | *0* | *6,33 $* |
 | 1790 | rueckmeldung.py:89 gibt „ja“ des Prüfers bei einem Werkzeug als Testbitte an den Chef weiter | 7 | B Werkzeuge | M | – | 1727, 1311 | claude/spike-1871-umschalten | *gebaut, Geprüft an: d526b0a68* | *–* | *0* | *–* |
-| 1793 | startbar.py:196–198 Feld „nach“ legt den Rundblick nur an, wenn die Wochenzählung am selben Montag erledigt ist | 7 | B Werkzeuge | M | – | 1727 | claude/spike-1871-umschalten | *gebaut, Geprüft an: 69abfefa0* | *–* | *0* | *–* |
 | 2046 | 1589.4 grün: alte Reihen-Tests (reihe_1305, tausch_1041, stehen_973, biss_1284) und wolf_mess_438 an die Arena anpassen, wege_15894 ohne Kaufmodelle (Ersatzweg) reparieren und in logik.txt | 2 | E Kampf | M | 1589.4 | – | – | *startbar* | *–* | *0* | *14,99 $* |
 | 1402 | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel | 2 | E Kampf | K | 1589.4 | 1284a, 1236, 673 | – | *wartet, nur 1589.4 am Kampf (Chef 11:58)* | *–* | *0* | *–* |
 | 1404 | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UAL2/Protofactor (Spike), Waffe links an … | 2 | E Kampf | K | 1589.4 | 1291a, 444, 1236 | – | *wartet, nur 1589.4 am Kampf (Chef 11:58)* | *–* | *0* | *–* |
@@ -265,6 +265,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 142 | Vorbereitung Pflichttest Play Store (Konto, Datenschutz) | 8 | M Veröffentlichung | K | – | – | – | *nach Meilenstein, Oberste Direktive 31.10.: Kapitel 1 vor jeder Kür* | *–* | *0* | *19,96 $* |
 | 327 | Zweites Spiel: Marktsichtung Denkspiele, Modell ohne Werbung … | 8 | M Markt | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–; +1,26 $* |
 | 622 | Godot-Build als AAB für Play: dieselbe App `de.bornim.game`, mit dem Upload-Schlüssel des alten AAB, höhere … | 8 | M Veröffentlichung | K | – | 142.4 | – | *nach Meilenstein* | *–* | *0* | *2,91 $* |
+| 1793 | startbar.py:196–198 Feld „nach“ legt den Rundblick nur an, wenn die Wochenzählung am selben Montag erledigt ist | 7 | B Werkzeuge | M | – | 1727 | claude/spike-1871-umschalten | *gebaut, Geprüft an: 69abfefa0* | *–* | *0* | *–* |
 | 1794 | Profil Disponent :20 und Kern Büro „fertig ohne Commit nimmst du nicht an“: Ausnahmen fehlen: Werkzeug nach grünem Lauf … | 7 | B Abläufe | M | – | 1773, 1311, 1789 | – | *startbar* | *–* | *0* | *–* |
 | 1858 | Testbitte-Schreiber: Testbitte aus dem Build-Auftrag als chefsache/ansehen/t<n>.md und Telegram auf Grundlage … | 7 | B Werkzeuge | M | Sokrates | 1739 | – | *startbar* | *–* | *0* | *–* |
 | 1859 | .claude/settings.json: Haken weiter-haken, zug-haken, autoMode-Sätze (ARBEIT-*, Ford archiviert, startet) auf neue … | 7 | B Werkzeuge | M | 1871 | 1739, 797, 222, 235 | – | *gebaut, Geprüft an: e47128837* | *–* | *0* | *2,67 $* |
@@ -323,8 +324,8 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 1469 | chefsache/bilder/415-strahlen-gl.webp und 415-strahlen-mobile.webp über 60 KB seit 04.11. | 7 | B Abläufe | K | – | 1463, 108, 415 | – | *startbar* | *–* | *0* | *–* |
 | 1666 | bau_am_rechner.py --cache bricht ohne Blender ab, sobald nur Block klassen fehlt (Leute brauchen ihn) | 7 | B Werkzeuge | K | – | 1652 | claude/spike-1666-ohne-blender | *gebaut, Geprüft an: 542827cdb* | *–* | *0* | *–* |
 | 1690 | ARBEIT-TEAM-TOM.md: 5 „Zu“ zu Erledigtem (1569, 1569, 1515, 1515, 1515), beim Übergeben streichen | 7 | B Abläufe | K | – | 1425, 1642, 1569, 1515 | – | *startbar* | *–* | *0* | *–* |
-| 1729 | docs/LISTE-REGELWERTE.md veraltet | 7 | B Abläufe | K | – | 969, 1642 | – | *startbar* | *–* | *0* | *–* |
 | 2018 | Wochentermin 23.11.: Wochenzählung (Routine, Auftrag docs/entwurf/1727-muster/routine-wochenzaehlung.md) (719) | 7 | Q QM | M | – | – | – | *ruht* | *–* | *0* | *–* |
+| 1729 | docs/LISTE-REGELWERTE.md veraltet | 7 | B Abläufe | K | – | 969, 1642 | – | *startbar* | *–* | *0* | *–* |
 | 1741 | Block 4 Kataloge Zeilen nachziehen: 649.2 Titel nennt tools/figuren/figuren.json (gilt nicht, 649b keine eigene Datei) … | 7 | B Abläufe | K | – | 1727, 649.2, 649b, 644.5, 649 | – | *startbar* | *–* | *0* | *–* |
 | 1742 | notiz.sh gibt beim Start Modell und Aufwand aus | 7 | B Werkzeuge | K | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *1,21 $* |
 | 1749 | Präfix je Katalog für die Wortschlüssel ja oder nein | 7 | B Werkzeuge | K | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *–* |
@@ -344,4 +345,3 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2053 | Zeno-Hinweis 2052: startbar.kuer_ruht prüft weder Laufbremse, Nachtdeckel noch --ohne; Zahlen 32 (startbar.py) gegen 9 (lauf.py) | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2061 | Neustart-Grenzen messen: Kosten je fertigem Vorgang, Wochen ab 22.11. (200/300) gegen ab 27.11. (300/450); Ergebnis an den Chef, ändern nur mit Chefwort (Chef 27.11., 10:57) | 7 | B Werkzeuge | K | 27.12. | – | – | *startbar* | *–* | *0* | *–* |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
-| 2066 | lauf.py vergibt Plätze Stufe vor Block über alle Bereiche: 1 systemkritisch, 2 Chefwort, 3 Eilt, 4 Muss, 5 Kür, gleiche Stufe nach Themenblock; eine Fachkraft je Block (Chef 27.11., 21:57, 22:03) | 7 | B Werkzeuge | Eilt | 28.11. 20:00 | – | – | *startbar* | *–* | *0* | *–* |
