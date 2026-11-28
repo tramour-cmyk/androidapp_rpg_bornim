@@ -7,11 +7,16 @@
 # DURCHGAENGE=2: danach „Nochmal“ und derselbe Kampf noch einmal; je Durchgang die Bisse, nach denen ein Wolf zurück in die
 # Aufstellung ging, Fund t293.1 a, nur Auskunft).
 # Exit = Zahl der Fehler (Drehung; die Bisse ohne Platz am Gegner zählen nicht mit).
+# 2046: „am eigenen Platz“ heißt in der Arena „am Gegner“ (Rand des Ziels bis zur eigenen Mitte höchstens kampfort.KONTAKT_M,
+# wie figur.gd _face), nicht mehr kampfort.platz_eigen der Reihen: Wartende gehen an ihren Angriffsplatz (Arena.rudel_platz,
+# DESIGN-GEGNER.md 4, Chef 26.11., 10:29, 1589.4 d34b3fce9), dabei zum Weg drehen, vorwärts gehen, am Ziel zurückdrehen
+# (DESIGN-GEGNER.md 5). Flanke misst darum erst, wenn der Wolf steht (höchstens RUHE_S nach der Ansage), nicht im Gehen.
 extends SceneTree
 
 const Probe = preload("res://kampf/probe.gd")
 const Mars = preload("res://regeln/mars.gd")
 const FPS := 30.0
+const RUHE_S := 8.0       # 2046: so lange wartet die Flanke, bis der Wolf nach der Ansage steht (DESIGN-GEGNER.md 5)
 const DREH_MAX := 30.0     # Rumpf bis so weit neben dem Ziel gilt als zum Ziel gedreht (Ruhe halb seitlich: 12°)
 
 var kf
@@ -121,7 +126,7 @@ func _durchgang() -> Array:
 			if f.fighter.side != "FOES" or f.down or f.dead_at >= 0:
 				continue
 			var ziel = f.aim
-			if f.angesagt == null or ziel == null or not is_instance_valid(ziel) or not kf.platz_eigen.has(id):
+			if f.angesagt == null or ziel == null or not is_instance_valid(ziel) or ziel.clearance(f.position) > kf.KONTAKT_M * f._scale():
 				seit.erase(id)
 				continue
 			if not seit.has(id) or seit[id][1] != ziel:
@@ -133,7 +138,7 @@ func _durchgang() -> Array:
 			var vor := Vector3(sin(f.rotation.y), 0.0, cos(f.rotation.y))
 			var zu := Vector3(ziel.position.x - f.position.x, 0.0, ziel.position.z - f.position.z)
 			var w := rad_to_deg(absf(vor.signed_angle_to(zu, Vector3.UP)))
-			var zeile := "%s %.1f s: Rumpf %.0f° neben %s (Platz am Gegner, Reihe %s)" % [id, n / FPS, w, ziel.fighter.id, kf.platz_eigen[id]]
+			var zeile := "%s %.1f s: Rumpf %.0f° neben %s (am Gegner, Rand %.2f m)" % [id, n / FPS, w, ziel.fighter.id, ziel.clearance(f.position)]
 			if w > DREH_MAX:
 				fehler += 1
 				print("FEHLER 1072 Dreh: " + zeile)
@@ -163,11 +168,15 @@ func _flanke() -> void:
 			f.announce(f.angesagt, h)
 			for i in int(FPS * 2.0):
 				await process_frame
+			var warte := 0     # 2046: geht er an seinen Angriffsplatz (DESIGN-GEGNER.md 4, 5), gilt die Drehung erst im Stehen
+			while (f.unterwegs() or (f.tween and f.tween.is_running())) and warte < int(FPS * (RUHE_S - 2.0)):
+				await process_frame
+				warte += 1
 			geprueft += 1
 			var vor := Vector3(sin(f.rotation.y), 0.0, cos(f.rotation.y))
 			var zu := Vector3(h.position.x - f.position.x, 0.0, h.position.z - f.position.z)
 			var g := rad_to_deg(absf(vor.signed_angle_to(zu, Vector3.UP)))
-			var zeile := "wolf1 %+.0f° neben der Achse: Rumpf %.0f° neben dem Helden" % [w * seite, g]
+			var zeile := "wolf1 %+.0f° neben der Achse: Rumpf %.0f° neben dem Helden (steht nach %.1f s, Rand %.2f m)" % [w * seite, g, 2.0 + warte / FPS, h.clearance(f.position)]
 			if g > DREH_MAX:
 				fehler += 1
 				print("FEHLER 1072 Dreh: " + zeile)
