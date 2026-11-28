@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 21:19, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 22:06, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -30,7 +30,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 4 | 59e (Regeln) Händler: Vorrat je Laden |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 65 (67) | 19 | 2 | 0 | 27 | 2065 (Kampf) Wiederholrot dreh_1072: 2× rot in 48 h; Ursache n… |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 65 (67) | 19 | 1 | 0 | 27 | 2065 (Kampf) Wiederholrot dreh_1072: 2× rot in 48 h; Ursache n… |
 | ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 38 (40) | 22 | 1 | 2 | 9 | 1535 (Figur) Kleidung hängt bei NPCs in der Ruhebewegung an ei… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 4 | 458.3 (Kataloge) Gegenstandskatalog: Netze, Modelle, Läden |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 29 (31) | 0 | 0 | 0 | 5 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
@@ -38,7 +38,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 
 | ↳ **12** Bedienung und Oberfläche | 6 (6) | 0 | 0 | 0 | 3 | 531a (Oberfläche) Rückfrage: Bewegungspaket „Campfire“ für Garrick… |
 | ↳ **13** Geschichte und Texte | 10 (10) | 1 | 0 | 0 | 2 | 2040 (Story) Wörter für Frisur und Bart aus 2029, Vorschlag de… |
 | ↳ **6** Technik, Leistung, Build | 24 (24) | 12 | 0 | 1 | 1 | 1270.6 (Technik) Messbuild Technik: Schalter 3D-Auflösung 50 % im… |
-| **7** Firma: Werkzeuge und Abläufe | 128 (124) | 88 | 0 | 0 | 23 | 2066 (Werkzeug) lauf.py vergibt Plätze Stufe vor Block über alle… |
+| **7** Firma: Werkzeuge und Abläufe | 128 (124) | 88 | 1 | 0 | 23 | 2066 (Werkzeug) lauf.py vergibt Plätze Stufe vor Block über alle… |
 | **8** Marktstart | 10 (10) | 0 | 0 | 0 | 5 | 142.3 (Arbeitsplaner) Tester öffentlich suchen |
 
 **Erledigt und neu** (Kalendertage bis 24 Uhr; Woche ab Montag, Monat ab dem 1.; in Klammern bei „offen“: Stand 0:00 heute; netto plus = weniger offen)
@@ -59,15 +59,15 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | läuft: 2065 (Besetzung); 2065 Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen… (Muss); dann 9 weitere |
-| Figur | 1535 Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand (Muss); dann 9 weitere |
+| Figur | läuft: 1535 (Besetzung); 1535 Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand (Muss); dann 9 weitere |
 | Kataloge | 458.3 Gegenstandskatalog: Netze, Modelle, Läden (Muss) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
 | Oberfläche | 531a Rückfrage: Bewegungspaket „Campfire“ für Garrick und Rast k… (Kür) |
 | Story | 2040 Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den… (Muss) |
 | Technik | 1270.6 Messbuild Technik: Schalter 3D-Auflösung 50 % im Testmenü,… (Muss); dann 4 weitere |
-| Werkzeug | 2066 lauf.py vergibt Plätze Stufe vor Block über alle Bereiche:… (Muss); dann 23 weitere |
-| Prüfer | läuft: 2064 (Besetzung); leer, weil keine offene Zeile |
+| Werkzeug | läuft: 2066 (Besetzung); 2066 lauf.py vergibt Plätze Stufe vor Block über alle Bereiche:… (Muss); dann 22 weitere |
+| Prüfer | läuft: 2066 (Besetzung); leer, weil keine offene Zeile |
 | Tester | leer, weil keine offene Zeile |
 
 **Die nächsten 20**
@@ -75,7 +75,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 2065 | Kampf | Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen, beheben · wiederho… | M | 2 Kampf | in Arbeit |
-| 2 | 2064 | Kampf | Wiederholrot ausholen_1000: 2× rot in 48 h; Ursache nachstellen, beheben · wied… | M | 2 Kampf | in Arbeit |
+| 2 | 2064 | Kampf | Wiederholrot ausholen_1000: 2× rot in 48 h; Ursache nachstellen, beheben · wied… | M | 2 Kampf | startbar |
 | 3 | 1589 | Kampf | Motor des Kampfs: Gegnerverhalten nach Regeln … | M | 2 Kampf | startbar |
 | 4 | 1627 | Kampf | Trefferbild je Angriff: Kontaktpunkt, Zucken, Treffer/Abwehr/Fehlschlag untersc… | M | 2 Kampf | startbar |
 | 5 | 1589.5 | Kampf | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak mit Homer… | M | 2 Kampf | startbar |
@@ -146,7 +146,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.11.; „star
 | 1486 | K | bei gleicher Stufe gewinnen Wachsoldat und Klosterschüler 100 % in allen 12 Begegnungen bi | wartet auf Sokrates |
 | 1487 | K | Heiler wächst in Kapitel 1 nie im Willen (Heilmagie 12/13 am Kapitelende, übt Stumpfe Waff | startbar |
 
-**Kampf** – offen 65, Muss 19, startbar 42
+**Kampf** – offen 65, Muss 19, startbar 41
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
@@ -167,7 +167,8 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.11.; „star
 | 1589.5 | M | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak (Plan) mit Homer, Za | startbar |
 | 1589.6 | M | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd (Punkt, Umriss, Reichweite) statt n | wartet auf 1589.6-Ü1 (Arbeitsplaner) |
 | 1708 | M | Blut beim Biss fliegt bis etwa 1,5 Körperhöhen weg statt an den Zähnen zu bleiben (kampf_u | wartet auf 1708-Ü20 (Arbeitsplaner) |
-| 2046 | M | 1589.4 grün: alte Reihen-Tests (reihe_1305, tausch_1041, stehen_973, biss_1284) und wolf_m | startbar |
+| 2046 | M | 1589.4 grün: alte Reihen-Tests (reihe_1305, tausch_1041, stehen_973, biss_1284) und wolf_m | wartet auf 2046-Ü23 (Arbeitsplaner) |
+| 2071 | M | Spielcode Arena: tausch_1041 Held–Söldner 0,56 m unter 0,60 (figur.gd _wechsel_gehen), wol | startbar |
 | 1402 | K | Kamera im Kampf: Spieler dreht frei oder das Spiel wechselt den Blickwinkel | startbar |
 | 1404 | K | Machbarkeitsstudie Kampf mit zwei Waffen, ohne Spielcode: Bestand Bewegungen UAL2/Protofac | startbar |
 | 1526 | K | vorderer Wolf weicht nach Angriff eines hinteren ganz nach hinten und läuft als Nächster w | startbar |
@@ -214,14 +215,15 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.11.; „star
 | 2056 | K | Systemlösung? Klinge: 2 frühere Vorgänge (900, 1515), neu 1589.4; einmal grundsätzlich lös | startbar |
 | 2057 | K | Systemlösung? Drehung: 4 frühere Vorgänge (1588, 1979, 1998, 245), neu 1589.4; einmal grun | startbar |
 | 72c | K | Brainstorming Wunden bis zur Rast (Zeichen, Heilung mit Verband oder Tempel, schwere Wunde | nach dem Meilenstein |
-| 2071 | M | Spielcode Arena: tausch_1041 Held–Söldner 0,56 m unter 0,60 (figur.gd _wechsel_gehen), wol | startbar |
 
 **Figur** – offen 38, Muss 22, startbar 22
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
-| 513 | M | Ein Figurenstand für alle Zweige | ruht |
 | 1535 | M | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand (1332: im Test ohne Rückmeldung: | startbar |
+| 1655 | M | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, bis 135 Ecken) (1332: im Te | startbar |
+| 2028 | M | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 2 | startbar |
+| 513 | M | Ein Figurenstand für alle Zweige | ruht |
 | 1570 | M | Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 frühere Vorgänge (1006, 1052, 10 | startbar |
 | 1621 | M | Zweihandwaffen kürzer: Großaxt 131→110 cm, Kriegshammer 115→100, Zweihänder 128→115 (waffe | wartet auf 1694 (ruht) |
 | 1665 | M | Streitkolben in der Haupthand angelegt, am Helden in der Ausrüstung nicht zu sehen (Fackel | wartet auf 458.3 (zu testen) |
@@ -232,11 +234,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.11.; „star
 | 1297 | M | Schildgröße je Körper, beim Halbling ist der Schild so groß wie er | wartet auf 431 (zu testen) |
 | 1649 | M | Zweihandwaffe im Stand: keine Haltung (Stehen_axt fehlt), linke Faust reicht nicht an den | wartet auf 1694 (ruht) |
 | 1650 | M | Durchstechprüfung: Hosen stechen durch den Stiefelschaft (0,4 m, 90–144 Ecken) bei Borin, | wartet auf 1535 (zu testen) |
-| 1655 | M | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf (1,7 m, bis 135 Ecken) (1332: im Te | startbar |
 | 1657 | M | Durchstechprüfung: Held Robe M/W Hände durch die Robe (0,9–1,0 m) und 230–285 gezogene Dre | wartet auf 1694 (ruht) |
 | 1973 | M | Von Figur (Dana 22.11., 18:49, zu 1570): kein Zweihändermodell in daten/waffen – Gang mit | wartet auf 1694 (ruht) |
 | 2024 | M | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der Hand (schw | startbar |
-| 2028 | M | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu (Fund Prüfer 1654-Ü11, 2 | startbar |
 | 2029 | M | Kopfteile aus MakeHuman-Paketen: Haare, Bärte, Helme je ein Stück als Probe in der Spielka | ruht |
 | 2031 | M | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt gegen neu (Che | startbar |
 | 2032 | M | Rowena: rechte Finger auf dem Gürtel dunkel, gelbe Kleid-Innenseite sichtbar (Rest aus 202 | ruht |
@@ -374,11 +374,12 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.11.; „star
 | 1711 | K | Systemlösung? Messung meldet passt, Bild zeigt Fehler: 1694 (Faust, anderer Knoten/Pose), | startbar |
 | 1738 | K | Wie spielt eine Sitzung ohne Handy Kapitel 1 durch (Tester der Abnahme)? Godot ohne Bildsc | startbar |
 
-**Werkzeug** – offen 126, Muss 87, startbar 52
+**Werkzeug** – offen 126, Muss 87, startbar 51
 
 | Nr. | Kl. | Was | Stand |
 |---|---|---|---|
 | 2066 | M | lauf.py vergibt Plätze Stufe vor Block über alle Bereiche: 1 systemkritisch, 2 Chefwort, 3 | startbar |
+| 2067 | M | lauf.py voller Lauf ab 7 Uhr: nur 48 Stunden zurücklesen statt alle Seiten (list_sessions | wartet auf 2067-Ü4 (Arbeitsplaner) |
 | 1148 | M | lauf.py startet/archiviert Spike 882.1 wiederholt, obwohl dessen Render-Lauf in der idle S | wartet auf Diogenes (greift?) |
 | 1961 | M | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann | wartet auf Sokrates |
 | 1716 | M | Buildzweig gehört Spike: nur Spike pusht auf claude/build-<n>, Nachträge in den nächsten B | wartet auf Prüfer |
@@ -463,6 +464,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.11.; „star
 | 2058 | M | Arbeitsplaner, der noch läuft, nimmt weitere Aufträge, bis zu drei, dann archivieren; 2 Pl | startbar |
 | 2059 | M | Erledigte Übergaben ganz ins Archiv, in der Datei nur offene; nächste Kennung aus Datei un | startbar |
 | 2063 | M | lauf.py --ohne Sokrates: Zweig 1763 C (lauf.py 1360–1362) schreibt START und ARCHIVIERE de | startbar |
+| 2068 | M | lauf.py --start Wache startet mit Opus, Kopiertext C sagt Sonnet (Fund Alter Ego 28.11., 2 | wartet auf 2068-Ü1 (Arbeitsplaner) |
 | 1625 | K | feste Startprompts je Rolle statt Startlektüre | startbar |
 | 1734 | K | Forschung und Entwicklung bei Sokrates, wöchentlich oder auf Bedarf: wie arbeiten andere … | startbar |
 | 102 | K | Dokumente BornWire TCS nachziehen | Idee |
@@ -499,11 +501,9 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.11.; „star
 | 2051 | K | Haken-Texte (startsperre-haken.py nacht(), neustart-haken.py Z. 8) richten sich noch an „F | startbar |
 | 2053 | K | Zeno-Hinweis 2052: startbar.kuer_ruht prüft weder Laufbremse, Nachtdeckel noch --ohne; Zah | startbar |
 | 2061 | K | Neustart-Grenzen messen: Kosten je fertigem Vorgang, Wochen ab 22.11. (200/300) gegen ab 2 | Termin 27.12. |
-| 246.1 | K | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | nach dem Meilenstein |
-| 2067 | M | lauf.py voller Lauf ab 7 Uhr: nur 48 Stunden zurücklesen statt alle Seiten (list_sessions | startbar |
-| 2068 | M | lauf.py --start Wache startet mit Opus, Kopiertext C sagt Sonnet (Fund Alter Ego 28.11., 2 | wartet auf 2068-Ü1 (Arbeitsplaner) |
 | 2069 | K | Von Tagesbericht (28.11., 20:38): tagesbericht.py fertig() prüft den Stand mit re.match oh | startbar |
 | 2070 | K | Von Tagesbericht (28.11., 20:38): ansehen/1973-zweihaender-waffe-in-der-hand.md liegt noch | startbar |
+| 246.1 | K | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | nach dem Meilenstein |
 
 **Disponent** – offen 0, Muss 0, startbar 0
 
