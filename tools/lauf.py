@@ -8,7 +8,8 @@ SEITE = gespeicherte Ausgabe von list_sessions (mine, alle Seiten bis has_more f
   Letzte Zeile der Kurzform: `# has_more: nein` (erst nach der letzten Seite von list_sessions); fehlt sie oder steht „ja“, warnt lauf.py „Seite abgeschnitten“ (261.4).
   2042: statt dessen `# bis: <created_at der letzten Zeile>`, sobald diese vor der Zeitgrenze liegt (früher von heute 00:00 und jetzt − 3 h);
   fehlt dann eine Sitzung aus ARBEIT-BESETZUNG.md: Zeile GET_SESSION <ids> (Kurzzeile nachtragen, lauf.py neu), kein Plan.
-  Erster Lauf ab 7 Uhr (Zeitmarke der Besetzung vor 07:00) mit `# bis:`: nur Zeile VOLLER LAUF (alle Seiten holen, lauf.py neu), kein Plan.
+  Erster Lauf ab 7 Uhr (Zeitmarke der Besetzung vor 07:00): `# bis:` muss 48 Stunden zurückreichen (VOLL_STUNDEN, 2067), sonst nur Zeile
+  VOLLER LAUF (Seiten bis 48 h zurück holen, lauf.py neu), kein Plan; Älteres prüft die Besetzung (GET_SESSION).
 Ausgabe, Zeile für Zeile auszuführen:
   START <Rolle> | model | [effort high] | environment_id | source_url | source_revision | Titel | erste Nachricht   → create_session mit allen Feldern, source_url (187) und source_revision main (382) Pflicht (Startsperre vorher pushen: --sperre schreibt sie)
   ARCHIVIERE <session_id> | <Rolle> | <Kosten $> | <Vorgang>        → archive_session, danach --kosten (siehe unten)
@@ -1182,9 +1183,16 @@ def zeitgrenze(jetzt=None):
     return min(j.replace(hour=0, minute=0, second=0, microsecond=0), j - datetime.timedelta(hours=3))
 
 
+VOLL_STUNDEN = 48  # 2067 (Chef 28.11., 09:29 „ja, so machen …“): der erste Lauf ab 7 Uhr liest list_sessions 48 h zurück, Älteres prüft die Besetzung
+
+def vollgrenze(jetzt=None):
+    """2067: Grenze (created_at) des ersten Laufs ab 7 Uhr: jetzt − VOLL_STUNDEN."""
+    return (jetzt or JETZT).astimezone(BERLIN) - datetime.timedelta(hours=VOLL_STUNDEN)
+
+
 def voller_lauf_faellig(besetzung, jetzt=None):
-    """2042 (Sokrates 23:00 (3)): kein Takt mit „# bis:“ archiviert ruhende Sitzungen vor der Zeitgrenze; darum ist der erste Lauf
-    ab 7 Uhr voll (alle Seiten bis has_more falsch). Fällig, wenn jetzt ab 07:00 und die Zeitmarke „**Stand:**“ der Besetzung vor
+    """2042 (Sokrates 23:00 (3)): kein Takt mit „# bis:“ archiviert ruhende Sitzungen vor der Zeitgrenze; darum liest der erste Lauf
+    ab 7 Uhr weiter zurück, 2067: bis vollgrenze (VOLL_STUNDEN), nicht mehr alle Seiten. Fällig, wenn jetzt ab 07:00 und die Zeitmarke „**Stand:**“ der Besetzung vor
     heute 07:00 liegt oder fehlt."""
     j = (jetzt or JETZT).astimezone(BERLIN); sieben = j.replace(hour=7, minute=0, second=0, microsecond=0)
     if j < sieben: return False
@@ -1204,11 +1212,11 @@ def _seite_json(p):
     try: return json.JSONDecoder().raw_decode(t[i:])[0].get("ccr") or {}
     except ValueError: return None
 
-def grenze_offen(offen, jetzt=None):
+def grenze_offen(offen, jetzt=None, grenze=None):
     """2042 (1): abgeschnittene Seiten ohne die Kurzformen, deren Endzeile „# bis: <created_at>“ die Zeitgrenze erreicht;
     2042 (d): ebenso eine JSON-Seite, deren letzte Sitzung (created_at) die Zeitgrenze erreicht.
-    Gibt (noch offen, Liste der Seiten bis zur Zeitgrenze) zurück."""
-    g = zeitgrenze(jetzt); rest = []; bis = []
+    2067: grenze (z. B. vollgrenze) statt der Zeitgrenze. Gibt (noch offen, Liste der Seiten bis zur Grenze) zurück."""
+    g = zeitgrenze(jetzt) if grenze is None else grenze; rest = []; bis = []
     for p in offen:
         c = _seite_json(p)
         try:
@@ -1917,9 +1925,9 @@ def main():
     offen, bis = grenze_offen(offen)  # 2042 (1): Kurzform bis zur Zeitgrenze gilt als vollständig
     if offen: ausgabe.append(seite_warnung(offen))
     if bis:
-        if voller_lauf_faellig(lesen(os.path.join(DOCS, "ARBEIT-BESETZUNG.md"))):
-            return print("VOLLER LAUF | 2042: erster Lauf ab 7 Uhr: list_sessions alle Seiten bis has_more falsch, Kurzform mit „# has_more: nein“, "
-                         "lauf.py neu (archiviert auch ruhende Sitzungen vor der Zeitgrenze)")
+        if voller_lauf_faellig(lesen(os.path.join(DOCS, "ARBEIT-BESETZUNG.md"))) and grenze_offen(bis, grenze=vollgrenze())[0]:  # 2067
+            return print("VOLLER LAUF | 2042, 2067: erster Lauf ab 7 Uhr: list_sessions %d Stunden zurück bis created_at vor %s, Kurzform mit „# bis: <created_at>“, "
+                         "lauf.py neu (archiviert auch ruhende Sitzungen vor der Zeitgrenze; Älteres prüft die Besetzung)" % (VOLL_STUNDEN, vollgrenze().strftime("%d.%m., %H:%M")))
         fehlt = besetzung_fehlt(lesen(os.path.join(DOCS, "ARBEIT-BESETZUNG.md")), set(alle))
         if fehlt:  # laut statt still falsch: vor der Grenze gestartete laufende Sitzung fehlt, sonst doppelter START
             return print("GET_SESSION %s | 2042: vor der Zeitgrenze gestartet, steht in ARBEIT-BESETZUNG.md: get_session, Kurzzeile vor „# bis:“ anhängen, lauf.py neu" % ",".join(fehlt))
