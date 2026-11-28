@@ -1481,3 +1481,4 @@
 2026-11-26 17:19:46	commit-pruefung	VORGANGSARCHIV.md: neuer Eintrag „Spiel statt Betrieb, Wochenlimit“ trifft ältere Einträge ohne „ersetzt durch“ (1589.4 Wolfsdrehung; 1589.4 C, Drehung weich; 1589.4, Läufe frei; Kampf nur 1589.4); do	HEAD
 2026-11-26 17:19:58	commit-pruefung	docs/chefsache/ansehen/15894-wege-arena.md: Chef hat 1589.4 beantwortet (26.11., 16:30), die Vorlage bleibt stehen; im selben Commit löschen (383.3), bleibt die Frage offen: Zeit in Zeile 1 oder 2 der	HEAD
 2026-11-26 18:10:08	probelauf	Laufbremse (1766): Bildlauf erkannt. Vorgang davorsetzen: `PROBE=<Nr> <Befehl>` für Bild oder Film an den Chef, `MESS=<Nr> <Befehl>` für einen eigenen Mess- oder Testlauf (frei, 1129 A 3b).	claude/build-301
+2026-11-28 17:07:15	startsperre	Startblock fehlt (1989, Chef 23.11., 09:11): die erste Nachricht trägt nicht den Startblock aus lauf.py (Kopfzeile „**<Profil>**“ und „Auftrag:“). Von Hand nur mit `python3 tools/lauf.py --start ROLLE	ccr-b16e8adc-80dsi5
