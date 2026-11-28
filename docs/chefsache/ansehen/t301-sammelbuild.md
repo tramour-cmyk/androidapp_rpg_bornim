@@ -50,4 +50,4 @@ Chef im Chat, 28.11., 14:09, wörtlich:
 - 301.4 ✓ niedrig, 48 fps, hoch 31 fps,passt
 - 301.5 ✓
 - 301.6 ✓ Alle Wölfe sind an mir dran, aber ich kann nur zwei angreifen....
-- 301.7 ✗ Es steht Prankenhieb mit Ring, aber kommt Morgensternangriff
+- 301.7 ✓ Es steht Prankenhieb mit Ring, aber kommt Morgensternangriff (Chef 28.11., 14:14: „301.7 da falscher Angriff bekannt, bestanden“; Schlag ist 2024)
