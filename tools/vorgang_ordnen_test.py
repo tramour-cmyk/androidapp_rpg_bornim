@@ -14,5 +14,5 @@ soll("Jerry: Muss stabil vorn, M?, Kür, nach Meilenstein", reihe(neu, "Jerry"),
 soll("Tom: Muss vor Kür", reihe(neu, "Tom"), ["4", "1"])
 soll("Plätze je Besitzer bleiben", [d["besitzer"] for d in vorgang.startbar.vorgangsliste(neu)], ["Tom", "Jerry", "Jerry", "Tom", "Jerry", "Jerry", "Jerry"])
 soll("zweiter Lauf ändert nichts", vorgang.muss_vorn(neu)[1], 0)
-soll("Zahl verschobener Zeilen", n, 7)
+soll("Zahl verschobener Zeilen (wie git diff: 1 2 3 4 5 6 7 → 4 5 7 1 6 2 3, drei bleiben; 2066-Ü9 c)", n, 4)
 sys.exit(fehl)
