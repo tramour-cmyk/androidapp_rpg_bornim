@@ -25,10 +25,10 @@
 - delete_trigger gesperrt (27.11.).
 - Uhren hängt Alter Ego um (Chef 27.11., 15:43).
 - Neustart vom Daddy (Chef 28.11., 10:08): neues Alter Ego startet Disponent und Sokrates neu.
-- Sa 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs einschalten; dann nur Kampf (Chef 27.11., 21:51) plus Eilt 2066/2067; 2063 ruht.
+- Wache-Uhr: Einschalten verweigert (Rechteprüfung 20:01), an Alter Ego mit Neustart Wache (620 Tsd.).
 - Starttexte als Codeblock.
 - Ab 20:00: Bilder 1535/1655/2028 Eilt; 301 ohne 1270.6, grün nach main.
-- Nach Sa 20:00: 2029-Ü33/Ü34 vorlegen (Lizenz hats02).
+- 1694-Ü53/54, 2029-Ü33/34 (Figuren) ruhen unter „nur Kampf“ bis Chefwort Figuren.
 
 ## Übergabe
 
