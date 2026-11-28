@@ -74,4 +74,6 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:34 28.11.: Startsperre 20:34 Start Tagesbericht (Routine, Wache meldet fehlend, Sperre Sa 20:00 vorbei; Disponent)
 - 21:03 28.11.: Startsperre 21:03 Start Arbeitsplaner, Kampf, Figur, Klang, Story, Technik, Werkzeug, Arbeitsplaner (lauf.py, Arbeitsplaner 2064 Carla, Kampf 2065 Dana, Figur 1535 Elke, Klang 1753 Frieda, Story 2040 Gerda, Technik 1270.7 Heike, Werkzeug 2066 Ida, Arbeitsplaner 1270.6 Jana)
 - 21:04 28.11.: Startsperre 21:04 Start Kampf (Dana 2065; Chefwort 21:51 nur Kampf plus Eilt, Disponent)
+- 21:08 28.11.: Startsperre 21:08 Start Prüfer (Oda, 2046-Ü20/2064-Ü1; Britta ist Macher, Disponent)
+- 21:16 28.11.: Startsperre 21:16 Start Alter Ego (Nachfolger auf Bitte Alter Ego, Disponent)
 - 21:05 28.11.: Startsperre 21:05 Start Disponent (Neustart-Haken, Disponent …75SkkG)
