@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj79eptrybHFvf7tKYMf (seit 28.11., 10:34, Tiefe 0, Neustart vom Daddy, Chef 10:08). Sokrates session_01Hmoj7A8V2u5nbX9brVnGhb (seit 28.11., 10:37). Disponent session_01Hmoj75SkkgctUMdiVSUcxh (seit 28.11., 17:06). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj75X1VHxVRBgEpEPmi8 (seit 28.11., 17:08, Tiefe 1, Nachfolger von …79eptr; Uhr Supervisor-Runde trig_01GCZ2BT7UGuTdR9qxYLJhUL). Sokrates session_01Hmoj7A8V2u5nbX9brVnGhb (seit 28.11., 10:37). Disponent session_01Hmoj75SkkgctUMdiVSUcxh (seit 28.11., 17:06). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
