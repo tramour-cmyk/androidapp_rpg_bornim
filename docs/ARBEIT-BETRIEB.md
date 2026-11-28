@@ -68,3 +68,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 17:08 28.11.: Startsperre 17:08 Start Alter Ego (Alter Ego …79eptr)
 - 20:02 28.11.: Startsperre 20:02 Start Wache (Alter Ego …75X1)
 - 20:03 28.11.: Startsperre 20:03 Start Arbeitsplaner (Anna, 2065 plus Eilt), Kampf (Britta, 2046); übrige START-Zeilen nicht: Chefwort 21:51, nur Kampf plus Eilt (Disponent)
+- 20:10 28.11.: Startsperre 20:10 Start Wache (Alter Ego …75X1, Sonnet, Chef 20:09)
