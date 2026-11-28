@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 14:11, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 14:14, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -30,7 +30,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 4 | 59e (Regeln) Händler: Vorrat je Laden |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 65 (67) | 19 | 0 | 0 | 27 | 2065 (Kampf) Wiederholrot dreh_1072: 2× rot in 48 h; Ursache n… |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 64 (67) | 18 | 0 | 0 | 27 | 2065 (Kampf) Wiederholrot dreh_1072: 2× rot in 48 h; Ursache n… |
 | ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 38 (40) | 22 | 1 | 5 | 9 | 2024 (Figur) Krogg schlägt beim Prankenhieb mit der freien Pra… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 4 | 458.3 (Kataloge) Gegenstandskatalog: Netze, Modelle, Läden |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 29 (31) | 0 | 0 | 0 | 5 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
@@ -45,9 +45,9 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 
 
 | | heute | gestern | Woche | Monat (seit 07.11.) |
 |---|---|---|---|---|
-| erledigt | 6 | 3 | 73 | 1488 |
+| erledigt | 7 | 3 | 74 | 1489 |
 | neu | 1 | 7 | 90 | 1596 |
-| **netto** (erledigt − neu) | **+5** | **−4** | **−17** | **−108** |
+| **netto** (erledigt − neu) | **+6** | **−4** | **−16** | **−107** |
 
 Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vorgänge sind dort nicht zählbar.
 
@@ -58,7 +58,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | **Chef** | [t301](ansehen/t301-sammelbuild.md) testen, hält 1 Zeilen; dann 1 weitere |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
-| Kampf | 2065 Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen… (Muss); dann 11 weitere |
+| Kampf | 2065 Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen… (Muss); dann 9 weitere |
 | Figur | 1570 Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 f… (Muss); dann 6 weitere |
 | Kataloge | 458.3 Gegenstandskatalog: Netze, Modelle, Läden (Muss) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
@@ -79,23 +79,23 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 3 | 1589 | Kampf | Motor des Kampfs: Gegnerverhalten nach Regeln … | M | 2 Kampf | startbar |
 | 4 | 1627 | Kampf | Trefferbild je Angriff: Kontaktpunkt, Zucken, Treffer/Abwehr/Fehlschlag untersc… | M | 2 Kampf | startbar |
 | 5 | 1589.5 | Kampf | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak mit Homer… | M | 2 Kampf | startbar |
-| 6 | 1589.6 | Kampf | Rechnung 444 in die Arena: sim444 rechnet mit arena.gd statt nah, fern, weit | M | 2 Kampf | startbar |
-| 7 | 1603 | Kampf | Besonderheiten fehlen im MARS ohne Kerben: Krogg Prankenhieb, Grimmzahn Umreiße… | M | 2 Kampf | startbar |
-| 8 | 2046 | Kampf | 1589.4 grün: alte Reihen-Tests und wolf_mess_438 an die Arena anpassen, wege_15… | M | 2 Kampf | startbar |
-| 9 | 2024 | Figur | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der… | M | 3 Figuren und Kleidung | startbar |
-| 10 | 2031 | Figur | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt geg… | M | 3 Figuren und Kleidung | startbar |
-| 11 | 2034 | Figur | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NP… | M | 3 Figuren und Kleidung | in Arbeit |
-| 12 | 2045 | Figur | Kutte für Klosterschüler einbauen, nach Chef-👍 26.11., 00:06 auf Frage 2031 | M | 3 Figuren und Kleidung | startbar |
-| 13 | 458.3 | Kataloge | Gegenstandskatalog: Netze, Modelle, Läden | M | 4 Kataloge | gebaut, t301 ohne deine Antwort |
-| 14 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
-| 15 | 2040 | Story | Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den Chef | M | 13 Geschichte und Texte | startbar |
-| 16 | 1270.6 | Technik | Messbuild Technik: Schalter 3D-Auflösung 50 % im Testmenü, Überzeichnungs-Ansic… | M | 6 Technik, Leistung, Build | startbar |
-| 17 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
-| 18 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
-| 19 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
-| 20 | 2033 | Technik | Thessa: fast schwarzes Loch in der rechten Faust, Tusche zieht die Faustöffnung… | M | 6 Technik, Leistung, Build | startbar |
+| 6 | 2046 | Kampf | 1589.4 grün: alte Reihen-Tests und wolf_mess_438 an die Arena anpassen, wege_15… | M | 2 Kampf | startbar |
+| 7 | 2024 | Figur | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der… | M | 3 Figuren und Kleidung | startbar |
+| 8 | 2031 | Figur | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt geg… | M | 3 Figuren und Kleidung | startbar |
+| 9 | 2034 | Figur | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NP… | M | 3 Figuren und Kleidung | in Arbeit |
+| 10 | 2045 | Figur | Kutte für Klosterschüler einbauen, nach Chef-👍 26.11., 00:06 auf Frage 2031 | M | 3 Figuren und Kleidung | startbar |
+| 11 | 458.3 | Kataloge | Gegenstandskatalog: Netze, Modelle, Läden | M | 4 Kataloge | gebaut, t301 ohne deine Antwort |
+| 12 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
+| 13 | 2040 | Story | Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den Chef | M | 13 Geschichte und Texte | startbar |
+| 14 | 1270.6 | Technik | Messbuild Technik: Schalter 3D-Auflösung 50 % im Testmenü, Überzeichnungs-Ansic… | M | 6 Technik, Leistung, Build | startbar |
+| 15 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
+| 16 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
+| 17 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
+| 18 | 2033 | Technik | Thessa: fast schwarzes Loch in der rechten Faust, Tusche zieht die Faustöffnung… | M | 6 Technik, Leistung, Build | startbar |
+| 19 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
+| 20 | 1933 | Werkzeug | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halb… | M | 7 Firma | startbar |
 
-Danach 187 weitere offen. Bei dir zum Testen (vorgelegt): 6. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 83.
+Danach 186 weitere offen. Bei dir zum Testen (vorgelegt): 6. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 83.
 ## Zu entscheiden
 
 Nichts offen.
