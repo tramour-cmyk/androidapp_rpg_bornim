@@ -59,3 +59,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 15:06 27.11.: Startsperre 15:06 Start Arbeitsplaner, Figur, Arbeitsplaner, Sokrates (lauf.py, Arbeitsplaner 1189 Emil, Figur 2031 Frieda, Arbeitsplaner 1388 Gerda, Sokrates 1589.4)
 - 18:26 27.11.: Startsperre 18:26 Start Alter Ego (Alter Ego …76togH)
 - 09:30 28.11.: Startsperre 09:30 Start Disponent (Alter Ego …78YZ5U)
+- 10:05 28.11.: Startsperre 10:05 Start Alter Ego (Alter Ego …78YZ5U)
