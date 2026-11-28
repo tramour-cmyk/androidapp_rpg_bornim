@@ -346,3 +346,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2061 | Neustart-Grenzen messen: Kosten je fertigem Vorgang, Wochen ab 22.11. (200/300) gegen ab 27.11. (300/450); Ergebnis an den Chef, ändern nur mit Chefwort (Chef 27.11., 10:57) | 7 | B Werkzeuge | K | 27.12. | – | – | *startbar* | *–* | *0* | *–* |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
 | 2067 | lauf.py voller Lauf ab 7 Uhr: nur 48 Stunden zurücklesen statt alle Seiten (list_sessions endet nie); mit 2066 bauen (Chef 28.11., 09:29) | 7 | B Werkzeuge | Eilt | 28.11. 20:00 | – | – | *startbar* | *–* | *0* | *–* |
+| 2068 | lauf.py --start Wache startet mit Opus, Kopiertext C sagt Sonnet (Fund Alter Ego 28.11., 20:04) | 7 | B Werkzeuge | M | – | – | – | *startbar* | *–* | *0* | *–* |

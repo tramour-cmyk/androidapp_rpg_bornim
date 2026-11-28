@@ -25,7 +25,7 @@
 - delete_trigger gesperrt (27.11.).
 - Uhren hängt Alter Ego um (Chef 27.11., 15:43).
 - Neustart vom Daddy (Chef 28.11., 10:08): neues Alter Ego startet Disponent und Sokrates neu.
-- Wache-Uhr ein (Chef 20:02); Neustart Wache (620 Tsd.) bei Alter Ego.
+- Wache …76hGQ7 läuft auf Opus statt Sonnet: Vorgang an Werkzeug, Chef fragen.
 - Starttexte als Codeblock.
 - Ab 20:00: Bilder 1535/1655/2028 Eilt; 301 ohne 1270.6, grün nach main.
 - 1694-Ü53/54, 2029-Ü33/34 (Figuren) ruhen unter „nur Kampf“ bis Chefwort Figuren.
