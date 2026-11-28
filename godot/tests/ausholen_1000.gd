@@ -6,7 +6,7 @@
 #  - nach dem Hieb, beim Tod und ohne Ansage keine Haltung.
 # Nur mit Graks Modell (kampf/daten aus grak_gestalt.py) aussagekräftig; ohne seinen Hieb: übersprungen (exit 0).
 # Aufruf: im Ordner godot mit --headless --fixed-fps 30 -s res://tests/ausholen_1000.gd   (exit 0 = alles erfüllt)
-# 2046: „auf dem Weg“ zählt auch von seiner Würfelzeile bis zum Hieb; das Zurückgehen nach dem Ausweichen vor dem eigenen Zug
+# 2046: Haltung, Axt oben und „auf dem Weg“ gelten auch von seiner Würfelzeile bis zum Hieb; das Zurückgehen nach dem Ausweichen vor dem eigenen Zug
 # entfällt (DESIGN-KAMPF.md F5, Arena 1589.4 c95da5943), das allein trug die Zählung bisher.
 extends SceneTree
 
@@ -189,11 +189,17 @@ func _lauf() -> void:
 		# 2046: der Weg zum Ziel beginnt mit seiner Würfelzeile (Zweig und main gleich: „Gehen“ ab der Zeile bis „Hieb“); gezählt
 		# wurde bisher nur das Zurückgehen nach „Ausweichen links“ vor dem eigenen Zug, das es nach F5 nicht gibt (DESIGN-KAMPF.md F5:
 		# danach bleibt er dort stehen, rückt erst mit dem eigenen Zug zurecht; Arena 1589.4 c95da5943). Darum auch von der Zeile bis zum Hieb
-		if geschlagen and not gehauen and cur == "Gehen" and grak.lunging() and grak.ausgeholt() and grak.ausholer.gewicht > 0.95:
-			unterwegs += 1
-			faust_bilder += 1
-			if not (_hoch(sk, "hand_r") > _hoch(sk, "Head")):
-				faust_unten += 1
+		# (Prüfer Oda 28.11., 21:18, Sokrates 2046-Ü21 (1)): im ganzen Fenster bis zum Hieb gilt die Haltung wie ab der Ansage, jedes
+		# Bild ohne sie zählt als ohne Haltung, nicht nur die gezählten Wegbilder
+		if geschlagen and not gehauen and cur != "Hieb" and cur != "Tod" and not grak.down:
+			if not grak.ausgeholt():
+				ohne_haltung += 1
+			elif grak.ausholer.gewicht > 0.95:
+				faust_bilder += 1
+				if cur == "Gehen" and grak.lunging():
+					unterwegs += 1
+				if not (_hoch(sk, "hand_r") > _hoch(sk, "Head")):
+					faust_unten += 1
 		if angesagt >= 0.0 and t - angesagt > 0.1:
 			if not grak.ausgeholt():
 				ohne_haltung += 1
