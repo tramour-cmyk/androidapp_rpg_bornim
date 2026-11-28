@@ -11,7 +11,7 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 
 | Nr. | Titel | Block | Bereich | Kl. | wartet auf | Bezug | Zweig | *Stand* | *Sitzung* | *Runde* | *Kosten* |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| 2066 | lauf.py vergibt Plätze Stufe vor Block über alle Bereiche: 1 systemkritisch, 2 Chefwort, 3 Eilt, 4 Muss, 5 Kür, gleiche Stufe nach Themenblock; eine Fachkraft je Block (Chef 27.11., 21:57, 22:03) | 7 | B Werkzeuge | Eilt | 28.11. 20:00 | – | – | *startbar* | *–* | *0* | *–* |
+| 2066 | lauf.py vergibt Plätze Stufe vor Block über alle Bereiche: 1 systemkritisch, 2 Chefwort, 3 Eilt, 4 Muss, 5 Kür, gleiche Stufe nach Themenblock; eine Fachkraft je Block (Chef 27.11., 21:57, 22:03) | 7 | B Werkzeuge | Eilt | – | – | – | *startbar* | *–* | *0* | *–* |
 | 1961 | Ford heißt Disponent: Werkzeug (lauf.py, kosten.py) auf Titel „Disponent“ umstellen, dann Übergabe an frische Disponent-Sitzung mit Profil (Chef 22.11., 17:04: „Wieso gibt es Ford noch?“) | 7 | B Werkzeuge | M | Sokrates | – | – | *ruht, Werkzeug-Schnitt 24.11. (Chefwort 07:07): Chefwunsch, ruht bis Rundblick; Chef kann vorziehen* | *–* | *0* | *184,78 $* |
 | 513 | Ein Figurenstand für alle Zweige | 3 | E Figuren | M | – | – | claude/figurenstand-513 | *ruht, bis nach dem Durchspielen (Chef 04.11., 13:18 „513a nach dem Durchspielen“; Sokrates 23.11., 10:02)* | *–* | *0* | *15,28 $* |
 | 2065 | Von Werkzeug (1334): Wiederholrot dreh_1072: 2× rot in 48 h (Läufe 600, 599); Ursache nachstellen, beheben · wiederholt | 2 | E Kampf | M | 1589.4 | – | – | *startbar* | *–* | *0* | *3,26 $* |
