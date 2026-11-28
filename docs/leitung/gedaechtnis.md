@@ -23,12 +23,12 @@
 ## Offene Fäden
 
 - delete_trigger gesperrt (27.11.).
-- Uhren nur auf Chefsatz (R9, R10).
-- Nachfolger startet Alter Ego (…78YZ5U): bei 250 Tsd. Startfelder an ihn (13:40).
-- Sa 28.11., 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs wieder einschalten. Laufsperre bis dahin, dann 2043; 1589.4 Deckel 145 $; 1708 ruht bis 1589.4 auf main.
+- Uhren hängt Alter Ego um (Chef 27.11., 15:43).
+- Neustart vom Daddy (Chef 28.11., 10:08): neues Alter Ego startet Disponent und Sokrates neu.
+- Sa 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs einschalten; dann nur Kampf (Chef 27.11., 21:51) plus Eilt 2066/2067; 2063 ruht.
 - Starttexte als Codeblock.
 - Nach Sa 20:00: 2029-Ü33/Ü34 vorlegen (Lizenz hats02).
 
 ## Übergabe
 
-- 27.11., 11:40, `78LQ6f`: Chef 26.11., 17:18 gilt (keine Starts bis Sa 20:00), Ausnahmen 2060 und 2062 erledigt und auf main (a09b3bcc69, db97adee7a). Grenzen 300/450 fest (Chef 10:57); 2061 ab 27.12. Regeln Kern Büro: eine Auftragsfassung, Deckel nie anheben. Fertig-Meldungen gehen an den Disponenten: get_session prüfen. t301 beim Chef bis Sa 20:00. Letzte Antwort: 11:39. Nachfolger: Sokrates – Leitung.
+- 28.11., 10:10, `hFdXf2`: 2063, 2066 (Stufe vor Block, Stufe „Jetzt“), 2067 (48 h) angelegt; Reihenfolge Kampf im Archiv 27.11., 21:51; 2064/2065 warten auf 1589.4; t301-Test Chef heute. Letzte Antwort: 10:09. Nachfolger: Sokrates – Leitung.
