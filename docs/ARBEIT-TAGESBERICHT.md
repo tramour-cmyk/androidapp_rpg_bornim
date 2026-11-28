@@ -5,24 +5,24 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 ## Zehn Zeilen
 
 <!-- zahlen -->
-**Stand 28.11., 20:38** (Werkzeug `tools/tagesbericht.py`)
+**Stand 28.11., 20:40** (Werkzeug `tools/tagesbericht.py`)
 
 | # | Kennzahl | heute | Bemerkung |
 |---|---|---|---|
 | 1 | Stufe | **Stufe 1 Kern spielbar**: 2 von 4 abgenommen, 2 gebaut, 0 in Arbeit | 41 Punkte in 6 Stufen: 3 abgenommen, 2 gebaut, 7 in Arbeit, 29 offen |
-| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 0 / 201, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 0 / 23; neu 3 / 257 |
-| 3 | Wo stehen wir | Oben in deiner Reihenfolge steht 2 Kampf („ab Sa 28.11., 20:00 nur Kampf, Reihenfolge A“, 27.11., 21:51); seit dem letzten Bericht (26.11., 09:00) hast du mit t301 (28.11., 14:09–14:16) sieben Vorgänge abgenommen: 1589.2 und 1589.4 (Arena), 1603, 1619, 1205, 1205b, … (ganz unter „Eingaben“) | Themenblock oben, seit gestern abgenommen, als Nächstes (Routine Tagesbericht) |
+| 2 | Seit gestern | abgenommen **0**, gebaut **0**, von dir zurück **0** | Vorgänge erledigt 24 h / 7 Tage: 0 / 200, davon Spiel (Entwicklung, Gestaltung, Texte, Design) 0 / 23; neu 5 / 258 |
+| 3 | Wo stehen wir | Oben in deiner Reihenfolge steht 2 Kampf („ab Sa 28.11., 20:00 nur Kampf, Reihenfolge A“, 27.11., 21:51); seit dem letzten Bericht (26.11., 09:00) hast du mit t301 (28.11., 14:09–14:16) sieben Vorgänge abgenommen: 1589.2 und 1589.4 (Arena), 1603 (Besonderheiten im … (ganz unter „Eingaben“) | Themenblock oben, seit gestern abgenommen, als Nächstes (Routine Tagesbericht) |
 | 4 | Wartet auf dich | **1 anzusehen** | ältestes: 1973 seit 26.11., 11:28; [Chefsache](chefsache/README.md) |
 | 5 | Builds | Änderungen warten auf deinen Test: **0** (Tom 0, Jerry 0); wie wirksam die Läufe sind: Zeile 10 | bei dir zum Testen: kein Build; ein Build nimmt alle fertigen Zweige (317) |
 | 6 | Fehler | **6** offen, davon 2 älter als drei Tage | offene Vorgänge des Spiels mit Fehler oder Befund im Titel, dazu jeder mit Build-Nummer (D55.3) |
 | 7 | Geld | Woche unbekannt; gestern 0 $ Rechenwert, Spiel 0 %; **Bitte Bild der Nutzung** (Anteil der Woche in Prozent; solange die Niederlassung ruht, nur vom Account Max) | Rechenwert = Listenpreis der Sitzungen, kein echtes Geld (Abo pauschal) |
-| 8 | Von dir zuerst gefunden | 1973, 26.11., 11:29: „Da hält keine der beiden Hände das Schwert irgendwo in der Hand.“ (Zweihänder, gegen Prüfer-Ja); 1270.6, 28.11., 14:09: „Bilder 30, aber Stufe niedrig“ (t301.1); 1589.6, 28.11., 14:15: „Macht halt keinen Sinn, wenn alle Wölfe an mir dran stehen, aber ich nur zwei als Ziele wählen … (ganz unter „Eingaben“) | Woche, zählt Diogenes montags |
+| 8 | Von dir zuerst gefunden | 1973, 26.11., 11:29: „Da hält keine der beiden Hände das Schwert irgendwo in der Hand.“ (Zweihänder, gegen Prüfer-Ja); 1270.6 (Messbuild Bildrate), 28.11., 14:09: „Bilder 30, aber Stufe niedrig“ (t301.1); 1589.6 (Rechnung in der Arena), 28.11., 14:15: „Macht halt keinen Sinn, wenn alle Wölfe an mir dran … (ganz unter „Eingaben“) | Woche, zählt Diogenes montags |
 | 9 | Größtes Risiko | 1694 Griff: die Frist Sa 28.11. ist heute ohne Ergebnis, Kosten 99,66 $ bei Deckel 20 $; die Kostenschätzung für die 12 übrigen Gegenstände nach deinem A (26.11., 15:14) hat keinen Eintrag im Vorgangsarchiv, und an 1694 hängen 1973 (Zweihänder) und 1657 (Vorgangsliste 28.11., 20:35; Vorgangsarchiv). |  |
-| 10 | Läufe | 24 h **99 % grün** (185 von 186), **0 min in roten Läufen** (0 % der Laufzeit), **– Läufe je erledigtem Spielvorgang** (weiter unter der Tabelle) | alle Bau- und Testläufe ohne abgebrochene; je Spielvorgang = Läufe geteilt durch erledigte oder abgenommene Vorgänge des Spiels, ohne verworfene (1659) |
+| 10 | Läufe | 24 h **99 % grün** (187 von 188), **0 min in roten Läufen** (0 % der Laufzeit), **– Läufe je erledigtem Spielvorgang** (weiter unter der Tabelle) | alle Bau- und Testläufe ohne abgebrochene; je Spielvorgang = Läufe geteilt durch erledigte oder abgenommene Vorgänge des Spiels, ohne verworfene (1659) |
 | 11 | Fristen | Testbitten über 5 Tage **0**; Fragen an dich ohne Antwort **0**; Vorgänge ohne Auftrag über 1 Tag **324** (26.1, 30, 39, 41.2, 45 …); unter „Unveröffentlicht“ **151** Einträge; letztes Release v0.1.867 vor **41 Tagen** | Testbitte 5 Tage (A13), Vorgang ohne Auftrag 1 Tag (A3, erst nach der Umstellung), Frage an dich ohne Frist (L-O16); Release nur auf dein Wort |
 | 12 | Ausführlich | [Abnahmeliste und Stand](PROJEKTPLAN.md) |  |
 
-- Zeile 10 (Läufe), weiter: 7 Tage 96 % grün (1202 von 1254), 316 min in roten Läufen (3 % der Laufzeit), 54,5 Läufe je erledigtem Spielvorgang; rot 24 h nach Team: sonstige 1; Buildzweige 24 h: keine Läufe; rote Tests 48 h: wolf_mess_438 1×, halt_653 1×, durchstich_1631 1×, tausch_1041 1×, ausholen_1000 1×, dreh_1072 1×; APK-Läufe 24 h: keine Läufe
+- Zeile 10 (Läufe), weiter: 7 Tage 96 % grün (1201 von 1253), 316 min in roten Läufen (3 % der Laufzeit), 54,5 Läufe je erledigtem Spielvorgang; rot 24 h nach Team: sonstige 1; Buildzweige 24 h: keine Läufe; rote Tests 48 h: wolf_mess_438 1×, halt_653 1×, durchstich_1631 1×, tausch_1041 1×, ausholen_1000 1×, dreh_1072 1×; APK-Läufe 24 h: keine Läufe
 
 | Rolle | offen | davon Muss | startbar | erledigt 24 h | erledigt 7 Tage |
 |---|---|---|---|---|---|
@@ -30,7 +30,7 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 | Jerry | 0 | 0 | 0 | 0 | 10 |
 | Homer | 0 | 0 | 0 | 0 | 9 |
 | Sokrates | 0 | 0 | 0 | 0 | 8 |
-| Perikles | 0 | 0 | 0 | 0 | 1 |
+| Perikles | 0 | 0 | 0 | 0 | 0 |
 | Diogenes | 0 | 0 | 0 | 0 | 0 |
 <!-- /zahlen -->
 
@@ -73,6 +73,6 @@ Ein Bericht am Morgen (448, Chef 01.11., 11:09: „448 mach es so“), ersetzt d
 
 Von Hand (Tagesbericht-Routine, 448), das Werkzeug übernimmt sie in die Zeilen 3, 8, 9.
 
-- Wo stehen wir: Oben in deiner Reihenfolge steht 2 Kampf („ab Sa 28.11., 20:00 nur Kampf, Reihenfolge A“, 27.11., 21:51); seit dem letzten Bericht (26.11., 09:00) hast du mit t301 (28.11., 14:09–14:16) sieben Vorgänge abgenommen: 1589.2 und 1589.4 (Arena), 1603, 1619, 1205, 1205b, 1674; als Nächstes die Wiederholroten 2065 (in Arbeit) und 2064, dann 1589 und 1627, daneben 2066 (Eilt) und 1535, 1655, 2028 als Bild (Jetzt) (Vorgangsarchiv 27.11., 21:51 und 28.11., 14:09–14:20; Überblick 28.11., 20:04).
-- Von dir zuerst gefunden: 1973, 26.11., 11:29: „Da hält keine der beiden Hände das Schwert irgendwo in der Hand.“ (Zweihänder, gegen Prüfer-Ja); 1270.6, 28.11., 14:09: „Bilder 30, aber Stufe niedrig“ (t301.1); 1589.6, 28.11., 14:15: „Macht halt keinen Sinn, wenn alle Wölfe an mir dran stehen, aber ich nur zwei als Ziele wählen kann“ (Zielwahl); 1535, 1655, 2028, 28.11., 14:16: „Waren nicht im Build.“ (t301.8–301.10) (Vorgangsarchiv).
+- Wo stehen wir: Oben in deiner Reihenfolge steht 2 Kampf („ab Sa 28.11., 20:00 nur Kampf, Reihenfolge A“, 27.11., 21:51); seit dem letzten Bericht (26.11., 09:00) hast du mit t301 (28.11., 14:09–14:16) sieben Vorgänge abgenommen: 1589.2 und 1589.4 (Arena), 1603 (Besonderheiten im MARS), 1619 (Held stakst), 1205 und 1205b (Wiesen), 1674 (Bewohner an der Bank); als Nächstes die Wiederholroten 2065 (in Arbeit) und 2064, dann 1589 (Motor des Kampfs) und 1627 (Trefferbild), daneben 2066 (Vorrang in lauf.py, Eilt) und 1535 (Kleidung der Leute), 1655 (Morwens Kapuze), 2028 (Rowenas Handgelenke) als Bild (Jetzt) (Vorgangsarchiv 27.11., 21:51 und 28.11., 14:09–14:20; Überblick 28.11., 20:04).
+- Von dir zuerst gefunden: 1973, 26.11., 11:29: „Da hält keine der beiden Hände das Schwert irgendwo in der Hand.“ (Zweihänder, gegen Prüfer-Ja); 1270.6 (Messbuild Bildrate), 28.11., 14:09: „Bilder 30, aber Stufe niedrig“ (t301.1); 1589.6 (Rechnung in der Arena), 28.11., 14:15: „Macht halt keinen Sinn, wenn alle Wölfe an mir dran stehen, aber ich nur zwei als Ziele wählen kann“ (Zielwahl); 1535 (Kleidung), 1655 (Kapuze), 2028 (Handgelenke), 28.11., 14:16: „Waren nicht im Build.“ (t301.8–301.10) (Vorgangsarchiv).
 - Größtes Risiko: 1694 Griff: die Frist Sa 28.11. ist heute ohne Ergebnis, Kosten 99,66 $ bei Deckel 20 $; die Kostenschätzung für die 12 übrigen Gegenstände nach deinem A (26.11., 15:14) hat keinen Eintrag im Vorgangsarchiv, und an 1694 hängen 1973 (Zweihänder) und 1657 (Vorgangsliste 28.11., 20:35; Vorgangsarchiv).
