@@ -14,9 +14,9 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
                                        (340.4); „wartet auf X[: …]“ setzt Wort „wartet“ und das Feld
   vorgang.py warte NR "X, Y" | –       Feld „wartet auf“: Nummer, Rolle, Datum TT.MM.[ HH:MM], t<Build> oder Chef[ <Datei>] (Automatik A)
   vorgang.py setze NR feld=wert …      titel, besitzer, kl, stand, warte, zweig, build, bereich
-  vorgang.py klasse NR M|K             M?-Entscheid (190.8)
+  vorgang.py klasse NR Krit|Jetzt|Eilt|M|K   M?-Entscheid (190.8); Stufe 2066: Krit vor Jetzt (nur mit „jetzt“ unter „## Chefworte“) vor Eilt
   vorgang.py rang NR oben|unten|vor NR2|nach NR2   Vorrang unter den Zeilen desselben Besitzers
-  vorgang.py ordnen                    Muss vor M? vor Kür vor „nach Meilenstein“ je Besitzer, Folge innerhalb bleibt (1543; auch nach
+  vorgang.py ordnen                    je Besitzer nach startbar.rang (2066: Krit, Jetzt, Eilt, Muss, M?, Kür, „nach Meilenstein“, dann Block), Folge innerhalb bleibt (1543; auch nach
                                        „klasse“ und in jedem Lauf von lauf.py --aufraeumen/--sperre)
   vorgang.py fertig NR                 Stand „erledigt“ (ins Archiv schiebt lauf.py --aufraeumen); nennt Absätze „Zu NR“
   vorgang.py greift NR LAUF            Diogenes nach „greift“ im Bereich B: „erledigt, greift Lauf N“ (724 A, 755)
@@ -97,8 +97,10 @@ def fehler_oder(d, alt=None):
 
 def ersetzen(alt, neu):
     if startbar.NEU:  # 1893: Eilt ist Kl. der neuen Liste (nur Wort des Chefs); Block und Besitzer folgen dem Bereich; Build in die Vorgangsdatei
-        if neu.get("kl") == "Eilt": neu["kl"] = "M"; neu["eilt"] = True
-        elif neu.get("kl") != alt.get("kl"): neu["eilt"] = False
+        if neu.get("kl") in startbar.VORRANG_KL:  # 2066: Krit, Jetzt, Eilt zählen als Muss, die Kl. bleibt in d["stufe"]
+            if neu["kl"] == "Jetzt" and (alt.get("stufe") != "Jetzt" or not alt.get("eilt")): jetzt_pruefen(neu["nr"])
+            neu["stufe"] = neu["kl"]; neu["kl"] = "M"; neu["eilt"] = True
+        elif neu.get("kl") != alt.get("kl"): neu["eilt"] = False; neu.pop("stufe", None)
         if neu.get("bereich") != alt.get("bereich") or not neu.get("block"):
             neu["block"] = startbar.block_von(neu["nr"], neu["bereich"])
         neu["besitzer"] = startbar.themenbloecke()[0].get(neu["block"], "Arbeitsplaner")
@@ -201,6 +203,7 @@ def setzen(nr, paare, rolle=None):
             if stand_pruefen(v, nr) == "erledigt" and (sp := rest_sperre(nr, d)): sys.exit("vorgang.py: " + sp)   # 1153
             n[k] = v
         elif k == "build": n[k] = v.lstrip("t") or "–"
+        elif k == "kl": n["eilt"] = False; n.pop("stufe", None); n[k] = v.strip() or "–"  # 2066: kl=M nimmt Krit, Jetzt, Eilt weg
         elif k == "bereich" and not bereiche.gueltig(v): sys.exit("vorgang.py: Bereich aus der festen Liste (651), Vorschlag „%s“:\n%s" % (bereiche.einordnen(v), bereiche.liste_text()))
         else: n[k] = v.strip() or "–"
     if n["besitzer"] != d["besitzer"]:  # neuer Besitzer: Zeile ans Ende seiner Zeilen
@@ -211,26 +214,32 @@ def setzen(nr, paare, rolle=None):
     if n["stand"] != d["stand"] and stand_pruefen(n["stand"], nr) == "erledigt": uebergaben_schliessen(nr, "Vorgang %s erledigt (vorgang.py setze)" % nr)  # 2012 (4)
     pruefer_bei_gebaut(nr, d["stand"], n["stand"])  # 2041 a
 
+def jetzt_pruefen(nr):
+    """2066 (Chef 27.11., 22:08): Kl. „Jetzt“ nur auf ausdrückliches „jetzt erledigen“ des Chefs, Sokrates setzt mit Wortlaut: ohne
+    „jetzt“ im Abschnitt „## Chefworte“ von docs/vorgang/NR.md bricht das Setzen ab."""
+    try: t = open(os.path.join(DOCS, "vorgang", "%s.md" % nr), encoding="utf-8").read()
+    except OSError: t = ""
+    if not re.search(r"\bjetzt\b", uebergabe.abschnitt(t, "Chefworte"), re.I):
+        sys.exit("vorgang.py: Kl. „Jetzt“ für %s nur mit Wortlaut des Chefs („jetzt“) unter „## Chefworte“ in docs/vorgang/%s.md (`vorgang.py chefwort`, Sokrates; 2066)" % (nr, nr))
+
 def klasse(nr, kl, rolle=None):
-    if kl not in ("M", "K"): sys.exit("vorgang.py: Klasse M oder K")
+    if kl not in ("M", "K") + startbar.VORRANG_KL: sys.exit("vorgang.py: Klasse %s, M oder K (2066)" % ", ".join(startbar.VORRANG_KL))
     setzen(nr, ["kl=" + kl], rolle)
     n = ordnen()
     if n: print("vorgang.py: %d Zeilen nach Klasse geordnet (1543)" % n)
 
-def stufe(d):
-    """1543: Rang der Klasse für ordnen()."""
-    if d.get("stand", "").startswith("nach"): return 3
-    if d.get("eilt"): return -1  # 1893: Eilt vor Muss
-    return {"M": 0, "M?": 1}.get(d.get("kl", "").strip(), 2)
-
 def muss_vorn(text):
-    """1543 (Chef 17.11., 10:46: „viele Muss im Kampf … warum Jerry Kürvorgänge in den Top 20 hat ohne Ende“): je Besitzer Muss vor M?
-    vor Kür vor „nach Meilenstein“; innerhalb einer Klasse bleibt die Folge (stabil), jede Zeile bleibt auf einem Platz ihres Besitzers.
+    """1543 (Chef 17.11., 10:46: „viele Muss im Kampf … warum Jerry Kürvorgänge in den Top 20 hat ohne Ende“): je Besitzer nach dem
+    Schlüssel startbar.rang (2066: Krit, Jetzt, Eilt, Muss, M?, Kür, „nach Meilenstein“, gleiche Stufe nach Block); innerhalb bleibt die
+    Folge (stabil), jede Zeile bleibt auf einem Platz ihres Besitzers. Unbekannte Kl.: Zeilen dieses Besitzers bleiben, WARNUNG-LAUT.
     Gibt (neuer Text, Zahl der verschobenen Zeilen) zurück."""
-    L = text.split("\n"); zs = startbar.vorgangsliste(text); neu = list(L)
+    L = text.split("\n"); zs = startbar.vorgangsliste(text); neu = list(L); folge = startbar.blockfolge()
     for b in dict.fromkeys(d["besitzer"] for d in zs):
         eigen = [d for d in zs if d["besitzer"] == b]
-        for i, d in zip([d["i"] for d in eigen], sorted(eigen, key=stufe)): neu[i] = d["zeile"]
+        try: reihe = sorted(eigen, key=lambda d: startbar.rang(d, folge=folge))
+        except startbar.UnbekannteKlasse as e:
+            print("WARNUNG-LAUT vorgang.py ordnen: %s; Zeilen von %s nicht geordnet" % (e, b)); continue
+        for i, d in zip([d["i"] for d in eigen], reihe): neu[i] = d["zeile"]
     return "\n".join(neu), sum(1 for a, b in zip(L, neu) if a != b)
 
 def ordnen():

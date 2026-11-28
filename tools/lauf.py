@@ -747,6 +747,7 @@ def chefdateien_je_rolle():
     return aus
 
 GESPERRT = {}  # Rolle → {Nummer: Grund} der nicht startbaren Zeilen (276: Nachfolger auf gesperrter Zeile)
+KLASSE_UNBEKANNT = []  # 2066: Gründe „Klasse „X“ von NR unbekannt …“ aus startbar.plan, main() meldet sie laut
 M_FRAGEN = []  # offene „M?“ als „Nr (Besitzer)“, stand() füllt sie; Ausgabe KLASSE an den Disponenten (1871 Stilllegung C (g))
 
 def stand():
@@ -771,16 +772,17 @@ def stand():
         GESPERRT[rolle] = {x[0]: x[4] for x in zs if x[4]}
         offen_m = [x[0] for x in zs if x[1] == "M?" and not x[4]]
         if offen_m: m_fragen.extend("%s (%s)" % (n, rolle) for n in offen_m)
+    KLASSE_UNBEKANNT[:] = ["%s (%s)" % (g, r) for r, gs in GESPERRT.items() for g in gs.values() if isinstance(g, str) and g.startswith("Klasse „") and "unbekannt" in g]  # 2066
     M_FRAGEN[:] = m_fragen  # 1871 Stilllegung C (g): M? klärt der Disponent mit der Zeile KLASSE (Profil Disponent „Klasse setzen statt M?“), keine Muss-Zeile mehr
     if NEU_LISTE and PLANER in aus and ist_scharf():
         auftrag_einreihen(aus[PLANER], auftrag_zeilen(aus))
     return aus
 
 def auftrag_einreihen(planer, auftraege):
-    """1897 (D338.3): Zeilen „Auftrag“ nach Klasse unter die eigenen Zeilen des Planers: Auftrag zu Muss in seine Muss-Liste, Auftrag zu Kür (und nach dem Meilenstein) in seine Kür-Liste; innerhalb der Liste Eilt zuerst, sonst Zeilenfolge der Vorgangsliste
+    """1897 (D338.3): Zeilen „Auftrag“ nach Klasse unter die eigenen Zeilen des Planers: Auftrag zu Muss in seine Muss-Liste, Auftrag zu Kür (und nach dem Meilenstein) in seine Kür-Liste; innerhalb der Liste nach zeile_rang (2066), sonst Zeilenfolge der Vorgangsliste
     (Auftrag an der Stelle seiner Zeile), „nach dem Meilenstein“ zuletzt. So geht nie ein Auftrag zu Kür vor eigenes Muss."""
-    folge = {d["nr"]: (not d.get("eilt"), i) for i, d in enumerate(startbar.zeilen_liste())}
-    def rang(x): return (x[1] == "N", folge.get((x[3].get("auftrag_fuer") if x[0] == "Auftrag" else None) or x[0], (True, 10 ** 6)))
+    folge = {d["nr"]: i for i, d in enumerate(startbar.zeilen_liste())}
+    def rang(x): return zeile_rang(x) + (folge.get((x[3].get("auftrag_fuer") if x[0] == "Auftrag" else None) or x[0], 10 ** 6),)  # 2066
     muss, kuer = planer[0], planer[1]
     muss[:] = sorted(muss + [x for x in auftraege if x[1] == "M"], key=rang)
     kuer[:] = sorted(kuer + [x for x in auftraege if x[1] != "M"], key=rang)
@@ -798,19 +800,33 @@ def _liegezeiten():
         zeiten = []
     return {d["nr"]: zeiten[d["i"]] for d in startbar.zeilen_liste() if d.get("i") is not None and d["i"] < len(zeiten) and zeiten[d["i"]] is not None}
 
+def zeile_rang(x):
+    """2066: startbar.rang (Stufe, Block) einer Startzeile (Nr, Kl, Titel, d) aus stand(): Zeile „Auftrag“ nach der Zeile, für die der
+    Auftrag ist; Kl. „N“ (nach dem Meilenstein) als Stufe 6. Unbekannte Kl. → startbar.UnbekannteKlasse."""
+    d = x[3] if isinstance(x[3], dict) else {}
+    if x[0] == "Auftrag": d = startbar_zeile(d.get("auftrag_fuer")) or {"nr": d.get("auftrag_fuer"), "kl": x[1]}
+    d = dict(d, nr=d.get("nr") or x[0], kl=d.get("kl") or x[1])
+    if x[1] == "N": d.update(kl="N", eilt=False)
+    return startbar.rang(d)
+
+def startfolge(st, reihe, ausschluss=(), bremse=None):
+    """2066 (Chef 27.11., 22:03): Rollen in Folge ihrer ersten startbaren Zeile nach zeile_rang, Stufe vor Block über alle Bereiche;
+    --ohne, Auftrag (scharf) und Laufsperre (bremse.erlaubt) wirken davor; Rollen ohne Zeile danach in alter Folge (stabil). Je
+    Rolle (= Block) höchstens ein Start je Lauf."""
+    scharf = ist_scharf()
+    def k(r):
+        x = next((x for x in st.get(r, ([], []))[0] + st.get(r, ([], []))[1] if x[0] not in ausschluss
+                  and not (scharf and auftrag_fehlt(x[0])) and not (bremse and bremse.erlaubt(r, x[1], x[3]))), None)
+        try: return zeile_rang(x) if x else (99, 0)
+        except startbar.UnbekannteKlasse: return (99, 0)
+    return sorted(reihe, key=k)
+
 def auftrag_offen(st, ohne=()):
-    """1932: [(Gruppe, Rang, Nr, Profil, Titel, Grund, Klasse)] der startbaren Zeilen ohne gültigen „## Auftrag“. 1967 (Chef 22.11.,
-    17:43, 17:46): Schlüssel (Klasse, Blockrang, Rest); Klasse 0 Eilt, 1 Funde des Chefs (guthaben.ruecklaeufer), 2 Muss, 3 Kür,
-    4 nach dem Meilenstein; Blockrang = Zeilenfolge in chefsache/themenbloecke.md (projektplan.bloecke, Block je Zeile
-    startbar.block_von); im Block Zeilenfolge der Liste, bei Kür Liegezeit (älteste zuerst, Maß wie liegt.py). Nummern in ohne
-    (Auftrag in Arbeit) fallen weg."""
-    import projektplan
-    import guthaben
+    """1932: [(Rang, Folge, Nr, Profil, Titel, Grund, Klasse)] der startbaren Zeilen ohne gültigen „## Auftrag“. 2066 (Chef 27.11.,
+    22:03, 22:08; ersetzt 1967): Rang = zeile_rang (Stufe Krit, Jetzt, Eilt, Muss, Kür, nach dem Meilenstein, dann Blockrang aus
+    chefsache/themenbloecke.md); „Fund des Chefs“ keine eigene Stufe mehr. Gleichstand: Zeilenfolge der Liste, bei Kür Liegezeit
+    (älteste zuerst, Maß wie liegt.py). Nummern in ohne (Auftrag in Arbeit) fallen weg."""
     liste = {d["nr"]: (i, d) for i, d in enumerate(startbar.zeilen_liste())}
-    folge = [b for b, _ in projektplan.bloecke()]
-    def rang(nr, d):
-        b = startbar.block_von(str(nr), d.get("bereich"))
-        return folge.index(b) if b in folge else len(folge)
     offen, gesehen, kuer = [], set(), []
     for teil in (0, 1):
         for r, x in st.items():
@@ -823,26 +839,24 @@ def auftrag_offen(st, ohne=()):
                 i, d = liste.get(nr, (10 ** 6, {}))
                 d = d or (z[3] if isinstance(z[3], dict) else {})
                 kl = "M" if teil == 0 else "N" if z[1] == "N" else "K"  # 1897: Klasse der Zeile, für die der Auftrag ist
-                b = rang(nr, d)
-                if d.get("eilt"): offen.append((0, (b, i), nr, r, z[2], g, kl))
-                elif guthaben.ruecklaeufer(d): offen.append((1, (b, i), nr, r, z[2], g, kl))
-                elif kl == "M": offen.append((2, (b, i), nr, r, z[2], g, kl))
-                elif kl == "N": offen.append((4, (b, i), nr, r, z[2], g, kl))
-                else: kuer.append((b, i, nr, r, z[2], g, kl))
+                try: rg = zeile_rang((nr, z[1], z[2], d))
+                except startbar.UnbekannteKlasse: continue  # plan() sperrt sie schon, lauf.py meldet laut
+                if rg[0] == 5: kuer.append((rg, i, nr, r, z[2], g, kl))
+                else: offen.append((rg, (i,), nr, r, z[2], g, kl))
     if kuer:
         zeit = _liegezeiten()
-        for b, i, nr, r, titel, g, kl in kuer: offen.append((3, (b, zeit.get(nr, float("inf")), i), nr, r, titel, g, kl))
+        for rg, i, nr, r, titel, g, kl in kuer: offen.append((rg, (zeit.get(nr, float("inf")), i), nr, r, titel, g, kl))
     return sorted(offen)
 
 def planer_zahl(st, ohne=()):
-    """1932: wie viele Planer zugleich: MAX_PLANER, solange mehr als ZWEITER_PLANER_AB Eilt-, Fund- oder Muss-Zeilen ohne Auftrag sind, sonst AUFTRAG_PLANER."""
-    n = len([o for o in auftrag_offen(st, ohne) if o[0] <= 2])
+    """1932: wie viele Planer zugleich: MAX_PLANER, solange mehr als ZWEITER_PLANER_AB Zeilen bis Stufe Muss (2066: Krit, Jetzt, Eilt, Muss) ohne Auftrag sind, sonst AUFTRAG_PLANER."""
+    n = len([o for o in auftrag_offen(st, ohne) if o[0][0] <= 4])
     return MAX_PLANER if n > ZWEITER_PLANER_AB else AUFTRAG_PLANER
 
 def auftrag_zeilen(st, n=None, ohne=None):
     """1893 (Gesamtbild 3.3 Fassung 2 Nr. 4, Archiv 21.11., 10:11 „3.3 so“; Sokrates 22.11., 08:33): startbare Zeilen ohne gültigen
     „## Auftrag“ bekommen ihren Auftrag vom Arbeitsplaner, frisch je Auftrag: je Zeile eine Zeile „Auftrag“ für den Planer, höchstens
-    n (AUFTRAG_PLANER). Folge nach 1967 (auftrag_offen): Klasse (Eilt, Funde des Chefs, Muss, Kür), darin Themenblock-Reihenfolge.
+    n (AUFTRAG_PLANER). Folge nach 2066 (auftrag_offen, zeile_rang): Stufe (Krit, Jetzt, Eilt, Muss, Kür), darin Themenblock-Reihenfolge.
     Aufträge, die eine laufende Planer-Sitzung schreibt (AUFTRAG_IN_ARBEIT), fallen weg; den zweiten Planer startet main() (1932)."""
     aus = []
     for _, _, nr, r, titel, g, kl in auftrag_offen(st, AUFTRAG_IN_ARBEIT if ohne is None else ohne):
@@ -2106,7 +2120,7 @@ def main():
     if still and not [d for d in marke_zeit("Stillstand") if (JETZT - d).total_seconds() < 3 * 3600]:
         ausgabe.append("STILLSTAND-LÖSEN (1246): " + still + "; je Ursache lösen (Zeile freigeben, Fachkraft starten, hängt es an einer Entscheidung: Zeile an Sokrates), nicht nur melden")
         neue_marken.append("Stillstand")
-    for r in START_REIHE:
+    for r in startfolge(st, START_REIHE, ausschluss, bremse):  # 2066: Stufe vor Block über alle Bereiche; --ohne und Laufsperre wirken davor (Rolle, Zeile)
         for stueck, grund in lauf_marke_falsch(r):  # 1161: sonst archiviert der Lauf die Sitzung mitten im Hintergrundlauf
             ausgabe.append("%s Marke „%s“ in %s zählt nicht (%s): Sitzung gilt als fertig; richtig „Lauf läuft bis TT.MM., HH:MM“, höchstens 12 h, "
                            "(1148, 1369)" % (laut_nachts(), stueck, VORRAT[r], grund))
@@ -2243,6 +2257,7 @@ def main():
         muss = st.get(r, ([], [], None, []))[0]
         if not muss or any(l.startswith(("START %s " % r, "NICHTS %s: belegt" % r, "NICHTS %s: Pause" % r, "NICHTS %s: Startmarke" % r, "NICHTS %s: Nachfolger" % r, "NICHTS %s: ohne gültigen Auftrag" % r)) or (l.startswith("WEITER ") and " | %s | " % r in l) for l in ausgabe): continue
         ausgabe.append("STILLSTAND %s: Muss %s ohne Sitzung, Protokollzeile „Stillstand %s seit %s“" % (r, muss[0][0], r, JETZT.strftime("%H:%M")))
+    for g in KLASSE_UNBEKANNT: ausgabe.append("WARNUNG-LAUT %s: kein Start, Kl. mit `vorgang.py setze NR kl=…` berichtigen" % g)  # 2066
     if M_FRAGEN:  # 1871 Stilllegung C (g): Klasse setzt der Disponent (Profil Disponent „Klasse setzen statt M?“), keine Sitzung dafür
         ausgabe.append("KLASSE %s: Muss oder Kür setzen, je Vorgang ein Satz Grund (vorgang.py klasse), nicht starten" % ", ".join(M_FRAGEN))
     # 192.2, Schritt 9: alle Vorräte leer (Muss, Kür, „nach dem Meilenstein“) → Ford meldet einmal am Tag „Vorrat leer“

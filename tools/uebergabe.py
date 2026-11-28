@@ -782,45 +782,40 @@ def _status(dateien):
             st[s["id"]] = "working" if re.search(r"WORKING|RUNNING|working", b) else "abgebrochen" if re.search(r"failed|FAILED|abgebrochen", b) else "ruht"
     return st
 
-FUND = re.compile(r"fund des chefs|\bchefwort\b|\bnein des chefs\b", re.I)
 
 def buero_rang(docs=None):
-    """1796 (Archiv 21.11., 20:51/20:54 „Eilt zuerst“): Schlüssel der Büro-Folge für eine Zeile (Nr, was, seit): Klasse (1967, Chef 22.11.,
-    17:46: Eilt, Fund des Chefs, Muss, Kür, nach dem Meilenstein), dann Themenblock (Folge in `chefsache/themenbloecke.md`), dann
-    Eingangszeit; Zeile ohne Klasse zählt wie Muss. Eilt: Klasse „Eilt“ (Liste nach 1727) oder „jetzt“
-    im Titel (Liste vor 1727, 383) oder „Eilt“ im Text; Fund: Titel „Von Chef“, Zeile aus `chefwort.py` („Chefwort … lesen“) oder „Fund
-    des Chefs“ im Text. Liest Liste und Themenblöcke einmal; fehlt etwas, zählt die Zeile als „Übriges“."""
+    """1796 (Archiv 21.11., 20:51/20:54 „Eilt zuerst“): Schlüssel der Büro-Folge für eine Zeile (Nr, was, seit): 2066 startbar.rang
+    (Stufe Krit, Jetzt, Eilt, Muss, Kür, nach dem Meilenstein, dann Themenblock), dann Eingangszeit; „Fund des Chefs“ ist keine eigene
+    Stufe mehr (Chef 27.11., 22:08). Zeile ohne Klasse zählt wie Muss; „Eilt“ im Text hebt bis Eilt; Liste vor 1727: „jetzt“ im Titel
+    = Eilt (383). Unbekannte Kl.: WARNUNG-LAUT auf stderr, Zeile zuletzt. Liest Liste und Themenblöcke einmal."""
+    import startbar
     docs = docs or os.path.join(WURZEL, "docs")
-    liste, folge, nach_bereich, nach_nr = {}, [], {}, {}
+    liste, folge = {}, startbar.blockfolge(docs)
     try:
         sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "umstellung1727"))
         import umstellen as _u, bereiche as _b
-        folge, nach_bereich, nach_nr, _ = _u.bloecke(docs)
+        _, nach_bereich, nach_nr, _ = _u.bloecke(docs)
         for z in open(os.path.join(docs, "LISTE-VORGAENGE.md"), encoding="utf-8"):
             if not re.match(r"\| \d", z): continue
             c = _u.zellen(z)
             if len(c) == len(_u.KOPF_ALT): d = dict(zip(_u.KOPF_ALT, c)); kl = "Eilt" if d["Kl."] == "M" and "„jetzt“" in d["Titel"] else d["Kl."]
             elif len(c) == len(_u.KOPF_NEU): d = dict(zip(_u.KOPF_NEU, c)); kl = d["Kl."]
             else: continue
-            herkunft = d["Titel"]
-            if len(c) == len(_u.KOPF_NEU):  # 1727: der alte Titel (Chefzitat) steht in der Vorgangsdatei unter „Herkunft:“
-                try:
-                    m = re.search(r"^Herkunft: (.*)$", open(os.path.join(docs, "vorgang", d["Nr."] + ".md"), encoding="utf-8").read(), re.M)
-                    if m: herkunft = m.group(1)
-                except OSError: pass
             block = _u.block_nr(d["Nr."], nach_nr) or nach_bereich.get(_b.einordnen(d["Bereich"]), "9")
-            liste[d["Nr."]] = (kl, bool(re.match(r"Von Chef\b", herkunft)), block)
+            liste[d["Nr."]] = (kl, block)
     except Exception:
         pass
-    jahr = jetzt().year
+    jahr = jetzt().year; laut = set()
     def schluessel(nr, was, seit):
-        kl, fund, block = liste.get(nr, ("", False, "9"))
-        eilt = kl == "Eilt" or bool(re.search(r"\beilt\b", was or "", re.I))
-        fund = fund or bool(FUND.search(was or ""))
+        kl, block = liste.get(nr, ("", "9"))
+        if kl not in startbar.VORRANG_KL and re.search(r"\beilt\b", was or "", re.I): kl = "Eilt"
+        try: r = startbar.rang({"nr": nr, "kl": kl or "M", "block": block}, folge=folge)
+        except startbar.UnbekannteKlasse as e:
+            if nr not in laut: laut.add(nr); print("WARNUNG-LAUT Büro-Folge: %s, Zeile zuletzt" % e, file=sys.stderr)
+            r = (99, len(folge))
         try: z = _zeit(seit, jahr)
         except (ValueError, TypeError): z = datetime.datetime.max
-        klasse = 0 if eilt else 1 if fund else {"K": 3, "N": 4}.get(kl, 2)
-        return (klasse, folge.index(block) if block in folge else len(folge), z)
+        return r + (z,)
     return schluessel
 
 def _main_zeilen_schliessen():

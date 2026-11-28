@@ -134,6 +134,40 @@ def themenbloecke(docs=None):
             if n and n != "–": nach_nr[n] = c[0]
     return profil, nach_bereich, nach_nr
 
+# 2066 (Chef 27.11., 22:03 „Ja, nicht Jahr.“, 22:08 „Systemkritisch passt … wenn ich halt sage, das ist jetzt zu erledigen“): Stufen
+# 1 Krit (systemkritisch: Fehler hält Spiel oder Betrieb an), 2 Jetzt (nur Sokrates, mit Wortlaut des Chefs in der Vorgangsdatei),
+# 3 Eilt, 4 Muss, 5 Kür; „Fund des Chefs“ ist keine eigene Stufe mehr. Jede Folge (lauf.py Start, Aufträge, Büro, ordnen, --rolle) ruft rang().
+STUFEN = ("Krit", "Jetzt", "Eilt", "M", "K")
+VORRANG_KL = ("Krit", "Jetzt", "Eilt")  # Kl. der Liste; gelesen als Muss mit d["eilt"], die Kl. selbst in d["stufe"]
+
+class UnbekannteKlasse(ValueError):
+    """2066: Kl. außerhalb von STUFEN, M?, – (laut statt still einordnen)."""
+
+def stufe_von(d):
+    """2066: Stufe einer Zeile (dict wie vorgangsliste): 1 Krit, 2 Jetzt, 3 Eilt, 4 Muss (M? 4.5), 5 Kür (auch „–“), 6 nach dem
+    Meilenstein (Kl. „N“ oder Stand „nach …“); unbekannte Kl. → UnbekannteKlasse."""
+    kl = (d.get("kl") or "").strip()
+    v = kl if kl in VORRANG_KL else (d.get("stufe") if d.get("stufe") in VORRANG_KL else "Eilt") if d.get("eilt") else None
+    if v: return STUFEN.index(v) + 1
+    if kl == "N" or (d.get("stand") or "").startswith("nach"): return 6
+    if kl in STUFEN: return STUFEN.index(kl) + 1
+    if kl == "M?": return 4.5
+    if kl in ("–", "-"): return 5
+    raise UnbekannteKlasse("Klasse „%s“ von %s unbekannt (%s, M?, –; 2066)" % (kl, d.get("nr") or "?", ", ".join(STUFEN)))
+
+def blockfolge(docs=None):
+    """2066: Blocknummern in Zeilenfolge von chefsache/themenbloecke.md (Reihenfolge legt der Chef fest)."""
+    try: t = open(os.path.join(docs or DOCS, "chefsache", "themenbloecke.md"), encoding="utf-8").read()
+    except OSError: t = ""
+    return [z.split("|")[1].strip() for z in t.splitlines() if re.match(r"\| \d+ \|", z)]
+
+def rang(d, docs=None, folge=None):
+    """2066: DER Schlüssel jeder Folge: (Stufe, Blockrang); Block aus d["block"] oder block_von, Block außerhalb der Datei (9) zuletzt.
+    Gleichstand löst der Rufer (Zeilenfolge, Eingang, Liegezeit). folge: blockfolge(docs), wenn schon gelesen."""
+    folge = blockfolge(docs) if folge is None else folge
+    b = (d.get("block") or "").strip() or block_von(d.get("nr") or "", d.get("bereich"), docs)
+    return (stufe_von(d), folge.index(b) if b in folge else len(folge))
+
 def block_von(nr, bereich, docs=None):
     """Block eines Vorgangs wie umstellen.py: Vorgangsnummer (auch Unternummer 458.3 → 458), sonst Bereich, sonst 9 „Übriges“."""
     _, nach_bereich, nach_nr = themenbloecke(docs)
@@ -212,8 +246,8 @@ def vorgangsliste(text=None):
                 for k in ("stand", "sitzung", "runde", "kosten"): d[k] = kursiv_weg(d.get(k, ""))
                 d["besitzer"] = profil.get(d.get("block", ""), "Arbeitsplaner")
                 d["besitzer"] = next((r for k, r in ROUTINE_BESITZER.items() if k in d.get("titel", "")), d["besitzer"])  # 2019
-                d["eilt"] = d.get("kl") == "Eilt"
-                if d["eilt"]: d["kl"] = "M"
+                d["eilt"] = d.get("kl") in VORRANG_KL  # 2066: Krit und Jetzt vor Eilt, alle drei zählen als Muss
+                if d["eilt"]: d["stufe"] = d["kl"]; d["kl"] = "M"
                 d["build"] = build_aus_datei(d.get("nr", ""))
             d["zeile"] = L[i]; d["i"] = i; d["spalten"] = len(t)
             d["wort"] = wort_von(d.get("stand", "")); d["zusatz"] = zusatz_von(d.get("stand", ""))
@@ -227,7 +261,9 @@ def zeile_text(d, neu=None):
     """dict → Tabellenzeile im Format KOPF (alte Liste) bzw. KOPF_NEU (1893: Kopf der zuletzt gelesenen Liste, sonst neu=True/False)."""
     w = ", ".join(d.get("warte") or []) or "–"
     if (NEU if neu is None else neu):
-        kl = "Eilt" if d.get("eilt") or d.get("kl") == "Eilt" else d.get("kl", "")
+        kl = d.get("kl", "")
+        if kl in VORRANG_KL: pass
+        elif d.get("eilt"): kl = d.get("stufe") if d.get("stufe") in VORRANG_KL else "Eilt"  # 2066
         block = d.get("block") or block_von(d.get("nr", ""), d.get("bereich", ""))
         bz = d.get("bezug") or "–"
         werte = [d.get("nr", ""), d.get("titel", ""), block, d.get("bereich", ""), kl, w, bz, d.get("zweig") or "–"]
@@ -735,7 +771,7 @@ def pruefen_zeile(d, alle_nr=None):
     if d.get("spalten") not in (None, soll): f.append("%d statt %d Spalten" % (d["spalten"], soll))
     if not d["nr"]: f.append("Nummer fehlt")
     if d.get("besitzer") not in BESITZER: f.append("Besitzer „%s“ (nur %s)" % (d.get("besitzer"), ", ".join(BESITZER)))
-    if d.get("kl") not in ("M", "K", "M?", "–"): f.append("Klasse „%s“ (M, K, M?, –)" % d.get("kl"))
+    if d.get("kl") not in ("M", "K", "M?", "–") + VORRANG_KL: f.append("Klasse „%s“ (Krit, Jetzt, Eilt, M, K, M?, –; 2066)" % d.get("kl"))
     if not d["wort"]: f.append("Stand „%s“ beginnt mit keinem Wort der Liste (%s)" % (d.get("stand"), ", ".join(WORTE)))
     for t in d["warte"]:
         a = art(t)
@@ -988,7 +1024,9 @@ def plan(rolle):
             h = liegt_ohne_vorlage(d)
             if h is not None: mischen = vorlage_auftrag(d, h); kl = "M" if kl not in ("–", "-") else kl  # 1504: Vorlegen ist Muss (auch für die Aushilfe, 433)
             if ohne_rueckmeldung(d): mischen = RUECKMELDUNG_AUFTRAG
-            eigen.append((d["nr"], kl, d["titel"] + mischen, d, sperre(d)))
+            try: stufe_von(d); g = sperre(d)
+            except UnbekannteKlasse as e: g = str(e)  # 2066: laut (lauf.py WARNUNG-LAUT), nie still als Kür
+            eigen.append((d["nr"], kl, d["titel"] + mischen, d, g))
         elif rolle in offen_warte(d) or rolle == "Diogenes" and b_gebaut(d) and not b_offen_streng(d) and not b_nicht_auf_main(d):  # 724 A, 1221
             # die Rolle ist dran, sobald alle übrigen Teile des Felds erfüllt sind (z. B. „Diogenes, 625“: prüfen nach Build 269);
             # ruht die Zeile (ruht, Dauer, nach Meilenstein, aufgeteilt, Idee), ruht sie auch für die Rolle (D80.5)
@@ -998,6 +1036,11 @@ def plan(rolle):
             fremd.append((d["nr"], d["kl"], d["titel"] + " (für %s)" % d["besitzer"], dict(d, fuer=d["besitzer"]), grund))
     # D80.5: fremde Arbeit hinter der letzten eigenen startbaren Zeile derselben Stufe (Muss, Kür, nach Meilenstein, Pflege), nicht ganz
     # ans Ende; den eigenen Vorrang behält die Rolle, ihre Stelle in einer fremden Reihe kennt die Liste nicht
+    folge = blockfolge()
+    def _rang(z):
+        try: return rang(z[3], folge=folge)
+        except UnbekannteKlasse: return (99, 0)
+    eigen.sort(key=_rang)  # 2066: eigene Zeilen nach dem einen Schlüssel (Stufe, Block), sonst Listenfolge
     def stufe(z):
         if z[0] in SONDER: return 3
         if "fuer" not in z[3] and z[3]["wort"] == "nach Meilenstein": return 2

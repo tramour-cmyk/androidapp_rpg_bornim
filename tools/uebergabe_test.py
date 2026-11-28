@@ -164,7 +164,7 @@ import uebergabe as ue_mod; importlib.reload(ue_mod)
 g("pull", "-q", "origin", "main", cwd=B)
 r2 = ue_mod.abgebrochen("9001", "session_ABB2")
 soll("Rückmeldung „abgebrochen“ zum zweiten Mal → steckt fest", r2 == [(k3, "steckt fest (abgebrochen 22.11., 00:39, session_ABB2)")] and "| steckt fest (abgebrochen 22.11., 00:39, session_ABB2) |" in datei(), (r2, datei()))
-# 1796 Büro-Folge (Archiv 21.11., 20:51): Eilt, Fund des Chefs, Themenblock, Eingangszeit; alte und neue Liste
+# 1796 Büro-Folge (Archiv 21.11., 20:51), 2066: Stufe, Themenblock, Eingangszeit; alte und neue Liste
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import uebergabe as UE
 for neu_liste in (False, True):
@@ -190,9 +190,10 @@ for neu_liste in (False, True):
                ("1", "frühere Zeile", "21.11., 19:00"), ("6", "Auftrag bauen", "21.11., 23:50"), ("7", "Auftrag bauen", "21.11., 18:00"),
                ("8", "Auftrag bauen", "21.11., 17:00")]
     folge = [z[0] + " " + z[2][-5:] for z in sorted(zeilen_, key=lambda z: r(*z))]
-    # 1967 (Chef 22.11., 17:46): Klasse (Eilt, Fund, Muss, Kür), dann Block, dann Eingang: Eilt aus Block 2 vor Eilt-Fund aus Block 7, Muss vor Kür
-    soll("1796/1967 Büro-Folge Klasse, Block, Eingang (%s Liste)" % ("neue" if neu_liste else "alte"),
-         folge == ["6 23:50", "8 17:00", "4 23:00", "3 22:00", "5 23:30", "2 21:00", "1 19:00", "1 20:00", "7 18:00"], folge)
+    # 2066 (Chef 27.11., 22:03, 22:08; ersetzt 1967): Stufe (Eilt, Muss, Kür; Fund keine eigene Stufe), dann Block, dann Eingang:
+    # Eilt aus Block 2 vor Eilt aus Block 7, Muss aus Block 2 vor Muss aus Block 7 (auch Fund 3), Zeile 5 ohne Listenzeile (Block 9) zuletzt im Muss
+    soll("1796/2066 Büro-Folge Stufe, Block, Eingang (%s Liste)" % ("neue" if neu_liste else "alte"),
+         folge == ["6 23:50", "8 17:00", "4 23:00", "2 21:00", "1 19:00", "1 20:00", "3 22:00", "5 23:30", "7 18:00"], folge)
 lauf_txt = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "lauf.py"), encoding="utf-8").read()
 soll("1796 lauf.py ordnet offene Zeilen nach buero_rang", "_ue.buero_rang(" in lauf_txt)
 

@@ -107,6 +107,16 @@ print("JSON " + json.dumps(aus, ensure_ascii=False))
     pos = [q.stdout.find(n + " |") for n in ("9306", "9305", "9304", "9302", "9301")]
     soll("B: vorgang.py --rolle Technik: Krit, Jetzt, Eilt, Muss, Kür", -1 not in pos and pos == sorted(pos), q.stdout[-1500:] + q.stderr[-500:])
 
+    # (A) vorgang.py klasse/setze: Jetzt nur mit „jetzt“ unter „## Chefworte“, kl=M nimmt Krit weg
+    q = subprocess.run([sys.executable, "tools/vorgang.py", "klasse", "9302", "Jetzt"], cwd=A, env=ENV, capture_output=True, text=True, timeout=300)
+    soll("A: klasse Jetzt ohne Chefwort „jetzt“ bricht ab", q.returncode != 0 and "Chefworte" in q.stdout + q.stderr, q.stdout[-500:] + q.stderr[-500:])
+    v = os.path.join(A, "docs", "vorgang", "9302.md")
+    open(v, "a", encoding="utf-8").write("\n## Chefworte\n\n- **28.11., 21:00**, Chef:\n> Das ist jetzt zu erledigen.\n")
+    q = subprocess.run([sys.executable, "tools/vorgang.py", "klasse", "9302", "Jetzt"], cwd=A, env=ENV, capture_output=True, text=True, timeout=300)
+    soll("A: klasse Jetzt mit Chefwort schreibt Kl. Jetzt", q.returncode == 0 and "| 9302 | Test 2066 9302 | 6 | E Technik | Jetzt |" in open(li, encoding="utf-8").read(), q.stdout[-500:] + q.stderr[-500:])
+    q = subprocess.run([sys.executable, "tools/vorgang.py", "setze", "9306", "kl=M"], cwd=A, env=ENV, capture_output=True, text=True, timeout=300)
+    soll("A: setze kl=M nimmt Krit weg", q.returncode == 0 and "| 9306 | Test 2066 9306 | 6 | E Technik | M |" in open(li, encoding="utf-8").read(), q.stdout[-500:] + q.stderr[-500:])
+
     # (D) lauf.py mit Deckel 4 Fachkräfte
     open(li, "w", encoding="utf-8").write(kopf + SEP + "".join(zeile(*z) for z in ZEILEN) + rest)
     for c in (["add", "-A"], ["commit", "-q", "-m", "Test 2066 D"]):

@@ -85,7 +85,8 @@ _st2 = {"Technik": ([("2001", "M", "a", {}), ("2002", "M", "b", {}), ("2003", "M
         "Kataloge": ([("513", "M", "eilt", {})], [], None, []), "Arbeitsplaner": ([], [], None, [])}
 _lz = lauf._liegezeiten; lauf._liegezeiten = lambda: {"2010": 200, "2011": 100}
 _a2 = [x[3]["auftrag_fuer"] for x in lauf.auftrag_zeilen(_st2, 99)]
-soll("1932/1967: Folge Eilt, Fund, Muss (gleicher Block: Listenfolge, dann Nr.), Kür älteste zuerst", _a2 == ["513", "2005", "2001", "2002", "2003", "2004", "2011", "2010"], _a2)
+# 2066 (Chef 27.11., 22:08): „Fund des Chefs“ keine eigene Stufe mehr, 2005 zählt als Muss (Block 9, ohne Bereich, nach Block 6)
+soll("1932/2066: Folge Eilt, Muss (Block, dann Listenfolge, dann Nr.), Kür älteste zuerst", _a2 == ["513", "2001", "2002", "2003", "2004", "2005", "2011", "2010"], _a2)
 # 1967 (Chef 22.11., 17:43, 17:46): Schlüssel (Klasse, Blockrang, Rest); Blockrang = Zeilenfolge in chefsache/themenbloecke.md, nicht Nummer
 _tb = os.path.join(A, "chefsache", "themenbloecke.md"); _tb_alt = open(_tb).read()
 open(_tb, "w").write("| Nr. | Themenblock | Fachprofil | Kapitel 1 | ruht bis | Bereiche | Vorgänge |\n|---|---|---|---|---|---|---|\n"
@@ -99,16 +100,16 @@ _st3 = {"Klang": ([("3001", "M", "e5", {"eilt": True, "bereich": "E Klang"}), ("
                    [("3024", "K", "k10", {"bereich": "G Regeln"}), ("3032", "N", "n10", {"bereich": "G Regeln"})], None, [])}
 lauf._liegezeiten = lambda: {"3021": 50, "3022": 300, "3023": 100, "3024": 400}
 _o3 = lauf.auftrag_offen(_st3)
-_g = lambda k: [o[2] for o in _o3 if o[0] == k]
-soll("1967: drei Eilt aus Block 5, 2, 10 → 10, 2, 5 (Zeilenfolge der Themenblöcke)", _g(0) == ["3003", "3002", "3001"], _g(0))
-soll("1967: Block 10 nur Fund und Kür, Block 2 Muss → Muss aus 2 vor Muss aus 5, vor jeder Kür", _g(2) == ["3012", "3011"]
-     and max(i for i, o in enumerate(_o3) if o[0] == 2) < min(i for i, o in enumerate(_o3) if o[0] == 3), _g(2))
-soll("1967: Eilt aus Block 5 vor Fund aus Block 10 vor jedem Muss", [o[2] for o in _o3][:4] == ["3003", "3002", "3001", "3013"], [o[2] for o in _o3])
+_g = lambda k: [o[2] for o in _o3 if o[0][0] == k]  # 2066: Rang (Stufe, Block); Stufe 3 Eilt, 4 Muss, 5 Kür, 6 nach dem Meilenstein
+soll("1967: drei Eilt aus Block 5, 2, 10 → 10, 2, 5 (Zeilenfolge der Themenblöcke)", _g(3) == ["3003", "3002", "3001"], _g(3))
+soll("2066: Fund 3013 (Block 10) ist Muss: Muss aus 10, 2, 5 vor jeder Kür", _g(4) == ["3013", "3012", "3011"]
+     and max(i for i, o in enumerate(_o3) if o[0][0] == 4) < min(i for i, o in enumerate(_o3) if o[0][0] == 5), _g(4))
+soll("2066: Eilt aus Block 5 vor Muss (früher Fund) aus Block 10", [o[2] for o in _o3][:4] == ["3003", "3002", "3001", "3013"], [o[2] for o in _o3])
 soll("1967: Kür in Blockfolge, im Block älteste zuerst; nach dem Meilenstein in Blockfolge",
-     _g(3) == ["3024", "3023", "3022", "3021"] and _g(4) == ["3032", "3031"], (_g(3), _g(4)))
+     _g(5) == ["3024", "3023", "3022", "3021"] and _g(6) == ["3032", "3031"], (_g(5), _g(6)))
 open(_tb, "w").write(_tb_alt)
 lauf.AUFTRAG_IN_ARBEIT.add("513")
-soll("1932: Auftrag in Arbeit fällt weg", lauf.auftrag_zeilen(_st2)[0][3]["auftrag_fuer"] == "2005", lauf.auftrag_zeilen(_st2))
+soll("1932: Auftrag in Arbeit fällt weg", lauf.auftrag_zeilen(_st2)[0][3]["auftrag_fuer"] == "2001", lauf.auftrag_zeilen(_st2))  # 2066: 2005 kein Fund-Vorrang
 lauf.AUFTRAG_IN_ARBEIT.clear()
 soll("1932: ein Planer bis 10 dringende ohne Auftrag", lauf.planer_zahl(_st2) == 1 and lauf.ZWEITER_PLANER_AB == 10 and lauf.MAX_PLANER == 2)
 _ab = lauf.ZWEITER_PLANER_AB; lauf.ZWEITER_PLANER_AB = 3
@@ -117,8 +118,8 @@ _fn = (lauf.ist_scharf, lauf.nacht_halt, lauf.umgebung)
 lauf.ist_scharf = lambda *a: True; lauf.nacht_halt = lambda *a: False; lauf.umgebung = lambda r, h=False: "env_x"
 _au = ["START Arbeitsplaner | opus | env_x | r | main | Arbeitsplaner – Auftrag 513 (22.11., 12:00) | x"]; _sp = []; _sn = {}
 lauf.zweiter_planer(_au, _st2, {}, set(), {}, None, _sp, _sn, [])
-soll("1932: zweiter Planer startet mit dem nächsten Auftrag, den keiner schreibt", len(_au) == 2 and "| Arbeitsplaner 2 – Auftrag 2005 (" in _au[1]
-     and _au[1].startswith("START Arbeitsplaner |") and _sp == ["Arbeitsplaner"] and _sn == {"Arbeitsplaner": "2005"}, _au[1:])
+soll("1932: zweiter Planer startet mit dem nächsten Auftrag, den keiner schreibt", len(_au) == 2 and "| Arbeitsplaner 2 – Auftrag 2001 (" in _au[1]
+     and _au[1].startswith("START Arbeitsplaner |") and _sp == ["Arbeitsplaner"] and _sn == {"Arbeitsplaner": "2001"}, _au[1:])
 _au = ["START Arbeitsplaner | opus | env_x | r | main | Arbeitsplaner – Auftrag 513 (22.11., 12:00) | x"]
 _jr = {"Arbeitsplaner": [{"id": "s1", "_info": ("Arbeitsplaner", True, 5, [])}]}
 lauf.zweiter_planer(_au, _st2, _jr, set(), {}, None, [], {}, [])
