@@ -351,7 +351,7 @@ func braukasten(r: Dictionary, n_: int, alle := false) -> void:
 	var bild := Menue.bild_feld("ding-" + aus, 48)
 	bild.name = "DingBild"
 	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	var zl: Array = [bild] + LadenSchirm.details(aus) + [
+	var zl: Array = [bild] + LadenSchirm.details(aus, hw) + [
 		Stil.txt(("Zutaten je Trank:" if de else "Ingredients per potion:"), 15, Stil.DIM), zutaten_reihe(r, 24, 15)]
 	if oft < 1:
 		zl.append(Stil.txt(Sprache.t(Laden.FEHLT) + Laden.fehlt(z, r), 15, Spielstaende.mangel()))
@@ -388,7 +388,7 @@ func menge(id: String, kauf: bool, n_: int, alle := false) -> void:
 	var bild := Menue.bild_feld("ding-" + id, 48)
 	bild.name = "DingBild"
 	bild.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-	var zl: Array = [bild] + LadenSchirm.details(id) + [
+	var zl: Array = [bild] + LadenSchirm.details(id, hw) + [
 		Stil.txt("%s: %d" % [Sprache.t(Laden.MENGE), n], 16),
 		Stil.txt(Sprache.t(Laden.BESITZ) + "%d → %d" % [z.anzahl(id), z.anzahl(id) + (n if kauf else -n)], 15, Stil.DIM),
 		Stil.txt("%s: %d → %d" % [Sprache.u("gold"), z.gold, z.gold - preis if kauf else z.gold + preis], 15, Stil.DIM if most >= 1 else Spielstaende.mangel())]
@@ -445,7 +445,7 @@ func menge_c(id: String, kauf: bool, n: int, most: int, alle := false) -> void:
 	kopf_.add_child(nm)
 	v.add_child(kopf_)
 	v.add_child(Spielstaende.zier())
-	for c in LadenSchirm.details(id): v.add_child(c)
+	for c in LadenSchirm.details(id, hw): v.add_child(c)
 	if most < 1:
 		v.add_child(Stil.txt(Sprache.u("notEnoughGold") if kauf else Sprache.u("nothing"), 15, Spielstaende.mangel()))
 	else:
@@ -532,12 +532,13 @@ static func kurz(id: String, hw: BrsHeld = null) -> Array:
 	return [s.replace("{0}", str(n))]
 
 # 582: Dialogs.ItemDetails: Seltenheit in ihrer Farbe, die Wirkung hell, dann der Langtext
-static func details(id: String) -> Array:
+static func details(id: String, hw: BrsHeld = null) -> Array:
 	var d := Laden.ding(id)
 	var s := String(d.get("seltenheit", "COMMON"))
 	var sel: Dictionary = BrsHeld.daten()["seltenheiten"].get(s, {})
 	var r: Array = [Stil.txt(Sprache.t(sel.get("name", s)), 14, Color(Menue.SELTEN.get(s, "e6ddcb")))]
-	# 944: ohne die Kurzangabe aus core (Würfeltext)
+	# 944: ohne die Kurzangabe aus core (Würfeltext); 1663 (Chef 18.11., 14:17): die Kurzzeile ohne Würfel wie in der Liste, hell
+	for k in LadenSchirm.kurz(id, hw): r.append(Stil.txt(String(k), 14))
 	r.append(Stil.txt(Sprache.t(d.get("info", "")), 14, Stil.DIM))
 	return r
 

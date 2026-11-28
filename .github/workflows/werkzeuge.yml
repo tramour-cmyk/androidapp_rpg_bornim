@@ -1,0 +1,90 @@
+name: Werkzeugtests (1775)
+
+# 1775 (Diogenes D329.1 zu 1771): die Werkzeugtests liefen nur im Job kerntest-main von godot.yml, der nur bei Änderungen
+# unter godot/** u. a. startet; eine Änderung nur an den Werkzeugen (tools/*.py, *.sh, kernregeln.txt) blieb ungetestet.
+# Hier auf main bei jeder Änderung an tools/ (oberste Ebene) oder dieser Datei; ohne Godot, etwa 10 s.
+on:
+  push:
+    branches: ["main"]
+    paths: ["tools/*.py", "tools/*.sh", "tools/*.txt", "tools/umstellung1727/*.py", ".github/workflows/werkzeuge.yml", ".github/workflows/herzschlag.yml", ".github/workflows/herzschlag-kette.yml"]
+  workflow_dispatch:
+
+concurrency:
+  group: werkzeuge-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  werkzeugtests:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      # 1765, 1771: Übergabe (1760), Chefwort (1762), Rückmeldung (1763), Telegram-Regel (1739), Auftrag
+      - name: Werkzeugtests (Übergabe, Chefwort, Rückmeldung, Meldung, Auftrag, Zweig doppelt)
+        run: |
+          git config --global user.email "ci@bornim" && git config --global user.name "ci"
+          python3 tools/uebergabe_test.py
+          python3 tools/uebergabe_schliessen_test.py  # 2012 offene Zeilen schließen (Start, Rückmeldung, fertig)
+          python3 tools/streichen_test.py
+          python3 tools/chefwort_test.py
+          python3 tools/rueckmeldung_test.py
+          python3 tools/vorgang_schlank_test.py
+          python3 tools/schlank_2060_test.py    # 2060 alter Schlons ins Archiv, Zählung und Ü-Nummer mit Archiv
+          python3 tools/titel_2042_test.py
+          python3 tools/liste_neu_test.py
+          python3 tools/vorgang_neu_laenge_test.py  # 2017 Vorgangsliste ohne 400-Zeichen-Grenze
+          python3 tools/meldung_regel_test.py
+          python3 tools/meldung_bild_2044_test.py     # 2044 Bildzeile unter die Absenderzeile der Vorlage
+          python3 tools/auftrag_test.py
+          python3 tools/zug_haken_test.py       # 1732 Votum ohne Gegengeprüft
+          python3 tools/neustart-haken_test.py  # 1520 Schwellen je Rolle, Ford und Übergabe frei
+          python3 tools/zweig_doppelt_test.py   # 1776
+          python3 tools/laufbremse_test.py      # 1777 (Spike, 1766)
+          python3 tools/sperre-haken.py --test  # 1739 Sperre Force-Push, Keystore
+          python3 tools/vorpush.py --test       # 1937 pre-push (647, 464, 748, 1719)
+          python3 tools/buildzweig-haken.py --test
+          python3 tools/gepusht-haken.py --test # 1739 Stop-Haken alles gepusht
+          python3 tools/notizkopie_test.py      # 1963 Notizkopie räumt veralteten vorgemerkten Stand selbst auf
+          python3 tools/rufname_test.py         # 1739 Rufnamen (lauf.py nur scharf, kosten.py)
+          python3 tools/rufname_rolle_test.py   # 1957 Rufname → Startrolle aus der Startsperre
+          python3 tools/titel_thema_test.py     # 1960 START-Titel mit Thema aus dem Vorgangstitel
+          python3 tools/gegengelesen_test.py    # 1783 Gegengelesen mit Rufnamen
+          python3 tools/kostenbericht_test.py   # 1739 Kosten in drei Teilen
+          python3 tools/lehren_test.py          # 1739 Lehrenbuch
+          python3 tools/betrieb_lehre_test.py   # 1999 Betriebsfehler roh ins Lehrenbuch, Sperre Vorlage ohne Abgleich, 461b ersetzt durch
+          python3 tools/lieferung_test.py       # 1739 wartet auf leeren bei Lieferung
+          python3 tools/tagesbericht_test.py    # 1739 Tagesbericht: Wo stehen wir, Fristen
+          python3 tools/herzschlag.py --test    # 1788 (1764) Herzschlag, 1997 Wache-Fälle
+          python3 tools/lauf_herzschlag_test.py # 1997 jeder Lauf ohne Schalter pusht die Zeitmarke
+          python3 tools/ladesumme_test.py       # 1739 Größen und Ladesumme
+          python3 tools/lauf_1964_test.py       # 1964 Wache im Titel, --ohne jede Rolle/Routine, Kopfregel Auftrag, Rückläufer hält START
+          python3 tools/lauf_2006_test.py       # 2006 offene Ü an den Arbeitsplaner hält jeden Fachkraft-Start (Zeilenregel, WEITER, Nachfolger, ue_start, plan)
+          python3 tools/lauf_2012_test.py       # 2012 Auftrag steht/Nachfolger zu, sobald die Fachkraft angekommen ist
+          python3 tools/lauf_2019_test.py       # 2019 Wochenzählung: Termin ohne --sperre, Rolle der Routine, frei unter der Laufsperre
+          python3 tools/lauf_2035_test.py       # 2035 Besetzung trägt den Disponenten am Titel „Rufname – Disponent – …“
+          python3 tools/lauf_2042_test.py       # 2042 Disponent klein: sonnet, TITEL, Zeitgrenze list_sessions, Wecker gebündelt
+          python3 tools/lauf_2042b_test.py      # 2042 Teil 6 Wecker an Vorgangssitzung, Titel aus Startnachricht, Startrolle; Teil 9 LIEGT kurz
+          python3 tools/ablaeufe_2041_test.py   # 2041 a–c Prüferzeile bei gebaut, Rückläufer an Rolle, main-Zeilen schließen
+          python3 tools/titel_2041_test.py      # 2041 d Titel Name – Status – Nr – Betreff, Leser alt und neu, TITEL-Zeilen
+          python3 tools/titel_2041b_test.py     # 2041 d Nachträge: Disponent – Büro, Wache – Betrieb, Wochenzählung – KW, kosten.rolle Prüfer/Tester/Arbeitsplaner
+          python3 tools/art_weg_test.py         # 1398-Ü3 (Prüfer 25.11., 21:11): Aussehen zählt nicht als Handypunkt
+          python3 -c 'import PIL, numpy' 2> /dev/null || python3 -m pip install -q --break-system-packages pillow numpy  # bildvergleich.py
+          python3 tools/bildvergleich.py --test # 1710-Ü3 (Prüfer 25.11., 21:11): Bildvergleich Selbsttest
+          python3 tools/lauf_kern_test.py       # 1923 Startblock, 1986 Sokrates mit Kern Leitung und Gedächtnis
+          python3 tools/leitung_test.py         # 1988 Neustart Leitung und Disponent ab 300 Tsd. Token, Warnung einmal je Stunde
+          python3 tools/sammelzeile_test.py     # 1971 stündliche Sammelzeile erledigter Vorgänge
+          python3 tools/handstart_test.py       # 1989 lauf.py --start mit Startblock, Werkzeugsperre im Startsperre-Haken
+          python3 tools/lauf_2049_test.py       # 2049 Start der Leitung ohne Nummer, feste Titel, Alter-Ego-Block, Hinweis statt Doppelstart
+          python3 tools/lauf_2052_test.py       # 2052 Kür ruht, solange irgendwo Muss/Eilt startbar ist (lauf.py, Rollenzeile, vorgang.py --rolle)
+          python3 tools/lauf_2042c_test.py      # 2042 (c) lauf.py --startblock zum Nachlesen, Haken; 2062 Startnachricht wieder wörtlich
+          python3 tools/lauf_2062_test.py       # 2062 START wörtlich (Ladetext, Auftrag) im Takt und bei --start, Konsole gekürzt, Restdatei voll
+          python3 tools/lauf_2042d_test.py      # 2042 (d) list_sessions-Datei direkt lesen, je Sitzung eine Zeile SITZUNG, --token, after_id
+          python3 tools/lauf_2042e_test.py      # 2042 Fassung 5: Konsole ≤3 KB nur Taten, Restdatei; Haken tool-results; Rückfall get_session
+          python3 tools/auftrag_2042_test.py    # 2042 Fassung 5 (5): auftrag NR zeigt neuesten Auftrag, eintragen räumt auf
+          python3 tools/projektplan_test.py     # 1860 Themenblöcke statt Wochenziel
+          python3 tools/rundblick_test.py       # 1789 Rundblick-Start ohne Kern, Ausnahme „Zurück“
+          python3 tools/nachtstarts_test.py     # 1792 Nachtstopp mit Ausnahme aus Chefentscheid
+          python3 tools/liegt_test.py           # 1799 LIEGT nach Grobablauf 14.2
+          python3 tools/guthaben_test.py        # 1804 Guthabenstufe und Laufsperre
+          python3 tools/takt_test.py            # 1978 lauf.py jeden Takt, nur START ruht; Alarm nennt Disponent
+          python3 tools/umstellung1727_test.py  # 1739 Umstellung Vorgangsliste (an Kopie)
+          python3 tools/regelcheck_namen_test.py  # 870 Namenswächter liest Quellen der Kopien nach godot/

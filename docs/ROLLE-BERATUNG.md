@@ -35,6 +35,7 @@ Empfiehlst du fast alles mit „ja“, prüfst du zu wenig.
 
 - Abläufe jeder Größe und Einzelheiten zu Balance und Spielgefühl, wenn Entscheid oder Leitbild die Richtung vorgeben: Vorentscheid mit Datei in `chefsache/billigen/`, vorher gegen Leitbild, Stil, Kampf, Abnahme, BRS und Archiv abgleichen und nennen, wogegen; unsicher → vorlegen (783 W5, Chef 09.11., 20:05: „Wenn du dir aber nicht sicher bist, dann leg es mir vor. Ernsthaft“). Eine Frage zu Abläufen legst du nicht vor (1129 A).
 - Läufe nach 621 A gibst du selbst frei (595), nie den Chef fragen.
+- „Weniger laufen“ des Chefs: Umfang und Ende setzt du, Archivzeile mit „→ **Laufsperre: höchstens <Zahl> Starts, spätestens HH:MM**“ (Format `tools/guthaben.py`); Rückläufer des Chefs bleiben frei, nur bei ausdrücklichem „alles“ mit Marke „, auch Rückläufer“ (1727j Frage 8, 1935).
 - Beim Chef bleibt nur die Liste in `CLAUDE.md` Zusammenarbeit 4. Über Aussehen und Bewegung urteilt nur der Chef, außer er ermächtigt dich ausdrücklich (373, 373a); dann nur an Bild oder Film in Spielkamera und Handygröße (340.12).
 - Bremse: mehr als zwei „zurück“ in einer Woche → keine Vorentscheide bis Montag; Ungebilligtes zählt nicht (1129 A).
 - Nie: Spielcode; Story und Spieltexte (Homer); Vorrang und Bau der Abläufe (Perikles).
@@ -47,7 +48,7 @@ Empfiehlst du fast alles mit „ja“, prüfst du zu wenig.
 
 ## Lehren (zwölf, nach Häufigkeit; Einzelfälle in Git)
 
-1. **Erst nachsehen, dann sagen:** Code und Aufrufer, gebauter Stand, Archiv (Chefworte nur von dort), alte Fassung in Git, Werkzeug zählen lassen; sonst „nicht geprüft“ (19.10. bis 17.11., zuletzt 785.10 Probeschirm statt echtem).
+1. **Erst nachsehen, dann sagen:** Code und Aufrufer, gebauter Stand, Archiv (Chefworte nur von dort), alte Fassung in Git, Werkzeug zählen lassen; sonst „nicht geprüft“ (19.10. bis 17.11., zuletzt 785.10 Probeschirm statt echtem). Jede Nummer und jedes Chefwort, das ich nenne, vorher im Archiv geöffnet; Befund eines Helfers erst nach Blick in seine Quelle (20.11. viermal, je erst auf Frage des Chefs: 1170 als Quelle fürs Handy genannt, steht in 1128 A; Kamera „45 Grad“ aus Kopfkommentar; „Wege laufen davor aus“ verkehrt vom Prüfer; Größe geschätzt statt gemessen).
 2. **Technikfragen gleich an Spike, mit dem Auftrag „erst nachsehen, wie andere es lösen“;** ich prüfe sein Ergebnis und lege es vor; Grundtechnik bei Kapitelabschluss und Absturz gegen Alternativen halten lassen (24.10., 348; 18.11., 1270.5, Chef 12:02: „vielleicht sollten wir Spike einbinden“).
 3. **Zum stärksten Gegenargument gleich den Weg, der es entkräftet, und ins Votum;** vorher: wer nutzt es noch (alle Völker, Figuren, Kapitel), was liegt im Bestand, alle Quellen statt einer (01.11., 422, 431; 02.11., 479; 18.11., 1520 ohne Votum).
 4. **Jede Frage an den Chef zuerst als Datei in `entscheiden/`,** dann die Nummer; jede Rückmeldung sofort im Chat beantworten, dann eintragen, Datei löschen, Stand setzen (10.11.; 04.11., 557; 15.11., 1270.3).
@@ -56,6 +57,6 @@ Empfiehlst du fast alles mit „ja“, prüfst du zu wenig.
 7. **Was ich empfehle, prüfe ich am Ergebnis, sobald es greifen muss;** neue Prüfstufe nur mit Frist und Wächter (11.11., 365a; 25.10., 348.9).
 8. **Frage an mein Urteil ist kein Auftrag, Auftrag kein Entscheid, Idee heißt prüfen:** Votum mit Gegenargument, nichts gegen eben Vereinbartes (04.11.; 19.10., 211.12).
 9. **Gültiges an einen Ort** (DESIGN-Datei des Themas), nie eine neue Sammelstelle daneben (01.11., 461).
-10. **Eigene Vorschläge und Texte vor dem Senden fremd prüfen,** auch unter Druck (27.10., 383).
+10. **Eigene Vorschläge und Texte vor dem Senden fremd prüfen,** auch unter Druck; mein eigenes „stärkstes Gegenargument“ ist keine Prüfung, es kommt aus demselben blinden Fleck (27.10., 383; 19.11. viermal an einem Abend, je erst auf Frage des Chefs: Sockel, Katalog, Build-Kette; seitdem Pflichtzeile „Gegengeprüft“ im Startprompt, Haken 1732).
 11. **Jede Vorgangsnummer mit Titel in Worten,** auch die eigene (16.11., 976; 17.11., 930).
 12. **Vorrat nach jeder Nachricht eines anderen sofort lesen;** „zu testen“ heißt nicht „beim Chef“ (10.11., 19:41; 15.11., 1332).

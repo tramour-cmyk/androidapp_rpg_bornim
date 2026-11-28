@@ -4,8 +4,11 @@
   neustart-haken.py prompt   bei jeder Nachricht des Nutzers (UserPromptSubmit): misst, wie stark das Gespräch
                              seit dem Start gewachsen ist, und erinnert ab der Schwelle an einen Neustart,
                              erst selten, dann immer öfter, je länger der Nutzer weiterarbeitet.
-  neustart-haken.py vor|nach an jedem Werkzeugaufruf (PreToolUse/PostToolUse, 1537): Erinnerung ab 200 Tsd., Sperre ab 300 Tsd.
-                             außer Übergabe, Push, Nachricht an Ford (Kaufrepo und Sokrates 400/500 Tsd., 1643; nie im Test des Chefs; nie bei Ford, 1574).
+  neustart-haken.py vor|nach an jedem Werkzeugaufruf (PreToolUse/PostToolUse, 1537): Erinnerung und Sperre je Rolle (SCHWELLEN, 1520; sonst 200/300 Tsd.)
+                             außer Übergabe, Push, Nachricht an den Disponenten (Kaufrepo +200 Tsd., 818; Sokrates 400/500 Tsd., 1643; nie im Test des Chefs; nie bei Ford, 1574).
+                             1762: ruft chefwort.haken() (Haken D, Chefwort aus fremder Sitzung).
+  neustart-haken.py abgelehnt  (1999) PermissionDenied/PostToolUseFailure: abgelehntes create_trigger/create_session → Lehrenbuch;
+                             „nach“ und „vor“ prüfen es ebenso
   neustart-haken.py start    beim Sitzungsstart (SessionStart): warnt, wenn ein Vorrat docs/ARBEIT-*.md zu groß ist.
 
 Die Größe kommt aus dem Gesprächsprotokoll (transcript_path): Token der letzten Antwort (Eingabe, auch
@@ -62,42 +65,16 @@ def zuwachs(werte):
 
 def text(stufe, plus, gesamt, ab=AB, ford=False):
     k = lambda n: f"{round(n / 1000)} Tsd."
-    kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist {k(gesamt)} Token lang (Schwelle {k(ab)}, 383 A{', doppelt: Kaufrepo eingebunden 818 oder Ford 1019' if ab != AB else ''}; seit dem Start +{k(plus)}); Erinnerung Nr. {stufe}."
+    kopf = f"Neustart-Haken (Thema 14): Das Gespräch ist {k(gesamt)} Token lang (Schwelle {k(ab)}, je Rolle 1520; seit dem Start +{k(plus)}); Erinnerung Nr. {stufe}."
     # 81r: der Anlass entscheidet, nicht ein Ja des Nutzers; kein Vorschlag im Chat (D8.2: der löste den Chefsache-Haken aus)
     if stufe == 1:
-        rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): zuerst `python3 tools/regelcheck.py --kurz` und die Funde im eigenen Vorrat beheben, dann Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an Ford „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
+        rest = "An der nächsten Bruchstelle (Thema fertig, Build ausgeliefert): zuerst `python3 tools/regelcheck.py --kurz` und die Funde im eigenen Vorrat beheben, dann Übergabe mit „Nachfolger: <Titel>“ pushen, send_message an den Disponenten „Neustart <Name>, <Commit>“ (81r, LISTE-RELEASE-NEUSTART.md „Neustart“). Im Chat nichts dazu."
     else:
-        rest = "Zweite Erinnerung: jetzt den Schritt beenden, Übergabe pushen, Neustart über Ford (81r); im Chat danach genau „Weiter in <Titel>: <Link>“."
+        rest = "Zweite Erinnerung: jetzt den Schritt beenden, Übergabe pushen, Neustart über den Disponenten (81r); im Chat danach genau „Weiter in <Titel>: <Link>“."
     return kopf + " " + rest
 
 
-ROLLEN = r"(Perikles|Homer|Sokrates|Diogenes|Ford|Tom|Jerry|Spike|Tuffy)( \d)?"
-
-
-def ist_ford():
-    """1574: diese Sitzung ist der aktuelle Ford laut ARBEIT-BETRIEB.md („Ford (aktuell)“), auch wenn die erste Nachricht nicht mit „Ford“ beginnt
-    (Handstart des Chefs 17.11., 18:24: Haken erkannte ihn nicht)."""
-    import re
-    kennung = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "").split("_", 1)[-1]
-    if not kennung:
-        return False
-    for d in ("/home/user/bornim-main", os.environ.get("CLAUDE_PROJECT_DIR") or "."):
-        try:
-            m = re.search(r"\*\*Ford \(aktuell\)\*\* `session_(\w+)`", open(os.path.join(d, "docs", "ARBEIT-BETRIEB.md"), encoding="utf-8").read())
-        except OSError:
-            continue
-        if m:
-            return m.group(1) == kennung
-    return False
-
-
-def ist_sokrates(pfad, sitzung):
-    """1643 (340.12 Änderung 3, Chef 18.11., 09:45): Sokrates startet an der Kontextgrenze erst ab 400 Tsd. neu (Sperre 500 Tsd.),
-    vier Neustarts mitten im Gespräch mit dem Chef kosteten je 4 bis 6 $."""
-    try:
-        return name(pfad, sitzung).startswith("Sokrates")
-    except Exception:
-        return False
+ROLLEN = r"(Perikles|Homer|Sokrates|Diogenes|Disponent|Tom|Jerry|Spike|Tuffy)( \d)?"
 
 
 def name(pfad, sitzung):
@@ -124,9 +101,11 @@ def name(pfad, sitzung):
                 inhalt = " ".join(t.get("text", "") for t in inhalt if isinstance(t, dict))
             if not isinstance(inhalt, str) or not inhalt.strip():
                 continue
-            m = re.match(r"\W*" + ROLLEN + r"\b", inhalt.strip())
+            m = re.match(r"\W*" + ROLLEN + r"(?![\w-])", inhalt.strip())  # 2035: nicht „Disponent-Starter“
+            m = m or re.match(r"\w+ – (Disponent)() – ", inhalt.strip())  # 2035: Titel „Detlef – Disponent – Betrieb“ (uebergabe.DISPONENT_TITEL), nie „Wache – Disponent (…)“
             # 1683: Startnachricht mit Kern beginnt mit „## Kern … Du bist **Spike**“, nicht mit dem Namen (Haken grüßten mit „Tom“)
             m = m or re.search(r"Du bist \*\*" + ROLLEN + r"\*\*", inhalt[:2000])
+            m = m or re.search(r"^Dein Rufname: \w+ \(Rolle " + ROLLEN + r"\b", inhalt.strip())  # 1739 (lauf.mit_rufnamen)
             gefunden = (m.group(1) + (m.group(2) or "")) if m else ""
             break
     if gefunden:
@@ -211,6 +190,12 @@ def prompt(eingabe):
     except Exception:
         pass
     kern(sitzung)
+    try:  # 1762 Haken D: Chefwort zu fremdem Vorgang in die Vorgangsdatei (scharf erst mit tools/1727-SCHARF)
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import chefwort
+        chefwort.haken(eingabe, name(pfad, sitzung))
+    except Exception:
+        pass
     if not pfad or not os.path.exists(pfad) or geschuetzt():
         return
     plus, gesamt = zuwachs(groessen(pfad))
@@ -220,10 +205,10 @@ def prompt(eingabe):
             z = json.load(f)
     except (OSError, ValueError):
         z = {}
-    ab = 2 * AB if os.path.isdir(os.path.join(KAUF, ".git")) or ist_sokrates(pfad, sitzung) else AB  # 818; 1643: Sokrates ab 400 Tsd.
+    ab = schwellen(rolle(pfad, sitzung), kauf())[0]  # 1520: je Rolle (818 Kaufrepo, 1643 Sokrates)
     ford = False
-    try:  # 1574 (Chef 17.11., 18:31): Ford bleibt eine Sitzung, kein Selbstneustart; die Verdichtung hält sein Gespräch klein, keine Erinnerung
-        if name(pfad, sitzung).startswith("Ford") or ist_ford():
+    try:  # 1574 (Chef 17.11., 18:31): der Disponent bleibt eine Sitzung, kein Selbstneustart; die Verdichtung hält sein Gespräch klein, keine Erinnerung
+        if name(pfad, sitzung).startswith("Disponent"):
             return
     except Exception:
         pass
@@ -242,7 +227,7 @@ def prompt(eingabe):
             n = None
         if n:  # 812: kein Neustart mitten im Test
             print(f"Neustart-Haken (Thema 14): Das Gespräch ist {round(gesamt / 1000)} Tsd. Token lang, aber der Chef meldet Prüfliste t{n} in dieser Sitzung: "
-                  "weiter, bis er fertig ist; danach Übergabe und Neustart über Ford (812). Im Chat nichts dazu.")
+                  "weiter, bis er fertig ist; danach Übergabe und Neustart über den Disponenten (812). Im Chat nichts dazu.")
         else:
             print(text(stufe, plus, gesamt, ab, ford))
     with open(zpfad, "w") as f:
@@ -251,7 +236,7 @@ def prompt(eingabe):
 
 SPERRE_AB = int(os.environ.get("BORNIM_SPERRE_AB", "300000"))
 WERKZEUG_ALLE = 25  # 1537: Erinnerung an Werkzeugaufrufen höchstens alle 25 Aufrufe
-# 1537 (1520 so, Chef 17.11., 10:00): ab der Sperre nur noch Übergabe, Push, Neustart-Nachricht an Ford
+# 1537 (1520 so, Chef 17.11., 10:00): ab der Sperre nur noch Übergabe, Push, Neustart-Nachricht an den Disponenten
 FREI_WERKZEUG = {"ToolSearch", "ReadNotifications", "TaskStop", "mcp__claude-code-remote__send_message",
                  "mcp__claude-code-remote__get_session", "mcp__claude-code-remote__list_sessions",
                  "mcp__claude-code-remote__set_session_title", "mcp__claude-code-remote__create_session"}
@@ -260,6 +245,55 @@ FREI_BASH = (r"^\s*(do\s+|then\s+)?(cd \S+\s*$|git( -C \S+)? (add|commit|push|pu
              r"|python3 (\S*/)?tools/(vorgang|regelcheck|startbar|zug-haken)\.py|(\S*/)?tools/(notiz|meldung)\.sh"
              r"|(grep|sed -n|cat|head|tail)\b.*\bdocs/LISTE-RELEASE-NEUSTART\.md"
              r"|for \w+ in [\w ]+$|(break|done|fi|true|sleep \d+)\s*$|if git\b)")  # Push mit Wiederholschleife (1540)
+
+
+# 1520 (Chef 22.11., 13:34 „nicht ständig neue Sitzungen … nicht ewig lang“): Erinnerung und Sperre je Rolle in Token, aus der Erneuerungsrechnung
+# (Startlast gegen wachsenden Verlauf, Messung 22.11. in docs/vorgang/1520.md): günstigste Sperre aus 300/450/600 Tsd., Erinnerung bei 2/3.
+# Fehlt die Rolle, gilt STANDARD. Ausnahmen nach Chefentscheid, nicht aus der Rechnung: Sokrates (1643), Kaufrepo +200 Tsd. (818); Ford nie (1574).
+# Je Rolle: Kosten je Schritt bei Sperre 300/450/600 Tsd. (Opus 5.5, 1h-Cache 8 $, Lesen 0,20 $, Ausgabe 20 $ je MTok; 76 Sitzungen 22.11. ab 07:00).
+STANDARD = (AB, SPERRE_AB)
+FEST_2711 = (300000, 450000)  # Chef 27.11., 10:57: 300/450 Tsd. dauerhaft für Werkzeug, Prüfer, Arbeitsplaner, Diogenes. Nicht ändern ohne Messung Kosten je fertigem Vorgang (Vorgang 2061) und Chefwort; Begründung Archiv „Neustart-Grenzen fest“. (Vorher UEBERGANG_2042, Chef 25.11., 22:45.)
+SCHWELLEN = {
+    "Spike": STANDARD,         # 27 Sitzungen: 6,75 / 8,01 / 9,42 ct, Minimum 199 Tsd.
+    "Diogenes": FEST_2711,      # 14: 6,45 / 7,74 / 9,15 ct, Minimum 192 Tsd.
+    "Arbeitsplaner": FEST_2711,  # 9: 6,92 / 8,17 / 9,57 ct, Minimum 197 Tsd.
+    "Werkzeug": FEST_2711,      # 3: 7,29 / 8,55 / 9,94 ct, Minimum 197 Tsd.
+    "Prüfer": FEST_2711,        # 2: 7,18 / 8,41 / 9,79 ct, Minimum 204 Tsd.
+    "Wache": STANDARD,         # 2: 9,51 / 10,44 / 11,70 ct, Minimum 256 Tsd.
+    "Homer": STANDARD,         # 1: 7,34 / 8,59 / 9,99 ct
+    "Tagesbericht": STANDARD,  # 1: 6,39 / 7,70 / 9,12 ct
+    "Welt": STANDARD,          # 1: 5,74 / 7,11 / 8,55 ct
+    "Sokrates": (400000, 500000),  # Chefentscheid 1643; Rechnung (9): 7,30 / 8,62 / 10,04 ct, Minimum 188 Tsd. (Frage 1520)
+}
+KAUF_PLUS = 200000
+
+
+def kauf():
+    return os.path.isdir(os.path.join(os.environ.get("BORNIM_KAUF", KAUF), ".git"))
+
+
+def schwellen(wer, mit_kauf=False):
+    """1520: (Erinnerung, Sperre) für die Rolle wer; mit Kaufrepo je +KAUF_PLUS (818)."""
+    e, s = SCHWELLEN.get(wer, STANDARD)
+    return (e + KAUF_PLUS, s + KAUF_PLUS) if mit_kauf else (e, s)
+
+
+def rolle(pfad, sitzung):
+    """1520: Rolle für die Schwellen: name() oder, in der Neustruktur, „Dein Rufname: X (Rolle Werkzeug …“ bzw. „Du bist **Disponent**“."""
+    import re
+    try:
+        wer = name(pfad, sitzung)
+    except Exception:
+        wer = ""
+    if wer:
+        return re.sub(r" \d$", "", wer)
+    try:
+        with open(pfad, encoding="utf-8", errors="replace") as f:
+            kopf = f.read(200000)
+    except (OSError, TypeError):
+        return ""
+    m = re.search(r"Dein Rufname: \w+ \(Rolle (\w+)", kopf) or re.search(r"Du bist \*\*(\w+)\*\*", kopf)
+    return m.group(1) if m else ""
 
 
 def letzte_groesse(pfad, rueck=3_000_000):
@@ -285,7 +319,7 @@ def letzte_groesse(pfad, rueck=3_000_000):
 
 
 def frei(eingabe):
-    """1537: erlaubt ab der Sperre: Übergabe (Vorrat docs/ARBEIT-*.md lesen und schreiben), Commit und Push, Meldung, Nachricht an Ford."""
+    """1537: erlaubt ab der Sperre: Übergabe (Vorrat docs/ARBEIT-*.md lesen und schreiben), Commit und Push, Meldung, Nachricht an den Disponenten."""
     import re
     werkzeug = str(eingabe.get("tool_name") or "")
     ein = eingabe.get("tool_input") or {}
@@ -305,22 +339,46 @@ def frei(eingabe):
     return False
 
 
+TOOL_RESULTS_HINWEIS = ("Sperre (2042 Fassung 5, Chef 26.11., 13:56): der Disponent liest keine Datei unter tool-results/. "
+                        "Die gespeicherte Sitzungsliste nur als SEITE an lauf.py geben: python3 tools/lauf.py … <Pfad>; "
+                        "was lauf.py nicht druckt, steht in der Restdatei, die seine letzte Zeile nennt.")
+
+
+def liest_tool_results(eingabe):
+    """2042 Fassung 5 (3): liest dieser Aufruf eine Datei unter tool-results/ (Read, Grep, Glob, Bash mit cat/head/sed/grep/jq …)?
+    Erlaubt bleibt ein Bash-Abschnitt, der lauf.py aufruft (die Datei als SEITE). Fehler → False (Haken lässt durch)."""
+    import re
+    try:
+        t = eingabe.get("tool_input") or {}
+        if eingabe.get("tool_name") != "Bash":
+            return any(isinstance(v, str) and "tool-results/" in v for v in t.values())
+        for teil in re.split(r"&&|\|\||[;|&\n]", str(t.get("command", ""))):
+            if "tool-results/" in teil and not re.search(r"\bpython3?\s+(?:-\S+\s+)*\S*lauf\.py\b", teil):
+                return True
+    except Exception:
+        return False
+    return False
+
+
 def werkzeug(eingabe, art):
     """1537 (1520 so, Chef 17.11., 10:00): Neustart-Haken an jedem Werkzeugaufruf, damit lange Züge ohne Nachricht nicht ungemessen bleiben.
-    art „vor“ (PreToolUse): ab SPERRE_AB (mit Kaufrepo oder Ford doppelt) Rückgabe 2 = Aufruf gesperrt, außer frei();
-    art „nach“ (PostToolUse): ab AB (doppelt ebenso) alle WERKZEUG_ALLE Aufrufe eine Erinnerung, zählt die Stufe weiter (Weiter-Haken 195).
+    art „vor“ (PreToolUse): ab der Sperre aus schwellen() (1520, je Rolle) Rückgabe 2 = Aufruf gesperrt, außer frei();
+    art „nach“ (PostToolUse): ab der Erinnerung aus schwellen() alle WERKZEUG_ALLE Aufrufe eine Erinnerung, zählt die Stufe weiter (Weiter-Haken 195).
     Nie, solange der Chef einen Build der Sitzung testet (812, 865) oder die Sitzung geschützt ist (1531)."""
     pfad = eingabe.get("transcript_path")
-    if not pfad or not os.path.exists(pfad) or geschuetzt():
+    if not pfad or not os.path.exists(pfad):
+        return 0
+    sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
+    ford = name(pfad, sitzung).startswith("Disponent")
+    if art == "vor" and ford and liest_tool_results(eingabe):  # 2042 Fassung 5 (3)
+        print(TOOL_RESULTS_HINWEIS, file=sys.stderr)
+        return 2
+    if geschuetzt():
         return 0
     gesamt = letzte_groesse(pfad)
-    sitzung = "".join(c for c in str(eingabe.get("session_id") or "x") if c.isalnum() or c == "-")[:64]
-    ford = name(pfad, sitzung).startswith("Ford") or ist_ford()
-    if ford:  # 1574: Ford bleibt eine Sitzung, weder Erinnerung noch Sperre
+    if ford:  # 1574: der Disponent bleibt eine Sitzung, weder Erinnerung noch Sperre
         return 0
-    doppelt = ford or os.path.isdir(os.path.join(KAUF, ".git")) or ist_sokrates(pfad, sitzung)  # 1643 (340.12/3): Sokrates wie Kaufrepo
-    ab = AB + (AB if doppelt else 0)            # 200 / 400 Tsd.
-    sperre = SPERRE_AB + (AB if doppelt else 0)  # 300 / 500 Tsd.
+    ab, sperre = schwellen(rolle(pfad, sitzung), kauf())  # 1520: Tabelle je Rolle (818 Kaufrepo, 1643 Sokrates)
     if gesamt < ab:
         return 0
     zpfad = f"/tmp/bornim-neustart-{sitzung}.json"
@@ -343,7 +401,7 @@ def werkzeug(eingabe, art):
         if test:
             return 0
         sys.stderr.write(f"Neustart-Haken (1537): Das Gespräch ist {k(gesamt)} Token lang, Sperre ab {k(sperre)}: erlaubt sind nur noch "
-                         "Übergabe (docs/ARBEIT-*.md), Commit und Push, meldung.sh, vorgang.py und die Nachricht an Ford "
+                         "Übergabe (docs/ARBEIT-*.md), Commit und Push, meldung.sh, vorgang.py und die Nachricht an den Disponenten "
                          + ("(Selbstneustart nach LISTE-BETRIEB.md)." if ford else "„Neustart <Name>, <Commit>“ (send_message); im Chat danach genau „Weiter in <Titel>: <Link>“."))
         return 2
     z["aufrufe"] = aufrufe
@@ -355,7 +413,7 @@ def werkzeug(eingabe, art):
     if not z["test"] and (aufrufe % WERKZEUG_ALLE == 1 or int(z.get("stufe", 0)) == 0):
         stufe = int(z.get("stufe", 0)) + 1
         z["stufe"], z["seit"] = stufe, 0
-        hinweis = text(stufe, 0, gesamt, ab, ford).replace("; seit dem Start +0 Tsd.", "") + f" Ab {k(sperre)} sperrt der Haken jeden Werkzeugaufruf außer Übergabe, Push und Nachricht an Ford (1537)."
+        hinweis = text(stufe, 0, gesamt, ab, ford).replace("; seit dem Start +0 Tsd.", "") + f" Ab {k(sperre)} sperrt der Haken jeden Werkzeugaufruf außer Übergabe, Push und Nachricht an den Disponenten (1537)."
         print(json.dumps({"hookSpecificOutput": {"hookEventName": "PostToolUse", "additionalContext": hinweis}}, ensure_ascii=False))
     with open(zpfad, "w") as f:
         json.dump(z, f)
@@ -404,6 +462,49 @@ def start(eingabe):
                   "Nach der Regel „Vorräte klein halten“ in CLAUDE.md aufräumen (Erledigtes ins Archiv bzw. in die Änderungshistorie).")
 
 
+# 1999 (b, c): abgelehntes create_trigger/create_session wird eine rohe Zeile im Lehrenbuch (Fall Betrieb, je Tag und Ursache einmal).
+# Claude Code meldet eine Ablehnung der Auto-Prüfung als Ereignis PermissionDenied (Feld reason), einen Fehler des Dienstes als
+# PostToolUseFailure (Feld error); PostToolUse kommt nur nach Erfolg (code.claude.com/docs/en/hooks). Darum versteht der Haken alle drei.
+STARTWERKZEUG = ("create_trigger", "create_session")
+ABGELEHNT = r"(?i)\b(denied|refused|rejected|not (?:permitted|allowed|authori[sz]ed)|abgelehnt|verweigert|nicht erlaubt)\b"
+
+
+def abgelehnt(eingabe):
+    """(Ursache, Anlass) für ein abgelehntes create_trigger/create_session, sonst None."""
+    import re
+    w = str(eingabe.get("tool_name") or "")
+    kurz = next((k for k in STARTWERKZEUG if w == k or w.endswith("__" + k)), None)
+    if not kurz:
+        return None
+    ev = str(eingabe.get("hook_event_name") or "")
+    if ev == "PermissionDenied":
+        grund = str(eingabe.get("reason") or "ohne Grund")
+    elif ev == "PostToolUseFailure":
+        if eingabe.get("is_interrupt"):
+            return None
+        grund = str(eingabe.get("error") or "ohne Fehlertext")
+    else:
+        antwort = eingabe.get("tool_response")
+        antwort = antwort if isinstance(antwort, str) else json.dumps(antwort, ensure_ascii=False) if antwort is not None else ""
+        if not re.search(ABGELEHNT, antwort):
+            return None
+        grund, ev = antwort, ev or "PostToolUse"
+    sitzung = os.environ.get("CLAUDE_CODE_REMOTE_SESSION_ID", "") or str(eingabe.get("session_id") or "")
+    return ("%s abgelehnt (%s)" % (kurz, ev), "%s in Sitzung %s: %s" % (kurz, sitzung or "?", " ".join(grund.split())[:300]))
+
+
+def lehre_abgelehnt(eingabe):
+    """Schreibt im Hintergrund (Push dauert länger als die Hakenfrist); Ausgabe nach /tmp/bornim-lehre-betrieb.log. Rückgabe Ursache oder None."""
+    import subprocess
+    t = abgelehnt(eingabe)
+    if not t:
+        return None
+    lehren = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lehren.py")
+    with open("/tmp/bornim-lehre-betrieb.log", "a") as log:
+        subprocess.Popen([sys.executable, lehren, "betrieb", t[0], t[1]], stdout=log, stderr=log, stdin=subprocess.DEVNULL, start_new_session=True)
+    return t[0]
+
+
 def main():
     try:
         eingabe = json.load(sys.stdin)
@@ -414,8 +515,13 @@ def main():
         prompt(eingabe)
     elif art == "start":
         start(eingabe)
-    elif art in ("vor", "nach"):
-        return werkzeug(eingabe, art)
+    elif art in ("vor", "nach", "abgelehnt"):
+        try:
+            lehre_abgelehnt(eingabe)  # 1999
+        except Exception:
+            pass
+        if art != "abgelehnt":
+            return werkzeug(eingabe, art)
     return 0
 
 

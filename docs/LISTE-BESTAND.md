@@ -4,7 +4,7 @@ Vorgang 377.1, Stand 27.10., 14:36. Hier steht nur, was wir **besitzen**: gekauf
 
 - **Vor jedem Eigenbau hier nachsehen** (Regel „Bestand zuerst“, `ROLLE-ENTWICKLUNG.md`, 377).
 - Wer hochlädt oder herunterlädt, trägt im selben Schritt hier ein (Teil, Datei, Ort, Lizenz, Format).
-- **Privat** = privates Repo `tramour-cmyk/bornim-kaufmodelle`, Version `stufe1`, Anhänge (Zugang `add_repo`, Abruf `gh api …/releases/assets/<id>` mit `Accept: application/octet-stream`; alles auf einmal: `tools/blender348/kauf_laden.sh` im Zweig `claude/tom-348-fundament`). Rohdateien außer CC0 nie ins öffentliche Repo.
+- **Privat** = privates Repo `tramour-cmyk/bornim-kaufmodelle`, Version `stufe1`, Anhänge (Zugang `add_repo`, Abruf `gh api …/releases/assets/<id>` mit `Accept: application/octet-stream`; alles auf einmal: `tools/blender348/kauf_laden.sh` im Zweig `claude/tom-348-fundament`). Ins öffentliche Repo nur CC0 und Lizenzen, die die Weitergabe erlauben (etwa OFL, MIT); sonst nur privat (1727b).
 - **itch** = frei bei quaternius.itch.io, nicht abgelegt; Abruf wie `tools/blender348/v3/cc0_laden.sh`.
 - Mit Skelett nur glTF/GLB verwenden, nie FBX (Herstellerhinweis Quaternius, Maßfehler).
 

@@ -1,7 +1,7 @@
 # Roter Faden – Chroniken von Bornim (Überblick)
 
 
-Sieben Kapitel, ein Faden: Ein Kult mit weitergegebenem Titel, „die Grauen“, will das Siegel von Aschfurt brechen und den Tag der Asche zurückholen. Eine Seite je Kapitel in den Reitern; Karten in der Kartenmappe (Artefakt), Dialoge im [Storyplan](STORY-PLAN.md).
+Kapitel ohne feste Zahl (Chef 20.11.: „weil ich mich daran nicht binden will“), ein Faden: Ein Kult mit weitergegebenem Titel, „die Grauen“, will das Siegel von Aschfurt brechen und den Tag der Asche zurückholen. Eine Seite je Kapitel in den Reitern; Karten in der Kartenmappe (Artefakt), Dialoge im [Storyplan](STORY-PLAN.md).
 
 ## Der Faden je Kapitel
 

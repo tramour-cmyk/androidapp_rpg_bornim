@@ -2,7 +2,7 @@
 
 Nachschlagen (969, Chef 11.11., 15:49): jede Zahl des Bornimer Rollenspielsystems, mit der das Spiel heute rechnet, je Block die Regel als Satz (`DESIGN-BRS.md`), Formel und Erläuterung, die heutige Zahl und wo sie im Spiel gelesen wird. Aus `tools/sim444/werte.json` mit `python3 tools/regelwerte.py`.
 
-**Stand:** `werte.json` aus Commit `04dac10cd` auf `main`; 30 Blöcke.
+**Stand:** `werte.json` aus Commit `7b673e68c` auf `main`; 30 Blöcke.
 
 - **Ändern:** nur in `werte.json` auf einem Arbeitszweig (das Spiel liest die Datei, also testet der Chef); nach dem Mischen auf `main` das Werkzeug laufen lassen und die Seite committen. Wer Einfluss nehmen will, nennt Block und Wert (z. B. `ueben.bedarf_teiler`).
 - **Herkunft** je Block: N = Nachschlagewerk DESIGN-BRS.md, B = LISTE-BESTIARIUM.md 'Werte 2.0', A = Annahme (im Nachschlagewerk ohne Zahl, hier gesetzt, damit gerechnet werden kann).
@@ -88,19 +88,19 @@ Gelesen in: `regeln/kerbe.gd:80`
 |---|---|---|---|
 | `Riesenratte` | schnell | – | – |
 | `Kobold` | normal | – | `regeln/kerbe.gd:353` |
-| `Blutflügler` | schnell | – | – |
+| `Riesenegel` | schnell | – | – |
 | `Wolf` | schnell | – | – |
 | `Wildschwein` | schnell | – | – |
 | `Riesen-Hundertfüßer` | normal | – | – |
 | `Goblin` | normal | – | – |
 | `Goblin-Späher` | normal | – | `regeln/kerbe.gd:186` |
 | `Skelett` | normal | – | – |
-| `Zombie` | langsam | – | – |
+| `Wiedergänger` | langsam | – | – |
 | `Riesenfledermaus` | schnell | – | `regeln/kerbe.gd:355`, `regeln/kerbe.gd:731`, +1 |
 | `Goblin-Schamane` | normal | – | `regeln/kerbe.gd:341`, `regeln/kerbe.gd:458`, +1 |
 | `Riesenspinne` | normal | – | `regeln/kerbe.gd:350`, `regeln/kerbe.gd:912`, +1 |
-| `Ghul` | normal | – | – |
-| `Ockerschleim` | langsam | – | – |
+| `Grabhund` | normal | – | – |
+| `Säureschnecke` | langsam | – | – |
 | `Krogg` | normal | – | `regeln/kerbe.gd:363` |
 | `Grimmzahn` | schnell | – | `regeln/kerbe.gd:873` |
 | `Grak` | normal | – | – |
@@ -120,7 +120,7 @@ Gelesen in: `regeln/kerbe.gd:105`, `regeln/kerbe.gd:112`, +1
 | `groesse_ab` | 1 | – | `regeln/kerbe.gd:402` |
 | `gegenwert_sonst` | 3 | – | `regeln/kerbe.gd:114` |
 
-| Eintrag | Riesenratte | Wolf | Jungwolf | Wildschwein | Riesen-Hundertfüßer | Riesenspinne | Riesenfledermaus | Blutflügler | Goblin | Goblin-Späher | Goblin-Schamane | Kobold | Skelett | Zombie | Ghul | Ockerschleim | Krogg | Grimmzahn | Grak |
+| Eintrag | Riesenratte | Wolf | Jungwolf | Wildschwein | Riesen-Hundertfüßer | Riesenspinne | Riesenfledermaus | Riesenegel | Goblin | Goblin-Späher | Goblin-Schamane | Kobold | Skelett | Wiedergänger | Grabhund | Säureschnecke | Krogg | Grimmzahn | Grak |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | gegenwert | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 3 | 3 | 3 | 3 | 4 | 4 | 4 | 2 | 6 | 6 | 8 |
 
@@ -690,19 +690,19 @@ Gelesen in: `regeln/brs_held.gd:117`, `regeln/brs_kampf.gd:65`, +1, Sim.
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | Riesenratte | 1 | 20 | 1 | 3 | 10 | 5 | 10 | nah | Wald, Höhle | feuer 1,5 |  |  |  |  |
 | Kobold | 1 | 24 | 1 | 3 | 10 | 5 | 0 | nah | Wald, Tiefer Wald |  |  |  |  |  |
-| Blutflügler | 1 | 18 | 2 | 3 | 15 | 9 | 0 | nah | Wald, Tiefer Wald | feuer 1,5 |  |  |  |  |
+| Riesenegel | 1 | 18 | 2 | 3 | 15 | 9 | 0 | nah | Wald, Tiefer Wald | feuer 1,5 |  |  |  |  |
 | Wolf | 2 | 25 | 1 | 6 | 15 | 12 | 30 | nah | Wald, Tiefer Wald | feuer 1,5 |  |  |  |  |
 | Wildschwein | 2 | 29 | 0 | 3 | 10 | 8 | 10 | nah | Wald, Tiefer Wald | stich 1,5; schnitt 0,5 |  |  |  |  |
 | Riesen-Hundertfüßer | 2 | 22 | 1 | 3 | 15 | 12 | 0 | nah | Wald, Tiefer Wald | wucht 1,5; stich 0,5 |  |  |  |  |
 | Goblin | 2 | 18 | 2 | 5 | 15 | 16 | 10 | nah | Wald, Tiefer Wald, Höhle |  |  |  |  |  |
 | Goblin-Späher | 2 | 22 | 1 | 5 | 15 | 12 | 20 | fern | Wald, Tiefer Wald, Höhle |  |  |  |  |  |
 | Skelett | 2 | 36 | 1 | 5 | 15 | 12 | 10 | nah | Wald, Tiefer Wald, Höhle | wucht 1,5; stich 0,5; gift 0 |  |  |  |  |
-| Zombie | 2 | 44 | 0 | 3 | 10 | 2 | 0 | nah | Wald, Tiefer Wald, Höhle | feuer 1,5; gift 0 |  |  |  |  |
+| Wiedergänger | 2 | 44 | 0 | 3 | 10 | 2 | 0 | nah | Wald, Tiefer Wald, Höhle | feuer 1,5; gift 0 |  |  |  |  |
 | Riesenfledermaus | 3 | 46 | 1 | 5 | 20 | 17 | 40 | nah | Wald, Tiefer Wald, Höhle | stich 1,5 |  |  |  |  |
 | Goblin-Schamane | 3 | 29 | 1 | 4 | 15 | 15 | 50 | zauber | Tiefer Wald, Höhle | stich 1,5; feuer 0,5 |  |  |  |  |
 | Riesenspinne | 4 | 43 | 2 | 7 | 25 | 24 | 40 | nah | Tiefer Wald, Höhle | feuer 1,5; gift 0,5 |  |  |  |  |
-| Ghul | 4 | 37 | 1 | 6 | 25 | 20 | 40 | nah | Tiefer Wald, Höhle | licht 1,5; gift 0 |  |  |  |  |
-| Ockerschleim | 5 | 44 | 0 | 5 | 30 | 17 | 10 | nah | Höhle | feuer 1,5; saeure 0 |  |  |  |  |
+| Grabhund | 4 | 37 | 1 | 6 | 25 | 20 | 40 | nah | Tiefer Wald, Höhle | licht 1,5; gift 0 |  |  |  |  |
+| Säureschnecke | 5 | 44 | 0 | 5 | 30 | 17 | 10 | nah | Höhle | feuer 1,5; saeure 0 |  |  |  |  |
 | Krogg | 4 | 55 | 2 | 7 | 20 | 28 | 60 | nah | Höhle |  | ja | ja |  |  |
 | Grimmzahn | 5 | 55 | 2 | 7 | 22 | 29 | 80 | nah | Tiefer Wald |  | ja |  | Leibwache | ja |
 
@@ -730,7 +730,7 @@ Gelesen in: Sim.
 
 ### merkmale.exemplar
 
-Herkunft: 1488 (1411b A, Chef 16.11., 20:59; Werte wie Rechnung 1411.1, merkmale_1411.py): je Exemplar hoechstens ein Merkmal, Bosse fest, Ockerschleim ohne; klein (geringer Schaden) nur das Leben der Tiermerkmale (Annahme 1488)
+Herkunft: 1488 (1411b A, Chef 16.11., 20:59; Werte wie Rechnung 1411.1, merkmale_1411.py): je Exemplar hoechstens ein Merkmal, Bosse fest, Säureschnecke ohne; klein (geringer Schaden) nur das Leben der Tiermerkmale (Annahme 1488)
 
 Gelesen in: `regeln/mars.gd:582`, Sim.
 
@@ -746,7 +746,7 @@ Gelesen in: `regeln/mars.gd:587`, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `arten` | Wolf, Jungwolf, Wildschwein, Riesen-Hundertfüßer, Riesenspinne, Blutflügler | – | `regeln/kerbe.gd:366`, `regeln/mars.gd:588`, Sim. |
+| `arten` | Wolf, Jungwolf, Wildschwein, Riesen-Hundertfüßer, Riesenspinne, Riesenegel | – | `regeln/kerbe.gd:366`, `regeln/mars.gd:588`, Sim. |
 
 | Eintrag | jung | alt | kräftig | angeschlagen |
 |---|---|---|---|---|
@@ -768,7 +768,7 @@ Gelesen in: `regeln/brs_kampf.gd:86`, `regeln/brs_kampf.gd:88`, +3, Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `arten` | Skelett, Zombie, Ghul, Goblin, Goblin-Späher, Goblin-Schamane, Kobold | – | `regeln/kerbe.gd:366`, `regeln/mars.gd:588`, Sim. |
+| `arten` | Skelett, Wiedergänger, Grabhund, Goblin, Goblin-Späher, Goblin-Schamane, Kobold | – | `regeln/kerbe.gd:366`, `regeln/mars.gd:588`, Sim. |
 
 | Eintrag | rostige Waffe | gute Waffe | brüchig | zäh |
 |---|---|---|---|---|
@@ -847,8 +847,8 @@ Gelesen in: `regeln/kerbe.gd:171`, `regeln/kerbe.gd:184`, +3, Sim.
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
 | `punkte_variante` | ja | gerechnet mit 21 Punkten (Entscheidung 77), also den Herkuenften mit plus_variante | Sim. |
-| `startgold` | 20 | alt: 15 bis 25 Gold, 1 bis 3 Heiltraenke je Klasse; hier Mittel | `skripte/spiel.gd:1741`, Sim. |
-| `start_heiltraenke` | 2 | – | `skripte/spiel.gd:1742`, Sim. |
+| `startgold` | 20 | alt: 15 bis 25 Gold, 1 bis 3 Heiltraenke je Klasse; hier Mittel | `skripte/spiel.gd:1750`, Sim. |
+| `start_heiltraenke` | 2 | – | `skripte/spiel.gd:1751`, Sim. |
 | `verkauf_anteil` | 0,5 | alt: Haendler zahlt den halben Ladenpreis (Game.kt sellPrice) | Sim. |
 | `dorf_alle_kaempfe` | 8 | A: der Held geht alle 8 Kaempfe ins Dorf, frueher, sobald ein Stueck 'Beschaedigt' ist (Warnung, N 11); dort verkaufen, reparieren, Traenke kaufen | Sim. |
 
@@ -889,19 +889,19 @@ Gelesen in: `regeln/tabellen.gd:32`, `regeln/tabellen.gd:44`, Sim.
 |---|---|---|
 | Riesenratte | 1, 4 | (Heiltrank, 0,08) |
 | Kobold | 2, 8 | (Heiltrank, 0,12), (Alchemistenfeuer, 0,04) |
-| Blutflügler | 1, 3 | (Heiltrank, 0,06) |
+| Riesenegel | 1, 3 | (Heiltrank, 0,06) |
 | Wolf | 1, 6 | (Heiltrank, 0,12) |
 | Wildschwein | 1, 3 | (Heiltrank, 0,08) |
 | Riesen-Hundertfüßer | 1, 3 | (Heiltrank, 0,1) |
 | Goblin | 2, 12 | (Heiltrank, 0,15), (Alchemistenfeuer, 0,06) |
 | Goblin-Späher | 2, 16 | (Heiltrank, 0,15), (Alchemistenfeuer, 0,05) |
 | Skelett | 1, 8 | (Heiltrank, 0,08), (Weihwasser, 0,04) |
-| Zombie | 1, 6 | (Heiltrank, 0,1), (Weihwasser, 0,06) |
+| Wiedergänger | 1, 6 | (Heiltrank, 0,1), (Weihwasser, 0,06) |
 | Riesenfledermaus | 1, 4 | (Heiltrank, 0,1) |
 | Goblin-Schamane | 3, 18 | (Heiltrank, 0,25), (Großer Heiltrank, 0,06) |
 | Riesenspinne | 2, 20 | (Großer Heiltrank, 0,15) |
-| Ghul | 2, 16 | (Großer Heiltrank, 0,15), (Weihwasser, 0,06) |
-| Ockerschleim | 3, 30 | (Großer Heiltrank, 0,2) |
+| Grabhund | 2, 16 | (Großer Heiltrank, 0,15), (Weihwasser, 0,06) |
+| Säureschnecke | 3, 30 | (Großer Heiltrank, 0,2) |
 
 ### wirtschaft.zerlegen
 
@@ -914,7 +914,7 @@ Gelesen in: Sim.
 | `ausbeute_min` | 0,4 | – | Sim. |
 | `jagd_voll` | 49 | – | Sim. |
 
-| Eintrag | Riesenratte | Wolf | Wildschwein | Riesen-Hundertfüßer | Riesenspinne | Riesenfledermaus | Skelett | Ockerschleim |
+| Eintrag | Riesenratte | Wolf | Wildschwein | Riesen-Hundertfüßer | Riesenspinne | Riesenfledermaus | Skelett | Säureschnecke |
 |---|---|---|---|---|---|---|---|---|
 | teile | Fleisch, Fell klein | Fleisch, Wolfsfell, Zähne | Fleisch, Schwarte, Hauer | Giftdrüse, Panzerplatten | Spinnendrüse, Spinnseide | Fledermausflügel | Knochen | Säure |
 
@@ -968,7 +968,7 @@ Gelesen in: Sim.
 
 Herkunft: Startausruestung je Waffen- und Ruestungsart: Gegenstand, Ladenpreis alt (Katalog 458), Material und Reparaturrang nach N 11 (A)
 
-Gelesen in: `skripte/spiel.gd:1697`, `skripte/spiel.gd:1702`, Sim.
+Gelesen in: `skripte/spiel.gd:1706`, `skripte/spiel.gd:1711`, Sim.
 
 - **holz:** A: Boegen repariert der Schmied (Geselle), N 11 nennt Boegen beim Gesellen ohne Werkstoff
 
@@ -978,7 +978,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Langschwert | – | `skripte/spiel.gd:996`, `skripte/spiel.gd:1004`, +9, Sim. |
+| `ding` | Langschwert | – | `skripte/spiel.gd:999`, `skripte/spiel.gd:1007`, +9, Sim. |
 | `preis` | 15 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -989,7 +989,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Kurzbogen | – | `skripte/spiel.gd:996`, `skripte/spiel.gd:1004`, +9, Sim. |
+| `ding` | Kurzbogen | – | `skripte/spiel.gd:999`, `skripte/spiel.gd:1007`, +9, Sim. |
 | `preis` | 25 | – | Sim. |
 | `material` | Holz | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -1000,7 +1000,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Dolch | – | `skripte/spiel.gd:996`, `skripte/spiel.gd:1004`, +9, Sim. |
+| `ding` | Dolch | – | `skripte/spiel.gd:999`, `skripte/spiel.gd:1007`, +9, Sim. |
 | `preis` | 2 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Anfänger | – | Sim. |
@@ -1011,7 +1011,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Streitkolben | – | `skripte/spiel.gd:996`, `skripte/spiel.gd:1004`, +9, Sim. |
+| `ding` | Streitkolben | – | `skripte/spiel.gd:999`, `skripte/spiel.gd:1007`, +9, Sim. |
 | `preis` | 5 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Anfänger | – | Sim. |
@@ -1022,7 +1022,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Kettenhemd | – | `skripte/spiel.gd:996`, `skripte/spiel.gd:1004`, +9, Sim. |
+| `ding` | Kettenhemd | – | `skripte/spiel.gd:999`, `skripte/spiel.gd:1007`, +9, Sim. |
 | `preis` | 50 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -1031,7 +1031,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Lederrüstung | – | `skripte/spiel.gd:996`, `skripte/spiel.gd:1004`, +9, Sim. |
+| `ding` | Lederrüstung | – | `skripte/spiel.gd:999`, `skripte/spiel.gd:1007`, +9, Sim. |
 | `preis` | 10 | – | Sim. |
 | `material` | Leder | – | Sim. |
 | `rang` | Anfänger | – | Sim. |
@@ -1042,7 +1042,7 @@ Gelesen in: Sim.
 
 | Wert | heute | Formel, Erläuterung | wirkt in |
 |---|---|---|---|
-| `ding` | Schild | – | `skripte/spiel.gd:996`, `skripte/spiel.gd:1004`, +9, Sim. |
+| `ding` | Schild | – | `skripte/spiel.gd:999`, `skripte/spiel.gd:1007`, +9, Sim. |
 | `preis` | 10 | – | Sim. |
 | `material` | Metall | – | Sim. |
 | `rang` | Geselle | – | Sim. |
@@ -1288,7 +1288,7 @@ Gelesen in: Sim.
 | `hinterhalt_min` | 0,4 | – | `regeln/brs_held.gd:387` |
 | `sinne_ab` | 3 | A: Monster bemerken den Helden aus bemerken_felder, je Punkt Gewandtheit ueber sinne_ab ein Fuenftelfeld spaeter (abgerundet, Gewandtheit 8: ein Feld), mindestens bemerken_min (alt je zwei Punkte Mod(GES) ein Feld); Hinterhalt je Punkt Wahrnehmung ueber sinne_ab 7,5 % seltener, hoechstens bis 40 %; unter sinne_ab (Volk senkt bis 2, 933) je Punkt 7,5 % haeufiger, Bemerken bleibt durch das Abrunden gleich (alt 15 % je Punkt Mod(WEI)) | `regeln/brs_held.gd:381`, `regeln/brs_held.gd:387`, +1 |
 | `wissen_verstand_ab` | 6 | 870d Vorentscheid Sokrates (11.11., 02:00): Schwaechen und Staerken der Gegner vorher sehen ab Verstand 6 (alt INT 12) | `regeln/brs_held.gd:376`, `regeln/mars.gd:2678` |
-| `leiden_zaehigkeit_ab` | 5 | A: Gift und Blutung aus einem Kampf klingen je Punkt Zaehigkeit ueber 5 eine Runde frueher ab (alt Mod(KON)) | `skripte/spiel.gd:859` |
+| `leiden_zaehigkeit_ab` | 5 | A: Gift und Blutung aus einem Kampf klingen je Punkt Zaehigkeit ueber 5 eine Runde frueher ab (alt Mod(KON)) | `skripte/spiel.gd:862` |
 
 ### welt.heilung
 
@@ -1708,19 +1708,19 @@ Gelesen in: `skripte/beute.gd:237`, `skripte/beute.gd:330`
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
 | giant_rat | Riesenratte | Riesenratte | Giant Rat | Tier | RATTE | Lefzen | ja | braun, grau, schwarz | 0,4 | 0,3, 0,85, -0,08 | 2 | 0,7576 |  |  |  |
 | kobold | Kobold | Kobold | Kobold | Kobold | KOBOLDS |  |  |  |  |  |  |  | ja |  |  |
-| stirge | Blutflügler | Riesenegel | Giant Leech | Tier | LEECHES | Umsehen | ja |  |  |  |  |  |  |  |  |
+| stirge | Riesenegel | Riesenegel | Giant Leech | Tier | LEECHES | Umsehen | ja |  |  |  |  |  |  |  |  |
 | wolf | Wolf | Wolf | Wolf | Tier | RUDEL | Lefzen, UmsehenL, UmsehenR, Scharren, Hecheln, Knurren | ja |  |  |  |  |  | ja | HockeUmsehenL, HockeUmsehenR, HockeHecheln, HockeKnurren |  |
 | boar | Wildschwein | Wildschwein | Boar | Tier | BOARS | Fressen | ja | dunkel, grau, rost |  |  |  | 1,0526 | ja |  |  |
 | giant_centipede | Riesen-Hundertfüßer | Riesen-Hundertfüßer | Giant Centipede | Tier | CENTIPEDES |  | ja |  |  |  |  |  |  |  |  |
 | goblin | Goblin | Goblin | Goblin | Goblin | GOBLINS |  |  |  |  |  |  |  | ja |  |  |
 | goblin_archer | Goblin-Späher | Goblin-Späher | Goblin Scout | Goblin | SCOUTS |  |  |  |  |  |  |  | ja |  |  |
 | skeleton | Skelett | Skelett | Skeleton | Untoter | SKELETT |  |  |  |  |  |  |  | ja |  |  |
-| zombie | Zombie | Wiedergänger | Revenant | Untoter | WIEDERGAENGER | Lauern |  |  |  |  |  |  | ja |  |  |
+| zombie | Wiedergänger | Wiedergänger | Revenant | Untoter | WIEDERGAENGER | Lauern |  |  |  |  |  |  | ja |  |  |
 | giant_bat | Riesenfledermaus | Riesenfledermaus | Giant Bat | Tier | FLEDERMAUS | Lefzen | ja | braun, schwarz, grau | 0,98 | 0,9, 0,5, -0,04 |  | 0,7576 |  |  | ja |
 | goblin_shaman | Goblin-Schamane | Goblin-Schamane | Goblin Shaman | Goblin | SHAMANS |  |  |  |  |  |  |  | ja |  |  |
 | giant_spider | Riesenspinne | Riesenspinne | Giant Spider | Tier | SPINNE | Lefzen |  |  |  |  |  |  |  |  | ja |
-| ghoul | Ghul | Grabhund | Grave Hound | Untoter | GRABHUND | Lefzen, Umsehen |  |  |  |  |  |  | ja |  |  |
-| ochre_jelly | Ockerschleim | Säureschnecke | Acid Slug | Tier | SLUGS | Umsehen | ja |  |  |  |  |  |  |  | ja |
+| ghoul | Grabhund | Grabhund | Grave Hound | Untoter | GRABHUND | Lefzen, Umsehen |  |  |  |  |  |  | ja |  |  |
+| ochre_jelly | Säureschnecke | Säureschnecke | Acid Slug | Tier | SLUGS | Umsehen | ja |  |  |  |  |  |  |  | ja |
 | bugbear | Krogg | Krogg der Grobian | Krogg the Brute | Bärenschrat | KROGG |  |  |  |  |  |  |  |  |  |  |
 | dire_wolf | Grimmzahn | Grimmzahn, der Leitwolf | Grimfang, the Pack Leader | Tier | GRIMM | Lefzen, UmsehenL, UmsehenR, Scharren, Hecheln, Knurren |  |  |  |  | 1,75 |  |  | HockeUmsehenL, HockeUmsehenR, HockeHecheln, HockeKnurren |  |
 | hobgoblin_captain | Grak | Hauptmann Grak | Captain Grak | Goblin-Hauptmann | GRAK |  |  |  |  |  |  |  |  |  |  |

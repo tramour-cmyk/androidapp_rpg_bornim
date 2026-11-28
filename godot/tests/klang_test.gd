@@ -85,6 +85,16 @@ func _alles() -> void:
 	k._tierlaute(100.0)
 	_pruef("Ziege rupft und meckert", gerupft == 1 and k._naechster - vorher == 2 and String(k._effekte[(k._naechster + 7) % 8].stream.resource_path).get_file().begins_with("goat_bleat"),
 		"%d, %d" % [gerupft, k._naechster - vorher])
+	# 1750: im Kampf ruht die Welt unsichtbar; das Tier meckert halb so laut
+	ziege.nah = false
+	k._tierlaute(100.0)
+	hof.visible = false
+	k._ort_k = 0.5
+	ziege.nah = true
+	k._tierlaute(100.0)
+	var m_db: float = k._effekte[(k._naechster + 7) % 8].volume_db
+	_pruef("1750 Dorftier im Kampf halb", absf(db_to_linear(m_db) - KlangS.tier_pegel(2.0, 0.5) * 0.5) < 0.001, "%.3f" % db_to_linear(m_db))
+	k._ort_k = 1.0
 	k._held = null
 	hof.queue_free()
 	# Kampfklang (MarsSound.kt): synthetische Klänge aus KlangExport.kt, Tabelle, Stimmen
@@ -161,6 +171,7 @@ func _alles() -> void:
 	var schleife: bool = kampf.size() == 1 and kampf[0].stream is AudioStreamOggVorbis and kampf[0].stream.loop
 	_pruef("Kampfmusik nach 0,8 s in Schleife", schleife and String(kampf[0].stream.resource_path).get_file().begins_with("kampf_"))
 	await _wald_517(k)
+	_kampf_1750(k)
 	print("KLANG %d Fehler" % fehler)
 	quit(1 if fehler else 0)
 
@@ -216,6 +227,111 @@ func _wald_517(k) -> void:
 				soll = g == ["bird"] and fern == 0
 		_pruef("517 %s %s" % [fall[0], "nachts" if fall[1] > 0.5 else "am Tag"], soll, "%s, fern %d (Seite %.2f)" % [g, fern, fern_seite])
 	sp.queue_free()
+
+
+## 1750 (D3a, Chef 20.11., 14:11): im Kampf der Ortsklang der Kartenstelle halb so laut (−6 dB), Vögel und Eule still, im Menü alles
+## still, nach dem Kampf weich zurück; über alle Ortsarten (OUTSIDE, CAVE, HALL, TAVERN, ROOM), Tag und Nacht. Je Fall 40 s Karte,
+## 30 s Kampf (der nächste Laut gleich bei Kampfbeginn); gemessen werden die Pegel der Schleifen und der letzte Einzellaut je Art
+func _kampf_1750(k) -> void:
+	_pruef("1750 Faktor", KlangS.ort_faktor("KARTE", "bird") == 1.0 and KlangS.ort_faktor("KAMPF", "wind") == 0.5
+		and KlangS.ort_faktor("KAMPF", "bird") == 0.0 and KlangS.ort_faktor("KAMPF", "owl") == 0.0 and KlangS.ort_faktor("STILL", "wind") == 0.0)
+	var sp := Node3D.new()
+	var skript := GDScript.new()
+	skript.source_code = "extends Node3D\nvar licht\n"
+	skript.reload()
+	sp.set_script(skript)
+	var lk := Node.new()
+	var lskript := GDScript.new()
+	lskript.source_code = "extends Node\nvar nacht := 0.0\n"
+	lskript.reload()
+	lk.set_script(lskript)
+	sp.set("licht", lk)
+	var held := Node3D.new()
+	sp.add_child(held)
+	root.add_child(sp)
+	var arten := {}
+	for fall in [["FOREST", "forest"], ["FOREST", "deep_forest"], ["TOWN", "village"], ["CAVE", "cave"], ["INTERIOR", "temple"], ["INTERIOR", "inn"], ["INTERIOR", "smithy"]]:
+		for nacht in [0.0, 1.0]:
+			var feuer := "f" if fall[0] == "INTERIOR" else "c"
+			var karte := _Probekarte.new({"kacheln": {".": {"name": "GRASS"}, "~": {"name": "WATER"}, "c": {"name": "CAMPFIRE"}, "f": {"name": "HEARTH"}},
+				"daten": {"art": fall[0]}, "breite": 12, "hoehe": 3, "zeilen": ["~." + feuer + ".........", "~...........", "~..........."]})
+			karte.id = fall[1]
+			lk.set("nacht", nacht)
+			held.position = Vector3(2.5 * 1.16, 0, 1.5 * 1.16)     # Kachel (2, 1): Feuer 1 Kachel, Fluss 2 Kacheln
+			k._karte = null
+			k._fluss.clear()     # 517 hat dieselben Kartennamen ohne Wasser
+			k.ort(karte, held)
+			k._zufall.seed = 1750
+			k._fern_ms = 1000.0     # der ferne Laut auch auf der Karte in der kurzen Probe
+			k.szene = KlangS.szene_von(fall[0])
+			arten[k.ortsart] = true
+			var karte_m := _hoere_1750(k, 400)
+			k.szene = "BATTLE"
+			k._leben_ms = k._ort_ms     # der nächste kleine und ferne Laut gleich im Kampf
+			k._fern_ms = k._ort_ms
+			k._ereignis_ms = k._ort_ms
+			held.position = Vector3(11.5 * 1.16, 0, 1.5 * 1.16)     # im Kampf zählt die Kachel bei Kampfbeginn
+			var kampf_m := _hoere_1750(k, 300)
+			var tag := "%s %s %s" % [k.ortsart, fall[1], "nachts" if nacht > 0.5 else "am Tag"]
+			var gut: bool = not kampf_m.l.is_empty() or not karte_m.l.is_empty()
+			var zeilen := []
+			for s in karte_m.l:
+				var a: float = karte_m.l[s]
+				var b: float = kampf_m.l.get(s, 0.0)
+				gut = gut and a > 0.0 and absf(b - a * 0.5) < 0.001
+				zeilen.append("%s %.3f→%.3f" % [s, a, b])
+			for id in karte_m.e:
+				var a: float = karte_m.e[id]
+				var b: float = kampf_m.e.get(id, 0.0)
+				if id in ["bird", "owl"]:
+					gut = gut and b == 0.0
+				elif id in ["wolf", "rumble"]:     # fern_pegel: zufällig 0,22/0,3 bis +0,1, im Kampf halb
+					gut = gut and b > 0.0 and b <= (0.32 if id == "wolf" else 0.4) * 0.5 + 0.001
+				else:
+					gut = gut and absf(b - a * 0.5) < 0.001
+				zeilen.append("%s %.3f→%.3f" % [id, a, b])
+			gut = gut and not kampf_m.e.has("bird") and not kampf_m.e.has("owl") and kampf_m.e.keys().all(func(id): return karte_m.e.has(id))
+			_pruef("1750 Karte→Kampf " + tag, gut, ", ".join(zeilen))
+			# Menü: alles still; nach dem Kampf weich zurück, nie ein Sprung
+			get_tree_paused(true)
+			var menue := _hoere_1750(k, 30)
+			get_tree_paused(false)
+			k.szene = ""
+			held.position = Vector3(2.5 * 1.16, 0, 1.5 * 1.16)
+			var stumm: bool = menue.l.values().all(func(v): return v == 0.0) and menue.e.is_empty()
+			k._ortsklang(100.0)
+			var weich: bool = k._schleifen.keys().all(func(s): return float(k._schleifen[s].v) < float(karte_m.l.get(s, 1.0)) - 0.001)
+			var zurueck := _hoere_1750(k, 30)
+			var wieder: bool = karte_m.l.keys().all(func(s): return absf(float(zurueck.l.get(s, 0.0)) - float(karte_m.l[s])) < 0.001)
+			_pruef("1750 Menü still, dann weich zurück " + tag, stumm and weich and wieder, "%s, %s" % [menue, zurueck.l])
+	_pruef("1750 alle Ortsarten", arten.keys().size() == 5, str(arten.keys()))
+	sp.queue_free()
+
+
+func get_tree_paused(an: bool) -> void:
+	paused = an
+
+
+## [n] Takte zu 100 ms: Pegel jeder Schleife am Ende („l“) und der Pegel des letzten Einzellauts je Art („e“, ohne Nummer der Aufnahme)
+func _hoere_1750(k, n: int) -> Dictionary:
+	var e := {}
+	for i in n:
+		k._ortsklang(100.0)
+		for pl in k._effekte + [k._fern]:
+			if pl.playing and pl.stream != null:
+				var id := String(pl.stream.resource_path).get_file().get_basename()
+				id = id.substr(0, id.rfind("_"))
+				id = id.get_slice("_", 0)
+				e[id] = db_to_linear(pl.volume_db)     # der letzte, nach dem Einblenden des Feuers
+			pl.stop()
+	var l := {}
+	for s in ["bett", "feuer", "fluss"]:
+		l[s] = float(k._schleifen[s].v) if k._schleifen.has(s) else 0.0
+	var aus := {}
+	for s in l:
+		if l[s] > 0.0 or n <= 30:
+			aus[s] = l[s]
+	return {"l": aus, "e": e}
 
 
 ## Eine kleine Karte wie skripte/karte.gd (zeichen, kacheln, daten, breite, hoehe) für feuer_weit

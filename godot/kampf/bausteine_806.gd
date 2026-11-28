@@ -77,7 +77,7 @@ func _beginne() -> void:
 		schritte.append(["Bäume ohne Schlagschatten", wirft.bind(true), wirft.bind(false)])
 	if kf._sun and kf._sun.shadow_enabled:
 		var weit: float = kf._sun.directional_shadow_max_distance
-		var karte: int = kf.SCHATTENKARTE
+		var karte: int = kf.schattenkarte()
 		schritte.append(["Schattenkarte halb so groß", func(): RenderingServer.directional_shadow_atlas_set_size(karte, true),
 			func(): RenderingServer.directional_shadow_atlas_set_size(karte / 2, true)])
 		schritte.append(["Schatten nur bis 20 m", func(): kf._sun.directional_shadow_max_distance = weit, func(): kf._sun.directional_shadow_max_distance = 20.0])

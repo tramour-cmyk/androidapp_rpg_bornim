@@ -93,15 +93,25 @@ def cache(mit_laden):
     if os.environ['KAUF_ALLES'] != 'treffer':
         subprocess.run(kc + ['ablegen'], cwd=REPO, check=True)
 
+# 1702 (Sokrates 18.11., 20:59: vier Läufe zu 1655, zuletzt mit alter Fassung am Rechner): Stand, zu dem die Modelle gebaut oder geholt
+# wurden, im Git-Verzeichnis der Arbeitskopie; probelauf.py hält einen Bildlauf an, wenn sich seither die Bauskripte geändert haben
+def stempel():
+    d = subprocess.run(['git', 'rev-parse', '--git-dir'], cwd=REPO, capture_output=True, text=True).stdout.strip()
+    c = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=REPO, capture_output=True, text=True).stdout.strip()
+    if d and c:
+        with open(os.path.join(REPO, d, 'bornim-modellstand'), 'w') as f:
+            f.write(c + '\n')
+
 if __name__ == '__main__':
     args = sys.argv[1:]
     mit_laden = '--laden' in args
     if mit_laden:
         args.remove('--laden')
     if '--cache' in args and not [a for a in args if a != '--cache']:
-        cache(mit_laden); sys.exit(0)
+        cache(mit_laden); stempel(); sys.exit(0)
     if '--cache' in args:
         sys.exit('--cache nur ohne Schritte')
     if mit_laden:
         laden()
     schritte(args or SCHRITTE)
+    if not args: stempel()

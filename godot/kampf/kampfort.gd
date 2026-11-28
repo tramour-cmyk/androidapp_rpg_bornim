@@ -282,8 +282,11 @@ func _tempo_setzen() -> void:
 
 const SCHATTENKARTE := 2048     # 806; Projekt 4096
 
+## 1645: im Kampfort höchstens die halbe Karte (806), nie mehr als die Grafikstufe (Niedrig 1024)
+static func schattenkarte() -> int: return mini(SCHATTENKARTE, Grafik.sonne_px())
+
 func _exit_tree() -> void:
-	RenderingServer.directional_shadow_atlas_set_size(int(ProjectSettings.get_setting("rendering/lights_and_shadows/directional_shadow/size", 4096)), true)     # 806
+	RenderingServer.directional_shadow_atlas_set_size(Grafik.sonne_px(), true)     # 806, 1645: zurück auf die Grafikstufe, nicht fest 4096
 	if _tempo_an:
 		Engine.time_scale = 1.0
 		_tempo_an = false
@@ -328,7 +331,7 @@ func _setup_world() -> void:
 	# 806: im Kampfort werfen nur die Figuren Schatten (wenige Meter), dafür reicht die halbe Schattenkarte (am Rechner etwa so viel
 	# gespart wie ohne Baumschatten); beim Verlassen wieder die des Projekts (Dorf, Tom)
 	if OS.get_environment("ALT_806") == "":
-		RenderingServer.directional_shadow_atlas_set_size(SCHATTENKARTE, true)
+		RenderingServer.directional_shadow_atlas_set_size(schattenkarte(), true)
 	if tageszeit == "abend":     # 399.2: nur Funktion, Feinschliff auf der Feintuning-Liste
 		sun.light_energy *= 0.75
 		sun.light_color = Color(1.0, 0.74, 0.52)
@@ -1163,6 +1166,9 @@ func _naeher(f, ab: Vector2, hinten: bool) -> Vector2:
 
 func _langsam(f) -> bool:
 	if not figures.has(f.id) or f.ranged():
+		return false
+	# 844: Goblins und Kobolde haben jetzt einen Wurzelweg (Kobold 1,03 m/s); sie stehen weiter wie abgenommen (oben)
+	if f.monster != null and Mars.koerper_of(f.monster) in [Mars.CALLED, Mars.SCOUT]:
 		return false
 	var v: float = figures[f.id].anmarsch_mps()
 	return v > 0.0 and v < LANGSAM_MPS

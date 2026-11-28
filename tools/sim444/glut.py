@@ -291,7 +291,7 @@ if __name__ == "__main__":
     n = a.kaempfe
     herk = list(sim.ohne_info(W["herkuenfte"]))
     fb = {hk: sim.fortschritt_alle(W, hk, a.laeufe, rng, True)["fert_bei"] for hk in herk}
-    faelle = [("Rudel", 1), ("Zombie", 2), ("Goblin-Späher", 2), ("Skelett", 2), ("Krogg", 4), ("Grimmzahn", 5), ("Grak", 6)]
+    faelle = [("Rudel", 1), ("Wiedergänger", 2), ("Goblin-Späher", 2), ("Skelett", 2), ("Krogg", 4), ("Grimmzahn", 5), ("Grak", 6)]
     V = [("heute", None), ("A angriff, Antworten frei", {"antworten": "alle", "funke": True}),
          ("B angriff, eine Schadensantwort je Gegnerrunde", {"antworten": "alle", "funke": True, "max_antwort": 1}),
          ("C nachdruck (Rest ins Tun)", {"antworten": "alle", "funke": True, "max_antwort": 1, "politik": "nachdruck"}),

@@ -223,33 +223,33 @@
 	},
 	"L_rowena": {
 		"Gesten": {
-			"durch": 13,
+			"durch": 9,
 			"zug": 18
 		},
 		"Ruhe_Tresen": {
-			"durch": 31,
+			"durch": 9,
 			"zug": 4
 		},
 		"Stehen": {
-			"durch": 9,
+			"durch": 5,
 			"zug": 23
 		}
 	},
 	"L_thessa": {
 		"Gesten": {
-			"durch": 27,
+			"durch": 21,
 			"zug": 1
 		},
 		"Ruhe_Greifen": {
-			"durch": 34,
+			"durch": 20,
 			"zug": 4
 		},
 		"Ruhe_Tresen": {
-			"durch": 24,
+			"durch": 15,
 			"zug": 2
 		},
 		"Stehen": {
-			"durch": 24,
+			"durch": 19,
 			"zug": 0
 		}
 	},

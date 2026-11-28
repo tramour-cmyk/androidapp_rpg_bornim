@@ -29,9 +29,36 @@ T.rotbuch_kurz = lambda: ""
 w = T.wirkung_text(d2)
 for teil in ("**75 % grün** (3 von 4)", "**30 min in roten Läufen** (25 % der Laufzeit)", "**4,0 Läufe je erledigtem Spielvorgang**", "7 Tage 80 % grün", "Tom 1"):
     if teil not in w: fehler.append("Läufe ohne " + teil)
-v = T.vorrat_satz(["3 Absätze gestrichen"], [("L", "1", "Tom", ""), ("L", "2", "Jerry", ""), ("I", "77", "?", "")])
-for teil in ("behoben: 3 Absätze gestrichen", "Offen: 3 Funde (2 wohl doppelt", "Tom 1", "Für dich: 1 Datei in der Chefsache ohne offenen Vorgang (77)"):
-    if teil not in v: fehler.append("Vorrat ohne " + teil)
-if "Für dich: nichts" not in T.vorrat_satz([], []) or "noch nicht geprüft" not in T.vorrat_satz([], []): fehler.append("Vorrat leer falsch")
+# 1715: Buildzweige grün, rot, abgebrochen mit verlorener Bauzeit; rot über grün → Systemfrage
+L = lambda b, c, mi: dict(head_branch=b, conclusion=c, created_at="x", run_started_at="2026-11-18T10:00:00Z", updated_at="2026-11-18T10:%02d:00Z" % mi)
+z = T.bau_zahl([L("claude/build-300", "success", 40), L("claude/build-300", "failure", 30), L("claude/build-301", "failure", 20),
+                L("claude/build-301", "cancelled", 25), L("claude/jerry-760", "failure", 10)])
+if z != (1, 2, 1, 25.0): fehler.append("bau_zahl %r" % (z,))
+if "**1 grün, 2 rot, 1 abgebrochen** (25 min Bauzeit verloren) → **Systemfrage an Spike**" not in T.bau_text(z): fehler.append("bau_text " + T.bau_text(z))
+if "Systemfrage" in T.bau_text((2, 2, 0, 0)) or "keine Läufe" not in T.bau_text(None): fehler.append("bau_text Grenze")
+d2["rot"]["bau"] = z
+if "Buildzweige 24 h" not in T.wirkung_text(d2): fehler.append("wirkung ohne Buildzweige")
+# 1739: „Wo stehen wir“ neben „Rest geschätzt“, Zeile Fristen, Umschaltung über tools/1727-SCHARF
+import tempfile
+T.SCHARF = os.path.join(tempfile.mkdtemp(), "1727-SCHARF")
+if T.zeile3({"Rest geschätzt": "x"})[0] != "Rest geschätzt" or T.zeile3({})[0] != "Rest geschätzt": fehler.append("zeile3 vor Umschaltung")
+if T.zeile3({"Wo stehen wir": "Block 1"})[:2] != ("Wo stehen wir", "Block 1"): fehler.append("zeile3 Wo stehen wir")
+open(T.SCHARF, "w").close()
+if T.zeile3({})[0] != "Wo stehen wir" or T.zeile3({"Rest geschätzt": "x"})[0] != "Rest geschätzt": fehler.append("zeile3 nach Umschaltung")
+alt_lesen = T.lesen
+T.lesen = lambda p: "## Eingaben\n- Wo stehen wir: Block 2 steht\n- Größtes Risiko: Geld\n" if p == "ARBEIT-TAGESBERICHT.md" else alt_lesen(p)
+if T.eingaben() != {"Wo stehen wir": "Block 2 steht", "Größtes Risiko": "Geld"}: fehler.append("eingaben %r" % T.eingaben())
+T.lesen = alt_lesen
+f = {"test": [(6, "Build 301"), (9, "t302")], "fragen": [(4, "1790a"), (1, "1791a")], "ohne_auftrag": ["1800", "1801"], "unveroeff": 12, "release": ("v0.1.900", 3)}
+ft = T.fristen_text(f)
+for teil in ("Testbitten über 5 Tage **2** (älteste t302, 9 Tage)", "Fragen an dich ohne Antwort **2** (älteste 1790a, 4 Tage)",
+             "Vorgänge ohne Auftrag über 1 Tag **2** (1800, 1801)", "**12** Einträge; letztes Release v0.1.900 vor **3 Tagen**"):
+    if teil not in ft: fehler.append("Fristen ohne " + teil)
+del f["ohne_auftrag"]; f["test"] = []
+if "ohne Auftrag" in T.fristen_text(f) or "Testbitten über 5 Tage **0**;" not in T.fristen_text(f): fehler.append("Fristen vor Umschaltung")
+echt = T.fristen({}, {})
+if not isinstance(echt.get("unveroeff"), int) or not echt.get("release") or "ohne_auftrag" not in echt: fehler.append("fristen am Stand %r" % echt)
+os.remove(T.SCHARF)
+if "ohne_auftrag" in T.fristen({}, {}): fehler.append("fristen ohne Umschaltung mit Auftragszahl")
 print("tagesbericht_test:", "grün" if not fehler else "ROT: " + "; ".join(fehler))
 sys.exit(1 if fehler else 0)

@@ -16,7 +16,7 @@ const Aufruf = preload("res://kampf/aufruf.gd")
 const Brs = preload("res://regeln/brs.gd")
 
 ## Begegnung der Rechnung -> Gegner im Spiel (Kennungen), RUDEL und GRIM wie aufruf.gd
-const FALL := {"Rudel": ["RUDEL"], "Kobold": ["kobold"], "Zombie": ["zombie"], "Goblin-Späher": ["goblin_archer"], "Skelett": ["skeleton"],
+const FALL := {"Rudel": ["RUDEL"], "Kobold": ["kobold"], "Wiedergänger": ["zombie"], "Goblin-Späher": ["goblin_archer"], "Skelett": ["skeleton"],
 	"Wolf+Goblin-Späher": ["wolf", "goblin_archer"], "Riesenfledermaus": ["giant_bat"], "Kobold+Goblin-Schamane": ["kobold", "goblin_shaman"],
 	"Riesenspinne": ["giant_spider"], "Krogg": ["bugbear"], "Grimmzahn": ["GRIMM"], "Grak": ["hobgoblin_captain"]}
 const GRUNDFORM := {"Einhänder": "longsword", "Bogen": "shortbow", "Stumpfe Waffen": "mace", "Dolche": "dagger", "Faustkampf": ""}

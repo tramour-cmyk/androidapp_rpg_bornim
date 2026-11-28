@@ -4,6 +4,8 @@ Vorgang 786 (654 A, Chef 09.11., 17:46: Querschnitt Klang nach Kampf-Sollbild 78
 
 Neue Einzelfunde zum Klang kommen hierher (eine Zeile), nicht als neuer Vorgang; ein „fehlt“ bekommt den Vorgang, der es behebt.
 
+**Funde Sokrates 20.11., 13:46** (Prüfung Profil Klang, 1727; Werkzeug verwies hierher): (1) diese Liste steht auf 11.11.: 939 (Ring, Siegfenster) steht unter „Fehlt“, ist in `kampfort.gd` gebaut, nachziehen (Jerry); (2) `DESIGN-STIL.md` „Klang“ ohne 119 Raumklang, 120 Musik in Schichten, D3a Ortsklang im Kampf, 598 synchron zur Bewegung; „Vorschau SOUNDS=“ veraltet (Homer).
+
 ## Fehlt (mit Vorgang)
 
 | Anlass | alt | neu | Vorgang |

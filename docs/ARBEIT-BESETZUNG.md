@@ -2,11 +2,14 @@
 
 **Wer gerade woran** (98.5). Schreibt `tools/lauf.py --besetzung` bei jedem Lauf von Ford aus `list_sessions` (Ford 2 Jerrys Zeilen), bis ein Werkzeug es übernimmt (D13.6); sonst niemand. Laufend = `working`/`blocked`, `updated_at` jünger als 60 Minuten oder offener Wecker.
 
-**Stand:** 18.11., 20:04 (lauf.py)
+**Stand:** 28.11., 21:25 (lauf.py)
 
 | Rolle | Sitzung | Vorgang | Zweig | seit |
 |---|---|---|---|---|
-| Sonstige | [Ford-Wache (17.11., 18:42)](https://claude.ai/code/session_01Hmoj76ew1cGKY7mCBVHUFx) | Betrieb | – | 17.11., 18:41 |
-| Ford | [Ford – Betriebsleiter (18.11., 08:50)](https://claude.ai/code/session_01Hmoj78M61cNk8nkWNPfU9N) | Betrieb | – | 18.11., 08:50 |
-| Sokrates | [Sokrates – 1608: Zusammenführen getesteter Builds (18.11., 17:09)](https://claude.ai/code/session_01Hmoj79Z3t6fDaYCiMy2dKv) | 1608 | – | 18.11., 17:09 |
-| Spike | [Spike – 1595: Build 300 grün und Testbitte (18.11., 20:01)](https://claude.ai/code/session_01Hmoj76gWm8hNEQSVkMDF94) | 1595 | – | 18.11., 20:01 |
+| Sokrates | [Sokrates – Leitung (28.11.)](https://claude.ai/code/session_01Hmoj7A8V2u5nbX9brVnGhb) | Betrieb | – | 28.11., 09:37 |
+| Prüfer | [Britta – Prüfer – in Arbeit – 2064 – Wiederholrot ausholen_1000: 2× rot …](https://claude.ai/code/session_01Hmoj77sRdBg8j4B2GxkcQB) | 2064 | – | 28.11., 20:05 |
+| Wache | [Wache – Betrieb (28.11., 20:10)](https://claude.ai/code/session_01Hmoj77T5ACMKH2zLWLR1HN) | Betrieb | – | 28.11., 20:10 |
+| Kampf | [Dana – in Arbeit – 2065 – Wiederholrot dreh_1072: 2× rot …](https://claude.ai/code/session_01Hmoj78FC43F19BHExx4QUL) | 2065 | – | 28.11., 21:04 |
+| Disponent | [Disponent – Büro (28.11., 21:05)](https://claude.ai/code/session_01Hmoj75RbYqFY63mpN9fb7S) | Betrieb | – | 28.11., 21:05 |
+| Prüfer | [Oda – Prüfer – frei](https://claude.ai/code/session_01Hmoj775rSvx1k7WVXA3Vh2) | Betrieb | – | 28.11., 21:09 |
+| Alter Ego | [Alter Ego – Supervisor (28.11., 21:16)](https://claude.ai/code/session_01Hmoj78HoKVRDHXEMaezwQp) | Betrieb | – | 28.11., 21:16 |

@@ -72,6 +72,9 @@ var nachholen := false                  # nach dem Folgen: den Rest ueber WENDE_
 # dreht nach der gemessenen Kurve der Bewegung (held-info.json gier), so bleibt der Standfuss stehen; Tempo wie bisher (rate)
 const WENDE_AB := 0.44                  # rad (25 Grad): kleinere Wenden ohne Schritte
 const WENDE_BLEND := 0.2                # s Uebergang aus dem Stehen in die Wende
+# 1406 (Chef 16.11. zu 1386: „Drehen auf der Stelle … ganz Entscheidendes“): ab 135 Grad eine Wende Drehen180_L/R (Turn180 der UAL2)
+# statt zwei Turn90 nacheinander; fehlt sie (ohne Kaufdaten), wie bisher
+const WENDE_180 := 2.356                # rad (135 Grad)
 var wende_kurve := {}                   # Name -> PackedFloat32Array, Drehung in rad je Bild (30 Bilder/s) seit Beginn
 var wende := ""                         # laufende Wende
 var wende_start := 0.0                  # rotation.y beim Beginn der Wende
@@ -421,7 +424,7 @@ class KopfDreher extends SkeletonModifier3D:
 static func kauf_wende(ap: AnimationPlayer) -> Dictionary:
 	var aus := {}
 	var wi: Dictionary = HeldFigur.lade_info().get("wende", {})
-	for n in ["Drehen_L", "Drehen_R"]:
+	for n in ["Drehen_L", "Drehen_R", "Drehen180_L", "Drehen180_R"]:   # 1406
 		var g: Array = (wi.get(n, {}) as Dictionary).get("gier", [])
 		if ap and ap.has_animation(n) and g.size() > 1 and absf(float(g[g.size() - 1])) > 30.0:
 			aus[n] = PackedFloat32Array(g.map(func(x): return deg_to_rad(float(x))))
@@ -947,7 +950,7 @@ func laufe(dt: float) -> void:
 		anim.speed_scale = tempo / (eil_m if rennt else (renn if gangart == "Rennen" else gang))
 
 # 416.8: im Stehen zu blick drehen; ab WENDE_AB mit Schritten (Drehen_L/R), der Knoten folgt der Kurve der Bewegung; Ziel erreicht
-# oder Bewegung zu Ende: zurueck ins Stehen, ist noch viel uebrig, gleich die naechste Wende (180 Grad = zwei)
+# oder Bewegung zu Ende: zurueck ins Stehen, ist noch viel uebrig, gleich die naechste Wende (ab 135 Grad eine halbe Drehung, 1406)
 func drehe_stehend(dt: float, rate: float) -> void:
 	var db := absf(angle_difference(blick_letzt, blick))     # 1040.1: wandert das Ziel? (Spruenge zaehlen nicht)
 	blick_letzt = blick
@@ -987,13 +990,19 @@ func drehe_stehend(dt: float, rate: float) -> void:
 	nachholen = false
 	rotation.y = drehe(rotation.y, blick, rate * dt)
 
-# 416.8: Wende zur Seite von rest (Drehen_L/R), "" ohne passende Bewegung oder wenn sie nicht zu sehen ist
+# 416.8: Wende zur Seite von rest (Drehen_L/R), "" ohne passende Bewegung oder wenn sie nicht zu sehen ist;
+# 1406: ab WENDE_180 die halbe Drehung (Drehen180_L/R), darunter nie (sie dreht ueber das Ziel hinaus)
 func wende_von(rest: float) -> String:
 	if anim == null or drinnen or not visible or rest == 0.0: return ""
+	var halb := absf(rest) >= WENDE_180
+	var aus := ""
 	for n in wende_kurve:
 		var k: PackedFloat32Array = wende_kurve[n]
-		if signf(k[k.size() - 1]) == signf(rest) and anim.has_animation(n): return n
-	return ""
+		if signf(k[k.size() - 1]) != signf(rest) or not anim.has_animation(n): continue
+		var ist_halb := String(n).begins_with("Drehen180")
+		if ist_halb and not halb: continue
+		if ist_halb or aus == "": aus = n
+	return aus
 
 # Drehung der Kurve k (je Bild, 30 Bilder/s) nach t Sekunden, zwischen den Bildern linear; nach dem Ende der letzte Wert
 static func kurve(k: PackedFloat32Array, t: float) -> float:

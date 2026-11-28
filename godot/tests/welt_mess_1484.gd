@@ -58,6 +58,7 @@ func _lauf() -> void:
 		func(): Testmodus.ohne_schatten = false; Testmodus.leistung_anwenden(self))
 	var skala := vp.scaling_3d_scale
 	await schritt.call("3D 70 %%", func(): vp.scaling_3d_scale = skala * 0.7, func(): vp.scaling_3d_scale = skala)
+	await schritt.call("3D 50 %%", func(): vp.scaling_3d_scale = skala * 0.5, func(): vp.scaling_3d_scale = skala)   # 1484a: Füllrate gegen Dreiecke
 	# große Netze (über 20k Dreiecke): je Stoff billig, dann ganz aus
 	var billig := StandardMaterial3D.new()
 	billig.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED

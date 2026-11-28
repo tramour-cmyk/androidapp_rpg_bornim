@@ -28,7 +28,7 @@ import sim  # noqa: E402
 
 HIER = os.path.dirname(os.path.abspath(__file__))
 TEMPI = ["langsam", "normal", "schnell"]
-GEGNER_STUFE = [("Rudel", 1), ("Rudel", 2), ("Goblin", 2), ("Zombie", 2), ("Skelett", 2), ("Goblin-Späher", 2),
+GEGNER_STUFE = [("Rudel", 1), ("Rudel", 2), ("Goblin", 2), ("Wiedergänger", 2), ("Skelett", 2), ("Goblin-Späher", 2),
                 ("Krogg", 4), ("Grimmzahn", 5), ("Grak", 6)]
 
 
@@ -497,7 +497,7 @@ def main():
     w("## C Schütze und Magier: Eröffnung fern gegen weit (Punkte), Sieg % · Schläge der Gegner je Kampf\n")
     w("| Held | Gegner | heute | Rückfall | Punkte fern | Punkte weit | Rückzüge je Kampf (weit) |\n|---|---|---|---|---|---|---|")
     for hk in ("Zauberlehrling", "Jägerkind"):
-        for gg, sf in [("Rudel", 1), ("Goblin", 2), ("Zombie", 2), ("Skelett", 2), ("Grak", 6)]:
+        for gg, sf in [("Rudel", 1), ("Goblin", 2), ("Wiedergänger", 2), ("Skelett", 2), ("Grak", 6)]:
             h = held_bei(W, hk, sf, fb[hk])
             r0 = messe(W, H, h, gg, n, rng, "heute")
             rr = messe(W, H, h, gg, n, rng, "rueckfall")

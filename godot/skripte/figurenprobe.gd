@@ -116,9 +116,10 @@ func _ready() -> void:
 	DirAccess.make_dir_recursive_absolute(aus)
 	spiel.ui.visible = false
 	if spiel.leute: spiel.leute.visible = false
-	if teil in ["klassen", "voelker", "tragen", "tragenfilm", "tragenaxt", "tragenpakete"]:   # 376.1 Held je Klasse (heldfigur.gd), 431 Voelker (voelkerprobe.gd), 417 Tragart: ohne UAL-Datei und Probefiguren
+	if teil in ["klassen", "voelker", "tragen", "tragenfilm", "tragenaxt", "tragenpakete", "groessen"]:   # 376.1 Held je Klasse (heldfigur.gd), 431 Voelker (voelkerprobe.gd), 417 Tragart, 455.2 Groessen (groessenprobe.gd): ohne UAL-Datei und Probefiguren
 		if teil == "voelker": await VoelkerProbe.new(self).film()
 		elif teil == "klassen": await klassen()
+		elif teil == "groessen": await GroessenProbe.new(self).film()
 		elif teil == "tragenaxt": await TragProbe.new(self).standbilder(true)   # 417 Runde 3: Kriegsaxt in drei Fassungen
 		elif teil == "tragenpakete": await TragProbe.new(self).standbilder(false, true)   # 417 Runde 4: Gehen und Rennen aus den Paketen
 		else: await TragProbe.new(self).standbilder()

@@ -6,7 +6,7 @@ Gilt für docs/chefsache/entscheiden/ und billigen/: Zeile 1 `# <Nr.> · <Frage>
 billigen: Entschieden), Berührt, Begründung, Sachverhalt, Auswertung (mit „Gegenargument“), Folgerungen, `Antwort:`;
 bei billigen dazu Umgesetzt, Rückbau, Kosten.
 
-Benutzt von probelauf.py (hält `git commit`/`git push` an, der eine solche Datei unvollständig nach main bringt, und
+Benutzt von commit-pruefung.py (1937; Push über den GitHub-Server: probelauf.py) (hält `git commit`/`git push` an, der eine solche Datei unvollständig nach main bringt, und
 push_files/create_or_update_file) und zug-index.py (Übersicht „Lücken“ für Altbestand).
 Von Hand: `python3 tools/vorlage_pruefen.py <Datei> …` (Exit 1 bei Lücken).
 """

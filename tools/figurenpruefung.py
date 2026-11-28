@@ -4,7 +4,7 @@
     python3 tools/figurenpruefung.py             # Befunde zeigen (neue und bekannte), Exit 1 bei neuen
     python3 tools/figurenpruefung.py --pruefen   # wie oben, kurz (Bau, Commit-Haken)
     python3 tools/figurenpruefung.py --stand     # heutige Befunde als bekannt ablegen (Sperrklinke neu setzen)
-    python3 tools/figurenpruefung.py --homer     # nur die Namenswidersprüche (Liste für Homer, 1473)
+    python3 tools/figurenpruefung.py --namen     # nur die Namenswidersprüche (1473; alter Name --homer geht weiter, 1739)
 
 Quelle ist werte.json „kennungen“ (Kennung -> Art, Name, Gruppe; seit 1385 dazu die Felder, die bisher nur im Code
 stehen). Geprüft wird: Art in „monster“, „monsterregeln“, Klänge (kampfklang.json), Absichten, Namen im Code
@@ -285,7 +285,7 @@ def lies_bekannt():
 
 def main():
     alle = befunde()
-    if "--homer" in sys.argv:
+    if "--namen" in sys.argv or "--homer" in sys.argv:  # 1739: Option nach Inhalt, --homer als Rückweg
         for z in alle:
             if z.startswith("name: "):
                 print(z)

@@ -22,6 +22,6 @@ open(marke, "w").close()
 m = "/home/user/bornim-main/tools/meldung.sh"
 if not os.path.exists(m): m = os.path.join(os.path.dirname(os.path.abspath(__file__)), "meldung.sh")
 args = [m] + (["--laut"] if 7 <= jetzt.hour < 22 else []) + ["Freigabe", "1572: Sitzung wartet auf deine Freigabe („%s“); Chef: in der Sitzung freigeben oder ablehnen" % text[:150].replace("„", "").replace("“", "")]
-try: subprocess.run(args, capture_output=True, timeout=20)
+try: subprocess.run(args, capture_output=True, timeout=20, env=dict(os.environ, MELDUNG_WERKZEUG="1"))  # 1739: ohne Telegram-Regel
 except Exception: pass
 sys.exit(0)

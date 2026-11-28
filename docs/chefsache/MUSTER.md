@@ -2,7 +2,7 @@
 
 Für `entscheiden/` und `billigen/`. Chef 09.11., 20:45 zu 758: „Ich verstehe die Frage, ich sehe ein Votum, ich sehe, was betroffen ist, ich sehe eine Begründung, ich sehe einen Sachverhalt, ich sehe eine Auswertung dazu. Also perfekt. So soll es sein.“
 
-`tools/probelauf.py` hält einen Commit oder Push an, der eine Datei ohne diese Teile nach `main` bringt; die Übersicht meldet Altbestand unter „Lücken“. Prüfen von Hand: `python3 tools/vorlage_pruefen.py <Datei>`. Entwurf außerhalb der beiden Ordner schreiben, dann vollständig anlegen.
+`tools/commit-pruefung.py` (pre-commit, 1937) hält einen Commit an, der eine Datei ohne diese Teile nach `main` bringt; die Übersicht meldet Altbestand unter „Lücken“. Prüfen von Hand: `python3 tools/vorlage_pruefen.py <Datei>`. Entwurf außerhalb der beiden Ordner schreiben, dann vollständig anlegen.
 
 ## Zum Kopieren
 
@@ -10,10 +10,10 @@ Für `entscheiden/` und `billigen/`. Chef 09.11., 20:45 zu 758: „Ich verstehe 
 # <Nr.> · <die Frage an den Chef, als Frage>?
 <Absender> · <TT.MM.>, <HH:MM> · <Bereich, z. B. E Welt> · <Anlass, z. B. aus deinem Wort 14:29>
 Kurz: <ein Satz für die Übersicht>
-Beim Chef, weil: <Code auf `main` (Prüfart nach 1128 A, Kleinkram nicht, 1173) | Geld | Lizenz | Story | Aussehen | neue Richtung im Spielgefühl | Release | Rollen und Accounts>
+Beim Chef, weil: <Code auf `main` (Prüfart nach 1128 A, Kleinkram nicht, 1173) | Geld | Lizenz | Story | Aussehen | neue Richtung im Spielgefühl | Release | Rollen und Accounts | Obergrenze A/B>
 
 Geprüft an: <Link, Commit oder Lauf>
-Beim Chef, weil: <Code auf main (Prüfart nach 1128 A, Kleinkram nicht), Geld, Lizenz, Story, Aussehen, neue Richtung im Spielgefühl, Release, Rollen und Accounts> (nur `entscheiden/`, 1129 A 1; sonst entscheidet das Team, Perikles oder Sokrates per Vorentscheid)
+Beim Chef, weil: <Code auf main (Prüfart nach 1128 A, Kleinkram nicht), Geld, Lizenz, Story, Aussehen, neue Richtung im Spielgefühl, Release, Rollen und Accounts, Obergrenze A/B> (nur `entscheiden/`, 1129 A 1; sonst entscheidet das Team, Perikles oder Sokrates per Vorentscheid)
 
 **Frage:** <ausführlich, so dass der Chef sie ohne Vorwissen versteht>
 

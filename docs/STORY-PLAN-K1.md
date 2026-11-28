@@ -268,7 +268,7 @@ Am Steinkreis: *Zwischen den Steinen: kalte Asche, Stiefelspuren, die nach Norde
 
 ## Anmerkungen des Beraters
 
-Sieben Stellen, an denen die Geschichte hakt. Nichts davon ist dringend, alles kann bis nach dem Test der 12 Tester warten.
+Sieben Stellen, an denen die Geschichte hakt. Nichts davon ist dringend, alles kann bis nach dem Test der 12 Testspieler warten.
 
 1. **Das Auge kommt zweimal, aber Aldric merkt es nicht.** Jorin bringt den Fetzen mit dem offenen Auge „an den Ältesten“, oft noch vor Grak. Beim Brief reagiert Aldric auf das graue Auge, als sähe er es zum ersten Mal. Vorschlag: eine Zeile bei Aldric, falls der Fetzen abgegeben ist („Dasselbe Auge wie auf Jorins Fetzen …“).
 2. **Gwenna trauert, redet aber vom Fischen.** Laut Aushang ist ihr Mann in der Höhle verschollen. Im Dorf klagt sie nur über Wölfe, nach dem Kapitel jubelt sie („Ich hab's ja immer gewusst“). Vorschlag: ihre Dorfzeilen an den Verlust anpassen.

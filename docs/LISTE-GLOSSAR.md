@@ -16,6 +16,7 @@ Namen im Spiel (Völker, Zauber, Monster, Regelwerte) stehen nicht hier, sondern
 | **Zentrale** | Toms Account (Max), auf dem alle laufen | BornWire TCS | – | `CLAUDE.md` „Rollen“, `FIRMA.md` |
 | **Niederlassung** | zweiter Account (Pro); ruht, nur noch als Gedanke | BornWire TCS | Ford 2 | `FIRMA.md` |
 | **Helfer** | Unteragent einer Sitzung, prüft oder sieht an; urteilt nicht über Aussehen | Sitzung | – | `ROLLE-ENTWICKLUNG.md` |
+| **Testspieler** | ein Mensch außerhalb der Firma, der das Spiel vor der Veröffentlichung spielt (1737, Chef 20.11., 08:09: „Testspieler passt.“) | Chef | Tester | `STORY-PLAN-K1.md` |
 
 ## 2 Arbeit und Vorgänge
 

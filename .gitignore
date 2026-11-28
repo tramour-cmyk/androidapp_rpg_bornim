@@ -10,3 +10,10 @@ captures/
 bornim.bundle
 bornim-source.zip
 __pycache__/
+# 1739 Sperre: Keystore und Zugangsdaten nie ins Repo (CLAUDE.md Technik und Sicherheit)
+*.jks
+*.keystore
+*.p12
+*.pfx
+keystore.properties
+signing.properties
