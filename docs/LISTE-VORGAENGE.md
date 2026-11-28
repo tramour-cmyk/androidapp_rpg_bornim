@@ -345,3 +345,4 @@ Eine Zeile je Vorgang (1727). Schreibt nur `vorgang.py`. Stand, Sitzung, Runde u
 | 2053 | Zeno-Hinweis 2052: startbar.kuer_ruht prüft weder Laufbremse, Nachtdeckel noch --ohne; Zahlen 32 (startbar.py) gegen 9 (lauf.py) | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
 | 2061 | Neustart-Grenzen messen: Kosten je fertigem Vorgang, Wochen ab 22.11. (200/300) gegen ab 27.11. (300/450); Ergebnis an den Chef, ändern nur mit Chefwort (Chef 27.11., 10:57) | 7 | B Werkzeuge | K | 27.12. | – | – | *startbar* | *–* | *0* | *–* |
 | 246.1 | Übrige Artefakte ins Repo (außer Geschäftsmodell, Markt, Preise), nach dem Meilenstein | 7 | Q QM | K | – | – | – | *nach Meilenstein* | *–* | *0* | *–* |
+| 2067 | lauf.py VOLLER LAUF ab 7 Uhr: list_sessions endet nie (has_more wahr nach 7 Seiten bis 17.11.); vollen Lauf mit „# bis:“ vor dem 22.11. als erledigt nehmen (Frage Disponent 28.11., 07:05) | 7 | B Werkzeuge | K | – | – | – | *startbar* | *–* | *0* | *–* |
