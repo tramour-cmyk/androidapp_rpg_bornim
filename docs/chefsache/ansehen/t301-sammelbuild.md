@@ -39,3 +39,15 @@ Im Bau geprüft: Gangprüfung je Waffe und Gangart, Fußgleiten und Schritte je 
 - 301.8: ort=village:15:13:DOWN uhr=11:00
 - 301.9: station=Morwen
 - 301.10: ort=inn:1:4:UP uhr=12:00
+
+## Ergebnis
+
+Chef im Chat, 28.11., 14:09, wörtlich:
+
+- 301.1 ✗ Bilder 30, aber Stufe niedrig
+- 301.2 ✓
+- 301.3 ✓
+- 301.4 ✓ niedrig, 48 fps, hoch 31 fps,passt
+- 301.5 ✓
+- 301.6 ✓ Alle Wölfe sind an mir dran, aber ich kann nur zwei angreifen....
+- 301.7 ✗ Es steht Prankenhieb mit Ring, aber kommt Morgensternangriff
