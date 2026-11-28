@@ -70,7 +70,7 @@ aus["pruefen"] = {n: startbar.pruefen_zeile(z[n]) for n in ("9305", "9306", "930
 try: startbar.rang(z["9308"]); aus["laut"] = "kein Fehler"
 except Exception as e: aus["laut"] = type(e).__name__ + ": " + str(e)
 import vorgang
-t, _ = vorgang.muss_vorn(open("docs/LISTE-VORGAENGE.md.technik", encoding="utf-8").read())
+t, aus["zahl"] = vorgang.muss_vorn(open("docs/LISTE-VORGAENGE.md.technik", encoding="utf-8").read())
 aus["ordnen"] = [d["nr"] for d in startbar.vorgangsliste(t) if d["nr"].startswith("93") and d["besitzer"] == "Technik"]
 open("docs/LISTE-VORGAENGE.md.ordnen", "w", encoding="utf-8").write(t)
 import uebergabe
@@ -97,6 +97,7 @@ print("JSON " + json.dumps(aus, ensure_ascii=False))
     soll("A: pruefen kennt Krit und Jetzt", p.get("9305") == [] and p.get("9306") == [], p)
     soll("A: pruefen meldet Kl. „Xyz“", any("Xyz" in x for x in p.get("9308", [])), p)
     soll("A: rang bei Kl. „Xyz“ laut (UnbekannteKlasse)", str(e.get("laut", "")).startswith("UnbekannteKlasse") and "Xyz" in e.get("laut", ""), e.get("laut"))
+    soll("B: ordnen zählt verschobene Zeilen (K M M Eilt Jetzt Krit M: 4 verschoben, 3 Muss bleiben; 2066-Ü9 c)", e.get("zahl") == 4, e.get("zahl"))
     soll("B: vorgang.py ordnen je Besitzer Krit, Jetzt, Eilt, Muss, Kür", e.get("ordnen") == ["9306", "9305", "9304", "9302", "9303", "9307", "9301"], e.get("ordnen"))
     soll("C: uebergabe.buero_rang Stufe vor Block", e.get("buero") == ["9306", "9305", "9304", "9302", "9303", "9301"], e.get("buero"))
     soll("C: lauf.auftrag_offen Stufe vor Block", e.get("auftrag") == ["9306", "9305", "9304", "9302", "9303", "9301"], e.get("auftrag"))
@@ -108,12 +109,19 @@ print("JSON " + json.dumps(aus, ensure_ascii=False))
     soll("B: vorgang.py --rolle Technik: Krit, Jetzt, Eilt, Muss, Kür", -1 not in pos and pos == sorted(pos), q.stdout[-1500:] + q.stderr[-500:])
 
     # (A) vorgang.py klasse/setze: Jetzt nur mit „jetzt“ unter „## Chefworte“, kl=M nimmt Krit weg
-    q = subprocess.run([sys.executable, "tools/vorgang.py", "klasse", "9302", "Jetzt"], cwd=A, env=ENV, capture_output=True, text=True, timeout=300)
-    soll("A: klasse Jetzt ohne Chefwort „jetzt“ bricht ab", q.returncode != 0 and "Chefworte" in q.stdout + q.stderr, q.stdout[-500:] + q.stderr[-500:])
+    q = subprocess.run([sys.executable, "tools/vorgang.py", "klasse", "9302", "Jetzt", "--sitzung", "Sokrates"], cwd=A, env=ENV, capture_output=True, text=True, timeout=300)
+    soll("A: klasse Jetzt ohne Chefwort „jetzt“ bricht ab (auch Sokrates)", q.returncode != 0 and "Chefworte“ in docs/vorgang/9302.md" in q.stdout + q.stderr, q.stdout[-500:] + q.stderr[-500:])
     v = os.path.join(A, "docs", "vorgang", "9302.md")
-    open(v, "a", encoding="utf-8").write("\n## Chefworte\n\n- **28.11., 21:00**, Chef:\n> Das ist jetzt zu erledigen.\n")
-    q = subprocess.run([sys.executable, "tools/vorgang.py", "klasse", "9302", "Jetzt"], cwd=A, env=ENV, capture_output=True, text=True, timeout=300)
-    soll("A: klasse Jetzt mit Chefwort schreibt Kl. Jetzt", q.returncode == 0 and "| 9302 | Test 2066 9302 | 6 | E Technik | Jetzt |" in open(li, encoding="utf-8").read(), q.stdout[-500:] + q.stderr[-500:])
+    # 2066-Ü9 (Sokrates 28.11., 22:05; Prüfer 22:04): Chefwort 22:08 an 2066 genügt nicht, Setzer muss Sokrates sein (--sitzung Sokrates)
+    v66 = open(os.path.join(W, "docs", "vorgang", "2066.md"), encoding="utf-8").read()
+    open(v, "a", encoding="utf-8").write("\n## Chefworte\n\n" + "- **27.11., 22:08**" + v66.split("- **27.11., 22:08**", 1)[1].split("\n## ", 1)[0] + "\n")
+    for wer in ([], ["--sitzung", "Prüfer"]):
+        for bef in (["klasse", "9302", "Jetzt"], ["setze", "9302", "kl=Jetzt"]):
+            q = subprocess.run([sys.executable, "tools/vorgang.py"] + bef + wer, cwd=A, env=ENV, capture_output=True, text=True, timeout=300)
+            soll("A: %s %s mit Chefwort 22:08 bricht ab" % (" ".join(bef), " ".join(wer) or "ohne --sitzung"),
+                 q.returncode != 0 and "Sokrates" in q.stdout + q.stderr and "| 9302 | Test 2066 9302 | 6 | E Technik | M |" in open(li, encoding="utf-8").read(), q.stdout[-500:] + q.stderr[-500:])
+    q = subprocess.run([sys.executable, "tools/vorgang.py", "klasse", "9302", "Jetzt", "--sitzung", "Sokrates"], cwd=A, env=ENV, capture_output=True, text=True, timeout=300)
+    soll("A: klasse Jetzt mit Chefwort und --sitzung Sokrates schreibt Kl. Jetzt", q.returncode == 0 and "| 9302 | Test 2066 9302 | 6 | E Technik | Jetzt |" in open(li, encoding="utf-8").read(), q.stdout[-500:] + q.stderr[-500:])
     q = subprocess.run([sys.executable, "tools/vorgang.py", "setze", "9306", "kl=M"], cwd=A, env=ENV, capture_output=True, text=True, timeout=300)
     soll("A: setze kl=M nimmt Krit weg", q.returncode == 0 and "| 9306 | Test 2066 9306 | 6 | E Technik | M |" in open(li, encoding="utf-8").read(), q.stdout[-500:] + q.stderr[-500:])
 
