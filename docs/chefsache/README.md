@@ -67,7 +67,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Story | 2040 Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den… (Muss) |
 | Technik | 1270.6 Messbuild Technik: Schalter 3D-Auflösung 50 % im Testmenü,… (Muss); dann 4 weitere |
 | Werkzeug | 2066 lauf.py vergibt Plätze Stufe vor Block über alle Bereiche:… (Muss); dann 23 weitere |
-| Prüfer | läuft: 2046 (Besetzung); leer, weil keine offene Zeile |
+| Prüfer | läuft: 2064 (Besetzung); leer, weil keine offene Zeile |
 | Tester | leer, weil keine offene Zeile |
 
 **Die nächsten 20**
@@ -75,7 +75,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
 | 1 | 2065 | Kampf | Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen, beheben · wiederho… | M | 2 Kampf | in Arbeit |
-| 2 | 2064 | Kampf | Wiederholrot ausholen_1000: 2× rot in 48 h; Ursache nachstellen, beheben · wied… | M | 2 Kampf | startbar |
+| 2 | 2064 | Kampf | Wiederholrot ausholen_1000: 2× rot in 48 h; Ursache nachstellen, beheben · wied… | M | 2 Kampf | in Arbeit |
 | 3 | 1589 | Kampf | Motor des Kampfs: Gegnerverhalten nach Regeln … | M | 2 Kampf | startbar |
 | 4 | 1627 | Kampf | Trefferbild je Angriff: Kontaktpunkt, Zucken, Treffer/Abwehr/Fehlschlag untersc… | M | 2 Kampf | startbar |
 | 5 | 1589.5 | Kampf | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak mit Homer… | M | 2 Kampf | startbar |
