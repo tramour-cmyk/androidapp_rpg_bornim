@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 21:04, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 21:19, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -58,7 +58,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | **Chef** | [1973](ansehen/1973-zweihaender-waffe-in-der-hand.md) ansehen |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
-| Kampf | läuft: 2065 (Besetzung); 2065 Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen… (Muss); dann 10 weitere |
+| Kampf | läuft: 2065 (Besetzung); 2065 Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen… (Muss); dann 9 weitere |
 | Figur | 1535 Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand (Muss); dann 9 weitere |
 | Kataloge | 458.3 Gegenstandskatalog: Netze, Modelle, Läden (Muss) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
@@ -79,21 +79,21 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 3 | 1589 | Kampf | Motor des Kampfs: Gegnerverhalten nach Regeln … | M | 2 Kampf | startbar |
 | 4 | 1627 | Kampf | Trefferbild je Angriff: Kontaktpunkt, Zucken, Treffer/Abwehr/Fehlschlag untersc… | M | 2 Kampf | startbar |
 | 5 | 1589.5 | Kampf | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak mit Homer… | M | 2 Kampf | startbar |
-| 6 | 2046 | Kampf | 1589.4 grün: alte Reihen-Tests und wolf_mess_438 an die Arena anpassen, wege_15… | M | 2 Kampf | in Arbeit |
-| 7 | 2071 | Kampf | Spielcode Arena: tausch_1041 Held–Söldner 0,56 m unter 0,60, wolf_mess_438 Zwei… | M | 2 Kampf | startbar |
-| 8 | 1535 | Figur | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
-| 9 | 1655 | Figur | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
-| 10 | 2024 | Figur | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der… | M | 3 Figuren und Kleidung | startbar |
-| 11 | 2028 | Figur | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
-| 12 | 2031 | Figur | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt geg… | M | 3 Figuren und Kleidung | startbar |
-| 13 | 2034 | Figur | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NP… | M | 3 Figuren und Kleidung | in Arbeit |
-| 14 | 2045 | Figur | Kutte für Klosterschüler einbauen, nach Chef-👍 26.11., 00:06 auf Frage 2031 | M | 3 Figuren und Kleidung | startbar |
-| 15 | 458.3 | Kataloge | Gegenstandskatalog: Netze, Modelle, Läden | M | 4 Kataloge | gebaut, t301 ohne deine Antwort |
-| 16 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
-| 17 | 2040 | Story | Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den Chef | M | 13 Geschichte und Texte | startbar |
-| 18 | 1270.6 | Technik | Messbuild Technik: Schalter 3D-Auflösung 50 % im Testmenü, Überzeichnungs-Ansic… | M | 6 Technik, Leistung, Build | startbar |
-| 19 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
-| 20 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
+| 6 | 2071 | Kampf | Spielcode Arena: tausch_1041 Held–Söldner 0,56 m unter 0,60, wolf_mess_438 Zwei… | M | 2 Kampf | startbar |
+| 7 | 1535 | Figur | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
+| 8 | 1655 | Figur | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
+| 9 | 2024 | Figur | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der… | M | 3 Figuren und Kleidung | startbar |
+| 10 | 2028 | Figur | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
+| 11 | 2031 | Figur | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt geg… | M | 3 Figuren und Kleidung | startbar |
+| 12 | 2034 | Figur | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NP… | M | 3 Figuren und Kleidung | in Arbeit |
+| 13 | 2045 | Figur | Kutte für Klosterschüler einbauen, nach Chef-👍 26.11., 00:06 auf Frage 2031 | M | 3 Figuren und Kleidung | startbar |
+| 14 | 458.3 | Kataloge | Gegenstandskatalog: Netze, Modelle, Läden | M | 4 Kataloge | gebaut, t301 ohne deine Antwort |
+| 15 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
+| 16 | 2040 | Story | Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den Chef | M | 13 Geschichte und Texte | startbar |
+| 17 | 1270.6 | Technik | Messbuild Technik: Schalter 3D-Auflösung 50 % im Testmenü, Überzeichnungs-Ansic… | M | 6 Technik, Leistung, Build | startbar |
+| 18 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
+| 19 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
+| 20 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
 
 Danach 193 weitere offen. Bei dir zum Testen (vorgelegt): 3. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 83.
 ## Zu entscheiden
