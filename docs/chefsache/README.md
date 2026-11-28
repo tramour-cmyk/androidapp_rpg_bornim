@@ -67,7 +67,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | Story | 2040 Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den… (Muss) |
 | Technik | 1270.6 Messbuild Technik: Schalter 3D-Auflösung 50 % im Testmenü,… (Muss); dann 4 weitere |
 | Werkzeug | läuft: 2066 (Besetzung); 2066 lauf.py vergibt Plätze Stufe vor Block über alle Bereiche:… (Muss); dann 22 weitere |
-| Prüfer | läuft: 2066 (Besetzung); leer, weil keine offene Zeile |
+| Prüfer | läuft: Betrieb (Besetzung); leer, weil keine offene Zeile |
 | Tester | leer, weil keine offene Zeile |
 
 **Die nächsten 20**
