@@ -25,6 +25,7 @@ Sitzung session_01Hmoj79eptrybHFvf7tKYMf (seit 28.11., 10:34, Tiefe 0, Neustart 
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 28.11., 11:38 Runde 11:36: Wecker-Probe falsch (disponent() = archivierter …79GCrF, Besetzung seit 06:03, Ursache: VOLLER LAUF übergangen seit 07:06, lauf.py Z. 1907) → in Vertretung: Disponent einmal voller Lauf 12:03, an Sokrates. Disponent 118, Sokrates 95 Tsd. Uhr trig_01A4eotY… (12:37).
 - 28.11., 10:38 Neustart vom Daddy (Chef 10:08): Wurzel neu (Tiefe 0), Uhr trig_01EnX3QP…, alte trig_014zZQ… aus, Vorgänger …77HEZu archiviert. Disponent …79taNc (sonnet, Startsperre fd4503ee9), Lauf-Uhr trig_016Mhs4a…, alte trig_01JVFRHp… aus; Sokrates …7A8V2u (opus, Startsperre 6180381c6). Vorgänger …fWT5M9 (b38cbc34d) und …hFdXf2 (2420d87a8) sauber, archiviert 10:38.
 - 26.11., 22:00 Übergabe (223 Tsd.), Nachfolger selbst gestartet.
 - 26.11., 21:59 Sokrates …77SpWu 269 Tsd. übergibt (b1222da7d) → Nachfolger …78LQ6f (opus, Startsperre 58e6a11f1), keine Uhren an ihm; Vorgänger archiviert.
