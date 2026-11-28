@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj79eptrybHFvf7tKYMf (seit 28.11., 10:34, Tiefe 0, Neustart vom Daddy, Chef 10:08). Sokrates session_01Hmoj7A8V2u5nbX9brVnGhb (seit 28.11., 10:37). Disponent session_01Hmoj79taNcx2a9n3XJScBK (seit 28.11., 10:36). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj79eptrybHFvf7tKYMf (seit 28.11., 10:34, Tiefe 0, Neustart vom Daddy, Chef 10:08). Sokrates session_01Hmoj7A8V2u5nbX9brVnGhb (seit 28.11., 10:37). Disponent session_01Hmoj75SkkgctUMdiVSUcxh (seit 28.11., 17:06). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj79eptrybHFvf7tKYMf (seit 28.11., 10:34, Tiefe 0, Neustart 
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 28.11., 17:06 Disponent …79taNc bat bei 207 Tsd. um Neustart → in Vertretung angenommen (frisch vor Laststart 20:00); Nachfolger …75SkkgctU (sonnet, Startsperre a1dc8d087), Lauf-Uhr trig_01M1mf99…, alte trig_016Mhs4a… aus, Vorgänger archiviert (Übergabe 1836d9752); Archivzeile an Sokrates.
 - 28.11., 16:43 Runde 16:42: Herzschlag 16:03 ✓; Disponent 198 Tsd. (+6/h), Sokrates 162 Tsd.; keine Funde.
 - 28.11., 15:42 Runde 15:41: Herzschlag 15:03 ✓; Disponent 192 Tsd. (+6/h), Sokrates 162 Tsd. (still seit 14:21); keine Funde.
 - 28.11., 14:41 Runde 14:40: Herzschlag 14:04 ✓; t301 geschlossen (9949334f0), 1535/1655/2028 Eilt ab 20:00 (579c76734, Chef 14:20); Disponent 186 Tsd. (+7/h), Sokrates 162 Tsd. (+57/h); keine Funde.
