@@ -25,6 +25,7 @@ Sitzung session_01Hmoj79eptrybHFvf7tKYMf (seit 28.11., 10:34, Tiefe 0, Neustart 
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 28.11., 14:41 Runde 14:40: Herzschlag 14:04 ✓; t301 geschlossen (9949334f0), 1535/1655/2028 Eilt ab 20:00 (579c76734, Chef 14:20); Disponent 186 Tsd. (+7/h), Sokrates 162 Tsd. (+57/h); keine Funde.
 - 28.11., 13:40 Runde 13:39: Herzschlag 13:04 ✓, disponent() = …79taNc; Disponent 179 Tsd. (+8/h), Sokrates 105 Tsd.; keine Funde.
 - 28.11., 12:38 Runde 12:37: Vollzug ✓ (Besetzung 12:06, 0c1925510; disponent() = …79taNc; Archiv 589635cde). Disponent 171 Tsd. (+53 durch vollen Lauf), Sokrates 105 Tsd.; keine Funde.
 - 28.11., 11:38 Runde 11:36: Wecker-Probe falsch (disponent() = archivierter …79GCrF, Besetzung seit 06:03, Ursache: VOLLER LAUF übergangen seit 07:06, lauf.py Z. 1907) → in Vertretung: Disponent einmal voller Lauf 12:03, an Sokrates. Disponent 118, Sokrates 95 Tsd. Uhr trig_01A4eotY… (12:37).
