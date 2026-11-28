@@ -9,7 +9,7 @@ Aufruf über vorgang.py (oder direkt):
   vorgang.py verlaengern KENNUNG [--frist MIN]   eigene Frist neu setzen (langer Zug)
   vorgang.py erledigt KENNUNG [SITZUNG]      angenommen → erledigt (nur der Halter; ein zweites Mal: nichts)
   vorgang.py freigeben                       alle von dieser Sitzung angenommenen Zeilen wieder offen (vor „Nachfolger:“, schneller als die Frist)
-  vorgang.py offen [AN] [--alle] [--sitzungen DATEI …]   offene Zeilen, höchstens 5 Zeilen Ausgabe ohne --alle (2042 e; Büro-Liste: Eilt, Fund des Chefs, Themenblock, Eingangszeit; 1796); mit --sitzungen
+  vorgang.py offen [AN] [--alle] [--sitzungen DATEI …]   offene Zeilen, höchstens 5 Zeilen Ausgabe ohne --alle (2042 e; Büro-Liste nach startbar.rang: Stufe Krit, Jetzt, Eilt, Muss, Kür, dann Themenblock, Eingangszeit; 1796, 2066); mit --sitzungen
                                               (list_sessions-Seiten oder Kurzform wie lauf.py) wird jede abgelaufene Frist eines Halters, der
                                               nicht working ist, wieder offen (Stundenrunde, verlorene Wecker); working: es wird gewartet.
                                               1782 (3.3 Nr. 3, 1727d L-S2/L-U8): beim ersten Mal „offen (wieder 1)“ (ein Neustart), beim

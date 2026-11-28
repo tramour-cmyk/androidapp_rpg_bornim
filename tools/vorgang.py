@@ -14,7 +14,8 @@ Schreiben (Chef 27.10., 15:20: nur über dieses Werkzeug; danach committen und p
                                        (340.4); „wartet auf X[: …]“ setzt Wort „wartet“ und das Feld
   vorgang.py warte NR "X, Y" | –       Feld „wartet auf“: Nummer, Rolle, Datum TT.MM.[ HH:MM], t<Build> oder Chef[ <Datei>] (Automatik A)
   vorgang.py setze NR feld=wert …      titel, besitzer, kl, stand, warte, zweig, build, bereich
-  vorgang.py klasse NR Krit|Jetzt|Eilt|M|K   M?-Entscheid (190.8); Stufe 2066: Krit vor Jetzt (nur mit „jetzt“ unter „## Chefworte“) vor Eilt
+  vorgang.py klasse NR Krit|Jetzt|Eilt|M|K [--sitzung ROLLE]   M?-Entscheid (190.8); Stufe 2066: Krit vor Jetzt (nur Sokrates mit
+                                       `--sitzung Sokrates` und „jetzt“ unter „## Chefworte“, auch für setze kl=Jetzt) vor Eilt
   vorgang.py rang NR oben|unten|vor NR2|nach NR2   Vorrang unter den Zeilen desselben Besitzers
   vorgang.py ordnen                    je Besitzer nach startbar.rang (2066: Krit, Jetzt, Eilt, Muss, M?, Kür, „nach Meilenstein“, dann Block), Folge innerhalb bleibt (1543; auch nach
                                        „klasse“ und in jedem Lauf von lauf.py --aufraeumen/--sperre)
@@ -61,7 +62,7 @@ Lehrenbuch docs/LISTE-LEHREN.md (1739, Archiv „Lehrenbuch“ 21.11., 14:19; Ei
   vorgang.py --hilfe                   diese Hilfe
   --rolle ROLLE ist Pflicht, wo eine Nummer mehrfach steht (nur Pflege).
 """
-import os, re, sys, subprocess
+import difflib, os, re, sys, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import startbar
 import bereiche  # 651
@@ -95,10 +96,10 @@ def fehler_oder(d, alt=None):
                 f.append("„wartet auf %s“ ohne Datei in docs/chefsache/ (erst die Datei anlegen, 275.2)" % t)
     if f: sys.exit("vorgang.py: %s nicht geschrieben: %s" % (d["nr"], "; ".join(f)))
 
-def ersetzen(alt, neu):
+def ersetzen(alt, neu, wer=None):
     if startbar.NEU:  # 1893: Eilt ist Kl. der neuen Liste (nur Wort des Chefs); Block und Besitzer folgen dem Bereich; Build in die Vorgangsdatei
         if neu.get("kl") in startbar.VORRANG_KL:  # 2066: Krit, Jetzt, Eilt zählen als Muss, die Kl. bleibt in d["stufe"]
-            if neu["kl"] == "Jetzt" and (alt.get("stufe") != "Jetzt" or not alt.get("eilt")): jetzt_pruefen(neu["nr"])
+            if neu["kl"] == "Jetzt" and (alt.get("stufe") != "Jetzt" or not alt.get("eilt")): jetzt_pruefen(neu["nr"], wer)
             neu["stufe"] = neu["kl"]; neu["kl"] = "M"; neu["eilt"] = True
         elif neu.get("kl") != alt.get("kl"): neu["eilt"] = False; neu.pop("stufe", None)
         if neu.get("bereich") != alt.get("bereich") or not neu.get("block"):
@@ -191,7 +192,7 @@ def warte_setzen(nr, feld, rolle=None):
 FELDER = {"titel": "titel", "besitzer": "besitzer", "kl": "kl", "klasse": "kl", "stand": "stand", "warte": "warte", "wartet": "warte",
           "zweig": "zweig", "build": "build", "bereich": "bereich"}
 
-def setzen(nr, paare, rolle=None):
+def setzen(nr, paare, rolle=None, wer=None):
     d = finden(nr, rolle); n = dict(d)
     for p in paare:
         k, _, v = p.partition("=")
@@ -207,24 +208,27 @@ def setzen(nr, paare, rolle=None):
         elif k == "bereich" and not bereiche.gueltig(v): sys.exit("vorgang.py: Bereich aus der festen Liste (651), Vorschlag „%s“:\n%s" % (bereiche.einordnen(v), bereiche.liste_text()))
         else: n[k] = v.strip() or "–"
     if n["besitzer"] != d["besitzer"]:  # neuer Besitzer: Zeile ans Ende seiner Zeilen
-        ersetzen(d, n); rang(nr, "unten", None, n["besitzer"])
+        ersetzen(d, n, wer); rang(nr, "unten", None, n["besitzer"])
     else:
-        ersetzen(d, n)
+        ersetzen(d, n, wer)
     print("vorgang.py: %s gesetzt: %s" % (nr, ", ".join(paare)))
     if n["stand"] != d["stand"] and stand_pruefen(n["stand"], nr) == "erledigt": uebergaben_schliessen(nr, "Vorgang %s erledigt (vorgang.py setze)" % nr)  # 2012 (4)
     pruefer_bei_gebaut(nr, d["stand"], n["stand"])  # 2041 a
 
-def jetzt_pruefen(nr):
+def jetzt_pruefen(nr, wer=None):
     """2066 (Chef 27.11., 22:08): Kl. „Jetzt“ nur auf ausdrückliches „jetzt erledigen“ des Chefs, Sokrates setzt mit Wortlaut: ohne
-    „jetzt“ im Abschnitt „## Chefworte“ von docs/vorgang/NR.md bricht das Setzen ab."""
+    „jetzt“ im Abschnitt „## Chefworte“ von docs/vorgang/NR.md oder ohne `--sitzung Sokrates` bricht das Setzen ab (2066-Ü9,
+    Sokrates 28.11., 22:05; Prüfer setzte 22:04 Jetzt ohne Abbruch)."""
+    if (wer or "").capitalize() != "Sokrates":
+        sys.exit("vorgang.py: Kl. „Jetzt“ für %s setzt nur Sokrates (`--sitzung Sokrates`), nicht %s (2066)" % (nr, wer or "ohne --sitzung"))
     try: t = open(os.path.join(DOCS, "vorgang", "%s.md" % nr), encoding="utf-8").read()
     except OSError: t = ""
     if not re.search(r"\bjetzt\b", uebergabe.abschnitt(t, "Chefworte"), re.I):
         sys.exit("vorgang.py: Kl. „Jetzt“ für %s nur mit Wortlaut des Chefs („jetzt“) unter „## Chefworte“ in docs/vorgang/%s.md (`vorgang.py chefwort`, Sokrates; 2066)" % (nr, nr))
 
-def klasse(nr, kl, rolle=None):
+def klasse(nr, kl, rolle=None, wer=None):
     if kl not in ("M", "K") + startbar.VORRANG_KL: sys.exit("vorgang.py: Klasse %s, M oder K (2066)" % ", ".join(startbar.VORRANG_KL))
-    setzen(nr, ["kl=" + kl], rolle)
+    setzen(nr, ["kl=" + kl], rolle, wer)
     n = ordnen()
     if n: print("vorgang.py: %d Zeilen nach Klasse geordnet (1543)" % n)
 
@@ -240,7 +244,8 @@ def muss_vorn(text):
         except startbar.UnbekannteKlasse as e:
             print("WARNUNG-LAUT vorgang.py ordnen: %s; Zeilen von %s nicht geordnet" % (e, b)); continue
         for i, d in zip([d["i"] for d in eigen], reihe): neu[i] = d["zeile"]
-    return "\n".join(neu), sum(1 for a, b in zip(L, neu) if a != b)
+    gleich = sum(m.size for m in difflib.SequenceMatcher(None, L, neu, autojunk=False).get_matching_blocks())
+    return "\n".join(neu), len(L) - gleich  # 2066-Ü9 c: verschobene Zeilen wie git diff, nicht Plätze mit anderer Zeile (192 statt 18)
 
 def ordnen():
     t, n = muss_vorn(text_liste())
@@ -911,10 +916,15 @@ def haupt(a):
         for nr, x in f: print("%s: %s" % (nr, x))
         print("vorgang.py pruefen: %s" % ("%d Fehler" % len(f) if f else "ohne Fehler")); sys.exit(1 if f else 0)
     if b == "archivbereich": return archivbereich(a[1:])
+    wer = None
+    if b in ("setze", "klasse") and "--sitzung" in a:  # 2066-Ü9: wer setzt (Kl. Jetzt nur Sokrates)
+        i = a.index("--sitzung")
+        if i + 1 >= len(a): sys.exit("vorgang.py: --sitzung braucht eine Rolle")
+        wer = a[i + 1]; del a[i:i + 2]
     if b == "stand" and len(a) == 3: return stand_setzen(a[1], a[2], rolle)
     if b == "warte" and len(a) == 3: return warte_setzen(a[1], a[2], rolle)
-    if b == "setze" and len(a) >= 3: return setzen(a[1], a[2:], rolle)
-    if b == "klasse" and len(a) == 3: return klasse(a[1], a[2], rolle)
+    if b == "setze" and len(a) >= 3: return setzen(a[1], a[2:], rolle, wer)
+    if b == "klasse" and len(a) == 3: return klasse(a[1], a[2], rolle, wer)
     if b == "fertig" and len(a) == 2: return fertig(a[1], rolle)
     if b == "greift" and len(a) == 3: return greift(a[1], a[2], rolle)
     if b == "bautest" and len(a) == 3: return bautest(a[1], a[2], rolle)
