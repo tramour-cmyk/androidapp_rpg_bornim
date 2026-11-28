@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj78YZ5UUthecLR8vw2o (seit 27.11., 18:25, Tiefe 4; Übergabe 28.11., 10:05). Sokrates session_01Hmoj75hFdXf2B1TFDpFwk5 (seit 27.11., 11:41). Disponent session_01Hmoj75fWT5M9Hpf9wcwYXR (seit 28.11., 09:30). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj79eptrybHFvf7tKYMf (seit 28.11., 10:34, Tiefe 0, Neustart vom Daddy, Chef 10:08). Sokrates session_01Hmoj7A8V2u5nbX9brVnGhb (seit 28.11., 10:37). Disponent session_01Hmoj79taNcx2a9n3XJScBK (seit 28.11., 10:36). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
@@ -25,6 +25,7 @@ Sitzung session_01Hmoj78YZ5UUthecLR8vw2o (seit 27.11., 18:25, Tiefe 4; Übergabe
 
 ## Protokoll (eine Zeile je Tat, neueste oben)
 
+- 28.11., 10:38 Neustart vom Daddy (Chef 10:08): Wurzel neu (Tiefe 0), Uhr trig_01EnX3QP…, alte trig_014zZQ… aus, Vorgänger …77HEZu archiviert. Disponent …79taNc (sonnet, Startsperre fd4503ee9), Lauf-Uhr trig_016Mhs4a…, alte trig_01JVFRHp… aus; Sokrates …7A8V2u (opus, Startsperre 6180381c6). Vorgänger …fWT5M9 und …hFdXf2 archiviere ich nach „sauber“.
 - 26.11., 22:00 Übergabe (223 Tsd.), Nachfolger selbst gestartet.
 - 26.11., 21:59 Sokrates …77SpWu 269 Tsd. übergibt (b1222da7d) → Nachfolger …78LQ6f (opus, Startsperre 58e6a11f1), keine Uhren an ihm; Vorgänger archiviert.
 - 26.11., 21:58 Sokrates übersteuert (angenommen): Testbitte 301 sofort, Belege danach unter 30 Min., sonst „im Spiel ansehen“ (Chef wartet seit 18.11. auf Testbuild).
