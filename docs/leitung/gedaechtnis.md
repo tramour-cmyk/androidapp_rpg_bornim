@@ -31,4 +31,4 @@
 
 ## Übergabe
 
-- 28.11., 10:10, `hFdXf2`: 2063, 2066 (Stufe vor Block, Stufe „Jetzt“), 2067 (48 h) angelegt; Reihenfolge Kampf im Archiv 27.11., 21:51; 2064/2065 warten auf 1589.4; t301-Test Chef heute. Letzte Antwort: 10:09. Nachfolger: Sokrates – Leitung.
+- 28.11., 10:10, `hFdXf2`: 2063, 2066 (Stufe vor Block, Stufe „Jetzt“), 2067 (48 h) angelegt; Reihenfolge Kampf im Archiv 27.11., 21:51; 2064/2065 warten auf 1589.4; t301-Test Chef heute. Neustart vom Daddy läuft: Alter Ego …79eptr (Tiefe 0), Disponent …79taNc. Letzte Antwort: 10:36. Nachfolger: Sokrates – Leitung (28.11.) …7A8V2u.
