@@ -75,6 +75,8 @@ jobs:
           python3 tools/handstart_test.py       # 1989 lauf.py --start mit Startblock, Werkzeugsperre im Startsperre-Haken
           python3 tools/lauf_2049_test.py       # 2049 Start der Leitung ohne Nummer, feste Titel, Alter-Ego-Block, Hinweis statt Doppelstart
           python3 tools/lauf_2052_test.py       # 2052 Kür ruht, solange irgendwo Muss/Eilt startbar ist (lauf.py, Rollenzeile, vorgang.py --rolle)
+          python3 tools/lauf_2066_test.py       # 2066 Stufe vor Block: ein Schlüssel startbar.rang (Krit, Jetzt, Eilt, Muss, Kür), alle Folgen und Start
+          python3 tools/lauf_2067_test.py       # 2067 erster Lauf ab 7 Uhr: list_sessions nur 48 h zurück (VOLL_STUNDEN), Älteres über die Besetzung (GET_SESSION)
           python3 tools/lauf_2042c_test.py      # 2042 (c) lauf.py --startblock zum Nachlesen, Haken; 2062 Startnachricht wieder wörtlich
           python3 tools/lauf_2062_test.py       # 2062 START wörtlich (Ladetext, Auftrag) im Takt und bei --start, Konsole gekürzt, Restdatei voll
           python3 tools/lauf_2042d_test.py      # 2042 (d) list_sessions-Datei direkt lesen, je Sitzung eine Zeile SITZUNG, --token, after_id
