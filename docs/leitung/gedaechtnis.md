@@ -27,6 +27,7 @@
 - Neustart vom Daddy (Chef 28.11., 10:08): neues Alter Ego startet Disponent und Sokrates neu.
 - Sa 20:00: Wache-Uhr trig_01Wmm3Nxhn7nPjqG8Q1VgxZs einschalten; dann nur Kampf (Chef 27.11., 21:51) plus Eilt 2066/2067; 2063 ruht.
 - Starttexte als Codeblock.
+- Ab Sa 20:00 Eilt/Jetzt: Bilder 1535, 1655, 2028 (Chef 14:20); Build 301 nach main: erst 1270.6 revert, rote Tests (Regel 12/13).
 - Nach Sa 20:00: 2029-Ü33/Ü34 vorlegen (Lizenz hats02).
 
 ## Übergabe
