@@ -1,6 +1,6 @@
 # Alter Ego
 
-Sitzung session_01Hmoj75X1VHxVRBgEpEPmi8 (seit 28.11., 17:08, Tiefe 1, Nachfolger von …79eptr; Uhr Supervisor-Runde trig_01GCZ2BT7UGuTdR9qxYLJhUL). Sokrates session_01Hmoj7A8V2u5nbX9brVnGhb (seit 28.11., 10:37). Disponent session_01Hmoj75RbYqFY63mpN9fb7S (seit 28.11., 21:05). Wache session_01Hmoj77T5ACMKH2zLWLR1HN (Sonnet, seit 28.11., 20:10). Ältere Fassung und Protokoll in Git.
+Sitzung session_01Hmoj78HoKVRDHXEMaezwQp (seit 28.11., 21:16, Tiefe 3, Nachfolger von …75X1; Uhr Supervisor-Runde trig_01XLj69kLrBwszHtdbmCKALr). Sokrates session_01Hmoj7A8V2u5nbX9brVnGhb (seit 28.11., 10:37). Disponent session_01Hmoj75RbYqFY63mpN9fb7S (seit 28.11., 21:05). Wache session_01Hmoj77T5ACMKH2zLWLR1HN (Sonnet, seit 28.11., 20:10). Ältere Fassung und Protokoll in Git.
 
 **Wozu (Chef 24.11., 08:57: „nicht ein zweiter Sokrates, den habe ich schon“):** Sokrates leitet: Aufträge, Archiv, Vorgänge. Alter Ego schaut mit den Augen des Chefs auf den Betrieb und fragt nur: Bringt das das Spiel voran? Brauchen wir das? Wo hängt es?
 
