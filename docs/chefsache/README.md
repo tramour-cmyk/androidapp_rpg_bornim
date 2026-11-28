@@ -2,7 +2,7 @@
 
 Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tools/zug-index.py`) bei jedem Push; nicht von Hand ändern.
 
-**Letzter Testbuild:** [Build 301 · 0.348.600 (APK)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/45887352754/artifacts/15151448895) · 26.11., 18:00 · zum Testen · Release dagegen nur auf Zuruf
+**Letzter Testbuild:** [Build 301 · 0.348.600 (APK)](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/45887352754/artifacts/15151448895) · 26.11., 18:00 · getestet · Release dagegen nur auf Zuruf
 
 ## Wer wofür
 
@@ -22,7 +22,7 @@ Was auf den Chef wartet (63, 108). Diese Übersicht schreibt ein Werkzeug (`tool
 - **Build-Macher:** Fachkraft Technik mit Build im Auftrag: Sammelbuild, Prüfliste, Testbitte
 ## Überblick
 
-Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 14:14, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
+Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 14:17, neu bei jeder Änderung. Reihenfolge der Blöcke und ihren Zuschnitt legst du fest; vorziehen: sag es, wir setzen den Rang beim Besitzer. Die Blocknummer bleibt fest („Block 3“), auch wenn die Reihenfolge sich ändert. „In Arbeit“: eine Sitzung hat den Vorgang laut Besetzung (`ARBEIT-BESETZUNG.md`, stündlich).
 
 **Themenblöcke**
 
@@ -31,7 +31,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 4 | 59e (Regeln) Händler: Vorrat je Laden |
 | ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 64 (67) | 18 | 0 | 0 | 27 | 2065 (Kampf) Wiederholrot dreh_1072: 2× rot in 48 h; Ursache n… |
-| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 38 (40) | 22 | 1 | 5 | 9 | 2024 (Figur) Krogg schlägt beim Prankenhieb mit der freien Pra… |
+| ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 38 (40) | 22 | 1 | 2 | 9 | 1535 (Figur) Kleidung hängt bei NPCs in der Ruhebewegung an ei… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 4 | 458.3 (Kataloge) Gegenstandskatalog: Netze, Modelle, Läden |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 29 (31) | 0 | 0 | 0 | 5 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
 | ↳ **11** Klang und Musik | 6 (6) | 1 | 0 | 0 | 0 | 1753 (Klang) Streicherspur nach 120 bauen, nur bei Jägern |
@@ -55,11 +55,11 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | Profil | als Nächstes |
 |---|---|
-| **Chef** | [t301](ansehen/t301-sammelbuild.md) testen, hält 1 Zeilen; dann 1 weitere |
+| **Chef** | [1973](ansehen/1973-zweihaender-waffe-in-der-hand.md) ansehen |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
 | Kampf | 2065 Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen… (Muss); dann 9 weitere |
-| Figur | 1570 Umhang einmal grundsätzlich lösen statt Einzelflicken: 12 f… (Muss); dann 6 weitere |
+| Figur | 1535 Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand (Muss); dann 9 weitere |
 | Kataloge | 458.3 Gegenstandskatalog: Netze, Modelle, Läden (Muss) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
 | Klang | 1753 Streicherspur nach 120 bauen, nur bei Jägern (Muss) |
@@ -80,22 +80,22 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 4 | 1627 | Kampf | Trefferbild je Angriff: Kontaktpunkt, Zucken, Treffer/Abwehr/Fehlschlag untersc… | M | 2 Kampf | startbar |
 | 5 | 1589.5 | Kampf | Stufe 4 Gegnerverhalten, Reihenfolge der Bosse Grimmzahn, Krogg, Grak mit Homer… | M | 2 Kampf | startbar |
 | 6 | 2046 | Kampf | 1589.4 grün: alte Reihen-Tests und wolf_mess_438 an die Arena anpassen, wege_15… | M | 2 Kampf | startbar |
-| 7 | 2024 | Figur | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der… | M | 3 Figuren und Kleidung | startbar |
-| 8 | 2031 | Figur | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt geg… | M | 3 Figuren und Kleidung | startbar |
-| 9 | 2034 | Figur | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NP… | M | 3 Figuren und Kleidung | in Arbeit |
-| 10 | 2045 | Figur | Kutte für Klosterschüler einbauen, nach Chef-👍 26.11., 00:06 auf Frage 2031 | M | 3 Figuren und Kleidung | startbar |
-| 11 | 458.3 | Kataloge | Gegenstandskatalog: Netze, Modelle, Läden | M | 4 Kataloge | gebaut, t301 ohne deine Antwort |
-| 12 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
-| 13 | 2040 | Story | Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den Chef | M | 13 Geschichte und Texte | startbar |
-| 14 | 1270.6 | Technik | Messbuild Technik: Schalter 3D-Auflösung 50 % im Testmenü, Überzeichnungs-Ansic… | M | 6 Technik, Leistung, Build | startbar |
-| 15 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
-| 16 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
-| 17 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
-| 18 | 2033 | Technik | Thessa: fast schwarzes Loch in der rechten Faust, Tusche zieht die Faustöffnung… | M | 6 Technik, Leistung, Build | startbar |
-| 19 | 1520 | Werkzeug | An den Läufen sparen | M | 7 Firma | startbar |
-| 20 | 1933 | Werkzeug | Abgleich aller Rollendateien gegen Kerne, Profile, Sockel: geht jede Rolle halb… | M | 7 Firma | startbar |
+| 7 | 1535 | Figur | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
+| 8 | 1655 | Figur | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
+| 9 | 2024 | Figur | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der… | M | 3 Figuren und Kleidung | startbar |
+| 10 | 2028 | Figur | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
+| 11 | 2031 | Figur | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt geg… | M | 3 Figuren und Kleidung | startbar |
+| 12 | 2034 | Figur | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NP… | M | 3 Figuren und Kleidung | in Arbeit |
+| 13 | 2045 | Figur | Kutte für Klosterschüler einbauen, nach Chef-👍 26.11., 00:06 auf Frage 2031 | M | 3 Figuren und Kleidung | startbar |
+| 14 | 458.3 | Kataloge | Gegenstandskatalog: Netze, Modelle, Läden | M | 4 Kataloge | gebaut, t301 ohne deine Antwort |
+| 15 | 1753 | Klang | Streicherspur nach 120 bauen, nur bei Jägern | M | 11 Klang und Musik | startbar |
+| 16 | 2040 | Story | Wörter für Frisur und Bart aus 2029, Vorschlag de/en an den Chef | M | 13 Geschichte und Texte | startbar |
+| 17 | 1270.6 | Technik | Messbuild Technik: Schalter 3D-Auflösung 50 % im Testmenü, Überzeichnungs-Ansic… | M | 6 Technik, Leistung, Build | startbar |
+| 18 | 1270.7 | Technik | nach Messung 1270.6: Texturen komprimiert und Laub ohne Durchsicht fern, je Ver… | M | 6 Technik, Leistung, Build | startbar |
+| 19 | 1484 | Technik | Welt und Kampf 9–10 Bilder/s, Dorf laden 10,6 s kalt | M | 6 Technik, Leistung, Build | startbar |
+| 20 | 1955 | Technik | LISTE-CHECK-BUILD-TEST Punkt 3 und 8 nennen noch Spike und „Tom liest Jerrys Li… | M | 6 Technik, Leistung, Build | startbar |
 
-Danach 186 weitere offen. Bei dir zum Testen (vorgelegt): 6. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 83.
+Danach 189 weitere offen. Bei dir zum Testen (vorgelegt): 3. Gebaut, fährt mit dem nächsten Build: 8. Werkzeug gebaut, Prüfung Diogenes: 25. Ruhend oder nach dem Meilenstein: 83.
 ## Zu entscheiden
 
 Nichts offen.
@@ -111,12 +111,6 @@ Nichts offen.
 | Nr. | Was | Wer | Seit |
 |---|---|---|---|
 | [1973](ansehen/1973-zweihaender-waffe-in-der-hand.md) | Zweihänder: trägt der Held die Waffe jetzt in beiden Fäusten? | – | 26.11., 11:28 |
-
-**Builds** (installieren und testen; Folge = Version aufsteigend, Android installiert nur höhere Nummern über niedrigere):
-
-| Folge | Version | Build | Was | Wer | Seit |
-|---|---|---|---|---|---|
-| 1 | [0.348.600](ansehen/t301-sammelbuild.md) | [Build 301](https://github.com/tramour-cmyk/androidapp_rpg_bornim/actions/runs/45887352754/artifacts/15151448895) | Sammelbuild: Einmessen, Gang mit Waffe, Leute an der Bank, Wiese in Niedrig, Ansagen je Art, Zielwahl und Flucht, Figuren in der Arena, Kleider, Waffenstaffel | Tom, Jerry und Technik | 26.11., 18:00 |
 
 ## Zu tun
 
@@ -527,7 +521,7 @@ Vom Werkzeug gerechnet (`tools/startbar.py --md`, 167.10), Stand 28.11.; „star
 
 Vom Werkzeug gefunden (D21.3): steht in der Vorgangsliste, hat hier keine Datei.
 
-Beantwortet, Datei noch da (383.3: der Absender löscht sofort): ansehen/1973-zweihaender-waffe-in-der-hand.md (Antwort 1973, 26.11., 11:29), ansehen/t301-sammelbuild.md (Antwort t301, 26.11., 21:58)
+Beantwortet, Datei noch da (383.3: der Absender löscht sofort): ansehen/1973-zweihaender-waffe-in-der-hand.md (Antwort 1973, 26.11., 11:29)
 
 ## So geht's
 
