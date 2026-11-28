@@ -4,13 +4,18 @@ extends SceneTree
 # nächster Fingerzoom (NAH). Alt gegen neu in einem Lauf: erst mit den held_L_<id>_M.bin des Stands, dann mit --neu=<ordner>
 # (darin held_L_garrick_M.glb, held_L_bram_M.glb; ersetzt die Dateien, betritt die Karte neu). Kartenrand der Kamera aus.
 # Nur mit Fenster und Kaufdaten, im Ordner godot:
-#   PROBE=1535 MODELLSPEICHER=0 xvfb-run -a godot --path . --resolution 1280x600 -s res://tests/spielbild_1535.gd -- --aus=<ordner> --neu=<ordner>
+#   PROBE=1535 MODELLSPEICHER=0 xvfb-run -a godot --path . --resolution 1080x2340 -s res://tests/spielbild_1535.gd -- --aus=<ordner> --alt=<ordner> --neu=<ordner>
+# 1535 (Auftrag 28.11., 20:10): Handygröße 1080x2340; dazu Pim und Jorin (dort stieg durchstich_1631); --alt=<ordner> legt vor der
+# ersten Runde die held_L_<id>_M.glb des alten Stands (main) ein, damit alt nicht vom Bau der Arbeitskopie abhängt.
 
 var aus := ""
 var neu := ""
+var alt_ordner := ""
 var spiel
 const WER := [["garrick", "forest", Vector2i(3, 9), "RIGHT", ["Ruhe_Trinken", "Stehen_2"]],
-	["bram", "village", Vector2i(13, 29), "RIGHT", ["Ruhe_Trinken"]]]
+	["bram", "village", Vector2i(13, 29), "RIGHT", ["Ruhe_Trinken"]],
+	["pim", "village", Vector2i(13, 14), "RIGHT", ["Stehen_2"]],
+	["jorin", "village", Vector2i(13, 3), "RIGHT", ["Stehen_2"]]]
 
 
 func knips(n: String) -> void:
@@ -77,17 +82,27 @@ func _lauf() -> void:
 	root.add_child(spiel)
 	for i in 5: await process_frame
 	Testmodus.alles_sichtbar = true
+	var ersetzt := []
+	if alt_ordner != "":
+		for w in WER:
+			var ziel := ProjectSettings.globalize_path("res://daten/held_L_%s_M.bin" % w[0])
+			DirAccess.copy_absolute(ziel, ziel + ".alt1535")
+			if DirAccess.copy_absolute(alt_ordner + "/held_L_%s_M.glb" % w[0], ziel) != OK:
+				print("BILD1535 alt nicht kopiert: ", w[0]); quit(1); return
+			print("BILD1535 alt ", w[0], " ", FileAccess.get_md5(ziel))
+			ersetzt.append(ziel)
 	if not await _runde("alt"):
 		quit(1); return
 	if neu == "":
 		quit(0); return
-	var ersetzt := []
 	for w in WER:
 		var ziel := ProjectSettings.globalize_path("res://daten/held_L_%s_M.bin" % w[0])
-		DirAccess.copy_absolute(ziel, ziel + ".alt1535")
+		if not FileAccess.file_exists(ziel + ".alt1535"):
+			DirAccess.copy_absolute(ziel, ziel + ".alt1535")
+			ersetzt.append(ziel)
 		if DirAccess.copy_absolute(neu + "/held_L_%s_M.glb" % w[0], ziel) != OK:
 			print("BILD1535 neu nicht kopiert: ", w[0]); quit(1); return
-		ersetzt.append(ziel)
+		print("BILD1535 neu ", w[0], " ", FileAccess.get_md5(ziel))
 	var ok: bool = await _runde("neu")
 	for ziel in ersetzt:
 		DirAccess.copy_absolute(ziel + ".alt1535", ziel)
@@ -99,4 +114,5 @@ func _initialize() -> void:
 	for a in OS.get_cmdline_user_args():
 		if a.begins_with("--aus="): aus = a.substr(6)
 		if a.begins_with("--neu="): neu = a.substr(6)
+		if a.begins_with("--alt="): alt_ordner = a.substr(6)
 	_lauf.call_deferred()
