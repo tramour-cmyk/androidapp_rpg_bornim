@@ -62,3 +62,4 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 09:30 28.11.: Startsperre 09:30 Start Disponent (Alter Ego …78YZ5U)
 - 10:05 28.11.: Startsperre 10:05 Start Alter Ego (Alter Ego …78YZ5U)
 - 10:36 28.11.: Startsperre 10:36 Start Disponent (Alter Ego …79eptr)
+- 10:37 28.11.: Startsperre 10:37 Start Sokrates (Alter Ego …79eptr)
