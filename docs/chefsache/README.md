@@ -30,7 +30,7 @@ Vom Werkzeug gerechnet (`tools/ueberblick.py`, 1313), Vorgangsliste vom 28.11., 
 |---|---|---|---|---|---|---|
 | **Kapitel 1 fertig (Godot, BRS)** | | | | | | |
 | ↳ **10** Regeln (Regelwerk BRS, Werte, Proben, Erschaffung, Zahlen der Balance; mit Umzug BRS) | 6 (6) | 0 | 0 | 0 | 4 | 59e (Regeln) Händler: Vorrat je Laden |
-| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 65 (67) | 19 | 1 | 0 | 27 | 2065 (Kampf) Wiederholrot dreh_1072: 2× rot in 48 h; Ursache n… |
+| ↳ **2** Kampf (Ablauf, Bewegung, Kampforte, Gegnerverhalten, Kampfgefühl) | 65 (67) | 19 | 2 | 0 | 27 | 2065 (Kampf) Wiederholrot dreh_1072: 2× rot in 48 h; Ursache n… |
 | ↳ **3** Figuren und Kleidung (Held, Leute, Monster) | 38 (40) | 22 | 1 | 2 | 9 | 1535 (Figur) Kleidung hängt bei NPCs in der Ruhebewegung an ei… |
 | ↳ **4** Kataloge: alles an einer Stelle (Figuren, Helden, Gegenstände) | 10 (10) | 3 | 0 | 0 | 4 | 458.3 (Kataloge) Gegenstandskatalog: Netze, Modelle, Läden |
 | ↳ **5** Welt und Karten (Gelände, Licht, Wetter, Stil der Welt) | 29 (31) | 0 | 0 | 0 | 5 | 1630 (Welt) alle Lichtquellen der Höhle nach Dunkelheit am Or… |
@@ -58,7 +58,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | **Chef** | [1973](ansehen/1973-zweihaender-waffe-in-der-hand.md) ansehen |
 | Arbeitsplaner | 142.3 Tester öffentlich suchen (Kür) |
 | Regeln | 59e Händler: Vorrat je Laden (Kür) |
-| Kampf | 2065 Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen… (Muss); dann 10 weitere |
+| Kampf | läuft: 2065 (Besetzung); 2065 Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen… (Muss); dann 10 weitere |
 | Figur | 1535 Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand (Muss); dann 9 weitere |
 | Kataloge | 458.3 Gegenstandskatalog: Netze, Modelle, Läden (Muss) |
 | Welt | 1630 alle Lichtquellen der Höhle nach Dunkelheit am Ort statt Uh… (Kür) |
@@ -74,7 +74,7 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 
 | # | Nr. | Wer | Worum | Kl. | Block | Stand |
 |---|---|---|---|---|---|---|
-| 1 | 2065 | Kampf | Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen, beheben · wiederho… | M | 2 Kampf | startbar |
+| 1 | 2065 | Kampf | Wiederholrot dreh_1072: 2× rot in 48 h; Ursache nachstellen, beheben · wiederho… | M | 2 Kampf | in Arbeit |
 | 2 | 2064 | Kampf | Wiederholrot ausholen_1000: 2× rot in 48 h; Ursache nachstellen, beheben · wied… | M | 2 Kampf | startbar |
 | 3 | 1589 | Kampf | Motor des Kampfs: Gegnerverhalten nach Regeln … | M | 2 Kampf | startbar |
 | 4 | 1627 | Kampf | Trefferbild je Angriff: Kontaktpunkt, Zucken, Treffer/Abwehr/Fehlschlag untersc… | M | 2 Kampf | startbar |
