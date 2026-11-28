@@ -69,3 +69,5 @@ Eine Zeile je Lauf mit Tat, neueste oben, höchstens 20 Zeilen; ältere streiche
 - 20:02 28.11.: Startsperre 20:02 Start Wache (Alter Ego …75X1)
 - 20:03 28.11.: Startsperre 20:03 Start Arbeitsplaner (Anna, 2065 plus Eilt), Kampf (Britta, 2046); übrige START-Zeilen nicht: Chefwort 21:51, nur Kampf plus Eilt (Disponent)
 - 20:10 28.11.: Startsperre 20:10 Start Wache (Alter Ego …75X1, Sonnet, Chef 20:09)
+- 20:33 28.11.: Startsperre 20:33 Start Arbeitsplaner, Arbeitsplaner, Tagesbericht (lauf.py, Arbeitsplaner 2064 Carla, Arbeitsplaner 1270.6 Dana, Tagesbericht 448)
+- 20:34 28.11.: Startsperre 20:34 Start Tagesbericht (Routine, Wache meldet fehlend, Sperre Sa 20:00 vorbei; Disponent)
