@@ -82,8 +82,8 @@ Monat erst ab 07.11.: vorher hatte die Vorgangsliste kein Feld Stand, offene Vor
 | 6 | 2071 | Kampf | Spielcode Arena: tausch_1041 Held–Söldner 0,56 m unter 0,60, wolf_mess_438 Zwei… | M | 2 Kampf | startbar |
 | 7 | 1535 | Figur | Kleidung hängt bei NPCs in der Ruhebewegung an einer Hand | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
 | 8 | 1655 | Figur | Durchstechprüfung: Morwen Kapuze schneidet in den Kopf | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
-| 9 | 2024 | Figur | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der… | M | 3 Figuren und Kleidung | startbar |
-| 10 | 2028 | Figur | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
+| 9 | 2028 | Figur | Rowena: fast schwarze Flecken an beiden Handgelenken, alt wie neu | M | 3 Figuren und Kleidung | gebaut, t301 ohne deine Antwort |
+| 10 | 2024 | Figur | Krogg schlägt beim Prankenhieb mit der freien Pranke, Morgenstern bleibt in der… | M | 3 Figuren und Kleidung | startbar |
 | 11 | 2031 | Figur | Kutte/Robe und Haut aus MakeHuman-Paketen als Probe in der Spielkamera, alt geg… | M | 3 Figuren und Kleidung | startbar |
 | 12 | 2034 | Figur | Rest der MakeHuman-Pakete: alle Kopfteile, Ausrüstung, Aussehen von Held und NP… | M | 3 Figuren und Kleidung | in Arbeit |
 | 13 | 2045 | Figur | Kutte für Klosterschüler einbauen, nach Chef-👍 26.11., 00:06 auf Frage 2031 | M | 3 Figuren und Kleidung | startbar |
